@@ -1,56 +1,42 @@
 #!/bin/bash
-set -e
+# deploy.sh — 순살브리핑 letters.soonsal.com 배포 스크립트
+# 사용법: ./deploy.sh 0228 2026
 
-REPO_DIR="$HOME/Desktop/soonsal-letters"
-SOURCE_DIR="$HOME/Downloads"
+DATE=${1:?날짜 입력 필요 (예: 0228)}
+YEAR=${2:-2026}
 
-TODAY=$(date +%Y%m%d)
-YEAR=$(date +%Y)
-MMDD=$(date +%m%d)
-FOLDER="$REPO_DIR/$YEAR/$MMDD"
+echo "📦 배포 시작: ${YEAR}/${DATE}"
 
-echo ""
-echo "📰 순살브리핑 배포 — $YEAR.${MMDD:0:2}.${MMDD:2:2}"
-echo ""
+# 디렉토리 생성
+mkdir -p newsletters/${YEAR}
+mkdir -p cardnews/${YEAR}
+mkdir -p english/${YEAR}
 
-cd "$REPO_DIR"
-mkdir -p "$FOLDER"
+# 파일 복사
+echo "  📰 뉴스레터..."
+cp "순살브리핑_${YEAR}${DATE}.html"           "newsletters/${YEAR}/${DATE}.html"
+cp "순살크립토_${YEAR}${DATE}.html"           "newsletters/${YEAR}/${DATE}-crypto.html"
 
-for pair in \
-  "순살브리핑_${TODAY}:index.html:순살브리핑" \
-  "순살크립토_${TODAY}:crypto.html:순살크립토" \
-  "순살크립토카드뉴스_${TODAY}:cards.html:카드뉴스" \
-  "순살카드뉴스_${TODAY}:cards.html:카드뉴스" \
-  "SoonsalCrypto_${TODAY}_Publish:publish.html:X Article"
-do
-  PATTERN=$(echo "$pair" | cut -d: -f1)
-  DEST=$(echo "$pair" | cut -d: -f2)
-  LABEL=$(echo "$pair" | cut -d: -f3)
-  FOUND=$(find "$SOURCE_DIR" -maxdepth 1 -name "${PATTERN}*" -type f 2>/dev/null | head -1)
-  if [ -n "$FOUND" ]; then
-    cp "$FOUND" "$FOLDER/$DEST"
-    echo "  ✅ $LABEL → $DEST"
-  fi
-done
+echo "  🎴 카드뉴스..."
+cp "순살카드뉴스_${YEAR}${DATE}.html"         "cardnews/${YEAR}/${DATE}.html"
+cp "순살크립토카드뉴스_${YEAR}${DATE}.html"    "cardnews/${YEAR}/${DATE}-crypto.html"
 
-DISPLAY="${YEAR}.${MMDD:0:2}.${MMDD:2:2}"
+echo "  🌏 English..."
+cp "SoonsalCrypto_${YEAR}${DATE}_Publish.html" "english/${YEAR}/${DATE}.html"
 
-if ! grep -q "/$YEAR/$MMDD/" index.html 2>/dev/null; then
-  ENTRY="<div class=\"issue\"><span class=\"date\">$DISPLAY</span><div class=\"links\"><a href=\"/$YEAR/$MMDD/\">순살브리핑</a> <a href=\"/$YEAR/$MMDD/crypto.html\">순살크립토</a> <a href=\"/$YEAR/$MMDD/cards.html\">📱 카드뉴스</a> <a href=\"/$YEAR/$MMDD/publish.html\">English</a></div></div>"
-  sed -i '' "s|<!-- 최신이 위로.*-->|&\\
-    $ENTRY|" index.html
-  echo "  📋 index.html 업데이트"
-fi
+# _redirects에 새 날짜 추가
+cat >> _redirects << EOF
+
+/${YEAR}/${DATE}/              /newsletters/${YEAR}/${DATE}.html      301
+/${YEAR}/${DATE}/index.html    /newsletters/${YEAR}/${DATE}.html      301
+/${YEAR}/${DATE}/crypto.html   /newsletters/${YEAR}/${DATE}-crypto.html 301
+/${YEAR}/${DATE}/publish.html  /english/${YEAR}/${DATE}.html          301
+EOF
 
 echo ""
-git add .
-git commit -m "$DISPLAY 순살브리핑"
-git push
-
-echo ""
-echo "✅ 배포 완료!"
-echo "  📖 https://letters.soonsal.com/$YEAR/$MMDD/"
-echo "  🪙 https://letters.soonsal.com/$YEAR/$MMDD/crypto.html"
-echo "  📱 https://letters.soonsal.com/$YEAR/$MMDD/cards.html"
-echo "  🌐 https://letters.soonsal.com/$YEAR/$MMDD/publish.html"
-echo ""
+echo "✅ 파일 배치 완료. 남은 작업:"
+echo "   1. index.html에 날짜 항목 추가"
+echo "   2. newsletters/index.html에 날짜 항목 추가"
+echo "   3. cardnews/index.html에 날짜 항목 추가"
+echo "   4. english/index.html에 날짜 항목 추가"
+echo "   5. git add . && git commit -m 'Add ${YEAR}/${DATE}' && git push"
