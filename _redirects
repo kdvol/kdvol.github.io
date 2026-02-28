@@ -1,0 +1,12 @@
+# 기존 URL → 신규 URL 리다이렉트
+/2026/0227/              /newsletters/2026/0227.html      301
+/2026/0227/index.html    /newsletters/2026/0227.html      301
+/2026/0227/crypto.html   /newsletters/2026/0227-crypto.html 301
+/2026/0227/crypto        /newsletters/2026/0227-crypto.html 301
+/2026/0227/publish.html  /english/2026/0227.html          301
+/2026/0227/publish       /english/2026/0227.html          301
+
+/2026/0228/              /newsletters/2026/0228.html      301
+/2026/0228/index.html    /newsletters/2026/0228.html      301
+/2026/0228/crypto.html   /newsletters/2026/0228-crypto.html 301
+/2026/0228/publish.html  /english/2026/0228.html          301
