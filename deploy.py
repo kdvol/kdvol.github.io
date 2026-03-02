@@ -92,36 +92,45 @@ def extract_date(filename):
 
 
 def extract_keywords(html, ctype):
-    """Extract keywords from HTML content for index entry."""
-    if ctype == "english":
-        # Try h1, then title tag
-        m = re.search(r"<h1[^>]*>(.*?)</h1>", html, re.DOTALL)
-        if m:
-            return re.sub(r"<[^>]+>", "", m.group(1)).strip()
-        m = re.search(r"<title>(.*?)</title>", html)
-        if m:
-            t = m.group(1)
-            if "|" in t:
-                t = t.split("|", 1)[-1]
-            return t.strip()
-        return "Untitled"
+    """Extract keywords from HTML content for index entry.
 
+    Priority:
+      1. <meta name="soonsal-keywords" content="..."> (all types)
+      2. <h2 class="story-title"> extraction (briefing, crypto)
+      3. <title> tag fallback (cardnews, english)
+    """
+    # ── Priority 1: explicit meta tag ──
+    m = re.search(r'<meta\s+name="soonsal-keywords"\s+content="([^"]+)"', html)
+    if m:
+        return m.group(1).strip()
+
+    # ── Priority 2: story-title extraction (briefing / crypto) ──
     titles = re.findall(r'<h2 class="story-title">(.*?)</h2>', html)
-    if not titles:
-        return ""
+    if titles:
+        kws = []
+        for t in titles:
+            clean = re.sub(r"<[^>]+>", "", t).strip()
+            for sep in [" — ", "—"]:
+                if sep in clean:
+                    clean = clean.split(sep)[0].strip()
+                    break
+            else:
+                clean = clean[:40].strip()
+            kws.append(clean)
+        return ", ".join(kws)
 
-    kws = []
-    for t in titles:
-        clean = re.sub(r"<[^>]+>", "", t).strip()
-        # Take the part before em-dash as keyword
-        for sep in [" — ", "—"]:
-            if sep in clean:
-                clean = clean.split(sep)[0].strip()
+    # ── Priority 3: <title> tag fallback ──
+    m = re.search(r"<title>(.*?)</title>", html)
+    if m:
+        t = re.sub(r"<[^>]+>", "", m.group(1)).strip()
+        # Remove brand prefix (e.g. "순살카드뉴스 — " or "순살크립토 | ")
+        for sep in [" — ", " | ", "—", "|"]:
+            if sep in t:
+                t = t.split(sep, 1)[-1].strip()
                 break
-        else:
-            clean = clean[:40].strip()
-        kws.append(clean)
-    return ", ".join(kws)
+        return t
+
+    return "Untitled"
 
 
 def build_link(href, tag, label, keywords):
