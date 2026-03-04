@@ -21,6 +21,40 @@ import re
 import shutil
 import subprocess
 from pathlib import Path
+from datetime import datetime
+
+# ═══════════════════════════════════════════
+# Dashboard webhook
+# ═══════════════════════════════════════════
+
+DASHBOARD_URL = "https://soonsal-ops.kd-d0a.workers.dev/status"
+
+def notify_dashboard(pipeline, step, status="done", count=None, version=None):
+    """대시보드 상태 자동 업데이트."""
+    try:
+        import urllib.request, json
+        data = json.dumps({
+            "date": datetime.now().strftime("%Y%m%d"),
+            "pipeline": pipeline,
+            "step": step,
+            "status": status,
+            "count": count,
+            "version": version,
+        }).encode()
+        req = urllib.request.Request(DASHBOARD_URL, data=data,
+            headers={"Content-Type": "application/json"}, method="POST")
+        urllib.request.urlopen(req, timeout=5)
+    except Exception:
+        pass  # 대시보드 실패해도 배포에 영향 없음
+
+# ctype → dashboard pipeline 매핑
+DASHBOARD_MAP = {
+    "briefing":    ("briefing", "publish_site"),
+    "crypto":      ("crypto",   "publish_site"),
+    "card":        ("briefing", "publish_site"),
+    "crypto-card": ("crypto",   "publish_site"),
+    "english":     ("english",  "publish_site"),
+}
 
 # ═══════════════════════════════════════════
 # Configuration
@@ -398,6 +432,16 @@ def main():
     subprocess.run(["git", "commit", "-m", msg], check=True)
     subprocess.run(["git", "push", "origin", "main"], check=True)
     print(f"\n✨ Done! {msg}")
+
+    # ── Dashboard webhook ──
+    notified = set()
+    for item in items:
+        dm = DASHBOARD_MAP.get(item["type"])
+        if dm and dm not in notified:
+            pipeline, step = dm
+            notify_dashboard(pipeline, step, "done", count=1)
+            notified.add(dm)
+            print(f"  📡 Dashboard: {pipeline}.{step} → done")
 
 
 if __name__ == "__main__":
