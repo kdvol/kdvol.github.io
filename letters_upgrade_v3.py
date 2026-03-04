@@ -51,14 +51,15 @@ SUBSCRIBE_LINK = (
     f'>구독하기</a>'
 )
 
-# ─── 뒤로가기 버튼 HTML ───
+# ─── 뒤로가기 버튼 HTML (iframe 안에서는 자동 숨김) ───
 BACK_BUTTON = '''<!-- BACK TO LETTERS -->
-<div style="max-width:680px;margin:0 auto;padding:10px 16px 0;">
+<div style="max-width:680px;margin:0 auto;padding:10px 16px 0;" id="back-to-letters">
   <a href="https://letters.soonsal.com" style="display:inline-flex;align-items:center;gap:6px;font-family:'Apple SD Gothic Neo','Malgun Gothic',sans-serif;font-size:13px;font-weight:600;color:#888;text-decoration:none;padding:6px 0;" onmouseover="this.style.color='#111'" onmouseout="this.style.color='#888'">
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
     letters.soonsal.com
   </a>
 </div>
+<script>if(window.self!==window.top)document.getElementById('back-to-letters').style.display='none'</script>
 <!-- /BACK TO LETTERS -->
 '''
 
@@ -126,10 +127,11 @@ def upgrade_all_indexes():
 
 
 def add_back_buttons():
-    """개별 콘텐츠 HTML에 뒤로가기 버튼 삽입"""
+    """개별 콘텐츠 HTML에 뒤로가기 버튼 삽입 또는 업데이트"""
     print("\n📌 [2/3] 개별 콘텐츠 — 뒤로가기 버튼")
 
     processed = 0
+    updated = 0
     skipped = 0
     errors = 0
 
@@ -152,8 +154,24 @@ def add_back_buttons():
                     errors += 1
                     continue
 
-                if 'BACK TO LETTERS' in content:
+                # 이미 새 버전(iframe 감지 포함)이면 스킵
+                if 'back-to-letters' in content and 'window.self!==window.top' in content:
                     skipped += 1
+                    continue
+
+                # 구버전 뒤로가기가 있으면 새 버전으로 교체
+                if 'BACK TO LETTERS' in content:
+                    content = re.sub(
+                        r'<!-- BACK TO LETTERS -->.*?<!-- /BACK TO LETTERS -->\n?',
+                        BACK_BUTTON, content, flags=re.DOTALL
+                    )
+                    if DRY_RUN:
+                        print(f"  📄 [DRY] 교체 예정: {filepath}")
+                    else:
+                        with open(filepath, 'w', encoding='utf-8') as f:
+                            f.write(content)
+                        print(f"  🔄 교체: {filepath}")
+                    updated += 1
                     continue
 
                 match = re.search(r'(<body[^>]*>)', content, re.IGNORECASE)
@@ -173,7 +191,7 @@ def add_back_buttons():
 
                 processed += 1
 
-    print(f"\n  처리: {processed} | 스킵: {skipped} | 에러: {errors}")
+    print(f"\n  신규: {processed} | 교체: {updated} | 스킵: {skipped} | 에러: {errors}")
 
 
 def check_cname():
