@@ -14,6 +14,12 @@ Automatically:
   5. Updates archive indexes (newsletters, cardnews, english)
   6. Generates 1080×1080 PNG for cardnews (card, crypto-card)
   7. Git add, commit, push
+  8. Uploads PNGs to Cloudflare R2 (cardnews only)
+  9. Posts Instagram carousel (cardnews only)
+
+Requirements for Instagram publishing (optional — gracefully skips if missing):
+  - ~/instagram_pipeline/upload_r2.py (R2 upload module)
+  - ~/instagram_pipeline/post_instagram.py (Instagram Graph API module)
 """
 
 import sys
@@ -48,13 +54,14 @@ def notify_dashboard(pipeline, step, status="done", count=None, version=None):
     except Exception:
         pass  # 대시보드 실패해도 배포에 영향 없음
 
-# ctype → dashboard pipeline 매핑
+# ctype → dashboard 알림 목록 (여러 단계를 한번에 보고)
+# 각 항목: (pipeline, step)
 DASHBOARD_MAP = {
-    "briefing":    ("briefing", "publish_site"),
-    "crypto":      ("crypto",   "publish_site"),
-    "card":        ("briefing", "publish_site"),
-    "crypto-card": ("crypto",   "publish_site"),
-    "english":     ("english",  "publish_site"),
+    "briefing":    [("briefing", "newsletter"), ("briefing", "publish_site")],
+    "crypto":      [("crypto",   "newsletter"), ("crypto",   "publish_site")],
+    "card":        [("briefing", "cardnews"),   ("briefing", "publish_site")],
+    "crypto-card": [("crypto",   "cardnews"),   ("crypto",   "publish_site")],
+    "english":     [("english",  "article"),    ("english",  "publish_site")],
 }
 
 # ═══════════════════════════════════════════
@@ -378,9 +385,11 @@ def generate_cardnews_png(filepath, ctype):
     
     Captures at device_scale_factor=4 (2160×2160) then Lanczos downscale
     to 1080×1080 for sharp text rendering with proper font weights.
+    
+    Returns: list of Path objects for generated PNGs, or empty list on failure.
     """
     if ctype not in CARDNEWS_TYPES:
-        return
+        return []
 
     try:
         from playwright.sync_api import sync_playwright
@@ -388,7 +397,7 @@ def generate_cardnews_png(filepath, ctype):
     except ImportError:
         print("  ⚠️  PNG 생성 스킵 (playwright 또는 Pillow 미설치)")
         print("     pip install playwright Pillow && python3 -m playwright install chromium")
-        return
+        return []
 
     filepath = Path(filepath).resolve()
     stem = filepath.stem
@@ -406,6 +415,7 @@ def generate_cardnews_png(filepath, ctype):
     with open(tmp_html, "w", encoding="utf-8") as f:
         f.write(html)
 
+    png_paths = []
     try:
         with sync_playwright() as p:
             browser = p.chromium.launch()
@@ -430,6 +440,7 @@ def generate_cardnews_png(filepath, ctype):
                 img_resized.save(str(final_png), "PNG", optimize=True)
                 tmp_png.unlink()
 
+                png_paths.append(final_png)
                 print(f"     ✅ card_{i+1:02d}.png ({final_png.stat().st_size:,} bytes)")
 
             browser.close()
@@ -437,10 +448,111 @@ def generate_cardnews_png(filepath, ctype):
         tmp_html.unlink(missing_ok=True)
 
     print(f"  📁 PNGs → {out_dir}")
+    return png_paths
 
 
 # ═══════════════════════════════════════════
-# Main
+# Instagram Publishing (R2 + Instagram API)
+# ═══════════════════════════════════════════
+
+INSTAGRAM_PIPELINE = Path.home() / "instagram_pipeline"
+
+# R2 config
+R2_PUBLIC_URL = "https://pub-cb0321b52a854a95af8d6bb1688b2ecd.r2.dev"
+
+# Instagram captions
+IG_CAPTIONS = {
+    "card": (
+        "순살브리핑 카드뉴스 {date_fmt}\n\n"
+        "#순살브리핑 #금융 #경제 #투자 #주식 #시장분석 "
+        "#글로벌경제 #매크로 #금융뉴스 #경제공부"
+    ),
+    "crypto-card": (
+        "순살크립토 카드뉴스 {date_fmt}\n\n"
+        "#순살크립토 #비트코인 #크립토 #블록체인 #Web3 "
+        "#금융 #투자 #BTC #ETF #암호화폐"
+    ),
+}
+
+
+def derive_r2_prefix(ctype, yyyy, mmdd):
+    """Derive R2 storage path from content type."""
+    suffix = "-crypto" if ctype == "crypto-card" else ""
+    return f"cardnews/{yyyy}/{mmdd}{suffix}"
+
+
+def upload_to_r2(png_paths, r2_prefix):
+    """Upload PNGs to Cloudflare R2 via ~/instagram_pipeline/ modules.
+    
+    Returns: list of public URLs, or empty list on failure.
+    """
+    try:
+        sys.path.insert(0, str(INSTAGRAM_PIPELINE))
+        from upload_r2 import upload_pngs_to_r2
+    except (ImportError, ModuleNotFoundError):
+        print("  ⚠️  R2 업로드 스킵 (~/instagram_pipeline/upload_r2.py 미발견)")
+        # Fallback: construct URLs assuming upload will happen manually
+        return [f"{R2_PUBLIC_URL}/{r2_prefix}/{p.name}" for p in png_paths]
+
+    print(f"\n☁️  R2 업로드 ({len(png_paths)}장)")
+    print(f"  경로: {r2_prefix}/")
+
+    try:
+        image_urls = upload_pngs_to_r2(
+            [str(p) for p in png_paths],
+            r2_prefix=r2_prefix,
+        )
+        print(f"  ✅ R2 업로드 완료")
+        return image_urls
+    except Exception as e:
+        print(f"  ❌ R2 업로드 실패: {e}")
+        return [f"{R2_PUBLIC_URL}/{r2_prefix}/{p.name}" for p in png_paths]
+
+
+def post_to_instagram(image_urls, ctype, date_fmt):
+    """Post carousel to Instagram via ~/instagram_pipeline/ modules.
+    
+    Returns: carousel ID string, or None on failure.
+    """
+    try:
+        sys.path.insert(0, str(INSTAGRAM_PIPELINE))
+        from post_instagram import post_carousel
+    except (ImportError, ModuleNotFoundError):
+        print("  ⚠️  Instagram 게시 스킵 (~/instagram_pipeline/post_instagram.py 미발견)")
+        return None
+
+    caption = IG_CAPTIONS.get(ctype, "").format(date_fmt=date_fmt)
+    print(f"\n📱 Instagram 캐러셀 게시")
+    print(f"  캡션: {caption[:60]}...")
+
+    try:
+        carousel_id = post_carousel(image_urls, caption)
+        print(f"  ✅ 게시 완료 — ID: {carousel_id}")
+        return carousel_id
+    except Exception as e:
+        print(f"  ❌ Instagram 게시 실패: {e}")
+        print(f"  💡 수동 재시도: cd ~/instagram_pipeline && python3 cardnews_publish.py <파일>")
+        return None
+
+
+def publish_cardnews_to_instagram(png_paths, ctype, yyyy, mmdd, date_fmt):
+    """Full pipeline: R2 upload → Instagram carousel post.
+    
+    Gracefully skips if modules are not available.
+    """
+    if not png_paths:
+        return
+
+    r2_prefix = derive_r2_prefix(ctype, yyyy, mmdd)
+    image_urls = upload_to_r2(png_paths, r2_prefix)
+
+    if image_urls:
+        carousel_id = post_to_instagram(image_urls, ctype, date_fmt)
+        if carousel_id:
+            # Dashboard: instagram step done
+            pipeline = "crypto" if ctype == "crypto-card" else "briefing"
+            notify_dashboard(pipeline, "instagram", "done", count=1)
+            print(f"  📡 Dashboard: {pipeline}.instagram → done")
 # ═══════════════════════════════════════════
 
 def main():
@@ -479,8 +591,9 @@ def main():
         print(f"📄 {filename} → {deploy_path}")
 
         # Generate PNG for cardnews
+        png_paths = []
         if ctype in CARDNEWS_TYPES:
-            generate_cardnews_png(filepath, ctype)
+            png_paths = generate_cardnews_png(filepath, ctype)
 
         items.append(
             {
@@ -491,6 +604,7 @@ def main():
                 "date_formatted": date_fmt,
                 "keywords": keywords,
                 "deploy_path": deploy_path,
+                "png_paths": png_paths,
             }
         )
 
@@ -522,17 +636,34 @@ def main():
 
     subprocess.run(["git", "commit", "-m", msg], check=True)
     subprocess.run(["git", "push", "origin", "main"], check=True)
-    print(f"\n✨ Done! {msg}")
+    print(f"\n✨ Site deployed! {msg}")
+
+    # ── Instagram publish for cardnews ──
+    cardnews_items = [i for i in items if i["type"] in CARDNEWS_TYPES and i.get("png_paths")]
+    if cardnews_items:
+        print(f"\n{'='*60}")
+        print(f"📱 Instagram 발행 ({len(cardnews_items)}건)")
+        print(f"{'='*60}")
+        for item in cardnews_items:
+            print(f"\n  → {LABELS[item['type']]} {item['date_formatted']}")
+            publish_cardnews_to_instagram(
+                item["png_paths"],
+                item["type"],
+                item["yyyy"],
+                item["mmdd"],
+                item["date_formatted"],
+            )
 
     # ── Dashboard webhook ──
     notified = set()
     for item in items:
-        dm = DASHBOARD_MAP.get(item["type"])
-        if dm and dm not in notified:
-            pipeline, step = dm
-            notify_dashboard(pipeline, step, "done", count=1)
-            notified.add(dm)
-            print(f"  📡 Dashboard: {pipeline}.{step} → done")
+        steps = DASHBOARD_MAP.get(item["type"], [])
+        for pipeline, step in steps:
+            key = (pipeline, step)
+            if key not in notified:
+                notify_dashboard(pipeline, step, "done", count=1)
+                notified.add(key)
+                print(f"  📡 Dashboard: {pipeline}.{step} → done")
 
 
 if __name__ == "__main__":
