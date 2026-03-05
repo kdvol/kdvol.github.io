@@ -143,6 +143,46 @@ def inject_analytics_beacon(filepath):
 
 
 # ═══════════════════════════════════════════
+# Back Link Fix
+# ═══════════════════════════════════════════
+
+BACK_LINK_NEW = (
+    '<a href="https://soonsal.com" '
+    "style=\"display:inline-flex;align-items:center;gap:6px;"
+    "font-family:'Apple SD Gothic Neo','Malgun Gothic',sans-serif;"
+    "font-size:14px;font-weight:700;color:#E55A00;"
+    "text-decoration:none;padding:6px 0;\" "
+    "onmouseover=\"this.style.color='#CC4E00'\" "
+    "onmouseout=\"this.style.color='#E55A00'\">"
+    "← 순살 홈</a>"
+)
+
+
+def fix_back_link(filepath):
+    """Replace back-to-letters link with ← 순살 홈 (orange style)."""
+    import re as _re
+
+    with open(filepath, "r", encoding="utf-8") as f:
+        html = f.read()
+
+    if "<!-- BACK TO LETTERS -->" not in html:
+        return
+
+    # Match the entire <a>...</a> inside the back-to-letters div
+    new_html = _re.sub(
+        r'(<div[^>]*id="back-to-letters"[^>]*>\s*)<a[^>]*>.*?</a>',
+        r'\1' + BACK_LINK_NEW,
+        html,
+        count=1,
+        flags=_re.DOTALL,
+    )
+
+    if new_html != html:
+        with open(filepath, "w", encoding="utf-8") as f:
+            f.write(new_html)
+
+
+# ═══════════════════════════════════════════
 # Helpers
 # ═══════════════════════════════════════════
 
@@ -623,6 +663,9 @@ def main():
 
         # Inject Cloudflare Web Analytics beacon
         inject_analytics_beacon(dest)
+
+        # Fix back-to-home link (← 순살 홈, orange)
+        fix_back_link(dest)
 
         print(f"📄 {filename} → {deploy_path}")
 
