@@ -12,7 +12,8 @@ Automatically:
   3. Extracts keywords from story titles
   4. Updates main index.html (Hero, today sections)
   5. Updates archive indexes (newsletters, cardnews, english)
-  6. Git add, commit, push
+  6. Generates 1080×1080 PNG for cardnews (card, crypto-card)
+  7. Git add, commit, push
 """
 
 import sys
@@ -230,6 +231,10 @@ def update_main_index(items, date_fmt, has_briefing, yyyy, mmdd):
                 "순살브리핑",
                 old_kw,
             )
+            # Remove existing briefing link for this date if present (dedup)
+            old_brief_href = f"/newsletters/{old_yyyy}/{old_mmdd}.html"
+            lines = c.split('\n')
+            c = '\n'.join(line for line in lines if not (line.strip().startswith(f'<a href="{old_brief_href}"') and '브리핑' in line))
             # Insert at beginning of old date's today-grid
             grid_marker = (
                 f"{old_date_fmt} 전체 콘텐츠</div>\n"
@@ -280,10 +285,15 @@ def update_main_index(items, date_fmt, has_briefing, yyyy, mmdd):
             if new_today:
                 c = c.replace(new_hdr, f"{new_today}\n\n{new_hdr}")
     else:
-        # Date exists → append non-briefing items to existing today-grid
+        # Date exists → clean existing links of same type, then insert fresh
         for item in sorted(items, key=lambda x: ORDER[x["type"]]):
             if item["type"] == "briefing":
                 continue
+            # Remove existing link for same deploy_path (dedup)
+            old_link_pattern = f'    <a href="/{item["deploy_path"]}"'
+            lines = c.split('\n')
+            c = '\n'.join(line for line in lines if not line.strip().startswith(f'<a href="/{item["deploy_path"]}"'))
+            # Build fresh link
             link = build_link(
                 "/" + item["deploy_path"],
                 MAIN_TAGS[item["type"]],
@@ -327,7 +337,9 @@ def update_archive_index(item):
     )
 
     if date_exists:
-        # Append to existing date section (6-space indent)
+        # Clean existing link for same deploy_path, then insert fresh (dedup)
+        lines = c.split('\n')
+        c = '\n'.join(line for line in lines if not line.strip().startswith(f'<a href="/{item["deploy_path"]}"'))
         pos = c.find(f'<div class="today-title">{date_str}</div>')
         if pos >= 0:
             grid_end = c.find("    </div>\n  </div>", pos)
@@ -350,6 +362,81 @@ def update_archive_index(item):
     with open(archive_path, "w") as f:
         f.write(c)
     print(f"  ✅ {item['directory']}/index.html")
+
+
+# ═══════════════════════════════════════════
+# Cardnews PNG generation
+# ═══════════════════════════════════════════
+
+CARDNEWS_TYPES = {"card", "crypto-card"}
+
+GOOGLE_FONT_LINK = '<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">'
+
+
+def generate_cardnews_png(filepath, ctype):
+    """Generate 1080×1080 PNG cards from cardnews HTML.
+    
+    Captures at device_scale_factor=4 (2160×2160) then Lanczos downscale
+    to 1080×1080 for sharp text rendering with proper font weights.
+    """
+    if ctype not in CARDNEWS_TYPES:
+        return
+
+    try:
+        from playwright.sync_api import sync_playwright
+        from PIL import Image
+    except ImportError:
+        print("  ⚠️  PNG 생성 스킵 (playwright 또는 Pillow 미설치)")
+        print("     pip install playwright Pillow && python3 -m playwright install chromium")
+        return
+
+    filepath = Path(filepath).resolve()
+    stem = filepath.stem
+    out_dir = filepath.parent / f"{stem}_png"
+    out_dir.mkdir(exist_ok=True)
+
+    # Read HTML and inject Google Fonts for proper bold rendering
+    with open(filepath, "r", encoding="utf-8") as f:
+        html = f.read()
+
+    if "fonts.googleapis.com" not in html:
+        html = html.replace("</head>", f"{GOOGLE_FONT_LINK}\n</head>")
+
+    tmp_html = filepath.parent / f"_tmp_{filepath.name}"
+    with open(tmp_html, "w", encoding="utf-8") as f:
+        f.write(html)
+
+    try:
+        with sync_playwright() as p:
+            browser = p.chromium.launch()
+            page = browser.new_page(
+                viewport={"width": 540, "height": 4000},
+                device_scale_factor=4,
+            )
+            page.goto(f"file://{tmp_html}")
+            page.wait_for_load_state("networkidle")
+            page.wait_for_timeout(2000)  # Wait for font loading
+
+            cards = page.query_selector_all(".card")
+            print(f"  📸 {len(cards)} cards → PNG")
+
+            for i, card in enumerate(cards):
+                tmp_png = out_dir / f"tmp_{i+1:02d}.png"
+                final_png = out_dir / f"card_{i+1:02d}.png"
+
+                card.screenshot(path=str(tmp_png))
+                img = Image.open(tmp_png)
+                img_resized = img.resize((1080, 1080), Image.LANCZOS)
+                img_resized.save(str(final_png), "PNG", optimize=True)
+                tmp_png.unlink()
+
+                print(f"     ✅ card_{i+1:02d}.png ({final_png.stat().st_size:,} bytes)")
+
+            browser.close()
+    finally:
+        tmp_html.unlink(missing_ok=True)
+
+    print(f"  📁 PNGs → {out_dir}")
 
 
 # ═══════════════════════════════════════════
@@ -390,6 +477,10 @@ def main():
         dest.parent.mkdir(parents=True, exist_ok=True)
         shutil.copy2(filepath, dest)
         print(f"📄 {filename} → {deploy_path}")
+
+        # Generate PNG for cardnews
+        if ctype in CARDNEWS_TYPES:
+            generate_cardnews_png(filepath, ctype)
 
         items.append(
             {
