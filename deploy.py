@@ -474,6 +474,13 @@ def generate_cardnews_png(filepath, ctype):
     filepath = Path(filepath).resolve()
     stem = filepath.stem
     out_dir = filepath.parent / f"{stem}_png"
+
+    # 이미 PNG 폴더 있으면 재생성 스킵
+    existing = sorted(out_dir.glob("card_*.png")) if out_dir.exists() else []
+    if existing:
+        print(f"  ♻️  기존 PNG 재활용 ({len(existing)}장) → {out_dir}")
+        return existing
+
     out_dir.mkdir(exist_ok=True)
 
     # Read HTML and inject Google Fonts for proper bold rendering
