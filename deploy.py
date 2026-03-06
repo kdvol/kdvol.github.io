@@ -611,9 +611,10 @@ def publish_cardnews_to_instagram(png_paths, ctype, yyyy, mmdd, date_fmt):
     """Full pipeline: R2 upload → Instagram carousel post.
     
     Gracefully skips if modules are not available.
+    Returns True on success, False otherwise.
     """
     if not png_paths:
-        return
+        return False
 
     r2_prefix = derive_r2_prefix(ctype, yyyy, mmdd)
     image_urls = upload_to_r2(png_paths, r2_prefix)
@@ -625,6 +626,8 @@ def publish_cardnews_to_instagram(png_paths, ctype, yyyy, mmdd, date_fmt):
             pipeline = "crypto" if ctype == "crypto-card" else "briefing"
             notify_dashboard(pipeline, "instagram", "done", count=1)
             print(f"  📡 Dashboard: {pipeline}.instagram → done")
+            return True
+    return False
 # ═══════════════════════════════════════════
 
 def main():
@@ -718,20 +721,50 @@ def main():
     print(f"\n✨ Site deployed! {msg}")
 
     # ── Instagram publish for cardnews ──
+    # 브리핑(card) 먼저, 크립토(crypto-card) 나중에 정렬
     cardnews_items = [i for i in items if i["type"] in CARDNEWS_TYPES and i.get("png_paths")]
+    cardnews_items.sort(key=lambda x: 0 if x["type"] == "card" else 1)
+
     if cardnews_items:
         print(f"\n{'='*60}")
         print(f"📱 Instagram 발행 ({len(cardnews_items)}건)")
         print(f"{'='*60}")
-        for item in cardnews_items:
-            print(f"\n  → {LABELS[item['type']]} {item['date_formatted']}")
-            publish_cardnews_to_instagram(
-                item["png_paths"],
-                item["type"],
-                item["yyyy"],
-                item["mmdd"],
-                item["date_formatted"],
-            )
+
+        # 첫 번째는 즉시 게시
+        first = cardnews_items[0]
+        print(f"\n  → {LABELS[first['type']]} {first['date_formatted']} (즉시)")
+        publish_cardnews_to_instagram(
+            first["png_paths"],
+            first["type"],
+            first["yyyy"],
+            first["mmdd"],
+            first["date_formatted"],
+        )
+
+        # 나머지는 1시간 간격으로 백그라운드 게시
+        remaining = cardnews_items[1:]
+        if remaining:
+            import threading, time as _time
+
+            def _delayed_publish(jobs):
+                for i, item in enumerate(jobs):
+                    delay_min = 60 * (i + 1)
+                    print(f"\n  ⏰ [{LABELS[item['type']]}] {delay_min}분 후 자동 게시 대기 중...")
+                    _time.sleep(3600)
+                    print(f"\n  → {LABELS[item['type']]} {item['date_formatted']} (예약 게시)")
+                    publish_cardnews_to_instagram(
+                        item["png_paths"],
+                        item["type"],
+                        item["yyyy"],
+                        item["mmdd"],
+                        item["date_formatted"],
+                    )
+
+            t = threading.Thread(target=_delayed_publish, args=(remaining,), daemon=False)
+            t.start()
+            labels = [LABELS[i["type"]] for i in remaining]
+            print(f"\n  ✅ {', '.join(labels)} → 60분 후 백그라운드 자동 게시")
+            print(f"  💡 터미널을 닫지 마세요 (또는 nohup 사용 권장)")
 
     # ── Dashboard webhook ──
     notified = set()
