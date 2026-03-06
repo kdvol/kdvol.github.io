@@ -752,18 +752,25 @@ def publish_cardnews_to_instagram(png_paths, ctype, yyyy, mmdd, date_fmt, keywor
 # ═══════════════════════════════════════════
 
 def main():
-    # --no-instagram 플래그 처리
-    no_instagram = "--no-instagram" in sys.argv
+    # 플래그 처리
+    no_instagram   = "--no-instagram"    in sys.argv  # 웹 발행만, Instagram 스킵
+    instagram_only = "--instagram-only"  in sys.argv  # Instagram 발행만, 웹 발행 스킵
     file_args = [a for a in sys.argv[1:] if not a.startswith("--")]
 
     if not file_args:
-        print("Usage: python3 deploy.py <file1> [file2] ... [--no-instagram]")
-        print("Example: python3 deploy.py ~/Downloads/순살카드뉴스_20260306.html --no-instagram")
+        print("Usage: python3 deploy.py <file1> [file2] ... [옵션]")
+        print("  기본:               웹 발행 + Instagram 발행")
+        print("  --no-instagram:     웹 발행만 (Instagram 스킵)")
+        print("  --instagram-only:   Instagram 발행만 (웹 발행 스킵)")
         sys.exit(1)
 
     os.chdir(REPO)
-    print("📦 git pull...")
-    subprocess.run(["git", "pull", "origin", "main"], check=True)
+
+    if instagram_only:
+        print("⏭️  웹 발행 스킵 (--instagram-only)")
+    else:
+        print("📦 git pull...")
+        subprocess.run(["git", "pull", "origin", "main"], check=True)
 
     # ── Parse and copy files ──
     items = []
@@ -821,33 +828,37 @@ def main():
         sys.exit(1)
 
     # ── Update indexes by date ──
-    dates = sorted(set(i["date_formatted"] for i in items))
-    for date_fmt in dates:
-        date_items = [i for i in items if i["date_formatted"] == date_fmt]
-        yyyy = date_items[0]["yyyy"]
-        mmdd = date_items[0]["mmdd"]
-        has_briefing = any(i["type"] == "briefing" for i in date_items)
+    if not instagram_only:
+        dates = sorted(set(i["date_formatted"] for i in items))
+        for date_fmt in dates:
+            date_items = [i for i in items if i["date_formatted"] == date_fmt]
+            yyyy = date_items[0]["yyyy"]
+            mmdd = date_items[0]["mmdd"]
+            has_briefing = any(i["type"] == "briefing" for i in date_items)
 
-        print(f"\n🔧 Updating indexes for {date_fmt}...")
-        update_main_index(date_items, date_fmt, has_briefing, yyyy, mmdd)
+            print(f"\n🔧 Updating indexes for {date_fmt}...")
+            update_main_index(date_items, date_fmt, has_briefing, yyyy, mmdd)
 
-        for item in date_items:
-            update_archive_index(item)
+            for item in date_items:
+                update_archive_index(item)
 
     # ── Git commit & push ──
-    print("\n🚀 Committing...")
-    subprocess.run(["git", "add", "-A"], check=True)
-
-    names = [LABELS.get(i["type"]) or i["keywords"][:30] for i in items]
-    mmdd = items[0]["mmdd"]
-    msg = f"Add {' & '.join(names)} {mmdd}"
-
-    result = subprocess.run(["git", "commit", "-m", msg])
-    if result.returncode == 0:
-        subprocess.run(["git", "push", "origin", "main"], check=True)
-        print(f"\n✨ Site deployed! {msg}")
+    if instagram_only:
+        print("⏭️  Git push 스킵 (--instagram-only)")
     else:
-        print(f"\n⚠️  변경사항 없음 (already committed) — Instagram 발행은 계속 진행")
+        print("\n🚀 Committing...")
+        subprocess.run(["git", "add", "-A"], check=True)
+
+        names = [LABELS.get(i["type"]) or i["keywords"][:30] for i in items]
+        mmdd = items[0]["mmdd"]
+        msg = f"Add {' & '.join(names)} {mmdd}"
+
+        result = subprocess.run(["git", "commit", "-m", msg])
+        if result.returncode == 0:
+            subprocess.run(["git", "push", "origin", "main"], check=True)
+            print(f"\n✨ Site deployed! {msg}")
+        else:
+            print(f"\n⚠️  변경사항 없음 (already committed) — Instagram 발행은 계속 진행")
 
     # ── Instagram publish for cardnews ──
     if no_instagram:
