@@ -381,9 +381,13 @@ def update_main_index(items, date_fmt, has_briefing, yyyy, mmdd):
             )
             pos = c.find(f"{date_fmt} 전체 콘텐츠")
             if pos >= 0:
-                grid_end = c.find("  </div>\n</div>", pos)
-                if grid_end >= 0:
-                    c = c[:grid_end] + f"    {link}\n" + c[grid_end:]
+                # Find the today-grid opening after this date marker
+                grid_open = c.find('today-grid', pos)
+                if grid_open >= 0:
+                    # Find the first </div> that closes the today-grid
+                    grid_end = c.find("  </div>", grid_open)
+                    if grid_end >= 0:
+                        c = c[:grid_end] + f"    {link}\n" + c[grid_end:]
 
     with open(path, "w") as f:
         f.write(c)
@@ -421,9 +425,13 @@ def update_archive_index(item):
         c = '\n'.join(line for line in lines if not line.strip().startswith(f'<a href="/{item["deploy_path"]}"'))
         pos = c.find(f'<div class="today-title">{date_str}</div>')
         if pos >= 0:
-            grid_end = c.find("    </div>\n  </div>", pos)
-            if grid_end >= 0:
-                c = c[:grid_end] + f"      {link}\n" + c[grid_end:]
+            # Find the today-grid opening after this date marker
+            grid_open = c.find('today-grid', pos)
+            if grid_open >= 0:
+                # Find the first </div> that closes the today-grid (archive uses 4-space indent)
+                grid_end = c.find("    </div>", grid_open)
+                if grid_end >= 0:
+                    c = c[:grid_end] + f"      {link}\n" + c[grid_end:]
     else:
         # New date section → insert before first <div class="today">
         first_today = c.find('  <div class="today">')
@@ -490,50 +498,85 @@ def generate_cardnews_png(filepath, ctype):
     if "fonts.googleapis.com" not in html:
         html = html.replace("</head>", f"{GOOGLE_FONT_LINK}\n</head>")
 
-    # SVG를 컨테이너에 꽉 채우는 CSS 주입 (PNG 생성 전용)
-    svg_css = """<style>
+    # html_cover: SVG CSS 없는 버전 + 모든 카드 overflow 해제
+    # (cover html은 card_01만 캡처하므로 전체 적용해도 무방)
+    # :first-of-type은 series-title div가 앞에 있어 매칭 안 됨 → .card 전체 적용
+    cover_override = """<style>
+  .card { height: auto !important; overflow: visible !important; min-height: 540px; }
+</style>"""
+    html_cover = html.replace("</head>", cover_override + "\n</head>")
+
+    # html_content: SVG를 컨테이너에 꽉 채우는 CSS 주입 (내용 카드 card_02~10용)
+    svg_css = """<style id="_soonsal_svg_override">
   .illust svg, .mid-zone svg { width:100% !important; height:100% !important; max-width:100% !important; max-height:100% !important; }
   .illust { width:100% !important; }
   .mid-zone { width:100% !important; flex:1 !important; min-height:0 !important; }
 </style>"""
-    html = html.replace("</head>", svg_css + "\n</head>")
+    html_content = html.replace("</head>", svg_css + "\n</head>")
 
-    tmp_html = filepath.parent / f"_tmp_{filepath.name}"
-    with open(tmp_html, "w", encoding="utf-8") as f:
-        f.write(html)
+    tmp_html_cover   = filepath.parent / f"_tmp_cover_{filepath.name}"
+    tmp_html_content = filepath.parent / f"_tmp_content_{filepath.name}"
+    with open(tmp_html_cover, "w", encoding="utf-8") as f:
+        f.write(html_cover)
+    with open(tmp_html_content, "w", encoding="utf-8") as f:
+        f.write(html_content)
 
     png_paths = []
     try:
         with sync_playwright() as p:
             browser = p.chromium.launch()
-            page = browser.new_page(
-                viewport={"width": 390, "height": 4000},  # iPhone 기준 모바일 렌더링
-                device_scale_factor=4,
-            )
-            page.goto(f"file://{tmp_html}")
-            page.wait_for_load_state("networkidle")
-            page.evaluate("document.fonts.ready")
-            page.wait_for_timeout(2000)  # Wait for font loading
 
-            cards = page.query_selector_all(".card")
-            print(f"  📸 {len(cards)} cards → PNG")
+            def make_page():
+                return browser.new_page(
+                    viewport={"width": 560, "height": 4000},
+                    device_scale_factor=4,
+                )
 
-            for i, card in enumerate(cards):
-                tmp_png = out_dir / f"tmp_{i+1:02d}.png"
-                final_png = out_dir / f"card_{i+1:02d}.png"
+            # ── 커버 카드(card_01): SVG CSS 없이 캡처 ──
+            page_cover = make_page()
+            page_cover.goto(f"file://{tmp_html_cover}")
+            page_cover.wait_for_load_state("networkidle")
+            page_cover.evaluate("document.fonts.ready")
+            page_cover.wait_for_timeout(2000)
 
+            cover_cards = page_cover.query_selector_all(".card")
+            print(f"  📸 {len(cover_cards)} cards → PNG")
+
+            if cover_cards:
+                tmp_png   = out_dir / "tmp_01.png"
+                final_png = out_dir / "card_01.png"
+                cover_cards[0].screenshot(path=str(tmp_png))
+                img = Image.open(tmp_png)
+                img.resize((1080, 1080), Image.LANCZOS).save(str(final_png), "PNG", optimize=True)
+                tmp_png.unlink()
+                png_paths.append(final_png)
+                print(f"     ✅ card_01.png ({final_png.stat().st_size:,} bytes)")
+
+            page_cover.close()
+
+            # ── 내용 카드(card_02~): SVG CSS 주입 버전으로 캡처 ──
+            page_content = make_page()
+            page_content.goto(f"file://{tmp_html_content}")
+            page_content.wait_for_load_state("networkidle")
+            page_content.evaluate("document.fonts.ready")
+            page_content.wait_for_timeout(2000)
+
+            content_cards = page_content.query_selector_all(".card")
+            for i, card in enumerate(content_cards[1:], start=2):
+                tmp_png   = out_dir / f"tmp_{i:02d}.png"
+                final_png = out_dir / f"card_{i:02d}.png"
                 card.screenshot(path=str(tmp_png))
                 img = Image.open(tmp_png)
-                img_resized = img.resize((1080, 1080), Image.LANCZOS)
-                img_resized.save(str(final_png), "PNG", optimize=True)
+                img.resize((1080, 1080), Image.LANCZOS).save(str(final_png), "PNG", optimize=True)
                 tmp_png.unlink()
-
                 png_paths.append(final_png)
-                print(f"     ✅ card_{i+1:02d}.png ({final_png.stat().st_size:,} bytes)")
+                print(f"     ✅ card_{i:02d}.png ({final_png.stat().st_size:,} bytes)")
 
+            page_content.close()
             browser.close()
     finally:
-        tmp_html.unlink(missing_ok=True)
+        tmp_html_cover.unlink(missing_ok=True)
+        tmp_html_content.unlink(missing_ok=True)
 
     print(f"  📁 PNGs → {out_dir}")
     return png_paths
