@@ -490,6 +490,14 @@ def generate_cardnews_png(filepath, ctype):
     if "fonts.googleapis.com" not in html:
         html = html.replace("</head>", f"{GOOGLE_FONT_LINK}\n</head>")
 
+    # SVG를 컨테이너에 꽉 채우는 CSS 주입 (PNG 생성 전용)
+    svg_css = """<style>
+  .illust svg, .mid-zone svg { width:100% !important; height:100% !important; max-width:100% !important; max-height:100% !important; }
+  .illust { width:100% !important; }
+  .mid-zone { width:100% !important; flex:1 !important; min-height:0 !important; }
+</style>"""
+    html = html.replace("</head>", svg_css + "\n</head>")
+
     tmp_html = filepath.parent / f"_tmp_{filepath.name}"
     with open(tmp_html, "w", encoding="utf-8") as f:
         f.write(html)
@@ -499,11 +507,12 @@ def generate_cardnews_png(filepath, ctype):
         with sync_playwright() as p:
             browser = p.chromium.launch()
             page = browser.new_page(
-                viewport={"width": 540, "height": 4000},
+                viewport={"width": 390, "height": 4000},  # iPhone 기준 모바일 렌더링
                 device_scale_factor=4,
             )
             page.goto(f"file://{tmp_html}")
             page.wait_for_load_state("networkidle")
+            page.evaluate("document.fonts.ready")
             page.wait_for_timeout(2000)  # Wait for font loading
 
             cards = page.query_selector_all(".card")
