@@ -542,10 +542,10 @@ def generate_cardnews_png(filepath, ctype):
                     device_scale_factor=4,
                 )
 
-            # ── 커버 카드(card_01): MacBook Chrome 최소 폭(500px) 시뮬레이션 ──
-            # 540px 카드가 500px viewport에서 좌우 잘려 콘텐츠가 꽉 차 보이는 효과
+            # ── 커버 카드(card_01): 480px viewport 시뮬레이션 ──
+            # 540px 카드가 480px viewport에서 좌우 잘려 콘텐츠가 꽉 차 보이는 효과
             page_cover = browser.new_page(
-                viewport={"width": 500, "height": 4000},
+                viewport={"width": 480, "height": 4000},
                 device_scale_factor=4,
             )
             page_cover.goto(f"file://{tmp_html_cover}")
@@ -561,8 +561,8 @@ def generate_cardnews_png(filepath, ctype):
                 final_png = out_dir / "card_01.png"
                 box = cover_cards[0].bounding_box()
                 if box:
-                    # 카드 중앙에서 500×500 영역 캡처 (좌우 여백 잘라냄)
-                    clip_size = min(box["width"], 500)
+                    # 카드 중앙에서 480×480 영역 캡처
+                    clip_size = min(box["width"], 480)
                     clip_x = box["x"] + (box["width"] - clip_size) / 2
                     page_cover.screenshot(
                         path=str(tmp_png),
