@@ -209,14 +209,17 @@ def detect_type(filename):
 
 
 def extract_date(filename):
-    """Extract date components from filename.
-    '순살브리핑_20260302.html' → ('2026', '0302', '2026.03.02')
+    """Extract date components and optional suffix from filename.
+    '순살브리핑_20260302.html'   → ('2026', '0302', '2026.03.02', '')
+    '순살카드뉴스_20260313_2.html' → ('2026', '0313', '2026.03.13', '-2')
     """
-    m = re.search(r"(\d{4})(\d{2})(\d{2})", filename)
+    m = re.search(r"(\d{4})(\d{2})(\d{2})(?:_(\d+))?", filename)
     if m:
         yyyy, mm, dd = m.group(1), m.group(2), m.group(3)
-        return yyyy, mm + dd, f"{yyyy}.{mm}.{dd}"
-    return None, None, None
+        num_suffix = m.group(4)
+        file_suffix = f"-{num_suffix}" if num_suffix else ""
+        return yyyy, mm + dd, f"{yyyy}.{mm}.{dd}", file_suffix
+    return None, None, None, None
 
 
 def extract_keywords(html, ctype):
@@ -889,7 +892,7 @@ def main():
         filename = filepath.name
 
         ctype, directory, suffix = detect_type(filename)
-        yyyy, mmdd, date_fmt = extract_date(filename)
+        yyyy, mmdd, date_fmt, file_suffix = extract_date(filename)
 
         if not ctype or not yyyy:
             print(f"⚠️  Cannot parse, skipping: {filename}")
@@ -899,7 +902,7 @@ def main():
             html = f.read()
 
         keywords = extract_keywords(html, ctype)
-        deploy_path = f"{directory}/{yyyy}/{mmdd}{suffix}.html"
+        deploy_path = f"{directory}/{yyyy}/{mmdd}{suffix}{file_suffix}.html"
 
         # Copy file to repo
         dest = REPO / deploy_path
