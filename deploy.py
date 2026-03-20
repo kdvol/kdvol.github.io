@@ -180,7 +180,10 @@ def fix_back_link(filepath):
     )
 
     if "<!-- BACK TO LETTERS -->" not in html:
-        # No marker — inject after <body> (covers cardnews and any file missing it)
+        # No marker — but check if back-to-letters div already exists in source
+        if 'id="back-to-letters"' in html:
+            return  # Already present without marker — skip to avoid duplication
+        # Inject after <body> (covers cardnews and any file missing it)
         if "<body>" in html:
             html = html.replace("<body>", "<body>\n" + BACK_BLOCK, 1)
             with open(filepath, "w", encoding="utf-8") as f:
@@ -287,9 +290,9 @@ def get_hero_info(content):
 
 
 def get_first_today_date(content):
-    """Get date of the first today section (padded or not)."""
+    """Get date of the first (non-padded) today section."""
     m = re.search(
-        r'<div class="today"(?:\s+style="padding-top:0;")?>\n  <div class="today-title">'
+        r'<div class="today">\n  <div class="today-title">'
         r"(\d{4}\.\d{2}\.\d{2}) 전체 콘텐츠</div>",
         content,
     )
@@ -373,20 +376,19 @@ def update_main_index(items, date_fmt, has_briefing, yyyy, mmdd):
         # Demote current first today → padding-top:0
         current_date = get_first_today_date(c)
         if current_date:
-            non_padded = (
+            old_hdr = (
                 f'<div class="today">\n'
                 f'  <div class="today-title">{current_date} 전체 콘텐츠</div>'
             )
-            padded = (
+            new_hdr = (
                 f'<div class="today" style="padding-top:0;">\n'
                 f'  <div class="today-title">{current_date} 전체 콘텐츠</div>'
             )
-            # Demote to padded if not already
-            if non_padded in c:
-                c = c.replace(non_padded, padded)
-            # Insert new today before the (now padded) first section
-            if new_today and padded in c:
-                c = c.replace(padded, f"{new_today}\n\n{padded}", 1)
+            c = c.replace(old_hdr, new_hdr)
+
+            # Insert new today before demoted section
+            if new_today:
+                c = c.replace(new_hdr, f"{new_today}\n\n{new_hdr}")
     else:
         # Date exists → clean existing links of same type, then insert fresh
         for item in sorted(items, key=lambda x: ORDER[x["type"]]):
