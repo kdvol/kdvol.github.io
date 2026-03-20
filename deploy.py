@@ -287,9 +287,9 @@ def get_hero_info(content):
 
 
 def get_first_today_date(content):
-    """Get date of the first (non-padded) today section."""
+    """Get date of the first today section (padded or not)."""
     m = re.search(
-        r'<div class="today">\n  <div class="today-title">'
+        r'<div class="today"(?:\s+style="padding-top:0;")?>\n  <div class="today-title">'
         r"(\d{4}\.\d{2}\.\d{2}) 전체 콘텐츠</div>",
         content,
     )
