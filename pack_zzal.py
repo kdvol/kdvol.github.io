@@ -46,7 +46,7 @@ SAFETY_MARGIN = 15       # 잘림 방지 여유
 FILL_TARGET = 85         # percent — 이 미만이면 리액션 자동 삽입
 EST_REACTION_HEIGHT = 55 # 짧은 리액션 1개 ~55px
 
-INLINE_CLOSING_HEIGHT = 170  # 인라인 클로징 예상 높이 (로고+이름+핸들+CTA+면책)
+INLINE_CLOSING_HEIGHT = 120  # 인라인 클로징 고정 높이 (로고+텍스트 가로배치)
 HARD_CAP = 10            # 최대 10장 (커버 포함)
 
 # ═══════════════════════════════════════
@@ -117,10 +117,11 @@ def extract_inline_closing(template_path):
     with open(template_path) as f:
         t = f.read()
     
-    # 로고 base64 추출: soonsal_b64_icon.txt를 프로젝트에서 직접 읽기 (light bg용)
+    # 로고 base64 추출: soonsal_b64_icon.txt를 직접 읽기 (light bg용)
     icon_paths = [
         Path.home() / "kdvol.github.io" / "soonsal_b64_icon.txt",
         Path(__file__).parent / "soonsal_b64_icon.txt",
+        Path.home() / "soonsal_b64_icon.txt",
     ]
     logo_b64 = ""
     for p in icon_paths:
@@ -129,21 +130,23 @@ def extract_inline_closing(template_path):
             break
     
     if not logo_b64:
-        # 템플릿에서 cover-brand img의 base64 추출 (fallback)
-        m = re.search(r'cover-brand.*?src="(data:image/png;base64,[^"]+)"', t, re.DOTALL)
+        # 템플릿에서 아무 img base64 추출 (fallback)
+        m = re.search(r'src="(data:image/png;base64,[A-Za-z0-9+/=]+)"', t)
         if m:
             logo_b64 = m.group(1)
         else:
             logo_b64 = "data:image/png;base64,"
+        print(f"⚠️  soonsal_b64_icon.txt not found, using template fallback")
     else:
         logo_b64 = f"data:image/png;base64,{logo_b64}"
 
     return f'''    <div class="inline-closing">
       <img class="inline-closing-logo" src="{logo_b64}" alt="순살">
-      <div class="inline-closing-name">순살짤</div>
-      <div class="inline-closing-handle">@soonsal.zzal</div>
-      <div class="inline-closing-cta">팔로우하면 매일 단톡방 엿볼 수 있음</div>
-      <div class="inline-closing-disclaimer">창작 콘텐츠이며 매수·매도 추천이 아닙니다<br>모든 투자 판단과 책임은 본인에게 있습니다</div>
+      <div class="inline-closing-text">
+        <div class="inline-closing-name">순살짤 <span class="inline-closing-handle">@soonsal.zzal</span></div>
+        <div class="inline-closing-cta">팔로우하면 매일 단톡방 엿볼 수 있음</div>
+        <div class="inline-closing-disclaimer">창작 콘텐츠이며 매수·매도 추천이 아닙니다 | 모든 투자 판단과 책임은 본인에게 있습니다</div>
+      </div>
     </div>'''
 
 
@@ -206,10 +209,13 @@ def measure_and_extract_messages(html_path):
 
 
 def greedy_pack(messages, first_card_has_date=True, reserve_closing=True):
-    """Greedy bin packing.
+    """2-pass bin packing with even redistribution.
     
-    reserve_closing=True: 마지막 카드에 인라인 클로징 공간 예약.
+    Pass 1: Standard greedy to determine card count.
+    Pass 2: If last card has lonely message (≤1), redistribute ALL messages
+            into (N-1) cards evenly, with last card reserving closing space.
     """
+    # === Pass 1: Standard greedy ===
     cards = []
     current = []
     current_h = 0
@@ -228,26 +234,91 @@ def greedy_pack(messages, first_card_has_date=True, reserve_closing=True):
     if current:
         cards.append(current)
     
-    # 인라인 클로징 공간 확인: 마지막 카드에 INLINE_CLOSING_HEIGHT가 남아있는지
-    if reserve_closing and cards:
-        last_card = cards[-1]
-        last_h = sum(m["height"] for m in last_card)
-        avail_last = AVAIL - SAFETY_MARGIN
-        if last_h + INLINE_CLOSING_HEIGHT > avail_last:
-            # 마지막 카드에 공간 없음 — 새 카드 추가
-            # 마지막 메시지를 새 카드로 이동하여 공간 확보
-            overflow = []
-            while last_card and last_h + INLINE_CLOSING_HEIGHT > avail_last:
-                moved = last_card.pop()
-                overflow.insert(0, moved)
-                last_h -= moved["height"]
-            if not last_card:
-                # 메시지 1개가 너무 큰 경우 — 그냥 새 카드에 넣기
-                cards[-1] = overflow
-                cards.append([])  # 빈 카드 (클로징만)
-            else:
-                cards[-1] = last_card
-                cards.append(overflow)
+    if not reserve_closing or not cards:
+        return cards
+    
+    # === Closing space check ===
+    last_card = cards[-1]
+    last_h = sum(m["height"] for m in last_card)
+    avail_last = AVAIL - SAFETY_MARGIN
+    
+    if last_h + INLINE_CLOSING_HEIGHT > avail_last:
+        overflow = []
+        while last_card and last_h + INLINE_CLOSING_HEIGHT > avail_last:
+            moved = last_card.pop()
+            overflow.insert(0, moved)
+            last_h -= moved["height"]
+        if overflow:
+            cards.append(overflow)
+    
+    # === Pass 2: Even redistribution if last card is lonely ===
+    last_card = cards[-1]
+    last_real = [m for m in last_card if "avatar-" in m.get("html", "")]
+    
+    if len(cards) >= 2 and len(last_real) <= 1:
+        target_n = len(cards) - 1  # 1 fewer card
+        all_msgs = []
+        for c in cards:
+            all_msgs.extend(c)
+        
+        # 각 카드별 가용 높이
+        avail_normal = AVAIL - SAFETY_MARGIN
+        avail_first = AVAIL_WITH_DATE - SAFETY_MARGIN if first_card_has_date else avail_normal
+        avail_closing = avail_normal - INLINE_CLOSING_HEIGHT
+        
+        def get_avail(idx):
+            if idx == 0:
+                return avail_first
+            elif idx == target_n - 1:
+                return avail_closing
+            return avail_normal
+        
+        # 전체 높이 기준 카드당 목표 높이
+        total_h = sum(m["height"] for m in all_msgs)
+        target_per_card = total_h / target_n
+        
+        # 균등 greedy: target_per_card에 도달하면 다음 카드로
+        new_cards = []
+        current = []
+        current_h = 0
+        card_idx = 0
+        
+        for msg in all_msgs:
+            avail = get_avail(card_idx)
+            
+            # 물리적으로 안 들어가면 무조건 다음 카드
+            if current and current_h + msg["height"] > avail:
+                new_cards.append(current)
+                current = [msg]
+                current_h = msg["height"]
+                card_idx += 1
+                continue
+            
+            # target 도달 + 아직 카드 남아있으면 다음 카드 고려
+            if current and current_h >= target_per_card and card_idx < target_n - 1:
+                # 이 메시지를 다음 카드에 넣는 게 더 균등한지 체크
+                remaining_msgs = len(all_msgs) - (sum(len(c) for c in new_cards) + len(current))
+                remaining_cards = target_n - card_idx - 1
+                if remaining_msgs > 0 and remaining_cards > 0:
+                    new_cards.append(current)
+                    current = [msg]
+                    current_h = msg["height"]
+                    card_idx += 1
+                    continue
+            
+            current.append(msg)
+            current_h += msg["height"]
+        
+        if current:
+            new_cards.append(current)
+        
+        # 재분배 성공: 마지막 카드에 2개 이상
+        last_new = new_cards[-1] if new_cards else []
+        if len(last_new) >= 2:
+            print(f"\n   🔄 재분배: {len(cards)}카드 → {len(new_cards)}카드 (균등)")
+            cards = new_cards
+        else:
+            print(f"\n   ⚠️ 균등 재분배 시도했으나 마지막 카드 메시지 부족 → 대본 조정 필요")
     
     return cards
 
@@ -281,9 +352,8 @@ def build_chat_card(page_num, total_pages, msg_htmls, has_date=False, date_text=
   <div class="chat-body"{padding}>
 
 {msgs}
-{closing_block}
   </div>
-
+{closing_block}
   <div class="chat-input-bar">
     <div class="chat-input-fake">메시지 입력</div>
     <div class="chat-send-btn">▶</div>
@@ -327,21 +397,23 @@ def main():
     # 인라인 클로징 CSS가 없으면 추가
     if '.inline-closing' not in head:
         closing_css = """
-  /* 인라인 클로징 */
+  /* 인라인 클로징 (고정 120px, 가로 배치) */
   .inline-closing {
-    margin-top: auto;
-    padding: 16px 0 8px;
+    height: 120px;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
-    gap: 6px;
-    text-align: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 0 24px;
+    border-top: 1px solid rgba(0,0,0,0.06);
   }
-  .inline-closing-logo { width: 36px; height: 36px; object-fit: contain; }
-  .inline-closing-name { font-size: 16px; font-weight: 900; color: rgba(0,0,0,0.5); }
-  .inline-closing-handle { font-size: 13px; color: rgba(0,0,0,0.35); margin-top: -4px; }
-  .inline-closing-cta { font-size: 13px; color: #E55A00; font-weight: 700; }
-  .inline-closing-disclaimer { font-size: 10px; color: rgba(0,0,0,0.3); line-height: 1.5; }
+  .inline-closing-logo { width: 32px; height: 32px; object-fit: contain; flex-shrink: 0; }
+  .inline-closing-text { display: flex; flex-direction: column; gap: 1px; }
+  .inline-closing-name { font-size: 14px; font-weight: 900; color: rgba(0,0,0,0.5); }
+  .inline-closing-handle { font-size: 11px; color: rgba(0,0,0,0.3); }
+  .inline-closing-cta { font-size: 11px; color: #E55A00; font-weight: 700; }
+  .inline-closing-disclaimer { font-size: 9px; color: rgba(0,0,0,0.25); line-height: 1.4; }
 """
         head = head.replace('</style>', closing_css + '</style>')
 
@@ -371,7 +443,11 @@ def main():
     cards = greedy_pack(chat_msgs, first_card_has_date=first_chat_has_date, reserve_closing=True)
     
     # 4-1. Auto-fill: fill rate < FILL_TARGET인 카드에 리액션 자동 삽입
-    # 마지막 순살 메시지가 있는 카드부터 삽입 금지
+    # Rules:
+    #   - 마지막 순살 메시지가 포함된 카드부터 삽입 금지 (열린 질문 보존)
+    #   - 순살 메시지로 끝나는 카드에는 삽입 금지 (맥락 깨짐 방지)
+    #   - 최대 2개 (3개는 과도)
+    
     last_soonsal_card = -1
     for i, card in enumerate(cards):
         for msg in card:
@@ -392,6 +468,11 @@ def main():
         if i >= autofill_blocked_from:
             continue
         
+        # 마지막 카드가 순살로 끝나면 스킵 (열린 질문 보존)
+        last_msg_html = card[-1]["html"] if card else ""
+        if i == last_card_idx and "avatar-soonsal" in last_msg_html:
+            continue
+        
         total_h = sum(m["height"] for m in card)
         avail = AVAIL_WITH_DATE - SAFETY_MARGIN if i == 0 and first_chat_has_date else AVAIL - SAFETY_MARGIN
         
@@ -404,7 +485,7 @@ def main():
         
         if pct < FILL_TARGET and gap_px > EST_REACTION_HEIGHT:
             n_reactions = int(gap_px // EST_REACTION_HEIGHT)
-            n_reactions = min(n_reactions, 3)
+            n_reactions = min(n_reactions, 2)  # max 2 per card
             if n_reactions > 0:
                 last_char = None
                 last_html = card[-1]["html"]
@@ -434,6 +515,44 @@ def main():
                 
                 autofill_map[i] = reactions
                 print(f"   🔧 Card {i+1}: {pct:.0f}% → 리액션 {n_reactions}개 자동 삽입")
+    
+    # 4-2. 최종 검수: 순살 열린 질문이 마지막 카드에 혼자 밀렸는지 체크
+    if len(cards) >= 2:
+        last_card = cards[-1]
+        prev_card = cards[-2]
+        
+        # 마지막 카드에 본문 메시지 1개만 있고, 그게 순살이면 = "밀린" 상태
+        last_real_msgs = [m for m in last_card if "avatar-" in m.get("html", "")]
+        if len(last_real_msgs) == 1 and "avatar-soonsal" in last_real_msgs[0]["html"]:
+            soonsal_h = last_real_msgs[0]["height"]
+            
+            # 직전 카드에 합칠 수 있는지 계산
+            prev_h = sum(m["height"] for m in prev_card)
+            if len(cards) - 2 in autofill_map:
+                prev_autofill_h = len(autofill_map[len(cards) - 2]) * EST_REACTION_HEIGHT
+            else:
+                prev_autofill_h = 0
+            prev_avail = AVAIL - SAFETY_MARGIN
+            
+            # Case A: auto-fill 제거 없이 합칠 수 있음
+            if prev_h + prev_autofill_h + soonsal_h + INLINE_CLOSING_HEIGHT <= prev_avail:
+                print(f"\n   🔄 순살 열린 질문 직전 카드로 합침 (auto-fill 유지)")
+                cards[-2].append(last_real_msgs[0])
+                cards.pop()
+                total_pages -= 1
+            
+            # Case B: auto-fill 제거하면 합칠 수 있음
+            elif prev_h + soonsal_h + INLINE_CLOSING_HEIGHT <= prev_avail and len(cards) - 2 in autofill_map:
+                print(f"\n   🔄 순살 열린 질문 직전 카드로 합침 (auto-fill {len(autofill_map[len(cards) - 2])}개 제거)")
+                del autofill_map[len(cards) - 2]
+                cards[-2].append(last_real_msgs[0])
+                cards.pop()
+                total_pages -= 1
+            
+            # Case C: closing 포함하면 공간 부족 — 대본 조정 필요
+            else:
+                print(f"\n   ⚠️ 순살 열린 질문이 마지막 카드에 혼자 밀렸으나, 직전 카드에 공간 부족")
+                print(f"      → 대본 길이 조정 필요 (몇 줄 늘리거나 줄이기)")
     
     # 총 페이지 = 커버 1p + 채팅 카드 Np (인라인 클로징은 마지막 카드에 포함)
     total_pages = 1 + len(cards)  # cover + chat cards
