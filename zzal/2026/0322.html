@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>기름값 2498원 실화냐</title>
+<meta name="soonsal-ig-caption" content="강남 주유소 2,498원 실화냐 ⛽ 정부가 30년 만에 가격 상한 걸었는데 강남은 아직 2,498원... 이란전쟁이 내 주유비까지 건드리는 구조, 여러분 이번 주 기름값 얼마 찍혔어요? 👇">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap');
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: #e8e8e8;
+    display: flex; flex-direction: column; align-items: center;
+    padding: 10px;
+    font-family: 'Noto Sans KR', 'Apple SD Gothic Neo', sans-serif;
+    gap: 32px;
+  }
+
+  .card {
+    width: 540px;
+    height: 675px;
+    border-radius: 6px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  /* ============================================================
+     1p — 커버+첫채팅 통합 (cover-chat-card)
+     ============================================================ */
+  .cover-chat-card {
+    background: #B2C7D9;
+    display: flex;
+    flex-direction: column;
+  }
+  .cover-chat-header {
+    background: rgba(0,0,0,0.12);
+    padding: 14px 20px 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .cover-chat-left { display: flex; align-items: center; gap: 8px; }
+  .cover-chat-back { font-size: 20px; color: #3a3a3a; font-weight: 700; }
+  .cover-chat-name { font-size: 18px; font-weight: 700; color: #1a1a1a; }
+  .cover-chat-count { font-size: 15px; color: #555; }
+  .cover-badge-row { display: flex; align-items: center; gap: 8px; padding: 0 20px; }
+  .cover-badge {
+    background: #E55A00;
+    color: #fff;
+    font-size: 13px;
+    font-weight: 900;
+    padding: 3px 10px;
+    border-radius: 4px;
+    letter-spacing: 0.5px;
+  }
+  .cover-date {
+    font-size: 13px;
+    color: rgba(0,0,0,0.4);
+  }
+  .cover-title-area {
+    padding: 20px 20px 12px;
+  }
+  .cover-bubble {
+    background: #fff;
+    padding: 24px 28px;
+    border-radius: 16px;
+    max-width: 100%;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.08);
+  }
+  .cover-title {
+    font-size: 52px;
+    font-weight: 900;
+    color: #111;
+    line-height: 1.3;
+    word-break: keep-all;
+  }
+  .cover-title .em { color: #E55A00; }
+  .cover-subtitle {
+    font-size: 19px;
+    color: #666;
+    line-height: 1.5;
+    margin-top: 4px;
+  }
+  .cover-etf-tickers {
+    font-size: 13px;
+    color: #E55A00;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    margin-top: 2px;
+  }
+
+  /* ============================================================
+     채팅 카드
+     ============================================================ */
+  .chat-card {
+    background: #B2C7D9;
+    display: flex;
+    flex-direction: column;
+  }
+  .chat-header {
+    background: rgba(0,0,0,0.12);
+    padding: 14px 20px 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .chat-header-left { display: flex; align-items: center; gap: 8px; }
+  .chat-header-back { font-size: 20px; color: #3a3a3a; font-weight: 700; }
+  .chat-room-name { font-size: 16px; font-weight: 700; color: #1a1a1a; }
+  .chat-room-count { font-size: 14px; color: #555; }
+  .chat-page-num { font-size: 12px; color: #666; font-weight: 500; }
+
+  .chat-body {
+    flex: 1;
+    padding: 12px 16px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .msg { display: flex; align-items: flex-start; gap: 8px; max-width: 88%; }
+  .avatar {
+    width: 36px; height: 36px; border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px; font-weight: 700; color: #fff; flex-shrink: 0;
+  }
+  .avatar-soonsal { background: #E55A00; }
+  .avatar-jun     { background: #2980B9; }
+  .avatar-andrew  { background: #C0392B; }
+  .avatar-sean    { background: #27AE60; }
+  .avatar-mandu   { background: #8E44AD; }
+  .avatar-jake    { background: #2C3E50; }
+
+  .msg-content { display: flex; flex-direction: column; gap: 3px; }
+  .msg-name { font-size: 14px; font-weight: 600; color: rgba(0,0,0,0.55); padding-left: 2px; }
+  .msg-row { display: flex; align-items: flex-end; gap: 5px; }
+  .bubble {
+    background: #fff;
+    padding: 10px 14px;
+    border-radius: 12px;
+    font-size: 19px;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #111;
+    max-width: 350px;
+    word-break: keep-all;
+    overflow-wrap: break-word;
+  }
+  .bubble strong { font-weight: 700; }
+  .bubble .num { color: #C0392B; font-weight: 700; }
+  .msg-time { font-size: 12px; color: rgba(0,0,0,0.35); white-space: nowrap; flex-shrink: 0; }
+
+  .bubble-img {
+    background: #1a1a1a;
+    padding: 6px 8px;
+    border-radius: 12px;
+    overflow: hidden;
+    max-width: 310px;
+  }
+  .bubble-img img { display: block; width: 100%; border-radius: 12px; }
+
+  .date-divider { text-align: center; padding: 10px 0 6px; }
+  .date-divider span {
+    background: rgba(0,0,0,0.15);
+    color: #fff;
+    font-size: 11px; font-weight: 500;
+    padding: 4px 12px; border-radius: 12px;
+  }
+
+  .chat-input-bar {
+    background: rgba(0,0,0,0.08);
+    padding: 10px 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .chat-input-fake {
+    flex: 1;
+    background: #fff;
+    border-radius: 20px;
+    padding: 8px 16px;
+    font-size: 13px;
+    color: #999;
+  }
+  .chat-send-btn {
+    width: 32px; height: 32px;
+    background: #F7C948;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px;
+  }
+
+  /* ============================================================
+     인라인 클로징 (마지막 채팅 카드 하단에 삽입)
+     ============================================================ */
+  .inline-closing {
+    margin-top: auto;
+    padding: 16px 0 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    text-align: center;
+  }
+  .inline-closing-logo {
+    width: 36px;
+    height: 36px;
+    object-fit: contain;
+  }
+  .inline-closing-name {
+    font-size: 16px;
+    font-weight: 900;
+    color: rgba(0,0,0,0.5);
+  }
+  .inline-closing-handle {
+    font-size: 13px;
+    color: rgba(0,0,0,0.35);
+    margin-top: -4px;
+  }
+  .inline-closing-cta {
+    font-size: 13px;
+    color: #E55A00;
+    font-weight: 700;
+  }
+  .inline-closing-disclaimer {
+    font-size: 10px;
+    color: rgba(0,0,0,0.3);
+    line-height: 1.5;
+  }
+</style>
+</head>
+<body>
+
+<!-- ================================================================
+     1p — 커버+첫채팅 통합 (cover-chat-card)
+     ================================================================ -->
+<div class="card cover-chat-card">
+  <div class="cover-chat-header">
+    <div class="cover-chat-left">
+      <span class="cover-chat-back">‹</span>
+      <span class="cover-chat-name">순살 단톡방</span>
+      <span class="cover-chat-count">4</span>
+    </div>
+    <div class="cover-badge-row">
+      <span class="cover-badge">NEW</span>
+      <span class="cover-date">2026.03.22</span>
+    </div>
+  </div>
+
+  <div class="cover-title-area">
+    <div class="cover-bubble">
+      <div class="cover-title">기름값 <span class="em">2,498원</span> 실화냐</div>
+      <div class="cover-etf-tickers">에너지 ETF 📈 XLE · USO · OIH · XOP · VDE</div>
+    </div>
+  </div>
+
+  <div class="chat-body" style="padding-top: 0;">
+    <div class="date-divider"><span>2026년 3월 22일 일요일</span></div>
+
+    <div class="msg"><div class="avatar avatar-sean">션</div><div class="msg-content"><span class="msg-name">션 (스타트업)</span><div class="msg-row"><div class="bubble">야 강남 주유소 휘발유 <span class="num">2,498원</span> 찍혔어</div><span class="msg-time">오전 10:01</span></div></div></div>
+    <div class="msg"><div class="avatar avatar-andrew">앤</div><div class="msg-content"><span class="msg-name">앤드류 (운용역)</span><div class="msg-row"><div class="bubble">ㅋㅋㅋ 리터에 2500이면 아메리카노잖아</div></div></div></div>
+    <div class="msg"><div class="avatar avatar-sean">션</div><div class="msg-content"><span class="msg-name">션 (스타트업)</span><div class="msg-row"><div class="bubble">정부가 상한선 1,724원 걸었다면서요?</div></div></div></div>
+    <div class="msg"><div class="avatar avatar-soonsal">순</div><div class="msg-content"><span class="msg-name">순살 (홍콩IB)</span><div class="msg-row"><div class="bubble">그건 정유사 → 주유소 공급가 상한이야. 주유소 판매가에는 적용 안 됨 ㅋ</div><span class="msg-time">오전 10:02</span></div></div></div>
+  </div>
+
+  <div class="chat-input-bar">
+    <div class="chat-input-fake">메시지 입력</div>
+    <div class="chat-send-btn">▶</div>
+  </div>
+</div>
+
+<!-- ================================================================
+     2p
+     ================================================================ -->
+<div class="card chat-card">
+  <div class="chat-header">
+    <div class="chat-header-left">
+      <span class="chat-header-back">‹</span>
+      <span class="chat-room-name">순살 단톡방</span>
+      <span class="chat-room-count">4</span>
+    </div>
+    <span class="chat-page-num">2/10</span>
+  </div>
+
+  <div class="chat-body" style="padding-top:16px;">
+
+    <div class="msg"><div class="avatar avatar-andrew">앤</div><div class="msg-content"><span class="msg-name">앤드류 (운용역)</span><div class="msg-row"><div class="bubble">아니 그러면 의미가 있어?</div></div></div></div>
+    <div class="msg"><div class="avatar avatar-soonsal">순</div><div class="msg-content"><span class="msg-name">순살 (홍콩IB)</span><div class="msg-row"><div class="bubble">결과적으로 최저가 1,729원 vs 최고가 2,498원. 같은 나라에서 격차 769원 ㅋ</div></div></div></div>
+    <div class="msg"><div class="avatar avatar-sean">션</div><div class="msg-content"><span class="msg-name">션 (스타트업)</span><div class="msg-row"><div class="bubble">769원이면 주유할 때마다 치킨값 차이 나는 건데</div><span class="msg-time">오전 10:03</span></div></div></div>
+    <div class="msg"><div class="avatar avatar-andrew">앤</div><div class="msg-content"><span class="msg-name">앤드류 (운용역)</span><div class="msg-row"><div class="bubble">근데 왜 갑자기 이렇게 된 거야</div></div></div></div>
+    <div class="msg"><div class="avatar avatar-soonsal">순</div><div class="msg-content"><span class="msg-name">순살 (홍콩IB)</span><div class="msg-row"><div class="bubble">처음부터 풀어볼게</div><span class="msg-time">오전 10:04</span></div></div></div>
+    <div class="msg">
+  <div class="avatar avatar-andrew">앤</div>
+  <div class="msg-content">
+    <span class="msg-name">앤드류 (운용역)</span>
+    <div class="msg-row">
+      <div class="bubble">헐</div>
+    </div>
+  </div>
+</div>
+
+  </div>
+
+  <div class="chat-input-bar">
+    <div class="chat-input-fake">메시지 입력</div>
+    <div class="chat-send-btn">▶</div>
+  </div>
+</div>
+
+<!-- ================================================================
+     3p
+     ================================================================ -->
+<div class="card chat-card">
+  <div class="chat-header">
+    <div class="chat-header-left">
+      <span class="chat-header-back">‹</span>
+      <span class="chat-room-name">순살 단톡방</span>
+      <span class="chat-room-count">4</span>
+    </div>
+    <span class="chat-page-num">3/10</span>
+  </div>
+
+  <div class="chat-body" style="padding-top:16px;">
+
+    <div class="msg"><div class="avatar avatar-soonsal">순</div><div class="msg-content"><span class="msg-name">순살 (홍콩IB)</span><div class="msg-row"><div class="bubble">2월 28일 미국+이스라엘이 이란 때렸잖아. 이란이 빡쳐서 호르무즈 해협 봉쇄 위협한 거야</div></div></div></div>
+    <div class="msg"><div class="avatar avatar-sean">션</div><div class="msg-content"><span class="msg-name">션 (스타트업)</span><div class="msg-row"><div class="bubble">호르무즈가 뭔데</div></div></div></div>
+    <div class="msg"><div class="avatar avatar-soonsal">순</div><div class="msg-content"><span class="msg-name">순살 (홍콩IB)</span><div class="msg-row"><div class="bubble">전 세계 원유의 <span class="num">20~30%</span>가 지나가는 좁디좁은 바닷길. 여기 막히면 기름값이 하늘을 뚫어</div><span class="msg-time">오전 10:05</span></div></div></div>
+    <div class="msg"><div class="avatar avatar-andrew">앤</div><div class="msg-content"><span class="msg-name">앤드류 (운용역)</span><div class="msg-row"><div class="bubble">아 그래서 유가가 폭등한 거구나</div></div></div></div>
+    <div class="msg">
+  <div class="avatar avatar-sean">션</div>
+  <div class="msg-content">
+    <span class="msg-name">션 (스타트업)</span>
+    <div class="msg-row">
+      <div class="bubble">진짜?</div>
+    </div>
+  </div>
+</div>
+
+  </div>
+
+  <div class="chat-input-bar">
+    <div class="chat-input-fake">메시지 입력</div>
+    <div class="chat-send-btn">▶</div>
+  </div>
+</div>
+
+<!-- ================================================================
+     4p
+     ================================================================ -->
+<div class="card chat-card">
+  <div class="chat-header">
+    <div class="chat-header-left">
+      <span class="chat-header-back">‹</span>
+      <span class="chat-room-name">순살 단톡방</span>
+      <span class="chat-room-count">4</span>
+    </div>
+    <span class="chat-page-num">4/10</span>
+  </div>
+
+  <div class="chat-body" style="padding-top:16px;">
+
+    <div class="msg"><div class="avatar avatar-jun">준</div><div class="msg-content"><span class="msg-name">준 (리서치)</span><div class="msg-row"><div class="bubble">브렌트유가 장중 <span class="num">$119</span>까지 갔다가 트럼프가 "조기 종전" 떠들어서 $80대로 빠짐. 지금은 다시 <span class="num">$107</span></div><span class="msg-time">오전 10:06</span></div></div></div>
+    <div class="msg"><div class="avatar avatar-sean">션</div><div class="msg-content"><span class="msg-name">션 (스타트업)</span><div class="msg-row"><div class="bubble">$119→$80→$107 ㅋㅋ 유가도 롤러코스터야</div></div></div></div>
+    <div class="msg"><div class="avatar avatar-soonsal">순</div><div class="msg-content"><span class="msg-name">순살 (홍콩IB)</span><div class="msg-row"><div class="bubble">더 웃긴 건 이스라엘이 이란 가스전 폭격하니까 이란이 보복으로 카타르 LNG 시설을 때린 거야. 세계 최대 LNG 수출기지인데</div><span class="msg-time">오전 10:07</span></div></div></div>
+    <div class="msg"><div class="avatar avatar-andrew">앤</div><div class="msg-content"><span class="msg-name">앤드류 (운용역)</span><div class="msg-row"><div class="bubble">카타르가 뭔 죄야 ㅋㅋ</div></div></div></div>
+
+  </div>
+
+  <div class="chat-input-bar">
+    <div class="chat-input-fake">메시지 입력</div>
+    <div class="chat-send-btn">▶</div>
+  </div>
+</div>
+
+<!-- ================================================================
+     5p
+     ================================================================ -->
+<div class="card chat-card">
+  <div class="chat-header">
+    <div class="chat-header-left">
+      <span class="chat-header-back">‹</span>
+      <span class="chat-room-name">순살 단톡방</span>
+      <span class="chat-room-count">4</span>
+    </div>
+    <span class="chat-page-num">5/10</span>
+  </div>
+
+  <div class="chat-body" style="padding-top:16px;">
+
+    <div class="msg"><div class="avatar avatar-jun">준</div><div class="msg-content"><span class="msg-name">준 (리서치)</span><div class="msg-row"><div class="bubble">카타르에너지가 수출 역량 17% 감소 발표. 복구에 최대 5년</div></div></div></div>
+    <div class="msg"><div class="avatar avatar-sean">션</div><div class="msg-content"><span class="msg-name">션 (스타트업)</span><div class="msg-row"><div class="bubble">5년???</div></div></div></div>
+    <div class="msg"><div class="avatar avatar-soonsal">순</div><div class="msg-content"><span class="msg-name">순살 (홍콩IB)</span><div class="msg-row"><div class="bubble">유럽은 러시아 가스 이미 끊긴 상태에서 카타르 LNG까지 타격. 가스+기름 동시에 터진 거지</div><span class="msg-time">오전 10:08</span></div></div></div>
+    <div class="msg"><div class="avatar avatar-andrew">앤</div><div class="msg-content"><span class="msg-name">앤드류 (운용역)</span><div class="msg-row"><div class="bubble">유럽 난방비 또 폭등하겠네</div></div></div></div>
+    <div class="msg">
+  <div class="avatar avatar-sean">션</div>
+  <div class="msg-content">
+    <span class="msg-name">션 (스타트업)</span>
+    <div class="msg-row">
+      <div class="bubble">대박</div>
+    </div>
+  </div>
+</div>
+    <div class="msg">
+  <div class="avatar avatar-andrew">앤</div>
+  <div class="msg-content">
+    <span class="msg-name">앤드류 (운용역)</span>
+    <div class="msg-row">
+      <div class="bubble">이건 좀 무섭네</div>
+    </div>
+  </div>
+</div>
+
+  </div>
+
+  <div class="chat-input-bar">
+    <div class="chat-input-fake">메시지 입력</div>
+    <div class="chat-send-btn">▶</div>
+  </div>
+</div>
+
+<!-- ================================================================
+     6p
+     ================================================================ -->
+<div class="card chat-card">
+  <div class="chat-header">
+    <div class="chat-header-left">
+      <span class="chat-header-back">‹</span>
+      <span class="chat-room-name">순살 단톡방</span>
+      <span class="chat-room-count">4</span>
+    </div>
+    <span class="chat-page-num">6/10</span>
+  </div>
+
+  <div class="chat-body" style="padding-top:16px;">
+
+    <div class="msg"><div class="avatar avatar-soonsal">순</div><div class="msg-content"><span class="msg-name">순살 (홍콩IB)</span><div class="msg-row"><div class="bubble">미국은 좀 나은 게 자기가 세계 최대 산유국이거든. 근데 그래도 IEA가 사상 최대 비축유 방출 결정함. 미국만 <span class="num">1.72억 배럴</span></div></div></div></div>
+    <div class="msg"><div class="avatar avatar-sean">션</div><div class="msg-content"><span class="msg-name">션 (스타트업)</span><div class="msg-row"><div class="bubble">1.72억 배럴이 얼마야</div></div></div></div>
+    <div class="msg"><div class="avatar avatar-soonsal">순</div><div class="msg-content"><span class="msg-name">순살 (홍콩IB)</span><div class="msg-row"><div class="bubble">한국 연간 수입량의 약 2/3. 그 정도를 풀어도 유가가 $107인 거야</div><span class="msg-time">오전 10:09</span></div></div></div>
+    <div class="msg"><div class="avatar avatar-andrew">앤</div><div class="msg-content"><span class="msg-name">앤드류 (운용역)</span><div class="msg-row"><div class="bubble">일본은? 걔네도 수입 의존 아니야?</div></div></div></div>
+    <div class="msg">
+  <div class="avatar avatar-sean">션</div>
+  <div class="msg-content">
+    <span class="msg-name">션 (스타트업)</span>
+    <div class="msg-row">
+      <div class="bubble">미쳤다 ㅋ</div>
+    </div>
+  </div>
+</div>
+
+  </div>
+
+  <div class="chat-input-bar">
+    <div class="chat-input-fake">메시지 입력</div>
+    <div class="chat-send-btn">▶</div>
+  </div>
+</div>
+
+<!-- ================================================================
+     7p
+     ================================================================ -->
+<div class="card chat-card">
+  <div class="chat-header">
+    <div class="chat-header-left">
+      <span class="chat-header-back">‹</span>
+      <span class="chat-room-name">순살 단톡방</span>
+      <span class="chat-room-count">4</span>
+    </div>
+    <span class="chat-page-num">7/10</span>
+  </div>
+
+  <div class="chat-body" style="padding-top:16px;">
+
+    <div class="msg"><div class="avatar avatar-soonsal">순</div><div class="msg-content"><span class="msg-name">순살 (홍콩IB)</span><div class="msg-row"><div class="bubble">원유 70% + LNG 30%를 중동에서 가져와. 거기에 엔저까지 겹쳐서 수입 단가가 이중으로 뜀. 한국이랑 구조가 판박이야</div></div></div></div>
+    <div class="msg"><div class="avatar avatar-sean">션</div><div class="msg-content"><span class="msg-name">션 (스타트업)</span><div class="msg-row"><div class="bubble-img"><svg xmlns="http://www.w3.org/2000/svg" width="280" height="190" viewBox="0 0 280 190"><rect fill="#1a1a1a" width="280" height="190" rx="8"></rect><text x="140" y="22" text-anchor="middle" fill="#E55A00" font-size="12" font-weight="700" font-family="Noto Sans KR, sans-serif">⛽ 전쟁 → 내 주유비 도착 경로</text><rect x="20" y="36" width="240" height="30" rx="6" fill="#2a2a2a"></rect><text x="140" y="56" text-anchor="middle" fill="#fff" font-size="14" font-weight="700" font-family="Noto Sans KR, sans-serif">🇮🇷 이란전쟁 발발</text><text x="140" y="78" text-anchor="middle" fill="#555" font-size="16" font-family="Noto Sans KR, sans-serif">↓</text><rect x="20" y="84" width="240" height="30" rx="6" fill="#2a2a2a"></rect><text x="140" y="104" text-anchor="middle" fill="#fff" font-size="14" font-weight="700" font-family="Noto Sans KR, sans-serif">🚢 호르무즈 해협 봉쇄 위협</text><text x="140" y="126" text-anchor="middle" fill="#555" font-size="16" font-family="Noto Sans KR, sans-serif">↓</text><rect x="20" y="132" width="110" height="30" rx="6" fill="#2a2a2a"></rect><text x="75" y="152" text-anchor="middle" fill="#E55A00" font-size="14" font-weight="900" font-family="Noto Sans KR, sans-serif">🛢️ $107</text><rect x="150" y="132" width="110" height="30" rx="6" fill="#E55A00"></rect><text x="205" y="152" text-anchor="middle" fill="#fff" font-size="13" font-weight="700" font-family="Noto Sans KR, sans-serif">🇰🇷 2,498원</text><text x="140" y="180" text-anchor="middle" fill="#888" font-size="11" font-family="Noto Sans KR, sans-serif">3주 만에 도착 완료 ✓</text></svg></div></div></div></div>
+    <div class="msg"><div class="avatar avatar-andrew">앤</div><div class="msg-content"><span class="msg-name">앤드류 (운용역)</span><div class="msg-row"><div class="bubble">ㅋㅋㅋ "3주 만에 도착 완료"</div><span class="msg-time">오전 10:10</span></div></div></div>
+
+  </div>
+
+  <div class="chat-input-bar">
+    <div class="chat-input-fake">메시지 입력</div>
+    <div class="chat-send-btn">▶</div>
+  </div>
+</div>
+
+<!-- ================================================================
+     8p
+     ================================================================ -->
+<div class="card chat-card">
+  <div class="chat-header">
+    <div class="chat-header-left">
+      <span class="chat-header-back">‹</span>
+      <span class="chat-room-name">순살 단톡방</span>
+      <span class="chat-room-count">4</span>
+    </div>
+    <span class="chat-page-num">8/10</span>
+  </div>
+
+  <div class="chat-body" style="padding-top:16px;">
+
+    <div class="msg"><div class="avatar avatar-soonsal">순</div><div class="msg-content"><span class="msg-name">순살 (홍콩IB)</span><div class="msg-row"><div class="bubble"><strong>한국은 비축량 208일분으로 세계 6위라 당장 기름 못 구하는 건 아닌데, 문제는 가격이지. 30년 만에 최고가격제까지 꺼냈는데 올릴 때는 빠르고 내릴 때는 느린 구조가 그대로야</strong></div><span class="msg-time">오전 10:11</span></div></div></div>
+    <div class="msg"><div class="avatar avatar-jun">준</div><div class="msg-content"><span class="msg-name">준 (리서치)</span><div class="msg-row"><div class="bubble">이번 주 전국 평균 1,829원. 시행 전보다 72원 내렸는데 전쟁 전(1,751원)보다는 아직 78원 높음</div></div></div></div>
+    <div class="msg"><div class="avatar avatar-sean">션</div><div class="msg-content"><span class="msg-name">션 (스타트업)</span><div class="msg-row"><div class="bubble">올린 건 200원인데 내린 건 72원이라는 뜻이잖아 ㅋ</div><span class="msg-time">오전 10:12</span></div></div></div>
+    <div class="msg">
+  <div class="avatar avatar-andrew">앤</div>
+  <div class="msg-content">
+    <span class="msg-name">앤드류 (운용역)</span>
+    <div class="msg-row">
+      <div class="bubble">나도 그거 봤어</div>
+    </div>
+  </div>
+</div>
+
+  </div>
+
+  <div class="chat-input-bar">
+    <div class="chat-input-fake">메시지 입력</div>
+    <div class="chat-send-btn">▶</div>
+  </div>
+</div>
+
+<!-- ================================================================
+     9p
+     ================================================================ -->
+<div class="card chat-card">
+  <div class="chat-header">
+    <div class="chat-header-left">
+      <span class="chat-header-back">‹</span>
+      <span class="chat-room-name">순살 단톡방</span>
+      <span class="chat-room-count">4</span>
+    </div>
+    <span class="chat-page-num">9/10</span>
+  </div>
+
+  <div class="chat-body" style="padding-top:16px;">
+
+    <div class="msg"><div class="avatar avatar-soonsal">순</div><div class="msg-content"><span class="msg-name">순살 (홍콩IB)</span><div class="msg-row"><div class="bubble"><strong>근데 역설적으로 에너지주는 잔치야. XLE 올해 +32%, OIH +41%. 전쟁 장기화되면 정유·시추 밸류체인 전체가 먹어</strong></div></div></div></div>
+    <div class="msg"><div class="avatar avatar-andrew">앤</div><div class="msg-content"><span class="msg-name">앤드류 (운용역)</span><div class="msg-row"><div class="bubble">기름값 내면서 에너지주 사면 헷지 되는 거 아냐</div></div></div></div>
+    <div class="msg"><div class="avatar avatar-soonsal">순</div><div class="msg-content"><span class="msg-name">순살 (홍콩IB)</span><div class="msg-row"><div class="bubble">ㅋㅋ 진짜 월가 논리. 주유비에 울면서 XLE 배당 받는 거</div><span class="msg-time">오전 10:13</span></div></div></div>
+    <div class="msg"><div class="avatar avatar-sean">션</div><div class="msg-content"><span class="msg-name">션 (스타트업)</span><div class="msg-row"><div class="bubble">근데 27일에 최고가격 재조정이라면서. 유가 반영되면 또 오르잖아</div></div></div></div>
+
+  </div>
+
+  <div class="chat-input-bar">
+    <div class="chat-input-fake">메시지 입력</div>
+    <div class="chat-send-btn">▶</div>
+  </div>
+</div>
+
+<!-- ================================================================
+     10p
+     ================================================================ -->
+<div class="card chat-card">
+  <div class="chat-header">
+    <div class="chat-header-left">
+      <span class="chat-header-back">‹</span>
+      <span class="chat-room-name">순살 단톡방</span>
+      <span class="chat-room-count">4</span>
+    </div>
+    <span class="chat-page-num">10/10</span>
+  </div>
+
+  <div class="chat-body" style="padding-top:16px;">
+
+    <div class="msg"><div class="avatar avatar-soonsal">순</div><div class="msg-content"><span class="msg-name">순살 (홍콩IB)</span><div class="msg-row"><div class="bubble">ㅇㅇ 전쟁 안 끝나면 가격 통제도 한계 있어</div></div></div></div>
+    <div class="msg"><div class="avatar avatar-andrew">앤</div><div class="msg-content"><span class="msg-name">앤드류 (운용역)</span><div class="msg-row"><div class="bubble">결국 강남 2,498원이 전국 평균 되는 날이 오는 건가</div><span class="msg-time">오전 10:14</span></div></div></div>
+    <div class="msg">
+  <div class="avatar avatar-sean">션</div>
+  <div class="msg-content">
+    <span class="msg-name">션 (스타트업)</span>
+    <div class="msg-row">
+      <div class="bubble">대박</div>
+    </div>
+  </div>
+</div>
+    <div class="msg">
+  <div class="avatar avatar-andrew">앤</div>
+  <div class="msg-content">
+    <span class="msg-name">앤드류 (운용역)</span>
+    <div class="msg-row">
+      <div class="bubble">나도 그거 봤어</div>
+    </div>
+  </div>
+</div>
+
+    <div class="inline-closing">
+      <img class="inline-closing-logo" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABYAAAAWCAYAAADEtGw7AAACiElEQVR42o2VMWgUQRSGvze3e5c7Q4QkBDSYUxQlokQDEpPCNAoBK8EitiIWNjZCBLW20fQqKoiVUdTGKGk0YKOCgkUwIEQEI0YSOfEwl915Fjd7TtbbxAfDzC4z//vfm/e/gfUtBxjveydwHpgGvgE1YBl4AJQAcSPTxIEmdhiYACqAZowBj0wmy8SGgacpgAiIAevmGPgOdK7FOAHtAe56YLEDtCknNTefzmJrvFyeABZSgOmwLbDi1jccyzANGnjrK97hlYxcJuErcK1JxKtS0QHc83Jo12EZAZ+At8Bz4BJQ9gFDYAyY9w40Y+n/fw0MuvLqA84Az4CvwNUkAw8zDqcZKvATuADkM6qp1zl9QkboUcpJBNxx4khqPHCXHQAFxx4311jjghT4AdwCDnisio5x2KS0SsB4AhynQv8NPAKOOybrWQnodzKfSapGHLDfCyJgFvjgesEisAT8Aqwx5A1mY6x2syrbgV1OTInZJFdp4KZmpF6aVjVrS+SJzAYZm/yLxIg0ANtLBTYUQpaqy1RrkVhV8S6xqeJWETQiOJLEVjlY7uLiSD/7uzvJ5wz5MGD09hSTM5/JGSG2yv8A1xm6vUd39zBx8gjFfIDGFikVePxqlumP8/Vo7L/pCbyQBUBEUFVGerfQWswzt1Dh5ughiq0tRNVlvlSqXJ98w+Wpd1hVhIb/xBop9BuODYxRQM8O79HK+CkdKHfpvu4OPda3TYd3bNK2lrBR57K2ShnzRSGuTba1hHF3W6lZI9KcEZW/TT5KaUGBcwn9IeC+q9dVIEZEjYjmTH2IZKp00T1dg/67FjsHW91TNCTCXkHKVrXdSVi8HNYciTngPfASeOHaKEDuD94WLV8YC7DaAAAAAElFTkSuQmCC" alt="순살">
+      <div class="inline-closing-name">순살짤</div>
+      <div class="inline-closing-handle">@soonsal.zzal</div>
+      <div class="inline-closing-cta">팔로우하면 매일 단톡방 엿볼 수 있음</div>
+      <div class="inline-closing-disclaimer">창작 콘텐츠이며 매수·매도 추천이 아닙니다<br>모든 투자 판단과 책임은 본인에게 있습니다</div>
+    </div>
+
+  </div>
+
+  <div class="chat-input-bar">
+    <div class="chat-input-fake">메시지 입력</div>
+    <div class="chat-send-btn">▶</div>
+  </div>
+</div>
+
+
+</body>
+</html>
