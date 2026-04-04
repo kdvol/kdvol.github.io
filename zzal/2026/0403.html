@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap');
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: #e8e8e8;
+    display: flex; flex-direction: column; align-items: center;
+    padding: 10px;
+    font-family: 'Noto Sans KR', 'Apple SD Gothic Neo', sans-serif;
+    gap: 32px;
+  }
+
+  .card {
+    width: 540px;
+    height: 675px;
+    border-radius: 6px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  /* ============================================================
+     1p — 커버+첫채팅 통합 (cover-chat-card)
+     ============================================================ */
+  .cover-chat-card {
+    background: #B2C7D9;
+    display: flex;
+    flex-direction: column;
+  }
+  .cover-chat-header {
+    background: rgba(0,0,0,0.12);
+    padding: 14px 20px 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .cover-chat-left { display: flex; align-items: center; gap: 8px; }
+  .cover-chat-back { font-size: 20px; color: #3a3a3a; font-weight: 700; }
+  .cover-chat-name { font-size: 18px; font-weight: 700; color: #1a1a1a; }
+  .cover-chat-count { font-size: 15px; color: #555; }
+  .cover-badge-row { display: flex; align-items: center; gap: 8px; padding: 0 20px; }
+  .cover-badge {
+    background: #E55A00;
+    color: #fff;
+    font-size: 13px;
+    font-weight: 900;
+    padding: 3px 10px;
+    border-radius: 4px;
+    letter-spacing: 0.5px;
+  }
+  .cover-date {
+    font-size: 13px;
+    color: rgba(0,0,0,0.4);
+  }
+  .cover-title-area {
+    padding: 20px 20px 12px;
+  }
+  .cover-bubble {
+    background: #fff;
+    padding: 24px 28px;
+    border-radius: 16px;
+    max-width: 100%;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.08);
+  }
+  .cover-title {
+    font-size: 52px;
+    font-weight: 900;
+    color: #111;
+    line-height: 1.3;
+    word-break: keep-all;
+  }
+  .cover-title .em { color: #E55A00; }
+  .cover-subtitle {
+    font-size: 19px;
+    color: #666;
+    line-height: 1.5;
+    margin-top: 4px;
+  }
+  .cover-etf-tickers {
+    font-size: 13px;
+    color: #E55A00;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    margin-top: 2px;
+  }
+
+  /* ============================================================
+     채팅 카드
+     ============================================================ */
+  .chat-card {
+    background: #B2C7D9;
+    display: flex;
+    flex-direction: column;
+  }
+  .chat-header {
+    background: rgba(0,0,0,0.12);
+    padding: 14px 20px 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .chat-header-left { display: flex; align-items: center; gap: 8px; }
+  .chat-header-back { font-size: 20px; color: #3a3a3a; font-weight: 700; }
+  .chat-room-name { font-size: 16px; font-weight: 700; color: #1a1a1a; }
+  .chat-room-count { font-size: 14px; color: #555; }
+  .chat-page-num { font-size: 12px; color: #666; font-weight: 500; }
+
+  .chat-body {
+    flex: 1;
+    padding: 12px 16px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .msg { display: flex; align-items: flex-start; gap: 8px; max-width: 88%; }
+  .avatar {
+    width: 36px; height: 36px; border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px; font-weight: 700; color: #fff; flex-shrink: 0;
+  }
+  .avatar-soonsal { background: #E55A00; }
+  .avatar-jun     { background: #2980B9; }
+  .avatar-andrew  { background: #C0392B; }
+  .avatar-sean    { background: #27AE60; }
+
+  .msg-content { display: flex; flex-direction: column; gap: 3px; }
+  .msg-name { font-size: 14px; font-weight: 600; color: rgba(0,0,0,0.55); padding-left: 2px; }
+  .msg-row { display: flex; align-items: flex-end; gap: 5px; }
+  .bubble {
+    background: #fff;
+    padding: 10px 14px;
+    border-radius: 12px;
+    font-size: 19px;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #111;
+    max-width: 350px;
+    word-break: keep-all;
+    overflow-wrap: break-word;
+  }
+  .bubble strong { font-weight: 700; }
+  .bubble .num { color: #C0392B; font-weight: 700; }
+  .msg-time { font-size: 12px; color: rgba(0,0,0,0.35); white-space: nowrap; flex-shrink: 0; }
+
+  .bubble-img {
+    background: #1a1a1a;
+    padding: 6px 8px;
+    border-radius: 12px;
+    overflow: hidden;
+    max-width: 310px;
+  }
+
+  .date-divider { text-align: center; padding: 10px 0 6px; }
+  .date-divider span {
+    background: rgba(0,0,0,0.15);
+    color: #fff;
+    font-size: 11px; font-weight: 500;
+    padding: 4px 12px; border-radius: 12px;
+  }
+
+  .chat-input-bar {
+    background: rgba(0,0,0,0.08);
+    padding: 10px 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .chat-input-fake {
+    flex: 1;
+    background: #fff;
+    border-radius: 20px;
+    padding: 8px 16px;
+    font-size: 13px;
+    color: #999;
+  }
+  .chat-send-btn {
+    width: 32px; height: 32px;
+    background: #F7C948;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px;
+  }
+
+  /* ============================================================
+     인라인 클로징 (마지막 카드 하단 고정 — chat-body 바깥)
+     ============================================================ */
+  .inline-closing {
+    height: 120px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 0 24px;
+    border-top: 1px solid rgba(0,0,0,0.06);
+  }
+  .inline-closing-logo {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+    flex-shrink: 0;
+  }
+  .inline-closing-text {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+  }
+  .inline-closing-name {
+    font-size: 14px;
+    font-weight: 900;
+    color: rgba(0,0,0,0.5);
+  }
+  .inline-closing-handle {
+    font-size: 11px;
+    color: rgba(0,0,0,0.3);
+  }
+  .inline-closing-cta {
+    font-size: 11px;
+    color: #E55A00;
+    font-weight: 700;
+  }
+  .inline-closing-disclaimer {
+    font-size: 9px;
+    color: rgba(0,0,0,0.25);
+    line-height: 1.4;
+  }
+</style>
+</head>
+<body>
+
+
+<!-- ================================================================
+     1p — 커버+첫채팅 통합 (cover-chat-card)
+     ================================================================ -->
+<div class="card cover-chat-card">
+  <div class="cover-chat-header">
+    <div class="cover-chat-left">
+      <span class="cover-chat-back">‹</span>
+      <span class="cover-chat-name">순살 단톡방</span>
+      <span class="cover-chat-count">4</span>
+    </div>
+    <div class="cover-badge-row">
+      <span class="cover-badge">NEW</span>
+      <span class="cover-date">2026.04.03</span>
+    </div>
+  </div>
+
+  <div class="cover-title-area">
+    <div class="cover-bubble">
+      <div class="cover-title">
+        못 먹는 음식이<br>
+        <span class="em">900만원</span>
+      </div>
+      <div class="cover-subtitle">일본 가짜 음식 산업의 비밀</div>
+      <div class="cover-etf-tickers">🍣 오늘의 썰</div>
+    </div>
+  </div>
+
+  <div class="chat-body" style="padding-top: 0;">
+    <div class="date-divider"><span>2026년 4월 3일 목요일</span></div>
+
+    <div class="msg">
+      <div class="avatar avatar-sean">션</div>
+      <div class="msg-content">
+        <span class="msg-name">션 (스타트업)</span>
+        <div class="msg-row">
+          <div class="bubble">일본 여행 가서 갓파바시 갔는데 플라스틱 스시 열쇠고리 하나에 3,000엔이야 ㅋㅋ</div>
+          <span class="msg-time">오전 9:12</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="msg">
+      <div class="avatar avatar-andrew">앤</div>
+      <div class="msg-content">
+        <span class="msg-name">앤드류 (운용역)</span>
+        <div class="msg-row">
+          <div class="bubble">진짜 스시보다 비싸네 ㅋㅋㅋ</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="chat-input-bar">
+    <div class="chat-input-fake">메시지 입력</div>
+    <div class="chat-send-btn">▶</div>
+  </div>
+</div>
+
+<!-- ================================================================
+     2p
+     ================================================================ -->
+<div class="card chat-card">
+  <div class="chat-header">
+    <div class="chat-header-left">
+      <span class="chat-header-back">‹</span>
+      <span class="chat-room-name">순살 단톡방</span>
+      <span class="chat-room-count">4</span>
+    </div>
+    <span class="chat-page-num">2/9</span>
+  </div>
+
+  <div class="chat-body" style="padding-top:16px;">
+
+    <div class="msg">
+      <div class="avatar avatar-jun">준</div>
+      <div class="msg-content">
+        <span class="msg-name">준 (리서치)</span>
+        <div class="msg-row">
+          <div class="bubble">그거 쇼쿠힌 산푸루(食品サンプル)라고 해. 일본 식당 앞에 진열하는 가짜 음식 모형인데, 이게 산업이 됐음</div>
+          <span class="msg-time">오전 9:13</span>
+        </div>
+      </div>
+    </div>
+    <div class="msg">
+      <div class="avatar avatar-jun">준</div>
+      <div class="msg-content">
+        <span class="msg-name">준 (리서치)</span>
+        <div class="msg-row">
+          <div class="bubble">업계 1위 이와사키(Iwasaki)가 시장 점유율 <strong>70%</strong>. 연매출만 50억엔 넘음. 식당 하나가 전 메뉴 모형 주문하면 <span class="num">100만엔(약 900만원)</span> 이상</div>
+        </div>
+      </div>
+    </div>
+    <div class="msg">
+      <div class="avatar avatar-andrew">앤</div>
+      <div class="msg-content">
+        <span class="msg-name">앤드류 (운용역)</span>
+        <div class="msg-row">
+          <div class="bubble">진짜 라멘 900엔인데 가짜 라멘 모형이 수만엔이라고? 🤯</div>
+        </div>
+      </div>
+    </div>
+    <div class="msg">
+      <div class="avatar avatar-soonsal">순</div>
+      <div class="msg-content">
+        <span class="msg-name">순살 (홍콩IB)</span>
+        <div class="msg-row">
+          <div class="bubble">안 썩으니까 ROI는 무한대에 가까움. 유통기한 없는 음식이라니</div>
+          <span class="msg-time">오전 9:14</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="chat-input-bar">
+    <div class="chat-input-fake">메시지 입력</div>
+    <div class="chat-send-btn">▶</div>
+  </div>
+</div>
+
+<!-- ================================================================
+     3p
+     ================================================================ -->
+<div class="card chat-card">
+  <div class="chat-header">
+    <div class="chat-header-left">
+      <span class="chat-header-back">‹</span>
+      <span class="chat-room-name">순살 단톡방</span>
+      <span class="chat-room-count">4</span>
+    </div>
+    <span class="chat-page-num">3/9</span>
+  </div>
+
+  <div class="chat-body" style="padding-top:16px;">
+
+    <div class="msg">
+      <div class="avatar avatar-sean">션</div>
+      <div class="msg-content">
+        <span class="msg-name">션 (스타트업)</span>
+        <div class="msg-row">
+          <div class="bubble">근데 이거 누가 처음 시작한 거야</div>
+        </div>
+      </div>
+    </div>
+    <div class="msg">
+      <div class="avatar avatar-jun">준</div>
+      <div class="msg-content">
+        <span class="msg-name">준 (리서치)</span>
+        <div class="msg-row">
+          <div class="bubble">1932년 이와사키 다키조라는 사람. 아내 간병하다가 양초 왁스가 바닥에 흘러내리면서 꽃 모양 만드는 걸 보고 영감 받음</div>
+          <span class="msg-time">오전 9:15</span>
+        </div>
+      </div>
+    </div>
+    <div class="msg">
+      <div class="avatar avatar-jun">준</div>
+      <div class="msg-content">
+        <span class="msg-name">준 (리서치)</span>
+        <div class="msg-row">
+          <div class="bubble">첫 작품이 아내가 만든 오므라이스를 왁스로 복제한 건데, 아내가 진짜인 줄 알고 먹으려 했다는 전설이 있음 ㅋ</div>
+        </div>
+      </div>
+    </div>
+    <div class="msg">
+      <div class="avatar avatar-andrew">앤</div>
+      <div class="msg-content">
+        <span class="msg-name">앤드류 (운용역)</span>
+        <div class="msg-row">
+          <div class="bubble">ㅋㅋㅋ 아내한테 먼저 테스트한 거네</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="chat-input-bar">
+    <div class="chat-input-fake">메시지 입력</div>
+    <div class="chat-send-btn">▶</div>
+  </div>
+</div>
+
+<!-- ================================================================
+     4p
+     ================================================================ -->
+<div class="card chat-card">
+  <div class="chat-header">
+    <div class="chat-header-left">
+      <span class="chat-header-back">‹</span>
+      <span class="chat-room-name">순살 단톡방</span>
+      <span class="chat-room-count">4</span>
+    </div>
+    <span class="chat-page-num">4/9</span>
+  </div>
+
+  <div class="chat-body" style="padding-top:16px;">
+
+    <div class="msg">
+      <div class="avatar avatar-soonsal">순</div>
+      <div class="msg-content">
+        <span class="msg-name">순살 (홍콩IB)</span>
+        <div class="msg-row">
+          <div class="bubble">타이밍이 좋았어. 메이지 유신 이후 서양 음식이 밀려들었는데 시골에서 올라온 노동자들이 스파게티가 뭔지 모르던 시대. 메뉴판으로는 설명이 안 되니까 "이걸 보고 고르세요"가 먹힌 거</div>
+          <span class="msg-time">오전 9:16</span>
+        </div>
+      </div>
+    </div>
+    <div class="msg">
+      <div class="avatar avatar-sean">션</div>
+      <div class="msg-content">
+        <span class="msg-name">션 (스타트업)</span>
+        <div class="msg-row">
+          <div class="bubble">UI/UX의 원조네 사실상 ㅋㅋ 사진 없던 시대의 프로토타입</div>
+        </div>
+      </div>
+    </div>
+    <div class="msg">
+      <div class="avatar avatar-jun">준</div>
+      <div class="msg-content">
+        <span class="msg-name">준 (리서치)</span>
+        <div class="msg-row">
+          <div class="bubble-img">
+            <svg xmlns="http://www.w3.org/2000/svg" width="260" height="150" viewBox="0 0 260 150">
+              <rect fill="#111" width="260" height="150" rx="8"></rect>
+              <text x="130" y="28" text-anchor="middle" fill="#888" font-size="12" font-family="'Noto Sans KR', sans-serif">🍣 가짜 음식 vs 진짜 음식</text>
+              <line x1="30" y1="42" x2="230" y2="42" stroke="#333"></line>
+              <text x="80" y="68" text-anchor="middle" fill="#fff" font-size="13" font-family="'Noto Sans KR', sans-serif" font-weight="500">진짜 라멘</text>
+              <text x="80" y="90" text-anchor="middle" fill="#27AE60" font-size="22" font-family="'Noto Sans KR', sans-serif" font-weight="700">¥900</text>
+              <text x="180" y="68" text-anchor="middle" fill="#fff" font-size="13" font-family="'Noto Sans KR', sans-serif" font-weight="500">가짜 라멘</text>
+              <text x="180" y="90" text-anchor="middle" fill="#E55A00" font-size="22" font-family="'Noto Sans KR', sans-serif" font-weight="700">¥50,000+</text>
+              <line x1="30" y1="105" x2="230" y2="105" stroke="#333"></line>
+              <text x="130" y="128" text-anchor="middle" fill="#888" font-size="12" font-family="'Noto Sans KR', sans-serif">유통기한: 진짜 3일 vs 가짜 ♾️</text>
+              <text x="130" y="145" text-anchor="middle" fill="#555" font-size="10" font-family="'Noto Sans KR', sans-serif">냉장 필요: YES vs NO</text>
+            </svg>
+          </div>
+          <span class="msg-time">오전 9:17</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="chat-input-bar">
+    <div class="chat-input-fake">메시지 입력</div>
+    <div class="chat-send-btn">▶</div>
+  </div>
+</div>
+
+<!-- ================================================================
+     5p
+     ================================================================ -->
+<div class="card chat-card">
+  <div class="chat-header">
+    <div class="chat-header-left">
+      <span class="chat-header-back">‹</span>
+      <span class="chat-room-name">순살 단톡방</span>
+      <span class="chat-room-count">4</span>
+    </div>
+    <span class="chat-page-num">5/9</span>
+  </div>
+
+  <div class="chat-body" style="padding-top:16px;">
+
+    <div class="msg">
+      <div class="avatar avatar-andrew">앤</div>
+      <div class="msg-content">
+        <span class="msg-name">앤드류 (운용역)</span>
+        <div class="msg-row">
+          <div class="bubble">ROI로 보면 가짜가 압살 ㅋㅋㅋ</div>
+        </div>
+      </div>
+    </div>
+    <div class="msg">
+      <div class="avatar avatar-soonsal">순</div>
+      <div class="msg-content">
+        <span class="msg-name">순살 (홍콩IB)</span>
+        <div class="msg-row">
+          <div class="bubble">재밌는 건 생산지. 도쿄 긴자 식당의 화려한 쇼윈도 모형이, 기후현 구조하치만이라는 <strong>인구 4만 산골 마을</strong>에서 만들어짐. 일본 식품 모형의 절반 이상이 이 마을 생산</div>
+          <span class="msg-time">오전 9:18</span>
+        </div>
+      </div>
+    </div>
+    <div class="msg">
+      <div class="avatar avatar-sean">션</div>
+      <div class="msg-content">
+        <span class="msg-name">션 (스타트업)</span>
+        <div class="msg-row">
+          <div class="bubble">시골이 도시 음식을 만드는 구조 ㅋ</div>
+        </div>
+      </div>
+    </div>
+    <div class="msg">
+      <div class="avatar avatar-jun">준</div>
+      <div class="msg-content">
+        <span class="msg-name">준 (리서치)</span>
+        <div class="msg-row">
+          <div class="bubble">95%가 아직도 수작업이래. PVC 녹여서 실리콘 몰드에 붓고, 에어브러시로 한 올 한 올 칠함. 라멘 한 그릇 모형 만드는 데 1~3일</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="chat-input-bar">
+    <div class="chat-input-fake">메시지 입력</div>
+    <div class="chat-send-btn">▶</div>
+  </div>
+</div>
+
+<!-- ================================================================
+     6p
+     ================================================================ -->
+<div class="card chat-card">
+  <div class="chat-header">
+    <div class="chat-header-left">
+      <span class="chat-header-back">‹</span>
+      <span class="chat-room-name">순살 단톡방</span>
+      <span class="chat-room-count">4</span>
+    </div>
+    <span class="chat-page-num">6/9</span>
+  </div>
+
+  <div class="chat-body" style="padding-top:16px;">
+
+    <div class="msg">
+      <div class="avatar avatar-andrew">앤</div>
+      <div class="msg-content">
+        <span class="msg-name">앤드류 (운용역)</span>
+        <div class="msg-row">
+          <div class="bubble">진짜 라멘은 3분이면 나오는데 가짜 라멘은 3일이 걸린다니</div>
+        </div>
+      </div>
+    </div>
+    <div class="msg">
+      <div class="avatar avatar-soonsal">순</div>
+      <div class="msg-content">
+        <span class="msg-name">순살 (홍콩IB)</span>
+        <div class="msg-row">
+          <div class="bubble">근데 이게 90년 넘게 죽지 않은 이유가 있어. 사진 시대에도 3D 모형의 주문 전환율이 더 높음. 일본 140만 식당 중 상당수가 아직도 모형 진열</div>
+          <span class="msg-time">오전 9:19</span>
+        </div>
+      </div>
+    </div>
+    <div class="msg">
+      <div class="avatar avatar-sean">션</div>
+      <div class="msg-content">
+        <span class="msg-name">션 (스타트업)</span>
+        <div class="msg-row">
+          <div class="bubble">잠깐 그러면 요즘 유튜브에서 미니어처 요리 만드는 것도 같은 맥락?</div>
+        </div>
+      </div>
+    </div>
+    <div class="msg">
+  <div class="avatar avatar-andrew">앤</div>
+  <div class="msg-content">
+    <span class="msg-name">앤드류 (운용역)</span>
+    <div class="msg-row">
+      <div class="bubble">에이 설마</div>
+    </div>
+  </div>
+</div>
+    <div class="msg">
+  <div class="avatar avatar-sean">션</div>
+  <div class="msg-content">
+    <span class="msg-name">션 (스타트업)</span>
+    <div class="msg-row">
+      <div class="bubble">에바 아님?</div>
+    </div>
+  </div>
+</div>
+  </div>
+
+  <div class="chat-input-bar">
+    <div class="chat-input-fake">메시지 입력</div>
+    <div class="chat-send-btn">▶</div>
+  </div>
+</div>
+
+<!-- ================================================================
+     7p
+     ================================================================ -->
+<div class="card chat-card">
+  <div class="chat-header">
+    <div class="chat-header-left">
+      <span class="chat-header-back">‹</span>
+      <span class="chat-room-name">순살 단톡방</span>
+      <span class="chat-room-count">4</span>
+    </div>
+    <span class="chat-page-num">7/9</span>
+  </div>
+
+  <div class="chat-body" style="padding-top:16px;">
+
+    <div class="msg">
+      <div class="avatar avatar-soonsal">순</div>
+      <div class="msg-content">
+        <span class="msg-name">순살 (홍콩IB)</span>
+        <div class="msg-row">
+          <div class="bubble">맞아. 산푸루가 "가짜 음식 산업"이면, 미니어처 쿠킹은 "진짜 음식을 진짜로 작게 만드는" 콘텐츠. 한국의 미니포레스트는 미니어처 텃밭에서 채소 수확해서 온돌방에서 삼겹살까지 구움</div>
+        </div>
+      </div>
+    </div>
+    <div class="msg">
+      <div class="avatar avatar-andrew">앤</div>
+      <div class="msg-content">
+        <span class="msg-name">앤드류 (운용역)</span>
+        <div class="msg-row">
+          <div class="bubble">그거 나도 봤는데 양초 불로 탕수육 튀기더라 ㅋㅋ 하나 만드는 데 몇 시간 걸린다면서</div>
+        </div>
+      </div>
+    </div>
+    <div class="msg">
+      <div class="avatar avatar-jun">준</div>
+      <div class="msg-content">
+        <span class="msg-name">준 (리서치)</span>
+        <div class="msg-row">
+          <div class="bubble">이 장르가 먹히는 이유 — 대사 없이 ASMR만으로 언어 장벽을 넘기니까 글로벌 도달률이 높고, 논란 제로라서 광고주가 좋아함</div>
+          <span class="msg-time">오전 9:21</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="chat-input-bar">
+    <div class="chat-input-fake">메시지 입력</div>
+    <div class="chat-send-btn">▶</div>
+  </div>
+</div>
+
+<!-- ================================================================
+     8p
+     ================================================================ -->
+<div class="card chat-card">
+  <div class="chat-header">
+    <div class="chat-header-left">
+      <span class="chat-header-back">‹</span>
+      <span class="chat-room-name">순살 단톡방</span>
+      <span class="chat-room-count">4</span>
+    </div>
+    <span class="chat-page-num">8/9</span>
+  </div>
+
+  <div class="chat-body" style="padding-top:16px;">
+
+    <div class="msg">
+      <div class="avatar avatar-soonsal">순</div>
+      <div class="msg-content">
+        <span class="msg-name">순살 (홍콩IB)</span>
+        <div class="msg-row">
+          <div class="bubble"><strong>정리하면 — 진짜보다 비싸고, 진짜보다 오래가고, 진짜보다 많이 봄. 못 먹는 음식이 먹는 음식보다 돈이 되는 역설은 1932년부터 지금까지 계속 중</strong></div>
+        </div>
+      </div>
+    </div>
+    <div class="msg">
+      <div class="avatar avatar-sean">션</div>
+      <div class="msg-content">
+        <span class="msg-name">션 (스타트업)</span>
+        <div class="msg-row">
+          <div class="bubble">나 갓파바시에서 산 스시 열쇠고리 아직도 가방에 달고 다님... 진짜 스시는 3분 만에 먹었는데 가짜 스시는 2년째 같이 다니는 중</div>
+          <span class="msg-time">오전 9:22</span>
+        </div>
+      </div>
+    </div>
+    <div class="msg">
+  <div class="avatar avatar-andrew">앤</div>
+  <div class="msg-content">
+    <span class="msg-name">앤드류 (운용역)</span>
+    <div class="msg-row">
+      <div class="bubble">아 미쳤다 진짜</div>
+    </div>
+  </div>
+</div>
+    <div class="msg">
+  <div class="avatar avatar-sean">션</div>
+  <div class="msg-content">
+    <span class="msg-name">션 (스타트업)</span>
+    <div class="msg-row">
+      <div class="bubble">대박</div>
+    </div>
+  </div>
+</div>
+  </div>
+
+  <div class="chat-input-bar">
+    <div class="chat-input-fake">메시지 입력</div>
+    <div class="chat-send-btn">▶</div>
+  </div>
+</div>
+
+<!-- ================================================================
+     9p
+     ================================================================ -->
+<div class="card chat-card">
+  <div class="chat-header">
+    <div class="chat-header-left">
+      <span class="chat-header-back">‹</span>
+      <span class="chat-room-name">순살 단톡방</span>
+      <span class="chat-room-count">4</span>
+    </div>
+    <span class="chat-page-num">9/9</span>
+  </div>
+
+  <div class="chat-body" style="padding-top:16px;">
+
+    <div class="msg">
+      <div class="avatar avatar-andrew">앤</div>
+      <div class="msg-content">
+        <span class="msg-name">앤드류 (운용역)</span>
+        <div class="msg-row">
+          <div class="bubble">그게 바로 ROI 무한대의 증거 아니냐 ㅋㅋ</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+    <div class="inline-closing">
+      <img class="inline-closing-logo" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABYAAAAWCAYAAADEtGw7AAACiElEQVR42o2VMWgUQRSGvze3e5c7Q4QkBDSYUxQlokQDEpPCNAoBK8EitiIWNjZCBLW20fQqKoiVUdTGKGk0YKOCgkUwIEQEI0YSOfEwl915Fjd7TtbbxAfDzC4z//vfm/e/gfUtBxjveydwHpgGvgE1YBl4AJQAcSPTxIEmdhiYACqAZowBj0wmy8SGgacpgAiIAevmGPgOdK7FOAHtAe56YLEDtCknNTefzmJrvFyeABZSgOmwLbDi1jccyzANGnjrK97hlYxcJuErcK1JxKtS0QHc83Jo12EZAZ+At8Bz4BJQ9gFDYAyY9w40Y+n/fw0MuvLqA84Az4CvwNUkAw8zDqcZKvATuADkM6qp1zl9QkboUcpJBNxx4khqPHCXHQAFxx4311jjghT4AdwCDnisio5x2KS0SsB4AhynQv8NPAKOOybrWQnodzKfSapGHLDfCyJgFvjgesEisAT8Aqwx5A1mY6x2syrbgV1OTInZJFdp4KZmpF6aVjVrS+SJzAYZm/yLxIg0ANtLBTYUQpaqy1RrkVhV8S6xqeJWETQiOJLEVjlY7uLiSD/7uzvJ5wz5MGD09hSTM5/JGSG2yv8A1xm6vUd39zBx8gjFfIDGFikVePxqlumP8/Vo7L/pCbyQBUBEUFVGerfQWswzt1Dh5ughiq0tRNVlvlSqXJ98w+Wpd1hVhIb/xBop9BuODYxRQM8O79HK+CkdKHfpvu4OPda3TYd3bNK2lrBR57K2ShnzRSGuTba1hHF3W6lZI9KcEZW/TT5KaUGBcwn9IeC+q9dVIEZEjYjmTH2IZKp00T1dg/67FjsHW91TNCTCXkHKVrXdSVi8HNYciTngPfASeOHaKEDuD94WLV8YC7DaAAAAAElFTkSuQmCC" alt="순살">
+      <div class="inline-closing-text">
+        <div class="inline-closing-name">순살짤 <span class="inline-closing-handle">@soonsal.zzal</span></div>
+        <div class="inline-closing-cta">팔로우하면 매일 단톡방 엿볼 수 있음</div>
+        <div class="inline-closing-disclaimer">창작 콘텐츠이며 매수·매도 추천이 아닙니다 | 모든 투자 판단과 책임은 본인에게 있습니다</div>
+      </div>
+    </div>
+
+  <div class="chat-input-bar">
+    <div class="chat-input-fake">메시지 입력</div>
+    <div class="chat-send-btn">▶</div>
+  </div>
+</div>
+
+
+</body>
+</html>
