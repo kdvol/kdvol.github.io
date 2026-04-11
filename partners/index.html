@@ -676,4 +676,19 @@ document.addEventListener('keydown', function(e) {
 function logView(email) {
   const data = {
     email: email,
-    timesta
+    timestamp: new Date().toISOString(),
+    page: 'partnership'
+  };
+
+  if (GOOGLE_SHEET_URL && GOOGLE_SHEET_URL !== '') {
+    fetch(GOOGLE_SHEET_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    }).catch(() => {});
+  }
+}
+</script>
+</body>
+</html>
