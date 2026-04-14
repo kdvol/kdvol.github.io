@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EP.01 — 전 세계가 달러 보험에 꽂혔는데, 우리만 겁먹은 이유</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --dark: #1a1a2e;
+    --blue: #0f3460;
+    --accent: #e94560;
+    --ablue: #2563eb;
+    --gray: #64748b;
+    --lgray: #94a3b8;
+    --bg: #ffffff;
+    --light-bg: #f8fafc;
+    --soft-red: #fef2f2;
+    --soft-blue: #eff6ff;
+    --border: #e2e8f0;
+    --radius: 10px;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    font-family: 'Noto Sans KR', -apple-system, sans-serif;
+    color: var(--dark);
+    background: #f1f5f9;
+    line-height: 1.75;
+    -webkit-font-smoothing: antialiased;
+  }
+  .page {
+    max-width: 780px;
+    margin: 0 auto;
+    background: var(--bg);
+    box-shadow: 0 1px 24px rgba(0,0,0,0.06);
+  }
+
+  /* Header */
+  .header {
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+    color: white;
+    padding: 52px 48px 44px;
+  }
+  .header .tag {
+    font-size: 11px;
+    font-weight: 500;
+    color: rgba(255,255,255,0.4);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 22px;
+  }
+  .header h1 {
+    font-size: 26px;
+    font-weight: 900;
+    line-height: 1.4;
+    margin-bottom: 16px;
+    letter-spacing: -0.5px;
+  }
+  .header .subtitle {
+    font-size: 14px;
+    font-weight: 300;
+    color: rgba(255,255,255,0.65);
+    line-height: 1.7;
+  }
+
+  /* Content */
+  .content { padding: 44px 48px 52px; }
+  .section-label {
+    display: inline-block;
+    background: var(--blue);
+    color: white;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 4px 12px;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    letter-spacing: 0.5px;
+  }
+  h2 {
+    font-size: 19px;
+    font-weight: 700;
+    color: var(--dark);
+    margin-bottom: 16px;
+    line-height: 1.4;
+    letter-spacing: -0.3px;
+  }
+  .body-text {
+    font-size: 14.5px;
+    color: #334155;
+    margin-bottom: 18px;
+    line-height: 1.8;
+  }
+  .divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 40px 0;
+  }
+
+  /* Highlight Box */
+  .insight-box {
+    background: var(--light-bg);
+    border-left: 4px solid var(--blue);
+    padding: 20px 24px;
+    margin: 22px 0;
+    border-radius: 0 var(--radius) var(--radius) 0;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--blue);
+    line-height: 1.75;
+  }
+
+  /* Tables */
+  .table-wrap { overflow-x: auto; margin: 18px 0; }
+  .data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+    min-width: 500px;
+  }
+  .data-table caption {
+    text-align: left;
+    font-weight: 700;
+    font-size: 14px;
+    margin-bottom: 10px;
+    color: var(--dark);
+    caption-side: top;
+  }
+  .data-table thead th {
+    background: var(--dark);
+    color: white;
+    padding: 11px 10px;
+    font-weight: 600;
+    text-align: center;
+    font-size: 12px;
+    white-space: nowrap;
+  }
+  .data-table thead th:first-child { text-align: left; padding-left: 14px; }
+  .data-table thead th small { font-weight: 400; opacity: 0.8; }
+  .data-table tbody td {
+    padding: 11px 10px;
+    border-bottom: 1px solid var(--border);
+    text-align: center;
+    vertical-align: middle;
+    word-break: keep-all;
+  }
+  .data-table tbody td:first-child { text-align: left; font-weight: 500; padding-left: 14px; }
+  .data-table tbody tr:nth-child(even) { background: #f8fafc; }
+  .em { font-weight: 700; color: var(--blue); }
+  .source {
+    font-size: 11px;
+    color: var(--lgray);
+    margin-top: 8px;
+    line-height: 1.6;
+  }
+
+  /* Bar Charts */
+  .chart-block { margin: 26px 0; }
+  .chart-title {
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    color: var(--dark);
+  }
+  .chart-sub {
+    font-size: 12.5px;
+    font-weight: 600;
+    color: var(--gray);
+    margin: 20px 0 10px;
+  }
+  .bar-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 7px;
+    height: 28px;
+  }
+  .bar-label {
+    width: 52px;
+    font-size: 12px;
+    font-weight: 500;
+    text-align: right;
+    padding-right: 10px;
+    color: var(--gray);
+    flex-shrink: 0;
+  }
+  .bar-track {
+    flex: 1;
+    height: 22px;
+    background: #f1f5f9;
+    border-radius: 4px;
+    position: relative;
+  }
+  .bar-fill {
+    height: 100%;
+    border-radius: 4px;
+    position: relative;
+  }
+  .bar-fill.c-red { background: #ef4444; }
+  .bar-fill.c-orange { background: #f97316; }
+  .bar-fill.c-blue { background: #3b82f6; }
+  .bar-fill.c-green { background: #22c55e; }
+  .bar-val {
+    position: absolute;
+    right: -52px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--dark);
+    white-space: nowrap;
+  }
+  .bar-fill[data-inside="true"] .bar-val {
+    right: 8px;
+    color: white;
+  }
+  .bar-note-area {
+    width: 100px;
+    font-size: 10px;
+    color: var(--lgray);
+    padding-left: 56px;
+    flex-shrink: 0;
+  }
+  .bar-note-area.warn { color: var(--accent); font-weight: 600; }
+
+  /* Scenario Cards */
+  .case-card {
+    background: var(--soft-blue);
+    border-radius: var(--radius);
+    padding: 26px 28px;
+    margin: 18px 0;
+  }
+  .case-card .tag-line {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--ablue);
+    margin-bottom: 6px;
+    letter-spacing: 0.3px;
+  }
+  .case-card h3 {
+    font-size: 15.5px;
+    font-weight: 700;
+    color: var(--dark);
+    margin-bottom: 10px;
+    line-height: 1.4;
+  }
+  .case-card p {
+    font-size: 13.5px;
+    color: #475569;
+    line-height: 1.75;
+  }
+
+  /* Compare Grid */
+  .compare-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin: 22px 0;
+  }
+  .cmp-box {
+    padding: 22px 24px;
+    border-radius: var(--radius);
+  }
+  .cmp-box.bad { background: var(--soft-red); }
+  .cmp-box.good { background: var(--soft-blue); }
+  .cmp-box h4 { font-size: 14px; font-weight: 700; margin-bottom: 10px; }
+  .cmp-box.bad h4 { color: var(--accent); }
+  .cmp-box.good h4 { color: var(--ablue); }
+  .cmp-box ul { list-style: none; font-size: 13px; line-height: 1.9; color: #475569; }
+  .cmp-box ul li::before { content:"•"; margin-right: 6px; }
+
+  /* FAQ */
+  .faq-item {
+    border-bottom: 1px solid var(--border);
+    padding: 18px 0;
+  }
+  .faq-item:last-child { border-bottom: none; }
+  .faq-q {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--dark);
+    margin-bottom: 8px;
+    display: flex;
+    gap: 8px;
+  }
+  .faq-q .q-mark {
+    color: var(--ablue);
+    font-weight: 900;
+    flex-shrink: 0;
+  }
+  .faq-a {
+    font-size: 13.5px;
+    color: #475569;
+    line-height: 1.75;
+    padding-left: 22px;
+  }
+
+  /* Not-for Box */
+  .caution-box {
+    background: #fffbeb;
+    border: 1px solid #fde68a;
+    border-radius: var(--radius);
+    padding: 22px 26px;
+    margin: 22px 0;
+  }
+  .caution-box h4 {
+    font-size: 14px;
+    font-weight: 700;
+    color: #92400e;
+    margin-bottom: 10px;
+  }
+  .caution-box ul {
+    list-style: none;
+    font-size: 13px;
+    color: #78350f;
+    line-height: 1.8;
+  }
+  .caution-box ul li::before { content:"⚠ "; }
+
+  /* CTA Box */
+  .cta-box {
+    background: linear-gradient(135deg, #0f3460, #1e40af);
+    color: white;
+    border-radius: var(--radius);
+    padding: 34px 32px;
+    text-align: center;
+    margin: 36px 0;
+  }
+  .cta-box h3 { font-size: 17px; font-weight: 700; margin-bottom: 14px; }
+  .cta-box p { font-size: 14.5px; font-weight: 400; line-height: 1.8; opacity: 0.92; }
+
+  /* Footer */
+  .footer {
+    padding: 28px 48px;
+    border-top: 1px solid var(--border);
+    background: #fafbfc;
+  }
+  .footer .disclaimer {
+    font-size: 11px;
+    color: var(--lgray);
+    line-height: 1.65;
+    margin-bottom: 14px;
+  }
+  .footer .brand {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--lgray);
+    text-align: center;
+  }
+
+  /* Mobile */
+  @media (max-width: 640px) {
+    .header { padding: 36px 24px 32px; }
+    .header h1 { font-size: 21px; }
+    .header .subtitle { font-size: 13px; }
+    .content { padding: 28px 20px 36px; }
+    h2 { font-size: 17px; }
+    .body-text { font-size: 13.5px; }
+    .compare-grid { grid-template-columns: 1fr; }
+    .bar-label { width: 44px; font-size: 11px; }
+    .bar-note-area { width: 80px; padding-left: 48px; font-size: 9px; }
+    .case-card { padding: 20px 20px; }
+    .footer { padding: 24px 20px; }
+    .data-table { font-size: 12px; }
+    .insight-box { font-size: 13px; padding: 16px 18px; }
+  }
+
+  /* Print */
+  @media print {
+    body { background: white; }
+    .page { box-shadow: none; max-width: 100%; }
+    .case-card, .data-table, .chart-block, .faq-item { break-inside: avoid; }
+    .header { break-after: avoid; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- ===== HEADER ===== -->
+  <div class="header">
+    <div class="tag">AIA × SOONSAL &nbsp;|&nbsp; 달러로 설계하는 시대 EP.01</div>
+    <h1>전 세계가 달러 보험에 꽂혔는데,<br>우리만 겁먹은 이유</h1>
+    <div class="subtitle">
+      글로벌 외화보험 트렌드부터 한국 시장 데이터, 환율 시나리오별 시뮬레이션,<br>
+      세금 비교까지 — 자산 설계 관점에서 달러보험을 정리했습니다.
+    </div>
+  </div>
+
+  <div class="content">
+
+    <!-- ===== 01 JAPAN ===== -->
+    <div class="section-label">01</div>
+    <h2>일본이 먼저 걸었던 길 — 10년의 데이터</h2>
+    <p class="body-text">
+      일본 보험업계는 2010년대 초반, 자국 금리가 0%대에 갇히면서 달러·호주 달러로 운용하는
+      외화보험을 대규모로 판매하기 시작했습니다. 일부 대형 생보사는 전체 투자자산의 30% 이상을
+      외화 채권에 배분했는데, 이는 다른 나라 보험사에서는 볼 수 없는 독특한 구조였습니다.
+    </p>
+    <div class="table-wrap">
+    <table class="data-table">
+      <caption>▶ 일본 외화보험 시장 추이</caption>
+      <thead><tr><th>구분</th><th>2015년</th><th>2018년</th><th>2021년</th><th>특징</th></tr></thead>
+      <tbody>
+        <tr><td>외화보험 수입보험료</td><td>약 2조엔</td><td>약 4.5조엔</td><td>약 3조엔</td><td>피크 후 조정국면</td></tr>
+        <tr><td>생보사 외화채권 비중</td><td>~20%</td><td class="em">~30%</td><td>~25%</td><td>다른 나라 대비 압도적</td></tr>
+        <tr><td>민원 중 70세+ 비율</td><td>—</td><td>~50%</td><td>~50%</td><td>고령자 불완전판매 이슈</td></tr>
+        <tr><td>주력 통화</td><td>USD, AUD</td><td>USD, AUD</td><td>USD 집중</td><td>엔화 약세로 USD 쏠림</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <p class="source">출처: SOA Actuary Magazine (2026.02), EIOPA Japan Insurance Report, 각 언론 종합</p>
+    <div class="insight-box">
+      <strong>핵심:</strong> 일본의 외화보험 확대는 일시적 유행이 아니라
+      <strong>"자국 통화 저금리 + 인구 고령화"</strong>라는 구조적 조건이 만들어낸 필연적 수요.
+      한국도 지금 똑같은 조건 위에 서 있습니다.
+    </div>
+
+    <hr class="divider">
+
+    <!-- ===== 02 KOREA DATA ===== -->
+    <div class="section-label">02</div>
+    <h2>한국 시장 — 숫자로 보는 현재</h2>
+    <div class="table-wrap">
+    <table class="data-table">
+      <caption>▶ 달러보험 판매 추이</caption>
+      <thead><tr><th>구분</th><th>2023년</th><th>2024년</th><th>2025년 (1~10월)</th><th>증감</th></tr></thead>
+      <tbody>
+        <tr><td>판매 건수</td><td>1.2만</td><td>4.1만</td><td class="em">9.5만</td><td class="em">2년간 8배</td></tr>
+        <tr><td>5대은행 판매액</td><td>5,679억</td><td>9,703억</td><td class="em">1.7조원</td><td class="em">YoY +75%</td></tr>
+        <tr><td>수입보험료</td><td>—</td><td>2.3조원</td><td class="em">2.9조원</td><td>+26.3%</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <p class="source">출처: 금감원 소비자경보(2025.02), 경향신문·이투데이·보험저널 보도 종합</p>
+
+    <!-- Bar Charts -->
+    <div class="chart-block">
+      <div class="chart-title">▶ 가계 자산 구조 국제 비교 (2024년 기준)</div>
+
+      <p class="chart-sub">비금융자산(부동산 등) 비중</p>
+      <div class="bar-row">
+        <span class="bar-label">한국</span>
+        <div class="bar-track"><div class="bar-fill c-red" data-inside="true" style="width:64.5%"><span class="bar-val">64.5%</span></div></div>
+        <span class="bar-note-area warn">주요국 최고</span>
+      </div>
+      <div class="bar-row">
+        <span class="bar-label">영국</span>
+        <div class="bar-track"><div class="bar-fill c-orange" data-inside="true" style="width:51.6%"><span class="bar-val">51.6%</span></div></div>
+        <span class="bar-note-area"></span>
+      </div>
+      <div class="bar-row">
+        <span class="bar-label">일본</span>
+        <div class="bar-track"><div class="bar-fill c-blue" data-inside="true" style="width:36.4%"><span class="bar-val">36.4%</span></div></div>
+        <span class="bar-note-area">'23년 기준</span>
+      </div>
+      <div class="bar-row">
+        <span class="bar-label">미국</span>
+        <div class="bar-track"><div class="bar-fill c-green" data-inside="true" style="width:32%"><span class="bar-val">32.0%</span></div></div>
+        <span class="bar-note-area"></span>
+      </div>
+
+      <p class="chart-sub">금융자산 내 현금·예금 비중</p>
+      <div class="bar-row">
+        <span class="bar-label">일본</span>
+        <div class="bar-track"><div class="bar-fill c-orange" data-inside="true" style="width:50.9%"><span class="bar-val">50.9%</span></div></div>
+        <span class="bar-note-area">감소 추세</span>
+      </div>
+      <div class="bar-row">
+        <span class="bar-label">한국</span>
+        <div class="bar-track"><div class="bar-fill c-red" data-inside="true" style="width:46.3%"><span class="bar-val">46.3%</span></div></div>
+        <span class="bar-note-area warn">증가 추세 ↑</span>
+      </div>
+      <div class="bar-row">
+        <span class="bar-label">영국</span>
+        <div class="bar-track"><div class="bar-fill c-blue" data-inside="true" style="width:33.9%"><span class="bar-val">33.9%</span></div></div>
+        <span class="bar-note-area"></span>
+      </div>
+      <div class="bar-row">
+        <span class="bar-label">미국</span>
+        <div class="bar-track"><div class="bar-fill c-green" style="width:12.6%"><span class="bar-val">12.6%</span></div></div>
+        <span class="bar-note-area"></span>
+      </div>
+
+      <p class="chart-sub">금융자산 내 금융투자상품 비중</p>
+      <div class="bar-row">
+        <span class="bar-label">미국</span>
+        <div class="bar-track"><div class="bar-fill c-green" data-inside="true" style="width:56.1%"><span class="bar-val">56.1%</span></div></div>
+        <span class="bar-note-area">증가 추세</span>
+      </div>
+      <div class="bar-row">
+        <span class="bar-label">한국</span>
+        <div class="bar-track"><div class="bar-fill c-red" style="width:24%"><span class="bar-val">24.0%</span></div></div>
+        <span class="bar-note-area warn">유일하게 감소 ↓</span>
+      </div>
+      <div class="bar-row">
+        <span class="bar-label">일본</span>
+        <div class="bar-track"><div class="bar-fill c-blue" style="width:20.9%"><span class="bar-val">20.9%</span></div></div>
+        <span class="bar-note-area">증가 추세</span>
+      </div>
+      <div class="bar-row">
+        <span class="bar-label">영국</span>
+        <div class="bar-track"><div class="bar-fill c-orange" style="width:17.3%"><span class="bar-val">17.3%</span></div></div>
+        <span class="bar-note-area"></span>
+      </div>
+
+      <p class="source">출처: 전경련(FKI) "주요국 가계 자산 구성 비교 및 정책과제" (2025)</p>
+    </div>
+
+    <div class="insight-box">
+      한국 가계는 주요국 중 부동산 비중이 가장 높고(64.5%), 금융자산 내에서도 현금·예금 편중이 심합니다.<br>
+      <strong>"원화 + 부동산" 집중 구조에서 통화 분산은 선택이 아니라 구조적 필요입니다.</strong>
+    </div>
+
+    <hr class="divider">
+
+    <!-- ===== 03 SCENARIOS ===== -->
+    <div class="section-label">03</div>
+    <h2>실제 고객들은 이렇게 활용하고 있습니다</h2>
+    <p class="body-text">
+      달러보험은 "환율이 오를 것 같으니까" 가입하는 상품이 아닙니다.
+      구체적인 목적에 맞춰 설계할 때 가치가 극대화됩니다.
+    </p>
+
+    <div class="case-card">
+      <div class="tag-line">Case A &nbsp;|&nbsp; 40대 · 맞벌이 부부</div>
+      <h3>자녀 유학 자금 — 10년 후 환율 걱정 없이 준비</h3>
+      <p>
+        10년 후 미국 대학 학비로 연 $50,000 이상이 필요합니다.
+        지금 원화로 저축하면 환율이 1,600원이 됐을 때 연 8,000만원을 내야 하지만,
+        달러로 적립해두면 환율에 관계없이 $50,000을 그대로 쓸 수 있습니다.
+        유니버셜 기능이 있는 상품은 중도인출이 가능해 유학 시점에 맞춘 인출 설계가 가능합니다.
+      </p>
+    </div>
+
+    <div class="case-card">
+      <div class="tag-line">Case B &nbsp;|&nbsp; 50대 · 자영업자</div>
+      <h3>은퇴 자금 — 원화 연금과 달러 연금을 병행</h3>
+      <p>
+        국민연금 외에 원화 연금보험을 보유 중이지만, 원화 약세 시 연금의 실질 구매력이 떨어질 우려가 있습니다.
+        달러 연금보험을 병행 설계하면, 원화가 약해질 때 달러 연금의 원화 환산액이 올라가는
+        자연적 헤지 효과가 생깁니다.
+        AIA생명 글로벌 파워 미국달러 연금보험의 경우 10년간 가입 시점 금리(2026년 1월 기준 연복리 4.75%)가 확정 적용됩니다.
+      </p>
+    </div>
+
+    <div class="case-card">
+      <div class="tag-line">Case C &nbsp;|&nbsp; 60대 · 자산가</div>
+      <h3>세대 간 자산 이전 — 종신보험의 레버리지</h3>
+      <p>
+        상속세 최고 50%의 부담을 줄이고 싶습니다. 달러 종신보험에 가입하면,
+        납입한 보험료 대비 사망보험금이 레버리지로 설계됩니다.
+        예를 들어, 보험가입금액 $100,000 종신보험을 20년 납입할 경우
+        환율 1,400원 기준 약 1.4억원의 사망보험금이 유족에게 달러로 지급됩니다.
+        ETF나 예금에는 없는 "사망보장 + 통화 분산 + 세대 이전"이 동시에 설계되는 구조입니다.
+      </p>
+    </div>
+
+    <hr class="divider">
+
+    <!-- ===== 04 SIMULATION ===== -->
+    <div class="section-label">04</div>
+    <h2>환율 시나리오별 수익률 시뮬레이션</h2>
+    <p class="body-text">
+      달러보험의 성과는 환율에 따라 달라집니다. 아래는 <strong>월 $300 납입, 10년 납</strong> 기준 예시입니다.
+      가입 시점 환율 1,400원을 가정합니다.
+    </p>
+
+    <div class="table-wrap">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>구분</th>
+          <th>가입 시</th>
+          <th style="background:#ef4444">만기 시 1,200원<br><small>원화 강세</small></th>
+          <th style="background:#3b82f6">만기 시 1,400원<br><small>보합</small></th>
+          <th style="background:#22c55e">만기 시 1,600원<br><small>원화 약세</small></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>총 납입액</td><td>$36,000</td><td>$36,000</td><td>$36,000</td><td>$36,000</td></tr>
+        <tr><td>납입액 원화환산</td><td>5,040만원</td><td>5,040만원</td><td>5,040만원</td><td>5,040만원</td></tr>
+        <tr><td>적립금 (USD 기준)</td><td>—</td><td colspan="3" style="text-align:center">달러 기준 적립 이율에 따라 원금 대비 증가 (사업비 차감 후)</td></tr>
+        <tr><td>적립금 원화환산</td><td>—</td><td>원화 강세 → 원화 기준 수익 축소</td><td class="em">환율 보합 → 이율 수익만큼 증가</td><td class="em">원화 약세 → 이율+환차익 동시</td></tr>
+        <tr><td>비과세 여부</td><td>—</td><td>비과세*</td><td>비과세*</td><td>비과세*</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <p class="source">
+      * 비과세 요건: 10년 이상 유지 + 월 납입 150만원 이하(또는 일시납 1억 이하). 상품·가입조건에 따라 상이.<br>
+      ※ 본 시뮬레이션은 이해를 돕기 위한 구조 설명이며, 실제 적립금·환급금은 상품별 사업비·공시이율에 따라 달라집니다.
+    </p>
+
+    <div class="insight-box">
+      환율이 하락하더라도 달러 기준 적립 수익이 있어 손실이 완충되는 구조.<br>
+      환율 보합이면 이율 수익, 원화 약세면 이율+환차익이 동시에 발생합니다.<br>
+      <strong>그리고 세 가지 시나리오 모두 — 비과세 요건 충족 시 세금 0원.</strong>
+    </div>
+
+    <hr class="divider">
+
+    <!-- ===== 05 TAX COMPARISON ===== -->
+    <div class="section-label">05</div>
+    <h2>달러보험 vs ETF vs 예금 — 세금 비교</h2>
+    <p class="body-text">
+      같은 1,000만원 수익이 발생했을 때, 세후 수령액이 얼마나 달라지는지 비교합니다.
+    </p>
+
+    <div class="table-wrap">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>구분</th>
+          <th style="background:var(--blue)">달러보험<br><small>(비과세 충족 시)</small></th>
+          <th>국내상장 해외ETF</th>
+          <th>해외상장 ETF</th>
+          <th>달러 예금</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>과세 유형</td><td class="em">비과세</td><td>배당소득세 15.4%</td><td>양도소득세 22%</td><td>이자소득세 15.4%</td></tr>
+        <tr><td>세금액</td><td class="em">0원</td><td>154만원</td><td>165만원*</td><td>154만원</td></tr>
+        <tr><td>세후 수령액</td><td class="em">1,000만원</td><td>846만원</td><td>835만원</td><td>846만원</td></tr>
+        <tr><td>종합과세 위험</td><td class="em">없음</td><td>금융소득 2천만원 초과 시</td><td>없음 (분리과세)</td><td>금융소득 2천만원 초과 시</td></tr>
+        <tr><td>사망보장</td><td class="em">O (종신보험)</td><td>X</td><td>X</td><td>X</td></tr>
+        <tr><td>유동성</td><td>낮음 (장기설계)</td><td>높음 (즉시매도)</td><td>높음 (즉시매도)</td><td>중간 (만기)</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <p class="source">* 해외ETF 양도소득세: 250만원 공제 후 22% 적용, (1,000−250)×22% = 165만원</p>
+
+    <hr class="divider">
+
+    <!-- ===== 06 REGULATOR ===== -->
+    <div class="section-label">06</div>
+    <h2>금감원 경보의 의미 — 문제는 상품이 아니라 방식</h2>
+    <p class="body-text">
+      2025년 2월 금감원은 달러보험에 소비자경보(주의)를 발령했습니다.
+      일본에서도 동일한 패턴(고령자 대상 불완전판매)이 반복됐기에 선제 대응한 것인데,
+      핵심은 상품 자체가 아니라 판매 방식이었습니다.
+    </p>
+    <div class="compare-grid">
+      <div class="cmp-box bad">
+        <h4>✕ 문제가 된 접근</h4>
+        <ul>
+          <li>"환율 1,500원 간다, 지금 들어야"</li>
+          <li>환차익만 강조, 손실 구조 설명 부족</li>
+          <li>고령자에게 불충분한 상품 설명</li>
+          <li>단기 환테크 상품으로 오인 유도</li>
+        </ul>
+      </div>
+      <div class="cmp-box good">
+        <h4>✓ 올바른 접근</h4>
+        <ul>
+          <li>"이 돈은 10년 이상 안 건드릴 수 있나요?"</li>
+          <li>환율 하락 시나리오까지 충분히 설명</li>
+          <li>통화 분산 관점의 장기 설계</li>
+          <li>ETF·예금과의 차이점 투명 비교</li>
+        </ul>
+      </div>
+    </div>
+
+    <hr class="divider">
+
+    <!-- ===== 07 AIA POSITIONING ===== -->
+    <div class="section-label">07</div>
+    <h2>왜 AIA생명인가</h2>
+    <p class="body-text">
+      국내에서 달러보험을 취급하는 곳은 여러 외국계·국내 보험사가 있습니다.
+      대부분 종신이나 연금 중 한두 가지 상품에 집중하는 반면,
+      AIA생명은 달러 종신·연금·거치형·유니버셜까지 고객 목적에 맞는 설계가 가능한 라인업을 갖추고 있습니다.
+    </p>
+
+    <div class="table-wrap">
+    <table class="data-table">
+      <caption>▶ AIA생명 달러보험 라인업</caption>
+      <thead><tr><th>상품 유형</th><th>핵심 특징</th><th>이런 분에게 적합</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>달러 유니버셜 종신</td>
+          <td>사망보장 + 중도인출·추가납입<br><span class="source">공시이율 연동 (최저보증 연복리 1.0%)</span></td>
+          <td>자산 이전 + 유동성 필요</td>
+        </tr>
+        <tr>
+          <td>달러 연금 (10년 확정)</td>
+          <td>가입 시점 금리 10년간 확정<br><span class="source">이율확정기간 중 해지 시 MVA 적용</span></td>
+          <td>금리 인하기 진입 원하는 고객</td>
+        </tr>
+        <tr>
+          <td>달러 연금 (거치형)</td>
+          <td>거치 후 연금 수령</td>
+          <td>은퇴 자금 대비</td>
+        </tr>
+        <tr>
+          <td>글로벌 파워 달러 연금</td>
+          <td>공시이율 연동 + 최저보증<br><span class="source">2026년 1월 공시이율 연복리 4.75%</span></td>
+          <td>안정성 + 수익성 균형</td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+    <p class="source">
+      모회사 AIA Group은 홍콩에 본사를 두고 아시아 18개국에서 사업하는 아시아 최대 독립 상장 생보사입니다.
+      외화 자산운용 경험이 축적되어 있으며, 예금자보호법에 따라 보호됩니다.<br>
+      ※ 공시이율은 매월 변동될 수 있으며, 상품별 세부 조건은 상품설명서 및 약관을 참조하시기 바랍니다.
+    </p>
+
+    <hr class="divider">
+
+    <!-- ===== 08 FAQ ===== -->
+    <div class="section-label">08</div>
+    <h2>자주 묻는 질문</h2>
+
+    <div class="faq-item">
+      <div class="faq-q"><span class="q-mark">Q</span> 환율이 떨어지면 원금 손실이 나나요?</div>
+      <p class="faq-a">
+        달러 기준으로는 공시이율에 따라 적립금이 증가하므로, 환율이 하락하더라도 달러 기준 원금 이상은 보전됩니다(10년 이상 유지 시).
+        다만 원화로 환산했을 때의 가치는 환율에 따라 달라질 수 있으며, 가입 시점보다 환율이 크게 하락하면 원화 기준 수령액이 납입액보다 적을 수 있습니다.
+      </p>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q"><span class="q-mark">Q</span> 중간에 해지하면 어떻게 되나요?</div>
+      <p class="faq-a">
+        보험상품 특성상 초기 몇 년간은 해약환급금이 납입한 보험료보다 적습니다.
+        일반적으로 가입 후 1~2년 내 해지 시 환급률이 30~50% 수준이며,
+        납입 기간이 끝난 뒤에야 원금 이상 환급이 가능해집니다.
+        따라서 10년 이상 유지할 수 있는 자금으로 가입하는 것이 중요합니다.
+      </p>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q"><span class="q-mark">Q</span> 비과세 조건이 정확히 뭔가요?</div>
+      <p class="faq-a">
+        저축성보험의 비과세 요건은 일반적으로 월 납입 150만원 이하 + 5년 이상 납입 + 10년 이상 유지입니다.
+        일시납의 경우 1억원 이하 + 10년 이상 유지가 기준입니다.
+        종신연금형은 별도 요건(55세 이후 개시, 사망 시 소멸 등)을 충족하면 가입금액 제한 없이 비과세가 가능합니다.
+        상품별로 조건이 다르므로 가입 전 반드시 확인이 필요합니다.
+      </p>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q"><span class="q-mark">Q</span> ETF가 더 유리하지 않나요?</div>
+      <p class="faq-a">
+        단기~중기(3~5년) 투자, 높은 유동성이 필요하다면 ETF가 더 적합할 수 있습니다.
+        반면 10년 이상 장기, 비과세 혜택, 사망보장 기능이 필요하다면 달러보험이 구조적으로 유리한 경우가 있습니다.
+        "어떤 상품이 좋으냐"보다 "이 돈은 언제 쓸 돈이냐"로 판단하시는 것을 권합니다.
+      </p>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q"><span class="q-mark">Q</span> 최소 얼마부터 가입할 수 있나요?</div>
+      <p class="faq-a">
+        상품에 따라 다르지만, AIA생명 달러 연금보험의 경우 월 $100(약 14만원) 수준부터 가입이 가능합니다.
+        종신보험은 보험가입금액(사망보험금)을 기준으로 보험료가 산출되며,
+        나이·성별·건강상태에 따라 달라집니다. 정확한 보험료는 설계사 상담을 통해 확인하실 수 있습니다.
+      </p>
+    </div>
+
+    <hr class="divider">
+
+    <!-- ===== CAUTION ===== -->
+    <div class="caution-box">
+      <h4>이런 경우에는 달러보험이 적합하지 않을 수 있습니다</h4>
+      <ul>
+        <li>3~5년 내에 목돈으로 사용해야 하는 자금 (중도해지 시 원금 손실 가능)</li>
+        <li>"환율이 오를 것 같으니까"라는 단기 환차익 목적의 가입</li>
+        <li>월 보험료 납입이 장기간 부담이 되는 경우 (연체 시 계약 해지 위험)</li>
+        <li>원화 기준 수령액이 변동되는 것을 감수하기 어려운 경우</li>
+      </ul>
+    </div>
+
+    <!-- ===== CTA ===== -->
+    <div class="cta-box">
+      <h3>이 자료의 핵심</h3>
+      <p>
+        달러보험은 환테크 상품이 아닙니다.<br>
+        원화에 집중된 자산 구조를 장기적으로 분산하는 설계 도구입니다.<br>
+        가입 검토 기준: <strong>"이 돈은 10년 이상 안 건드릴 수 있는가?"</strong>
+      </p>
+    </div>
+
+  </div><!-- /content -->
+
+  <!-- ===== FOOTER ===== -->
+  <div class="footer">
+    <p class="disclaimer">
+      본 자료는 정보 제공 목적으로 제작되었으며, 특정 금융상품의 매수·매도를 권유하지 않습니다.
+      외화보험은 환율 변동에 따라 납입 보험료가 증가하거나 보험금의 원화 가치가 감소할 수 있으며,
+      중도 해지 시 환급금이 납입 원금보다 적을 수 있습니다.
+      공시이율은 매월 변동되며, 예시 수치는 실제 수익을 보장하지 않습니다.
+      이율확정형 상품의 경우 이율확정기간 중 해지 시 MVA(시장가격조정률)가 적용되어 해약환급금이 달라질 수 있습니다.
+      가입 전 상품설명서 및 약관을 반드시 확인하시기 바랍니다.
+      이 보험계약은 예금자보호법에 따라 보호됩니다.
+    </p>
+    <p class="brand">AIA생명 × 순살(SOONSAL) &nbsp;|&nbsp; soonsal.com</p>
+  </div>
+
+</div><!-- /page -->
+</body>
+</html>
