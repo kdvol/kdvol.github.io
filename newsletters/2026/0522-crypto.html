@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🐟 SEC, 크립토에서 주식 사게 해준다 — 순살크립토 2026.05.22</title>
+<meta name="soonsal-keywords" content="SEC 토큰화주식 혁신면제 ProjectCrypto, Tether 소프트뱅크 TwentyOneCapital BTC트레저리, SpaceX S-1 AI캡엑스 77억불 GPU채굴, HyperLiquid HYPE 50불 온체인파생, 터키 리라 CHP 크립토도피">
+<style>
+  body {
+    font-family: 'Apple SD Gothic Neo', 'Malgun Gothic', Arial, sans-serif;
+    background-color: #f5f5f0;
+    margin: 0; padding: 0;
+    color: #222;
+    font-size: 15px;
+    line-height: 1.75;
+  }
+  .wrapper {
+    max-width: 680px;
+    margin: 32px auto;
+    background: #fff;
+    border-radius: 4px;
+    overflow: visible;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+  }
+  /* === HEADER === */
+  .header {
+    background: #111;
+    color: #fff;
+    padding: 28px 36px 20px;
+  }
+  .header .brand {
+    font-size: 22px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .header .brand img { height: 36px; width: auto; }
+  .header .date { font-size: 13px; color: #aaa; margin-top: 4px; }
+  .header .tagline { font-size: 13px; color: #888; margin-top: 8px; }
+
+  /* === MARKET TABLE === */
+  .market-table {
+    background: #f9f9f7;
+    border-bottom: 1px solid #e8e8e0;
+    padding: 20px 36px;
+  }
+  .market-table table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .market-table td {
+    padding: 5px 8px 5px 0;
+    border-bottom: 1px solid #eee;
+    color: #444;
+  }
+  .market-table td:first-child { font-weight: 600; color: #222; width: 42%; }
+  .market-table .up { color: #c0392b; font-weight: 600; }
+  .market-table .down { color: #2471a3; font-weight: 600; }
+  .market-table .neutral { color: #555; }
+  .market-title {
+    font-size: 11px;
+    font-weight: 700;
+    color: #888;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .market-note { font-size: 11px; color: #aaa; margin-top: 8px; }
+
+  /* === CONTENT === */
+  .content { padding: 30px 36px; }
+
+  /* === STORY === */
+  .story {
+    margin-bottom: 40px;
+    padding-bottom: 36px;
+    border-bottom: 1px solid #f0f0e8;
+  }
+  .story:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+  .story-label {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    color: #888;
+    background: #f0f0e8;
+    padding: 2px 8px;
+    border-radius: 2px;
+    margin-bottom: 10px;
+  }
+  .story-title {
+    font-size: 20px;
+    font-weight: 800;
+    line-height: 1.3;
+    margin-bottom: 16px;
+    color: #111;
+    letter-spacing: -0.3px;
+  }
+  /* v7: bullet structure */
+  .story-body .bullet {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    margin-bottom: 10px;
+  }
+  .story-body .bullet .dot {
+    color: #111;
+    font-weight: 700;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .story-body p { margin: 0 0 10px; color: #333; font-size: 15px; }
+  .note { display: inline; color: #777; font-size: 0.75em; }
+  .sub { font-size: 0.85em; }
+  /* v7: tradfi-box for crypto */
+  .tradfi-box {
+    background: #f0f4ff;
+    border-left: 3px solid #4a6cf7;
+    padding: 12px 16px;
+    margin: 14px 0;
+    border-radius: 0 4px 4px 0;
+    font-size: 14px;
+    color: #334;
+    line-height: 1.7;
+  }
+  .tradfi-box .tradfi-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: #4a6cf7;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+
+  /* === 시황 업데이트 === */
+  .market-update {
+    margin: 0 0 32px;
+    padding: 20px 24px;
+    background: #fafaf7;
+    border: 1px solid #e0ddd5;
+    border-radius: 10px;
+  }
+  .market-update .section-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #f0ede5;
+  }
+  .market-update .section-icon { font-size: 18px; }
+  .market-update .section-title {
+    font-size: 16px;
+    font-weight: 900;
+    color: #111;
+    letter-spacing: -0.3px;
+  }
+  .market-update-body p {
+    font-size: 14px;
+    line-height: 1.7;
+    color: #333;
+    margin: 0 0 10px;
+    letter-spacing: -0.2px;
+  }
+  .market-update-body strong { color: #111; font-weight: 700; }
+  .weekly-calendar {
+    margin-top: 16px;
+    padding-top: 12px;
+    border-top: 1px solid #f0ede5;
+  }
+  .weekly-calendar p {
+    font-size: 13px;
+    line-height: 1.6;
+    color: #555;
+    margin: 0 0 4px;
+  }
+
+  /* === KILLER CHART === */
+  .killer-chart {
+    margin: 0 0 32px;
+    border: 1px solid #e0ddd5;
+    border-radius: 10px;
+    background: #fff;
+    overflow: hidden;
+  }
+  .killer-chart-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 16px 20px 12px;
+    border-bottom: 1px solid #f0ede5;
+  }
+  .killer-chart-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    background: #F07040;
+    color: #fff;
+    font-size: 11px;
+    font-weight: 900;
+    padding: 3px 10px;
+    border-radius: 4px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    flex-shrink: 0;
+  }
+  .killer-chart-title {
+    font-size: 15px;
+    font-weight: 900;
+    color: #111;
+    letter-spacing: -0.3px;
+    line-height: 1.35;
+  }
+  .killer-chart-body {
+    padding: 16px 16px 8px;
+    background: #fafaf7;
+  }
+  .killer-chart-body svg { width: 100%; height: auto; display: block; }
+  .killer-chart-caption {
+    padding: 14px 20px 16px;
+    font-size: 14px;
+    font-weight: 400;
+    color: #444;
+    line-height: 1.7;
+    letter-spacing: -0.2px;
+  }
+  .killer-chart-caption strong { color: #111; font-weight: 700; }
+  .killer-chart-caption .accent { color: #F07040; font-weight: 700; }
+  .killer-chart-source {
+    padding: 0 20px 14px;
+    font-size: 11px;
+    color: #aaa;
+  }
+
+  /* === HEADLINE ROUNDUP === */
+  .headline-section {
+    background: #f9f9f7;
+    border-top: 1px solid #e8e8e0;
+    padding: 24px 36px;
+  }
+  .headline-section .section-title {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: #888;
+    margin-bottom: 16px;
+  }
+  .headline-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    margin-bottom: 8px;
+    font-size: 14px;
+    color: #333;
+  }
+  .headline-item a { color: #333; text-decoration: none; border-bottom: 1px solid #ddd; }
+  .headline-item a:hover { border-color: #333; }
+  .headline-dot { color: #888; flex-shrink: 0; margin-top: 2px; }
+
+  /* === WORD SECTION === */
+  .word-section {
+    background: #f9f9f7;
+    border-top: 2px solid #111;
+    padding: 28px 36px 36px;
+  }
+  .word-section .section-title {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: #888;
+    margin-bottom: 20px;
+  }
+  .word-item { margin-bottom: 22px; }
+  .word-en { font-size: 17px; font-weight: 800; color: #111; font-style: italic; }
+  .word-ko { font-size: 13px; color: #666; margin-bottom: 6px; }
+  .word-example {
+    font-size: 13.5px;
+    color: #444;
+    line-height: 1.65;
+    border-left: 3px solid #ddd;
+    padding-left: 12px;
+  }
+
+  /* === FOOTER === */
+  .footer {
+    border-top: 1px solid #222;
+    padding: 32px 24px;
+    text-align: center;
+  }
+  .footer-inner { max-width: 640px; margin: 0 auto; }
+  .footer-brand {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+  .footer-brand img { height: 24px; width: auto; }
+  .footer-brand span { font-size: 15px; font-weight: 700; color: #888; }
+  .footer-copy { font-size: 12px; color: #555; margin-bottom: 4px; }
+  .footer-links { font-size: 12px; color: #555; margin-bottom: 16px; }
+  .footer-links a { color: #888; text-decoration: none; }
+  .footer-links a:hover { color: #F07040; }
+  .social-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    margin-top: 16px;
+  }
+  .social-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.06);
+    transition: background 0.2s ease, transform 0.15s ease;
+    text-decoration: none;
+  }
+  .social-icon:hover {
+    background: rgba(255,255,255,0.14);
+    transform: scale(1.08);
+  }
+  .social-icon svg { width: 16px; height: 16px; fill: #777; transition: fill 0.2s ease; }
+  .social-icon img { width: 20px; height: 20px; opacity: 0.6; transition: opacity 0.2s ease; }
+  .social-icon:hover img { opacity: 1; }
+  .social-icon:hover svg { fill: #F07040; }
+
+  /* === Mobile responsive (v17) === */
+  @media (max-width: 480px) {
+    .content { padding: 20px 16px; }
+    .market-table { padding: 16px; }
+    .header { padding: 20px 16px 14px; }
+    .story-body { padding: 0 16px 16px; }
+    .headline-section { padding: 16px; }
+    .quote-section { padding: 24px 16px 20px; }
+    .killer-chart-header { padding: 12px 16px 8px; }
+    .killer-chart-body { padding: 0 16px 12px; }
+    .killer-chart-caption { padding: 0 16px; }
+    .killer-chart-source { padding: 0 16px 12px; }
+    .footer { padding: 24px 16px; }
+    .word-section { padding: 20px 16px 28px; }
+  }
+
+  /* === OVERRIDES (v17 — template bug fixes) === */
+
+  /* === QUOTE SECTION === */
+  .quote-section {
+    background: #111;
+    padding: 36px 36px 32px;
+    text-align: center;
+  }
+  .quote-text {
+    font-size: 15px;
+    font-style: italic;
+    color: #ddd;
+    line-height: 1.7;
+    margin-bottom: 14px;
+    letter-spacing: -0.2px;
+  }
+  .quote-attr {
+    font-size: 13px;
+    color: #888;
+  }
+  .quote-attr strong {
+    color: #aaa;
+    font-weight: 700;
+  }
+
+  /* === DEAL SECTION === */
+  .deal-section {
+    background: #f9f9f7;
+    border-top: 1px solid #e8e8e0;
+    padding: 24px 36px;
+  }
+  .deal-section .section-title {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: #888;
+    margin-bottom: 16px;
+  }
+  .deal-section .deal-body .bullet {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    margin-bottom: 10px;
+    font-size: 14px;
+    color: #333;
+    line-height: 1.7;
+  }
+  .deal-section .deal-body .bullet .dot {
+    color: #111;
+    font-weight: 700;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+</style>
+
+<body>
+<!-- BACK TO LETTERS -->
+<div style="max-width:680px;margin:0 auto;padding:10px 16px 0;" id="back-to-letters">
+  <a href="https://soonsal.com" style="display:inline-flex;align-items:center;gap:6px;font-family:'Apple SD Gothic Neo','Malgun Gothic',sans-serif;font-size:14px;font-weight:700;color:#E55A00;text-decoration:none;padding:6px 0;" onmouseover="this.style.color='#CC4E00'" onmouseout="this.style.color='#E55A00'">← 순살 홈</a>
+</div>
+<script>if(window.self!==window.top)document.getElementById('back-to-letters').style.display='none'</script>
+<!-- /BACK TO LETTERS -->
+
+<div style="display:none;font-size:1px;color:#f5f5f0;line-height:1px;max-height:0;max-width:0;opacity:0;overflow:hidden;">SEC, 크립토 플랫폼에서 주식 토큰 거래 허용 프레임워크 준비. Tether가 소프트뱅크 밀어내고 BTC 트레저리 장악. HYPE $50 돌파</div>
+
+<div class="wrapper" style="overflow:visible;">
+
+<!-- HEADER -->
+<div class="header">
+  <div class="brand">
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAArwAAALpCAYAAABR+fUHAABKYElEQVR4nO3debzWc/7/8eerTbsGFdnbJPtEfiSRYlKWjCU7ZYmxjW2sw8wYfI1BQzR22bIXkkZlqZg0KJRUlkKlon05neX1++M6JSTndK7rel+f9+dxv93OrRpc1/M7t883j/n0PtfH3F0AAABArKqFHgAAAADkEsELAACAqBG8AAAAiBrBCwAAgKgRvAAAAIgawQsAAICoEbwAAACIGsELAACAqBG8AAAAiBrBCwAAgKgRvAAAAIgawQsAAICoEbwAAACIGsELAACAqBG8AAAAiBrBCwAAgKgRvAAAAIgawQsAAICoEbwAAACIGsELAACAqBG8AAAAiBrBCwAAgKgRvAAAAIgawQsAAICoEbwAAACIGsELAACAqBG8AAAAiBrBCwAAgKgRvAAAAIgawQsAAICoEbwAAACIGsELAACAqBG8AAAAiBrBCwAAgKgRvAAAAIgawQsAAICoEbwAAACIGsELAACAqBG8AAAAiBrBCwAAgKgRvAAAAIgawQsAAICoEbwAAACIGsELAACAqBG8AAAAiBrBCwAAgKgRvAAAAIgawQsAAICoEbwAAACIGsELAACAqBG8AAAAiBrBCwAAgKgRvAAAAIgawQsAAICoEbwAAACIGsELAACAqBG8AAAAiBrBCwAAgKgRvAAAAIgawQsAAICoEbwAAACIGsELAACAqBG8AAAAiBrBCwAAgKgRvAAAAIgawQsAAICoEbwAAACIGsELAACAqBG8AAAAiBrBCwAAgKgRvAAAAIgawQsAAICoEbwAAACIGsELAACAqBG8AAAAiBrBCwAAgKgRvAAAAIgawQsAAICoEbwAAACIGsELAACAqBG8AAAAiBrBCwAAgKgRvAAAAIgawQsAAICoEbwAAACIGsELAACAqBG8AAAAiBrBCwAAgKgRvAAAAIgawQsAAICoEbwAAACIGsELAACAqBG8AAAAiBrBCwAAgKgRvAAAAIgawQsAAICoEbwAAACIGsELAACAqBG8AAAAiBrBCwAAgKgRvAAAAIgawQsAAICoEbwAAACIGsELAACAqBG8AAAAiBrBCwAAgKgRvAAAAIgawQsAAICoEbwAAACIGsELAACAqBG8AAAAiBrBCwAAgKgRvAAAAIgawQsAAICo1Qg9AKgIMws9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7OYKwQsA+JHu3btrzJgxGj16tB166KE8LQKAzj333ET/SSvBCwCQJPXq1UsTJ07U0KFDbb/99iN0AUiS7r//fn/ooYdCz6gSzvAiKbhQgRw566yzdPnll6tly5ZELoAfGT9+vO+11155fc9cnOEleJEUXKhAll1xxRW64IIL1KxZM0IXwM988sknvuOOO+b9fQlepBkXKpAl/fr1U58+fax+/fqhpwAoUDNmzPBtt902yHsTvEgzLlSgip5++mn9/ve/59MWAKxXPh4usT58LBkAoFKOOOIIjR49WpLs2GOPJXYBrNenn34aNHZzheAFgAj17dtXU6dO1ZAhQ6xjx46c0QXwq8aPH+877LBD6Bk5QfACQERuuukmzZ8/XwMGDLDWrVsTugAqZNiwYXn/NIZ8IngBIOE6duyoZ555RiUlJXbllVfaZpttRugCqBB314033ujdunULPSWnaoQeAADYMKeffrouuOACjR49msAFUGlLlizRqaee6s8//3zoKTnHpzQgKbhQgXI33HCDzj77bDVu3JjQBbBBJk2a5DvttFPoGevEpzQAQEp17NhRgwYNUklJiV1zzTVG7ALYEO6uO+64o2BjN1c40gAABey8885T3759ObYAoMq+/vprP+200zRixIjQU/KOIw1ICi5UpMp9992nE044werVqxd6CoAIPPbYY37SSSeFnlEhHGkAgIj17t1b7777riTZmWeeSewCqLLp06d7165dExO7ucIdXiQFFyqi1a9fP5166qlq1KgRxxYAZMWqVat0yy23+DXXXBN6SqXl4g4vwYuk4EJFVPr06aM+ffpo3333JXIBZNWIESO8S5cuoWdsMI40AEDCPfjgg1q6dKk98MADRuwCyKbJkyd79+7dEx27uULwAkCOXXbZZZoyZYokWe/eva1+/fqhJwGIyNy5c/2cc87xtm3baujQoaHnFCSONCApuFCRKIcddpj69Omj7t27W82aNUPPARChJUuWqF+/fok8p7s+nOFFmnGhIhH+9a9/qVevXmrSpAnHFQDkxNKlS3XXXXf5FVdcEXpKThC8SDMuVBSsq6++WieddJJ23HFHIhdAzixfvlz9+/f3yy67LPSUnCJ4kWZcqCgoffr00cknn6xOnTqZGZ0LIHcWLlzo99xzj6688srQU/KC4EWacaEiuCOPPFLHH3+8jjjiCKtd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RJknjs0s//FLlcdtedTysAYUDIIXqUTwIkHqK3OHeO0IXvvHZpLqhZuHSBVJmqUfB+1MSV+Z2epfLwy2DqgkghepRPAiMg0kbeHuW0ha19fm5T/y+GUsUuZTDVZ/zVn712a2+tcLgi0EcoDgRSoRvEipmspE76buvsnqn5f/+NOfr/3r+kHW4tcUK3NsYP4vfM2TNN/M1v71ijBTgbAIXqQSwQtUSi2VR3B5KP9SJDeQVLf8q85aP1/96xp5X154SpV52tdiZc7Arv6q0K/NbPWvF5X/CKACCF6kEsELBFFTPwlid19fIP/017WViebVXzV/8usakkyZT8awdfzclAnOYmU+IaDkF35e1b++SpmoXTtQVwfs8iz89wigkgheAAAAoBKqhR4AAAAA5BLBCwAAgKgRvAAAAIgawQsAAICoEbwAAACIGsELAACAqBG8AAAAiBrBCwAAgKgRvAAAAIgawQsAAICoEbwAAACIGsELAACAqBG8AAAAiBrBCwAAgKgRvAAAAIgawQsAAICoEbwAAACIGsELAACAqBG8AAAAiBrBCwAAgKgRvAAAAIgawQsAAICoEbwAAACIGsELAACAqBG8AAAAiBrBCwAAgKgRvAAAAIgawQsAAICoEbwAAACIGsELAACAqBG8AAAAiBrBCwAAgKgRvAAAAIgawQsAAICoEbwAAACIGsELAACAqBG8AAAAiBrBCwAAgKgRvAAAAIgawQsAAICoEbwAAACIGsELAACAqBG8AAAAiBrBCwAAgKgRvAAAAIgawQsAAICoEbwAAACIGsELAACAqBG8AAAAiBrBCwAAgKgRvAAAAIgawQsAAICoEbwAAACIGsELAACAqBG8AAAAiBrBCwAAgKgRvAAAAIgawQsAAICoEbwAAACIGsELAACAqBG8AAAAiBrBCwAAgKgRvAAAAIgawQsAAICoEbwAAACIGsELAACAqBG8AAAAiBrBCwAAgKgRvAAAAIgawQsAAICoEbwAAACIGsELAACAqBG8AAAAiBrBCwAAgKgRvAAAAIgawQsAAICoEbwAAACIGsELAACAqBG8AAAAiBrBCwAAgKgRvAAAAIgawQsAAICoEbwAAACIGsELAACAqBG8AAAAiBrBCwAAgKgRvAAAAIgawQsAAICoEbwAAACIGsELAACAqBG8AAAAiBrBCwAAgKgRvAAAAIgawQsAAICoEbwAAACIGsELAACAqBG8AAAAiBrBCwAAgKgRvAAAAIgawQsAAICoEbwAAACIGsELAACAqBG8AAAAiBrBCwAAgKgRvAAAAIgawQsAAICoEbwAAACIGsELAACAqBG8AAAAiBrBCwAAgKgRvAAAAIgawQsAAICoEbwAAACIGsELAACAqBG8AAAAiBrBCwAAgKgRvAAAAIgawQsAAICoEbwAAACIGsELAACAqP1/Jc+PJ8aJD0gAAAAASUVORK5CYII=" alt="순살" style="height:36px;"/>
+    <span>순살크립토</span>
+  </div>
+  <div class="date">2026년 5월 22일 (금)</div>
+  <div class="tagline">모건스탠리 홍콩 출신 금융인의 크립토 살코기</div>
+</div>
+
+<!-- MARKET TABLE -->
+
+  <div class="market-table">
+    <div class="market-title">📊 Crypto Markets — 5/21 오후 4시 ET 기준</div>
+    <table>
+      <tr><td>BTC</td><td>$77,686</td><td class="up">▲ +0.4%</td></tr>
+      <tr><td>ETH</td><td>$2,145</td><td class="up">▲ +1.2%</td></tr>
+      <tr><td>SOL</td><td>$86</td><td class="up">▲ +2.1%</td></tr>
+      <tr><td>XRP</td><td>$1.83</td><td class="up">▲ +1.5%</td></tr>
+      <tr><td>HYPE</td><td>$50.2</td><td class="up">▲ +8.6%</td></tr>
+      <tr><td>BTC Dominance</td><td>60.1%</td><td class="up">▲ +0.3%p</td></tr>
+      <tr><td>BTC ETF 순유입</td><td>-$180M</td><td class="down">▼ 4일 연속 유출</td></tr>
+      <tr><td>총 크립토 시총</td><td>$2.61T</td><td class="up">▲ +1.0%</td></tr>
+    </table>
+    <div class="market-note">암호화폐: 5/21 오후 4시 ET 기준, 전일 동시각 대비 24시간 변동 | BTC ETF: 미국 거래일 기준</div>
+  </div>
+
+<!-- CONTENT -->
+<div class="content">
+
+<div class="market-update">
+  <div class="section-header">
+    <span class="section-icon">📡</span>
+    <span class="section-title">크립토 모닝! 지금 무슨 일이?</span>
+  </div>
+  <div class="market-update-body">
+    <p>▪ <strong>SEC, 토큰화 주식 거래 허용 프레임워크 이번 주 내 발표 예정.</strong> 크립토 플랫폼에서 상장사 주식 토큰을 거래할 수 있는 "혁신 면제" — 나스닥·NYSE는 이미 3~4월에 토큰화 승인 완료</p>
+    <p>▪ <strong>Tether, 소프트뱅크 지분 인수로 Twenty One Capital 완전 장악.</strong> 소프트뱅크 이사진 퇴진. BTC 트레저리 회사 43,514 BTC 보유 — Strategy 다음으로 큰 규모</p>
+    <p>▪ <strong>BTC $77K 횡보.</strong> S&P가 반등할 때도 안 따라감. 이란 최고지도자의 우라늄 반출 거부 소식에도 반응 미미 — 금리인상 공포가 매크로 센티먼트를 눌러놓은 상태</p>
+    <p>▪ <strong>SpaceX S-1 공개, Q1에만 AI 인프라에 77억불 투자.</strong> GPU·데이터센터에 들어가는 자원이 크립토 채굴과 직접 경쟁하는 구조가 숫자로 확인</p>
+  </div>
+  <div class="weekly-calendar">
+    <p style="font-size:13px;font-weight:700;color:#333;margin-bottom:6px;">📅 이번 주 + 다음 주 크립토 일정</p>
+    <p>- 22일 (금): SEC 토큰화 주식 "혁신 면제" 발표 가능일. 글로벌 PMI 플래시</p>
+    <p>- 25일 (월): 🇺🇸 <strong>메모리얼 데이 — 미국 증시 휴장</strong> / 🇰🇷 <strong>부처님 오신날 대체공휴일 — 한국 증시 휴장</strong> <span class="sub">(크립토는 24/7 거래)</span></p>
+    <p>- 26일 (화): DTCC 토큰화 자산 시범거래 세부 일정 발표 예정. BTC 옵션 만기 <span class="sub">(46억불 규모)</span></p>
+    <p>- 27일 (수): FOMC 5월 의사록 공개 — 금리 인상 논의 구체화 여부 주목</p>
+    <p>- 28일 (목): GDP 2차 추정치 <span class="sub">(Q1)</span>. 주간 실업수당 청구건수</p>
+    <p>- 29일 (금): ⭐ <strong>PCE 물가지수</strong> <span class="sub">(4월, 연준 선호 인플레 지표)</span> — BTC 방향성에 직접 영향. SpaceX IPO 로드쇼 시작 예정</p>
+  </div>
+</div>
+
+    <!-- STORY 1 -->
+    <div class="story">
+      <span class="story-label">REGULATION · TOKENIZATION</span>
+      <div class="story-title">📊 SEC, 크립토에서 주식 사게 해준다</div>
+      <div class="story-body">
+        <div class="bullet"><span class="dot">◾</span><span>SEC가 "혁신 면제" <span class="sub">(innovation exemption)</span> 프레임워크를 이번 주 내 발표할 예정. 크립토 플랫폼에서 상장사 주식의 토큰화 버전을 거래할 수 있게 해주는 것. SEC 의장 Atkins의 "Project Crypto" 정책 중 가장 큰 건</span></div>
+        <div class="bullet"><span class="dot">◾</span><span>나스닥은 3월에, NYSE는 4월에 이미 토큰화 주식 거래를 승인받았는데, 이건 기존 거래소 시스템 위에 올린 것. <strong>이번 면제는 크립토 네이티브 플랫폼 — 코인베이스·크라켄 같은 곳에서 직접 주식 토큰을 거래할 수 있게 해주는 게 핵심 차이</strong></span></div>
+        <div class="bullet"><span class="dot">◾</span><span>가장 논란이 되는 부분 — 해당 기업의 동의 없이 제3자가 주식 토큰을 발행할 수 있다는 조항. 사실상 애플이나 테슬라의 "그림자 주식"이 탈중앙 플랫폼에서 24시간 거래되는 구조. 의결권·배당은 못 받지만, 가격 추종은 가능</span></div>
+        <div class="bullet"><span class="dot">◾</span><span>DTCC <span class="sub">(미국 증권결제 기관)</span>도 7월부터 토큰화 자산 시범 거래를 시작, 10월 정식 출시 예정. 토큰화 주식 시장 규모는 현재 14억불이지만, 규제 프레임워크가 깔리면 급성장 예상</span></div>
+        <div class="bullet"><span class="dot">◾</span><span>HyperLiquid·Jupiter 같은 온체인 파생상품 거래소들은 이미 밈코인에서 토큰화 주식·원유·금 선물 거래로 피벗하는 중. 규제 면제가 나오면 합법적으로 크립토 레일 위에서 주식 거래가 가능해지는 셈</span></div>
+      </div>
+      <div style="background:#f5f5f0; border-radius:8px; padding:14px 16px; margin-top:16px">
+    <div style="font-size:12px; color:#888; font-weight:700; margin-bottom:4px">🏛 전통 금융 대비 현재 위치</div>
+    <div style="font-size:13px; color:#444; line-height:1.6">전통 주식시장은 T+1 결제, 평일 6.5시간 거래. 토큰화 주식은 24/7 거래 + 즉시 결제가 가능. 나스닥·NYSE가 자체 토큰화를 밀고 있지만, 크립토 네이티브 플랫폼이 "풀 브로커딜러 등록 없이" 같은 서비스를 할 수 있게 되면 기존 증권 인프라의 존재 이유가 흔들리는 구조</div>
+      </div>
+    </div>
+
+    <!-- STORY 2 -->
+    <div class="story">
+      <span class="story-label">STABLECOIN · TREASURY</span>
+      <div class="story-title">🏦 Tether, BTC 트레저리 전쟁에서 소프트뱅크를 밀어냄</div>
+      <div class="story-body">
+        <div class="bullet"><span class="dot">◾</span><span>Tether가 소프트뱅크의 Twenty One Capital <span class="sub">(XXI)</span> 지분을 전량 인수. 소프트뱅크 이사진이 보드에서 전원 퇴진하면서 Tether가 XXI의 단독 최대주주로 올라선 구조. XXI는 43,514 BTC를 보유한 상장사로, Strategy <span class="sub">(구 마이크로스트래티지)</span> 다음가는 규모</span></div>
+        <div class="bullet"><span class="dot">◾</span><span><strong>Tether의 다음 수 — XXI와 Strike <span class="sub">(비트코인 결제 앱)</span>를 합병한 뒤, Elektron Energy <span class="sub">(채굴 업체)</span>까지 합치는 3단계 계획을 진행 중</strong>. 스테이블코인 발행 → BTC 매입 → 채굴까지 수직 통합하는 그림. 소프트뱅크가 빠진 건 이 전략에 장기 투자할 의향이 없었기 때문이라는 해석</span></div>
+        <div class="bullet"><span class="dot">◾</span><span>Strategy가 538,200 BTC를 들고 "BTC 트레저리 = 기업 전략"이라는 공식을 만들었다면, XXI는 "BTC 트레저리 + 결제 + 채굴"을 묶는 다음 단계. BPS <span class="sub">(Bitcoin Per Share, 주당 BTC 보유량)</span>라는 새 지표까지 만들어서 주주 가치를 BTC 단위로 측정하겠다는 것</span></div>
+        <div class="bullet"><span class="dot">◾</span><span>Tether 자체가 1,200억불+ 규모의 USDT를 발행하면서 미국 국채를 대량 보유한 상태라, BTC와 미국채를 양쪽으로 걸치는 독특한 포지션. 크립토 업계에서 가장 돈이 많은 기업이 BTC 트레저리까지 장악하면 시장 영향력이 거대해지는 구조</span></div>
+        <div class="bullet"><span class="dot">◾</span><span>앤트로픽 IPO도 올해 예정인데, 앤트로픽 시가총액이 9,000억불을 넘기면 역대 최대 AI IPO가 됨. 크립토와 AI 기업들이 동시에 상장 경쟁을 벌이는 2026년 — 자본시장의 관심을 누가 더 끌어가느냐의 싸움</span></div>
+      </div>
+      <div style="background:#f5f5f0; border-radius:8px; padding:14px 16px; margin-top:16px">
+    <div style="font-size:12px; color:#888; font-weight:700; margin-bottom:4px">🏛 전통 금융 대비 현재 위치</div>
+    <div style="font-size:13px; color:#444; line-height:1.6">전통 금융에서 기업이 금을 트레저리에 쌓는 건 1970년대 이후 거의 사라진 관행. BTC 트레저리는 "디지털 금 비축"이라는 새로운 기업 재무 전략인데, Strategy의 성공 이후 70개+ 상장사가 따라하는 중. XXI는 여기서 한 발 더 나가 결제·채굴까지 수직 통합을 시도하는 것</div>
+      </div>
+      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
+    </div>
+
+    <!-- STORY 3 -->
+    <div class="story">
+      <span class="story-label">AI · MINING</span>
+      <div class="story-title">⚡ SpaceX S-1이 보여주는 GPU 전쟁의 규모</div>
+      <div class="story-body">
+        <div class="bullet"><span class="dot">◾</span><span>SpaceX가 S-1을 공개하면서 드러난 숫자 — Q1에만 AI 인프라에 77억불을 투자. 같은 분기 우주 사업 <span class="sub">(로켓)</span> 10억불, 스타링크 13억불과 비교하면 AI가 전체 투자의 77%를 먹은 셈. xAI 합병 이후 SpaceX는 사실상 AI 회사가 됨</span></div>
+        <div class="bullet"><span class="dot">◾</span><span><strong>이 규모의 GPU·데이터센터 투자가 크립토 채굴과 직접 경쟁하는 구조</strong>. 빅테크 4곳 + SpaceX + 앤트로픽 등이 올해만 1조불+ 규모의 AI 인프라 투자를 하면서, 전력·냉각·부지·GPU 공급을 크립토 채굴자들과 뺏어가는 중. DRAM 가격 95% 폭등, 전력 비용 상승의 직접적 원인</span></div>
+        <div class="bullet"><span class="dot">◾</span><span>이미 변화는 시작됨. 비트코인 채굴업체 Core Scientific·TeraWulf 등이 AI 데이터센터 호스팅으로 피벗. AI 호스팅 매출이 채굴 매출을 넘어서기 시작한 업체도 나옴. "GPU가 있으면 AI든 채굴이든 돈이 되는데, AI가 더 마진이 높다" — 채굴에서 AI로의 자원 이동이 가속</span></div>
+        <div class="bullet"><span class="dot">◾</span><span>BTC 채굴 해시레이트는 역대 최고를 찍고 있지만, 신규 채굴 시설 투자는 감소 추세. 기존 시설은 돌리되, 새 시설은 AI용으로 짓는 패턴. 2024년 해빙 <span class="sub">(halving)</span> 이후 채굴 수익성이 떨어진 상태에서 AI가 더 나은 대안을 제시하는 구조</span></div>
+        <div class="bullet"><span class="dot">◾</span><span>SpaceX S-1에 "2028년까지 AI 데이터센터를 궤도에 올리겠다"는 목표도 있었는데, 이건 지구 전력 제약을 우주로 우회하겠다는 것. 채굴업체들이 위성 기반 채굴을 고려한다는 이야기도 나오지만, 현실적으론 아직 먼 얘기</span></div>
+      </div>
+      <div style="background:#f5f5f0; border-radius:8px; padding:14px 16px; margin-top:16px">
+    <div style="font-size:12px; color:#888; font-weight:700; margin-bottom:4px">🏛 전통 금융 대비 현재 위치</div>
+    <div style="font-size:13px; color:#444; line-height:1.6">전력·GPU·냉각 인프라를 놓고 AI와 크립토 채굴이 경쟁하는 건 전통 금융에선 없던 구도. 비유하자면 원유를 놓고 석유화학과 운송업이 경쟁하는 것과 비슷한데, AI의 "원유"가 전력과 GPU인 셈. AI가 이기면 채굴 비용이 올라가고, 이건 BTC 공급 감소 → 장기적으로 가격 지지라는 역설</div>
+      </div>
+    </div>
+
+    <!-- STORY 4 -->
+    <div class="story">
+      <span class="story-label">DEFI · DERIVATIVES</span>
+      <div class="story-title">🚀 HYPE $50 돌파, 온체인 파생상품의 반란</div>
+      <div class="story-body">
+        <div class="bullet"><span class="dot">◾</span><span>HyperLiquid의 거버넌스 토큰 HYPE가 $50을 돌파하며 사상 최고가 갱신. 지난주 대비 25%+ 상승. HYPE ETF에 2,230만불이 유입되면서 기관 관심도 확인. 시가총액 기준으로 탑 20 크립토에 진입</span></div>
+        <div class="bullet"><span class="dot">◾</span><span><strong>HyperLiquid가 뜨는 이유 — 온체인에서 CEX <span class="sub">(중앙화 거래소)</span>급 속도로 파생상품을 거래할 수 있는 유일한 플랫폼</strong>. 일일 거래량이 80억불+로, 온체인 파생상품 시장의 70%+ 점유. 밈코인 카지노에서 시작했지만, 이제 토큰화 주식·원유·금 선물까지 확장하는 중</span></div>
+        <div class="bullet"><span class="dot">◾</span><span>SEC의 토큰화 주식 면제가 나오면 HyperLiquid이 가장 직접적인 수혜자. 이미 인프라가 깔려 있으니, 규제만 풀리면 "크립토판 나스닥"이 될 가능성. Jupiter <span class="sub">(솔라나 기반)</span>도 같은 방향으로 피벗 중이라 경쟁이 치열</span></div>
+        <div class="bullet"><span class="dot">◾</span><span>리스크도 있음. 4월에 JELLY 토큰 시장 조작 사건으로 1,200만불 손실을 입었고, 이후 거버넌스 구조를 강화했지만 여전히 탈중앙화 "자율 규제"에 의존. 거래량의 상당 부분이 레버리지 트레이딩이라 폭락 시 연쇄 청산 리스크도 큼</span></div>
+        <div class="bullet"><span class="dot">◾</span><span>전통 거래소와의 관계도 변화 중. 바이낸스가 HYPE 상장을 거부하면서 긴장이 있었는데, HYPE 가격이 오르면서 "상장 안 해줘서 고맙다"는 반응. 탈중앙 거래소가 중앙화 거래소 없이도 성장할 수 있다는 증명 사례가 되는 중</span></div>
+      </div>
+      <div style="background:#f5f5f0; border-radius:8px; padding:14px 16px; margin-top:16px">
+    <div style="font-size:12px; color:#888; font-weight:700; margin-bottom:4px">🏛 전통 금융 대비 현재 위치</div>
+    <div style="font-size:13px; color:#444; line-height:1.6">전통 파생상품 시장 <span class="sub">(CME·ICE)</span>은 일일 거래량 수조불 규모. HyperLiquid의 80억불은 아직 0.1% 수준이지만, 성장 속도가 문제 — 1년 만에 10배 이상 성장. SEC 면제가 나오면 주식·원자재 파생상품까지 온체인으로 올라오면서 전통 거래소의 파이를 먹기 시작할 가능성</div>
+      </div>
+      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
+    </div>
+
+    <!-- STORY 5 -->
+    <div class="story">
+      <span class="story-label">MACRO · ADOPTION</span>
+      <div class="story-title">🇹🇷 터키 리라 또 무너질 때, 크립토는 도피처가 되나</div>
+      <div class="story-body">
+        <div class="bullet"><span class="dot">◾</span><span>터키 법원이 야당 CHP 대표를 축출하자 BIST 100이 6% 급락, 국영은행이 60억불을 쏟아부어 리라를 방어. 리라는 10년간 달러 대비 93% 하락한 상태. 작년 İmamoğlu 구금 때 570억불, 올해 이란전쟁 때 430억불을 소진하면서 방어 여력이 점점 줄어드는 중</span></div>
+        <div class="bullet"><span class="dot">◾</span><span><strong>터키는 세계에서 크립토 채택률이 가장 높은 나라 중 하나</strong>. 인구의 16%가 크립토를 보유 — 인플레이션 85%를 찍었던 2022년부터 "리라 대신 USDT"가 생존 전략이 된 것. P2P 시장에서 리라-USDT 거래량이 정치 위기 때마다 급등하는 패턴</span></div>
+        <div class="bullet"><span class="dot">◾</span><span>터키 정부는 올해부터 크립토 거래에 0.03% 세금을 부과하기 시작했는데, 이건 "금지"가 아니라 "인정"의 신호. 거래량이 워낙 크다 보니 세수 확보가 더 현실적이라는 판단. 터키 중앙은행도 리라 기반 CBDC <span class="sub">(중앙은행 디지털 화폐)</span> 파일럿을 진행 중</span></div>
+        <div class="bullet"><span class="dot">◾</span><span>이머징 마켓에서 정치 불안 → 통화 약세 → 크립토 도피는 이제 반복되는 공식. 아르헨티나·나이지리아·레바논에서 이미 확인된 패턴. BTC보다 USDT가 더 선호되는 게 포인트 — 변동성 회피가 목적이지 투기가 목적이 아니기 때문</span></div>
+        <div class="bullet"><span class="dot">◾</span><span>글로벌 스테이블코인 시총이 3,000억불을 넘긴 상태에서, 이머징 마켓의 "달러 대체" 수요가 성장의 핵심 동력. 터키 같은 케이스가 반복될수록 USDT·USDC의 실사용 사례가 쌓이고, 이건 규제 논의에서도 "스테이블코인은 필요하다"는 근거가 되는 중</span></div>
+      </div>
+      <div style="background:#f5f5f0; border-radius:8px; padding:14px 16px; margin-top:16px">
+    <div style="font-size:12px; color:#888; font-weight:700; margin-bottom:4px">🏛 전통 금융 대비 현재 위치</div>
+    <div style="font-size:13px; color:#444; line-height:1.6">전통적으로 이머징 마켓 자본 도피는 달러 현금 → 스위스 은행 → 런던/뉴욕 부동산 순서였는데, 크립토가 "KYC 없이 5분 만에 달러 노출"을 가능하게 하면서 도피 경로가 바뀐 것. 터키에서 USDT 프리미엄이 2~3% 붙는 건 "달러에 대한 수요"가 크립토 레일로 표출되는 것</div>
+      </div>
+    </div>
+
+  </div><!-- /content -->
+
+
+
+<!-- DEAL, DEAL, DEAL -->
+<div class="deal-section">
+  <div class="section-title">🤝 크립토 Deal Flow</div>
+  <div class="deal-body">
+    <div class="bullet"><span class="dot">◾</span><span><strong>Tether</strong>, 소프트뱅크의 <strong>Twenty One Capital</strong> 지분 전량 인수 — 이사회에서 소프트뱅크 퇴진, XXI 43,514 BTC 보유 (<a href="https://www.bloomberg.com/news/articles/2026-05-20/tether-buys-out-softbank-stake-in-bitcoin-treasury-firm" style="color:#888;font-size:12px;">Bloomberg</a>)</span></div>
+    <div class="bullet"><span class="dot">◾</span><span><strong>Exa Labs</strong> <span class="sub">(AI 검색 인프라)</span>, a16z 리드 2.5억불 라운드 — 밸류 22억불 (<a href="https://siliconangle.com/2026/05/20/exa-labs-raises-250m-2-2b-valuation-ai-search-tools/" style="color:#888;font-size:12px;">SiliconAngle</a>)</span></div>
+    <div class="bullet"><span class="dot">◾</span><span><strong>Variational</strong> <span class="sub">(온체인 파생상품)</span>, Dragonfly 리드 5,000만불 시리즈 A (<a href="https://www.theblock.co/post/402066/arbitrum-derivatives-variational-50-million-series-a-dragonfly" style="color:#888;font-size:12px;">The Block</a>)</span></div>
+    <div class="bullet"><span class="dot">◾</span><span><strong>Catena Labs</strong> <span class="sub">(AI 에이전트 뱅킹)</span>, a16z crypto + Acrew 리드 3,000만불 시리즈 A — AI가 금융 거래를 하는 인프라 (<a href="https://www.theblock.co/post/402029/catena-labs-lands-30-million-series-a-files-for-national-trust-bank-charter-to-underpin-agentic-finance" style="color:#888;font-size:12px;">SiliconAngle</a>)</span></div>
+    <div class="bullet"><span class="dot">◾</span><span><strong>SignalPlus</strong> <span class="sub">(크립토 파생상품 거래 플랫폼)</span>, HashKey Capital 리드 4,000만불 전략 투자 (<a href="https://www.newswire.ca/news-releases/hashkey-capital-fund-announces-40m-strategic-investment-in-signalplus-851907543.html" style="color:#888;font-size:12px;">Newswire</a>)</span></div>
+  </div>
+</div>
+
+
+<!-- HEADLINE ROUNDUP -->
+<div class="headline-section">
+  <div class="section-title">📋 크립토 헤드라인</div>
+  <div class="headline-item"><span class="headline-dot">·</span><span><a href="https://bitcoinmagazine.com/news/sec-prepares-for-tokenized-stocks-report">SEC, 크립토 플랫폼에서 토큰화 주식 거래 허용하는 "혁신 면제" 이번 주 발표 예정</a> — Bitcoin Magazine</span></div>
+  <div class="headline-item"><span class="headline-dot">·</span><span><a href="https://www.bloomberg.com/news/articles/2026-05-20/tether-buys-out-softbank-stake-in-bitcoin-treasury-firm">Tether, 소프트뱅크의 Twenty One Capital 지분 인수 — BTC 트레저리 단독 장악</a> — Bloomberg</span></div>
+  <div class="headline-item"><span class="headline-dot">·</span><span><a href="https://www.cnbc.com/2026/05/20/anthropic-revenue-explosive-growth-ipo-profitable-quarter.html">앤트로픽 Q2 매출 109억불 전망, 첫 흑자 분기 예고 — IPO 경쟁 가속</a> — CNBC</span></div>
+  <div class="headline-item"><span class="headline-dot">·</span><span><a href="https://fortune.com/2026/05/20/spacex-finally-files-ipo-prospectus-reveals-revenue-is-up-but-losses-are-too/">SpaceX S-1 공개 — 매출 187억불, 순손실 49억불, Q1 AI 투자 77억불</a> — Fortune</span></div>
+  <div class="headline-item"><span class="headline-dot">·</span><span><a href="https://www.bloomberg.com/news/articles/2026-05-21/turkey-s-fx-sales-reach-6-billion-after-opposition-ruling">터키 야당 대표 축출 후 60억불 리라 방어 — 크립토 도피 수요 급증 예상</a> — Bloomberg</span></div>
+  <div class="headline-item"><span class="headline-dot">·</span><span><a href="https://www.cnbc.com/2026/05/21/eli-lilly-weight-loss-drug-retatrutide-clears-obesity-trial.html">릴리 레타트루타이드 임상 3상 클리어 — 체중 28.3% 감량, 위절제급 효과</a> — CNBC</span></div>
+</div>
+
+
+<div class="word-section">
+  <h3 class="word-section-title" style="font-size:15px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; color:#888">📚 오늘의 크립토 용어</h3>
+  <div class="word-item">
+    <div class="word-en">Tokenized Equity</div>
+    <div class="word-ko">상장사 주식을 블록체인 토큰으로 변환한 것. 기존 주식과 1:1로 가격이 연동되지만, 크립토 레일 위에서 24시간 거래 가능. SEC의 "혁신 면제"가 나오면 코인베이스·크라켄 같은 크립토 거래소에서 애플·테슬라 토큰을 살 수 있게 되는 것</div>
+    <div class="word-example">상장사 주식의 블록체인 토큰 버전<br><br><em>"The SEC's innovation exemption would allow <strong>tokenized equities</strong> to trade on crypto-native platforms — creating a parallel stock market that never closes."</em></div>
+  </div>
+  <div class="word-item">
+    <div class="word-en">BPS (Bitcoin Per Share)</div>
+    <div class="word-ko">주당 비트코인 보유량. Twenty One Capital이 만든 새 기업 가치 지표. 기존의 EPS <span class="sub">(주당순이익)</span> 대신 "이 회사 주식 1주가 BTC를 얼마나 대변하느냐"로 가치를 측정. Strategy <span class="sub">(구 마이크로스트래티지)</span>도 비슷한 개념을 쓰는 중</div>
+    <div class="word-example">주당 비트코인 보유량 — 새로운 기업 가치 지표<br><br><em>"Twenty One Capital measures success not by EPS, but by <strong>BPS</strong> — how much Bitcoin each share represents."</em></div>
+  </div>
+  <div class="word-item">
+    <div class="word-en">Perp DEX</div>
+    <div class="word-ko">Perpetual DEX의 약자. 무기한 선물계약을 탈중앙 거래소에서 거래하는 플랫폼. HyperLiquid이 대표적이고, 기존 CEX <span class="sub">(바이낸스·바이빗)</span>의 무기한 선물 시장을 온체인으로 옮긴 것. "중앙화 거래소 없이도 레버리지 트레이딩이 가능하다"는 증명</div>
+    <div class="word-example">탈중앙화 무기한 선물 거래소<br><br><em>"HyperLiquid has become the dominant <strong>perp DEX</strong>, processing $8B+ daily volume entirely onchain."</em></div>
+  </div>
+
+  <h3 class="word-section-title" style="margin-top:32px; font-size:15px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; color:#888">💬 오늘의 원어민 표현</h3>
+  <div class="word-item">
+    <div class="word-en">"Shadow stock market"</div>
+    <div class="word-ko">"그림자 주식시장." SEC의 토큰화 주식 면제가 나오면 크립토 플랫폼에서 기존 주식의 토큰 버전이 거래되는 상황을 비판적으로 부르는 표현. 해당 기업의 동의 없이 제3자가 토큰을 발행할 수 있다는 점이 논란의 핵심 — 전통 증권업계에서 "규제되지 않은 그림자 시장"이라고 비판하는 중</div>
+    <div class="word-example">"규제 밖에서 돌아가는 비공식 주식 시장"<br><br><em>"Critics warn the SEC's exemption could create a <strong>shadow stock market</strong> where tokenized versions of public companies trade without shareholder protections."</em></div>
+  </div>
+  <div class="word-item">
+    <div class="word-en">"Flight to stables"</div>
+    <div class="word-ko">"스테이블코인으로의 도피." 전통 금융의 "flight to quality" <span class="sub">(안전자산 선호)</span>에서 파생된 크립토 표현. 터키·아르헨티나 같은 통화 위기 국가에서 자국 화폐 대신 USDT·USDC로 갈아타는 현상을 설명할 때 씀</div>
+    <div class="word-example">"자국 통화 위기 시 스테이블코인으로 도피"<br><br><em>"Every time the lira crashes, Turkish savers show the same pattern — a <strong>flight to stables</strong>, with USDT premiums spiking 2-3% on local P2P markets."</em></div>
+  </div>
+</div>
+
+<div class="quote-section">
+  <div class="quote-text">"Tokenized securities are the next logical step — not because crypto needs stocks, but because stocks need crypto rails."</div>
+  <div class="quote-attr">— <strong>Paul Atkins</strong> <em><span class="sub">(SEC Chair, Project Crypto address, April 2026)</span></em></div>
+</div>
+
+
+</div><!-- /wrapper -->
+
+
+
+<!-- Cloudflare Web Analytics --><script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "d6a07341c2bf438d8ef7f9209a0e9a81"}'></script><!-- End Cloudflare Web Analytics -->
+</body>
+</html>
