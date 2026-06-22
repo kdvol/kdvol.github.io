@@ -1,0 +1,962 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>순살 × 한국투자신탁운용 — 콘텐츠 공급 제안서</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0a0a0a;
+  --surface: #141414;
+  --surface2: #1c1c1c;
+  --border: #2a2a2a;
+  --text: #e8e8e8;
+  --text-dim: #888;
+  --accent: #F38C61;
+  --accent2: #F5A882;
+  --white: #fff;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { background:var(--bg); color:var(--text); font-family:'Noto Sans KR',sans-serif; line-height:1.7; word-break:keep-all; overflow-wrap:break-word; }
+.page {
+  max-width:1000px; margin:0 auto;
+  min-height:100vh; padding:80px 60px;
+  page-break-after: always;
+  position: relative;
+}
+.page-num {
+  position:absolute; bottom:40px; right:60px;
+  font-family:'Space Grotesk',monospace; font-size:13px; color:var(--text-dim);
+}
+
+/* Cover */
+.cover { display:flex; flex-direction:column; justify-content:center; align-items:flex-start; }
+.cover .logo-mark { font-size:72px; margin-bottom:12px; }
+.cover h1 { font-size:52px; font-weight:900; line-height:1.18; margin-bottom:24px; letter-spacing:-2px; }
+.cover h1 span { color:var(--accent); }
+.cover .subtitle { font-size:20px; color:var(--text-dim); font-weight:300; margin-bottom:48px; }
+.cover .meta { font-size:14px; color:var(--text-dim); border-top:1px solid var(--border); padding-top:20px; }
+.cover .meta strong { color:var(--text); }
+.tag { display:inline-block; background:var(--accent); color:#000; font-size:12px; font-weight:700;
+  padding:4px 12px; border-radius:20px; margin-right:8px; margin-bottom:8px; }
+.tag.outline { background:transparent; border:1px solid var(--accent); color:var(--accent); }
+.tag.muted { background:var(--surface2); color:var(--text-dim); border:1px solid var(--border); }
+
+/* Section headers */
+h2 { font-size:32px; font-weight:900; margin-bottom:32px; letter-spacing:-1px; }
+h2 .num { color:var(--accent); font-family:'Space Grotesk',monospace; font-weight:600; margin-right:12px; }
+h3 { font-size:20px; font-weight:700; margin-bottom:16px; color:var(--white); }
+
+/* Stat grid */
+.stat-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:24px; margin:32px 0; }
+.stat-grid.four { grid-template-columns:repeat(4,1fr); }
+.stat-card { background:var(--surface); border:1px solid var(--border); border-radius:16px; padding:32px; text-align:center; }
+.stat-card .number { font-family:'Space Grotesk',monospace; font-size:44px; font-weight:700; color:var(--accent); }
+.stat-card .label { font-size:14px; color:var(--text-dim); margin-top:8px; }
+.stat-card .detail { font-size:12px; color:var(--text-dim); margin-top:4px; opacity:0.7; }
+
+/* Two col */
+.two-col { display:grid; grid-template-columns:1fr 1fr; gap:32px; margin:24px 0; }
+.col-box { background:var(--surface); border:1px solid var(--border); border-radius:16px; padding:28px; }
+.col-box h4 { font-size:16px; font-weight:700; margin-bottom:12px; color:var(--accent); }
+.col-box ul { list-style:none; }
+.col-box li { padding:6px 0; font-size:15px; color:var(--text); border-bottom:1px solid var(--border); }
+.col-box li:last-child { border-bottom:none; }
+.col-box li::before { content:'→ '; color:var(--accent); font-weight:700; }
+
+/* Product table */
+.product-table { width:100%; border-collapse:collapse; margin:24px 0; }
+.product-table th { text-align:left; padding:14px 16px; font-size:13px; font-weight:700;
+  color:var(--accent); text-transform:uppercase; letter-spacing:1px;
+  border-bottom:2px solid var(--accent); }
+.product-table td { padding:14px 16px; font-size:14px; border-bottom:1px solid var(--border); vertical-align:top; }
+.product-table tr:hover td { background:var(--surface); }
+.product-table .highlight { color:var(--accent); font-weight:700; font-family:'Space Grotesk',monospace; }
+
+/* Pricing */
+.pricing-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; margin:32px 0; }
+.pricing-card { background:var(--surface); border:1px solid var(--border); border-radius:16px; padding:28px; position:relative; }
+.pricing-card.featured { border-color:var(--accent); }
+.pricing-card.featured::before { content:'RECOMMENDED'; position:absolute; top:-12px; left:24px;
+  background:var(--accent); color:#000; font-size:11px; font-weight:700; padding:4px 12px; border-radius:10px; }
+.pricing-card .tier-name { font-size:18px; font-weight:700; margin-bottom:4px; }
+.pricing-card .tier-price { font-family:'Noto Sans KR','Space Grotesk',monospace; font-size:26px; font-weight:700; color:var(--accent); margin:12px 0; }
+.pricing-card .tier-price .unit { font-size:13px; color:var(--text-dim); font-weight:400; }
+.pricing-card .tier-detail { font-size:13px; color:var(--text-dim); margin-bottom:16px; }
+.pricing-card ul { list-style:none; }
+.pricing-card li { padding:6px 0; font-size:14px; }
+.pricing-card li::before { content:'✓ '; color:var(--accent); }
+
+/* Quote */
+.quote-block { border-left:4px solid var(--accent); padding:24px 32px; margin:32px 0;
+  background:var(--surface); border-radius:0 16px 16px 0; font-size:18px; font-style:italic; font-weight:300; }
+
+/* Flow */
+.flow-row { display:flex; align-items:center; gap:12px; margin:16px 0; flex-wrap:wrap; }
+.flow-step { background:var(--surface); border:1px solid var(--border); border-radius:12px;
+  padding:16px 20px; font-size:14px; flex:1; min-width:140px; text-align:center; }
+.flow-step .step-num { font-family:'Space Grotesk',monospace; font-size:11px; color:var(--accent); font-weight:700; }
+.flow-arrow { color:var(--accent); font-size:20px; flex-shrink:0; }
+
+/* Case study cards */
+.case-card { background:var(--surface); border:1px solid var(--border); border-radius:16px; padding:28px; margin:20px 0; }
+.case-card .case-head { display:flex; align-items:baseline; justify-content:space-between; flex-wrap:wrap; gap:8px; margin-bottom:6px; }
+.case-card .case-name { font-size:21px; font-weight:900; color:var(--white); letter-spacing:-0.5px; }
+.case-card .case-badge { font-family:'Space Grotesk',monospace; font-size:12px; color:var(--accent); font-weight:600; }
+.case-card .case-sub { font-size:14px; color:var(--text-dim); margin-bottom:18px; }
+.case-metrics { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin:18px 0; }
+.case-metric { background:var(--surface2); border:1px solid var(--border); border-radius:12px; padding:16px; }
+.case-metric .m-label { font-size:11px; color:var(--text-dim); text-transform:uppercase; letter-spacing:0.5px; }
+.case-metric .m-value { font-size:18px; font-weight:700; color:var(--accent); margin-top:4px; font-family:'Noto Sans KR','Space Grotesk',monospace; }
+.case-metric .m-value.text { font-size:15px; color:var(--text); font-family:'Noto Sans KR',sans-serif; }
+.case-card .case-note { font-size:14px; color:var(--text); margin-top:6px; }
+.case-card .case-note strong { color:var(--accent); }
+
+/* Logo / portfolio strip */
+.logo-strip { display:flex; flex-wrap:wrap; gap:10px; margin:20px 0; }
+.logo-chip { background:var(--surface); border:1px solid var(--border); border-radius:10px;
+  padding:10px 16px; font-size:14px; font-weight:500; color:var(--text); }
+.logo-chip strong { color:var(--accent); }
+
+/* Timeline */
+.timeline { position:relative; margin:28px 0; padding-left:28px; }
+.timeline::before { content:''; position:absolute; left:7px; top:6px; bottom:6px; width:2px; background:var(--border); }
+.tl-item { position:relative; padding:0 0 22px 0; }
+.tl-item::before { content:''; position:absolute; left:-26px; top:4px; width:14px; height:14px;
+  border-radius:50%; background:var(--accent); border:3px solid var(--bg); }
+.tl-item .tl-when { font-family:'Space Grotesk',monospace; font-size:12px; color:var(--accent); font-weight:700; }
+.tl-item .tl-what { font-size:15px; color:var(--text); margin-top:2px; }
+.tl-item .tl-what span { color:var(--text-dim); font-size:13px; }
+
+/* Footer bar */
+.footer-bar { background:var(--surface); border-top:1px solid var(--border);
+  padding:24px 60px; text-align:center; font-size:13px; color:var(--text-dim); }
+
+p { margin-bottom:16px; font-size:15px; }
+.dim { color:var(--text-dim); }
+.small { font-size:13px; }
+.mb-0 { margin-bottom:0; }
+.mt-32 { margin-top:32px; }
+.accent { color:var(--accent); }
+
+@media screen and (max-width: 768px) {
+  .page { padding: 32px 20px; min-height: auto; }
+  .page-num { position: static; text-align: right; margin-top: 24px; }
+  .cover h1 { font-size: 30px; letter-spacing: -1px; }
+  .cover .subtitle { font-size: 16px; }
+  .cover .logo-mark img { width: 60px; height: 60px; }
+  h2 { font-size: 22px; margin-bottom: 20px; }
+  h3 { font-size: 17px; }
+  .stat-grid, .stat-grid.four { grid-template-columns: 1fr; gap: 16px; }
+  .stat-card { padding: 20px; }
+  .stat-card .number { font-size: 32px; }
+  .two-col { grid-template-columns: 1fr !important; gap: 20px !important; }
+  .col-box { padding: 20px; }
+  .product-table { font-size: 12px; }
+  .product-table th, .product-table td { padding: 10px 8px; font-size: 12px; }
+  .pricing-grid { grid-template-columns: 1fr; gap: 20px; }
+  .pricing-card { padding: 24px; }
+  .case-metrics { grid-template-columns: 1fr; }
+  .flow-row { flex-direction: column; gap: 8px; }
+  .flow-step { min-width: auto; width: 100%; }
+  .flow-arrow { transform: rotate(90deg); text-align: center; }
+  p { font-size: 14px; }
+  .small { font-size: 12px; }
+  .footer-bar { padding: 20px; }
+  .quote-block { padding: 16px 20px; font-size: 15px; }
+}
+@media screen and (max-width: 480px) {
+  .page { padding: 24px 16px; }
+  .cover h1 { font-size: 25px; }
+  h2 { font-size: 20px; }
+  .stat-card .number { font-size: 28px; }
+}
+@media print { .page { padding:40px; min-height:auto; } }
+
+/* ===== In-app content preview mockups ===== */
+.preview-grid { display:grid; grid-template-columns:1fr 1fr; gap:28px; margin:28px 0; align-items:start; }
+.phone { width:100%; max-width:300px; margin:0 auto; background:#0f0f0f; border:9px solid #1c1c1c;
+  border-radius:38px; overflow:hidden; box-shadow:0 24px 60px rgba(0,0,0,0.55); }
+.phone-notch { height:24px; background:#0f0f0f; display:flex; align-items:center; justify-content:center; }
+.phone-notch::after { content:''; width:88px; height:6px; background:#000; border-radius:0 0 8px 8px; margin-top:-2px; }
+.phone-screen { background:#f4f6f9; }
+.app-bar { background:#0a2540; color:#fff; padding:13px 16px; display:flex; align-items:center; gap:8px; }
+.app-bar .app-logo { width:18px; height:18px; border-radius:5px; background:var(--accent); flex-shrink:0; }
+.app-bar .app-name { font-size:12.5px; font-weight:700; letter-spacing:-0.3px; }
+.app-bar .app-tab { margin-left:auto; font-size:10.5px; color:#8fb0d6; }
+.preview-cap { text-align:center; font-size:13px; color:var(--text-dim); margin-top:14px; }
+.preview-cap strong { color:var(--accent); }
+/* daily article mock */
+.mock-art { padding:16px 16px 20px; }
+.mock-cat { display:inline-block; background:#0a2540; color:#fff; font-size:10px; font-weight:700; padding:3px 9px; border-radius:20px; letter-spacing:0.3px; }
+.mock-title { color:#10151c; font-size:17px; font-weight:900; line-height:1.35; margin:12px 0 6px; letter-spacing:-0.5px; }
+.mock-meta { color:#8a93a0; font-size:11px; margin-bottom:14px; }
+.mock-lead { color:#10151c; font-size:12.5px; line-height:1.6; margin-bottom:12px; background:#fff; border-left:3px solid var(--accent); padding:10px 12px; border-radius:0 8px 8px 0; }
+.mock-lead b { color:var(--accent); }
+.mock-art ul { list-style:none; padding:0; margin:0 0 14px; }
+.mock-art li { color:#28303b; font-size:12px; line-height:1.5; padding:7px 0 7px 18px; position:relative; border-bottom:1px solid #e6eaef; }
+.mock-art li::before { content:''; position:absolute; left:2px; top:13px; width:6px; height:6px; border-radius:50%; background:var(--accent); }
+.mock-hash { color:#9aa3b0; font-size:11px; margin-top:4px; }
+/* card news mock */
+.cn-stage { padding:18px 16px 8px; background:#eef1f5; }
+.cn-card { border-radius:16px; padding:22px 18px; min-height:300px; display:flex; flex-direction:column;
+  background:linear-gradient(155deg,#0a2540 0%,#15426e 60%,#1d5a96 100%); position:relative; overflow:hidden; }
+.cn-card::after { content:''; position:absolute; right:-40px; bottom:-40px; width:160px; height:160px; border-radius:50%; background:rgba(243,140,97,0.18); }
+.cn-kicker { color:var(--accent); font-size:11px; font-weight:700; letter-spacing:1px; text-transform:uppercase; z-index:1; }
+.cn-head { color:#fff; font-size:26px; font-weight:900; line-height:1.25; margin-top:10px; letter-spacing:-0.8px; z-index:1; }
+.cn-desc { color:#bcd2ea; font-size:12px; line-height:1.55; margin-top:14px; z-index:1; }
+.cn-foot { margin-top:auto; color:#7f9cbd; font-size:10.5px; z-index:1; padding-top:16px; }
+.cn-foot b { color:#fff; }
+.cn-dots { display:flex; gap:5px; justify-content:center; padding:12px 0 16px; background:#eef1f5; }
+.cn-dots span { width:6px; height:6px; border-radius:50%; background:#c2ccd8; }
+.cn-dots span.on { background:var(--accent); width:18px; border-radius:3px; }
+/* daily brief story blocks */
+.mock-story { padding:10px 0; border-bottom:1px solid #e6eaef; }
+.mock-story:last-child { border-bottom:none; }
+.mock-story .st-head { color:#0a2540; font-size:12.5px; font-weight:800; display:block; }
+.mock-story .st-head em { font-style:normal; color:var(--accent); }
+.mock-story .st-body { display:block; color:#3a434f; font-size:11.5px; line-height:1.55; margin-top:3px; }
+/* card news cut strip */
+.cn-strip { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-top:24px; }
+.cn-mini { border-radius:13px; padding:15px 13px; min-height:172px; display:flex; flex-direction:column;
+  background:linear-gradient(160deg,#13243a 0%,#1d4570 100%); position:relative; overflow:hidden; }
+.cn-mini::after { content:''; position:absolute; right:-30px; bottom:-30px; width:90px; height:90px; border-radius:50%; background:rgba(243,140,97,0.14); }
+.cn-mini .mn-num { font-family:'Space Grotesk',monospace; font-size:11px; color:var(--accent); font-weight:700; z-index:1; }
+.cn-mini .mn-head { color:#fff; font-size:15px; font-weight:800; line-height:1.3; margin-top:8px; letter-spacing:-0.3px; z-index:1; }
+.cn-mini .mn-body { color:#bcd2ea; font-size:11px; line-height:1.5; margin-top:8px; z-index:1; }
+@media screen and (max-width:768px){
+  .preview-grid { grid-template-columns:1fr; gap:32px; }
+  .cn-strip { grid-template-columns:1fr 1fr; }
+}
+
+/* ===== KIS-style card news (orange frame) ===== */
+.cn2-cover { background:#fff; border:6px solid var(--accent); border-radius:16px; padding:18px 16px; min-height:330px; display:flex; flex-direction:column; }
+.cn2-kick { font-size:11px; font-weight:700; color:var(--accent); letter-spacing:0.5px; }
+.cn2-title { color:#10151c; font-size:26px; font-weight:900; letter-spacing:-1px; line-height:1.22; margin-top:8px; }
+.cn2-illust { flex:1; display:flex; align-items:center; justify-content:center; }
+.cn2-illust .emoji { font-size:92px; line-height:1; }
+.cn2-cap { text-align:center; color:#10151c; font-size:14px; font-weight:800; }
+.cn2-cap b { color:var(--accent); }
+.cn2-foot { display:flex; align-items:center; justify-content:center; gap:6px; color:#9aa3b0; font-size:10px; font-weight:700; border-top:1px solid #eee; padding-top:10px; margin-top:12px; }
+.cn2-foot b { color:#10151c; }
+.cn2-strip { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-top:22px; }
+.cn2-cut { background:#fff; border:4px solid var(--accent); border-radius:13px; padding:13px 12px; display:flex; flex-direction:column; min-height:200px; }
+.cn2-cut .ct-num { font-size:16px; font-weight:900; color:#10151c; letter-spacing:-0.5px; line-height:1.25; }
+.cn2-cut .ct-visual { flex:1; display:flex; align-items:center; justify-content:center; padding:8px 0; }
+.cn2-cut .ct-visual .vemoji { font-size:42px; }
+.basket { display:flex; flex-wrap:wrap; gap:3px; width:74px; justify-content:center; }
+.basket i { width:15px; height:15px; border-radius:3px; display:block; }
+.points { font-size:10.5px; color:#28303b; line-height:1.7; }
+.points b { color:var(--accent); }
+.cn2-cut .ct-take { font-size:10.5px; color:#3a434f; line-height:1.45; }
+.cn2-cut .ct-take b { color:var(--accent); }
+.cn2-cut .ct-foot { font-size:8px; color:#b8c0ca; text-align:center; border-top:1px solid #f0f0f0; padding-top:6px; margin-top:8px; font-weight:700; }
+
+/* real card news image gallery */
+.cn-real { display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-top:18px; }
+.cn-real figure { margin:0; }
+.cn-real img { width:100%; border-radius:12px; display:block; box-shadow:0 10px 28px rgba(0,0,0,0.45); }
+.cn-real figcaption { font-size:10.5px; color:var(--text-dim); text-align:center; margin-top:7px; }
+.mock-sig { font-size:10.5px; color:#9aa3b0; font-style:italic; margin-top:10px; padding-top:8px; border-top:1px dashed #d8dde3; }
+@media screen and (max-width:768px){ .cn-real { grid-template-columns:1fr 1fr; } }
+
+/* deep story card (real newsletter section) */
+.story-card { background:#fff; border-radius:16px; padding:30px 32px; margin-top:8px; }
+.story-card .sc-cat { display:inline-block; background:#0a2540; color:#fff; font-size:11px; font-weight:700; padding:3px 11px; border-radius:20px; letter-spacing:0.5px; }
+.story-card .sc-title { color:#10151c; font-size:25px; font-weight:900; letter-spacing:-1px; margin:14px 0 6px; line-height:1.28; }
+.story-card .sc-meta { color:#8a93a0; font-size:12px; margin-bottom:18px; }
+.story-card .sc-lead { background:#fff6f1; border-left:3px solid var(--accent); padding:13px 15px; border-radius:0 8px 8px 0; font-size:14.5px; color:#10151c; line-height:1.65; margin-bottom:18px; font-weight:500; }
+.story-card .sc-p { font-size:13.5px; color:#2a323d; line-height:1.8; padding:9px 0 9px 18px; position:relative; border-bottom:1px solid #f0f2f5; }
+.story-card .sc-p:last-of-type { border-bottom:none; }
+.story-card .sc-p::before { content:'◾'; position:absolute; left:0; top:11px; color:var(--accent); font-size:9px; }
+.story-card .sc-p b, .story-card .sc-p strong { color:#10151c; font-weight:700; }
+.story-card .sc-p .sub { font-size:0.85em; color:inherit; }
+.story-card .sc-p .note { font-size:0.78em; color:#a2abb5; }
+.story-card .sc-sig { font-size:12px; color:#9aa3b0; font-style:italic; margin-top:14px; padding-top:11px; border-top:1px dashed #e2e6eb; }
+@media screen and (max-width:768px){ .story-card { padding:22px 20px; } .story-card .sc-title{ font-size:20px; } }
+
+/* ===== Per-client screen mockups ===== */
+.case-body { display:grid; grid-template-columns:1fr 224px; gap:26px; align-items:start; margin-top:4px; }
+.phone.sm { max-width:224px; border-width:7px; border-radius:30px; margin:0; }
+.phone.sm .phone-screen { min-height:auto; }
+.shot-cap { text-align:center; font-size:11px; color:var(--text-dim); margin-top:9px; }
+.appbar2 { color:#fff; padding:11px 13px; display:flex; align-items:center; gap:7px; font-size:11.5px; font-weight:700; }
+.appbar2 .dot { width:15px; height:15px; border-radius:4px; background:rgba(255,255,255,0.9); }
+.appbar2 .tab { margin-left:auto; font-size:9.5px; opacity:0.85; font-weight:500; }
+.b-nh{background:#019e5d;} .b-bc{background:#e6004c;} .b-kis{background:#b81c22;} .b-sh{background:#0046ad;}
+.feed { background:#f1f4f8; padding:11px; }
+.feed-h { font-size:12px; font-weight:800; color:#10151c; margin:2px 2px 9px; }
+.feed-h span { color:#8a93a0; font-weight:500; font-size:9.5px; display:block; margin-top:2px; }
+.fitem { background:#fff; border-radius:9px; padding:9px 10px; margin-bottom:7px; box-shadow:0 1px 2px rgba(0,0,0,0.05); }
+.fitem .ft { font-size:11px; font-weight:700; color:#1a2230; line-height:1.35; }
+.fitem .fm { font-size:9px; color:#9aa3b0; margin-top:3px; }
+.fitem.hot { border-left:3px solid var(--accent); }
+.mkt { display:flex; gap:5px; margin-bottom:8px; }
+.mkt div { flex:1; background:#fff; border-radius:7px; padding:6px 3px; text-align:center; }
+.mkt .mi { font-size:8.5px; color:#8a93a0; }
+.mkt .mv { font-size:10px; font-weight:800; margin-top:2px; color:#10151c; }
+.mkt .mc { font-size:8.5px; margin-top:1px; }
+.mkt .up{color:#e6004c;} .mkt .dn{color:#1f6fe6;}
+.wbrief { background:#fff; padding:13px; }
+.wbrief .wb-tag { display:inline-block; background:#0046ad; color:#fff; font-size:9px; font-weight:700; padding:3px 8px; border-radius:20px; }
+.wbrief .wb-title { font-size:14px; font-weight:900; color:#10151c; line-height:1.3; margin:9px 0 4px; letter-spacing:-0.4px; }
+.wbrief .wb-sub { font-size:10px; color:#8a93a0; margin-bottom:10px; }
+.wbrief .wb-li { font-size:10.5px; color:#28303b; line-height:1.5; padding:7px 0 7px 14px; position:relative; border-bottom:1px solid #eef0f3; }
+.wbrief .wb-li:last-child { border-bottom:none; }
+.wbrief .wb-li::before { content:''; position:absolute; left:1px; top:13px; width:5px; height:5px; border-radius:50%; background:#0046ad; }
+.wbrief .wb-li b { color:#10151c; }
+.kis-thumb { background:#fff; border:3px solid var(--accent); border-radius:10px; padding:10px; margin-top:7px; display:flex; align-items:center; gap:9px; }
+.kis-thumb .kt-emo { font-size:26px; }
+.kis-thumb .kt-t { font-size:10.5px; font-weight:800; color:#10151c; line-height:1.3; }
+.kis-thumb .kt-s { font-size:9px; color:#9aa3b0; margin-top:2px; }
+
+@media screen and (max-width:768px){
+  .case-body { grid-template-columns:1fr; }
+  .phone.sm { max-width:260px; margin:0 auto; }
+  .cn2-strip { grid-template-columns:1fr 1fr; }
+}
+
+/* Gate overlay */
+.gate-overlay { position:fixed; inset:0; z-index:9999; background:var(--bg);
+  display:flex; align-items:center; justify-content:center; transition: opacity 0.4s ease; }
+.gate-overlay.hidden { opacity:0; pointer-events:none; }
+.gate-box { background:var(--surface); border:1px solid var(--border); border-radius:20px;
+  padding:48px 36px; max-width:400px; width:90%; text-align:center; }
+.gate-box h2 { font-size:24px; margin-bottom:8px; }
+.gate-box p { font-size:14px; color:var(--text-dim); margin-bottom:20px; }
+.gate-logo { width:80px; height:80px; object-fit:contain; border-radius:16px; display:block; margin:0 auto 16px; }
+.gate-input { display:block; width:100%; padding:12px 16px; margin-bottom:12px;
+  background:var(--surface2); border:1px solid var(--border); border-radius:10px;
+  color:var(--text); font-size:14px; font-family:'Noto Sans KR',sans-serif; outline:none; }
+.gate-input:focus { border-color:var(--accent); }
+.gate-btn { display:block; width:100%; padding:14px; margin-top:8px;
+  background:var(--accent); color:#000; border:none; border-radius:10px;
+  font-size:15px; font-weight:700; cursor:pointer; font-family:'Noto Sans KR',sans-serif; transition: background 0.2s; }
+.gate-btn:hover { background:var(--accent2); }
+.gate-error { display:none; color:#e74c3c; font-size:13px; margin-top:12px; }
+.gate-note { font-size:11px; color:var(--text-dim); margin-top:16px; opacity:0.7; }
+
+/* Deck content — hidden until authenticated */
+.deck-content { display:none; }
+.deck-content.visible { display:block; }
+</style>
+</head>
+<body>
+
+<!-- PASSWORD GATE -->
+<div class="gate-overlay" id="gate">
+  <div class="gate-box">
+    <img src="soonsal-logo.png" class="gate-logo" alt="순살">
+    <h2>콘텐츠 공급 제안서</h2>
+    <p>열람을 위해 이메일과 액세스 코드를 입력해주세요.</p>
+    <input type="email" class="gate-input" id="gate-email" placeholder="업무 이메일" required>
+    <input type="password" class="gate-input" id="gate-password" placeholder="액세스 코드">
+    <button class="gate-btn" onclick="checkAccess()">열람하기</button>
+    <div class="gate-error" id="gate-error">액세스 코드가 올바르지 않습니다.</div>
+    <p class="gate-note">입력하신 이메일은 제휴 안내 목적으로만 사용됩니다.</p>
+  </div>
+</div>
+
+<!-- DECK CONTENT (hidden until authenticated) -->
+<div class="deck-content" id="deck">
+
+<!-- PAGE 1: COVER -->
+<div class="page cover">
+  <div class="logo-mark"><img src="soonsal-logo.png" alt="순살" style="width:88px;height:88px;object-fit:contain;border-radius:18px;"></div>
+  <h1>한국투자신탁운용<br><span>인앱 콘텐츠 공급 제안서</span></h1>
+  <p class="subtitle">신규 앱에 매일 채워지는 <strong>금융 콘텐츠</strong>를<br>순살 에디토리얼 팀이 직접 기획·제작·공급합니다</p>
+  <div style="margin-bottom:32px;">
+    <span class="tag">연단위 공급 계약</span>
+    <span class="tag">일간 1~2건</span>
+    <span class="tag outline">B2B 콘텐츠 라이선스</span>
+  </div>
+  <div class="meta">
+    <strong>순살 (Soonsal)</strong> · 2026.06<br>
+    문의: <a href="m&#97;ilto&#58;te&#97;m&#64;soons&#97;l&#46;com" style="color:var(--accent);">te&#97;m&#64;soons&#97;l&#46;com</a> · 010-9919-1712
+  </div>
+  <div class="page-num">01</div>
+</div>
+
+<!-- PAGE 2: WHY / CONTEXT -->
+<div class="page">
+  <h2><span class="num">01</span>제안 배경</h2>
+  <p>한국투자신탁운용은 <strong>하반기 중 자체 앱 출시</strong>를 앞두고 있습니다. 출시 시점의 기능만큼이나, <strong>출시 후 매일 사용자를 다시 불러오는 콘텐츠</strong>가 앱을 한층 더 단단하게 만듭니다.</p>
+
+  <div class="two-col">
+    <div class="col-box">
+      <h4>운용사 앱이 마주하는 과제</h4>
+      <ul>
+        <li>출시 후 매일 채워야 할 콘텐츠 공백</li>
+        <li>전담 에디토리얼 인력 채용·운영 부담</li>
+        <li>딱딱한 운용 리포트로는 리텐션 확보 난항</li>
+        <li>매일 일관된 품질·톤 유지의 어려움</li>
+      </ul>
+    </div>
+    <div class="col-box">
+      <h4>순살이 제공하는 해결책</h4>
+      <ul>
+        <li>매일 1~2건 검증된 금융 콘텐츠 공급</li>
+        <li>채용·운영 없이 즉시 가동되는 외부 편집팀</li>
+        <li>"순살만 쏙쏙 발라" 쉽게 읽히는 리텐션형 콘텐츠</li>
+        <li>대형 증권사 공급으로 검증된 일간 운영 체계</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="quote-block">
+    "앱은 출시가 끝이 아니라 시작입니다. 매일 들어올 이유를 만드는 것은 콘텐츠이며, 순살은 이미 국내 대형 증권사 앱에 매일 콘텐츠를 공급해 온 검증된 파트너입니다."
+  </div>
+  <div class="page-num">02</div>
+</div>
+
+<!-- PAGE 3: WHO WE ARE -->
+<div class="page">
+  <h2><span class="num">02</span>순살 소개</h2>
+  <ul style="list-style:none; padding:0; margin:0 0 16px;">
+    <li style="padding:6px 0; font-size:15px;">→ 복잡한 글로벌 금융을 <strong>"순살만 쏙쏙 발라"</strong> 알기 쉽게 전달하는 프리미엄 금융 미디어</li>
+    <li style="padding:6px 0; font-size:15px;">→ 모건스탠리 홍콩 출신 에디터가 직접 큐레이션하는 에디토리얼 팀 보유</li>
+    <li style="padding:6px 0; font-size:15px;">→ <strong>2021년부터 국내 대형 증권사·카드사 앱에 매일 콘텐츠를 공급</strong>해 온 B2B 콘텐츠 공급 실적</li>
+  </ul>
+
+  <div class="stat-grid four">
+    <div class="stat-card">
+      <div class="number">2021~</div>
+      <div class="label">콘텐츠 공급 운영</div>
+      <div class="detail">다수 금융사 일간</div>
+    </div>
+    <div class="stat-card">
+      <div class="number">200K+</div>
+      <div class="label">자체 채널 구독자</div>
+      <div class="detail">뉴스레터·인스타·유튜브 등 합산</div>
+    </div>
+    <div class="stat-card">
+      <div class="number">260K+</div>
+      <div class="label">월간 총 도달</div>
+      <div class="detail">이메일·인스타 합산</div>
+    </div>
+    <div class="stat-card">
+      <div class="number">수천 건</div>
+      <div class="label">누적 공급 콘텐츠</div>
+      <div class="detail">증권사 앱 일간 공급</div>
+    </div>
+  </div>
+
+  <div class="two-col">
+    <div class="col-box">
+      <h4>자체 운영 채널 (콘텐츠 품질 검증)</h4>
+      <ul>
+        <li><a href="https://soonsal.com" target="_blank" style="color:var(--accent);text-decoration:none;border-bottom:1px solid var(--accent);">순살브리핑</a> — 일간 금융 뉴스레터 (76K 구독)</li>
+        <li><a href="https://instagram.com/soonsal.brief" target="_blank" style="color:var(--accent);text-decoration:none;border-bottom:1px solid var(--accent);">순살 카드뉴스</a> — IG 캐러셀 (87K 팔로워)</li>
+        <li><a href="https://instagram.com/soonsal.crypto" target="_blank" style="color:var(--accent);text-decoration:none;border-bottom:1px dashed var(--accent);">순살크립토</a> · <a href="https://instagram.com/soonsal.zzal" target="_blank" style="color:var(--accent);text-decoration:none;border-bottom:1px dashed var(--accent);">순살짤</a> · <a href="https://youtube.com/@soonsal" target="_blank" style="color:var(--accent);text-decoration:none;border-bottom:1px dashed var(--accent);">유튜브</a> · <a href="https://threads.net/@soonsal.brief" target="_blank" style="color:var(--accent);text-decoration:none;border-bottom:1px dashed var(--accent);">쓰레드</a></li>
+      </ul>
+    </div>
+    <div class="col-box">
+      <h4>B2B 콘텐츠 공급 이력</h4>
+      <ul>
+        <li>NH투자증권 · 한국투자증권 · BC카드</li>
+        <li>증권사 MTS·앱에 일간 콘텐츠 직접 적재 운영</li>
+        <li>콘텐츠 저작권 보유 · 라이선스 공급 구조</li>
+      </ul>
+    </div>
+  </div>
+  <div class="page-num">03</div>
+</div>
+
+<!-- PAGE 4: SUPPLY TRACK RECORD (CASE STUDIES) -->
+<div class="page">
+  <h2><span class="num">03</span>콘텐츠 공급 실적</h2>
+  <p>순살은 <strong>2021년부터 국내 대형 증권사·카드사의 앱과 플랫폼에 매일 콘텐츠를 공급</strong>해 왔습니다. 한국투자신탁운용 앱에 적용할 모델은 이미 다수 금융사에서 검증된 운영 방식입니다.</p>
+  <p>고객사들은 보통 <strong>연 1.5억원 규모로 콘텐츠 공급을 시작</strong>해, 콘텐츠 종류와 물량을 늘려가며 예산을 확대해 왔습니다.</p>
+
+  <div class="stat-grid">
+    <div class="stat-card">
+      <div class="number">4곳+</div>
+      <div class="label">대형 금융사 공급</div>
+      <div class="detail">증권·카드사 다수</div>
+    </div>
+    <div class="stat-card">
+      <div class="number">연 1.5억+</div>
+      <div class="label">통상 연간 시작 예산</div>
+      <div class="detail">물량 추가에 따라 확대</div>
+    </div>
+    <div class="stat-card">
+      <div class="number">2021~</div>
+      <div class="label">콘텐츠 공급 운영</div>
+      <div class="detail">다수 금융사 누적</div>
+    </div>
+  </div>
+
+  <!-- Case 1: NH 나무 -->
+  <div class="case-card">
+    <div class="case-head">
+      <span class="case-name">NH투자증권 · 나무</span>
+      <span class="case-badge">CASE 01 · MTS 인앱</span>
+    </div>
+    <div class="case-sub">콘텐츠 라이선싱 + 콘텐츠 URL 페이지 운영 — '나무' 앱 일간 공급</div>
+    <div class="case-body">
+      <div>
+        <div class="case-metrics">
+          <div class="case-metric"><div class="m-label">공급 시기</div><div class="m-value text">2021–2022 · 연단위</div></div>
+          <div class="case-metric"><div class="m-label">공급량</div><div class="m-value text">주 5회 · 일 1건</div></div>
+          <div class="case-metric"><div class="m-label">노출 영역</div><div class="m-value text">나무 투데이</div></div>
+        </div>
+        <p class="case-note mb-0">MTS '나무'의 <strong>「나무 투데이 — 오늘 이건 꼭 봐야 해」</strong> 영역에 매일 시황·정보성 콘텐츠를 공급. 콘텐츠 라이선싱과 함께 <strong>콘텐츠 URL 페이지 제작·운영</strong>까지 순살이 담당해, 증권사는 노출만 하면 되는 구조였습니다.</p>
+      </div>
+      <div>
+        <div class="phone sm">
+          <div class="phone-notch"></div>
+          <div class="phone-screen">
+            <div class="appbar2 b-nh"><div class="dot"></div>나무<div class="tab">나무 투데이</div></div>
+            <div class="feed">
+              <div class="feed-h">오늘 이건 꼭 봐야 해<span>순살이 매일 전해드려요</span></div>
+              <div class="fitem hot"><div class="ft">엔비디아 또 째져도 1.5조원 받는 소프트뱅크</div><div class="fm">순살브리핑 · 오늘</div></div>
+              <div class="fitem"><div class="ft">M&amp;A 시장이 다시 꿈틀, 무슨 일?</div><div class="fm">순살브리핑 · 오늘</div></div>
+              <div class="fitem"><div class="ft">약 실적으로 보는 미국 팬데믹의 끝</div><div class="fm">순살브리핑 · 어제</div></div>
+              <div class="fitem"><div class="ft">구글이 쪼개진다고? 반독점 그 후</div><div class="fm">순살브리핑 · 어제</div></div>
+            </div>
+          </div>
+        </div>
+        <div class="shot-cap">나무 '나무 투데이' 노출 화면 (재구성)</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Case 2: BC 페이북 -->
+  <div class="case-card">
+    <div class="case-head">
+      <span class="case-name">BC카드 · 페이북</span>
+      <span class="case-badge">CASE 02 · 앱 + API 연동</span>
+    </div>
+    <div class="case-sub">콘텐츠 라이선싱 + API 콘텐츠 서버 운영 — '페이북' 일간 공급</div>
+    <div class="case-body">
+      <div>
+        <div class="case-metrics">
+          <div class="case-metric"><div class="m-label">공급 시기</div><div class="m-value text">2021–2022</div></div>
+          <div class="case-metric"><div class="m-label">공급량</div><div class="m-value text">주 5회 · 일 2건</div></div>
+          <div class="case-metric"><div class="m-label">노출 영역</div><div class="m-value text">페이북 재테크</div></div>
+        </div>
+        <p class="case-note mb-0">'페이북' 재테크 영역에 하루 <strong>2건</strong>씩 시황 콘텐츠를 공급. <strong>API 호출 방식의 콘텐츠 전송 + 고객사 디자인 가이드를 반영한 콘텐츠 서버</strong>까지 순살이 구축·운영한, 가장 깊은 수준의 인앱 통합 사례입니다.</p>
+      </div>
+      <div>
+        <div class="phone sm">
+          <div class="phone-notch"></div>
+          <div class="phone-screen">
+            <div class="appbar2 b-bc"><div class="dot"></div>페이북<div class="tab">재테크</div></div>
+            <div class="feed">
+              <div class="feed-h">우리가 잠든 사이 무슨 일들이?<span>밤사이 글로벌 마켓</span></div>
+              <div class="mkt">
+                <div><div class="mi">S&amp;P500</div><div class="mv">5,431</div><div class="mc up">+0.9%</div></div>
+                <div><div class="mi">나스닥</div><div class="mv">17,210</div><div class="mc up">+1.2%</div></div>
+                <div><div class="mi">KOSPI</div><div class="mv">2,705</div><div class="mc dn">-0.3%</div></div>
+              </div>
+              <div class="fitem hot"><div class="ft">엔비디아 또 째져도 1.5조원 받는 소프트뱅크</div><div class="fm">순살 · 06:30</div></div>
+              <div class="fitem"><div class="ft">펠로톤, 다시 떡상할 수 있을까?</div><div class="fm">순살 · 06:30</div></div>
+              <div class="fitem"><div class="ft">빌 아크만, 넷플릭스에 풀베팅</div><div class="fm">순살 · 어제</div></div>
+            </div>
+          </div>
+        </div>
+        <div class="shot-cap">페이북 '재테크' 노출 화면 (재구성)</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Case 3: KIS -->
+  <div class="case-card">
+    <div class="case-head">
+      <span class="case-name">한국투자증권</span>
+      <span class="case-badge">CASE 03 · 앱 · HTS</span>
+    </div>
+    <div class="case-sub">일간 시황 + 5개 테마 + 카드뉴스 — 4개 사례 중 최장기·최대 규모</div>
+    <div class="case-body">
+      <div>
+        <div class="case-metrics">
+          <div class="case-metric"><div class="m-label">공급 시기</div><div class="m-value text">2022~ · 진행 중</div></div>
+          <div class="case-metric"><div class="m-label">공급량</div><div class="m-value text">일간 + 테마 5종</div></div>
+          <div class="case-metric"><div class="m-label">노출 영역</div><div class="m-value text">앱 · HTS</div></div>
+        </div>
+        <p class="case-note mb-0">국내·해외 일간 시황에 더해 <strong>ETF · 글로벌브레인들 · 패러다임변화 · 기업산업 · 경제동향</strong> 5개 테마를 요일별로 배분 공급. ELW 등 상품 교육 <strong>카드뉴스</strong>까지 확장하며 다년간 규모를 키워온 플래그십 사례입니다.</p>
+      </div>
+      <div>
+        <div class="phone sm">
+          <div class="phone-notch"></div>
+          <div class="phone-screen">
+            <div class="appbar2 b-kis"><div class="dot"></div>한국투자증권<div class="tab">투자정보</div></div>
+            <div class="feed">
+              <div class="feed-h">순살 콘텐츠<span>시황 · 테마 · 카드뉴스</span></div>
+              <div class="fitem hot"><div class="ft">[데일리] 빅테크가 끌고, 금리가 눌렀다</div><div class="fm">국내·해외 시황 · 오늘</div></div>
+              <div class="fitem"><div class="ft">[ETF] 요즘 뜨는 미국 배당 ETF 3종 비교</div><div class="fm">테마 · 화</div></div>
+              <div class="fitem"><div class="ft">[글로벌브레인들] 버핏이 또 사들인 종목은?</div><div class="fm">테마 · 목</div></div>
+              <div class="kis-thumb"><span class="kt-emo">🃏</span><div><div class="kt-t">ELW 민감도(Greeks) 완전 정복</div><div class="kt-s">카드뉴스 10컷</div></div></div>
+            </div>
+          </div>
+        </div>
+        <div class="shot-cap">한국투자증권 앱 투자정보 화면 (재구성)</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Case 4: Shinhan -->
+  <div class="case-card">
+    <div class="case-head">
+      <span class="case-name">신한카드</span>
+      <span class="case-badge">CASE 04 · 위클리</span>
+    </div>
+    <div class="case-sub">주간 글로벌 경제 브리핑 — '위클리' 콘텐츠 공급</div>
+    <div class="case-body">
+      <div>
+        <div class="case-metrics">
+          <div class="case-metric"><div class="m-label">공급 시기</div><div class="m-value text">2021–2023</div></div>
+          <div class="case-metric"><div class="m-label">공급량</div><div class="m-value text">주 1회 · 위클리</div></div>
+          <div class="case-metric"><div class="m-label">콘텐츠</div><div class="m-value text">글로벌 경제 브리핑</div></div>
+        </div>
+        <p class="case-note mb-0">한 주의 글로벌 경제·시장 흐름을 한 편으로 정리한 <strong>위클리 브리핑</strong>을 정기 공급. 일간이 부담스러운 채널에 맞춘 <strong>주간 큐레이션 포맷</strong>으로, 공급 주기를 유연하게 설계한 사례입니다.</p>
+      </div>
+      <div>
+        <div class="phone sm">
+          <div class="phone-notch"></div>
+          <div class="phone-screen">
+            <div class="appbar2 b-sh"><div class="dot"></div>신한카드<div class="tab">위클리</div></div>
+            <div class="wbrief">
+              <div class="wb-tag">WEEKLY</div>
+              <div class="wb-title">중국 테크주 시대의 종말? 커진 불확실성</div>
+              <div class="wb-sub">한 주간 글로벌 경제, 핵심만 · 순살</div>
+              <div class="wb-li"><b>파월, 다시 매파</b> — 필요하면 50bp 인상도 열어둬 시장 긴장.</div>
+              <div class="wb-li"><b>중국 원자재 진화</b> — 리튬값 1년새 5배, 정부가 직접 단속.</div>
+              <div class="wb-li"><b>텐센트의 고백</b> — "고속성장 시대 끝", 규제 시대 인정.</div>
+              <div class="wb-li"><b>밈주식 부활</b> — 게임스톱·AMC에 개미 재결집.</div>
+            </div>
+          </div>
+        </div>
+        <div class="shot-cap">신한카드 위클리 브리핑 (재구성)</div>
+      </div>
+    </div>
+  </div>
+
+  <p class="dim small">* 개별 계약 조건·단가는 비밀유지 대상으로 비공개합니다. 위 수치는 공개 가능한 범위의 운영 실적 기준입니다.</p>
+  <div class="page-num">04</div>
+</div>
+
+<!-- PAGE: CONTENT PREVIEW -->
+<div class="page">
+  <h2><span class="num">03-1</span>콘텐츠 미리보기</h2>
+  <p>실제 공급 콘텐츠를 앱에 노출되는 형태 그대로 옮겨 왔습니다. <strong>시황·테마 텍스트 콘텐츠는 순살브리핑 실제 발행본</strong>, <strong>카드뉴스는 한국투자증권에 실제 공급한 콘텐츠</strong>입니다.</p>
+
+  <div class="preview-grid">
+    <!-- Daily market brief (full) -->
+    <div>
+      <div class="phone">
+        <div class="phone-notch"></div>
+        <div class="phone-screen">
+          <div class="app-bar"><div class="app-logo"></div><div class="app-name">한국투자신탁운용</div><div class="app-tab">투데이 ▾</div></div>
+          <div class="mock-art">
+            <span class="mock-cat">☕ 순살브리핑 · 06.19 (금)</span>
+            <div class="mock-title">🐟 파멸적 부활</div>
+            <div class="mock-meta">굿모닝! 밤사이 글로벌 마켓, 순살이 발라드림 🦴</div>
+            <div class="mock-lead"><b>한 줄 요약.</b> 매파 연준에도 증시 반등 — 이란 평화 협정이 에너지 인플레 공포를 걷어냈음.</div>
+            <div class="mock-story"><span class="st-head"><em>①</em> 하루 만에 다 돌려놓음</span><span class="st-body">전날 연준 인상 시그널로 빠졌던 S&amp;P가 +1.08%, 나스닥 +1.91%로 반등. 이란 평화 협정 발효가 에너지 인플레 우려를 상쇄.</span></div>
+            <div class="mock-story"><span class="st-head"><em>②</em> 미-이란 평화 협정 발효</span><span class="st-body">호르무즈에 묶여있던 원유가 다시 흐르기 시작. 미 해군 봉쇄 해제, WTI는 76불대로 하락. 60일간 핵 협상 돌입.</span></div>
+            <div class="mock-story"><span class="st-head"><em>③</em> 코스피 사상 첫 9,000</span><span class="st-body">삼성·SK하이닉스 반도체 강세가 주도. AMD·구글·테슬라가 삼성에 칩 생산 타진 중. JPMorgan은 10,000 전망까지 제시.</span></div>
+            <div class="mock-story"><span class="st-head"><em>④</em> 인텔 +228%</span><span class="st-body">차세대 칩 시험 생산 시작. TSMC 용량이 다 차며 인텔·삼성으로 물량이 분산되는 흐름. 아마존은 자체 AI칩 외부 판매까지.</span></div>
+            <div class="mock-hash">#이란평화협정 #코스피9000 #인텔 #연준</div>
+          </div>
+        </div>
+      </div>
+      <div class="preview-cap"><strong>일간 시황 브리핑</strong> — 매일 아침 앱 '투데이'에 노출</div>
+    </div>
+
+    <!-- 시황 explainer -->
+    <div>
+      <div class="col-box" style="margin:0;">
+        <h4>일간 시황 브리핑은</h4>
+        <ul>
+          <li>전일 글로벌 마켓을 <strong>음슴체로 압축</strong> — 출근길 3분</li>
+          <li>'한 줄 요약 → 핵심 4~5건' 고정 포맷으로 매일 같은 자리</li>
+          <li>딱딱한 리포트 대신 <strong>읽고 싶은 톤</strong>으로 리텐션 형성</li>
+          <li>왼쪽은 순살브리핑 <strong>실제 발행본</strong> (2026.06.19)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Theme deep story (real newsletter section, verbatim) -->
+  <h3 style="margin-top:40px; font-size:18px;">테마·심층 콘텐츠 — 순살브리핑 실제 발행 스토리</h3>
+  <p class="dim small" style="margin-top:-8px;">아래는 순살브리핑 2026.06.19 호에 실제 실린 스토리를 그대로 옮긴 것입니다. 한 종목·이슈를 끝까지 파고들되, 읽기 쉬운 음슴체를 유지합니다.</p>
+  <div class="story-card">
+    <span class="sc-cat">SEMICONDUCTOR</span>
+    <div class="sc-title">🏭 인텔 파멸적 부활, 올해만 +228%의 비밀</div>
+    <div class="sc-meta">순살브리핑 2026.06.19 발행 · 음슴체·원문 그대로</div>
+    <div class="sc-p">망해가는 줄 알았던 인텔, 주가가 올해만 +228% 폭등. 120불 넘어서며 시총 6,000억불, 1년 전의 6배. 2024년만 해도 TSMC한테 완전 밀렸다던 회사인데. <strong>동력은 둘.</strong> 첫째, 2025년 취임한 신임 CEO Lip-Bu Tan이 군살 빼고 파운드리 <span class="sub">(위탁생산)</span>에 올인. Cadence 대표 출신 반도체 베테랑이라, 파운드리 판을 알고 베팅한 셈. 둘째, 트럼프 행정부가 예상 밖의 영업사원 노릇을 해주는 점</div>
+    <div class="sc-p">이번 주 VLSI 심포지엄에서 차세대 18A-P 공정이 리스크 생산 <span class="sub">(소량 시험양산)</span>에 들어갔다고 발표. 18A 대비 성능 최대 9% 향상, 전력 18% 절감, 발열도 20~40% 개선. 18A는 인텔이 수년 만에 내놓은 첫 최첨단 공정이자, 파운드리 부활을 통째로 건 승부수 <span class="sub">(2025년 양산 시작)</span>. <strong>그 18A 설계를 그대로 써서 고객 전환 비용이 거의 안 드는 게 진짜 포인트.</strong> 발표 당일 주가 +3%대</div>
+    <div class="sc-p">트럼프 행정부가 사실상 인텔 영업사원. 상무장관이 엔비디아·애플·테슬라 경영진 직접 만나 '인텔 쓰라' 설득하고, 트럼프는 '애플이 인텔과 칩 만들기로 했다'고 발표. 결과가 엔비디아 50억불 투자, 애플 예비 계약, 머스크 TeraFab 합작. 심지어 미 정부가 인텔 지분 10%를 사둔 터라 <span class="sub">(89억불이 지금 600억불)</span>, 인텔 띄우면 정부도 버는 셈. 엔비디아·구글이 백업 물량 맡긴 날엔 하루 +11% <span class="note">(대통령이 영업 뛰어줌)</span></div>
+    <div class="sc-p">엔비디아 쏠림에서 벗어나려고 빅테크가 죄다 자체 AI칩 설계에 뛰어든 상황. 근데 구글 TPU·아마존 Trainium 같은 맞춤형 칩도 결국 다 TSMC가 만듦 <span class="sub">(어제 아마존은 이 칩을 외부 판매까지 추진)</span>. 그 바람에 TSMC 최첨단 생산 용량은 2028년까지 한도초과, 심지어 아직 첫 삽도 안 뜬 TSMC 애리조나 공장 <span class="sub">(2030년 목표)</span>도 풀 부킹. <strong>여기서 넘치는 수요를 인텔과 삼성이 나눠 먹는 구조.</strong> 삼성의 경우에도 AMD·구글·테슬라·BYD가 생산 타진 중</div>
+    <div class="sc-p">다만 아직 숙제가 산더미. 수율이 아직 TSMC 수준엔 못 미치고 <span class="sub">(인텔 60%대 vs 흑자 기준 70~80%)</span>, x86 말고 ARM 진영 고객까지 끌어오는 건 여전히 숙제. 게다가 회사는 아직 적자고 <span class="sub">(1분기 순손실 37억불)</span>, 구글·엔비디아 물량도 공식 계약서로 확정된 건 아님. 선행 PER이 세 자릿수인데 월가 평균 목표가는 현재가보다 낮을 정도 <span class="sub">(-22%)</span>라, <strong>로드맵대로 실행 못 하면 지금이 천장이 될 수도 있는 상황</strong></div>
+    <div class="sc-sig">매수매도 추천 아님, 순살도 주주 아님</div>
+  </div>
+
+  <!-- Card news — real KIS supplied content -->
+  <h3 style="margin-top:40px; font-size:18px;">카드뉴스 — 한국투자증권 실제 공급 콘텐츠</h3>
+  <p class="dim small" style="margin-top:-8px;">순살이 한국투자증권에 실제로 공급한 카드뉴스(ELW 시리즈) 중 일부입니다. 같은 완성도로 한국투자신탁운용 맞춤 주제(펀드·ETF·연금 등) 제작이 가능합니다. <strong>일러스트 디테일·제작 난이도에 따라 단가가 책정</strong>되며, 위와 같은 커스텀 일러스트 기준 <strong style="color:var(--accent);">장당 30만원~</strong>입니다.</p>
+  <div class="cn-real">
+    <figure><img src="cardnews_01.png" alt="카드뉴스 커버 컷"><figcaption>① 커버</figcaption></figure>
+    <figure><img src="cardnews_02.png" alt="카드뉴스 개념 소개 컷"><figcaption>② 개념 소개</figcaption></figure>
+    <figure><img src="cardnews_03.png" alt="카드뉴스 핵심 설명 컷"><figcaption>③ 핵심 설명</figcaption></figure>
+    <figure><img src="cardnews_04.png" alt="카드뉴스 마무리 컷"><figcaption>④ 마무리·CTA</figcaption></figure>
+  </div>
+
+  <div class="col-box mt-32">
+    <h4>모든 콘텐츠는 '완성형'으로 전달됩니다</h4>
+    <p style="font-size:14px; margin:0; line-height:1.7;">주제 선정 → 취재·작성 → 순살 톤 편집까지 일괄 제작해 전달합니다. 한국투자신탁운용은 <strong>전달받은 콘텐츠를 앱에 노출하기만</strong> 하면 되며, 별도 편집 인력이 필요 없습니다. (이미지·인포그래픽, API 연동 등은 부가 서비스로 제공)</p>
+  </div>
+  <p class="dim small mt-32">* 텍스트 예시는 순살브리핑 실제 발행본(2026.06.19), 카드뉴스는 한국투자증권 공급물입니다. 한국투자신탁운용 앱에는 콘셉트에 맞춘 콘텐츠로 제작됩니다.</p>
+  <div class="page-num">04-1</div>
+</div>
+
+<!-- PAGE 5: WHAT WE SUPPLY (CATALOG) -->
+<div class="page">
+  <h2><span class="num">04</span>공급 콘텐츠 카탈로그</h2>
+  <p>한국투자신탁운용 앱의 콘셉트와 사용자층에 맞춰 아래 콘텐츠를 조합하여 매일 공급합니다.</p>
+
+  <div style="overflow-x:auto;-webkit-overflow-scrolling:touch;"><table class="product-table">
+    <thead>
+      <tr>
+        <th>콘텐츠</th>
+        <th>형태</th>
+        <th>권장 빈도</th>
+        <th>단가</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>국내·해외 시황 브리핑</strong></td>
+        <td>텍스트 콘텐츠<br><span class="dim small">전일 시장 핵심을 쉽게 풀어내는 데일리</span></td>
+        <td>일 1건 (주 5회)</td>
+        <td class="highlight">건당 50만원~</td>
+      </tr>
+      <tr>
+        <td><strong>테마·심층 콘텐츠</strong></td>
+        <td>ETF · 글로벌 투자자 동향 · 패러다임 변화 · 기업/산업 · 경제동향<br><span class="dim small">증권사 공급 테마 라인업 동일 적용 가능</span></td>
+        <td>주 1~2회</td>
+        <td class="highlight">건당 80만원~</td>
+      </tr>
+      <tr>
+        <td><strong>카드뉴스</strong></td>
+        <td>10장 1세트 캐러셀<br><span class="dim small">상품·연금·투자교육 등 · 일러스트 디테일에 따라 단가 변동</span></td>
+        <td>월 2~4세트</td>
+        <td class="highlight">장당 30만원~</td>
+      </tr>
+      <tr>
+        <td><strong>딥다이브 리포트</strong></td>
+        <td>단독 발행용 풀 에디토리얼<br><span class="dim small">캠페인·신상품 출시 연계</span></td>
+        <td>분기 1회</td>
+        <td class="highlight">건당 200만원~</td>
+      </tr>
+    </tbody>
+  </table></div>
+
+  <div class="col-box mt-32" style="border-color:var(--accent); border-style:dashed;">
+    <h4>운용사 앱에 최적화된 콘텐츠 운영</h4>
+    <ul style="list-style:none; padding:0; margin:0;">
+      <li style="padding:4px 0; font-size:14px;">자사 펀드·ETF 라인업과 연계한 맞춤 시황 큐레이션 가능</li>
+      <li style="padding:4px 0; font-size:14px;">연금·장기투자 등 운용사 핵심 메시지를 콘텐츠 톤에 자연스럽게 반영</li>
+      <li style="padding:4px 0; font-size:14px;">모든 콘텐츠는 순살 에디토리얼 팀이 직접 제작 — 일관된 품질·톤 보장</li>
+    </ul>
+  </div>
+  <div class="col-box mt-32">
+    <h4>부가 서비스 (선택)</h4>
+    <ul style="list-style:none; padding:0; margin:0;">
+      <li style="padding:4px 0; font-size:14px;">콘텐츠는 <strong>텍스트 기반</strong>으로 공급 — 결에 맞는 <strong>이미지·인포그래픽·비주얼</strong>이 필요하면 별도 제작해 함께 전달</li>
+      <li style="padding:4px 0; font-size:14px;">API 콘텐츠 서버·콘텐츠 URL 페이지 등 <strong>IT 연동·운영</strong>도 요청 시 제공 (NH·BC 사례)</li>
+    </ul>
+  </div>
+  <p class="dim small mt-32">* 위 단가는 <strong>최소 기준(building block)</strong>이며, 모든 콘텐츠는 물량·구성·기간에 따라 협의 가능합니다. 일간 시황은 주 빈도에 따라 월 정액으로 묶어 산정합니다. 모든 단가 VAT 별도.</p>
+  <div class="page-num">05</div>
+</div>
+
+<!-- PAGE 6: PRICING PACKAGES -->
+<div class="page">
+  <h2><span class="num">05</span>예산 연동형 공급 패키지</h2>
+  <p>금액을 먼저 정해 끼워 맞추는 방식이 아니라, <strong>한국투자신탁운용이 배정한 예산에 맞춰 콘텐츠 구성·물량을 설계</strong>합니다. 아래는 예산 규모별 구성 예시입니다.</p>
+
+  <div class="pricing-grid">
+    <div class="pricing-card">
+      <div class="tier-name">Lite</div>
+      <div class="tier-price">기본 구성 <span class="unit">/ 예산 연동</span></div>
+      <div class="tier-detail">일간 + 테마 기본 운영</div>
+      <ul>
+        <li>일간 시황 브리핑 (주 5회)</li>
+        <li>테마·심층 콘텐츠 (주 1~2회)</li>
+        <li>월간 운영 리포트</li>
+      </ul>
+    </div>
+    <div class="pricing-card featured">
+      <div class="tier-name">Standard</div>
+      <div class="tier-price">표준 구성 <span class="unit">/ 예산 연동</span></div>
+      <div class="tier-detail">가장 일반적인 콘텐츠 운영</div>
+      <ul>
+        <li>일간 시황 브리핑 (주 5회)</li>
+        <li>테마·심층 콘텐츠 (주 3~5회)</li>
+        <li>카드뉴스 월 2세트</li>
+        <li>월간 운영 리포트 · 단가 할인 적용</li>
+      </ul>
+    </div>
+    <div class="pricing-card">
+      <div class="tier-name">Premium</div>
+      <div class="tier-price">콘텐츠 허브 <span class="unit">/ 예산 연동</span></div>
+      <div class="tier-detail">콘텐츠 중심 앱 운영</div>
+      <ul>
+        <li>일간 시황 (일 1~2건)</li>
+        <li>테마·심층 콘텐츠 (주 5회+)</li>
+        <li>카드뉴스 월 4세트</li>
+        <li>분기 딥다이브 리포트</li>
+        <li>맞춤 큐레이션 우선 반영</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="col-box mt-32">
+    <h4>왜 연단위 공급인가</h4>
+    <ul style="list-style:none; padding:0; margin:0;">
+      <li style="padding:4px 0; font-size:14px;">연간 계약 시 건당 단가 <strong>할인 적용</strong> — 단발 외주 대비 효율적</li>
+      <li style="padding:4px 0; font-size:14px;">콘텐츠 톤·자사 메시지 학습이 누적되어 시간이 갈수록 fit 상승</li>
+      <li style="padding:4px 0; font-size:14px;">계약 종료 1개월 전 의사표시 없으면 자동 연장 — 운영 공백 제로</li>
+    </ul>
+  </div>
+  <p class="dim small mt-32">* 위 구성은 예시이며, 예산·앱 콘셉트 확정 후 콘텐츠 종류·물량을 맞춤 설계해 견적을 제시합니다.</p>
+  <div class="page-num">06</div>
+</div>
+
+<!-- PAGE 7: PROCESS & TIMELINE -->
+<div class="page">
+  <h2><span class="num">06</span>협업 프로세스 &amp; 일정</h2>
+  <p>앱 출시(하반기 예정)에 맞춰, <strong>출시일에 콘텐츠가 이미 채워져 있도록</strong> 역산하여 진행합니다.</p>
+
+  <div class="flow-row">
+    <div class="flow-step"><div class="step-num">STEP 1</div>킥오프 미팅<br><span class="dim small">콘셉트·톤·범위 협의</span></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step"><div class="step-num">STEP 2</div>콘텐츠 가이드<br><span class="dim small">포맷·캘린더 확정</span></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step"><div class="step-num">STEP 3</div>CMS 연동<br><span class="dim small">적재 방식 테스트</span></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step"><div class="step-num">STEP 4</div>출시 &amp; 공급<br><span class="dim small">일간 공급 개시</span></div>
+  </div>
+
+  <div class="timeline mt-32">
+    <div class="tl-item">
+      <div class="tl-when">D-3개월 (현재)</div>
+      <div class="tl-what">제안 검토 · 계약 협의 · 콘텐츠 범위 확정 <span>— 킥오프</span></div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-when">D-2개월</div>
+      <div class="tl-what">콘텐츠 가이드라인 확정 · 파일럿 콘텐츠 제작 · CMS 연동 테스트</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-when">D-1개월</div>
+      <div class="tl-what">정식 콘텐츠 사전 적재 · 검수 · 운영 리허설 <span>— 출시 콘텐츠 풀 확보</span></div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-when">D-Day (앱 출시)</div>
+      <div class="tl-what">출시와 동시에 일간 1~2건 콘텐츠 공급 개시 <span>— 빈 앱 없이 시작</span></div>
+    </div>
+  </div>
+
+  <div class="col-box mt-32" style="border-color:#666; border-style:dashed;">
+    <h4>순살이 약속하는 것</h4>
+    <p style="font-size:14px; margin:0; line-height:1.7;">
+      <strong>일관된 품질</strong> — 자체 채널과 동일한 톤·완성도 / <strong>정시 공급</strong> — 증권사 일간 운영으로 검증된 납기 / <strong>에디토리얼 책임</strong> — 사실·표현 검증을 거친 콘텐츠 / <strong>투명한 리포팅</strong> — 공급 내역 정기 공유.
+    </p>
+  </div>
+  <div class="page-num">07</div>
+</div>
+
+<!-- PAGE 8: TERMS & CTA -->
+<div class="page">
+  <h2><span class="num">07</span>계약 조건 &amp; 문의</h2>
+  <p>아래는 기존 증권사 공급 계약에 기반한 표준 조건이며, 세부 사항은 협의로 확정합니다.</p>
+
+  <div class="two-col">
+    <div class="col-box">
+      <h4>공급 조건</h4>
+      <ul>
+        <li>제공 수량: 월 정액 (일간 1~2건 기준)</li>
+        <li>제공 기간: 1년 (6개월 단위 자동 연장)</li>
+        <li>사용처: 한국투자신탁운용 앱 (추가 채널은 별도 협의)</li>
+        <li>제작 비용: 순살 자체 부담</li>
+      </ul>
+    </div>
+    <div class="col-box">
+      <h4>저작권 &amp; 정산</h4>
+      <ul>
+        <li>저작권: 순살 보유 · 사용처에 라이선스 부여</li>
+        <li>정산: 월 단위, 세금계산서 발행 후 지급</li>
+        <li>단가: 연단위 계약 할인 적용 (VAT 별도)</li>
+        <li>비밀유지·청렴의무 등 표준 조항 포함</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="quote-block mt-32">
+    "이미 NH투자증권·한국투자증권·BC카드 앱에 매일 콘텐츠를 공급해 온 이력이 있습니다. 한국투자신탁운용 앱에도 동일한 검증된 운영 체계를 그대로 적용할 수 있습니다."
+  </div>
+
+  <div style="margin-top:40px; padding:32px; background:var(--accent); border-radius:16px; color:#000; text-align:center;">
+    <h3 style="color:#000; margin-bottom:12px;">콘텐츠 공급 문의</h3>
+    <p style="font-size:16px; margin-bottom:4px; color:#000;"><strong>KD</strong> · Founder &amp; Editor, 순살</p>
+    <p style="font-size:15px; margin-bottom:0; color:#000;">te&#97;m&#64;soons&#97;l&#46;com · 010-9919-1712</p>
+  </div>
+  <div class="page-num">08</div>
+</div>
+
+<div class="footer-bar">
+  순살 (Soonsal) × 한국투자신탁운용 · Confidential · 2026
+</div>
+
+</div>
+
+<script>
+// ============================================
+// 설정
+// ============================================
+const ACCESS_CODE = 'soonsal2026';
+const GOOGLE_SHEET_URL = 'https://script.google.com/macros/s/AKfycbzMKC_Zhe9AoimhBDJNpmp2_BeUHp7CeXS2CuLqaVq4_ZmFBjexEfbLHRPogYDhQmRu/exec';
+
+function checkAccess() {
+  const email = document.getElementById('gate-email').value.trim();
+  const password = document.getElementById('gate-password').value.trim();
+  const errorEl = document.getElementById('gate-error');
+
+  if (!email || !email.includes('@')) {
+    errorEl.textContent = '이메일을 입력해주세요.';
+    errorEl.style.display = 'block';
+    return;
+  }
+  if (password !== ACCESS_CODE) {
+    errorEl.textContent = '액세스 코드가 올바르지 않습니다.';
+    errorEl.style.display = 'block';
+    return;
+  }
+  logView(email);
+  document.getElementById('gate').classList.add('hidden');
+  document.getElementById('deck').classList.add('visible');
+  setTimeout(() => { document.getElementById('gate').style.display = 'none'; }, 500);
+}
+
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Enter' && document.getElementById('gate').style.display !== 'none') {
+    checkAccess();
+  }
+});
+
+function logView(email) {
+  const data = { email: email, timestamp: new Date().toISOString(), page: 'KIM' };
+  if (GOOGLE_SHEET_URL && GOOGLE_SHEET_URL !== '') {
+    fetch(GOOGLE_SHEET_URL, {
+      method: 'POST', mode: 'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    }).catch(() => {});
+  }
+}
+</script>
+</body>
+</html>
