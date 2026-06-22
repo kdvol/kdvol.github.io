@@ -901,8 +901,15 @@ def derive_r2_prefix(ctype, yyyy, mmdd, deploy_path=""):
             stem = Path(deploy_path).stem  # e.g. "0321-2"
             return f"zzal/{yyyy}/{stem}"
         return f"zzal/{yyyy}/{mmdd}"
-    suffix = "-crypto" if ctype == "crypto-card" else ""
-    return f"cardnews/{yyyy}/{mmdd}{suffix}"
+    if ctype == "crypto-card":
+        return f"cardnews/{yyyy}/{mmdd}-crypto"
+    # 일반 카드뉴스: 하루 2번째 글(예: 0622-2)이 자기 R2 경로를 갖게 한다.
+    # 안 그러면 1번째 글과 같은 폴더(0622)에 이미지를 덮어써, IG가 커버를 가져갈 때
+    # CDN에 캐시된 1번째 글의 옛 커버가 서빙된다 (2026-06-22 월드컵/애플 사고).
+    # deploy_path stem: 1번째="0622"(=mmdd, 기존과 동일) / 2번째="0622-2".
+    if deploy_path:
+        return f"cardnews/{yyyy}/{Path(deploy_path).stem}"
+    return f"cardnews/{yyyy}/{mmdd}"
 
 
 def upload_to_r2(png_paths, r2_prefix):
