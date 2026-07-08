@@ -12,7 +12,7 @@
 사용: python ci/publish_from_queue.py [--only <slug>] [--dry-run]
 환경: 러너에서 config.env는 시크릿으로 미리 생성됨(워크플로가 처리). deploy.py는 CWD=repo 루트에서 실행.
 """
-import json, os, sys, time, subprocess, shutil
+import json, os, sys, time, subprocess, shutil, re, urllib.request, urllib.parse
 from pathlib import Path
 
 ROOT = Path(os.environ.get("KDVOL_ROOT", ".")).resolve()   # 러너에선 repo 체크아웃 루트
@@ -38,6 +38,39 @@ def due_items(only=None):
         items.append((mf, d))
     return items
 
+def _token():
+    igp = Path(os.environ.get("INSTAGRAM_PIPELINE", str(ROOT / "ig_pipeline")))
+    conf = igp / "config.env"
+    if conf.is_file():
+        for l in conf.read_text(encoding="utf-8").splitlines():
+            s = l.strip()
+            if s.startswith("INSTAGRAM_ACCESS_TOKEN="):
+                return s.split("=", 1)[1].strip()
+    return os.environ.get("INSTAGRAM_ACCESS_TOKEN", "")
+
+def post_first_comment(stdout, d):
+    """deploy 성공 stdout에서 미디어 ID 파싱 → POST.txt [첫 댓글] 게시(해시태그)."""
+    pt = d.get("post_txt")
+    if not pt:
+        return
+    p = ROOT / pt
+    if not p.is_file():
+        log(f"POST.txt 없음: {p} — 첫 댓글 스킵"); return
+    m = re.search(r"게시 완료\s*[—\-–]\s*ID:\s*(\d+)", stdout)
+    if not m:
+        log("미디어 ID 파싱 실패 — 첫 댓글 스킵"); return
+    mid = m.group(1)
+    cm = re.search(r"\[첫 댓글\]\s*\n(.+?)(?:\n\[|\Z)", p.read_text(encoding="utf-8"), re.S)
+    tok = _token()
+    if not (cm and tok):
+        log("첫 댓글 텍스트/토큰 없음 — 스킵"); return
+    try:
+        data = urllib.parse.urlencode({"message": cm.group(1).strip(), "access_token": tok}).encode()
+        with urllib.request.urlopen(f"https://graph.facebook.com/v21.0/{mid}/comments", data=data, timeout=25) as r:
+            log(f"첫 댓글 게시 완료: {json.loads(r.read().decode())}")
+    except Exception as e:
+        log(f"첫 댓글 실패(수동 필요): {e}")
+
 def publish(mf, d, force_dry=False):
     html = ROOT / d["html"]
     if not html.is_file():
@@ -49,6 +82,7 @@ def publish(mf, d, force_dry=False):
     sys.stdout.write(r.stdout[-4000:]); sys.stderr.write(r.stderr[-2000:])
     ok = r.returncode == 0
     if ok and not dry:
+        post_first_comment(r.stdout, d)                 # 해시태그 첫 댓글
         DONE.mkdir(parents=True, exist_ok=True)
         shutil.move(str(mf), str(DONE / mf.name))       # 멱등: 큐에서 제거
         log(f"✅ 발행 성공 · 큐 → done/{mf.name}")
