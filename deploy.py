@@ -756,7 +756,7 @@ def generate_zzal_png(filepath, ctype):
 # Instagram Publishing (R2 + Instagram API)
 # ═══════════════════════════════════════════
 
-INSTAGRAM_PIPELINE = Path.home() / "instagram_pipeline"
+INSTAGRAM_PIPELINE = Path(os.environ.get("INSTAGRAM_PIPELINE", str(Path.home() / "instagram_pipeline")))
 
 # R2 config
 R2_PUBLIC_URL = "https://pub-cb0321b52a854a95af8d6bb1688b2ecd.r2.dev"
