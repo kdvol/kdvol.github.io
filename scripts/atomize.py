@@ -58,6 +58,28 @@ def strip_tags(s):
     return re.sub(r"\s+", " ", re.sub(r"<[^>]+>", "", s or "")).strip()
 
 
+def english_html(english):
+    """word-item을 전체(용어 + 전체 뜻 + 예문) HTML로 렌더. 잘림 없음.
+    build_topics/build_wiki가 공용으로 사용해 표현이 항상 동일하도록."""
+    from html import escape as esc
+    out = []
+    for w in english:
+        parts = [f'<div class="eng-t">{esc(w["en"])}</div>',
+                 f'<div class="eng-k">{esc(w.get("ko", ""))}</div>']
+        ex = (w.get("example") or "").strip()
+        if ex:
+            seg = ex.split('"')                    # {한글 라벨}"{영어 예문}"
+            label, sent = seg[0].strip(), (seg[1].strip() if len(seg) > 1 else "")
+            if sent:
+                inner = (f'<span class="eng-xl">{esc(label)}</span> ' if label else "") + \
+                        f'&ldquo;{esc(sent)}&rdquo;'
+            else:
+                inner = esc(ex)
+            parts.append(f'<div class="eng-x">{inner}</div>')
+        out.append("".join(parts))
+    return "".join(out)
+
+
 STORY_RE = re.compile(r'<div class="story"(?:\s[^>]*)?>(.*?)(?=<div class="story"[\s>]|<div class="word|'
                       r'<div class="section-title"|<!-- ?WORD|<div class="headline|</body>)', re.S)
 LABEL_RE = re.compile(r'<(\w+) class="story-label"[^>]*>(.*?)</\1>', re.S)
