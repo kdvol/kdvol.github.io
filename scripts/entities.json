@@ -740,6 +740,144 @@
       "name": "라이엇 플랫폼",
       "type": "company",
       "pattern": "라이엇\\s?플랫폼|Riot Platform|\\bRIOT\\b"
+    },
+    {
+      "slug": "ford",
+      "name": "포드",
+      "type": "company",
+      "pattern": "(?<![가-힣])포드|\\bFord\\b"
+    },
+    {
+      "slug": "gm",
+      "name": "제너럴모터스(GM)",
+      "type": "company",
+      "pattern": "제너럴모터스|\\bGM\\b(?!T)"
+    },
+    {
+      "slug": "comcast",
+      "name": "컴캐스트",
+      "type": "company",
+      "pattern": "컴캐스트|Comcast|NBCUniversal|\\bNBC\\b"
+    },
+    {
+      "slug": "warner",
+      "name": "워너브라더스디스커버리",
+      "type": "company",
+      "pattern": "워너\\s?브라더스|Warner|\\bWBD\\b|HBO"
+    },
+    {
+      "slug": "paramount",
+      "name": "파라마운트",
+      "type": "company",
+      "pattern": "파라마운트|Paramount"
+    },
+    {
+      "slug": "gamestop",
+      "name": "게임스탑",
+      "type": "company",
+      "pattern": "게임스탑|GameStop|\\bGME\\b"
+    },
+    {
+      "slug": "ebay",
+      "name": "이베이",
+      "type": "company",
+      "pattern": "이베이|\\beBay\\b"
+    },
+    {
+      "slug": "aramco",
+      "name": "아람코",
+      "type": "company",
+      "pattern": "아람코|Aramco"
+    },
+    {
+      "slug": "nio",
+      "name": "니오",
+      "type": "company",
+      "pattern": "(?<![가-힣])니오|\\bNIO\\b"
+    },
+    {
+      "slug": "ferrari",
+      "name": "페라리",
+      "type": "company",
+      "pattern": "페라리|Ferrari"
+    },
+    {
+      "slug": "sofi",
+      "name": "소파이",
+      "type": "company",
+      "pattern": "소파이|\\bSoFi\\b"
+    },
+    {
+      "slug": "pdd",
+      "name": "핀둬둬(PDD)",
+      "type": "company",
+      "pattern": "핀둬둬|Pinduoduo|\\bPDD\\b"
+    },
+    {
+      "slug": "sony",
+      "name": "소니",
+      "type": "company",
+      "pattern": "소니\\b|\\bSony\\b"
+    },
+    {
+      "slug": "lockheed",
+      "name": "록히드마틴",
+      "type": "company",
+      "pattern": "록히드|Lockheed"
+    },
+    {
+      "slug": "cocacola",
+      "name": "코카콜라",
+      "type": "company",
+      "pattern": "코카콜라|Coca-Cola"
+    },
+    {
+      "slug": "jd",
+      "name": "징둥(JD)",
+      "type": "company",
+      "pattern": "징둥|JD\\.com"
+    },
+    {
+      "slug": "exxon",
+      "name": "엑슨모빌",
+      "type": "company",
+      "pattern": "엑슨|엑손|Exxon"
+    },
+    {
+      "slug": "klarna",
+      "name": "클라르나",
+      "type": "company",
+      "pattern": "클라르나|Klarna"
+    },
+    {
+      "slug": "doordash",
+      "name": "도어대시",
+      "type": "company",
+      "pattern": "도어대시|DoorDash"
+    },
+    {
+      "slug": "lyft",
+      "name": "리프트",
+      "type": "company",
+      "pattern": "리프트|\\bLyft\\b"
+    },
+    {
+      "slug": "honda",
+      "name": "혼다",
+      "type": "company",
+      "pattern": "혼다\\b|Honda"
+    },
+    {
+      "slug": "pg",
+      "name": "프록터앤갬블",
+      "type": "company",
+      "pattern": "프록터|P&G\\b"
+    },
+    {
+      "slug": "hilton",
+      "name": "힐튼",
+      "type": "company",
+      "pattern": "힐튼|Hilton"
     }
   ],
   "_pending": {
@@ -806,10 +944,6 @@
     "FIFA": {
       "count": 8,
       "example": "🎰 폴리마켓, 매출 10억불 돌파하자마자 해킹당하고 조사받음"
-    },
-    "WBD": {
-      "count": 8,
-      "example": "📺 15년만에 쪼개질 미디어 제국, 컴캐스트"
     },
     "CBDC": {
       "count": 8,
