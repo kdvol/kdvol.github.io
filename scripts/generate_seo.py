@@ -106,12 +106,13 @@ def main():
         print(f"⚠️ enrich_articles 실패(계속 진행): {e}")
     atoms = None
     try:
-        import atomize, auto_evolve
-        atomize.build()                     # 1차: _pending 축적
-        auto_evolve.main()                  # 임계치 초과분 자동 승격(키 있을 때)
+        import atomize, auto_evolve, entity_discovery
+        atomize.build()                     # 1차: story_atoms.json + _pending 축적
+        auto_evolve.main()                  # 주제 자동 승격(키 있을 때)
+        entity_discovery.main()             # 엔티티 자동 발굴·승격(키 있을 때)
         atoms = atomize.build()             # 2차: 진화된 사전으로 최종 분류 (이후 재사용)
     except Exception as e:
-        print(f"⚠️ atomize/auto_evolve 실패(계속 진행): {e}")
+        print(f"⚠️ atomize/evolve 실패(계속 진행): {e}")
     try:
         import build_topics
         build_topics.main(atoms)            # 스토리 단위 주제 페이지 (아톰 재사용)

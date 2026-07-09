@@ -45,10 +45,13 @@ def load_entities():
     return ent
 
 
+def _entity_slugs(text, ent):
+    return [e["slug"] for e in ent["entities"] if e["_rx"].search(text)]
+
+
 def extract_entities(story, ent):
     """스토리 제목+본문에서 통제 어휘 엔티티를 균일 추출 → 일관된 태그."""
-    hay = f"{story['title']} {story['body']}"
-    return [e["slug"] for e in ent["entities"] if e["_rx"].search(hay)]
+    return _entity_slugs(f"{story['title']} {story['body']}", ent)
 
 
 def strip_tags(s):
@@ -163,20 +166,44 @@ def _tokens(*parts):
     return toks
 
 
-def link_english(stories, words):
-    """각 word-item을 같은 호 스토리 중 토큰 겹침이 가장 큰 곳에 붙인다."""
+# 고유명사 키 추출 — 링킹의 신호는 '영어 고유명사 + 엔티티'뿐(일반어 배제).
+_PROPER_RE = re.compile(r"\b[A-Z][A-Za-z0-9]{2,}\b")
+_EN_COMMON = set("""The This That These Those When Where What Which While With Without
+And But For Nor Not Neither Either After Before Its Their They Are Was Were Will Would
+Can Could Should Has Have Had One Two All New Now Get Buy Sell Company Companies Market
+Markets Price Model Models Data Fund Funds Corp Inc Ltd You Your His Her She Him Our
+About Over Under Into From Than Then They CEO CFO IPO ETF GPU But However Meanwhile
+More Most Less Least Big Small High Low First Last Next Some Many Much Very Just Even
+Open Close Weight Carry Trade Free Tax Dollar Rate Rates Deal Deals Chief Board""".split())
+
+
+def _proper_keys(text, ent):
+    """텍스트에서 영어 고유명사(대문자 시작) + 사전 엔티티 슬러그를 키로 추출."""
+    keys = set(_entity_slugs(text, ent))
+    for m in _PROPER_RE.finditer(text):
+        w = m.group(0)
+        if w not in _EN_COMMON:
+            keys.add("en:" + w.lower())
+    return keys
+
+
+def link_english(stories, words, ent):
+    """word-item을 같은 호 스토리 중 '고유명사/엔티티'를 공유하는 곳에 붙인다.
+    ko+example의 Zhipu·Comcast·eBay 같은 고유명사가 스토리 본문과 겹칠 때만 연결.
+    일반어(신뢰할·가장·하나)는 키가 아니므로 우연 일치가 원천 차단됨.
+    공유 고유명사가 없으면(헤드라인 등 다른 출처의 표현) 연결하지 않음."""
     if not stories or not words:
         return
-    story_tokens = [_tokens(s["title"], s["body"]) for s in stories]
+    story_keys = [_proper_keys(f"{s['title']} {s['body']}", ent) for s in stories]
     for w in words:
-        wt = _tokens(w["en"], w["ko"], w["example"])
-        best, best_score = -1, 0
-        for i, st in enumerate(story_tokens):
-            score = len(wt & st)
-            if score > best_score:
-                best, best_score = i, score
-        if best >= 0 and best_score >= 1:
-            stories[best]["english"].append(w)
+        wk = _proper_keys(f"{w['ko']} {w['example']}", ent)   # en 용어 자체는 제외(일반적)
+        if not wk:
+            continue
+        scored = sorted(((len(wk & sk), i) for i, sk in enumerate(story_keys)), reverse=True)
+        best_n, best_i = scored[0]
+        second = scored[1][0] if len(scored) > 1 else 0
+        if best_n >= 1 and best_n > second:          # 고유명사 최소 1개 공유 + 유일 최다
+            stories[best_i]["english"].append(w)
 
 
 # ── 앵커 주입 (멱등) ──────────────────────────────────────────────
@@ -205,22 +232,28 @@ def build():
     tax = load_tax()
     ent = load_entities()
     tax["_pending"] = {}                            # 매 실행 재계산
-    atoms = []
     files = sorted(p for p in NL_DIR.glob("*.html") if p.name != "index.html")
     anchored = 0
+
+    # 1차: 전 파일 파싱 → 전역 토큰 문서빈도(df) 계산 (링킹 변별력의 기준)
+    parsed = []
     for p in files:
         stories, words = parse_newsletter(p)
         if not stories:
             continue
-        link_english(stories, words)
+        parsed.append((p, stories, words))
+        if inject_anchors(p):
+            anchored += 1
+    # 2차: 고유명사 기반 영어연결 + 분류 + 엔티티추출
+    atoms = []
+    for p, stories, words in parsed:
+        link_english(stories, words, ent)
         for s in stories:
             s["topics"] = classify(s, tax)
             s["entities"] = extract_entities(s, ent)
             if not s["topics"]:
                 note_pending(s, tax)
         atoms.extend(stories)
-        if inject_anchors(p):
-            anchored += 1
 
     atoms.sort(key=lambda s: (s["date"], s["id"]), reverse=True)
     ATOMS_PATH.parent.mkdir(parents=True, exist_ok=True)

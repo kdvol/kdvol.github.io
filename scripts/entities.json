@@ -313,19 +313,19 @@
       "slug": "bitcoin",
       "name": "비트코인",
       "type": "asset",
-      "pattern": "비트코인|\\bBTC\\b"
+      "pattern": "비트코인|\\bBTC\\b|Bitcoin"
     },
     {
       "slug": "ethereum",
       "name": "이더리움",
       "type": "asset",
-      "pattern": "이더리움|\\bETH\\b"
+      "pattern": "이더리움|\\bETH\\b|Ethereum"
     },
     {
       "slug": "solana",
       "name": "솔라나",
       "type": "asset",
-      "pattern": "솔라나|\\bSOL\\b"
+      "pattern": "솔라나|\\bSOL\\b|Solana"
     },
     {
       "slug": "xrp",
@@ -343,7 +343,7 @@
       "slug": "oil",
       "name": "원유",
       "type": "asset",
-      "pattern": "원유|\\bWTI\\b|유가|브렌트유"
+      "pattern": "원유|\\bWTI\\b|유가|브렌트유|\\bBrent\\b"
     },
     {
       "slug": "dollar",
@@ -710,6 +710,122 @@
       "name": "IMF",
       "type": "institution",
       "pattern": "\\bIMF\\b|국제통화기금"
+    },
+    {
+      "slug": "coreweave",
+      "name": "코어위브",
+      "type": "company",
+      "pattern": "코어위브|CoreWeave"
+    },
+    {
+      "slug": "dtcc",
+      "name": "DTCC(예탁결제)",
+      "type": "institution",
+      "pattern": "\\bDTCC\\b"
+    },
+    {
+      "slug": "swift",
+      "name": "SWIFT(국제결제망)",
+      "type": "institution",
+      "pattern": "\\bSWIFT\\b|\\bSwift\\b"
+    },
+    {
+      "slug": "block-inc",
+      "name": "블록(Block/캐시앱)",
+      "type": "company",
+      "pattern": "\\bBlock Inc\\b|캐시앱|Cash App|잭\\s?도시|Jack Dorsey"
+    },
+    {
+      "slug": "riot",
+      "name": "라이엇 플랫폼",
+      "type": "company",
+      "pattern": "라이엇\\s?플랫폼|Riot Platform|\\bRIOT\\b"
     }
-  ]
+  ],
+  "_pending": {
+    "ICE": {
+      "count": 13,
+      "example": "🎰 폴리마켓, 매출 10억불 돌파하자마자 해킹당하고 조사받음"
+    },
+    "GLP-1": {
+      "count": 9,
+      "example": "🥃 오크통이 부동산인 줄 알았던 은행들"
+    },
+    "Block": {
+      "count": 9,
+      "example": "💸 캐시앱도 스테이블코인 — 잭 도시의 항복"
+    },
+    "IEA": {
+      "count": 9,
+      "example": "🥤 호르무즈에 무너진 의외의 시장, 인도 다이어트 콜라"
+    },
+    "VIX": {
+      "count": 8,
+      "example": "📉 $62K — ETF 유입은 돌아왔지만 매크로가 안 도와줌"
+    },
+    "PER": {
+      "count": 8,
+      "example": "📉 엔비디아, 무거운 왕관"
+    },
+    "Apollo": {
+      "count": 8,
+      "example": "📣 순살이 광고주를 모집하는 방법"
+    },
+    "Sachs": {
+      "count": 8,
+      "example": "📣 순살이 광고주를 모집하는 방법"
+    },
+    "IREN": {
+      "count": 8,
+      "example": "⛏️ BTC 채굴사가 $19B AI 계약을 따냈다"
+    },
+    "Ripple": {
+      "count": 8,
+      "example": "🇪🇺 Ripple, 유럽 30개국 크립토 면허 획득"
+    },
+    "STRC": {
+      "count": 8,
+      "example": "🏦 세일러, \"we hodl\" 외치며 3,588개 팔았다"
+    },
+    "BofA": {
+      "count": 8,
+      "example": "🚀 SK하이닉스 나스닥 상장 D-4, 역대급"
+    },
+    "Chainlink": {
+      "count": 8,
+      "example": "🐛 토큰화 구글 주식 78배 부풀리기 — DeFi 렌딩의 새 위협"
+    },
+    "Project": {
+      "count": 8,
+      "example": "🚀 로켓랩, 우주전쟁 2라운드 선언"
+    },
+    "NYT": {
+      "count": 8,
+      "example": "📱 주커버그가 예측시장을 만들겠다는데요"
+    },
+    "FIFA": {
+      "count": 8,
+      "example": "🎰 폴리마켓, 매출 10억불 돌파하자마자 해킹당하고 조사받음"
+    },
+    "WBD": {
+      "count": 8,
+      "example": "📺 15년만에 쪼개질 미디어 제국, 컴캐스트"
+    },
+    "CBDC": {
+      "count": 8,
+      "example": "🏛 트럼프, CBDC 금지법 서명식 취소"
+    },
+    "SNS": {
+      "count": 8,
+      "example": "🇬🇧 영국, 16세 미만 SNS 전면 금지"
+    },
+    "CoinDesk": {
+      "count": 8,
+      "example": "😱 공포지수 8, 가격은 반등 — 이 괴리의 의미"
+    },
+    "DEX": {
+      "count": 8,
+      "example": "🏦 솔라나, 밈코인 딱지 떼고 월가가 점령 중"
+    }
+  }
 }
