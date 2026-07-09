@@ -534,7 +534,7 @@
 
 <div class="story" id="story-1">
   <span class="story-label">MARKET · TECHNICAL</span>
-  <h3 class="story-title">📉 BTC, 6개월 연속 적자 막판 줄타기</h3><button class="ss-share" type="button" onclick="ssShare(this)" aria-label="이 스토리 공유">🔗 공유</button>
+  <h3 class="story-title">📉 BTC, 6개월 연속 적자 막판 줄타기</h3>
   <div class="story-body">
     <div class="bullet"><span class="dot">◾</span><span>3월 마지막 주에 BTC가 간신히 월간 플러스를 유지하는 중. 현재 월간 수익률이 겨우 +2%인데, 이번 달을 적자로 마감하면 2018년 8월~2019년 1월 이후 처음으로 6개월 연속 적자라는 불명예 기록. 주말에 $68K까지 빠졌다가 트럼프 유예 뉴스에 $71K로 반등하면서 겨우 숨통이 트인 상태</span></div>
     <div class="bullet"><span class="dot">◾</span><span>주말 급락의 직접 원인은 트럼프의 48시간 최후통첩. 토요일에 이란한테 호르무즈 열지 않으면 발전소를 날리겠다고 했는데, 이 공포에 크립토 시장에서 $400M 넘는 청산이 터짐. 대부분 롱 포지션 — 레버리지 건 불리시 베팅이 한꺼번에 무너진 것. <strong>BTC가 주식보다 중동 헤드라인에 더 민감하게 반응한 건, 크립토가 여전히 리스크 자산으로 움직이고 있다는 증거</strong></span></div>
@@ -550,7 +550,7 @@
 
 <div class="story" id="story-2">
   <span class="story-label">POLICY · CRYPTO</span>
-  <h3 class="story-title">💰 래리 핑크의 UBIFO, 크립토에 뭘 의미하나</h3><button class="ss-share" type="button" onclick="ssShare(this)" aria-label="이 스토리 공유">🔗 공유</button>
+  <h3 class="story-title">💰 래리 핑크의 UBIFO, 크립토에 뭘 의미하나</h3>
   <div class="story-body">
     <div class="bullet"><span class="dot">◾</span><span>블랙록 CEO 래리 핑크가 연간 서한에서 던진 UBIFO <span class="sub">(Universal Basic Index Fund Ownership)</span> 개념이 크립토 업계에서 주목받는 이유가 있음. 핑크의 논리는 간단 — AI가 일자리를 대체하면 이익이 기업·주주한테 몰리니, 사람들을 주주로 만들면 된다는 것. 이 논리를 따라가면 크립토 ETF 확장은 필연적 귀결</span></div>
     <div class="bullet"><span class="dot">◾</span><span>핑크가 구체적으로 미는 카드 중 하나가 Trump Account. 올해 7월부터 2025~2028년생 아이한테 정부가 $1,000씩 인덱스 펀드에 넣어주는 제도 <span class="sub">(연간 추가 적립 한도 $5,000, S&P 500 같은 저비용 인덱스 한정)</span>. 지금은 주식 인덱스만이지만, <strong>크립토 ETF가 규제를 통과해서 제도권 자산으로 자리잡으면 Trump Account의 투자 대상에 포함될 여지가 열리는 것</strong></span></div>
@@ -650,21 +650,5 @@
 </div><!-- /wrapper -->
 
 <!-- Cloudflare Web Analytics --><script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "d6a07341c2bf438d8ef7f9209a0e9a81"}'></script><!-- End Cloudflare Web Analytics -->
-<style>
-.ss-share{float:right;margin:2px 0 0 8px;background:transparent;border:1px solid #d8d4c8;
-color:#8a8578;font-size:11px;font-weight:600;padding:3px 10px;border-radius:14px;cursor:pointer;
-line-height:1.4;transition:all .15s;font-family:inherit}
-.ss-share:hover{border-color:#F07040;color:#F07040}
-.ss-toast{position:fixed;left:50%;bottom:28px;transform:translateX(-50%);background:#222;color:#fff;
-font-size:13px;padding:10px 18px;border-radius:8px;z-index:99999;box-shadow:0 4px 14px rgba(0,0,0,.3)}
-</style><script>
-function ssToast(m){var d=document.createElement('div');d.className='ss-toast';d.textContent=m;
-document.body.appendChild(d);setTimeout(function(){d.remove();},1800);}
-function ssShare(b){var s=b.closest('.story');if(!s)return;
-var url=location.origin+location.pathname+(s.id?'#'+s.id:'');
-var el=s.querySelector('.story-title');var t=(el?el.textContent:document.title).trim();
-if(navigator.share){navigator.share({title:t,text:t,url:url}).catch(function(){});}
-else if(navigator.clipboard){navigator.clipboard.writeText(url).then(function(){ssToast('링크가 복사됐어요');});}
-else{ssToast(url);}}
-</script><a href="https://t.me/soonsalchat" target="_blank" rel="noopener" class="ss-fab" aria-label="텔레그램 실시간 대화방" title="텔레그램 대화방">💬<style>.ss-fab{position:fixed;right:16px;bottom:16px;z-index:9999;width:54px;height:54px;border-radius:50%;background:#F07040;box-shadow:0 4px 14px rgba(0,0,0,.35);display:flex;align-items:center;justify-content:center;text-decoration:none;font-size:26px;line-height:1;transition:transform .15s}.ss-fab:active,.ss-fab:hover{transform:scale(1.08)}@media(min-width:640px){.ss-fab{width:58px;height:58px;right:24px;bottom:24px;font-size:28px}}</style></a></body>
+<script src="/soonsal.js" defer></script></body>
 </html>
