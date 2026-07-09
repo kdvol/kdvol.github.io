@@ -51,9 +51,11 @@ details.eng>summary::-webkit-details-marker{display:none}
 details.eng>summary::before{content:"🔤 ";}
 details.eng[open]>summary{margin-bottom:6px;color:#888}
 .engbox{border-left:2px solid #2ecc71;padding:2px 0 2px 11px}
-.eng-t{font-size:.82rem;color:#2ecc71;font-weight:600;margin-top:6px}
+.eng-t{font-size:.82rem;color:#2ecc71;font-weight:600;margin-top:10px}
 .eng-t:first-child{margin-top:0}
-.eng-k{font-size:.78rem;color:#9aa;line-height:1.5;margin-top:1px}
+.eng-k{font-size:.78rem;color:#9aa;line-height:1.55;margin-top:2px}
+.eng-x{font-size:.76rem;color:#8a978a;line-height:1.55;margin-top:4px;font-style:italic}
+.eng-xl{color:#667;font-size:.7rem;font-style:normal;display:block;margin-bottom:1px}
 .count{color:#666;font-size:.8rem;margin:16px 0 4px}
 @media(min-width:640px){.wrap{padding:32px 20px 60px}.ti{font-size:1rem}}
 """
@@ -94,11 +96,8 @@ def story_html(a, names, self_slug):
     eng = ""
     if a["english"]:
         n = len(a["english"])
-        rows = "".join(
-            f'<div class="eng-t">{escape(e["en"])}</div><div class="eng-k">{escape(e["ko"][:110])}</div>'
-            for e in a["english"])
         eng = (f'<details class="eng"><summary>영어 표현 {n}</summary>'
-               f'<div class="engbox">{rows}</div></details>')
+               f'<div class="engbox">{atomize.english_html(a["english"])}</div></details>')
     return (f'<div class="item"><a class="item-row" href="{a["url"]}">'
             f'<span class="dt">{_mmdd(a["date"])}</span>'
             f'<span class="ti">{escape(clean_title(a["title"]))}</span></a>'

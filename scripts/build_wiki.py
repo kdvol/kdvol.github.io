@@ -52,9 +52,11 @@ details.eng>summary::-webkit-details-marker{display:none}
 details.eng>summary::before{content:"🔤 "}
 details.eng[open]>summary{margin-bottom:6px;color:#888}
 .engbox{border-left:2px solid #2ecc71;padding:2px 0 2px 11px}
-.eng-t{font-size:.82rem;color:#2ecc71;font-weight:600;margin-top:6px}
+.eng-t{font-size:.82rem;color:#2ecc71;font-weight:600;margin-top:10px}
 .eng-t:first-child{margin-top:0}
-.eng-k{font-size:.78rem;color:#9aa;margin-top:1px;line-height:1.5}
+.eng-k{font-size:.78rem;color:#9aa;margin-top:2px;line-height:1.55}
+.eng-x{font-size:.76rem;color:#8a978a;line-height:1.55;margin-top:4px;font-style:italic}
+.eng-xl{color:#667;font-size:.7rem;font-style:normal;display:block;margin-bottom:1px}
 .grp{margin:26px 0}
 .grp h2{font-size:1.15rem;margin-bottom:12px}
 .more{color:#F07040;font-size:.86rem;margin-top:12px;display:inline-block}
@@ -140,11 +142,8 @@ def build(atoms=None):
         for a in items:
             eng = ""
             if a["english"]:
-                rows_e = "".join(
-                    f'<div class="eng-t">{escape(w["en"])}</div>'
-                    f'<div class="eng-k">{escape(w["ko"][:100])}</div>' for w in a["english"])
                 eng = (f'<details class="eng"><summary>영어 표현 {len(a["english"])}</summary>'
-                       f'<div class="engbox">{rows_e}</div></details>')
+                       f'<div class="engbox">{atomize.english_html(a["english"])}</div></details>')
             rows.append(
                 f'<div class="story"><a href="{a["url"]}">'
                 f'<span class="d">{a["date"]}</span>'
