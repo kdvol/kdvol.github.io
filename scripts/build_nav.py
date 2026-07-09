@@ -12,9 +12,18 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 
-ITEMS = [("/", "최신"), ("/search/", "🔍 검색"), ("/newsletters/", "뉴스레터"),
-         ("/topics/", "주제별"), ("/community/", "커뮤니티"), ("/cardnews/", "카드뉴스"),
-         ("/english/", "English"), ("/school/", "스쿨"), ("/youtube/", "YouTube")]
+# 검색은 별도 탭 없이 주제별 안에서 접근(중복 제거). 모바일 간결성 우선 순서.
+ITEMS = [("/", "최신"), ("/newsletters/", "뉴스레터"), ("/topics/", "주제별"),
+         ("/community/", "커뮤니티"), ("/cardnews/", "카드뉴스"), ("/english/", "English"),
+         ("/school/", "스쿨"), ("/youtube/", "YouTube")]
+
+# nav CSS 모바일 교정(자가치유) — 시그니처가 유니크해 안전하게 치환.
+CSS_FIXES = [
+    ("display:flex; justify-content:center; gap:0;",
+     "display:flex; justify-content:flex-start; gap:0;"),   # 첫 탭 잘림 방지(좌측 정렬)
+    ("padding:12px 24px; font-size:13px; font-weight:700; color:#777;",
+     "padding:12px 17px; font-size:13px; font-weight:700; color:#777; white-space:nowrap;"),
+]
 
 PAGES = {"index.html": "/", "newsletters/index.html": "/newsletters/",
          "cardnews/index.html": "/cardnews/", "english/index.html": "/english/",
@@ -38,6 +47,8 @@ def main():
             continue
         t = p.read_text(encoding="utf-8")
         new = NAV_RE.sub(_nav(active), t, count=1)
+        for a, b in CSS_FIXES:
+            new = new.replace(a, b)
         if new != t:
             p.write_text(new, encoding="utf-8")
             n += 1
