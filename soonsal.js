@@ -11,9 +11,6 @@
     'align-items:center;justify-content:center;text-decoration:none;font-size:26px;line-height:1;' +
     'transition:transform .15s}.ss-fab:hover,.ss-fab:active{transform:scale(1.08)}' +
     '@media(min-width:640px){.ss-fab{width:58px;height:58px;right:24px;bottom:24px;font-size:28px}}' +
-    '.ss-share{float:right;margin:2px 0 0 8px;background:transparent;border:1px solid #d8d4c8;' +
-    'color:#8a8578;font-size:11px;font-weight:600;padding:3px 10px;border-radius:14px;cursor:pointer;' +
-    'line-height:1.4;transition:all .15s;font-family:inherit}.ss-share:hover{border-color:#F07040;color:#F07040}' +
     '.ss-toast{position:fixed;left:50%;bottom:28px;transform:translateX(-50%);background:#222;color:#fff;' +
     'font-size:13px;padding:10px 18px;border-radius:8px;z-index:99999;box-shadow:0 4px 14px rgba(0,0,0,.3)}' +
     '.ss-pageshare{position:fixed;left:16px;bottom:16px;z-index:9999;background:#1f2937;color:#fff;border:none;' +
@@ -46,22 +43,6 @@
     sb.setAttribute('aria-label', '이 페이지 공유');
     sb.addEventListener('click', function () { sharePage(); });
     document.body.appendChild(sb);
-
-    // 스토리별 공유 버튼 (제목이 있는 .story 에만)
-    var stories = document.querySelectorAll('.story');
-    for (var i = 0; i < stories.length; i++) {
-      (function (s) {
-        var title = s.querySelector('.story-title');
-        if (!title || s.querySelector('.ss-share')) return;
-        var b = document.createElement('button');
-        b.className = 'ss-share';
-        b.type = 'button';
-        b.textContent = '🔗 공유';
-        b.setAttribute('aria-label', '이 스토리 공유');
-        b.addEventListener('click', function () { share(s); });
-        title.appendChild(b);   // 제목 줄 안(우측)에 — 불릿 흐름을 건드리지 않음
-      })(stories[i]);
-    }
   }
 
   function toast(m) {
@@ -88,7 +69,23 @@
     doShare((el ? el.textContent : document.title).trim(), url);
   }
 
+  // 지금 화면에 보이는 스토리를 찾는다 — 스크롤 위치 기준(뷰포트 35% 선을 지난 마지막 스토리)
+  function currentStory() {
+    var stories = document.querySelectorAll('.story');
+    if (!stories.length) return null;
+    var line = window.innerHeight * 0.35, best = null, bestTop = -1e9, first = null;
+    for (var i = 0; i < stories.length; i++) {
+      if (!stories[i].querySelector('.story-title')) continue;
+      if (!first) first = stories[i];
+      var top = stories[i].getBoundingClientRect().top;
+      if (top <= line && top > bestTop) { bestTop = top; best = stories[i]; }
+    }
+    return best || first;   // 첫 스토리 위쪽이면 첫 스토리
+  }
+
   function sharePage() {
+    var s = currentStory();
+    if (s) { share(s); return; }   // 스토리 페이지 → 지금 보는 스토리를 공유
     doShare(document.title.replace(/\s*[—|].*$/, '').trim() || document.title, location.href);
   }
 
