@@ -13,8 +13,8 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 
 ITEMS = [("/", "최신"), ("/search/", "🔍 검색"), ("/newsletters/", "뉴스레터"),
-         ("/topics/", "주제별"), ("/cardnews/", "카드뉴스"), ("/english/", "English"),
-         ("/school/", "스쿨"), ("/youtube/", "YouTube")]
+         ("/topics/", "주제별"), ("/community/", "커뮤니티"), ("/cardnews/", "카드뉴스"),
+         ("/english/", "English"), ("/school/", "스쿨"), ("/youtube/", "YouTube")]
 
 PAGES = {"index.html": "/", "newsletters/index.html": "/newsletters/",
          "cardnews/index.html": "/cardnews/", "english/index.html": "/english/",
