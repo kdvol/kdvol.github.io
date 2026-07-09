@@ -115,7 +115,7 @@
       "slug": "anthropic",
       "name": "앤스로픽",
       "type": "company",
-      "pattern": "앤스로픽|Anthropic|클로드|Claude"
+      "pattern": "앤스로픽|앤트로픽|Anthropic|클로드|Claude"
     },
     {
       "slug": "palantir",
@@ -878,88 +878,162 @@
       "name": "힐튼",
       "type": "company",
       "pattern": "힐튼|Hilton"
+    },
+    {
+      "slug": "michael-burry",
+      "name": "마이클 버리",
+      "type": "person",
+      "pattern": "마이클\\s?버리|\\bBurry\\b"
+    },
+    {
+      "slug": "michael-saylor",
+      "name": "마이클 세일러",
+      "type": "person",
+      "pattern": "마이클\\s?세일러|\\bSaylor\\b|세일러(?!문)"
+    },
+    {
+      "slug": "cathie-wood",
+      "name": "캐시 우드",
+      "type": "person",
+      "pattern": "캐시\\s?우드|캐서린\\s?우드|Cathie Wood|Catherine Wood"
+    },
+    {
+      "slug": "brian-armstrong",
+      "name": "브라이언 암스트롱",
+      "type": "person",
+      "pattern": "브라이언\\s?암스트롱|Brian Armstrong"
+    },
+    {
+      "slug": "larry-fink",
+      "name": "래리 핑크",
+      "type": "person",
+      "pattern": "래리\\s?핑크|Larry Fink"
+    },
+    {
+      "slug": "bill-ackman",
+      "name": "빌 애크먼",
+      "type": "person",
+      "pattern": "빌\\s?애크먼|애크먼|Ackman"
+    },
+    {
+      "slug": "peter-thiel",
+      "name": "피터 틸",
+      "type": "person",
+      "pattern": "피터\\s?틸|\\bThiel\\b"
+    },
+    {
+      "slug": "marc-andreessen",
+      "name": "마크 안드레센",
+      "type": "person",
+      "pattern": "마크\\s?안드레센|안드레센|Andreessen|\\ba16z\\b"
+    },
+    {
+      "slug": "ark-invest",
+      "name": "아크 인베스트",
+      "type": "company",
+      "pattern": "아크\\s?인베스트|ARK Invest|\\bARKK\\b"
     }
   ],
   "_pending": {
     "ICE": {
       "count": 13,
-      "example": "🎰 폴리마켓, 매출 10억불 돌파하자마자 해킹당하고 조사받음"
+      "example": "🎰 폴리마켓, 매출 10억불 돌파하자마자 해킹당하고 조사받음",
+      "ko": false
     },
     "GLP-1": {
       "count": 9,
-      "example": "🥃 오크통이 부동산인 줄 알았던 은행들"
+      "example": "🥃 오크통이 부동산인 줄 알았던 은행들",
+      "ko": false
     },
     "Block": {
       "count": 9,
-      "example": "💸 캐시앱도 스테이블코인 — 잭 도시의 항복"
+      "example": "💸 캐시앱도 스테이블코인 — 잭 도시의 항복",
+      "ko": false
     },
     "IEA": {
       "count": 9,
-      "example": "🥤 호르무즈에 무너진 의외의 시장, 인도 다이어트 콜라"
+      "example": "🥤 호르무즈에 무너진 의외의 시장, 인도 다이어트 콜라",
+      "ko": false
     },
     "VIX": {
       "count": 8,
-      "example": "📉 $62K — ETF 유입은 돌아왔지만 매크로가 안 도와줌"
+      "example": "📉 $62K — ETF 유입은 돌아왔지만 매크로가 안 도와줌",
+      "ko": false
     },
     "PER": {
       "count": 8,
-      "example": "📉 엔비디아, 무거운 왕관"
+      "example": "📉 엔비디아, 무거운 왕관",
+      "ko": false
     },
     "Apollo": {
       "count": 8,
-      "example": "📣 순살이 광고주를 모집하는 방법"
+      "example": "📣 순살이 광고주를 모집하는 방법",
+      "ko": false
     },
     "Sachs": {
       "count": 8,
-      "example": "📣 순살이 광고주를 모집하는 방법"
+      "example": "📣 순살이 광고주를 모집하는 방법",
+      "ko": false
     },
     "IREN": {
       "count": 8,
-      "example": "⛏️ BTC 채굴사가 $19B AI 계약을 따냈다"
+      "example": "⛏️ BTC 채굴사가 $19B AI 계약을 따냈다",
+      "ko": false
     },
     "Ripple": {
       "count": 8,
-      "example": "🇪🇺 Ripple, 유럽 30개국 크립토 면허 획득"
+      "example": "🇪🇺 Ripple, 유럽 30개국 크립토 면허 획득",
+      "ko": false
     },
     "STRC": {
       "count": 8,
-      "example": "🏦 세일러, \"we hodl\" 외치며 3,588개 팔았다"
+      "example": "🏦 세일러, \"we hodl\" 외치며 3,588개 팔았다",
+      "ko": false
     },
     "BofA": {
       "count": 8,
-      "example": "🚀 SK하이닉스 나스닥 상장 D-4, 역대급"
+      "example": "🚀 SK하이닉스 나스닥 상장 D-4, 역대급",
+      "ko": false
     },
     "Chainlink": {
       "count": 8,
-      "example": "🐛 토큰화 구글 주식 78배 부풀리기 — DeFi 렌딩의 새 위협"
+      "example": "🐛 토큰화 구글 주식 78배 부풀리기 — DeFi 렌딩의 새 위협",
+      "ko": false
     },
     "Project": {
       "count": 8,
-      "example": "🚀 로켓랩, 우주전쟁 2라운드 선언"
+      "example": "🚀 로켓랩, 우주전쟁 2라운드 선언",
+      "ko": false
     },
     "NYT": {
       "count": 8,
-      "example": "📱 주커버그가 예측시장을 만들겠다는데요"
+      "example": "📱 주커버그가 예측시장을 만들겠다는데요",
+      "ko": false
     },
     "FIFA": {
       "count": 8,
-      "example": "🎰 폴리마켓, 매출 10억불 돌파하자마자 해킹당하고 조사받음"
+      "example": "🎰 폴리마켓, 매출 10억불 돌파하자마자 해킹당하고 조사받음",
+      "ko": false
     },
     "CBDC": {
       "count": 8,
-      "example": "🏛 트럼프, CBDC 금지법 서명식 취소"
+      "example": "🏛 트럼프, CBDC 금지법 서명식 취소",
+      "ko": false
     },
     "SNS": {
       "count": 8,
-      "example": "🇬🇧 영국, 16세 미만 SNS 전면 금지"
+      "example": "🇬🇧 영국, 16세 미만 SNS 전면 금지",
+      "ko": false
     },
     "CoinDesk": {
       "count": 8,
-      "example": "😱 공포지수 8, 가격은 반등 — 이 괴리의 의미"
+      "example": "😱 공포지수 8, 가격은 반등 — 이 괴리의 의미",
+      "ko": false
     },
     "DEX": {
       "count": 8,
-      "example": "🏦 솔라나, 밈코인 딱지 떼고 월가가 점령 중"
+      "example": "🏦 솔라나, 밈코인 딱지 떼고 월가가 점령 중",
+      "ko": false
     }
   }
 }
