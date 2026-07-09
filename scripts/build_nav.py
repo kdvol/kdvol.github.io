@@ -12,10 +12,9 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 
-# 검색=주제별 내 접근, English=숨김. 커뮤니티는 헤더 탭 유지 + 플로팅 버튼 병행.
+# 검색=주제별 내 접근, English=숨김. 커뮤니티 탭 제거(텔레그램은 플로팅 버튼 직결).
 ITEMS = [("/", "최신"), ("/newsletters/", "뉴스레터"), ("/topics/", "주제별"),
-         ("/community/", "커뮤니티"), ("/cardnews/", "카드뉴스"),
-         ("/school/", "스쿨"), ("/youtube/", "YouTube")]
+         ("/cardnews/", "카드뉴스"), ("/school/", "스쿨"), ("/youtube/", "YouTube")]
 
 # nav CSS 교정(자가치유). safe center = 데스크톱은 가운데, 넘치면 좌측정렬(첫 탭 안 잘림).
 CSS_FIXES = [
