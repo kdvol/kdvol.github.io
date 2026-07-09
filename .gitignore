@@ -2,3 +2,4 @@ ig_pipeline/config.env
 __pycache__/
 *.pyc
 content/story_atoms.json
+.DS_Store
