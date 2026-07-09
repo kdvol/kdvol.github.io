@@ -30,7 +30,7 @@
     // 플로팅 텔레그램 대화방 버튼
     var fab = document.createElement('a');
     fab.className = 'ss-fab';
-    fab.href = 'https://t.me/soonsalchat';
+    fab.href = 'https://t.me/soonsal';
     fab.target = '_blank';
     fab.rel = 'noopener';
     fab.setAttribute('aria-label', '텔레그램 실시간 대화방');
@@ -59,7 +59,7 @@
         b.textContent = '🔗 공유';
         b.setAttribute('aria-label', '이 스토리 공유');
         b.addEventListener('click', function () { share(s); });
-        title.insertAdjacentElement('afterend', b);
+        title.appendChild(b);   // 제목 줄 안(우측)에 — 불릿 흐름을 건드리지 않음
       })(stories[i]);
     }
   }
