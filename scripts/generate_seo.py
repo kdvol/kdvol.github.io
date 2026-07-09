@@ -134,15 +134,10 @@ def main():
     except Exception as e:
         print(f"⚠️ build_search 실패(계속 진행): {e}")
     try:
-        import build_share
-        build_share.main()                  # 스토리 단위 공유 버튼(뉴스레터)
+        import build_include
+        build_include.main()                # /soonsal.js 태그 1회 보장(FAB+공유는 그 파일에)
     except Exception as e:
-        print(f"⚠️ build_share 실패(계속 진행): {e}")
-    try:
-        import build_fab
-        build_fab.main()                    # 플로팅 텔레그램 버튼(전 페이지, 마지막에)
-    except Exception as e:
-        print(f"⚠️ build_fab 실패(계속 진행): {e}")
+        print(f"⚠️ build_include 실패(계속 진행): {e}")
     n_urls = build_sitemap()
     n_items = build_rss()
     build_robots()
