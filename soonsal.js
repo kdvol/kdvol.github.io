@@ -15,7 +15,12 @@
     'color:#8a8578;font-size:11px;font-weight:600;padding:3px 10px;border-radius:14px;cursor:pointer;' +
     'line-height:1.4;transition:all .15s;font-family:inherit}.ss-share:hover{border-color:#F07040;color:#F07040}' +
     '.ss-toast{position:fixed;left:50%;bottom:28px;transform:translateX(-50%);background:#222;color:#fff;' +
-    'font-size:13px;padding:10px 18px;border-radius:8px;z-index:99999;box-shadow:0 4px 14px rgba(0,0,0,.3)}';
+    'font-size:13px;padding:10px 18px;border-radius:8px;z-index:99999;box-shadow:0 4px 14px rgba(0,0,0,.3)}' +
+    '.ss-pageshare{position:fixed;left:16px;bottom:16px;z-index:9999;background:#1f2937;color:#fff;border:none;' +
+    'border-radius:26px;padding:13px 22px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;' +
+    'box-shadow:0 4px 14px rgba(0,0,0,.35);display:flex;align-items:center;gap:7px;transition:transform .15s}' +
+    '.ss-pageshare:hover,.ss-pageshare:active{transform:scale(1.06)}' +
+    '@media(min-width:640px){.ss-pageshare{left:24px;bottom:24px;padding:14px 24px;font-size:15px}}';
 
   function init() {
     var st = document.createElement('style');
@@ -32,6 +37,15 @@
     fab.title = '텔레그램 대화방';
     fab.textContent = '💬';
     document.body.appendChild(fab);
+
+    // 하단 큰 공유 버튼 — 지금 보는 페이지(브리핑)를 통째로 공유
+    var sb = document.createElement('button');
+    sb.className = 'ss-pageshare';
+    sb.type = 'button';
+    sb.innerHTML = '🔗 <span>공유하기</span>';
+    sb.setAttribute('aria-label', '이 페이지 공유');
+    sb.addEventListener('click', function () { sharePage(); });
+    document.body.appendChild(sb);
 
     // 스토리별 공유 버튼 (제목이 있는 .story 에만)
     var stories = document.querySelectorAll('.story');
@@ -58,10 +72,7 @@
     setTimeout(function () { d.remove(); }, 1800);
   }
 
-  function share(story) {
-    var url = location.origin + location.pathname + (story.id ? '#' + story.id : '');
-    var el = story.querySelector('.story-title');
-    var t = (el ? el.textContent : document.title).trim();
+  function doShare(t, url) {
     if (navigator.share) {
       navigator.share({ title: t, text: t, url: url }).catch(function () {});
     } else if (navigator.clipboard) {
@@ -69,6 +80,16 @@
     } else {
       toast(url);
     }
+  }
+
+  function share(story) {
+    var url = location.origin + location.pathname + (story.id ? '#' + story.id : '');
+    var el = story.querySelector('.story-title');
+    doShare((el ? el.textContent : document.title).trim(), url);
+  }
+
+  function sharePage() {
+    doShare(document.title.replace(/\s*[—|].*$/, '').trim() || document.title, location.href);
   }
 
   if (document.readyState === 'loading') {
