@@ -1205,6 +1205,8 @@ def main():
         print("⏭️  Git push 스킵 (zzal 전용 — 웹 변경 없음)")
     else:
         print("\n🚀 Committing...")
+        # sitemap/rss/robots 갱신 (실패해도 배포는 계속)
+        subprocess.run([sys.executable, str(Path(__file__).parent / "scripts" / "generate_seo.py")], check=False)
         subprocess.run(["git", "add", "-A"], check=True)
 
         names = [LABELS.get(i["type"]) or i["keywords"][:30] for i in site_items]
