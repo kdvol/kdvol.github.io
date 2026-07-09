@@ -73,11 +73,10 @@ h1{font-size:1.5rem;margin-bottom:6px;letter-spacing:-.02em}
 </div>
 
 <div class="card">
-<h2>💬 브리핑마다 댓글</h2>
-<p>토론은 빈 게시판이 아니라 <b style="color:#bbb">각 브리핑·스토리 아래</b>에서 열립니다 —
-그날의 딜, 종목, 시장 얘기를 그 콘텐츠를 보면서 바로. 카카오·구글로 간편 로그인(준비 중)이라
-GitHub 계정 없이 참여할 수 있게 준비하고 있어요.</p>
-<a class="btn" href="/newsletters/" style="background:#2a2a2a">최신 브리핑에서 대화 시작 →</a>
+<h2>📩 매일 아침, 5분 브리핑</h2>
+<p>흩어진 뉴스를 뼈만 발라내 매일 아침 받아보세요. 놓친 브리핑은 각 스토리마다
+공유 버튼으로 친구에게 바로 보낼 수도 있어요.</p>
+<a class="btn" href="https://subscribe.soonsal.com/subscribe" target="_blank" rel="noopener">뉴스레터 구독 →</a>
 </div>
 </div></body></html>"""
 
