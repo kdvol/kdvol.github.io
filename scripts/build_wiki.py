@@ -46,9 +46,15 @@ h1{font-size:1.6rem;margin-bottom:4px}
 .st{font-size:.98rem;line-height:1.5;transition:.15s;font-weight:500}
 .story:hover .st{color:#F07040}
 .lb{display:inline-block;font-size:.7rem;color:#888;letter-spacing:.03em;margin-top:4px}
-.eng{margin:8px 0 2px;padding:8px 12px;background:#161616;border-left:2px solid #2ecc71;border-radius:0 6px 6px 0}
-.eng-t{font-size:.84rem;color:#2ecc71;font-weight:600}
-.eng-k{font-size:.8rem;color:#aaa;margin-top:2px;line-height:1.5}
+details.eng{margin:6px 0 2px}
+details.eng>summary{list-style:none;font-size:.72rem;color:#2ecc71;cursor:pointer;display:inline-block}
+details.eng>summary::-webkit-details-marker{display:none}
+details.eng>summary::before{content:"🔤 "}
+details.eng[open]>summary{margin-bottom:6px;color:#888}
+.engbox{border-left:2px solid #2ecc71;padding:2px 0 2px 11px}
+.eng-t{font-size:.82rem;color:#2ecc71;font-weight:600;margin-top:6px}
+.eng-t:first-child{margin-top:0}
+.eng-k{font-size:.78rem;color:#9aa;margin-top:1px;line-height:1.5}
 .grp{margin:26px 0}
 .grp h2{font-size:1.15rem;margin-bottom:12px}
 .more{color:#F07040;font-size:.86rem;margin-top:12px;display:inline-block}
@@ -134,9 +140,11 @@ def build(atoms=None):
         for a in items:
             eng = ""
             if a["english"]:
-                eng = "".join(
-                    f'<div class="eng"><div class="eng-t">{escape(w["en"])}</div>'
-                    f'<div class="eng-k">{escape(w["ko"][:100])}</div></div>' for w in a["english"])
+                rows_e = "".join(
+                    f'<div class="eng-t">{escape(w["en"])}</div>'
+                    f'<div class="eng-k">{escape(w["ko"][:100])}</div>' for w in a["english"])
+                eng = (f'<details class="eng"><summary>영어 표현 {len(a["english"])}</summary>'
+                       f'<div class="engbox">{rows_e}</div></details>')
             rows.append(
                 f'<div class="story"><a href="{a["url"]}">'
                 f'<span class="d">{a["date"]}</span>'

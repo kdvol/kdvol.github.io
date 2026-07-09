@@ -12,9 +12,10 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 
-# 검색은 별도 탭 없이 주제별 안에서 접근(중복 제거). 모바일 간결성 우선 순서.
+# 검색은 주제별 안에서 접근(중복 제거). English 탭 숨김(현재 미사용 — 되살린다면
+# 영문 콘텐츠가 아니라 실제 '영어 학습' 섹션으로 재정의 예정). 모바일 간결성 우선.
 ITEMS = [("/", "최신"), ("/newsletters/", "뉴스레터"), ("/topics/", "주제별"),
-         ("/community/", "커뮤니티"), ("/cardnews/", "카드뉴스"), ("/english/", "English"),
+         ("/community/", "커뮤니티"), ("/cardnews/", "카드뉴스"),
          ("/school/", "스쿨"), ("/youtube/", "YouTube")]
 
 # nav CSS 모바일 교정(자가치유) — 시그니처가 유니크해 안전하게 치환.
