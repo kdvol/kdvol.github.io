@@ -23,29 +23,39 @@ OUT = ROOT / "topics"
 
 CSS = """
 *{margin:0;padding:0;box-sizing:border-box}
-body{background:#111;color:#eee;font-family:'DM Sans','Apple SD Gothic Neo',sans-serif;min-height:100vh}
-.wrap{max-width:820px;margin:0 auto;padding:32px 20px}
+body{background:#111;color:#eee;font-family:'DM Sans','Apple SD Gothic Neo',sans-serif;min-height:100vh;-webkit-text-size-adjust:100%}
+.wrap{max-width:760px;margin:0 auto;padding:24px 16px 60px}
 a{color:#eee;text-decoration:none}
-h1{font-size:1.5rem;margin-bottom:6px}
-.sub{color:#888;font-size:.9rem;margin-bottom:22px}
-.home{color:#F07040;font-size:.9rem;display:inline-block;margin-bottom:18px}
-.tags{display:flex;flex-wrap:wrap;gap:10px;margin:18px 0}
-.tag{border:1px solid #333;border-radius:20px;padding:7px 16px;font-size:.92rem;transition:.15s}
-.tag:hover{border-color:#F07040;color:#F07040}
-.tag b{color:#F07040;font-weight:600;margin-left:6px}
-.story{padding:16px 4px;border-bottom:1px solid #222}
-.story-head{display:flex;gap:12px;align-items:baseline}
-.d{color:#777;font-size:.82rem;white-space:nowrap;font-variant-numeric:tabular-nums;padding-top:2px}
-.st{font-size:1.02rem;line-height:1.5;transition:.15s;font-weight:600}
-.story:hover .st{color:#F07040}
-.lb{display:inline-block;font-size:.7rem;color:#f5a623;letter-spacing:.04em;margin-top:5px;text-transform:uppercase}
-.xtags{margin-top:6px}
-.xtag{font-size:.74rem;color:#888;border:1px solid #2a2a2a;border-radius:4px;padding:1px 7px;margin-right:5px}
-.eng{margin:9px 0 2px;padding:9px 12px;background:#161616;border-left:2px solid #2ecc71;border-radius:0 6px 6px 0}
-.eng-t{font-size:.85rem;color:#2ecc71;font-weight:600}
-.eng-k{font-size:.82rem;color:#aaa;margin-top:2px;line-height:1.5}
-.eng-h{font-size:.72rem;color:#666;margin-bottom:6px;letter-spacing:.03em}
-.more{color:#F07040;font-size:.85rem;margin-top:8px;display:inline-block}
+h1{font-size:1.45rem;margin-bottom:4px;letter-spacing:-.02em}
+.sub{color:#888;font-size:.85rem;margin-bottom:8px}
+.home{color:#F07040;font-size:.88rem;display:inline-block;margin-bottom:14px}
+.searchbar{display:block;width:100%;background:#1a1a1a;border:1px solid #2c2c2c;border-radius:10px;
+  padding:11px 14px;color:#eee;font-size:.95rem;margin:6px 0 18px}
+.searchbar::placeholder{color:#666}
+.tags{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0}
+.tag{border:1px solid #333;border-radius:18px;padding:6px 13px;font-size:.88rem;transition:.15s;white-space:nowrap}
+.tag:hover,.tag:active{border-color:#F07040;color:#F07040}
+.tag b{color:#F07040;font-weight:700;margin-left:5px;font-size:.82rem}
+/* 균일 높이 스토리 행 — 영어는 기본 접힘 */
+.item{border-bottom:1px solid #1c1c1c}
+.item-row{display:flex;gap:11px;align-items:baseline;padding:11px 2px}
+.dt{color:#666;font-size:.76rem;font-variant-numeric:tabular-nums;white-space:nowrap;flex:0 0 auto;padding-top:2px}
+.ti{font-size:.95rem;line-height:1.4;color:#eee;flex:1;
+  overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;transition:color .15s}
+.item-row:hover .ti,.item-row:active .ti{color:#F07040}
+.chips{display:flex;gap:5px;flex-wrap:wrap;margin:-4px 0 8px 46px}
+.mtag{font-size:.68rem;color:#8b93a0;background:#181b20;border-radius:4px;padding:1px 7px;white-space:nowrap}
+details.eng{margin:-2px 0 8px 46px}
+details.eng>summary{list-style:none;font-size:.7rem;color:#2ecc71;cursor:pointer;display:inline-block}
+details.eng>summary::-webkit-details-marker{display:none}
+details.eng>summary::before{content:"🔤 ";}
+details.eng[open]>summary{margin-bottom:6px;color:#888}
+.engbox{border-left:2px solid #2ecc71;padding:2px 0 2px 11px}
+.eng-t{font-size:.82rem;color:#2ecc71;font-weight:600;margin-top:6px}
+.eng-t:first-child{margin-top:0}
+.eng-k{font-size:.78rem;color:#9aa;line-height:1.5;margin-top:1px}
+.count{color:#666;font-size:.8rem;margin:16px 0 4px}
+@media(min-width:640px){.wrap{padding:32px 20px 60px}.ti{font-size:1rem}}
 """
 
 
@@ -72,21 +82,27 @@ def topic_name_map(tax):
     return {t["slug"]: t for t in tax["topics"]}
 
 
+def _mmdd(iso):
+    return iso[5:].replace("-", ".")          # 2026-07-09 → 07.09
+
+
 def story_html(a, names, self_slug):
+    """균일 높이 컴팩트 행. 영어는 <details>로 기본 접힘(모바일 스캔성)."""
     other = [names[s]["name"] for s in a["topics"] if s != self_slug and s in names]
-    xtags = ('<div class="xtags">' + "".join(f'<span class="xtag">{n}</span>' for n in other)
+    chips = ('<div class="chips">' + "".join(f'<span class="mtag">{n}</span>' for n in other)
              + "</div>") if other else ""
     eng = ""
     if a["english"]:
+        n = len(a["english"])
         rows = "".join(
             f'<div class="eng-t">{escape(e["en"])}</div><div class="eng-k">{escape(e["ko"][:110])}</div>'
             for e in a["english"])
-        eng = f'<div class="eng"><div class="eng-h">📎 이 스토리의 영어 표현</div>{rows}</div>'
-    return (f'<div class="story"><a href="{a["url"]}"><div class="story-head">'
-            f'<span class="d">{a["date"]}</span>'
-            f'<span class="st">{escape(clean_title(a["title"]))}</span></div></a>'
-            + (f'<span class="lb">{escape(a["label"])}</span>' if a["label"] else "")
-            + xtags + eng + "</div>")
+        eng = (f'<details class="eng"><summary>영어 표현 {n}</summary>'
+               f'<div class="engbox">{rows}</div></details>')
+    return (f'<div class="item"><a class="item-row" href="{a["url"]}">'
+            f'<span class="dt">{_mmdd(a["date"])}</span>'
+            f'<span class="ti">{escape(clean_title(a["title"]))}</span></a>'
+            + chips + eng + "</div>")
 
 
 def main(atoms=None):
@@ -131,11 +147,12 @@ def main(atoms=None):
         body = (head(f"{name} 관련 브리핑 스토리 {len(matched)}건 — 순살브리핑",
                      f"{name} 주제를 다룬 순살브리핑 스토리 {len(matched)}건을 최신순으로. "
                      f"관련 영어 표현 {n_eng}개 포함.", canonical, ld)
-                + f'<h1>{emoji} {name}</h1><p class="sub">이 주제를 다룬 스토리 {len(matched)}건 · '
-                  f'영어 표현 {n_eng}개 · {today} 기준 · '
-                  f'<a href="/topics/" style="color:#F07040">전체 주제 보기</a> · '
+                + f'<h1>{emoji} {name}</h1><p class="sub">스토리 {len(matched)}건 · 영어 표현 {n_eng}개 · '
+                  f'<a href="/topics/" style="color:#F07040">주제</a> · '
                   f'<a href="/wiki/" style="color:#F07040">위키</a></p>'
+                + f'<a class="searchbar" href="/search/" style="color:#666">🔍 전체 브리핑 검색…</a>'
                 + ent_box
+                + f'<div class="count">최신순 · {len(matched)}건</div>'
                 + "".join(story_html(a, names, slug) for a in matched)
                 + FOOT)
         (OUT / f"{slug}.html").write_text(body, encoding="utf-8")
@@ -152,7 +169,8 @@ def main(atoms=None):
                 "크립토·AI·반도체·연준 등 주제별로 모아 보는 순살브리핑. 뉴스레터를 스토리 단위로 분류.",
                 canonical, ld)
            + f'<h1>주제별 브리핑</h1><p class="sub">스토리 {len(atoms)}건을 {len(built)}개 주제로 분류 · '
-             f'영어 표현 {total_eng}개 연결 · {today} 기준</p>'
+             f'<a href="/wiki/" style="color:#F07040">위키</a></p>'
+           + f'<a class="searchbar" href="/search/" style="color:#666">🔍 전체 브리핑 검색…</a>'
            + f'<div class="tags">{tags}</div>' + FOOT)
     (OUT / "index.html").write_text(hub, encoding="utf-8")
 

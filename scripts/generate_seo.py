@@ -22,7 +22,7 @@ SECTIONS = [  # (glob, 우선순위)
     ("topics/*.html", "0.7"),
     ("wiki/*.html", "0.7"),
 ]
-INDEXES = ["", "newsletters/", "cardnews/", "english/", "financial-english/", "youtube/", "topics/", "wiki/"]
+INDEXES = ["", "newsletters/", "cardnews/", "english/", "financial-english/", "youtube/", "topics/", "wiki/", "search/"]
 
 DATED = re.compile(r"(\d{2})(\d{2})(?:-[a-z0-9-]+)?\.html$")
 
@@ -123,6 +123,11 @@ def main():
         build_wiki.build(atoms)             # 엔티티 지식베이스(위키) (아톰 재사용)
     except Exception as e:
         print(f"⚠️ build_wiki 실패(계속 진행): {e}")
+    try:
+        import build_search
+        build_search.build(atoms)           # 클라이언트 사이드 검색 색인+페이지
+    except Exception as e:
+        print(f"⚠️ build_search 실패(계속 진행): {e}")
     n_urls = build_sitemap()
     n_items = build_rss()
     build_robots()
