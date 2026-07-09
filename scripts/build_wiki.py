@@ -155,44 +155,30 @@ def build(atoms=None):
                    "name": clean_title(a["title"])} for i, a in enumerate(items[:40])]}}
         desc = (f"{e['name']}이(가) 등장한 순살브리핑 스토리 {len(items)}건을 최신순으로. "
                 f"연관 {', '.join(r['name'] for r, _ in related[:4])}.")
-        body = (head(f"{e['name']} — 관련 브리핑 {len(items)}건 | 순살 위키", desc, canonical, ld)
+        body = (head(f"{e['name']} 관련 브리핑 {len(items)}건 | 순살브리핑", desc, canonical, ld)
                 + f'<div class="kind">{emoji} {type_label}</div><h1>{escape(e["name"])}</h1>'
                 + f'<p class="sub">이 {type_label}이(가) 등장한 스토리 {len(items)}건 · '
                   f'최근 {items[0]["date"]} · 영어 표현 {n_eng}개 · '
-                  f'<a href="/wiki/" style="color:#F07040">위키 전체</a></p>'
+                  f'<a href="/topics/" style="color:#F07040">주제·대상 전체</a> · '
+                  f'<a href="/search/" style="color:#F07040">검색</a></p>'
                 + (f'<div class="sec"><h2>연관</h2><div class="chips">{rel_html}</div></div>' if rel_html else "")
                 + (f'<div class="sec"><h2>주제</h2><div class="chips">{tp_html}</div></div>' if tp_html else "")
                 + f'<div class="sec"><h2>타임라인 · {len(items)}건</h2>{"".join(rows)}</div>'
                 + FOOT)
         (OUT / f"{slug}.html").write_text(body, encoding="utf-8")
 
-    # 허브 — 타입별 그룹
-    canonical = f"{BASE}/wiki/"
-    groups_html = ""
-    for tkey, tmeta in types.items():
-        es = sorted([e for e in built if e["type"] == tkey],
-                    key=lambda e: -len(stories_of[e["slug"]]))
-        if not es:
-            continue
-        chips = "".join(
-            f'<a class="chip" href="/wiki/{e["slug"]}.html">{escape(e["name"])}'
-            f'<b>{len(stories_of[e["slug"]])}</b></a>' for e in es)
-        groups_html += (f'<div class="grp"><h2>{tmeta["emoji"]} {tmeta["label"]} '
-                        f'<span style="color:#666;font-size:.9rem">{len(es)}</span></h2>'
-                        f'<div class="chips">{chips}</div></div>')
-    ld = {"@context": "https://schema.org", "@type": "CollectionPage",
-          "name": "순살 위키 — 기업·인물·자산 지식베이스", "url": canonical, "inLanguage": "ko"}
+    # 엔티티 탐색은 주제별(/topics/)로 통합 → /wiki/ 허브는 리다이렉트만(중복 제거)
     total_stories = len({a["id"] for a in atoms})
-    hub = (head("순살 위키 — 기업·인물·자산·기관 지식베이스",
-                "엔비디아·비트코인·연준 등 순살브리핑에 등장한 기업·인물·자산·기관을 한데 모아 "
-                "관련 스토리와 연관관계로 연결한 지식베이스.", canonical, ld)
-           + f'<div class="kind">📚 KNOWLEDGE BASE</div><h1>순살 위키</h1>'
-           + f'<p class="sub">브리핑에 등장한 {len(built)}개 대상을 스토리 {total_stories}건과 연결 · '
-             f'<a href="/topics/" style="color:#F07040">주제별 보기</a> · {today} 기준</p>'
-           + groups_html + FOOT)
-    (OUT / "index.html").write_text(hub, encoding="utf-8")
+    (OUT / "index.html").write_text(
+        '<!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8">'
+        '<meta http-equiv="refresh" content="0; url=/topics/">'
+        '<link rel="canonical" href="https://soonsal.com/topics/">'
+        '<title>주제별 브리핑 — 순살브리핑</title>'
+        '<meta name="robots" content="noindex,follow"></head>'
+        '<body><a href="/topics/">주제별 브리핑으로 이동…</a></body></html>',
+        encoding="utf-8")
 
-    print(f"📚 wiki: 엔티티 페이지 {len(built)}개(+허브) · 스토리 {total_stories}")
+    print(f"📚 wiki: 엔티티 페이지 {len(built)}개(허브→주제별 리다이렉트) · 스토리 {total_stories}")
     return built
 
 
