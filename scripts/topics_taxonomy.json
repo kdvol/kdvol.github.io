@@ -1,0 +1,139 @@
+{
+  "version": 2,
+  "note": "스토리 단위 주제 분류 사전. atomize.py/build_topics.py가 로드. label_pattern=작성자 섹션라벨(고정밀), content_pattern=제목+본문(재현율). 미매칭 라벨은 _pending에 자동 축적 → auto_evolve가 승격.",
+  "min_stories_per_topic": 3,
+  "topics": [
+    {
+      "slug": "crypto",
+      "name": "크립토",
+      "emoji": "🔐",
+      "label_pattern": "CRYPTO|크립토|BITCOIN|BTC|ETH|STABLECOIN|스테이블|DEFI|WEB3|블록체인|디지털자산|온체인",
+      "content_pattern": "비트코인|이더리움|스테이블코인|리플|솔라나|바이낸스|코인베이스|디파이|\\bDeFi\\b|\\bNFT\\b|\\bDAO\\b|스테이킹|알트코인|밈코인|\\bBTC\\b|\\bETH\\b"
+    },
+    {
+      "slug": "ai",
+      "name": "AI",
+      "emoji": "🤖",
+      "label_pattern": "\\bAI\\b|인공지능|MACHINE LEARNING|LLM",
+      "content_pattern": "\\bAI\\b|인공지능|오픈AI|OpenAI|챗GPT|ChatGPT|Anthropic|앤스로픽|클로드|\\bLLM\\b|젠슨\\s?황|생성형|딥러닝|추론모델|파운데이션\\s?모델"
+    },
+    {
+      "slug": "semiconductor",
+      "name": "반도체",
+      "emoji": "🔩",
+      "label_pattern": "SEMICONDUCTOR|반도체|\\bCHIP|HARDWARE|SUPPLY CHAIN",
+      "content_pattern": "반도체|삼성전자|하이닉스|\\bTSMC\\b|인텔|파운드리|\\bHBM\\b|엔비디아|Nvidia|NVIDIA|\\bASML\\b|퀄컴|\\bARM\\b|웨이퍼|D램"
+    },
+    {
+      "slug": "fed-rates",
+      "name": "연준·금리",
+      "emoji": "🏛️",
+      "label_pattern": "\\bFED\\b|연준|금리|\\bRATE|CENTRAL BANK|MACRO|MONETARY",
+      "content_pattern": "연준|\\bFed\\b|FOMC|파월|금리\\s?인상|금리\\s?인하|기준금리|국채\\s?금리|양적긴축|양적완화|인플레이션|CPI|PCE"
+    },
+    {
+      "slug": "fx",
+      "name": "환율·달러",
+      "emoji": "💱",
+      "label_pattern": "\\bFX\\b|CURRENCY|환율|DOLLAR|FOREX",
+      "content_pattern": "환율|원/달러|원화|달러\\s?강세|달러\\s?약세|엔화|위안화|\\bDXY\\b|엔저|기축통화"
+    },
+    {
+      "slug": "china",
+      "name": "중국",
+      "emoji": "🇨🇳",
+      "label_pattern": "CHINA|중국|CHINESE",
+      "content_pattern": "중국|알리바바|텐센트|\\bBYD\\b|샤오미|홍콩|항셍|시진핑|위안|화웨이|디디"
+    },
+    {
+      "slug": "japan",
+      "name": "일본",
+      "emoji": "🇯🇵",
+      "label_pattern": "JAPAN|일본|\\bBOJ\\b",
+      "content_pattern": "일본|닛케이|도요타|엔저|\\bBOJ\\b|일본은행|소프트뱅크|손정의"
+    },
+    {
+      "slug": "deals",
+      "name": "딜·M&A",
+      "emoji": "🤝",
+      "label_pattern": "DEAL|\\bM&A\\b|MERGER|ACQUISITION|BUYOUT|인수|합병|딜|PRIVATE EQUITY",
+      "content_pattern": "인수|합병|\\bM&A\\b|바이아웃|사모펀드|\\bPEF\\b|매각|인수전|피인수|지분\\s?인수|경영권"
+    },
+    {
+      "slug": "ipo",
+      "name": "IPO·상장",
+      "emoji": "🔔",
+      "label_pattern": "\\bIPO\\b|LISTING|상장|공모",
+      "content_pattern": "\\bIPO\\b|상장(?!폐지)|공모가|공모주|나스닥\\s?데뷔|증시\\s?입성|직상장|스팩"
+    },
+    {
+      "slug": "trump-politics",
+      "name": "트럼프·정책",
+      "emoji": "🏳️",
+      "label_pattern": "POLITIC|GEOPOLIT|REGULATION|POLICY|정책|규제|지정학|TRUMP|CRIME|GOVERNMENT",
+      "content_pattern": "트럼프|백악관|관세|대선|의회|행정명령|\\bSEC\\b|제재|규제당국|정부\\s?셧다운|연방"
+    },
+    {
+      "slug": "energy",
+      "name": "에너지·원자재",
+      "emoji": "🛢️",
+      "label_pattern": "ENERGY|에너지|\\bOIL\\b|COMMODIT|원유|POWER|NUCLEAR",
+      "content_pattern": "유가|\\bOPEC\\b|원유|\\bWTI\\b|천연가스|정유|금값|골드|구리|원자재|우라늄|전력망|원전"
+    },
+    {
+      "slug": "tesla-ev",
+      "name": "테슬라·전기차",
+      "emoji": "🚗",
+      "label_pattern": "TESLA|\\bEV\\b|AUTO|MOBILITY|전기차|자동차",
+      "content_pattern": "테슬라|머스크|전기차|\\bEV\\b|자율주행|로보택시|리비안|현대차|기아|배터리\\s?전기차"
+    },
+    {
+      "slug": "bigtech",
+      "name": "빅테크",
+      "emoji": "📱",
+      "label_pattern": "BIG ?TECH|TECH GIANT|PLATFORM|SOFTWARE|CLOUD",
+      "content_pattern": "애플|구글|아마존|메타|마이크로소프트|\\bMS\\b|알파벳|넷플릭스|아이폰|안드로이드|AWS|애저"
+    },
+    {
+      "slug": "korea-market",
+      "name": "국내 증시",
+      "emoji": "📈",
+      "label_pattern": "KOREA|한국|코스피|국내",
+      "content_pattern": "코스피|코스닥|한국은행|국민연금|밸류업|공매도|삼전|증시\\s?부양|개미"
+    },
+    {
+      "slug": "etf-funds",
+      "name": "ETF·펀드",
+      "emoji": "🧺",
+      "label_pattern": "\\bETF\\b|MUTUAL FUND|INDEX FUND|ASSET MANAGEMENT|PASSIVE|자산운용",
+      "content_pattern": "\\bETF\\b|펀드|자산운용|인덱스\\s?펀드|블랙록|뱅가드|리밸런싱|패시브\\s?투자|추종\\s?지수"
+    },
+    {
+      "slug": "banks-wallst",
+      "name": "월가·은행",
+      "emoji": "🏦",
+      "label_pattern": "BANK|WALL ?ST|FINANCE|TRADFI|INSTITUTIONAL|HEDGE ?FUND|MARKETS|STRATEGY",
+      "content_pattern": "은행|JP모건|골드만|모건스탠리|씨티|웰스파고|월가|헤지펀드|버크셔|버핏|사모대출|투자은행"
+    }
+  ],
+  "_pending": {
+    "REAL ESTATE · RETAIL": {
+      "count": 1,
+      "examples": [
+        "🏬 죽었다던 미국 쇼핑몰이 부활하는 이유"
+      ]
+    },
+    "FRAUD · AGRICULTURE": {
+      "count": 1,
+      "examples": [
+        "🐄 유령 소 8만 마리, 1.7억불 축산 사기극"
+      ]
+    },
+    "HOSPITALITY · FRANCHISE": {
+      "count": 1,
+      "examples": [
+        "🏨 포인트 10억불 노다지, 뿔난 호텔 주인들"
+      ]
+    }
+  }
+}
