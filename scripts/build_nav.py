@@ -12,15 +12,17 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 
-# 검색=주제별 내 접근, 커뮤니티=플로팅 버튼(build_fab)으로 이동, English=숨김.
-# 남는 건 실제 콘텐츠 탭만 — 모바일 간결성 우선.
+# 검색=주제별 내 접근, English=숨김. 커뮤니티는 헤더 탭 유지 + 플로팅 버튼 병행.
 ITEMS = [("/", "최신"), ("/newsletters/", "뉴스레터"), ("/topics/", "주제별"),
-         ("/cardnews/", "카드뉴스"), ("/school/", "스쿨"), ("/youtube/", "YouTube")]
+         ("/community/", "커뮤니티"), ("/cardnews/", "카드뉴스"),
+         ("/school/", "스쿨"), ("/youtube/", "YouTube")]
 
-# nav CSS 모바일 교정(자가치유) — 시그니처가 유니크해 안전하게 치환.
+# nav CSS 교정(자가치유). safe center = 데스크톱은 가운데, 넘치면 좌측정렬(첫 탭 안 잘림).
 CSS_FIXES = [
     ("display:flex; justify-content:center; gap:0;",
-     "display:flex; justify-content:flex-start; gap:0;"),   # 첫 탭 잘림 방지(좌측 정렬)
+     "display:flex; justify-content:safe center; gap:0;"),
+    ("display:flex; justify-content:flex-start; gap:0;",
+     "display:flex; justify-content:safe center; gap:0;"),
     ("padding:12px 24px; font-size:13px; font-weight:700; color:#777;",
      "padding:12px 17px; font-size:13px; font-weight:700; color:#777; white-space:nowrap;"),
 ]
