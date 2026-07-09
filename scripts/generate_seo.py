@@ -139,8 +139,13 @@ def main():
     except Exception as e:
         print(f"⚠️ build_community 실패(계속 진행): {e}")
     try:
+        import build_share
+        build_share.main()                  # 스토리 단위 공유 버튼(뉴스레터)
+    except Exception as e:
+        print(f"⚠️ build_share 실패(계속 진행): {e}")
+    try:
         import build_fab
-        build_fab.main()                    # 플로팅 커뮤니티 버튼(전 페이지, 마지막에)
+        build_fab.main()                    # 플로팅 텔레그램 버튼(전 페이지, 마지막에)
     except Exception as e:
         print(f"⚠️ build_fab 실패(계속 진행): {e}")
     n_urls = build_sitemap()
