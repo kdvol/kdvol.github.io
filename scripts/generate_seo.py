@@ -19,8 +19,9 @@ SECTIONS = [  # (glob, 우선순위)
     ("english/2026/*.html", "0.6"),
     ("financial-english/*.html", "0.5"),
     ("special/*.html", "0.5"),
+    ("topics/*.html", "0.7"),
 ]
-INDEXES = ["", "newsletters/", "cardnews/", "english/", "financial-english/", "youtube/"]
+INDEXES = ["", "newsletters/", "cardnews/", "english/", "financial-english/", "youtube/", "topics/"]
 
 DATED = re.compile(r"(\d{2})(\d{2})(?:-[a-z0-9-]+)?\.html$")
 
@@ -96,12 +97,17 @@ def build_robots():
 
 
 def main():
-    # 콘텐츠 페이지 메타 주입(신규분만) → 그 다음 sitemap/rss
+    # 콘텐츠 페이지 메타 주입(신규분만) → 주제 페이지 재생성 → sitemap/rss
     try:
         import enrich_articles
         enrich_articles.main()
     except Exception as e:
         print(f"⚠️ enrich_articles 실패(계속 진행): {e}")
+    try:
+        import build_topics
+        build_topics.main()
+    except Exception as e:
+        print(f"⚠️ build_topics 실패(계속 진행): {e}")
     n_urls = build_sitemap()
     n_items = build_rss()
     build_robots()
