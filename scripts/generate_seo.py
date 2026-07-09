@@ -138,6 +138,11 @@ def main():
         build_community.build()             # 커뮤니티(Giscus 토론 + 텔레그램)
     except Exception as e:
         print(f"⚠️ build_community 실패(계속 진행): {e}")
+    try:
+        import build_fab
+        build_fab.main()                    # 플로팅 커뮤니티 버튼(전 페이지, 마지막에)
+    except Exception as e:
+        print(f"⚠️ build_fab 실패(계속 진행): {e}")
     n_urls = build_sitemap()
     n_items = build_rss()
     build_robots()
