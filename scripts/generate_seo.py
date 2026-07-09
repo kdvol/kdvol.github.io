@@ -22,7 +22,7 @@ SECTIONS = [  # (glob, 우선순위)
     ("topics/*.html", "0.7"),
     ("wiki/*.html", "0.7"),
 ]
-INDEXES = ["", "newsletters/", "cardnews/", "english/", "financial-english/", "youtube/", "topics/", "wiki/", "search/"]
+INDEXES = ["", "newsletters/", "cardnews/", "english/", "financial-english/", "youtube/", "topics/", "search/"]
 
 DATED = re.compile(r"(\d{2})(\d{2})(?:-[a-z0-9-]+)?\.html$")
 
@@ -98,7 +98,12 @@ def build_robots():
 
 
 def main():
-    # 콘텐츠 메타 주입 → 스토리 아톰화 → 사전 자동진화 → 주제 페이지 → sitemap/rss
+    # nav 자동 동기화 → 콘텐츠 메타 → 아톰화 → 사전 진화 → 주제/위키/검색 → sitemap/rss
+    try:
+        import build_nav
+        build_nav.main()
+    except Exception as e:
+        print(f"⚠️ build_nav 실패(계속 진행): {e}")
     try:
         import enrich_articles
         enrich_articles.main()

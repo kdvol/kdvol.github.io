@@ -73,6 +73,8 @@ jobs:
           python ci/publish_from_queue.py $ARGS
 
       - name: Commit publish results
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}   # auto_evolve/entity_discovery LLM 승격에 필요
         run: |
           git config user.name "soonsal-bot"
           git config user.email "bot@soonsal.com"

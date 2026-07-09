@@ -157,7 +157,7 @@ def main(atoms=None):
                 + FOOT)
         (OUT / f"{slug}.html").write_text(body, encoding="utf-8")
 
-    # 허브
+    # 허브 — 주제 + 엔티티(기업·인물·자산·기관) 탐색을 한 곳에
     canonical = f"{BASE}/topics/"
     ld = {"@context": "https://schema.org", "@type": "CollectionPage",
           "name": "주제별 브리핑 아카이브", "url": canonical, "inLanguage": "ko"}
@@ -165,13 +165,34 @@ def main(atoms=None):
         f'<a class="tag" href="/topics/{slug}.html">{emoji} {name}<b>{n}</b></a>'
         for slug, name, emoji, n in sorted(built, key=lambda x: -x[3]))
     total_eng = sum(len(a["english"]) for a in atoms)
+
+    # 엔티티 탐색(위키 상세로 링크) — 타입별 그룹, 상위 빈도순
+    ent_count = Counter(e for a in atoms for e in a["entities"])
+    ent_groups = ""
+    for tkey, tmeta in ent_types.items():
+        es = sorted([e for e in ent["entities"] if e["type"] == tkey
+                     and ent_count[e["slug"]] >= min_n],
+                    key=lambda e: -ent_count[e["slug"]])
+        if not es:
+            continue
+        chips = "".join(
+            f'<a class="tag" href="/wiki/{e["slug"]}.html">{escape(e["name"])}'
+            f'<b>{ent_count[e["slug"]]}</b></a>' for e in es)
+        ent_groups += (f'<div style="margin:16px 0 4px;color:#ccc;font-size:.95rem;font-weight:600">'
+                       f'{tmeta["emoji"]} {tmeta["label"]} '
+                       f'<span style="color:#666;font-weight:400;font-size:.85rem">{len(es)}</span></div>'
+                       f'<div class="tags">{chips}</div>')
+
     hub = (head("주제별 브리핑 — 순살브리핑",
-                "크립토·AI·반도체·연준 등 주제별로 모아 보는 순살브리핑. 뉴스레터를 스토리 단위로 분류.",
-                canonical, ld)
-           + f'<h1>주제별 브리핑</h1><p class="sub">스토리 {len(atoms)}건을 {len(built)}개 주제로 분류 · '
-             f'<a href="/wiki/" style="color:#F07040">위키</a></p>'
+                "크립토·AI·반도체·연준 등 주제로, 그리고 엔비디아·비트코인·연준 등 기업·인물·자산으로 "
+                "모아 보는 순살브리핑. 뉴스레터를 스토리 단위로 분류.", canonical, ld)
+           + f'<h1>주제별 브리핑</h1><p class="sub">스토리 {len(atoms)}건 · '
+             f'{len(built)}개 주제 · {sum(1 for e in ent["entities"] if ent_count[e["slug"]]>=min_n)}개 대상</p>'
            + f'<a class="searchbar" href="/search/" style="color:#666">🔍 전체 브리핑 검색…</a>'
-           + f'<div class="tags">{tags}</div>' + FOOT)
+           + '<div style="color:#888;font-size:.82rem;margin:6px 0 2px">주제로 보기</div>'
+           + f'<div class="tags">{tags}</div>'
+           + '<div style="color:#888;font-size:.82rem;margin:22px 0 2px">기업·인물·자산·기관으로 보기</div>'
+           + ent_groups + FOOT)
     (OUT / "index.html").write_text(hub, encoding="utf-8")
 
     print(f"🏷️  topics: {len(built)}개 주제 페이지(+허브) · 스토리 {len(atoms)} · 영어 {total_eng}")
