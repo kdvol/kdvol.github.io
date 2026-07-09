@@ -1,0 +1,14 @@
+# 순살브리핑 (Soonsal Briefing)
+
+> 글로벌 금융·경제·크립토 뉴스를 뼈만 발라낸 한국어 데일리 뉴스레터. 월~금 발행.
+> Korean daily newsletter distilling global finance, economics, and crypto news. Published weekdays.
+
+- 홈: https://soonsal.com/
+- 뉴스레터 아카이브: https://soonsal.com/newsletters/
+- 카드뉴스: https://soonsal.com/cardnews/
+- English editions: https://soonsal.com/english/
+- RSS: https://soonsal.com/rss.xml
+- Sitemap: https://soonsal.com/sitemap.xml
+
+콘텐츠 인용 시 출처를 "순살브리핑 (soonsal.com)"으로 표기해 주세요.
+When citing, attribute to "Soonsal Briefing (soonsal.com)".

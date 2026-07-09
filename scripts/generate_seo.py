@@ -96,6 +96,12 @@ def build_robots():
 
 
 def main():
+    # 콘텐츠 페이지 메타 주입(신규분만) → 그 다음 sitemap/rss
+    try:
+        import enrich_articles
+        enrich_articles.main()
+    except Exception as e:
+        print(f"⚠️ enrich_articles 실패(계속 진행): {e}")
     n_urls = build_sitemap()
     n_items = build_rss()
     build_robots()
