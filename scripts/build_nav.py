@@ -12,11 +12,10 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 
-# 검색은 주제별 안에서 접근(중복 제거). English 탭 숨김(현재 미사용 — 되살린다면
-# 영문 콘텐츠가 아니라 실제 '영어 학습' 섹션으로 재정의 예정). 모바일 간결성 우선.
+# 검색=주제별 내 접근, 커뮤니티=플로팅 버튼(build_fab)으로 이동, English=숨김.
+# 남는 건 실제 콘텐츠 탭만 — 모바일 간결성 우선.
 ITEMS = [("/", "최신"), ("/newsletters/", "뉴스레터"), ("/topics/", "주제별"),
-         ("/community/", "커뮤니티"), ("/cardnews/", "카드뉴스"),
-         ("/school/", "스쿨"), ("/youtube/", "YouTube")]
+         ("/cardnews/", "카드뉴스"), ("/school/", "스쿨"), ("/youtube/", "YouTube")]
 
 # nav CSS 모바일 교정(자가치유) — 시그니처가 유니크해 안전하게 치환.
 CSS_FIXES = [
