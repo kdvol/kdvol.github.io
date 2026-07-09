@@ -76,6 +76,7 @@ jobs:
         run: |
           git config user.name "soonsal-bot"
           git config user.email "bot@soonsal.com"
+          python scripts/generate_seo.py || true
           git add -A
           git diff --cached --quiet || git commit -m "cardnews auto-publish [skip ci]"
           git push

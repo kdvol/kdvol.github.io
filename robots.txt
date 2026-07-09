@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /_queue/
+
+Sitemap: https://soonsal.com/sitemap.xml
