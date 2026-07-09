@@ -1,59 +1,50 @@
 #!/usr/bin/env python3
-"""주제별 태그 페이지 생성 — /topics/ 허브 + /topics/{slug}.html.
+"""주제별 태그 페이지 생성 — 스토리 단위 (atomize.py 산출 소비).
 
-뉴스레터 제목 + soonsal-keywords 메타를 주제 사전(TAXONOMY)과 매칭해
-주제별 아카이브 페이지를 만든다. 매 실행마다 전체 재생성(멱등).
-generate_seo.py가 호출하므로 새 뉴스레터 발행 시 자동 갱신된다.
+각 주제 페이지는 그 주제로 분류된 개별 스토리를 최신순으로 나열하고,
+스토리에 연결된 영어 표현을 함께 보여준다. 뉴스레터 통짜가 아니라
+스토리 하나하나가 항목. 각 항목은 뉴스레터의 해당 스토리 앵커로 딥링크.
+
+generate_seo.py가 atomize→여기 순으로 호출하므로 매 발행마다 자동 갱신.
+분류 사전(topics_taxonomy.json)은 데이터 파일 — 사람이 신경 쓸 필요 없음.
 """
+import json
 import re
 from datetime import date
 from pathlib import Path
 from xml.sax.saxutils import escape
-import json
+
+import atomize
 
 ROOT = Path(__file__).resolve().parent.parent
 BASE = "https://soonsal.com"
 OUT = ROOT / "topics"
 
-# (slug, 표시명, 이모지, 매칭 패턴)
-TAXONOMY = [
-    ("crypto", "크립토", "🔐", r"크립토|비트코인|이더리움|BTC|ETH|코인|스테이블|리플|솔라나|바이낸스|코인베이스|디파이|DeFi|NFT|DAO|토큰"),
-    ("ai", "AI", "🤖", r"\bAI\b|인공지능|오픈AI|OpenAI|챗GPT|ChatGPT|Anthropic|앤스로픽|클로드|LLM|젠슨\s?황|생성형"),
-    ("semiconductor", "반도체", "🔩", r"반도체|삼성전자|하이닉스|TSMC|인텔|파운드리|HBM|엔비디아|Nvidia|NVIDIA"),
-    ("fed-rates", "연준·금리", "🏛️", r"연준|Fed|FOMC|파월|금리\s?인상|금리\s?인하|기준금리|국채\s?금리|양적"),
-    ("fx", "환율·달러", "💱", r"환율|원/달러|원화|달러|엔화|위안화|DXY"),
-    ("china", "중국", "🇨🇳", r"중국|알리바바|텐센트|BYD|샤오미|홍콩|항셍|시진핑"),
-    ("japan", "일본", "🇯🇵", r"일본|닛케이|도요타|엔저|BOJ|일본은행"),
-    ("deals", "딜·M&A", "🤝", r"인수|합병|M&A|바이아웃|사모펀드|PEF|매각|인수전"),
-    ("ipo", "IPO·상장", "🔔", r"IPO|상장(?!폐지)|공모가|공모주|나스닥\s?데뷔"),
-    ("trump-politics", "트럼프·정책", "🏳️", r"트럼프|백악관|관세|대선|의회|규제|행정명령|SEC"),
-    ("energy", "에너지·원자재", "🛢️", r"유가|OPEC|원유|WTI|천연가스|에너지|정유|금값|골드|구리"),
-    ("tesla-ev", "테슬라·전기차", "🚗", r"테슬라|머스크|전기차|\bEV\b|자율주행|로보택시"),
-    ("bigtech", "빅테크", "📱", r"애플|구글|아마존|메타|마이크로소프트|\bMS\b|알파벳|넷플릭스"),
-    ("korea-market", "국내 증시", "📈", r"코스피|코스닥|한국은행|국민연금|밸류업|공매도"),
-    ("etf-funds", "ETF·펀드", "🧺", r"ETF|펀드|자산운용|인덱스|블랙록|뱅가드"),
-    ("banks-wallst", "월가·은행", "🏦", r"은행|JP모건|골드만|모건스탠리|씨티|웰스파고|월가|헤지펀드|버크셔|버핏"),
-]
-
-DATED = re.compile(r"^(\d{2})(\d{2})")
-
 CSS = """
 *{margin:0;padding:0;box-sizing:border-box}
 body{background:#111;color:#eee;font-family:'DM Sans','Apple SD Gothic Neo',sans-serif;min-height:100vh}
-.wrap{max-width:800px;margin:0 auto;padding:32px 20px}
+.wrap{max-width:820px;margin:0 auto;padding:32px 20px}
 a{color:#eee;text-decoration:none}
 h1{font-size:1.5rem;margin-bottom:6px}
-.sub{color:#888;font-size:.9rem;margin-bottom:24px}
+.sub{color:#888;font-size:.9rem;margin-bottom:22px}
 .home{color:#F07040;font-size:.9rem;display:inline-block;margin-bottom:18px}
 .tags{display:flex;flex-wrap:wrap;gap:10px;margin:18px 0}
 .tag{border:1px solid #333;border-radius:20px;padding:7px 16px;font-size:.92rem;transition:.15s}
 .tag:hover{border-color:#F07040;color:#F07040}
 .tag b{color:#F07040;font-weight:600;margin-left:6px}
-.item{display:flex;gap:14px;padding:13px 4px;border-bottom:1px solid #222;align-items:baseline}
-.item:hover .t{color:#F07040}
-.d{color:#777;font-size:.85rem;white-space:nowrap;font-variant-numeric:tabular-nums}
-.t{font-size:.97rem;line-height:1.5;transition:.15s}
-.badge{font-size:.75rem;color:#f5a623;border:1px solid #3a3220;border-radius:4px;padding:1px 6px;margin-left:8px;white-space:nowrap}
+.story{padding:16px 4px;border-bottom:1px solid #222}
+.story-head{display:flex;gap:12px;align-items:baseline}
+.d{color:#777;font-size:.82rem;white-space:nowrap;font-variant-numeric:tabular-nums;padding-top:2px}
+.st{font-size:1.02rem;line-height:1.5;transition:.15s;font-weight:600}
+.story:hover .st{color:#F07040}
+.lb{display:inline-block;font-size:.7rem;color:#f5a623;letter-spacing:.04em;margin-top:5px;text-transform:uppercase}
+.xtags{margin-top:6px}
+.xtag{font-size:.74rem;color:#888;border:1px solid #2a2a2a;border-radius:4px;padding:1px 7px;margin-right:5px}
+.eng{margin:9px 0 2px;padding:9px 12px;background:#161616;border-left:2px solid #2ecc71;border-radius:0 6px 6px 0}
+.eng-t{font-size:.85rem;color:#2ecc71;font-weight:600}
+.eng-k{font-size:.82rem;color:#aaa;margin-top:2px;line-height:1.5}
+.eng-h{font-size:.72rem;color:#666;margin-bottom:6px;letter-spacing:.03em}
+.more{color:#F07040;font-size:.85rem;margin-top:8px;display:inline-block}
 """
 
 
@@ -72,77 +63,82 @@ def head(title, desc, canonical, ld=None):
 FOOT = "</div></body></html>"
 
 
-def collect_posts():
-    posts = []
-    for p in sorted((ROOT / "newsletters" / "2026").glob("*.html"), reverse=True):
-        if p.name == "index.html":
-            continue
-        raw = p.read_text(encoding="utf-8", errors="replace")[:4000]
-        tm = re.search(r"<title>([^<]+)</title>", raw)
-        title = tm.group(1).strip() if tm else p.stem
-        km = re.search(r'name="soonsal-keywords" content="([^"]*)"', raw)
-        haystack = title + " " + (km.group(1) if km else "")
-        dm = DATED.match(p.stem)
-        d = date(2026, int(dm.group(1)), int(dm.group(2))) if dm else None
-        posts.append({
-            "url": f"/newsletters/2026/{p.name}",
-            "title": re.sub(r"^[^\w<>&\"']{1,4}\s+", "", title).split(" — ")[0],
-            "date": d,
-            "crypto": "-crypto" in p.stem,
-            "haystack": haystack,
-        })
-    posts.sort(key=lambda x: (x["date"] or date.min), reverse=True)
-    return posts
+def clean_title(t):
+    return re.sub(r"^[^\w<>&\"']{1,4}\s+", "", t).strip()
+
+
+def topic_name_map(tax):
+    return {t["slug"]: t for t in tax["topics"]}
+
+
+def story_html(a, names, self_slug):
+    other = [names[s]["name"] for s in a["topics"] if s != self_slug and s in names]
+    xtags = ('<div class="xtags">' + "".join(f'<span class="xtag">{n}</span>' for n in other)
+             + "</div>") if other else ""
+    eng = ""
+    if a["english"]:
+        rows = "".join(
+            f'<div class="eng-t">{escape(e["en"])}</div><div class="eng-k">{escape(e["ko"][:110])}</div>'
+            for e in a["english"])
+        eng = f'<div class="eng"><div class="eng-h">📎 이 스토리의 영어 표현</div>{rows}</div>'
+    return (f'<div class="story"><a href="{a["url"]}"><div class="story-head">'
+            f'<span class="d">{a["date"]}</span>'
+            f'<span class="st">{escape(clean_title(a["title"]))}</span></div></a>'
+            + (f'<span class="lb">{escape(a["label"])}</span>' if a["label"] else "")
+            + xtags + eng + "</div>")
 
 
 def main():
-    posts = collect_posts()
+    atoms = atomize.build()
+    tax = atomize.load_tax()
+    names = topic_name_map(tax)
     OUT.mkdir(exist_ok=True)
     today = date.today().isoformat()
+    min_n = tax.get("min_stories_per_topic", 3)
 
-    topics = []
-    for slug, name, emoji, pattern in TAXONOMY:
-        rx = re.compile(pattern)
-        matched = [p for p in posts if rx.search(p["haystack"])]
-        if len(matched) < 3:
+    built = []
+    for t in tax["topics"]:
+        slug, name, emoji = t["slug"], t["name"], t["emoji"]
+        matched = [a for a in atoms if slug in a["topics"]]
+        if len(matched) < min_n:
             continue
-        topics.append((slug, name, emoji, matched))
+        built.append((slug, name, emoji, len(matched)))
+        n_eng = sum(len(a["english"]) for a in matched)
 
         canonical = f"{BASE}/topics/{slug}.html"
         ld = {"@context": "https://schema.org", "@type": "CollectionPage",
-              "name": f"{name} 관련 브리핑 모음", "url": canonical, "inLanguage": "ko",
+              "name": f"{name} 관련 스토리 모음", "url": canonical, "inLanguage": "ko",
               "isPartOf": {"@type": "WebSite", "name": "순살브리핑", "url": f"{BASE}/"},
               "mainEntity": {"@type": "ItemList", "itemListElement": [
-                  {"@type": "ListItem", "position": i + 1, "url": f"{BASE}{p['url']}",
-                   "name": p["title"]} for i, p in enumerate(matched[:30])]}}
-        items = "".join(
-            f'<a class="item" href="{p["url"]}"><span class="d">{p["date"].isoformat() if p["date"] else ""}</span>'
-            f'<span class="t">{escape(p["title"])}'
-            + ('<span class="badge">크립토</span>' if p["crypto"] else "")
-            + "</span></a>"
-            for p in matched)
-        html = (head(f"{name} 관련 브리핑 {len(matched)}건 — 순살브리핑",
-                     f"{name} 주제를 다룬 순살브리핑 아카이브 {len(matched)}건. 최신순 정리.",
-                     canonical, ld)
-                + f'<h1>{emoji} {name}</h1><p class="sub">이 주제를 다룬 브리핑 {len(matched)}건 · {today} 기준 · '
+                  {"@type": "ListItem", "position": i + 1, "url": f"{BASE}{a['url']}",
+                   "name": clean_title(a["title"])} for i, a in enumerate(matched[:40])]}}
+        body = (head(f"{name} 관련 브리핑 스토리 {len(matched)}건 — 순살브리핑",
+                     f"{name} 주제를 다룬 순살브리핑 스토리 {len(matched)}건을 최신순으로. "
+                     f"관련 영어 표현 {n_eng}개 포함.", canonical, ld)
+                + f'<h1>{emoji} {name}</h1><p class="sub">이 주제를 다룬 스토리 {len(matched)}건 · '
+                  f'영어 표현 {n_eng}개 · {today} 기준 · '
                   f'<a href="/topics/" style="color:#F07040">전체 주제 보기</a></p>'
-                + items + FOOT)
-        (OUT / f"{slug}.html").write_text(html, encoding="utf-8")
+                + "".join(story_html(a, names, slug) for a in matched)
+                + FOOT)
+        (OUT / f"{slug}.html").write_text(body, encoding="utf-8")
 
-    # 허브 페이지
+    # 허브
     canonical = f"{BASE}/topics/"
     ld = {"@context": "https://schema.org", "@type": "CollectionPage",
           "name": "주제별 브리핑 아카이브", "url": canonical, "inLanguage": "ko"}
     tags = "".join(
-        f'<a class="tag" href="/topics/{slug}.html">{emoji} {name}<b>{len(matched)}</b></a>'
-        for slug, name, emoji, matched in sorted(topics, key=lambda t: -len(t[3])))
-    html = (head("주제별 브리핑 — 순살브리핑", "크립토·AI·반도체·연준 등 주제별로 모아 보는 순살브리핑 아카이브.",
-                 canonical, ld)
-            + f'<h1>주제별 브리핑</h1><p class="sub">뉴스레터 {len(posts)}건을 {len(topics)}개 주제로 · {today} 기준</p>'
-            + f'<div class="tags">{tags}</div>' + FOOT)
-    (OUT / "index.html").write_text(html, encoding="utf-8")
+        f'<a class="tag" href="/topics/{slug}.html">{emoji} {name}<b>{n}</b></a>'
+        for slug, name, emoji, n in sorted(built, key=lambda x: -x[3]))
+    total_eng = sum(len(a["english"]) for a in atoms)
+    hub = (head("주제별 브리핑 — 순살브리핑",
+                "크립토·AI·반도체·연준 등 주제별로 모아 보는 순살브리핑. 뉴스레터를 스토리 단위로 분류.",
+                canonical, ld)
+           + f'<h1>주제별 브리핑</h1><p class="sub">스토리 {len(atoms)}건을 {len(built)}개 주제로 분류 · '
+             f'영어 표현 {total_eng}개 연결 · {today} 기준</p>'
+           + f'<div class="tags">{tags}</div>' + FOOT)
+    (OUT / "index.html").write_text(hub, encoding="utf-8")
 
-    print(f"🏷️  topics: {len(topics)}개 주제 페이지 (+허브), 소스 {len(posts)}건")
+    print(f"🏷️  topics: {len(built)}개 주제 페이지(+허브) · 스토리 {len(atoms)} · 영어 {total_eng}")
 
 
 if __name__ == "__main__":

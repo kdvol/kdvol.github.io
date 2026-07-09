@@ -97,15 +97,25 @@ def build_robots():
 
 
 def main():
-    # 콘텐츠 페이지 메타 주입(신규분만) → 주제 페이지 재생성 → sitemap/rss
+    # 콘텐츠 메타 주입 → 스토리 아톰화 → 사전 자동진화 → 주제 페이지 → sitemap/rss
     try:
         import enrich_articles
         enrich_articles.main()
     except Exception as e:
         print(f"⚠️ enrich_articles 실패(계속 진행): {e}")
     try:
+        import atomize
+        atomize.build()                     # 스토리 추출 + 영어 연결 + _pending 축적
+    except Exception as e:
+        print(f"⚠️ atomize 실패(계속 진행): {e}")
+    try:
+        import auto_evolve
+        auto_evolve.main()                  # _pending 임계치 초과분 자동 승격(키 있을 때)
+    except Exception as e:
+        print(f"⚠️ auto_evolve 실패(계속 진행): {e}")
+    try:
         import build_topics
-        build_topics.main()
+        build_topics.main()                 # (재)아톰화 + 스토리 단위 주제 페이지
     except Exception as e:
         print(f"⚠️ build_topics 실패(계속 진행): {e}")
     n_urls = build_sitemap()
