@@ -20,6 +20,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 NL_DIR = ROOT / "newsletters" / "2026"
 TAX_PATH = Path(__file__).resolve().parent / "topics_taxonomy.json"
+ENT_PATH = Path(__file__).resolve().parent / "entities.json"
 ATOMS_PATH = ROOT / "content" / "story_atoms.json"
 
 DEFAULT_TAX = {"version": 2, "min_stories_per_topic": 3, "topics": [], "_pending": {}}
@@ -33,6 +34,21 @@ def load_tax():
 
 def save_tax(tax):
     TAX_PATH.write_text(json.dumps(tax, ensure_ascii=False, indent=2), encoding="utf-8")
+
+
+def load_entities():
+    if not ENT_PATH.exists():
+        return {"entities": [], "types": {}, "min_stories": 3}
+    ent = json.loads(ENT_PATH.read_text(encoding="utf-8"))
+    for e in ent["entities"]:
+        e["_rx"] = re.compile(e["pattern"])
+    return ent
+
+
+def extract_entities(story, ent):
+    """스토리 제목+본문에서 통제 어휘 엔티티를 균일 추출 → 일관된 태그."""
+    hay = f"{story['title']} {story['body']}"
+    return [e["slug"] for e in ent["entities"] if e["_rx"].search(hay)]
 
 
 def strip_tags(s):
@@ -86,6 +102,7 @@ def parse_newsletter(path):
             "title": title,
             "body": body,
             "topics": [],
+            "entities": [],
             "english": [],
         })
 
@@ -186,6 +203,7 @@ def inject_anchors(path):
 # ── 빌드 ──────────────────────────────────────────────────────────
 def build():
     tax = load_tax()
+    ent = load_entities()
     tax["_pending"] = {}                            # 매 실행 재계산
     atoms = []
     files = sorted(p for p in NL_DIR.glob("*.html") if p.name != "index.html")
@@ -197,6 +215,7 @@ def build():
         link_english(stories, words)
         for s in stories:
             s["topics"] = classify(s, tax)
+            s["entities"] = extract_entities(s, ent)
             if not s["topics"]:
                 note_pending(s, tax)
         atoms.extend(stories)
@@ -210,7 +229,8 @@ def build():
 
     n_eng = sum(len(s["english"]) for s in atoms)
     n_untagged = sum(1 for s in atoms if not s["topics"])
-    print(f"⚛️  atomize: 스토리 {len(atoms)} · 영어연결 {n_eng} · "
+    n_ent = sum(len(s["entities"]) for s in atoms)
+    print(f"⚛️  atomize: 스토리 {len(atoms)} · 영어연결 {n_eng} · 엔티티태그 {n_ent} · "
           f"미분류 {n_untagged} · 앵커주입 {anchored}파일 · pending라벨 {len(tax['_pending'])}")
     return atoms
 

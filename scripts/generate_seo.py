@@ -20,8 +20,9 @@ SECTIONS = [  # (glob, 우선순위)
     ("financial-english/*.html", "0.5"),
     ("special/*.html", "0.5"),
     ("topics/*.html", "0.7"),
+    ("wiki/*.html", "0.7"),
 ]
-INDEXES = ["", "newsletters/", "cardnews/", "english/", "financial-english/", "youtube/", "topics/"]
+INDEXES = ["", "newsletters/", "cardnews/", "english/", "financial-english/", "youtube/", "topics/", "wiki/"]
 
 DATED = re.compile(r"(\d{2})(\d{2})(?:-[a-z0-9-]+)?\.html$")
 
@@ -103,21 +104,24 @@ def main():
         enrich_articles.main()
     except Exception as e:
         print(f"⚠️ enrich_articles 실패(계속 진행): {e}")
+    atoms = None
     try:
-        import atomize
-        atomize.build()                     # 스토리 추출 + 영어 연결 + _pending 축적
+        import atomize, auto_evolve
+        atomize.build()                     # 1차: _pending 축적
+        auto_evolve.main()                  # 임계치 초과분 자동 승격(키 있을 때)
+        atoms = atomize.build()             # 2차: 진화된 사전으로 최종 분류 (이후 재사용)
     except Exception as e:
-        print(f"⚠️ atomize 실패(계속 진행): {e}")
-    try:
-        import auto_evolve
-        auto_evolve.main()                  # _pending 임계치 초과분 자동 승격(키 있을 때)
-    except Exception as e:
-        print(f"⚠️ auto_evolve 실패(계속 진행): {e}")
+        print(f"⚠️ atomize/auto_evolve 실패(계속 진행): {e}")
     try:
         import build_topics
-        build_topics.main()                 # (재)아톰화 + 스토리 단위 주제 페이지
+        build_topics.main(atoms)            # 스토리 단위 주제 페이지 (아톰 재사용)
     except Exception as e:
         print(f"⚠️ build_topics 실패(계속 진행): {e}")
+    try:
+        import build_wiki
+        build_wiki.build(atoms)             # 엔티티 지식베이스(위키) (아톰 재사용)
+    except Exception as e:
+        print(f"⚠️ build_wiki 실패(계속 진행): {e}")
     n_urls = build_sitemap()
     n_items = build_rss()
     build_robots()
