@@ -63,8 +63,10 @@ details.eng[open]>summary{margin-bottom:6px;color:#888}
 """
 
 
-def head(title, desc, canonical, ld=None):
+def head(title, desc, canonical, ld=None, crumb=("/topics/", "주제별 전체")):
+    import build_nav
     ldtag = f'<script type="application/ld+json">{json.dumps(ld, ensure_ascii=False)}</script>' if ld else ""
+    crumb_html = f'<a class="crumb" href="{crumb[0]}">← {crumb[1]}</a>' if crumb else ""
     return f"""<!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>{escape(title)}</title><meta name="description" content="{escape(desc)}">
@@ -72,8 +74,10 @@ def head(title, desc, canonical, ld=None):
 <meta property="og:type" content="website"><meta property="og:site_name" content="순살브리핑 Soonsal">
 <meta property="og:title" content="{escape(title)}"><meta property="og:description" content="{escape(desc)}">
 <meta property="og:url" content="{canonical}"><meta property="og:locale" content="ko_KR">
-{ldtag}<style>{CSS}</style></head><body><div class="wrap">
-<a class="home" href="/">← 순살 홈</a>"""
+{build_nav.FONT_LINK}
+{ldtag}<style>{CSS}{build_nav.HEADER_CSS}</style></head><body>
+{build_nav.header_html("/topics/")}<div class="wrap">
+{crumb_html}"""
 
 FOOT = "</div></body></html>"
 
