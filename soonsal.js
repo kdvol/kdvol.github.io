@@ -92,7 +92,15 @@
     return best || first;
   }
 
-  // 공유 대상: {title, summary(1문단), url(스토리 딥링크)}
+  // 스토리 → 스토리별 OG 페이지(/s/{id}.html) URL. 공유 미리보기가 스토리 기준으로 뜸.
+  function shimUrl(story) {
+    var m = location.pathname.match(/\/newsletters\/2026\/(\d{4})(-crypto)?\.html/);
+    if (!m || !story.id) return location.origin + location.pathname + (story.id ? '#' + story.id : '');
+    var id = m[1] + (m[2] ? 'c' : '') + '-' + story.id.replace('story-', '');
+    return location.origin + '/s/' + id + '.html';
+  }
+
+  // 공유 대상: {title, summary(1문단), url(스토리 OG 페이지)}
   function payload() {
     var s = currentStory();
     if (s && s.querySelector('.story-title')) {
@@ -100,8 +108,7 @@
       var bl = s.querySelector('.story-body .bullet') || s.querySelector('.bullet');
       var summary = bl ? bl.textContent.replace(/^[◾■·•\s]+/, '').trim() : '';
       if (summary.length > 110) summary = summary.slice(0, 110).replace(/\s+\S*$/, '') + '…';
-      var url = location.origin + location.pathname + (s.id ? '#' + s.id : '');
-      return { title: title, summary: summary, url: url };
+      return { title: title, summary: summary, url: shimUrl(s) };
     }
     var pt = document.title.replace(/\s*[—|].*$/, '').trim() || document.title;
     var md = document.querySelector('meta[name="description"]');
