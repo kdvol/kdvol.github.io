@@ -1,14 +1,81 @@
 # 순살브리핑 (Soonsal Briefing)
 
 > 글로벌 금융·경제·크립토 뉴스를 뼈만 발라낸 한국어 데일리 뉴스레터. 월~금 발행.
-> Korean daily newsletter distilling global finance, economics, and crypto news. Published weekdays.
+> Korean daily newsletter distilling global finance, economics, and crypto news.
 
-- 홈: https://soonsal.com/
-- 뉴스레터 아카이브: https://soonsal.com/newsletters/
-- 카드뉴스: https://soonsal.com/cardnews/
-- English editions: https://soonsal.com/english/
-- RSS: https://soonsal.com/rss.xml
-- Sitemap: https://soonsal.com/sitemap.xml
-
+매일 5개 안팎의 스토리로 구성되며, 각 스토리는 주제·기업·인물 태그와 딥링크를 갖는다.
 콘텐츠 인용 시 출처를 "순살브리핑 (soonsal.com)"으로 표기해 주세요.
 When citing, attribute to "Soonsal Briefing (soonsal.com)".
+
+## 주요 섹션
+
+- [뉴스레터 아카이브](https://soonsal.com/newsletters/): 일자별 브리핑 전체
+- [주제별 브리핑](https://soonsal.com/topics/): 크립토·AI·반도체·연준 등 16개 주제 + 기업·인물·자산 150여 대상별 모아보기
+- [검색](https://soonsal.com/search/): 전체 스토리 검색
+- [RSS](https://soonsal.com/rss.xml) · [Sitemap](https://soonsal.com/sitemap.xml)
+
+## 전문 콘텐츠
+
+- [최근 30일 스토리 전문](https://soonsal.com/llms-full.txt): 제목·주제·본문·링크 포함 마크다운
+
+## 최근 브리핑 스토리 (최근 7일)
+
+- [📊 $63K 반등 — ETF는 갈라지고, ETH가 뜬다](https://soonsal.com/newsletters/2026/0710-crypto.html#story-4) (2026-07-10)
+- [🎰 골드만, 예측시장 거래하는 직원 짤라버림](https://soonsal.com/newsletters/2026/0710-crypto.html#story-3) (2026-07-10)
+- [🤖 Paradigm, 크립토 VC의 '졸업'](https://soonsal.com/newsletters/2026/0710-crypto.html#story-2) (2026-07-10)
+- [🏛️ Clarity Act, "거의 다 왔다"는데 진짜 올까](https://soonsal.com/newsletters/2026/0710-crypto.html#story-1) (2026-07-10)
+- [🏠 AI 주식, 기축통화 등극?](https://soonsal.com/newsletters/2026/0710.html#story-5) (2026-07-10)
+- [💻 올해 최악의 단어 SaaSpocalypse, 끝나가는 걸까?](https://soonsal.com/newsletters/2026/0710.html#story-4) (2026-07-10)
+- [🤖 AI 에이전트, 1억불도 셀프 모금](https://soonsal.com/newsletters/2026/0710.html#story-3) (2026-07-10)
+- [🏦 골드만, 예측시장 거래하는 직원 짤라버림](https://soonsal.com/newsletters/2026/0710.html#story-2) (2026-07-10)
+- [🇰🇷 하이닉스, 나스닥 왔쩜](https://soonsal.com/newsletters/2026/0710.html#story-1) (2026-07-10)
+- [🏦 Kraken, 유럽에서 은행이 되려 한다](https://soonsal.com/newsletters/2026/0709-crypto.html#story-5) (2026-07-09)
+- [📉 $62K — ETF 유입은 돌아왔지만 매크로가 안 도와줌](https://soonsal.com/newsletters/2026/0709-crypto.html#story-4) (2026-07-09)
+- [🇬🇧 Nigel Farage, 크립토 기부금 스캔들로 의원직 사퇴](https://soonsal.com/newsletters/2026/0709-crypto.html#story-3) (2026-07-09)
+- [📋 SEC, 크립토 규제 대수술 — "Regulation Crypto"가 온다](https://soonsal.com/newsletters/2026/0709-crypto.html#story-2) (2026-07-09)
+- [🏦 Vanguard, 12조불 자산운용사의 첫 크립토 채용](https://soonsal.com/newsletters/2026/0709-crypto.html#story-1) (2026-07-09)
+- [🥃 오크통이 부동산인 줄 알았던 은행들](https://soonsal.com/newsletters/2026/0709.html#story-5) (2026-07-09)
+- [🎰 맞추는 게 아니라 만드는 예측시장](https://soonsal.com/newsletters/2026/0709.html#story-4) (2026-07-09)
+- [📉 엔비디아, 무거운 왕관](https://soonsal.com/newsletters/2026/0709.html#story-3) (2026-07-09)
+- [📣 순살이 광고주를 모집하는 방법](https://soonsal.com/newsletters/2026/0709.html#story-2) (2026-07-09)
+- [🚀 베조스, 이 정도면 투자 받아야지](https://soonsal.com/newsletters/2026/0709.html#story-1) (2026-07-09)
+- [📉 $63K 줄타기 — FOMC 의사록 앞두고 긴장](https://soonsal.com/newsletters/2026/0708-crypto.html#story-5) (2026-07-08)
+- [⛏️ BTC 채굴사가 $19B AI 계약을 따냈다](https://soonsal.com/newsletters/2026/0708-crypto.html#story-4) (2026-07-08)
+- [🇺🇸 미국 BTC 리저브, 16개월째 주인 없음](https://soonsal.com/newsletters/2026/0708-crypto.html#story-3) (2026-07-08)
+- [🏦 JPMorgan 토큰화 펀드, 7주 만에 250% 폭증](https://soonsal.com/newsletters/2026/0708-crypto.html#story-2) (2026-07-08)
+- [🗳️ $4M으로 $20M 훔치기 — 합법적 트랜잭션만으로](https://soonsal.com/newsletters/2026/0708-crypto.html#story-1) (2026-07-08)
+- [💻 5명짜리 헤지펀드, 50명을 이기는 법](https://soonsal.com/newsletters/2026/0708.html#story-5) (2026-07-08)
+- [🔧 퀄컴, 엔비디아 성벽을 부숴볼까](https://soonsal.com/newsletters/2026/0708.html#story-4) (2026-07-08)
+- [🔫 총, 집까지 새벽 배송?](https://soonsal.com/newsletters/2026/0708.html#story-3) (2026-07-08)
+- [🤖 Anthropic, "중국은 AI 베껴서 날로 먹는 중"](https://soonsal.com/newsletters/2026/0708.html#story-2) (2026-07-08)
+- [🚀 SpaceX, 나스닥 합류 — 돈은 헤지펀드가 쓸어감](https://soonsal.com/newsletters/2026/0708.html#story-1) (2026-07-08)
+- [📉 바닥인가, 지하실인가 — BTC $62K의 체크리스트](https://soonsal.com/newsletters/2026/0707-crypto.html#story-5) (2026-07-07)
+- [🪙 밈코인 러그풀, 대통령이 직접 했다](https://soonsal.com/newsletters/2026/0707-crypto.html#story-4) (2026-07-07)
+- [🇪🇺 Ripple, 유럽 30개국 크립토 면허 획득](https://soonsal.com/newsletters/2026/0707-crypto.html#story-3) (2026-07-07)
+- [🔓 플래시론 $65M으로 $6M 털기 — Summer.fi 해킹](https://soonsal.com/newsletters/2026/0707-crypto.html#story-2) (2026-07-07)
+- [🏦 세일러, "we hodl" 외치며 3,588개 팔았다](https://soonsal.com/newsletters/2026/0707-crypto.html#story-1) (2026-07-07)
+- [🌡️ 폭염이 매년 100조원을 태우는 중](https://soonsal.com/newsletters/2026/0707.html#story-5) (2026-07-07)
+- [🪙 트럼프 밈코인, 대통령만 돈 번 구조](https://soonsal.com/newsletters/2026/0707.html#story-4) (2026-07-07)
+- [🎮 Xbox 25년 역사상 최대 칼질](https://soonsal.com/newsletters/2026/0707.html#story-3) (2026-07-07)
+- [⛽ 사우디, 23년 만에 최대 원유 할인](https://soonsal.com/newsletters/2026/0707.html#story-2) (2026-07-07)
+- [🇺🇸 태어나자마자 주주가 되는 나라](https://soonsal.com/newsletters/2026/0707.html#story-1) (2026-07-07)
+- [💵 Open USD 140개사 — Circle 주가 -17.5%, 스테이블코인 전쟁](https://soonsal.com/newsletters/2026/0706-crypto.html#story-5) (2026-07-06)
+- [🎰 예측시장 ETF, SEC 60일 검토 — 스포츠 도박이 ETF로?](https://soonsal.com/newsletters/2026/0706-crypto.html#story-4) (2026-07-06)
+- [⛏️ 이더리움 글램스터담 — 더 머지 이후 최대 업그레이드](https://soonsal.com/newsletters/2026/0706-crypto.html#story-3) (2026-07-06)
+- [⚖️ Clarity Act, 7/4 데드라인 놓쳤다 — 7월이 마지막 창구](https://soonsal.com/newsletters/2026/0706-crypto.html#story-2) (2026-07-06)
+- [📈 BTC $63K 테스트 — 숏스퀴즈가 밀었지만, 진짜 매수는?](https://soonsal.com/newsletters/2026/0706-crypto.html#story-1) (2026-07-06)
+- [🎰 스포츠 도박도 ETF로 만드는 세상](https://soonsal.com/newsletters/2026/0706.html#story-5) (2026-07-06)
+- [🤖 OpenAI, 정부에 지분 5% 드림](https://soonsal.com/newsletters/2026/0706.html#story-4) (2026-07-06)
+- [💊 사이키델릭, 진짜 약이 되는 중](https://soonsal.com/newsletters/2026/0706.html#story-3) (2026-07-06)
+- [🚀 SK하이닉스 나스닥 상장 D-4, 역대급](https://soonsal.com/newsletters/2026/0706.html#story-2) (2026-07-06)
+- [🇰🇷 원화, 24시간 깨어있을 예정](https://soonsal.com/newsletters/2026/0706.html#story-1) (2026-07-06)
+- [🇹🇼 대만, 포괄 크립토 법안 통과 — 글로벌 규제 러시](https://soonsal.com/newsletters/2026/0703-crypto.html#story-5) (2026-07-03)
+- [🐛 토큰화 구글 주식 78배 부풀리기 — DeFi 렌딩의 새 위협](https://soonsal.com/newsletters/2026/0703-crypto.html#story-4) (2026-07-03)
+- [🔗 로빈후드, 자체 블록체인으로 주식시장을 24/7로](https://soonsal.com/newsletters/2026/0703-crypto.html#story-3) (2026-07-03)
+- [⚖️ Clarity Act, 여름 통과 전망 — SEC 피어스 "곧 될 것"](https://soonsal.com/newsletters/2026/0703-crypto.html#story-2) (2026-07-03)
+- [📈 BTC $61K, 21개월 저점에서 반등 — Warsh가 돌린 판](https://soonsal.com/newsletters/2026/0703-crypto.html#story-1) (2026-07-03)
+- [💼 M&A 2.8조불, 건수는 최저 vs 판은 역대급](https://soonsal.com/newsletters/2026/0703.html#story-5) (2026-07-03)
+- [🤝 USMCA 갱신 안함, 2조불 무역판 흔들기](https://soonsal.com/newsletters/2026/0703.html#story-4) (2026-07-03)
+- [🧸 인사카드 곰돌이, 120억불짜리 IP로](https://soonsal.com/newsletters/2026/0703.html#story-3) (2026-07-03)
+- [📊 57K, 고용보고서가 절반도 안 나옴](https://soonsal.com/newsletters/2026/0703.html#story-2) (2026-07-03)
+- [📉 코스피 -7.89%, 반도체 두 종목의 저주](https://soonsal.com/newsletters/2026/0703.html#story-1) (2026-07-03)
