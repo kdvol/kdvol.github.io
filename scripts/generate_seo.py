@@ -139,6 +139,11 @@ def main():
     except Exception as e:
         print(f"⚠️ build_sharepages 실패(계속 진행): {e}")
     try:
+        import build_llms
+        build_llms.build(atoms)             # llms.txt/llms-full.txt (AEO, 매 발행 갱신)
+    except Exception as e:
+        print(f"⚠️ build_llms 실패(계속 진행): {e}")
+    try:
         import build_include
         build_include.main()                # /soonsal.js 태그 1회 보장(FAB+공유는 그 파일에)
     except Exception as e:

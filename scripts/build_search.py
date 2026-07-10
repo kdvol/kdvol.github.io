@@ -26,7 +26,9 @@ PAGE = """<!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8">
 <link rel="canonical" href="__BASE__/search/"><meta name="robots" content="index, follow">
 <meta property="og:title" content="검색 — 순살브리핑"><meta property="og:type" content="website">
 <meta property="og:locale" content="ko_KR">
+__FONTS__
 <style>
+__HEADER_CSS__
 *{margin:0;padding:0;box-sizing:border-box}
 body{background:#111;color:#eee;font-family:'DM Sans','Apple SD Gothic Neo',sans-serif;-webkit-text-size-adjust:100%}
 .wrap{max-width:760px;margin:0 auto;padding:24px 16px 60px}
@@ -50,8 +52,12 @@ h1{font-size:1.4rem;margin-bottom:10px;letter-spacing:-.02em}
 .mtag{font-size:.68rem;color:#8b93a0;background:#181b20;border-radius:4px;padding:1px 7px}
 mark{background:#F0704033;color:#F07040;padding:0 1px;border-radius:2px}
 @media(min-width:640px){.wrap{padding:32px 20px 60px}.ti{font-size:1rem}}
-</style></head><body><div class="wrap">
-<a class="home" href="/">← 순살 홈</a>
+</style></head><body>
+__HEADER__<div class="wrap">
+<a class="crumb" href="/topics/" id="ssback">← 뒤로</a>
+<script>(function(){var b=document.getElementById('ssback');
+if(document.referrer.indexOf(location.origin)===0&&history.length>1){
+b.addEventListener('click',function(e){e.preventDefault();history.back();});}})();</script>
 <h1>검색</h1>
 <input id="q" type="search" placeholder="주제·기업·인물·키워드 (예: 엔비디아, 커버드콜, 파월)" autofocus autocomplete="off">
 <div class="hint">브리핑 <span id="total">0</span>건을 제목·주제·등장 대상으로 검색합니다.</div>
@@ -113,7 +119,12 @@ def build(atoms=None):
                     "g": topics[:3], "k": keywords})
     (OUT / "index.json").write_text(json.dumps(idx, ensure_ascii=False,
                                     separators=(",", ":")), encoding="utf-8")
-    (OUT / "index.html").write_text(PAGE.replace("__BASE__", BASE), encoding="utf-8")
+    import build_nav
+    html = (PAGE.replace("__BASE__", BASE)
+            .replace("__FONTS__", build_nav.FONT_LINK)
+            .replace("__HEADER_CSS__", build_nav.HEADER_CSS)
+            .replace("__HEADER__", build_nav.header_html(None)))
+    (OUT / "index.html").write_text(html, encoding="utf-8")
     print(f"🔍 search: 색인 {len(idx)}건 + /search/ 페이지")
     return idx
 

@@ -5,7 +5,24 @@
 <link rel="canonical" href="https://soonsal.com/search/"><meta name="robots" content="index, follow">
 <meta property="og:title" content="검색 — 순살브리핑"><meta property="og:type" content="website">
 <meta property="og:locale" content="ko_KR">
+<link rel="preconnect" href="https://fonts.googleapis.com"/><link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700;800&display=swap" rel="stylesheet"/>
 <style>
+
+.site-header{padding:26px 20px 18px;border-bottom:1px solid #222;display:flex;justify-content:center;position:relative;background:#111}
+.logo-link{display:flex;align-items:center;gap:10px;text-decoration:none;color:#fff}
+.logo-link img{height:26px;width:auto}
+.logo-text{font-size:22px;font-weight:800;letter-spacing:-0.5px;font-family:'DM Sans','Apple SD Gothic Neo',sans-serif}
+.sub-btn-header{position:absolute;right:max(16px,calc(50% - 400px));top:50%;transform:translateY(-50%);
+background:#E55A00;color:#fff;padding:8px 18px;border-radius:6px;font-size:13px;font-weight:700;text-decoration:none;white-space:nowrap}
+@media(max-width:560px){.sub-btn-header{display:none}}
+.nav{display:flex;justify-content:safe center;gap:0;border-bottom:1px solid #222;background:#151515;
+flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.nav a{padding:12px 17px;font-size:13px;font-weight:700;color:#777;white-space:nowrap;text-decoration:none;
+border-bottom:2px solid transparent;transition:color .2s,border-color .2s;flex-shrink:0}
+.nav a:hover{color:#ccc}
+.nav a.active{color:#F07040;border-bottom-color:#F07040}
+.crumb{color:#F07040;font-size:.88rem;display:inline-block;margin-bottom:14px;text-decoration:none}
+
 *{margin:0;padding:0;box-sizing:border-box}
 body{background:#111;color:#eee;font-family:'DM Sans','Apple SD Gothic Neo',sans-serif;-webkit-text-size-adjust:100%}
 .wrap{max-width:760px;margin:0 auto;padding:24px 16px 60px}
@@ -29,8 +46,12 @@ h1{font-size:1.4rem;margin-bottom:10px;letter-spacing:-.02em}
 .mtag{font-size:.68rem;color:#8b93a0;background:#181b20;border-radius:4px;padding:1px 7px}
 mark{background:#F0704033;color:#F07040;padding:0 1px;border-radius:2px}
 @media(min-width:640px){.wrap{padding:32px 20px 60px}.ti{font-size:1rem}}
-</style></head><body><div class="wrap">
-<a class="home" href="/">← 순살 홈</a>
+</style></head><body>
+<header class="site-header"><a class="logo-link" href="/"><img src="/favicon.svg" alt="" onerror="this.style.display='none'"><span class="logo-text">순살브리핑 Soonsal</span></a><a href="https://subscribe.soonsal.com/subscribe" target="_blank" rel="noopener" class="sub-btn-header">구독하기</a></header><div class="nav"><a href="/">최신</a><a href="/newsletters/">뉴스레터</a><a href="/topics/">주제별</a><a href="/cardnews/">카드뉴스</a><a href="/school/">스쿨</a><a href="/youtube/">YouTube</a></div><div class="wrap">
+<a class="crumb" href="/topics/" id="ssback">← 뒤로</a>
+<script>(function(){var b=document.getElementById('ssback');
+if(document.referrer.indexOf(location.origin)===0&&history.length>1){
+b.addEventListener('click',function(e){e.preventDefault();history.back();});}})();</script>
 <h1>검색</h1>
 <input id="q" type="search" placeholder="주제·기업·인물·키워드 (예: 엔비디아, 커버드콜, 파월)" autofocus autocomplete="off">
 <div class="hint">브리핑 <span id="total">0</span>건을 제목·주제·등장 대상으로 검색합니다.</div>
