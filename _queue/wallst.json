@@ -3,6 +3,6 @@
   "date": "20260713",
   "name": "wallst",
   "post_txt": "_publish/wallst.POST.txt",
-  "target_epoch": 1783908000,
+  "target_epoch": 1783904400,
   "dry_run": false
 }
