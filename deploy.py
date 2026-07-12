@@ -69,7 +69,7 @@ DASHBOARD_MAP = {
 # Configuration
 # ═══════════════════════════════════════════
 
-REPO = Path.home() / "kdvol.github.io"
+REPO = Path(os.environ.get("KDVOL_ROOT", str(Path.home() / "kdvol.github.io")))
 
 # Type detection (order matters: longer prefix first)
 TYPES = [
