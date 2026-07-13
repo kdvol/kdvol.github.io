@@ -82,4 +82,10 @@ jobs:
           python scripts/generate_seo.py || true
           git add -A
           git diff --cached --quiet || git commit -m "cardnews auto-publish [skip ci]"
-          git push
+          # 동시 push 안전: pull --rebase(충돌 시 merge -X ours) 후 push, 백오프 재시도
+          for i in 1 2 3 4 5 6; do
+            git pull --rebase origin main || { git rebase --abort 2>/dev/null || true; \
+              git pull --no-rebase -X ours -m "merge origin (keep local)" origin main || true; }
+            git push origin main && break
+            echo "push 경합 — 재시도 $i/6"; sleep $((i*3))
+          done
