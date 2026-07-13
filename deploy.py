@@ -1053,7 +1053,8 @@ def post_to_instagram(image_urls, ctype, date_fmt, keywords="", html="", target_
 
     dup = _ig_already_posted(caption, ig_account)
     if dup:
-        print(f"  ♻️  동일 캡션 이미 게시됨 — IG 재게시 스킵 (기존 ID: {dup})")
+        print(f"  ♻️  동일 캡션 이미 게시됨 — IG 재게시 스킵")
+        print(f"  ✅ 게시 완료 — ID: {dup}")   # 큐 워커의 미디어ID 검사와 포맷 일치 → done 이동 가능
         return dup
     try:
         if ig_account:
