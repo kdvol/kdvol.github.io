@@ -23,6 +23,9 @@ PY = sys.executable
 
 def log(m): print(f"[queue] {m}", flush=True)
 
+# deploy.py stdout에서 IG 캐러셀 게시 성공 라인("게시 완료 — ID:<미디어ID>")을 잡는 패턴.
+IG_MEDIA_ID_RE = re.compile(r"게시 완료\s*[—\-–]\s*ID:\s*(\d+)")
+
 def due_items(only=None):
     now = time.time()
     items = []
@@ -56,7 +59,7 @@ def post_first_comment(stdout, d):
     p = ROOT / pt
     if not p.is_file():
         log(f"POST.txt 없음: {p} — 첫 댓글 스킵"); return
-    m = re.search(r"게시 완료\s*[—\-–]\s*ID:\s*(\d+)", stdout)
+    m = IG_MEDIA_ID_RE.search(stdout)
     if not m:
         log("미디어 ID 파싱 실패 — 첫 댓글 스킵"); return
     mid = m.group(1)
@@ -80,17 +83,30 @@ def publish(mf, d, force_dry=False):
     log(f"발행 시작: {d.get('name')} ({d.get('date')}) dry={dry}")
     r = subprocess.run(cmd, cwd=str(ROOT), capture_output=True, text=True, env=os.environ)
     sys.stdout.write(r.stdout[-4000:]); sys.stderr.write(r.stderr[-2000:])
-    ok = r.returncode == 0
-    if ok and not dry:
-        post_first_comment(r.stdout, d)                 # 해시태그 첫 댓글
-        DONE.mkdir(parents=True, exist_ok=True)
-        shutil.move(str(mf), str(DONE / mf.name))       # 멱등: 큐에서 제거
-        log(f"✅ 발행 성공 · 큐 → done/{mf.name}")
-    elif ok and dry:
-        log("✅ dry-run 성공(IG 미게시). 큐 유지.")
-    else:
+    if r.returncode != 0:
         log(f"⚠️ 발행 실패(rc={r.returncode}) · 큐 유지 → 다음 스케줄에 재시도")
-    return ok
+        return False
+
+    if dry:
+        log("✅ dry-run 성공(IG 미게시). 큐 유지.")
+        return True
+
+    # ── 실발행: deploy.py 종료코드 0이어도 IG 캐러셀이 실제로 올라갔는지 검증한다.
+    #    deploy.py는 IG 단계가 실패해도(PNG 미생성·토큰 오류 등) 종료코드 0으로 끝나므로,
+    #    stdout의 "게시 완료 — ID:<미디어ID>" 유무로 실제 게시를 확인한다. 미디어 ID가 없으면
+    #    웹은 발행됐어도 IG 미게시로 보고 done 이동을 보류 → 다음 스케줄에 재시도(멱등).
+    m = IG_MEDIA_ID_RE.search(r.stdout)
+    if not m:
+        log("❌ IG 미디어 ID 없음 — 웹은 발행됐어도 IG 캐러셀 미게시로 판단. "
+            "done 이동 보류 · 큐 유지 → 다음 스케줄에 재시도 (deploy.py PNG/IG 단계 로그 확인).")
+        return False
+
+    log(f"📸 IG 게시 확인 — media ID {m.group(1)}")
+    post_first_comment(r.stdout, d)                 # 해시태그 첫 댓글
+    DONE.mkdir(parents=True, exist_ok=True)
+    shutil.move(str(mf), str(DONE / mf.name))       # 멱등: 큐에서 제거
+    log(f"✅ 발행 성공 · 큐 → done/{mf.name}")
+    return True
 
 def selftest():
     """무발행 검증: 벤더 모듈 임포트 + 필수 시크릿 존재만 확인."""
