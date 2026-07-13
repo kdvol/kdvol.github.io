@@ -1217,6 +1217,12 @@ def main():
         if result.returncode == 0:
             subprocess.run(["git", "push", "origin", "main"], check=True)
             print(f"\n✨ Site deployed! {msg}")
+            # plantree 즉시 흡수 — daily.yml의 repository_dispatch(soonsal-published) 수신부는
+            # 있었지만 발신자가 없었음(2026-07-13 확인). Mac의 gh 인증 재사용, 실패해도 배포는 계속
+            # (plantree 크론 폴백이 다음 슬롯에서 흡수).
+            r = subprocess.run(["gh", "api", "repos/kdvol/plantree/dispatches",
+                                "-f", "event_type=soonsal-published"], check=False)
+            print("  🌳 plantree 즉시 흡수 트리거" + ("" if r.returncode == 0 else " 실패 — 크론 폴백이 흡수"))
         else:
             print(f"\n⚠️  변경사항 없음 (already committed) — Instagram 발행은 계속 진행")
 
