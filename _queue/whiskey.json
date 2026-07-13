@@ -1,8 +1,8 @@
 {
-  "html": "_publish/순살카드뉴스_20260714.html",
-  "date": "20260714",
+  "html": "_publish/순살카드뉴스_20260717.html",
+  "date": "20260717",
   "name": "whiskey",
   "post_txt": "_publish/whiskey.POST.txt",
-  "target_epoch": 1783990800,
+  "target_epoch": 1784250000,
   "dry_run": false
 }
