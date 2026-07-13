@@ -24,6 +24,7 @@ Requirements for Instagram publishing (optional — gracefully skips if missing)
 
 import sys
 import os
+import time
 import re
 import shutil
 import subprocess
@@ -948,6 +949,51 @@ def upload_to_r2(png_paths, r2_prefix):
         return urls
 
 
+def git_sync_push(commit_msg, tries=6):
+    """동시 push 안전 커밋+푸시. 다른 작업이 origin을 진행시켜도 실패하지 않도록
+    add -A → commit → (pull --rebase, 충돌 시 merge -X ours) → push 를 백오프 재시도.
+    콘텐츠 파일(카드뉴스 페이지·_queue)은 슬러그별 고유라 충돌 없음. 파생파일(index/SEO)은
+    우리 재생성본을 유지(-X ours)해 자기치유. 최종 실패해도 예외 없이 False 반환(호출부가 계속 진행)."""
+    subprocess.run(["git", "add", "-A"])
+    committed = subprocess.run(["git", "commit", "-m", commit_msg]).returncode == 0
+    for i in range(tries):
+        rb = subprocess.run(["git", "pull", "--rebase", "origin", "main"],
+                            capture_output=True, text=True)
+        if rb.returncode != 0:
+            subprocess.run(["git", "rebase", "--abort"])
+            subprocess.run(["git", "pull", "--no-rebase", "-X", "ours",
+                            "-m", "merge origin (keep local)", "origin", "main"],
+                           capture_output=True, text=True)
+        if subprocess.run(["git", "push", "origin", "main"]).returncode == 0:
+            return True
+        print(f"  ⏳ push 경합 — 재시도 {i+1}/{tries}")
+        time.sleep(2 * (i + 1))
+    print("  ⚠️ push 최종 실패(동시성 과부하) — 다음 런에서 재시도(멱등 가드로 중복 없음)")
+    return False
+
+
+def _ig_already_posted(caption, ig_account_id=None):
+    """최근 게시물에 '동일 캡션'이 이미 있으면 그 미디어 ID 반환(중복 게시 방지). 없으면 None.
+    재시도로 deploy.py가 다시 돌아도 같은 카드뉴스를 두 번 올리지 않게 하는 멱등 가드."""
+    import urllib.request, json as _json
+    tok = os.environ.get("INSTAGRAM_ACCESS_TOKEN", "")
+    acct = ig_account_id or os.environ.get("INSTAGRAM_BUSINESS_ACCOUNT_ID", "")
+    if not (caption and tok and acct):
+        return None
+    try:
+        url = (f"https://graph.facebook.com/v21.0/{acct}/media"
+               f"?fields=id,caption&limit=25&access_token={tok}")
+        with urllib.request.urlopen(url, timeout=20) as r:
+            data = _json.loads(r.read().decode()).get("data", [])
+        key = caption.strip()
+        for m in data:
+            if (m.get("caption") or "").strip() == key:
+                return m.get("id")
+    except Exception as e:
+        print(f"  ⚠️ IG 중복확인 스킵(무시): {e}")
+    return None
+
+
 def post_to_instagram(image_urls, ctype, date_fmt, keywords="", html="", target_override=None):
     """Post carousel to Instagram via ~/instagram_pipeline/ modules.
     
@@ -1005,6 +1051,11 @@ def post_to_instagram(image_urls, ctype, date_fmt, keywords="", html="", target_
     # ── Token: 통합 토큰 사용 (config.env INSTAGRAM_ACCESS_TOKEN) ──
     # All accounts (brief/crypto/global/zzal) share the same token.
 
+    dup = _ig_already_posted(caption, ig_account)
+    if dup:
+        print(f"  ♻️  동일 캡션 이미 게시됨 — IG 재게시 스킵")
+        print(f"  ✅ 게시 완료 — ID: {dup}")   # 큐 워커의 미디어ID 검사와 포맷 일치 → done 이동 가능
+        return dup
     try:
         if ig_account:
             carousel_id = post_carousel(image_urls, caption, ig_account_id=ig_account)
@@ -1207,24 +1258,19 @@ def main():
         print("\n🚀 Committing...")
         # sitemap/rss/robots 갱신 (실패해도 배포는 계속)
         subprocess.run([sys.executable, str(Path(__file__).parent / "scripts" / "generate_seo.py")], check=False)
-        subprocess.run(["git", "add", "-A"], check=True)
 
         names = [LABELS.get(i["type"]) or i["keywords"][:30] for i in site_items]
         mmdd = site_items[0]["mmdd"]
         msg = f"Add {' & '.join(names)} {mmdd}"
 
-        result = subprocess.run(["git", "commit", "-m", msg])
-        if result.returncode == 0:
-            subprocess.run(["git", "push", "origin", "main"], check=True)
+        if git_sync_push(msg):                          # rebase-retry: 동시 push에도 안전
             print(f"\n✨ Site deployed! {msg}")
-            # plantree 즉시 흡수 — daily.yml의 repository_dispatch(soonsal-published) 수신부는
-            # 있었지만 발신자가 없었음(2026-07-13 확인). Mac의 gh 인증 재사용, 실패해도 배포는 계속
-            # (plantree 크론 폴백이 다음 슬롯에서 흡수).
+            # plantree 즉시 흡수 — Mac의 gh 인증 재사용, 실패해도 배포는 계속
             r = subprocess.run(["gh", "api", "repos/kdvol/plantree/dispatches",
                                 "-f", "event_type=soonsal-published"], check=False)
             print("  🌳 plantree 즉시 흡수 트리거" + ("" if r.returncode == 0 else " 실패 — 크론 폴백이 흡수"))
         else:
-            print(f"\n⚠️  변경사항 없음 (already committed) — Instagram 발행은 계속 진행")
+            print(f"\n⚠️  사이트 push 미완(변경 없음이거나 경합) — Instagram 발행은 계속(멱등 가드로 중복 방지)")
 
     # ── Instagram publish (cardnews + zzal) ──
     if no_instagram:
