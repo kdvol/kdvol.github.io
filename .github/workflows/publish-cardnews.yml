@@ -32,6 +32,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write              # 발행 결과(done/ 이동·index 갱신) 커밋용
+      issues: write                # 발행 지연 알림 이슈용
     steps:
       - uses: actions/checkout@v4
         with: { fetch-depth: 0 }
@@ -89,3 +90,9 @@ jobs:
             git push origin main && break
             echo "push 경합 — 재시도 $i/6"; sleep $((i*3))
           done
+
+      - name: Alert stuck queue (GitHub issue)
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python ci/alert_stuck_queue.py
