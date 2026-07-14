@@ -940,6 +940,16 @@
       "example": "🎰 폴리마켓, 매출 10억불 돌파하자마자 해킹당하고 조사받음",
       "ko": false
     },
+    "VIX": {
+      "count": 9,
+      "example": "📊 Markets — 전 종목 -3%, ETF는 돌아왔는데",
+      "ko": false
+    },
+    "Ripple": {
+      "count": 9,
+      "example": "🏦 Circle, 은행이 되다 — $73B 스테이블코인의 졸업식",
+      "ko": false
+    },
     "STRC": {
       "count": 9,
       "example": "💧 스테이블코인 $77억 증발, 테라 이후 최대",
@@ -965,6 +975,11 @@
       "example": "🥤 호르무즈에 무너진 의외의 시장, 인도 다이어트 콜라",
       "ko": false
     },
+    "USD": {
+      "count": 8,
+      "example": "🏦 Circle, 은행이 되다 — $73B 스테이블코인의 졸업식",
+      "ko": false
+    },
     "David": {
       "count": 8,
       "example": "🎰 골드만, 예측시장 거래하는 직원 짤라버림",
@@ -973,11 +988,6 @@
     "TRUMP": {
       "count": 8,
       "example": "🏛️ Clarity Act, \"거의 다 왔다\"는데 진짜 올까",
-      "ko": false
-    },
-    "VIX": {
-      "count": 8,
-      "example": "📉 $62K — ETF 유입은 돌아왔지만 매크로가 안 도와줌",
       "ko": false
     },
     "PER": {
@@ -998,11 +1008,6 @@
     "IREN": {
       "count": 8,
       "example": "⛏️ BTC 채굴사가 $19B AI 계약을 따냈다",
-      "ko": false
-    },
-    "Ripple": {
-      "count": 8,
-      "example": "🇪🇺 Ripple, 유럽 30개국 크립토 면허 획득",
       "ko": false
     },
     "Chainlink": {
@@ -1044,6 +1049,11 @@
       "count": 8,
       "example": "🏦 솔라나, 밈코인 딱지 떼고 월가가 점령 중",
       "ko": false
+    },
+    "서클": {
+      "count": 5,
+      "example": "🏛️ 스테이블코인 회사, 은행이 되다",
+      "ko": true
     },
     "머니마켓펀드": {
       "count": 5,
