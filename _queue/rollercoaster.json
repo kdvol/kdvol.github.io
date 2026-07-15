@@ -15,5 +15,7 @@
   "name": "rollercoaster",
   "date": "20260716",
   "target_epoch": 1784156400,
-  "dry_run": false
+  "dry_run": false,
+  "youtube_video": "_publish/vc/rollercoaster/youtube_short.mp4",
+  "youtube_title": "2026 코스피 롤러코스터 — 개미 전원 탑승"
 }

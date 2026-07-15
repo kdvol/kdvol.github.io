@@ -112,6 +112,52 @@ def caption_from(post_path):
     return txt.split("[첫 댓글]")[0].strip()
 
 
+def upload_youtube(video_path, title, description):
+    """유튜브 숏츠 업로드 (선택적). 토큰: env YOUTUBE_TOKEN_JSON 또는 로컬 파일.
+    실패해도 IG 발행 성공을 무효화하지 않음 — 경고만."""
+    import tempfile
+    try:
+        from google.oauth2.credentials import Credentials
+        from google.auth.transport.requests import Request
+        from googleapiclient.discovery import build
+        from googleapiclient.http import MediaFileUpload
+    except ImportError:
+        log("⚠️ 유튜브 라이브러리 없음 — 숏츠 업로드 스킵")
+        return
+    SCOPES = ["https://www.googleapis.com/auth/youtube.upload"]
+    tok_json = os.environ.get("YOUTUBE_TOKEN_JSON", "")
+    if tok_json:
+        tf = tempfile.NamedTemporaryFile("w", suffix=".json", delete=False)
+        tf.write(tok_json)
+        tf.close()
+        tok_path = tf.name
+    else:
+        tok_path = os.path.expanduser("~/soonsal-reels/youtube_token.json")
+    if not Path(tok_path).is_file():
+        log("⚠️ 유튜브 토큰 없음 — 숏츠 업로드 스킵")
+        return
+    try:
+        creds = Credentials.from_authorized_user_file(tok_path, SCOPES)
+        if creds.expired and creds.refresh_token:
+            creds.refresh(Request())
+        yt = build("youtube", "v3", credentials=creds)
+        title = title if "#Shorts" in title else f"{title} #Shorts"
+        body = {
+            "snippet": {"title": title[:100], "description": description,
+                        "categoryId": "25", "defaultLanguage": "ko",
+                        "tags": ["순살", "주식", "코스피", "투자", "개미", "Shorts", "밈"]},
+            "status": {"privacyStatus": "public", "selfDeclaredMadeForKids": False},
+        }
+        media = MediaFileUpload(video_path, mimetype="video/mp4", resumable=True)
+        req = yt.videos().insert(part="snippet,status", body=body, media_body=media)
+        resp = None
+        while resp is None:
+            _, resp = req.next_chunk()
+        log(f"📺 유튜브 숏츠 게시 완료 — https://youtube.com/shorts/{resp.get('id')}")
+    except Exception as e:  # noqa: BLE001
+        log(f"⚠️ 유튜브 업로드 실패(무시하고 진행): {type(e).__name__}: {str(e)[:200]}")
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--manifest", required=True)
@@ -160,6 +206,16 @@ def main():
     pub = api(f"{igid}/media_publish", {"creation_id": car_id, "access_token": tok})
     media_id = pub["id"]
     print(f"게시 완료 — ID:{media_id}")
+
+    # 유튜브 숏츠도 함께 (manifest에 youtube_video 있으면). IG 성공 후 실행, 실패해도 무해.
+    yt_rel = d.get("youtube_video")
+    if yt_rel:
+        yt_path = ROOT / yt_rel
+        if yt_path.is_file():
+            upload_youtube(str(yt_path), d.get("youtube_title") or caption.split("\n")[0],
+                           caption)
+        else:
+            log(f"⚠️ 유튜브 영상 없음: {yt_path} — 스킵")
 
 
 if __name__ == "__main__":
