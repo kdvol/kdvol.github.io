@@ -1,8 +1,8 @@
 {
-  "html": "_publish/순살카드뉴스_20260716.html",
-  "date": "20260716",
+  "html": "_publish/순살카드뉴스_20260719.html",
+  "date": "20260719",
   "name": "netflix",
   "post_txt": "_publish/netflix.POST.txt",
-  "target_epoch": 1784163600,
+  "target_epoch": 1784422800,
   "dry_run": false
 }
