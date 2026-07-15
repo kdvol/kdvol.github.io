@@ -49,6 +49,33 @@ def _entity_slugs(text, ent):
     return [e["slug"] for e in ent["entities"] if e["_rx"].search(text)]
 
 
+def trending_entities(atoms, days=14, size=10, n_top=5, min_recent=3):
+    """'지금 뜨는' 엔티티 — 최근 N일 건수 상위(상시 강자) + 급부상(최근 비중) 혼합.
+    순수 계산·LLM 0. 뉴스 사이클 따라 매일 바뀌는 압축 탐색층의 원천."""
+    from collections import Counter
+    from datetime import timedelta
+    cut = (date.today() - timedelta(days=days)).isoformat()
+    total = Counter(s for a in atoms for s in a["entities"])
+    recent = Counter(s for a in atoms if a["date"] >= cut for s in a["entities"])
+    if not recent:
+        return [s for s, _ in total.most_common(size)]
+    top = [s for s, _ in recent.most_common(size)]
+    surge = sorted((s for s, c in recent.items() if c >= min_recent),
+                   key=lambda s: -(recent[s] / total[s]))
+    picks = list(top[:n_top])
+    for s in surge:                       # 급부상으로 나머지 채움
+        if s not in picks:
+            picks.append(s)
+        if len(picks) >= size:
+            break
+    for s in top:                         # 급부상 부족 시 상시 강자로 보충
+        if len(picks) >= size:
+            break
+        if s not in picks:
+            picks.append(s)
+    return picks[:size]
+
+
 def extract_entities(story, ent):
     """스토리 제목+본문에서 통제 어휘 엔티티를 균일 추출 → 일관된 태그."""
     return _entity_slugs(f"{story['title']} {story['body']}", ent)
