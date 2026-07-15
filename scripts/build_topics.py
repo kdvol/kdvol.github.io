@@ -57,6 +57,17 @@ details.eng[open]>summary{margin-bottom:6px;color:#888}
 .eng-x{font-size:.76rem;color:#8a978a;line-height:1.55;margin-top:4px;font-style:italic}
 .eng-xl{color:#667;font-size:.7rem;font-style:normal;display:block;margin-bottom:1px}
 .count{color:#666;font-size:.8rem;margin:16px 0 4px}
+.lbl{color:#ccc;font-size:.92rem;font-weight:700;margin:18px 0 4px}
+.lbl-s{color:#666;font-size:.76rem;font-weight:400;margin-left:6px}
+.tag.hot{border-color:#3a2a22;background:#1b1512}
+.tag.hot b{color:#F07040}
+details.allents{margin:26px 0 8px}
+details.allents>summary{list-style:none;cursor:pointer;color:#888;font-size:.9rem;font-weight:600;
+  padding:12px 16px;border:1px dashed #333;border-radius:10px;transition:.15s}
+details.allents>summary::-webkit-details-marker{display:none}
+details.allents>summary::before{content:"▸ ";color:#F07040}
+details.allents[open]>summary::before{content:"▾ "}
+details.allents>summary:hover{border-color:#F07040;color:#ccc}
 @media(min-width:640px){.wrap{padding:32px 20px 60px}.ti{font-size:1rem}}
 """
 
@@ -186,16 +197,30 @@ def main(atoms=None):
                        f'<span style="color:#666;font-weight:400;font-size:.85rem">{len(es)}</span></div>'
                        f'<div class="tags">{chips}</div>')
 
+    # 🔥 지금 뜨는 — 최근 14일 상시 강자 + 급부상 혼합 (매일 자동 갱신되는 압축 탐색층)
+    ent_by = {e["slug"]: e for e in ent["entities"]}
+    cut14 = None  # trending 내부 계산
+    trend = [s for s in atomize.trending_entities(atoms) if s in ent_by]
+    from datetime import timedelta as _td
+    cut = (date.today() - _td(days=14)).isoformat()
+    recent_cnt = Counter(e for a in atoms if a["date"] >= cut for e in a["entities"])
+    trend_html = "".join(
+        f'<a class="tag hot" href="/wiki/{s}.html">{escape(ent_by[s]["name"])}'
+        f'<b>{recent_cnt[s]}</b></a>' for s in trend)
+
+    n_ents = sum(1 for e in ent["entities"] if ent_count[e["slug"]] >= min_n)
     hub = (head("주제별 브리핑 — 순살브리핑",
                 "크립토·AI·반도체·연준 등 주제로, 그리고 엔비디아·비트코인·연준 등 기업·인물·자산으로 "
                 "모아 보는 순살브리핑. 뉴스레터를 스토리 단위로 분류.", canonical, ld)
            + f'<h1>주제별 브리핑</h1><p class="sub">스토리 {len(atoms)}건 · '
-             f'{len(built)}개 주제 · {sum(1 for e in ent["entities"] if ent_count[e["slug"]]>=min_n)}개 대상</p>'
-           + f'<a class="searchbar" href="/search/" style="color:#666">🔍 전체 브리핑 검색…</a>'
-           + '<div style="color:#888;font-size:.82rem;margin:6px 0 2px">주제로 보기</div>'
+             f'{len(built)}개 주제 · {n_ents}개 대상</p>'
+           + f'<a class="searchbar" href="/search/" style="color:#666">🔍 주제·기업·인물·키워드 검색…</a>'
+           + '<div class="lbl">🔥 지금 뜨는 <span class="lbl-s">최근 2주 기준, 매일 갱신</span></div>'
+           + f'<div class="tags">{trend_html}</div>'
+           + '<div class="lbl" style="margin-top:22px">주제로 보기</div>'
            + f'<div class="tags">{tags}</div>'
-           + '<div style="color:#888;font-size:.82rem;margin:22px 0 2px">기업·인물·자산·기관으로 보기</div>'
-           + ent_groups + FOOT)
+           + f'<details class="allents"><summary>전체 대상 보기 <span class="lbl-s">기업·인물·자산·기관 {n_ents}</span></summary>'
+           + ent_groups + '</details>' + FOOT)
     (OUT / "index.html").write_text(hub, encoding="utf-8")
 
     print(f"🏷️  topics: {len(built)}개 주제 페이지(+허브) · 스토리 {len(atoms)} · 영어 {total_eng}")
