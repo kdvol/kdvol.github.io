@@ -1,0 +1,19 @@
+{
+  "type": "video_carousel",
+  "videos": [
+    "_publish/vc/rollercoaster/v1.mp4",
+    "_publish/vc/rollercoaster/v2.mp4",
+    "_publish/vc/rollercoaster/v3.mp4",
+    "_publish/vc/rollercoaster/v4.mp4",
+    "_publish/vc/rollercoaster/v5.mp4",
+    "_publish/vc/rollercoaster/v6.mp4",
+    "_publish/vc/rollercoaster/v7.mp4",
+    "_publish/vc/rollercoaster/v8.mp4"
+  ],
+  "caption_txt": "_publish/vc/rollercoaster/POST.txt",
+  "prefix": "vc/2026/0716_rollercoaster",
+  "name": "rollercoaster",
+  "date": "20260716",
+  "target_epoch": 1784156400,
+  "dry_run": false
+}
