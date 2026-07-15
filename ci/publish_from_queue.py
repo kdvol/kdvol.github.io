@@ -53,7 +53,7 @@ def _token():
 
 def post_first_comment(stdout, d):
     """deploy 성공 stdout에서 미디어 ID 파싱 → POST.txt [첫 댓글] 게시(해시태그)."""
-    pt = d.get("post_txt")
+    pt = d.get("post_txt") or d.get("caption_txt")
     if not pt:
         return
     p = ROOT / pt
@@ -75,11 +75,16 @@ def post_first_comment(stdout, d):
         log(f"첫 댓글 실패(수동 필요): {e}")
 
 def publish(mf, d, force_dry=False):
-    html = ROOT / d["html"]
-    if not html.is_file():
-        log(f"❌ HTML 없음: {html}"); return False
     dry = force_dry or d.get("dry_run", False)
-    cmd = [PY, str(DEPLOY), str(html)] + (["--no-instagram"] if dry else [])
+    if d.get("type") == "video_carousel":
+        # 움직이는 캐러셀(영상 8슬라이드) — 전용 발행자 사용, 성공 라인 포맷은 deploy.py와 동일
+        cmd = [PY, str(ROOT / "ci" / "publish_video_carousel.py"), "--manifest", str(mf)] \
+              + (["--dry-run"] if dry else [])
+    else:
+        html = ROOT / d["html"]
+        if not html.is_file():
+            log(f"❌ HTML 없음: {html}"); return False
+        cmd = [PY, str(DEPLOY), str(html)] + (["--no-instagram"] if dry else [])
     log(f"발행 시작: {d.get('name')} ({d.get('date')}) dry={dry}")
     r = subprocess.run(cmd, cwd=str(ROOT), capture_output=True, text=True, env=os.environ)
     sys.stdout.write(r.stdout[-4000:]); sys.stderr.write(r.stderr[-2000:])
