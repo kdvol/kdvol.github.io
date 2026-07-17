@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>순살 × Salesforce — Trusted AI Playbook 캠페인 제안서</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0a0a0a;
+  --surface: #141414;
+  --surface2: #1c1c1c;
+  --border: #2a2a2a;
+  --text: #e8e8e8;
+  --text-dim: #888;
+  --accent: #F38C61;
+  --accent2: #F5A882;
+  --white: #fff;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { background:var(--bg); color:var(--text); font-family:'Noto Sans KR',sans-serif; line-height:1.7; word-break:keep-all; overflow-wrap:break-word; }
+.page {
+  max-width:1000px; margin:0 auto;
+  min-height:100vh; padding:80px 60px;
+  page-break-after: always;
+  position: relative;
+}
+.page-num {
+  position:absolute; bottom:40px; right:60px;
+  font-family:'Space Grotesk',monospace; font-size:13px; color:var(--text-dim);
+}
+
+/* Cover */
+.cover { display:flex; flex-direction:column; justify-content:center; align-items:flex-start; }
+.cover .logo-mark { margin-bottom:20px; }
+.cover .logo-mark img { width:76px; height:76px; object-fit:contain; border-radius:16px; }
+.cover h1 { font-size:52px; font-weight:900; line-height:1.18; margin-bottom:24px; letter-spacing:-2px; }
+.cover h1 span { color:var(--accent); }
+.cover .subtitle { font-size:20px; color:var(--text-dim); font-weight:300; margin-bottom:48px; }
+.cover .meta { font-size:14px; color:var(--text-dim); border-top:1px solid var(--border); padding-top:20px; }
+.cover .meta strong { color:var(--text); }
+.tag { display:inline-block; background:var(--accent); color:#000; font-size:12px; font-weight:700;
+  padding:4px 12px; border-radius:20px; margin-right:8px; margin-bottom:8px; }
+.tag.outline { background:transparent; border:1px solid var(--accent); color:var(--accent); }
+.tag.muted { background:var(--surface2); color:var(--text-dim); border:1px solid var(--border); }
+
+/* Section headers */
+h2 { font-size:32px; font-weight:900; margin-bottom:32px; letter-spacing:-1px; }
+h2 .num { color:var(--accent); font-family:'Space Grotesk',monospace; font-weight:600; margin-right:12px; }
+h3 { font-size:20px; font-weight:700; margin-bottom:16px; color:var(--white); }
+p { margin-bottom:14px; font-size:15px; }
+p.lead { font-size:17px; color:var(--text); }
+.small { font-size:13px; color:var(--text-dim); }
+strong.hl { color:var(--accent); }
+
+/* Stat grid */
+.stat-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:24px; margin:32px 0; }
+.stat-grid.four { grid-template-columns:repeat(4,1fr); }
+.stat-grid.two { grid-template-columns:repeat(2,1fr); }
+.stat-card { background:var(--surface); border:1px solid var(--border); border-radius:16px; padding:32px; text-align:center; }
+.stat-card .number { font-family:'Space Grotesk',monospace; font-size:44px; font-weight:700; color:var(--accent); }
+.stat-card .label { font-size:14px; color:var(--text-dim); margin-top:8px; }
+.stat-card .detail { font-size:12px; color:var(--text-dim); margin-top:4px; opacity:0.7; }
+
+/* Two col */
+.two-col { display:grid; grid-template-columns:1fr 1fr; gap:32px; margin:24px 0; }
+.col-box { background:var(--surface); border:1px solid var(--border); border-radius:16px; padding:28px; }
+.col-box h4 { font-size:16px; font-weight:700; margin-bottom:12px; color:var(--accent); }
+.col-box ul { list-style:none; }
+.col-box li { padding:6px 0; font-size:15px; color:var(--text); border-bottom:1px solid var(--border); }
+.col-box li:last-child { border-bottom:none; }
+.col-box li::before { content:'→ '; color:var(--accent); font-weight:700; }
+.col-box.warn h4 { color:#e74c3c; }
+.col-box.warn li::before { content:'× '; color:#e74c3c; }
+
+/* Product table */
+.product-table { width:100%; border-collapse:collapse; margin:24px 0; }
+.product-table th { text-align:left; padding:14px 16px; font-size:13px; font-weight:700;
+  color:var(--accent); text-transform:uppercase; letter-spacing:1px;
+  border-bottom:2px solid var(--accent); }
+.product-table td { padding:14px 16px; font-size:14px; border-bottom:1px solid var(--border); vertical-align:top; }
+.product-table tr:hover td { background:var(--surface); }
+.product-table .highlight { color:var(--accent); font-weight:700; font-family:'Space Grotesk',monospace; }
+
+/* Pricing */
+.pricing-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:20px; margin:32px 0; }
+.pricing-card { background:var(--surface); border:1px solid var(--border); border-radius:16px; padding:32px; position:relative; }
+.pricing-card.featured { border-color:var(--accent); }
+.pricing-card.featured::before { content:'SERIES — 권장'; position:absolute; top:-12px; left:24px;
+  background:var(--accent); color:#000; font-size:11px; font-weight:700; padding:4px 12px; border-radius:10px; }
+.pricing-card .tier-name { font-size:19px; font-weight:700; margin-bottom:4px; }
+.pricing-card .tier-price { font-family:'Noto Sans KR','Space Grotesk',monospace; font-size:30px; font-weight:700; color:var(--accent); margin:12px 0; }
+.pricing-card .tier-price .unit { font-size:13px; color:var(--text-dim); font-weight:400; }
+.pricing-card .tier-detail { font-size:13px; color:var(--text-dim); margin-bottom:16px; }
+.pricing-card ul { list-style:none; }
+.pricing-card li { padding:6px 0; font-size:14px; border-bottom:1px solid var(--border); }
+.pricing-card li:last-child { border-bottom:none; }
+.pricing-card li::before { content:'✓ '; color:var(--accent); }
+
+/* Quote */
+.quote-block { border-left:4px solid var(--accent); padding:24px 32px; margin:32px 0;
+  background:var(--surface); border-radius:0 16px 16px 0; font-size:18px; font-style:italic; font-weight:300; }
+
+/* Callout */
+.callout { background:var(--surface2); border:1px solid var(--accent); border-radius:16px; padding:28px; margin:28px 0; }
+.callout h4 { color:var(--accent); font-size:17px; margin-bottom:10px; font-weight:700; }
+.callout.danger { border-color:#e74c3c; }
+.callout.danger h4 { color:#e74c3c; }
+
+/* Flow */
+.flow-row { display:flex; align-items:center; gap:12px; margin:16px 0; flex-wrap:wrap; }
+.flow-step { background:var(--surface); border:1px solid var(--border); border-radius:12px;
+  padding:16px 20px; font-size:14px; flex:1; min-width:140px; text-align:center; }
+.flow-step .step-num { font-family:'Space Grotesk',monospace; font-size:11px; color:var(--accent); font-weight:700; }
+.flow-arrow { color:var(--accent); font-size:20px; flex-shrink:0; }
+
+/* Episode cards */
+.ep-card { background:var(--surface); border:1px solid var(--border); border-radius:16px; padding:26px; margin:16px 0; }
+.ep-card.first { border-color:var(--accent); }
+.ep-head { display:flex; align-items:baseline; justify-content:space-between; flex-wrap:wrap; gap:8px; margin-bottom:10px; }
+.ep-num { font-family:'Space Grotesk',monospace; font-size:12px; color:var(--accent); font-weight:700; letter-spacing:1px; }
+.ep-src { font-size:11px; color:var(--text-dim); background:var(--surface2); border:1px solid var(--border); border-radius:8px; padding:3px 10px; }
+.ep-title { font-size:21px; font-weight:900; color:var(--white); letter-spacing:-0.5px; margin-bottom:10px; line-height:1.35; }
+.ep-body { font-size:14px; color:var(--text); }
+.ep-body strong { color:var(--accent); }
+.ep-hook { font-size:13px; color:var(--text-dim); margin-top:10px; padding-top:10px; border-top:1px solid var(--border); }
+.ep-hook strong { color:var(--accent); }
+
+/* Logo strip */
+.logo-strip { display:flex; flex-wrap:wrap; gap:10px; margin:20px 0; }
+.logo-chip { background:var(--surface); border:1px solid var(--border); border-radius:10px;
+  padding:10px 16px; font-size:14px; font-weight:500; color:var(--text); }
+.logo-chip strong { color:var(--accent); }
+
+/* Newsletter mockup */
+.mock { background:#fff; border-radius:14px; padding:20px; color:#111; max-width:420px; margin:20px auto; font-size:13px; }
+.mock .mock-spon { background:#FFF3EC; border:1px solid #F38C61; border-radius:8px; padding:6px 10px; font-size:10px; font-weight:700; color:#C25A2E; letter-spacing:1px; margin-bottom:12px; display:inline-block; }
+.mock .mock-title { font-size:17px; font-weight:900; color:#111; margin-bottom:8px; line-height:1.35; }
+.mock .mock-text { font-size:12px; color:#444; line-height:1.7; margin-bottom:6px; }
+.mock .mock-text .inline-link { color:#C25A2E; text-decoration:underline; font-weight:600; }
+.mock .mock-cta { display:block; background:#F38C61; color:#000; text-align:center; font-weight:700;
+  padding:12px; border-radius:8px; margin-top:14px; font-size:13px; }
+.mock .mock-cap { font-size:10px; color:#999; margin-top:8px; text-align:center; }
+
+/* Gate */
+.gate-overlay { position:fixed; inset:0; z-index:9999; background:var(--bg);
+  display:flex; align-items:center; justify-content:center; transition: opacity 0.4s ease; }
+.gate-overlay.hidden { opacity:0; pointer-events:none; }
+.gate-box { background:var(--surface); border:1px solid var(--border); border-radius:20px;
+  padding:48px 36px; max-width:400px; width:90%; text-align:center; }
+.gate-box h2 { font-size:24px; margin-bottom:8px; }
+.gate-box p { font-size:14px; color:var(--text-dim); margin-bottom:20px; }
+.gate-logo { width:80px; height:80px; object-fit:contain; border-radius:16px; display:block; margin:0 auto 16px; }
+.gate-input { display:block; width:100%; padding:12px 16px; margin-bottom:12px;
+  background:var(--surface2); border:1px solid var(--border); border-radius:10px;
+  color:var(--text); font-size:14px; font-family:'Noto Sans KR',sans-serif; outline:none; }
+.gate-input:focus { border-color:var(--accent); }
+.gate-btn { display:block; width:100%; padding:14px; margin-top:8px;
+  background:var(--accent); color:#000; border:none; border-radius:10px;
+  font-size:15px; font-weight:700; cursor:pointer; font-family:'Noto Sans KR',sans-serif; transition: background 0.2s; }
+.gate-btn:hover { background:var(--accent2); }
+.gate-error { display:none; color:#e74c3c; font-size:13px; margin-top:12px; }
+.gate-note { font-size:11px; color:var(--text-dim); margin-top:16px; opacity:0.7; }
+
+.deck-content { display:none; }
+.deck-content.visible { display:block; }
+
+@media screen and (max-width: 768px) {
+  .page { padding: 32px 20px; min-height: auto; }
+  .page-num { position: static; text-align: right; margin-top: 24px; }
+  .cover h1 { font-size: 30px; letter-spacing: -1px; }
+  .cover .subtitle { font-size: 16px; }
+  .cover .logo-mark img { width: 60px; height: 60px; }
+  h2 { font-size: 22px; margin-bottom: 20px; }
+  h3 { font-size: 17px; }
+  .stat-grid, .stat-grid.four, .stat-grid.two { grid-template-columns: 1fr; gap: 16px; }
+  .stat-card { padding: 20px; }
+  .stat-card .number { font-size: 32px; }
+  .two-col { grid-template-columns: 1fr !important; gap: 20px !important; }
+  .col-box { padding: 20px; }
+  .product-table { font-size: 12px; }
+  .product-table th, .product-table td { padding: 10px 8px; font-size: 12px; }
+  .pricing-grid { grid-template-columns: 1fr; gap: 20px; }
+  .pricing-card { padding: 24px; }
+  .flow-row { flex-direction: column; gap: 8px; }
+  .flow-step { min-width: auto; width: 100%; }
+  .flow-arrow { transform: rotate(90deg); text-align: center; }
+  .ep-title { font-size: 18px; }
+  p { font-size: 14px; }
+  .small { font-size: 12px; }
+}
+@media screen and (max-width: 480px) {
+  .page { padding: 24px 16px; }
+  .cover h1 { font-size: 25px; }
+  h2 { font-size: 20px; }
+  .stat-card .number { font-size: 28px; }
+}
+@media print { .page { padding:40px; min-height:auto; } }
+</style>
+</head>
+<body>
+
+<div class="gate-overlay" id="gate">
+  <div class="gate-box">
+    <img src="soonsal-logo.png" class="gate-logo" alt="순살">
+    <h2>캠페인 제안서</h2>
+    <p>열람을 위해 이메일과 액세스 코드를 입력해주세요.</p>
+    <input type="email" class="gate-input" id="gate-email" placeholder="업무 이메일" required>
+    <input type="password" class="gate-input" id="gate-password" placeholder="액세스 코드">
+    <button class="gate-btn" onclick="checkAccess()">열람하기</button>
+    <div class="gate-error" id="gate-error">액세스 코드가 올바르지 않습니다.</div>
+    <p class="gate-note">입력하신 이메일은 제휴 안내 목적으로만 사용됩니다.</p>
+  </div>
+</div>
+
+<div class="deck-content" id="deck">
+
+<!-- COVER -->
+<div class="page cover">
+  <div class="logo-mark"><img src="soonsal-logo.png" alt="순살"></div>
+  <h1>Trusted AI Playbook,<br><span>읽히게 만들어</span> 드립니다</h1>
+  <p class="subtitle">순살 × Salesforce — 금융 서비스 특화 AI 전략 리포트 캠페인 제안</p>
+  <div>
+    <span class="tag">뉴스레터 브랜디드 스토리</span>
+    <span class="tag">인스타그램 카드뉴스</span>
+    <span class="tag outline">4부작 시리즈</span>
+    <span class="tag muted">AI 검색 노출</span>
+  </div>
+  <div class="meta" style="margin-top:40px;">
+    <strong>순살 (Soonsal)</strong> · 2026.07<br>
+    문의: team@soonsal.com · 010-9919-1712
+  </div>
+</div>
+
+<!-- 01 제안 배경 -->
+<div class="page">
+  <h2><span class="num">01</span>제안 배경</h2>
+
+  <p class="lead">『금융 AI, 속도와 신뢰의 균형을 찾다 — 규제 이중고를 넘는 Trusted AI Playbook』은 잘 만들어진 리포트입니다. 망분리 완화와 책무구조도라는 한국 고유의 규제 맥락을 정면으로 다루고, 베인앤드컴퍼니 김희선 파트너 대담과 Santander UK·Absa·Aflac의 실증 사례까지 담은 <strong class="hl">한국 시장 전용 자산</strong>입니다.</p>
+
+  <p>문제는 콘텐츠가 아니라 <strong class="hl">유통</strong>입니다.</p>
+
+  <div class="callout danger">
+    <h4>⚠ 현재 링크 구조 점검 결과</h4>
+    <p style="margin-bottom:8px;">공유주신 리포트 링크는 <strong>게이트(폼) 없이 바로 열리는 9.6MB PDF 직접 링크</strong>입니다.</p>
+    <ul style="list-style:none; font-size:14px;">
+      <li style="padding:5px 0;">× <strong>리드가 남지 않습니다.</strong> 폼이 없으므로 누가 다운로드했는지 식별되지 않습니다.</li>
+      <li style="padding:5px 0;">× <strong>모바일 이탈이 큽니다.</strong> 9.6MB PDF를 모바일에서 직접 여는 구조는 로딩 단계에서 이탈이 발생합니다.</li>
+      <li style="padding:5px 0;">× <strong>20페이지를 정독할 이유가 없습니다.</strong> 사전 관심 없이 PDF를 여는 사람은 거의 없습니다.</li>
+    </ul>
+  </div>
+
+  <div class="two-col">
+    <div class="col-box warn">
+      <h4>지금 구조로 광고를 집행하면</h4>
+      <ul>
+        <li>클릭은 나오지만 리드는 0건</li>
+        <li>PDF를 연 사람의 정독률 확인 불가</li>
+        <li>캠페인 성과가 "노출 수"로만 남음</li>
+      </ul>
+    </div>
+    <div class="col-box">
+      <h4>순살이 제안하는 구조</h4>
+      <ul>
+        <li>리포트를 순살이 소화해 <strong>읽히는 스토리</strong>로 재생산</li>
+        <li>스토리에서 관심을 만든 뒤 원문으로 유도</li>
+        <li>리드 확보가 목적이면 <strong>랜딩+폼 설계</strong> 병행 권장</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="quote-block">
+    리포트는 배포하는 것이 아니라, <strong style="color:var(--accent); font-style:normal;">읽고 싶게 만든 다음</strong> 건네는 것입니다. 순살은 리포트를 광고로 옮기지 않고, 구독자가 이미 읽는 형식의 콘텐츠로 바꿔 전달합니다.
+  </div>
+
+  <div class="page-num">01</div>
+</div>
+
+<!-- 02 왜 순살인가 -->
+<div class="page">
+  <h2><span class="num">02</span>왜 순살인가 — 이미 읽고 있는 사람들</h2>
+
+  <p class="lead">순살은 복잡한 글로벌 금융을 "순살만 쏙쏙 발라" 전달하는 프리미엄 금융 미디어입니다. <strong class="hl">모건스탠리 홍콩 출신 에디터</strong>가 직접 큐레이션하며, 구매력과 의사결정권을 가진 금융권 현직자가 집중해서 소비하는 채널입니다.</p>
+
+  <div class="stat-grid four">
+    <div class="stat-card">
+      <div class="number">76K</div>
+      <div class="label">뉴스레터 구독자</div>
+      <div class="detail">순살브리핑 · 일간</div>
+    </div>
+    <div class="stat-card">
+      <div class="number">86K</div>
+      <div class="label">인스타그램 팔로워</div>
+      <div class="detail">@soonsal.brief</div>
+    </div>
+    <div class="stat-card">
+      <div class="number">22%+</div>
+      <div class="label">금융·테크 현직자</div>
+      <div class="detail">업계 평균 10~15%</div>
+    </div>
+    <div class="stat-card">
+      <div class="number">8,000+</div>
+      <div class="label">회사·기관 메일 구독</div>
+      <div class="detail">전체의 10.7% · 업계 평균 5~8%</div>
+    </div>
+  </div>
+
+  <h3>리포트가 겨냥하는 바로 그 사람들이, 회사 메일로 순살을 받습니다</h3>
+
+  <div class="col-box" style="border-color:var(--accent); margin-bottom:12px;">
+    <h4>사모펀드 · 글로벌 IB · 기관투자자 — 투자 하우스 90+ 곳</h4>
+    <ul>
+      <li><strong>글로벌:</strong> JP모건 · 모건스탠리 · 골드만삭스 · 씨티 · UBS · 블랙스톤 · 베인캐피탈 · 블랙록 · EQT · TPG · 워버그핀커스 · 아폴로</li>
+      <li><strong>국내 PE·운용:</strong> IMM · 스틱 · VIG · JKL · 글랜우드 · VIP자산운용 · 안다 · 머스트 · IGIS · 마스턴</li>
+      <li><strong>VC·크립토:</strong> 알토스벤처스 · 에이티넘 · DSC · 카카오벤처스 · 해시드 · 두나무</li>
+      <li><strong>기관:</strong> 한국은행 · 국민연금 · KIC · 한국거래소 · 행정공제회</li>
+    </ul>
+  </div>
+
+  <div class="two-col">
+    <div class="col-box">
+      <h4>금융 · 투자</h4>
+      <ul>
+        <li>미래에셋(55) · 한국투자(39) · 토스 · KB</li>
+        <li>메리츠 · 카카오뱅크 · IBK · KDB · 농협</li>
+      </ul>
+    </div>
+    <div class="col-box">
+      <h4>컨설팅 · 로펌</h4>
+      <ul>
+        <li>PwC(62) · EY · Deloitte · KPMG — 빅4 전원</li>
+        <li>맥킨지 · BCG · 베인 — MBB 전원</li>
+        <li>김앤장 · 태평양 · 광장 · 세종 · 율촌</li>
+      </ul>
+    </div>
+  </div>
+  <div class="two-col">
+    <div class="col-box">
+      <h4>테크 · 플랫폼</h4>
+      <ul>
+        <li>Google(53) · 네이버(44) · 카카오(33) · LINE</li>
+        <li>쿠팡 · 우아한형제들 · 엔씨소프트 · MS · 오라클</li>
+      </ul>
+    </div>
+    <div class="col-box">
+      <h4>대기업 그룹 · 정부</h4>
+      <ul>
+        <li>삼성(622) · 현대차그룹(301) · LG(237) · SK(227)</li>
+        <li>CJ(151) · 롯데 · 신세계 · 한화 · 포스코 · GS · 두산</li>
+        <li>정부 통합메일 korea.kr(383) · 서울시</li>
+      </ul>
+    </div>
+  </div>
+
+  <p class="small" style="margin-top:16px;">※ 2026.07 구독자 데이터 실측. 괄호 수치는 해당 도메인 구독자 수, 뉴스레터 리더 서비스·오타 도메인을 제외한 순수 회사·기관 메일 8,194명(전체의 10.7%) 기준입니다. 대다수 전문직 종사자는 개인 이메일로 구독하므로, 실제 현직자 규모는 이보다 훨씬 큽니다.</p>
+
+  <div class="quote-block">
+    Trusted AI Playbook이 설득해야 할 <strong style="color:var(--accent); font-style:normal;">은행·보험·증권의 실무 책임자와 C-Level</strong>은, 이미 매일 아침 순살을 열고 있습니다. 순살은 도달을 파는 것이 아니라 <strong style="color:var(--accent); font-style:normal;">이 명단</strong>을 제공합니다.
+  </div>
+
+  <div class="page-num">02</div>
+</div>
+
+<!-- 03 캠페인 설계 -->
+<div class="page">
+  <h2><span class="num">03</span>캠페인 설계</h2>
+
+  <h3>① 뉴스레터 브랜디드 스토리</h3>
+  <p>순살 에디토리얼 팀이 리포트를 소화해 순살 톤의 완결형 스토리로 작성합니다. 일반 스토리와 동일한 품질·톤이라 <strong class="hl">광고가 아니라 콘텐츠로 소비</strong>됩니다. 리포트 원문으로의 연결은 에디토리얼 맥락 안의 자연스러운 링크로 처리하며, 문의주신 <strong class="hl">하단 CTA 버튼은 시리즈 패키지부터 포함</strong>됩니다 — 이유는 아래에 솔직하게 적었습니다.</p>
+
+  <div class="mock">
+    <div class="mock-spon">TOGETHER WITH SALESFORCE</div>
+    <div class="mock-title">🏦 AI 쓰라면서요. 근데 사고 나면 제가 잘리는데요</div>
+    <div class="mock-text">망분리 풀렸음. '갈라파고스' 소리 듣던 국내 금융 IT가 드디어 클라우드로 나가는 길이 열린 것. 근데 금융사 임원들 표정이 안 좋음. 한 손엔 혁신의 가속 페달, 다른 손엔 <strong>책무구조도</strong>라는 브레이크를 같이 쥐여줬거든. 이제 AI가 사고 치면 시스템 오류가 아니라 임원 개인의 법적 책임으로 직결되는 구조임.</div>
+    <div class="mock-text">더 얄궂은 건 고객임. 한국 소비자 <span class="inline-link">82%가 "AI가 금융 거래를 더 빠르게 처리할 것"</span>이라 답했음. 기대치는 세계 최고인데, 정작 은행은 움직일 수가 없는 상황…</div>
+    <a class="mock-cta">한국 금융사만 겪는 '규제 이중고' — 풀버전은 리포트에 →</a>
+    <div class="mock-cap">시리즈 패키지 발행 예시 (CTA 포함형) · 카피는 협의 후 확정</div>
+  </div>
+
+  <div class="callout" style="margin-top:20px;">
+    <h4>CTA에 대한 솔직한 안내</h4>
+    <p style="margin-bottom:10px;">문의주신 '뉴스레터 하단 CTA'는 기술적으로 간단합니다. 그런데 순살은 이걸 <strong>기본 상품으로 팔지 않습니다.</strong> 순살 뉴스레터의 링크 클릭률은 실측 0.4~1.2%(발송 대비, 회당 수백 클릭)입니다 — 참고로 이 숫자도 동일 체급(구독자 5만+) 금융 뉴스레터의 국내 평균 클릭률 0.3%보다 높습니다. 그래도 부풀려 말씀드리지 않겠습니다. 순살이 파는 것은 클릭이 아니라, <strong class="hl">금융권 오디언스가 매일 아침 3분을 내어주는 신뢰 맥락</strong>입니다. CTA를 남발하면 그 신뢰가 깎이기 때문에, 구독자 경험 보호 차원에서 절제해 왔습니다.</p>
+    <p style="margin-bottom:0;">다만 Salesforce는 콘텐츠 fit이 높고 길게 갈 수 있는 파트너라고 판단합니다. <strong class="hl">시리즈 패키지 이상 집행 시 CTA 버튼 + UTM 클릭 리포팅을 포함해 설계</strong>해 드립니다. 위 목업이 그 구성입니다.</p>
+  </div>
+
+  <h3 style="margin-top:32px;">② 인스타그램 카드뉴스 10장</h3>
+  <p>10장 캐러셀 풀 제작 — 기획·카피·디자인·발행을 순살이 일괄 수행합니다. 1~8장이 구독자 관심사에 맞춘 에디토리얼 내러티브로 관심을 끌어올리고, <strong class="hl">9장에서 Salesforce가 직접 노출</strong>, 10장에서 CTA로 마무리합니다. 광고 1장이 아니라 <strong class="hl">10장 전체가 하나의 브랜드 스토리</strong>로 기능합니다.</p>
+
+  <div class="flow-row">
+    <div class="flow-step"><div class="step-num">1~8</div>에디토리얼 빌드업</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step"><div class="step-num">9</div>Salesforce 직접 노출</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step"><div class="step-num">10</div>리포트 CTA</div>
+  </div>
+
+  <h3 style="margin-top:32px;">③ soonsal.com 영구 아카이브 + AI 검색 노출</h3>
+  <div class="callout">
+    <h4>🤖 AI를 파는 회사가, AI가 읽는 채널에</h4>
+    <p style="margin-bottom:10px;">순살은 <strong>llms.txt · llms-full.txt</strong>를 운영합니다. ChatGPT·Claude·Perplexity 등 AI 검색이 순살 콘텐츠를 읽어가며, 파일에는 인용 시 출처를 <strong>"순살브리핑(soonsal.com)"</strong>으로 표기하도록 명시돼 있습니다.</p>
+    <p style="margin-bottom:0;">브랜디드 스토리는 발행 후 soonsal.com에 <strong>영구 아카이브</strong>되어 검색·AI 답변에 지속 노출됩니다. 발행 당일의 도달로 끝나지 않고, <strong class="hl">"금융권 AI 전략"을 묻는 사람에게 계속 도달</strong>합니다.</p>
+  </div>
+
+  <h3 style="margin-top:24px;">다운로드를 유도하는 설계 원칙</h3>
+  <div class="two-col">
+    <div class="col-box">
+      <h4>순살이 통제하는 레버</h4>
+      <ul>
+        <li>킬러 데이터 1~2개만 공개, 나머지는 리포트로 (정보 격차)</li>
+        <li>CTA 카피 구체화 — "리포트 보기"가 아니라 "무엇을 얻는지"</li>
+        <li>본문 인라인 링크 + 말미 버튼, 이중 접점</li>
+      </ul>
+    </div>
+    <div class="col-box">
+      <h4>Salesforce 측 권장 사항</h4>
+      <ul>
+        <li>9.6MB PDF 직링크 대신 랜딩 경유</li>
+        <li>리드 확보 목적이면 폼 배치</li>
+        <li>UTM 파라미터 수신 설정</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="page-num">03</div>
+</div>
+
+<!-- 04 4부작 -->
+<div class="page">
+  <h2><span class="num">04</span>이 리포트 안에는 4개의 스토리가 있습니다</h2>
+
+  <p class="lead">금융권의 AI 전환은 한 번의 메시지로 끝나지 않습니다. Trusted AI Playbook을 정독한 결과, <strong class="hl">각각 독립적으로 완결되는 4개의 스토리</strong>가 확인됩니다. 리포트의 실제 구성을 그대로 따릅니다.</p>
+
+  <div class="ep-card first">
+    <div class="ep-head">
+      <span class="ep-num">EPISODE 1 — 스타트 패키지 기본 편성</span>
+      <span class="ep-src">PART 1 · 퍼펙트 스톰</span>
+    </div>
+    <div class="ep-title">🏦 "AI 쓰라면서요. 근데 사고 나면 제가 잘리는데요"</div>
+    <div class="ep-body">망분리 완화로 혁신의 고속도로는 열렸는데, 책무구조도와 AI 기본법이 동시에 브레이크를 걺. AI 사고가 시스템 오류가 아니라 <strong>경영진 개인의 법적 징계</strong>로 직결되는 구조임. 근데 정작 한국 소비자는 세계에서 AI를 제일 원하고 있음.</div>
+    <div class="ep-hook">🎣 <strong>훅:</strong> 82% "AI가 금융 거래를 더 빠르게 처리할 것" · 65% "AI가 내 금융 코치가 될 것" — 글로벌 평균 월등히 상회</div>
+  </div>
+
+  <div class="ep-card">
+    <div class="ep-head">
+      <span class="ep-num">EPISODE 2</span>
+      <span class="ep-src">PART 1 · 3대 축의 딜레마</span>
+    </div>
+    <div class="ep-title">🏛 은행·보험·증권이, 각자 다른 이유로 막혀 있다</div>
+    <div class="ep-body">은행은 마이데이터로 데이터가 넘치는데 창구·콜센터·앱이 <strong>따로 노는(Silo)</strong> 바람에 고객이 같은 설명을 반복함. 보험은 제판분리와 GA 성장으로 채널이 흩어졌음. 증권은 PB를 대중부유층까지 넓혀야 하는데 레거시가 발목을 잡는 중.</div>
+    <div class="ep-hook">🎣 <strong>훅:</strong> "앱에서 대출 알아보다 지점 가면, 처음부터 다시 설명해야 하는 이유"</div>
+  </div>
+
+  <div class="ep-card">
+    <div class="ep-head">
+      <span class="ep-num">EPISODE 3</span>
+      <span class="ep-src">PART 1 · 에이전틱 갭 + PART 2 · 베인 대담</span>
+    </div>
+    <div class="ep-title">💸 수조원 써서 AI 만들었더니, 기술 부채가 됐다</div>
+    <div class="ep-body">보안이랑 망분리 핑계로 <strong>수백억~수조원 들여 자체 AI(DIY AI)</strong>를 지음. 근데 AI가 똑똑해질수록 추론 과정을 사람이 통제 못 하는 <strong>에이전틱 갭</strong>이 벌어짐. 베인앤드컴퍼니 김희선 파트너의 진단 — 진짜 리스크는 책무구조도가 아니라 할루시네이션과 고객 데이터 유출이라는 것.</div>
+    <div class="ep-hook">🎣 <strong>훅:</strong> 베인 파트너 대담 인용 — "C레벨을 만나면 가장 먼저 나오는 질문"</div>
+  </div>
+
+  <div class="ep-card">
+    <div class="ep-head">
+      <span class="ep-num">EPISODE 4</span>
+      <span class="ep-src">PART 4 · 3가지 증명</span>
+    </div>
+    <div class="ep-title">🌍 산탄데르·앱사·아플락은 이미 하고 있다</div>
+    <div class="ep-body">Santander UK는 국제무역 플랫폼 하나로 <strong>일일 고객 대화 3배</strong>, 서류 9종을 온라인 양식 하나로 줄였음. Absa는 아프리카 12개국 <strong>1,200만 고객</strong>에게 Agentforce 깔아서 생산성 3배. Aflac은 저출산·고령화발 인력 부족을 전 직원 AI 파트너로 푸는 중.</div>
+    <div class="ep-hook">🎣 <strong>훅:</strong> "규제 때문에 못 한다는 나라 밖에서, 은행들은 이미 뭘 하고 있나"</div>
+  </div>
+
+  <div class="callout" style="margin-top:24px;">
+    <h4>스타트 패키지는 이 중 1편입니다</h4>
+    <p style="margin-bottom:0;">한 편만 발행해도 성과는 나옵니다. 다만 <strong>Trusted AI Playbook의 논지는 4편이 모여야 완성</strong>됩니다. 1편은 문제를 제기하고, 4편은 답을 증명합니다. <strong>월 1편씩 4개월</strong>이면 메시지가 식기 전에 논지가 완성되고, 순살 구독자에게 <strong class="hl">"금융 AI = Salesforce"</strong>라는 연상이 한 시즌 안에 축적됩니다.</p>
+  </div>
+
+  <div class="page-num">04</div>
+</div>
+
+<!-- 05 단가 -->
+<div class="page">
+  <h2><span class="num">05</span>상품 · 단가</h2>
+
+  <div class="pricing-grid">
+    <div class="pricing-card">
+      <div class="tier-name">스타트 패키지</div>
+      <div class="tier-detail">Episode 1 — 단건 집행</div>
+      <div class="tier-price">1,200만원 <span class="unit">/ VAT 별도</span></div>
+      <ul>
+        <li>뉴스레터 브랜디드 스토리 1회 (본문 내 자연스러운 원문 링크)</li>
+        <li>인스타그램 카드뉴스 10장 1회</li>
+        <li>soonsal.com 영구 아카이브 + AI 검색 노출</li>
+        <li>발행 성과 리포트 (오픈·도달·저장·공유)</li>
+      </ul>
+    </div>
+    <div class="pricing-card featured">
+      <div class="tier-name">시리즈 패키지</div>
+      <div class="tier-detail">Episode 1~4 — 월 1편 × 4개월</div>
+      <div class="tier-price">4,200만원 <span class="unit">/ VAT 별도</span></div>
+      <ul>
+        <li>스타트 패키지 구성 × 4편 (편당 1,050만원)</li>
+        <li>개별 집행 4,800만원 대비 <strong style="color:var(--accent)">12.5% 절감</strong></li>
+        <li><strong style="color:var(--accent)">CTA 버튼 + UTM 클릭 리포팅 포함</strong> — 시리즈 전용</li>
+        <li>B2B SaaS·CRM <strong style="color:var(--accent)">카테고리 독점 6개월</strong></li>
+        <li>편별 + 통합 성과 리포트 · 발행 캘린더 사전 확정</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>패키지 구성 (1편 기준 · 시리즈는 × 4)</h3>
+  <table class="product-table">
+    <thead>
+      <tr><th>항목</th><th>내용</th><th>도달</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>뉴스레터 브랜디드 스토리</strong></td>
+        <td>순살 톤 네이티브 콘텐츠 4~5문단 (시리즈: 하단 CTA 버튼 포함)</td>
+        <td>16K+ opens</td>
+      </tr>
+      <tr>
+        <td><strong>IG 카드뉴스</strong></td>
+        <td>10장 캐러셀 풀 제작 (기획→카피→디자인→발행)</td>
+        <td>30~220K reach</td>
+      </tr>
+      <tr>
+        <td><strong>웹 아카이브 + AI 검색</strong></td>
+        <td>soonsal.com 영구 게재 · llms.txt 수록 · 검색/AI 답변 노출</td>
+        <td>상시</td>
+      </tr>
+      <tr>
+        <td><strong>성과 리포트</strong></td>
+        <td>오픈·도달·저장·공유 전수 (시리즈: 클릭수·CTR 포함)</td>
+        <td>—</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p class="small">· 모든 단가는 VAT 별도 · 대행 수수료 별도 협의 · 패키지 단가는 통합 견적으로, 항목별 개별 판매 단가와 다릅니다.<br>
+  · 카테고리 독점: 시리즈 패키지 계약 시 동일 업종(B2B SaaS·CRM) 경쟁사 노출을 6개월간 제한합니다.<br>
+  · 순살은 구독자 경험 보호를 위해 카테고리당 소수의 파트너사와만 협업합니다.</p>
+
+  <div class="col-box" style="margin-top:24px; opacity:0.85;">
+    <h4 style="color:var(--text-dim);">그다음 단계 — 연간 파트너십</h4>
+    <p class="small" style="margin-bottom:0;">시리즈로 관계가 검증되면, <strong>상단 배너(주 1회·연 48회) + 브랜디드 스토리 월 1~2회 + 카드뉴스 + 딥다이브 단독 발송 + 카테고리 독점</strong>을 묶은 연간 파트너십(연 1.8억원~)으로 확장할 수 있습니다. 금융권 오디언스에게 "AI = Salesforce"를 상시 각인하는 구조입니다. 상세는 별도 소개서로 안내드립니다.</p>
+  </div>
+
+  <div class="page-num">05</div>
+</div>
+
+<!-- 06 성과 -->
+<div class="page">
+  <h2><span class="num">06</span>성과 측정 · 효율 비교</h2>
+
+  <h3>순살의 실측 성과 — 같은 체급과 비교해야 정확합니다</h3>
+  <table class="product-table">
+    <thead>
+      <tr><th>지표</th><th style="text-align:right;">순살브리핑</th><th style="text-align:right;">동일 체급 평균*</th><th>비고</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>오픈율</td><td style="text-align:right;" class="highlight"><strong>22%+</strong></td><td style="text-align:right;">5.5%</td><td><strong style="color:var(--accent)">4배</strong> · 발행 2주 누적 기준</td></tr>
+      <tr><td>뉴스레터 오픈 수</td><td style="text-align:right;" class="highlight"><strong>16K+</strong></td><td>—</td><td>76K 발송 기준</td></tr>
+      <tr><td>링크 클릭률</td><td style="text-align:right;" class="highlight"><strong>0.4~1.2%</strong></td><td style="text-align:right;">0.3%</td><td>회당 300~900클릭 실측</td></tr>
+      <tr><td>IG 도달</td><td style="text-align:right;" class="highlight"><strong>30~220K</strong></td><td>—</td><td>카드뉴스 회당</td></tr>
+    </tbody>
+  </table>
+  <p class="small">* 스티비 이메일 벤치마크 2025 (2025.4~9 발송 데이터) — 금융·부동산 카테고리, 구독자 5만 명 초과 구간 평균. 소형 리스트일수록 오픈율이 높게 나오므로(1천 명 이하 구간은 37.9%), 공정한 비교는 동일 규모 구간입니다.</p>
+
+  <h3 style="margin-top:28px;">측정 항목</h3>
+  <div class="two-col">
+    <div class="col-box">
+      <h4>뉴스레터</h4>
+      <ul>
+        <li>발송 수 · 오픈 수 · 오픈율</li>
+        <li>링크 클릭 수 (시리즈: CTA/UTM 실측 CTR)</li>
+      </ul>
+    </div>
+    <div class="col-box">
+      <h4>인스타그램</h4>
+      <ul>
+        <li>도달 · 노출 · 프로필 방문</li>
+        <li>저장 · 공유 · 참여율</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="callout" style="margin-top:28px;">
+    <h4>📊 참고 — 클릭을 '사는' 채널과 비교하면</h4>
+    <p style="margin-bottom:10px;">2026년 LinkedIn B2B 벤치마크 기준 <strong>금융 서비스 타깃 CPC는 $10~20</strong>, VP+ 타깃은 3~5배(C-Suite $25~40)입니다. 클릭 300건을 확보하는 데만 <strong>400~800만원</strong>이 들고, 캠페인이 끝나면 남는 자산이 없습니다.</p>
+    <p style="margin-bottom:0;">순살 패키지의 본질은 클릭이 아니라 <strong class="hl">브랜드 각인</strong>입니다 — 금융권 정독 오디언스 16K+, IG 도달 30~220K, 영구 아카이브·AI 검색 노출이 본체이고, 클릭 수백 건은 그 위에 얹히는 부산물입니다. 클릭 효율만 떼어 비교해도 뒤지지 않습니다.</p>
+  </div>
+
+  <p class="small">※ 순살은 클릭까지의 성과를 실측·보고합니다. 클릭 이후 리드 전환은 랜딩·폼 설계에 좌우되므로, 리드 확보가 KPI라면 01장에서 제안드린 랜딩 구조를 함께 검토하시길 권장합니다. 도달·인지가 KPI라면 현재 링크 구조로도 집행 가능합니다.</p>
+
+  <div class="page-num">06</div>
+</div>
+
+<!-- 07 레퍼런스 -->
+<div class="page">
+  <h2><span class="num">07</span>레퍼런스 · 협업 프로세스</h2>
+
+  <h3>파트너십 실적</h3>
+  <div class="logo-strip">
+    <div class="logo-chip"><strong>미래에셋자산운용</strong></div>
+    <div class="logo-chip"><strong>한국투자증권</strong></div>
+    <div class="logo-chip"><strong>NH투자증권</strong></div>
+    <div class="logo-chip"><strong>신한카드</strong></div>
+    <div class="logo-chip"><strong>BC카드</strong></div>
+    <div class="logo-chip"><strong>네이버</strong></div>
+    <div class="logo-chip"><strong>두나무</strong></div>
+  </div>
+  <p class="small">2021년부터 국내 대형 증권사·카드사 앱에 일간 콘텐츠를 공급해 온 B2B 콘텐츠 제작·운영 실적을 보유하고 있습니다.</p>
+
+  <h3 style="margin-top:28px;">협업 프로세스</h3>
+  <div class="flow-row">
+    <div class="flow-step"><div class="step-num">STEP 1</div>킥오프<br><span class="small">목표·KPI 협의</span></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step"><div class="step-num">STEP 2</div>앵글 확정<br><span class="small">스토리 방향 합의</span></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step"><div class="step-num">STEP 3</div>제작<br><span class="small">순살 톤 직접 작성</span></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step"><div class="step-num">STEP 4</div>검수<br><span class="small">사전 승인</span></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step"><div class="step-num">STEP 5</div>발행·리포팅</div>
+  </div>
+
+  <div class="two-col" style="margin-top:28px;">
+    <div class="col-box">
+      <h4>Salesforce 제공</h4>
+      <ul>
+        <li>브랜드 가이드라인 · 핵심 메시지</li>
+        <li>리포트 원문 · 랜딩 URL</li>
+        <li>발행 전 콘텐츠 검수</li>
+      </ul>
+    </div>
+    <div class="col-box">
+      <h4>순살 제공</h4>
+      <ul>
+        <li>스토리 기획 · 카피라이팅 · 디자인</li>
+        <li>발행 · 아카이브 · AI 검색 등록</li>
+        <li>성과 측정 · 리포팅</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3 style="margin-top:28px;">순살이 약속하는 것</h3>
+  <div class="col-box">
+    <ul>
+      <li><strong>광고가 아닌 콘텐츠</strong> — 구독자가 "이것도 순살이야?" 할 정도의 퀄리티</li>
+      <li><strong>에디토리얼 독립성</strong> — 사실과 다른 내용, 과장 표현은 거부합니다</li>
+      <li><strong>사전 검수</strong> — 양측 합의된 콘텐츠만 발행합니다</li>
+      <li><strong>투명한 성과 공유</strong> — 오픈·클릭·도달·저장·공유 전수 리포팅</li>
+      <li><strong>카테고리 보호</strong> — 경쟁사 동시 노출을 제한합니다</li>
+    </ul>
+  </div>
+
+  <div class="page-num">07</div>
+</div>
+
+<!-- 08 일정 -->
+<div class="page">
+  <h2><span class="num">08</span>일정 · 다음 단계</h2>
+
+  <h3>발행 일정</h3>
+  <p>소재·메시지 공유 후 <strong class="hl">약 2주 내 발행 가능</strong>합니다. 원하시는 발행일에 맞춰 편성해 드리며, 시리즈 패키지는 월별 발행일(4개월)을 사전에 캘린더로 확정합니다.</p>
+
+  <div class="flow-row">
+    <div class="flow-step"><div class="step-num">D-14</div>킥오프 · 소재 공유</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step"><div class="step-num">D-10</div>앵글·구성 확정</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step"><div class="step-num">D-5</div>초안 검수</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step"><div class="step-num">D-DAY</div>발행</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step"><div class="step-num">D+7</div>성과 리포트</div>
+  </div>
+
+  <div class="callout" style="margin-top:32px;">
+    <h4>먼저 확인해 주실 사항</h4>
+    <ul style="list-style:none; font-size:15px;">
+      <li style="padding:6px 0;">→ <strong>캠페인 KPI</strong> — 리드 확보인가요, 도달·인지인가요? (랜딩 구조 결정에 필요)</li>
+      <li style="padding:6px 0;">→ <strong>랜딩 URL</strong> — 현 PDF 직링크 유지 여부 / 폼 랜딩 신설 여부</li>
+      <li style="padding:6px 0;">→ <strong>희망 발행일</strong> — 리포트 프로모션 일정</li>
+      <li style="padding:6px 0;">→ <strong>집행 범위</strong> — 스타트 / 시리즈</li>
+    </ul>
+  </div>
+
+  <div class="quote-block">
+    Trusted AI Playbook은 <strong style="color:var(--accent); font-style:normal;">한국 금융 시장을 위해 따로 만든 자산</strong>입니다. 망분리도, 책무구조도도, 베인 코리아 대담도 한국에만 있습니다. 이 리포트는 한국 금융권이 실제로 읽는 채널에서 유통될 때 제값을 합니다.
+  </div>
+
+  <div style="margin-top:40px; border-top:1px solid var(--border); padding-top:24px;">
+    <p style="font-size:16px; margin-bottom:6px;"><strong>순살 (Soonsal)</strong></p>
+    <p class="small" style="margin-bottom:0;">team@soonsal.com · 010-9919-1712 · soonsal.com</p>
+  </div>
+
+  <div class="page-num">08</div>
+</div>
+
+</div><!-- /deck -->
+
+<script>
+// ============================================
+// 설정
+// ============================================
+const ACCESS_CODE = 'salesforceads2026';
+const GOOGLE_SHEET_URL = 'https://script.google.com/macros/s/AKfycbxUxmj9w4H1dR52nyBLhOA52mJPGOmzfCUJwHm6P_GB75sDPdu4fSyiH-AN8SxwLdA/exec';
+
+function checkAccess() {
+  const email = document.getElementById('gate-email').value.trim();
+  const password = document.getElementById('gate-password').value.trim();
+  const errorEl = document.getElementById('gate-error');
+
+  if (!email || !email.includes('@')) {
+    errorEl.textContent = '이메일을 입력해주세요.';
+    errorEl.style.display = 'block';
+    return;
+  }
+  if (password !== ACCESS_CODE) {
+    errorEl.textContent = '액세스 코드가 올바르지 않습니다.';
+    errorEl.style.display = 'block';
+    return;
+  }
+  logView(email);
+  document.getElementById('gate').classList.add('hidden');
+  document.getElementById('deck').classList.add('visible');
+  setTimeout(() => { document.getElementById('gate').style.display = 'none'; }, 500);
+}
+
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Enter' && document.getElementById('gate').style.display !== 'none') {
+    checkAccess();
+  }
+});
+
+function logView(email) {
+  const data = { email: email, timestamp: new Date().toISOString(), page: 'SALESFORCE' };
+  if (GOOGLE_SHEET_URL && GOOGLE_SHEET_URL !== '') {
+    fetch(GOOGLE_SHEET_URL, {
+      method: 'POST', mode: 'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    }).catch(() => {});
+  }
+}
+</script>
+</body>
+</html>
