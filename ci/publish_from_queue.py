@@ -76,7 +76,11 @@ def post_first_comment(stdout, d):
 
 def publish(mf, d, force_dry=False):
     dry = force_dry or d.get("dry_run", False)
-    if d.get("type") == "video_carousel":
+    if d.get("type") == "single_video":
+        # 단일 세로영상 — IG 릴스 / 유튜브 숏츠 (독립 스위치)
+        cmd = [PY, str(ROOT / "ci" / "publish_single_video.py"), "--manifest", str(mf)] \
+              + (["--dry-run"] if dry else [])
+    elif d.get("type") == "video_carousel":
         # 움직이는 캐러셀(영상 8슬라이드) — 전용 발행자 사용, 성공 라인 포맷은 deploy.py와 동일
         cmd = [PY, str(ROOT / "ci" / "publish_video_carousel.py"), "--manifest", str(mf)] \
               + (["--dry-run"] if dry else [])

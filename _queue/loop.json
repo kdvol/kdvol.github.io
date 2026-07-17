@@ -1,0 +1,14 @@
+{
+  "type": "single_video",
+  "video": "_publish/sv/loop/reel.mp4",
+  "caption_txt": "_publish/sv/loop/POST.txt",
+  "post_txt": "_publish/sv/loop/POST.txt",
+  "prefix": "sv/2026/0717_loop",
+  "instagram": true,
+  "youtube": true,
+  "youtube_title": "S&P 500은 하품이 나와서요 — 레버리지 무한루프",
+  "name": "loop",
+  "date": "20260717",
+  "target_epoch": 1784282400,
+  "dry_run": false
+}
