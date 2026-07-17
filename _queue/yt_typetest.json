@@ -1,0 +1,14 @@
+{
+  "type": "single_video",
+  "video": "_publish/sv/yt_typetest/reel.mp4",
+  "caption_txt": "_publish/sv/yt_typetest/POST.txt",
+  "post_txt": "_publish/sv/yt_typetest/POST.txt",
+  "prefix": "sv/2026/0718_yt_typetest",
+  "instagram": false,
+  "youtube": true,
+  "youtube_title": "하락장에 물렸을 때 유형 테스트 — 당신은 몇 번?",
+  "name": "yt_typetest",
+  "date": "20260718",
+  "target_epoch": 1784368800,
+  "dry_run": false
+}
