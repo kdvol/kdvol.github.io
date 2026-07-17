@@ -1,0 +1,14 @@
+{
+  "type": "single_video",
+  "video": "_publish/sv/yt_korea/reel.mp4",
+  "caption_txt": "_publish/sv/yt_korea/POST.txt",
+  "post_txt": "_publish/sv/yt_korea/POST.txt",
+  "prefix": "sv/2026/0720_yt_korea",
+  "instagram": false,
+  "youtube": true,
+  "youtube_title": "지금 대한민국 근황 — 코스피 6,800",
+  "name": "yt_korea",
+  "date": "20260720",
+  "target_epoch": 1784541600,
+  "dry_run": false
+}
