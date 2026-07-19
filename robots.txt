@@ -1,5 +1,7 @@
 User-agent: *
 Allow: /
 Disallow: /_queue/
+Disallow: /_publish/
+Disallow: /node_modules/
 
 Sitemap: https://soonsal.com/sitemap.xml
