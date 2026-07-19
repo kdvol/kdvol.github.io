@@ -92,8 +92,11 @@ def build_rss(limit=20):
 
 
 def build_robots():
+    # _publish=발행 작업사본(카드뉴스 중복), s=공유 OG 썸(noindex이지만 크롤 낭비 차단)
     (ROOT / "robots.txt").write_text(
-        f"User-agent: *\nAllow: /\nDisallow: /_queue/\n\nSitemap: {BASE}/sitemap.xml\n",
+        f"User-agent: *\nAllow: /\n"
+        f"Disallow: /_queue/\nDisallow: /_publish/\nDisallow: /node_modules/\n"
+        f"\nSitemap: {BASE}/sitemap.xml\n",
         encoding="utf-8")
 
 

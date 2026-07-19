@@ -20,8 +20,10 @@ SECTIONS = [
     ("newsletters/2026", "ko", "NewsArticle"),
     ("english/2026", "en", "NewsArticle"),
     ("financial-english", "en", "Article"),
+    ("financial-english/2026", "en", "Article"),
     ("cardnews/2026", "ko", "Article"),
     ("special", "ko", "Article"),
+    ("zzal/2026", "ko", "Article"),
 ]
 
 DATED = re.compile(r"^(\d{2})(\d{2})")

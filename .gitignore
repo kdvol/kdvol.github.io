@@ -3,3 +3,4 @@ __pycache__/
 *.pyc
 content/story_atoms.json
 .DS_Store
+node_modules/
