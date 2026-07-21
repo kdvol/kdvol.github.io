@@ -2,7 +2,7 @@
   "html": "_publish/순살카드뉴스_20260721.html",
   "date": "20260721",
   "name": "chinaai",
-  "post_txt": "",
-  "target_epoch": 1784616840,
+  "post_txt": "_publish/chinaai.POST.txt",
+  "target_epoch": 1784616960,
   "dry_run": false
 }
