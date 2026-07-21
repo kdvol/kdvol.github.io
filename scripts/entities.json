@@ -940,14 +940,14 @@
       "example": "📈 거래소 거래량, 5개월 만에 반등 — RWA 선물 $311B 신기록",
       "ko": false
     },
+    "FIFA": {
+      "count": 10,
+      "example": "⚽ 월드컵이 끝나고 남은 건, FIFA의 통장 잔고",
+      "ko": false
+    },
     "BofA": {
       "count": 10,
       "example": "🏦 골드만 역대 최고 분기, 은행들 싹 다 기대 초과",
-      "ko": false
-    },
-    "FIFA": {
-      "count": 9,
-      "example": "⚽ 월드컵이 만든 $500억 — 월드컵이 키운 예측시장 — 6월 거래량 급증",
       "ko": false
     },
     "DEX": {
@@ -988,6 +988,11 @@
     "IEA": {
       "count": 9,
       "example": "🥤 호르무즈에 무너진 의외의 시장, 인도 다이어트 콜라",
+      "ko": false
+    },
+    "Fable": {
+      "count": 8,
+      "example": "🇨🇳 중국 AI, 일주일에 모델 둘·펀딩 74억불",
       "ko": false
     },
     "GBTC": {
