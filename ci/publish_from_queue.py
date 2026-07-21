@@ -100,10 +100,27 @@ def publish(mf, d, force_dry=False):
         log("✅ dry-run 성공(IG 미게시). 큐 유지.")
         return True
 
+    # ── single_video 발행자는 IG/YT 실패 시 자체적으로 exit(1)을 낸다(deploy.py와 다름).
+    #    따라서 returncode(위에서 0 확인됨)로 성공 판정한다. IG 미디어ID(숫자) 정규식으로
+    #    판정하면 YT 전용(영숫자 ID) 발행이 매번 done 이동 실패 → 크론마다 중복 발행되는 버그가
+    #    있었음(2026-07-20 yt_korea 2회 중복). 첫 댓글은 IG 미디어ID가 있을 때만.
+    if d.get("type") == "single_video":
+        m = IG_MEDIA_ID_RE.search(r.stdout)
+        if m:
+            log(f"📸 IG 릴스 게시 확인 — media ID {m.group(1)}")
+            post_first_comment(r.stdout, d)
+        else:
+            log("📺 게시 확인 (YT 전용 등, IG 미디어ID 없음) — exit 0 이므로 정상 완료 처리")
+        DONE.mkdir(parents=True, exist_ok=True)
+        shutil.move(str(mf), str(DONE / mf.name))
+        log(f"✅ 발행 성공 · 큐 → done/{mf.name}")
+        return True
+
     # ── 실발행: deploy.py 종료코드 0이어도 IG 캐러셀이 실제로 올라갔는지 검증한다.
     #    deploy.py는 IG 단계가 실패해도(PNG 미생성·토큰 오류 등) 종료코드 0으로 끝나므로,
     #    stdout의 "게시 완료 — ID:<미디어ID>" 유무로 실제 게시를 확인한다. 미디어 ID가 없으면
     #    웹은 발행됐어도 IG 미게시로 보고 done 이동을 보류 → 다음 스케줄에 재시도(멱등).
+    #    (video_carousel은 항상 IG 캐러셀을 게시하므로 숫자 미디어ID가 나옴 → 이 경로로 정상.)
     m = IG_MEDIA_ID_RE.search(r.stdout)
     if not m:
         log("❌ IG 미디어 ID 없음 — 웹은 발행됐어도 IG 캐러셀 미게시로 판단. "
