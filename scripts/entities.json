@@ -950,6 +950,11 @@
       "example": "🏦 골드만 역대 최고 분기, 은행들 싹 다 기대 초과",
       "ko": false
     },
+    "David": {
+      "count": 9,
+      "example": "🛡️ 미국, 중국 AI 모델 막겠다는 움직임",
+      "ko": false
+    },
     "DEX": {
       "count": 9,
       "example": "📈 거래소 거래량, 5개월 만에 반등 — RWA 선물 $311B 신기록",
@@ -998,11 +1003,6 @@
     "GBTC": {
       "count": 8,
       "example": "📊 Markets — CPI 빠졌는데 ETF는 도망치는 중",
-      "ko": false
-    },
-    "David": {
-      "count": 8,
-      "example": "🎰 골드만, 예측시장 거래하는 직원 짤라버림",
       "ko": false
     },
     "TRUMP": {
