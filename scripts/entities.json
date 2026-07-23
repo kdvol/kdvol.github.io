@@ -940,6 +940,11 @@
       "example": "📈 거래소 거래량, 5개월 만에 반등 — RWA 선물 $311B 신기록",
       "ko": false
     },
+    "GLP-1": {
+      "count": 10,
+      "example": "💊 올해 IPO 수익률 1등, 바이오",
+      "ko": false
+    },
     "FIFA": {
       "count": 10,
       "example": "⚽ 월드컵이 끝나고 남은 건, FIFA의 통장 잔고",
@@ -978,11 +983,6 @@
     "STRC": {
       "count": 9,
       "example": "💧 스테이블코인 $77억 증발, 테라 이후 최대",
-      "ko": false
-    },
-    "GLP-1": {
-      "count": 9,
-      "example": "🥃 오크통이 부동산인 줄 알았던 은행들",
       "ko": false
     },
     "Block": {
