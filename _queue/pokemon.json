@@ -3,6 +3,6 @@
   "date": "20260729",
   "name": "pokemon",
   "post_txt": "_publish/pokemon.POST.txt",
-  "target_epoch": 1785308400,
+  "target_epoch": 1785369600,
   "dry_run": false
 }
