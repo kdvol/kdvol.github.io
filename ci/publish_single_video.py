@@ -186,17 +186,37 @@ def main():
         log("✅ dry-run 완료 (게시 없음)")
         return
 
-    ig_id = None
-    if want_ig:
+    # ── 플랫폼별 멱등 마커 (2026-08-03 추가)
+    # 유튜브는 같은 영상을 몇 번 올리든 매번 새 영상이 생긴다(서버측 중복 제거 없음).
+    # 재시도가 한 번이라도 돌면 그대로 중복 발행이므로, 성공한 플랫폼의 ID를 매니페스트에
+    # 즉시 기록하고 다음 회차부터 그 플랫폼을 건너뛴다.
+    # (2026-07-18~21 yt_typetest·yt_toon01·yt_korea 중복 발행 사고의 근본 수정)
+    def _save():
+        Path(a.manifest).write_text(json.dumps(d, ensure_ascii=False, indent=1), encoding="utf-8")
+
+    ig_id = d.get("ig_media_id")
+    if want_ig and ig_id:
+        log(f"⏭ IG 이미 게시됨(media {ig_id}) — 재게시 안 함")
+    elif want_ig:
         url = upload_r2(video, d["prefix"])
         ig_id = post_ig_reel(url, caption)
         if not ig_id:
             sys.exit(1)          # 큐 유지 → 재시도
+        d["ig_media_id"] = ig_id
+        _save()
+    if ig_id:
         print(f"게시 완료 — ID:{ig_id}")
 
     if want_yt:
-        yt_id = upload_youtube(str(video), d.get("youtube_title") or caption.split("\n")[0],
-                               caption)
+        yt_id = d.get("youtube_video_id")
+        if yt_id:
+            log(f"⏭ 유튜브 이미 업로드됨({yt_id}) — 재업로드 안 함")
+        else:
+            yt_id = upload_youtube(str(video), d.get("youtube_title") or caption.split("\n")[0],
+                                   caption)
+            if yt_id:
+                d["youtube_video_id"] = yt_id
+                _save()
         # 유튜브 전용 발행이면 유튜브 성공을 성공 라인으로 (큐 done 이동 조건 충족용)
         if not want_ig:
             if not yt_id:

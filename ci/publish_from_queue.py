@@ -18,6 +18,8 @@ from pathlib import Path
 ROOT = Path(os.environ.get("KDVOL_ROOT", ".")).resolve()   # 러너에선 repo 체크아웃 루트
 QUEUE = ROOT / "_queue"
 DONE = QUEUE / "done"
+MAX_LATE_H = 12      # 발행 시각을 이만큼 넘겨 밀린 항목은 자동 발행 안 함 (무한 재발행 방지)
+MAX_ATTEMPTS = 4     # 같은 항목 연속 실패 상한
 DEPLOY = ROOT / "deploy.py"
 PY = sys.executable
 
@@ -38,6 +40,17 @@ def due_items(only=None):
             continue
         if not only and now < d.get("target_epoch", 0):
             continue  # 아직 발행 시각 전
+        # ── 지각 상한 (2026-08-03 추가): 발행 시각을 MAX_LATE_H 넘겨 밀린 항목은 자동 발행하지 않는다.
+        #    예전엔 상한이 없어, done 이동에 실패한 항목이 크론마다(15분) 무한 재발행됐다.
+        #    시의성도 이미 죽은 항목이므로 사람이 보고 결정하게 남긴다(stuck-queue 알림이 잡음).
+        late_h = (now - d.get("target_epoch", 0)) / 3600
+        if not only and late_h > MAX_LATE_H:
+            log(f"⏸ {mf.stem}: 발행 시각 {late_h:.1f}h 경과 — 자동 발행 보류(재개는 --only {mf.stem})")
+            continue
+        # ── 재시도 상한: 같은 항목이 계속 실패하면 멈춘다(무한 루프 2차 방어).
+        if not only and int(d.get("attempts", 0)) >= MAX_ATTEMPTS:
+            log(f"⏸ {mf.stem}: 재시도 {d.get('attempts')}회 초과 — 보류(원인 확인 후 attempts 리셋)")
+            continue
         items.append((mf, d))
     return items
 
@@ -93,7 +106,14 @@ def publish(mf, d, force_dry=False):
     r = subprocess.run(cmd, cwd=str(ROOT), capture_output=True, text=True, env=os.environ)
     sys.stdout.write(r.stdout[-4000:]); sys.stderr.write(r.stderr[-2000:])
     if r.returncode != 0:
-        log(f"⚠️ 발행 실패(rc={r.returncode}) · 큐 유지 → 다음 스케줄에 재시도")
+        # 실패 횟수를 매니페스트에 누적 → MAX_ATTEMPTS 초과 시 due_items가 걸러낸다
+        try:
+            d["attempts"] = int(d.get("attempts", 0)) + 1
+            mf.write_text(json.dumps(d, ensure_ascii=False, indent=1), encoding="utf-8")
+        except Exception as e:
+            log(f"attempts 기록 실패: {e}")
+        log(f"⚠️ 발행 실패(rc={r.returncode}) · 시도 {d.get('attempts')}회 "
+            f"· 큐 유지 → 다음 스케줄에 재시도")
         return False
 
     if dry:
