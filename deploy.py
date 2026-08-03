@@ -293,9 +293,13 @@ def get_hero_info(content):
 
 
 def get_first_today_date(content):
-    """Get date of the first (non-padded) today section."""
+    """Get date of the first today section (style 유무 무관).
+
+    ⚠️ 과거엔 style 없는 형태만 매칭해서, 첫 섹션이 padding-top:0으로 강등된
+    상태로 남으면(한 번의 삽입 실패 잔재) 이후 모든 발행에서 새 날짜 섹션
+    생성이 영구 스킵되는 연쇄 고장이 있었음(0720~0803 grid 동결 원인)."""
     m = re.search(
-        r'<div class="today">\n  <div class="today-title">'
+        r'<div class="today"[^>]*>\s*<div class="today-title">'
         r"(\d{4}\.\d{2}\.\d{2}) 전체 콘텐츠</div>",
         content,
     )
@@ -376,22 +380,24 @@ def update_main_index(items, date_fmt, has_briefing, yyyy, mmdd):
                 f"</div>"
             )
 
-        # Demote current first today → padding-top:0
+        # Demote current first today → padding-top:0, then insert new before it.
+        # 첫 섹션이 이미 강등된 상태여도(과거 실패 잔재) 반드시 삽입되도록
+        # 문자열 일치가 아닌 위치 기반으로 처리.
         current_date = get_first_today_date(c)
-        if current_date:
-            old_hdr = (
-                f'<div class="today">\n'
-                f'  <div class="today-title">{current_date} 전체 콘텐츠</div>'
-            )
-            new_hdr = (
-                f'<div class="today" style="padding-top:0;">\n'
-                f'  <div class="today-title">{current_date} 전체 콘텐츠</div>'
-            )
-            c = c.replace(old_hdr, new_hdr)
-
-            # Insert new today before demoted section
-            if new_today:
-                c = c.replace(new_hdr, f"{new_today}\n\n{new_hdr}")
+        if current_date and new_today:
+            title_marker = f'<div class="today-title">{current_date} 전체 콘텐츠</div>'
+            tpos = c.find(title_marker)
+            dpos = c.rfind('<div class="today"', 0, tpos) if tpos >= 0 else -1
+            if dpos >= 0:
+                head = c[dpos:tpos]
+                if 'padding-top:0' not in head:
+                    c = (c[:dpos]
+                         + head.replace('<div class="today">',
+                                        '<div class="today" style="padding-top:0;">', 1)
+                         + c[tpos:])
+                    tpos = c.find(title_marker)
+                    dpos = c.rfind('<div class="today"', 0, tpos)
+                c = c[:dpos] + f"{new_today}\n\n" + c[dpos:]
     else:
         # Date exists → clean existing links of same type, then insert fresh
         for item in sorted(items, key=lambda x: ORDER[x["type"]]):
