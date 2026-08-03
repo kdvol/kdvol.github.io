@@ -77,6 +77,9 @@ jobs:
           python ci/publish_from_queue.py $ARGS
 
       - name: Commit publish results
+        # 부분 성공(예: IG 성공 + YT 실패)에서도 플랫폼 멱등 마커·attempts가 반드시 커밋돼야 한다.
+        # if 없이 두면 큐 스텝 실패 시 이 스텝이 건너뛰어져 마커가 유실 → 재시도가 중복 발행이 된다.
+        if: always()
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}   # auto_evolve/entity_discovery LLM 승격에 필요
         run: |
