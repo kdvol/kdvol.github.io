@@ -955,6 +955,11 @@
       "example": "🏦 골드만 역대 최고 분기, 은행들 싹 다 기대 초과",
       "ko": false
     },
+    "Trust": {
+      "count": 9,
+      "example": "🏦 AI 쓰라면서요, 사고 나면 책임은 제가 지고요",
+      "ko": false
+    },
     "David": {
       "count": 9,
       "example": "🛡️ 미국, 중국 AI 모델 막겠다는 움직임",
@@ -998,11 +1003,6 @@
     "ADR": {
       "count": 8,
       "example": "🎢 하루 만에 +18%, 근데 개미는 던지고 나갔음",
-      "ko": false
-    },
-    "Trust": {
-      "count": 8,
-      "example": "⛵ 영원히 못 파는 회사를 만들어버린 83세",
       "ko": false
     },
     "Fable": {
