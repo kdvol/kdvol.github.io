@@ -46,9 +46,12 @@
     'background:#faf8f3}' +
     '.ss-talk-h{font-size:12px;font-weight:700;color:#F07040;letter-spacing:.04em;margin-bottom:8px}' +
     '.ss-talk-q{font-size:15px;line-height:1.6;color:#2a2a2a;margin-bottom:14px;font-weight:600}' +
+    '.ss-talk-btns{display:flex;gap:8px;flex-wrap:wrap}' +
     '.ss-talk-b{display:inline-flex;align-items:center;gap:7px;background:#229ED9;color:#fff;' +
-    'text-decoration:none;padding:11px 20px;border-radius:9px;font-size:14px;font-weight:700}' +
-    '.ss-talk-b:hover{background:#1b8ec2}';
+    'text-decoration:none;padding:11px 20px;border-radius:9px;font-size:14px;font-weight:700;' +
+    'transition:filter .15s}' +
+    '.ss-talk-b:hover{filter:brightness(.92)}' +
+    '.ss-talk-b.ig{background:#E1306C}';
 
   function esc(s) {
     return (s || '').replace(/[&<>]/g, function (c) {
@@ -184,9 +187,13 @@
     box.innerHTML =
       '<div class="ss-talk-h">💬 오늘의 논점</div>' +
       '<div class="ss-talk-q">오늘 브리핑, 어떻게 보셨나요?<br>' +
-      '텔레그램에서 다른 독자들 의견을 보고 한마디 남겨보세요.</div>' +
+      '텔레그램에서 의견을 나누고, 인스타에서 카드뉴스로 다시 보세요.</div>' +
+      '<div class="ss-talk-btns">' +
       '<a class="ss-talk-b" href="https://t.me/soonsal" target="_blank" rel="noopener">' +
-      '텔레그램에서 이야기하기 →</a>';
+      '✈️ 텔레그램에서 이야기하기</a>' +
+      '<a class="ss-talk-b ig" href="https://instagram.com/soonsal.brief" target="_blank" rel="noopener">' +
+      '📸 인스타그램</a>' +
+      '</div>';
     (last.parentNode || document.body).insertBefore(box, last.nextSibling);
   }
 
