@@ -22,7 +22,7 @@ SECTIONS = [  # (glob, 우선순위)
     ("topics/*.html", "0.7"),
     ("wiki/*.html", "0.7"),
 ]
-INDEXES = ["", "newsletters/", "cardnews/", "english/", "financial-english/", "youtube/", "topics/", "search/"]
+INDEXES = ["", "newsletters/", "cardnews/", "english/", "financial-english/", "youtube/", "topics/", "search/", "advertise/"]
 
 DATED = re.compile(r"(\d{2})(\d{2})(?:-[a-z0-9-]+)?\.html$")
 
@@ -136,6 +136,11 @@ def main():
         build_search.build(atoms)           # 클라이언트 사이드 검색 색인+페이지
     except Exception as e:
         print(f"⚠️ build_search 실패(계속 진행): {e}")
+    try:
+        import build_advertise
+        build_advertise.build()             # 광고·파트너십 문의 페이지
+    except Exception as e:
+        print(f"⚠️ build_advertise 실패(계속 진행): {e}")
     try:
         import build_sharepages
         build_sharepages.build(atoms)       # 스토리별 OG 공유 페이지(/s/)
