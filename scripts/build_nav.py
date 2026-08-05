@@ -28,7 +28,8 @@ CSS_FIXES = [
 
 PAGES = {"index.html": "/", "newsletters/index.html": "/newsletters/",
          "cardnews/index.html": "/cardnews/", "english/index.html": "/english/",
-         "school/index.html": "/school/", "youtube/index.html": "/youtube/"}
+         "school/index.html": "/school/", "youtube/index.html": "/youtube/",
+         "advertise/index.html": None}
 
 NAV_RE = re.compile(r'<div class="nav">.*?</div>', re.S)
 

@@ -20,7 +20,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 BASE = "https://soonsal.com"
 OUT = ROOT / "s"
-OG_IMG = f"{BASE}/og-cover.png"   # 로고+살코기 문구 버전(신규 파일명 = 스크레이퍼 캐시 우회)
+OG_IMG = f"{BASE}/og-cover-v2.png"   # 로고+살코기 문구 버전(신규 파일명 = 스크레이퍼 캐시 우회)
 ATOMS = ROOT / "content" / "story_atoms.json"
 
 
