@@ -94,9 +94,14 @@
 
   // 스토리 → 스토리별 OG 페이지(/s/{id}.html) URL. 공유 미리보기가 스토리 기준으로 뜸.
   function shimUrl(story) {
+    // id 파싱 금지(광고 스토리 등 커스텀 id가 잘못된 URL을 만들었음) → 위치 기반.
+    // atomize의 넘버링과 동일: 전체 .story div 중 몇 번째인가.
     var m = location.pathname.match(/\/newsletters\/2026\/(\d{4})(-crypto)?\.html/);
-    if (!m || !story.id) return location.origin + location.pathname + (story.id ? '#' + story.id : '');
-    var id = m[1] + (m[2] ? 'c' : '') + '-' + story.id.replace('story-', '');
+    var all = document.querySelectorAll('.story');
+    var idx = 0;
+    for (var i = 0; i < all.length; i++) { if (all[i] === story) { idx = i + 1; break; } }
+    if (!m || !idx) return location.origin + location.pathname + (story.id ? '#' + story.id : '');
+    var id = m[1] + (m[2] ? 'c' : '') + '-' + idx;
     return location.origin + '/s/' + id + '.html';
   }
 
