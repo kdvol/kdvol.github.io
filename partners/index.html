@@ -747,7 +747,11 @@ p { margin-bottom:16px; font-size:15px; }
 // ============================================
 // 설정: 아래 값들을 변경하세요
 // ============================================
-const ACCESS_CODE = 'soonsal2026';  // 액세스 코드 (변경 가능)
+// 액세스 코드 → 유입 경로 라벨 (코드별로 어디서 들어왔는지 추적)
+const ACCESS_CODES = {
+  'soonsal2026':  'direct',    // 순살이 직접 발송
+  'soonsalbiz26': 'partner',   // 영업 파트너 경유
+};
 const GOOGLE_SHEET_URL = 'https://script.google.com/macros/s/AKfycbzMKC_Zhe9AoimhBDJNpmp2_BeUHp7CeXS2CuLqaVq4_ZmFBjexEfbLHRPogYDhQmRu/exec';        // Google Apps Script 웹앱 URL (아래 가이드 참조)
 
 function checkAccess() {
@@ -761,14 +765,15 @@ function checkAccess() {
     return;
   }
 
-  if (password !== ACCESS_CODE) {
+  const source = ACCESS_CODES[password];
+  if (!source) {
     errorEl.textContent = '액세스 코드가 올바르지 않습니다.';
     errorEl.style.display = 'block';
     return;
   }
 
   // Log the view
-  logView(email);
+  logView(email, source);
 
   // Reveal content
   document.getElementById('gate').classList.add('hidden');
@@ -785,11 +790,15 @@ document.addEventListener('keydown', function(e) {
   }
 });
 
-function logView(email) {
+function logView(email, source) {
+  // ?ref=<파트너식별자> 로 파트너별 유입 구분 (예: /partners/?ref=kim)
+  const ref = new URLSearchParams(location.search).get('ref') || '';
   const data = {
     email: email,
     timestamp: new Date().toISOString(),
-    page: 'partnership'
+    page: 'partnership',
+    source: source || '',
+    ref: ref
   };
 
   if (GOOGLE_SHEET_URL && GOOGLE_SHEET_URL !== '') {
