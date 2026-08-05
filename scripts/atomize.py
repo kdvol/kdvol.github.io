@@ -107,7 +107,7 @@ def english_html(english):
     return "".join(out)
 
 
-STORY_RE = re.compile(r'<div class="story"(?:\s[^>]*)?>(.*?)(?=<div class="story"[\s>]|<div class="word|'
+STORY_RE = re.compile(r'<div class="story"((?:\s[^>]*)?)>(.*?)(?=<div class="story"[\s>]|<div class="word|'
                       r'<div class="section-title"|<!-- ?WORD|<div class="headline|</body>)', re.S)
 LABEL_RE = re.compile(r'<(\w+) class="story-label"[^>]*>(.*?)</\1>', re.S)
 TITLE_RE = re.compile(r'<(\w+) class="story-title"[^>]*>(.*?)</\1>', re.S)
@@ -134,7 +134,7 @@ def parse_newsletter(path):
 
     stories = []
     for i, sm in enumerate(STORY_RE.finditer(html), 1):
-        seg = sm.group(1)
+        attrs, seg = sm.group(1), sm.group(2)
         lm = LABEL_RE.search(seg)
         tm = TITLE_RE.search(seg)
         if not tm:
@@ -143,6 +143,9 @@ def parse_newsletter(path):
         title = strip_tags(tm.group(2))
         label = strip_tags(lm.group(2)) if lm else ""
         body = strip_tags(bm.group(1)) if bm else ""
+        # 커스텀 앵커(광고 스토리 등 id="story-sponsored") 기록 — 공유 별칭·딥링크용
+        idm = re.search(r'id="([^"]+)"', attrs or "")
+        alt = idm.group(1) if idm and idm.group(1) != f"story-{i}" else None
         stories.append({
             "id": f"{base_id}-{i}",
             "n": i,
@@ -156,6 +159,7 @@ def parse_newsletter(path):
             "topics": [],
             "entities": [],
             "english": [],
+            **({"alt": alt} if alt else {}),
         })
 
     words = []
@@ -257,20 +261,34 @@ def link_english(stories, words, ent):
 
 # ── 앵커 주입 (멱등) ──────────────────────────────────────────────
 def inject_anchors(path):
-    """모든 <div class="story" ...> 에 위치기반 id="story-N" 주입(멱등).
-    이미 id가 있으면 보존, style 등 다른 속성이 있어도 처리."""
+    """모든 <div class="story" ...> 에 위치기반 id="story-N" 보장(멱등).
+    - id 없음 → id="story-N" 부여
+    - 커스텀 id(광고 등 id="story-sponsored") → 보존하되, 표준 앵커
+      <span id="story-N"></span> 를 div 직전에 삽입 → #story-N 딥링크가 항상 작동."""
     html = path.read_text(encoding="utf-8", errors="replace")
-    counter = {"n": 0}
-
-    def repl(m):
-        counter["n"] += 1
-        attrs = m.group(1)                              # '' 또는 ' style="..."' 등
-        if "id=" in attrs:
-            return m.group(0)                           # 기존 id(위치기반) 보존
-        return f'<div class="story"{attrs} id="story-{counter["n"]}">'
-
-    new = re.sub(r'<div class="story"([^>]*)>', repl, html)
-    if new == html:
+    out, last, n = [], 0, 0
+    changed = False
+    for m in re.finditer(r'<div class="story"([^>]*)>', html):
+        n += 1
+        attrs = m.group(1)
+        std = f"story-{n}"
+        out.append(html[last:m.start()])
+        idm = re.search(r'id="([^"]+)"', attrs)
+        if not idm:
+            out.append(f'<div class="story"{attrs} id="{std}">')
+            changed = True
+        elif idm.group(1) != std and f'id="{std}"' not in html:
+            span = f'<span id="{std}"></span>'
+            if html[max(0, m.start() - len(span)):m.start()] != span:
+                out.append(span)
+                changed = True
+            out.append(m.group(0))
+        else:
+            out.append(m.group(0))
+        last = m.end()
+    out.append(html[last:])
+    new = "".join(out)
+    if not changed or new == html:
         return False
     path.write_text(new, encoding="utf-8")
     return True

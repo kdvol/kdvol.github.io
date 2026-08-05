@@ -74,7 +74,17 @@ def build(atoms=None):
         )
         (OUT / f"{a['id']}.html").write_text(page, encoding="utf-8")
         n += 1
-    print(f"🖼️  sharepages: 스토리별 OG 페이지 {n}개 (/s/)")
+        # 커스텀 앵커 별칭: 옛 JS가 id 기반으로 만들던 URL(/s/0805-sponsored.html 등)도
+        # 살려둔다 — 이미 공유돼 돌아다니는 링크가 404 나지 않도록.
+        alt = a.get("alt")
+        if alt:
+            base = a["id"].rsplit("-", 1)[0]
+            suffix = alt[6:] if alt.startswith("story-") else alt
+            alias = f"{base}-{suffix}"
+            if alias != a["id"]:
+                (OUT / f"{alias}.html").write_text(page, encoding="utf-8")
+                n += 1
+    print(f"🖼️  sharepages: 스토리별 OG 페이지 {n}개 (/s/, 별칭 포함)")
     return n
 
 
