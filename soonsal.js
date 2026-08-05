@@ -32,7 +32,23 @@
     '.ss-row{display:flex;gap:8px;margin-top:12px}.ss-row button{flex:1;padding:12px;border-radius:10px;' +
     'border:none;font-size:.95rem;font-weight:700;cursor:pointer;font-family:inherit}' +
     '.ss-cancel{background:#eceef1;color:#555}.ss-go{background:#F07040;color:#fff}' +
-    '@media(min-width:640px){.ss-modal-bg{align-items:center}.ss-modal{border-radius:16px}}';
+    '@media(min-width:640px){.ss-modal-bg{align-items:center}.ss-modal{border-radius:16px}}' +
+    /* 스토리별 반응 버튼 */
+    '.ss-react{display:flex;gap:8px;margin:14px 0 4px;flex-wrap:wrap}' +
+    '.ss-rb{background:transparent;border:1px solid #d8d4c8;color:#8a8578;border-radius:16px;' +
+    'padding:5px 13px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;' +
+    'transition:all .15s;line-height:1.5}' +
+    '.ss-rb:hover{border-color:#F07040;color:#F07040}' +
+    '.ss-rb.on{border-color:#F07040;background:#F0704014;color:#F07040}' +
+    '.ss-rb b{font-weight:700;margin-left:4px}' +
+    /* 오늘의 논점 블록 */
+    '.ss-talk{margin:26px 0 8px;padding:18px 20px;border:1px solid #e5e1d6;border-radius:12px;' +
+    'background:#faf8f3}' +
+    '.ss-talk-h{font-size:12px;font-weight:700;color:#F07040;letter-spacing:.04em;margin-bottom:8px}' +
+    '.ss-talk-q{font-size:15px;line-height:1.6;color:#2a2a2a;margin-bottom:14px;font-weight:600}' +
+    '.ss-talk-b{display:inline-flex;align-items:center;gap:7px;background:#229ED9;color:#fff;' +
+    'text-decoration:none;padding:11px 20px;border-radius:9px;font-size:14px;font-weight:700}' +
+    '.ss-talk-b:hover{background:#1b8ec2}';
 
   function esc(s) {
     return (s || '').replace(/[&<>]/g, function (c) {
@@ -68,6 +84,110 @@
       var target = document.getElementById(location.hash.slice(1));
       if (target) setTimeout(function () { target.scrollIntoView(true); }, 80);
     }
+
+    mountReactions();   // 스토리별 무로그인 반응
+    mountTalk();        // 오늘의 논점 → 텔레그램
+  }
+
+  // ── 스토리별 반응 (무로그인) ─────────────────────────────
+  // 저장소: Supabase 설정(SS_CFG.supabase)이 있으면 공유 집계, 없으면 로컬 기록.
+  // 어느 쪽이든 UI·동작은 동일 — 나중에 키만 넣으면 자동 승격.
+  var REACTS = [['👍', '좋아요'], ['🤔', '글쎄요'], ['🔥', '중요']];
+
+  function storyKey(story) {
+    var m = location.pathname.match(/\/newsletters\/2026\/(\d{4})(-crypto)?\.html/);
+    var all = document.querySelectorAll('.story'), idx = 0;
+    for (var i = 0; i < all.length; i++) { if (all[i] === story) { idx = i + 1; break; } }
+    if (!m || !idx) return null;
+    return m[1] + (m[2] ? 'c' : '') + '-' + idx;
+  }
+
+  function localVotes() {
+    try { return JSON.parse(localStorage.getItem('ss_react') || '{}'); } catch (e) { return {}; }
+  }
+
+  function mountReactions() {
+    var stories = document.querySelectorAll('.story');
+    if (!stories.length) return;
+    var mine = localVotes();
+    for (var i = 0; i < stories.length; i++) {
+      (function (s) {
+        var key = storyKey(s);
+        var body = s.querySelector('.story-body') || s;
+        if (!key || s.querySelector('.ss-react')) return;
+        var wrap = document.createElement('div');
+        wrap.className = 'ss-react';
+        REACTS.forEach(function (r) {
+          var b = document.createElement('button');
+          b.type = 'button';
+          b.className = 'ss-rb' + (mine[key] === r[0] ? ' on' : '');
+          b.innerHTML = r[0] + ' ' + r[1] + '<b class="n"></b>';
+          b.addEventListener('click', function () { vote(key, r[0], wrap); });
+          wrap.appendChild(b);
+        });
+        body.appendChild(wrap);
+        refresh(key, wrap);
+      })(stories[i]);
+    }
+  }
+
+  function vote(key, emoji, wrap) {
+    var mine = localVotes();
+    if (mine[key] === emoji) { delete mine[key]; } else { mine[key] = emoji; }
+    try { localStorage.setItem('ss_react', JSON.stringify(mine)); } catch (e) {}
+    var btns = wrap.querySelectorAll('.ss-rb');
+    for (var i = 0; i < btns.length; i++) {
+      btns[i].className = 'ss-rb' + (REACTS[i][0] === mine[key] ? ' on' : '');
+    }
+    if (mine[key]) toast('반응 고마워요!');
+    send_react(key, emoji, !!mine[key], wrap);
+  }
+
+  var CFG = window.SS_CFG || {};   // {supabase:{url,key}} 넣으면 공유 집계로 승격
+
+  function send_react(key, emoji, added, wrap) {
+    if (!CFG.supabase) return;    // 미설정 → 로컬만
+    fetch(CFG.supabase.url + '/rest/v1/rpc/react', {
+      method: 'POST',
+      headers: { 'content-type': 'application/json', apikey: CFG.supabase.key },
+      body: JSON.stringify({ p_story: key, p_emoji: emoji, p_delta: added ? 1 : -1 })
+    }).then(function () { refresh(key, wrap); }).catch(function () {});
+  }
+
+  function refresh(key, wrap) {
+    if (!CFG.supabase) return;
+    fetch(CFG.supabase.url + '/rest/v1/reactions?story=eq.' + key,
+      { headers: { apikey: CFG.supabase.key } })
+      .then(function (r) { return r.json(); })
+      .then(function (rows) {
+        var counts = {};
+        (rows || []).forEach(function (r) { counts[r.emoji] = r.count; });
+        var btns = wrap.querySelectorAll('.ss-rb');
+        for (var i = 0; i < btns.length; i++) {
+          var n = counts[REACTS[i][0]] || 0;
+          btns[i].querySelector('.n').textContent = n ? ' ' + n : '';
+        }
+      }).catch(function () {});
+  }
+
+  // ── 오늘의 논점 → 텔레그램 ──────────────────────────────
+  function mountTalk() {
+    if (!/\/newsletters\/2026\//.test(location.pathname)) return;
+    if (document.querySelector('.ss-talk')) return;
+    var stories = document.querySelectorAll('.story');
+    if (!stories.length) return;
+    var last = stories[stories.length - 1];
+    var el = last.querySelector('.story-title');
+    var lead = el ? el.textContent.trim() : '';
+    var box = document.createElement('div');
+    box.className = 'ss-talk';
+    box.innerHTML =
+      '<div class="ss-talk-h">💬 오늘의 논점</div>' +
+      '<div class="ss-talk-q">오늘 브리핑, 어떻게 보셨나요?<br>' +
+      '텔레그램에서 다른 독자들 의견을 보고 한마디 남겨보세요.</div>' +
+      '<a class="ss-talk-b" href="https://t.me/soonsal" target="_blank" rel="noopener">' +
+      '텔레그램에서 이야기하기 →</a>';
+    (last.parentNode || document.body).insertBefore(box, last.nextSibling);
   }
 
   function toast(m) {
