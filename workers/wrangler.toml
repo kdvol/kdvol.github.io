@@ -1,0 +1,8 @@
+name = "soonsal-react"
+main = "reactions.js"
+compatibility_date = "2026-08-01"
+
+# KV 바인딩 — id는 `wrangler kv namespace create REACTIONS` 실행 후 채워짐
+[[kv_namespaces]]
+binding = "REACTIONS"
+id = "5b62e660c416477481d00f52b3da04f4"
