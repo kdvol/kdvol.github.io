@@ -1,12 +1,5 @@
-/* 순살 공용 설정 — 반응 집계 저장소(Supabase).
- * 새 프로젝트를 만들 필요 없이, 이미 쓰는 Supabase 프로젝트에 soonsal_reactions
- * 테이블만 추가하면 됩니다(설정 SQL: /stats/ 페이지 참고).
- * anon 키는 웹에 공개되는 용도로 설계된 키입니다. service key는 절대 넣지 마세요. */
-// window.SS_CFG = {
-//   supabase: {
-//     url: "https://xxxx.supabase.co",
-//     key: "eyJ...(anon public)",
-//     table: "soonsal_reactions",   // 생략 가능(기본값)
-//     rpc: "soonsal_react"          // 생략 가능(기본값)
-//   }
-// };
+/* 순살 공용 설정 — 반응 집계 백엔드.
+ * Cloudflare Worker(무료) 배포 후 아래 한 줄만 켜면 전체 집계가 활성화됩니다.
+ * 배포 방법: 리포의 workers/reactions.js 상단 주석 또는 /stats/ 페이지 참고.
+ * (대안: Supabase를 쓰려면 supabase:{url,key} 형태로 지정) */
+// window.SS_CFG = { worker: "https://soonsal-react.계정.workers.dev" };
