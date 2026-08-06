@@ -99,9 +99,10 @@
   }
 
   // ── 스토리별 반응 (무로그인) ─────────────────────────────
-  // 저장소: Supabase 설정(SS_CFG.supabase)이 있으면 공유 집계, 없으면 로컬 기록.
-  // 어느 쪽이든 UI·동작은 동일 — 나중에 키만 넣으면 자동 승격.
+  // 숫자는 항상 보인다. Supabase 설정(SS_CFG.supabase)이 있으면 공유 집계,
+  // 없으면 내 클릭만 로컬 집계 — 어느 쪽이든 버튼이 "죽어" 보이지 않게.
   var REACTS = [['👍', '좋아요'], ['🤔', '글쎄요'], ['🔥', '중요']];
+  var CFG = window.SS_CFG || {};
 
   function storyKey(story) {
     var m = location.pathname.match(/\/newsletters\/2026\/(\d{4})(-crypto)?\.html/);
@@ -114,11 +115,26 @@
   function localVotes() {
     try { return JSON.parse(localStorage.getItem('ss_react') || '{}'); } catch (e) { return {}; }
   }
+  function saveVotes(v) {
+    try { localStorage.setItem('ss_react', JSON.stringify(v)); } catch (e) {}
+  }
+
+  function render(wrap, key) {
+    var mine = localVotes()[key];
+    var shared = wrap._shared || {};
+    var btns = wrap.querySelectorAll('.ss-rb');
+    for (var i = 0; i < btns.length; i++) {
+      var emoji = REACTS[i][0];
+      var n = shared[emoji] || 0;
+      if (!CFG.supabase && mine === emoji) n += 1;   // 백엔드 없어도 내 반응은 보이게
+      btns[i].className = 'ss-rb' + (mine === emoji ? ' on' : '');
+      btns[i].querySelector('.n').textContent = n ? ' ' + n : '';
+    }
+  }
 
   function mountReactions() {
     var stories = document.querySelectorAll('.story');
     if (!stories.length) return;
-    var mine = localVotes();
     for (var i = 0; i < stories.length; i++) {
       (function (s) {
         var key = storyKey(s);
@@ -126,56 +142,56 @@
         if (!key || s.querySelector('.ss-react')) return;
         var wrap = document.createElement('div');
         wrap.className = 'ss-react';
+        wrap._shared = {};
         REACTS.forEach(function (r) {
           var b = document.createElement('button');
           b.type = 'button';
-          b.className = 'ss-rb' + (mine[key] === r[0] ? ' on' : '');
+          b.className = 'ss-rb';
           b.innerHTML = r[0] + ' ' + r[1] + '<b class="n"></b>';
           b.addEventListener('click', function () { vote(key, r[0], wrap); });
           wrap.appendChild(b);
         });
         body.appendChild(wrap);
+        render(wrap, key);
         refresh(key, wrap);
       })(stories[i]);
     }
   }
 
   function vote(key, emoji, wrap) {
-    var mine = localVotes();
-    if (mine[key] === emoji) { delete mine[key]; } else { mine[key] = emoji; }
-    try { localStorage.setItem('ss_react', JSON.stringify(mine)); } catch (e) {}
-    var btns = wrap.querySelectorAll('.ss-rb');
-    for (var i = 0; i < btns.length; i++) {
-      btns[i].className = 'ss-rb' + (REACTS[i][0] === mine[key] ? ' on' : '');
+    var v = localVotes(), was = v[key];
+    if (was === emoji) { delete v[key]; } else { v[key] = emoji; }
+    saveVotes(v);
+    var s = wrap._shared || (wrap._shared = {});
+    if (CFG.supabase) {                       // 낙관적 반영(응답 기다리지 않음)
+      if (was) s[was] = Math.max((s[was] || 0) - 1, 0);
+      if (v[key]) s[emoji] = (s[emoji] || 0) + 1;
     }
-    if (mine[key]) toast('반응 고마워요!');
-    send_react(key, emoji, !!mine[key], wrap);
+    render(wrap, key);
+    if (v[key]) toast('반응 고마워요!');
+    if (was && was !== emoji) push(key, was, -1, wrap);
+    push(key, emoji, v[key] ? 1 : -1, wrap);
   }
 
-  var CFG = window.SS_CFG || {};   // {supabase:{url,key}} 넣으면 공유 집계로 승격
-
-  function send_react(key, emoji, added, wrap) {
-    if (!CFG.supabase) return;    // 미설정 → 로컬만
+  function push(key, emoji, delta, wrap) {
+    if (!CFG.supabase) return;
     fetch(CFG.supabase.url + '/rest/v1/rpc/react', {
       method: 'POST',
       headers: { 'content-type': 'application/json', apikey: CFG.supabase.key },
-      body: JSON.stringify({ p_story: key, p_emoji: emoji, p_delta: added ? 1 : -1 })
+      body: JSON.stringify({ p_story: key, p_emoji: emoji, p_delta: delta })
     }).then(function () { refresh(key, wrap); }).catch(function () {});
   }
 
   function refresh(key, wrap) {
     if (!CFG.supabase) return;
-    fetch(CFG.supabase.url + '/rest/v1/reactions?story=eq.' + key,
+    fetch(CFG.supabase.url + '/rest/v1/reactions?story=eq.' + key + '&select=emoji,count',
       { headers: { apikey: CFG.supabase.key } })
       .then(function (r) { return r.json(); })
       .then(function (rows) {
-        var counts = {};
-        (rows || []).forEach(function (r) { counts[r.emoji] = r.count; });
-        var btns = wrap.querySelectorAll('.ss-rb');
-        for (var i = 0; i < btns.length; i++) {
-          var n = counts[REACTS[i][0]] || 0;
-          btns[i].querySelector('.n').textContent = n ? ' ' + n : '';
-        }
+        var s = {};
+        (rows || []).forEach(function (r) { s[r.emoji] = r.count; });
+        wrap._shared = s;
+        render(wrap, key);
       }).catch(function () {});
   }
 

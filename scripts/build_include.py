@@ -12,7 +12,8 @@ import re
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-TAG = '<script src="/soonsal.js" defer></script>'
+TAG = ('<script src="/ss-config.js"></script>'
+       '<script src="/soonsal.js" defer></script>')
 BODY_RE = re.compile(r"</body>", re.I)
 
 # 과거 방식으로 인라인 주입됐던 것들 제거

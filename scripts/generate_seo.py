@@ -95,7 +95,7 @@ def build_robots():
     # _publish=발행 작업사본(카드뉴스 중복), s=공유 OG 썸(noindex이지만 크롤 낭비 차단)
     (ROOT / "robots.txt").write_text(
         f"User-agent: *\nAllow: /\n"
-        f"Disallow: /_queue/\nDisallow: /_publish/\nDisallow: /node_modules/\n"
+        f"Disallow: /_queue/\nDisallow: /_publish/\nDisallow: /node_modules/\nDisallow: /stats/\n"
         f"\nSitemap: {BASE}/sitemap.xml\n",
         encoding="utf-8")
 
@@ -141,6 +141,11 @@ def main():
         build_advertise.build()             # 광고·파트너십 문의 페이지
     except Exception as e:
         print(f"⚠️ build_advertise 실패(계속 진행): {e}")
+    try:
+        import build_stats
+        build_stats.build(atoms)            # 운영자용 반응 통계(/stats/, noindex)
+    except Exception as e:
+        print(f"⚠️ build_stats 실패(계속 진행): {e}")
     try:
         import build_sharepages
         build_sharepages.build(atoms)       # 스토리별 OG 공유 페이지(/s/)
