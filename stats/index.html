@@ -50,7 +50,7 @@ function setup() {
     '<li>SQL Editor에 아래를 붙여넣고 실행</li>' +
     '<li>Project Settings → API에서 <code>URL</code>과 <code>anon public</code> 키를 복사해 ' +
     '<code>/ss-config.js</code>에 넣기</li></ol>' +
-    '<pre>create table if not exists reactions (\n  story text not null, emoji text not null,\n  count int not null default 0,\n  primary key (story, emoji)\n);\nalter table reactions enable row level security;\ncreate policy "read" on reactions for select using (true);\n\ncreate or replace function react(p_story text, p_emoji text, p_delta int)\nreturns void language plpgsql security definer as $$\nbegin\n  insert into reactions(story, emoji, count)\n  values (p_story, p_emoji, greatest(p_delta, 0))\n  on conflict (story, emoji)\n  do update set count = greatest(reactions.count + p_delta, 0);\nend; $$;</pre>' +
+    '<pre>-- 기존 Supabase 프로젝트에 그대로 추가해도 안전(soonsal_ 접두어)\ncreate table if not exists soonsal_reactions (\n  story text not null, emoji text not null,\n  count int not null default 0,\n  primary key (story, emoji)\n);\nalter table soonsal_reactions enable row level security;\ncreate policy "read" on soonsal_reactions for select using (true);\n\ncreate or replace function soonsal_react(p_story text, p_emoji text, p_delta int)\nreturns void language plpgsql security definer as $$\nbegin\n  insert into soonsal_reactions(story, emoji, count)\n  values (p_story, p_emoji, greatest(p_delta, 0))\n  on conflict (story, emoji)\n  do update set count = greatest(soonsal_reactions.count + p_delta, 0);\nend; $$;</pre>' +
     '<pre>// ss-config.js\nwindow.SS_CFG = { supabase: { url: "https://xxxx.supabase.co", key: "eyJ..." } };</pre>' +
     '</div>';
 }
@@ -83,7 +83,7 @@ function render(rows) {
 
 if (!CFG) { setup(); }
 else {
-  fetch(CFG.url + '/rest/v1/reactions?select=story,emoji,count', { headers: { apikey: CFG.key } })
+  fetch(CFG.url + '/rest/v1/' + (CFG.table || 'soonsal_reactions') + '?select=story,emoji,count', { headers: { apikey: CFG.key } })
     .then(function (r) { return r.json(); })
     .then(render)
     .catch(function () { app.innerHTML = '<div class="empty">집계를 불러오지 못했습니다.</div>'; });
