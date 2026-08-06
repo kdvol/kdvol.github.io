@@ -356,6 +356,21 @@ def update_main_index(items, date_fmt, has_briefing, yyyy, mmdd):
             if pos >= 0:
                 insert_at = pos + len(grid_marker)
                 c = c[:insert_at] + f"    {old_brief_link}\n" + c[insert_at:]
+            else:
+                # ⚠️ 옛 히어로 날짜의 섹션이 없는 경우(그날 브리핑만 발행 = 카드뉴스 없음).
+                # 예전엔 링크를 조용히 버려서 그 날짜가 홈에서 통째로 사라졌음(0805 사례).
+                # → 섹션을 새로 만들어 현재 첫 today 섹션 앞에 끼워 넣는다.
+                new_old = (
+                    f'<div class="today" style="padding-top:0;">\n'
+                    f'  <div class="today-title">{old_date_fmt} 전체 콘텐츠</div>\n'
+                    f'  <div class="today-grid" style="grid-template-columns:1fr; gap:10px;">\n'
+                    f"    {old_brief_link}\n"
+                    f"  </div>\n"
+                    f"</div>"
+                )
+                m_first = re.search(r'<div class="today"[^>]*>', c)
+                if m_first:
+                    c = c[:m_first.start()] + new_old + "\n\n" + c[m_first.start():]
 
     # ── Step 2: Create or append to today section ──
     if not date_exists:

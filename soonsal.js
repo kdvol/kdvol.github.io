@@ -42,16 +42,22 @@
     '.ss-rb.on{border-color:#F07040;background:#F0704014;color:#F07040}' +
     '.ss-rb b{font-weight:700;margin-left:4px}' +
     /* 오늘의 논점 블록 */
-    '.ss-talk{margin:26px 0 8px;padding:18px 20px;border:1px solid #e5e1d6;border-radius:12px;' +
-    'background:#faf8f3}' +
-    '.ss-talk-h{font-size:12px;font-weight:700;color:#F07040;letter-spacing:.04em;margin-bottom:8px}' +
-    '.ss-talk-q{font-size:15px;line-height:1.6;color:#2a2a2a;margin-bottom:14px;font-weight:600}' +
+    /* 3월 재개호 브랜드 팔레트: 주황 #F07040/#E55A00, 크림 #fafaf7, 보더 #e8e8e0 */
+    '.ss-talk{margin:26px 0 8px;padding:20px 22px;border:1px solid #e8e8e0;border-radius:10px;' +
+    "background:#fafaf7;font-family:'Apple SD Gothic Neo','Malgun Gothic',sans-serif}" +
+    '.ss-talk-h{font-size:12px;font-weight:700;color:#F07040;letter-spacing:.06em;margin-bottom:10px}' +
+    '.ss-talk-q{font-size:15px;line-height:1.7;color:#333;margin-bottom:16px;font-weight:600}' +
     '.ss-talk-btns{display:flex;gap:8px;flex-wrap:wrap}' +
-    '.ss-talk-b{display:inline-flex;align-items:center;gap:7px;background:#229ED9;color:#fff;' +
-    'text-decoration:none;padding:11px 20px;border-radius:9px;font-size:14px;font-weight:700;' +
-    'transition:filter .15s}' +
-    '.ss-talk-b:hover{filter:brightness(.92)}' +
-    '.ss-talk-b.ig{background:#E1306C}';
+    '.ss-talk-b{display:inline-flex;align-items:center;background:#E55A00;color:#fff;' +
+    'text-decoration:none;padding:11px 20px;border-radius:6px;font-size:14px;font-weight:700;' +
+    'border:1px solid #E55A00;transition:background .2s,color .2s}' +
+    '.ss-talk-b:hover{background:#CC4E00;border-color:#CC4E00}' +
+    '.ss-talk-b.ig{background:transparent;color:#E55A00;border-color:#e0ddd5}' +
+    '.ss-talk-b.ig:hover{background:#fff;color:#CC4E00;border-color:#F07040}' +
+    /* 반응 버튼도 같은 크림/주황 톤으로 */
+    '.ss-rb{border-color:#e0ddd5;color:#8a8578}' +
+    '.ss-rb:hover{border-color:#F07040;color:#E55A00}' +
+    '.ss-rb.on{border-color:#F07040;background:#F0704012;color:#E55A00}';
 
   function esc(s) {
     return (s || '').replace(/[&<>]/g, function (c) {
@@ -190,9 +196,9 @@
       '텔레그램에서 의견을 나누고, 인스타에서 카드뉴스로 다시 보세요.</div>' +
       '<div class="ss-talk-btns">' +
       '<a class="ss-talk-b" href="https://t.me/soonsal" target="_blank" rel="noopener">' +
-      '✈️ 텔레그램에서 이야기하기</a>' +
+      '텔레그램에서 이야기하기</a>' +
       '<a class="ss-talk-b ig" href="https://instagram.com/soonsal.brief" target="_blank" rel="noopener">' +
-      '📸 인스타그램</a>' +
+      '인스타그램</a>' +
       '</div>';
     (last.parentNode || document.body).insertBefore(box, last.nextSibling);
   }
