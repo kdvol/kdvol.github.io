@@ -13,8 +13,11 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 
 # 검색=주제별 내 접근, English=숨김. 커뮤니티 탭 제거(텔레그램은 플로팅 버튼 직결).
-ITEMS = [("/", "최신"), ("/newsletters/", "뉴스레터"), ("/topics/", "주제별"),
-         ("/cardnews/", "카드뉴스"), ("/school/", "스쿨"), ("/youtube/", "YouTube")]
+# 콘텐츠 탭(독자용) + 비즈니스 탭(광고주용, 시각적으로 분리·비강조)
+ITEMS = [("/", "홈"), ("/newsletters/", "브리핑"), ("/topics/", "주제별"),
+         ("/cardnews/", "카드뉴스"), ("/youtube/", "YouTube"), ("/school/", "스쿨"),
+         ("/advertise/", "광고 문의")]
+BIZ = {"/advertise/"}   # 비강조 스타일(.biz) 적용 대상
 
 # nav CSS 교정(자가치유). safe center = 데스크톱은 가운데, 넘치면 좌측정렬(첫 탭 안 잘림).
 CSS_FIXES = [
@@ -22,6 +25,8 @@ CSS_FIXES = [
      "display:flex; justify-content:safe center; gap:0;"),
     ("display:flex; justify-content:flex-start; gap:0;",
      "display:flex; justify-content:safe center; gap:0;"),
+    ('.nav a.active { color:#F07040; border-bottom-color:#F07040; }',
+     '.nav a.active { color:#F07040; border-bottom-color:#F07040; } .nav a.biz{color:#4d4d4d;} .nav a.biz:hover{color:#F07040;}'),
     ("padding:12px 24px; font-size:13px; font-weight:700; color:#777;",
      "padding:12px 17px; font-size:13px; font-weight:700; color:#777; white-space:nowrap;"),
 ]
@@ -35,9 +40,10 @@ NAV_RE = re.compile(r'<div class="nav">.*?</div>', re.S)
 
 
 def _nav(active):
-    links = "".join(
-        f'<a href="{h}"{" class=\"active\"" if h == active else ""}>{l}</a>'
-        for h, l in ITEMS)
+    def cls(h):
+        c = (["active"] if h == active else []) + (["biz"] if h in BIZ else [])
+        return f' class="{" ".join(c)}"' if c else ""
+    links = "".join(f'<a href="{h}"{cls(h)}>{l}</a>' for h, l in ITEMS)
     return f'<div class="nav">{links}</div>'
 
 
@@ -56,6 +62,8 @@ flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch}
 border-bottom:2px solid transparent;transition:color .2s,border-color .2s;flex-shrink:0}
 .nav a:hover{color:#ccc}
 .nav a.active{color:#F07040;border-bottom-color:#F07040}
+.nav a.biz{color:#4d4d4d}
+.nav a.biz:hover{color:#F07040}
 .crumb{color:#F07040;font-size:.88rem;display:inline-block;margin-bottom:14px;text-decoration:none}
 """
 
