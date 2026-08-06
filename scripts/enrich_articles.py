@@ -64,7 +64,7 @@ def build_block(p, lang, schema_type):
 
     if lang == "ko":
         desc = (f"{clean.split(' — ')[0]} — {d.year}년 {d.month}월 {d.day}일 순살브리핑. "
-                "글로벌 금융·경제·크립토 뉴스를 뼈만 발라낸 데일리 브리핑.")
+                "글로벌 금융·경제·크립토 뉴스를 순살만 발라낸 데일리 브리핑.")
     else:
         desc = f"{clean.split(' — ')[0]} — Soonsal daily briefing, {d.isoformat()}."
 

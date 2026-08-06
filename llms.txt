@@ -1,6 +1,6 @@
 # 순살브리핑 (Soonsal Briefing)
 
-> 글로벌 금융·경제·크립토 뉴스를 뼈만 발라낸 한국어 데일리 뉴스레터. 월~금 발행.
+> 글로벌 금융·경제·크립토 뉴스를 순살만 발라낸 한국어 데일리 뉴스레터. 월~금 발행.
 > Korean daily newsletter distilling global finance, economics, and crypto news.
 
 매일 5개 안팎의 스토리로 구성되며, 각 스토리는 주제·기업·인물 태그와 딥링크를 갖는다.
