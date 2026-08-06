@@ -120,12 +120,26 @@ def build():
 <section>
 <h2>최근 집행 사례</h2>
 <div class="card"><ul>
-<li><b>엔터프라이즈 소프트웨어 — 스폰서 스토리</b><br>
+<li><b>Salesforce — 스폰서 스토리</b><br>
 금융권 망분리 규제 완화라는 시의성 있는 주제를 잡아, 브랜드가 말하고 싶은 메시지를
 순살 톤의 한 꼭지로 풀었습니다.<br>
-<a href="/newsletters/2026/0805.html#story-2" style="color:#F07040">
-실제 발행분 보기 →</a></li>
+<a href="/newsletters/2026/0805.html#story-2" style="color:#F07040">실제 발행분 보기 →</a></li>
 </ul></div>
+<p class="note" style="margin-bottom:10px">브랜드마다 톤과 형식이 어떻게 달라지는지,
+실제 제작물 샘플로 확인하실 수 있습니다.</p>
+<div class="two">
+<div class="card"><ul>
+<li><b>뉴스레터 스토리 샘플</b><br>
+<a href="/partners/salesforce/NewsletterSample.html" style="color:#F07040">Salesforce →</a><br>
+<a href="/partners/Apollo/NewsletterSample.html" style="color:#F07040">Apollo →</a><br>
+<a href="/partners/AIA/NewsLetterSample.html" style="color:#F07040">AIA →</a></li>
+</ul></div>
+<div class="card"><ul>
+<li><b>카드뉴스 샘플</b><br>
+<a href="/partners/Apollo/CardNewsSample.html" style="color:#F07040">Apollo →</a><br>
+<a href="/partners/AIA/CardNewsSample.html" style="color:#F07040">AIA →</a></li>
+</ul></div>
+</div>
 <p class="note">광고 스토리도 일반 스토리와 같은 자리, 같은 문체로 실립니다.
 상단에 스폰서 표기를 명확히 하되, 읽는 흐름을 끊지 않습니다.</p>
 </section>
@@ -176,7 +190,7 @@ def build():
 </div>
 
 <p class="tagline">순살브리핑 · 글로벌 금융경제 살코기<br>
-매일 아침, 뼈 발라낸 금융·경제 브리핑</p>
+매일 아침, 순살만 발라낸 금융·경제 브리핑</p>
 
 </div></body></html>"""
     (OUT / "index.html").write_text(html, encoding="utf-8")
