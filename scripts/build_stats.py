@@ -87,19 +87,21 @@ end; $$;"""
 <script>
 var SMAP = {json.dumps(smap, ensure_ascii=False)};
 var EMO = ['👍','🤔','🔥'];
-var CFG = (window.SS_CFG||{{}}).supabase;
+var SS = window.SS_CFG||{{}};
+var API = SS.worker || null;
+var CFG = SS.supabase;
 var app = document.getElementById('app');
 
 function setup() {{
   app.innerHTML = '<div class="setup"><h2>아직 집계 저장소가 연결되지 않았습니다</h2>' +
     '<p style="color:#bbb;font-size:.9rem;margin-bottom:12px">지금은 반응이 각자 브라우저에만 남습니다. ' +
-    '아래 3단계(3분, 무료·카드 불필요)를 마치면 전체 집계가 이 화면에 쌓입니다.</p>' +
-    '<ol><li><b>supabase.com</b> 무료 프로젝트 생성</li>' +
-    '<li>SQL Editor에 아래를 붙여넣고 실행</li>' +
-    '<li>Project Settings → API에서 <code>URL</code>과 <code>anon public</code> 키를 복사해 ' +
-    '<code>/ss-config.js</code>에 넣기</li></ol>' +
-    '<pre>{setup_sql.replace(chr(10), chr(92) + "n").replace("'", chr(92) + "'")}</pre>' +
-    '<pre>// ss-config.js\\nwindow.SS_CFG = {{ supabase: {{ url: "https://xxxx.supabase.co", key: "eyJ..." }} }};</pre>' +
+    'Cloudflare Worker + KV(무료)를 연결하면 전체 집계가 이 화면에 쌓입니다.</p>' +
+    '<ol><li>Cloudflare → Workers &amp; Pages → <b>Create Worker</b> (이름: soonsal-react)</li>' +
+    '<li>Settings → Variables → <b>KV Namespace Bindings</b> 추가<br>' +
+    'Variable name: <code>REACTIONS</code> / 네임스페이스: 새로 생성</li>' +
+    '<li>Edit code에 리포의 <code>workers/reactions.js</code> 전체 붙여넣고 Deploy</li>' +
+    '<li>배포 주소를 <code>/ss-config.js</code>에 입력</li></ol>' +
+    '<pre>// ss-config.js\nwindow.SS_CFG = {{ worker: "https://soonsal-react.계정.workers.dev" }};</pre>' +
     '</div>';
 }}
 
@@ -129,13 +131,26 @@ function render(rows) {{
   app.innerHTML = h;
 }}
 
-if (!CFG) {{ setup(); }}
-else {{
+function fail() {{ app.innerHTML = '<div class="empty">집계를 불러오지 못했습니다.</div>'; }}
+
+if (API) {{
+  fetch(API.replace(/[/]$/, '') + '/counts')
+    .then(function (r) {{ return r.json(); }})
+    .then(function (obj) {{        // {{story: {{emoji: n}}}} → rows
+      var rows = [];
+      Object.keys(obj || {{}}).forEach(function (s) {{
+        Object.keys(obj[s]).forEach(function (e) {{
+          rows.push({{ story: s, emoji: e, count: obj[s][e] }});
+        }});
+      }});
+      render(rows);
+    }}).catch(fail);
+}} else if (CFG) {{
   fetch(CFG.url + '/rest/v1/' + (CFG.table || 'soonsal_reactions') + '?select=story,emoji,count', {{ headers: {{ apikey: CFG.key }} }})
     .then(function (r) {{ return r.json(); }})
     .then(render)
-    .catch(function () {{ app.innerHTML = '<div class="empty">집계를 불러오지 못했습니다.</div>'; }});
-}}
+    .catch(fail);
+}} else {{ setup(); }}
 </script>
 </body></html>"""
     (OUT / "index.html").write_text(html, encoding="utf-8")

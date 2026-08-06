@@ -103,6 +103,8 @@
   // 없으면 내 클릭만 로컬 집계 — 어느 쪽이든 버튼이 "죽어" 보이지 않게.
   var REACTS = [['👍', '좋아요'], ['🤔', '글쎄요'], ['🔥', '중요']];
   var CFG = window.SS_CFG || {};
+  var API = CFG.worker || null;              // Cloudflare Worker(권장)
+  var HAS_BACKEND = !!(API || CFG.supabase);
 
   function storyKey(story) {
     var m = location.pathname.match(/\/newsletters\/2026\/(\d{4})(-crypto)?\.html/);
@@ -126,7 +128,7 @@
     for (var i = 0; i < btns.length; i++) {
       var emoji = REACTS[i][0];
       var n = shared[emoji] || 0;
-      if (!CFG.supabase && mine === emoji) n += 1;   // 백엔드 없어도 내 반응은 보이게
+      if (!HAS_BACKEND && mine === emoji) n += 1;    // 백엔드 없어도 내 반응은 보이게
       btns[i].className = 'ss-rb' + (mine === emoji ? ' on' : '');
       btns[i].querySelector('.n').textContent = n ? ' ' + n : '';
     }
@@ -163,7 +165,7 @@
     if (was === emoji) { delete v[key]; } else { v[key] = emoji; }
     saveVotes(v);
     var s = wrap._shared || (wrap._shared = {});
-    if (CFG.supabase) {                       // 낙관적 반영(응답 기다리지 않음)
+    if (HAS_BACKEND) {                        // 낙관적 반영(응답 기다리지 않음)
       if (was) s[was] = Math.max((s[was] || 0) - 1, 0);
       if (v[key]) s[emoji] = (s[emoji] || 0) + 1;
     }
@@ -174,6 +176,15 @@
   }
 
   function push(key, emoji, delta, wrap) {
+    if (API) {
+      fetch(API.replace(/\/$/, '') + '/react', {
+        method: 'POST', headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({ story: key, emoji: emoji, delta: delta })
+      }).then(function (r) { return r.json(); })
+        .then(function (o) { wrap._shared = o || {}; render(wrap, key); })
+        .catch(function () {});
+      return;
+    }
     if (!CFG.supabase) return;
     fetch(CFG.supabase.url + '/rest/v1/rpc/' + (CFG.supabase.rpc || 'soonsal_react'), {
       method: 'POST',
@@ -183,6 +194,13 @@
   }
 
   function refresh(key, wrap) {
+    if (API) {
+      fetch(API.replace(/\/$/, '') + '/counts?story=' + encodeURIComponent(key))
+        .then(function (r) { return r.json(); })
+        .then(function (o) { wrap._shared = o || {}; render(wrap, key); })
+        .catch(function () {});
+      return;
+    }
     if (!CFG.supabase) return;
     fetch(CFG.supabase.url + '/rest/v1/' + (CFG.supabase.table || 'soonsal_reactions') +
         '?story=eq.' + key + '&select=emoji,count',
