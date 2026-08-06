@@ -85,7 +85,7 @@ def build_rss(limit=20):
         '<?xml version="1.0" encoding="UTF-8"?>\n'
         '<rss version="2.0"><channel>\n'
         f"<title>순살브리핑</title><link>{BASE}/</link>"
-        "<description>뼈 발라낸 금융·경제 데일리 브리핑</description>"
+        "<description>순살만 발라낸 금융·경제 데일리 브리핑</description>"
         "<language>ko</language>\n" + "\n".join(items) + "\n</channel></rss>\n",
         encoding="utf-8")
     return len(items)
