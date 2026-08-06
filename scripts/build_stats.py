@@ -54,21 +54,22 @@ def build(atoms=None):
     smap = {a["id"]: {"t": re.sub(r"^[^\w<>&\"']{1,4}\s+", "", a["title"]).strip(),
                       "d": a["date"], "u": a["url"]} for a in recent}
 
-    setup_sql = """create table if not exists reactions (
+    setup_sql = """-- 기존 Supabase 프로젝트에 그대로 추가해도 안전(soonsal_ 접두어)
+create table if not exists soonsal_reactions (
   story text not null, emoji text not null,
   count int not null default 0,
   primary key (story, emoji)
 );
-alter table reactions enable row level security;
-create policy "read" on reactions for select using (true);
+alter table soonsal_reactions enable row level security;
+create policy "read" on soonsal_reactions for select using (true);
 
-create or replace function react(p_story text, p_emoji text, p_delta int)
+create or replace function soonsal_react(p_story text, p_emoji text, p_delta int)
 returns void language plpgsql security definer as $$
 begin
-  insert into reactions(story, emoji, count)
+  insert into soonsal_reactions(story, emoji, count)
   values (p_story, p_emoji, greatest(p_delta, 0))
   on conflict (story, emoji)
-  do update set count = greatest(reactions.count + p_delta, 0);
+  do update set count = greatest(soonsal_reactions.count + p_delta, 0);
 end; $$;"""
 
     html = f"""<!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8">
@@ -130,7 +131,7 @@ function render(rows) {{
 
 if (!CFG) {{ setup(); }}
 else {{
-  fetch(CFG.url + '/rest/v1/reactions?select=story,emoji,count', {{ headers: {{ apikey: CFG.key }} }})
+  fetch(CFG.url + '/rest/v1/' + (CFG.table || 'soonsal_reactions') + '?select=story,emoji,count', {{ headers: {{ apikey: CFG.key }} }})
     .then(function (r) {{ return r.json(); }})
     .then(render)
     .catch(function () {{ app.innerHTML = '<div class="empty">집계를 불러오지 못했습니다.</div>'; }});

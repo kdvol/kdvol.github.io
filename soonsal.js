@@ -175,7 +175,7 @@
 
   function push(key, emoji, delta, wrap) {
     if (!CFG.supabase) return;
-    fetch(CFG.supabase.url + '/rest/v1/rpc/react', {
+    fetch(CFG.supabase.url + '/rest/v1/rpc/' + (CFG.supabase.rpc || 'soonsal_react'), {
       method: 'POST',
       headers: { 'content-type': 'application/json', apikey: CFG.supabase.key },
       body: JSON.stringify({ p_story: key, p_emoji: emoji, p_delta: delta })
@@ -184,7 +184,8 @@
 
   function refresh(key, wrap) {
     if (!CFG.supabase) return;
-    fetch(CFG.supabase.url + '/rest/v1/reactions?story=eq.' + key + '&select=emoji,count',
+    fetch(CFG.supabase.url + '/rest/v1/' + (CFG.supabase.table || 'soonsal_reactions') +
+        '?story=eq.' + key + '&select=emoji,count',
       { headers: { apikey: CFG.supabase.key } })
       .then(function (r) { return r.json(); })
       .then(function (rows) {
