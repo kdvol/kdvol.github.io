@@ -4,5 +4,5 @@
   "name": "incentive",
   "post_txt": "_publish/incentive.POST.txt",
   "target_epoch": 1786060800,
-  "dry_run": true
+  "dry_run": false
 }
