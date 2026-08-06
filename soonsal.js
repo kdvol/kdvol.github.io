@@ -102,7 +102,7 @@
   // ── 스토리별 반응 (무로그인) ─────────────────────────────
   // 숫자는 항상 보인다. Supabase 설정(SS_CFG.supabase)이 있으면 공유 집계,
   // 없으면 내 클릭만 로컬 집계 — 어느 쪽이든 버튼이 "죽어" 보이지 않게.
-  var REACTS = [['👍', '좋아요'], ['🤔', '글쎄요'], ['🔥', '중요']];
+  var REACTS = [['👍', '좋았음'], ['🤔', '글쎄'], ['🔥', '중요함']];
   var CFG = window.SS_CFG || {};
   var API = CFG.worker || null;              // Cloudflare Worker(권장)
   var HAS_BACKEND = !!(API || CFG.supabase);
@@ -179,7 +179,7 @@
       if (v[key]) s[emoji] = (s[emoji] || 0) + 1;
     }
     render(wrap, key);
-    if (v[key]) toast('반응 고마워요!');
+    if (v[key]) toast('접수했음 🐟');
     if (was && was !== emoji) push(key, was, -1, wrap);
     push(key, emoji, v[key] ? 1 : -1, wrap);
   }
@@ -235,14 +235,14 @@
     var box = document.createElement('div');
     box.className = 'ss-talk';
     box.innerHTML =
-      '<div class="ss-talk-h">💬 오늘의 논점</div>' +
-      '<div class="ss-talk-q">오늘 브리핑, 어떻게 보셨나요?<br>' +
-      '텔레그램에서 의견을 나누고, 인스타에서 카드뉴스로 다시 보세요.</div>' +
+      '<div class="ss-talk-h">💬 오늘 순살, 어땠음?</div>' +
+      '<div class="ss-talk-q">혼자 보기 아까우면 —<br>' +
+      '텔레그램에선 다들 뭐라 하는지 보고, 인스타에선 카드뉴스로 한 번 더.</div>' +
       '<div class="ss-talk-btns">' +
       '<a class="ss-talk-b" href="https://t.me/soonsal" target="_blank" rel="noopener">' +
-      '텔레그램에서 이야기하기</a>' +
+      '텔레그램 수다방 →</a>' +
       '<a class="ss-talk-b ig" href="https://instagram.com/soonsal.brief" target="_blank" rel="noopener">' +
-      '인스타그램</a>' +
+      '인스타 구경</a>' +
       '</div>';
     (last.parentNode || document.body).insertBefore(box, last.nextSibling);
   }
@@ -304,10 +304,10 @@
     var m = document.createElement('div');
     m.className = 'ss-modal';
     m.innerHTML =
-      '<h3>공유하기</h3>' +
+      '<h3>친구한테 보내기</h3>' +
       '<div class="ss-preview"><div class="ss-pt">' + esc(p.title) + '</div>' +
       (p.summary ? '<div class="ss-ps">' + esc(p.summary) + '</div>' : '') + '</div>' +
-      '<textarea class="ss-cm" rows="2" placeholder="한마디 덧붙이기 (선택)"></textarea>' +
+      '<textarea class="ss-cm" rows="2" placeholder="한마디 붙이기 (선택)"></textarea>' +
       '<div class="ss-row"><button class="ss-cancel" type="button">취소</button>' +
       '<button class="ss-go" type="button">공유</button></div>';
     bg.appendChild(m);
@@ -333,7 +333,7 @@
     if (navigator.share) {
       navigator.share({ text: text }).catch(function () {});
     } else if (navigator.clipboard) {
-      navigator.clipboard.writeText(text).then(function () { toast('공유 내용이 복사됐어요 — 붙여넣기 하세요'); });
+      navigator.clipboard.writeText(text).then(function () { toast('복사했음! 붙여넣기 하면 됨'); });
     } else {
       toast(text);
     }
