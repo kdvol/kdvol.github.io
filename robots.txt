@@ -3,5 +3,6 @@ Allow: /
 Disallow: /_queue/
 Disallow: /_publish/
 Disallow: /node_modules/
+Disallow: /stats/
 
 Sitemap: https://soonsal.com/sitemap.xml
