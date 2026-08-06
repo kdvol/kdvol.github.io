@@ -57,7 +57,8 @@
     /* 반응 버튼도 같은 크림/주황 톤으로 */
     '.ss-rb{border-color:#e0ddd5;color:#8a8578}' +
     '.ss-rb:hover{border-color:#F07040;color:#E55A00}' +
-    '.ss-rb.on{border-color:#F07040;background:#F0704012;color:#E55A00}';
+    '.ss-rb.on{border-color:#F07040;background:#F0704012;color:#E55A00}' +
+    '.ss-sh{margin-left:auto;color:#9a958a}';
 
   function esc(s) {
     return (s || '').replace(/[&<>]/g, function (c) {
@@ -85,7 +86,7 @@
     sb.type = 'button';
     sb.innerHTML = '🔗 <span>공유하기</span>';
     sb.setAttribute('aria-label', '공유하기');
-    sb.addEventListener('click', openShare);
+    sb.addEventListener('click', function () { openShare(); });
     document.body.appendChild(sb);
 
     // 딥링크(#story-N)로 들어오면 그 스토리로 확실히 스크롤
@@ -124,7 +125,7 @@
   function render(wrap, key) {
     var mine = localVotes()[key];
     var shared = wrap._shared || {};
-    var btns = wrap.querySelectorAll('.ss-rb');
+    var btns = wrap.querySelectorAll('.ss-rb:not(.ss-sh)');
     for (var i = 0; i < btns.length; i++) {
       var emoji = REACTS[i][0];
       var n = shared[emoji] || 0;
@@ -153,6 +154,14 @@
           b.addEventListener('click', function () { vote(key, r[0], wrap); });
           wrap.appendChild(b);
         });
+        var sh = document.createElement('button');
+        sh.type = 'button';
+        sh.className = 'ss-rb ss-sh';
+        sh.textContent = '🔗 공유';
+        sh.setAttribute('aria-label', '이 스토리 공유');
+        sh.addEventListener('click', function () { openShare(s); });
+        wrap.appendChild(sh);
+
         body.appendChild(wrap);
         render(wrap, key);
         refresh(key, wrap);
@@ -274,8 +283,8 @@
   }
 
   // 공유 대상: {title, summary(1문단), url(스토리 OG 페이지)}
-  function payload() {
-    var s = currentStory();
+  function payload(story) {
+    var s = story || currentStory();
     if (s && s.querySelector('.story-title')) {
       var title = s.querySelector('.story-title').textContent.trim().replace(/🔗\s*공유\s*$/, '').trim();
       var bl = s.querySelector('.story-body .bullet') || s.querySelector('.bullet');
@@ -288,8 +297,8 @@
     return { title: pt, summary: md ? md.content : '', url: location.href };
   }
 
-  function openShare() {
-    var p = payload();
+  function openShare(story) {
+    var p = payload(story);
     var bg = document.createElement('div');
     bg.className = 'ss-modal-bg';
     var m = document.createElement('div');
