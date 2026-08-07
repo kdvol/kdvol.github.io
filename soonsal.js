@@ -135,6 +135,8 @@
     }
   }
 
+  var WRAPS = {};   // storyKey → wrap (페이지 단위 일괄 갱신용)
+
   function mountReactions() {
     var stories = document.querySelectorAll('.story');
     if (!stories.length) return;
@@ -164,9 +166,26 @@
 
         body.appendChild(wrap);
         render(wrap, key);
-        refresh(key, wrap);
+        WRAPS[key] = wrap;
       })(stories[i]);
     }
+    refreshIssue();   // 페이지 전체 카운트를 한 번에 (요청·읽기 절약)
+  }
+
+  // 이 페이지(뉴스레터 1호)의 모든 스토리 카운트를 1회 요청으로 받아 뿌린다
+  function refreshIssue() {
+    if (!API) return;
+    var m = location.pathname.match(/\/newsletters\/2026\/(\d{4})(-crypto)?\.html/);
+    if (!m) return;
+    var issue = m[1] + (m[2] ? 'c' : '');
+    fetch(API.replace(/[/]$/, '') + '/counts?issue=' + issue)
+      .then(function (r) { return r.json(); })
+      .then(function (obj) {
+        Object.keys(WRAPS).forEach(function (k) {
+          WRAPS[k]._shared = (obj && obj[k]) || {};
+          render(WRAPS[k], k);
+        });
+      }).catch(function () {});
   }
 
   function vote(key, emoji, wrap) {
