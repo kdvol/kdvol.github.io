@@ -41,19 +41,20 @@ var SMAP = {"0807-5": {"t": "알파벳 한 글자에 속는 AI 트레이더", "d
 var EMO = ['👍','🤔','🔥'];
 var SS = window.SS_CFG||{};
 var API = SS.worker || null;
-var CFG = SS.supabase;
 var app = document.getElementById('app');
 
 function setup() {
   app.innerHTML = '<div class="setup"><h2>아직 집계 저장소가 연결되지 않았습니다</h2>' +
     '<p style="color:#bbb;font-size:.9rem;margin-bottom:12px">지금은 반응이 각자 브라우저에만 남습니다. ' +
-    'Cloudflare Worker + KV(무료)를 연결하면 전체 집계가 이 화면에 쌓입니다.</p>' +
-    '<ol><li>Cloudflare → Workers &amp; Pages → <b>Create Worker</b> (이름: soonsal-react)</li>' +
-    '<li>Settings → Variables → <b>KV Namespace Bindings</b> 추가<br>' +
-    'Variable name: <code>REACTIONS</code> / 네임스페이스: 새로 생성</li>' +
-    '<li>Edit code에 리포의 <code>workers/reactions.js</code> 전체 붙여넣고 Deploy</li>' +
-    '<li>배포 주소를 <code>/ss-config.js</code>에 입력</li></ol>' +
+    'Cloudflare Worker + D1(무료)을 연결하면 전체 집계가 이 화면에 쌓입니다.</p>' +
+    '<ol><li>리포의 <code>workers/</code>에서 <code>npx wrangler d1 create soonsal-react</code></li>' +
+    '<li>출력된 <code>database_id</code>를 <code>wrangler.toml</code>의 ' +
+    '<code>[[d1_databases]]</code>에 넣기 (binding: <code>DB</code>)</li>' +
+    '<li><code>npx wrangler d1 execute soonsal-react --remote --file schema.sql</code> 로 테이블 생성</li>' +
+    '<li><code>npx wrangler deploy</code> 후 배포 주소를 <code>/ss-config.js</code>에 입력</li></ol>' +
     '<pre>// ss-config.js' + String.fromCharCode(10) + 'window.SS_CFG = { worker: "https://soonsal-react.계정.workers.dev" };</pre>' +
+    '<p style="color:#777;font-size:.82rem;margin-top:12px">※ KV는 쓰지 않습니다. ' +
+    'list 한도(1,000회/일)가 페이지뷰마다 소진돼 2026-08-07에 D1으로 이전했습니다.</p>' +
     '</div>';
 }
 
@@ -97,11 +98,6 @@ if (API) {
       });
       render(rows);
     }).catch(fail);
-} else if (CFG) {
-  fetch(CFG.url + '/rest/v1/' + (CFG.table || 'soonsal_reactions') + '?select=story,emoji,count', { headers: { apikey: CFG.key } })
-    .then(function (r) { return r.json(); })
-    .then(render)
-    .catch(fail);
 } else { setup(); }
 </script>
 </body></html>
