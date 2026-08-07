@@ -34,13 +34,20 @@
     '.ss-cancel{background:#eceef1;color:#555}.ss-go{background:#F07040;color:#fff}' +
     '@media(min-width:640px){.ss-modal-bg{align-items:center}.ss-modal{border-radius:16px}}' +
     /* 스토리별 반응 버튼 */
-    '.ss-react{display:flex;gap:8px;margin:14px 0 4px;flex-wrap:wrap}' +
+    '.ss-react{display:flex;gap:8px;margin:14px 0 4px;flex-wrap:wrap;align-items:center}' +
+    /* 반응 3개는 한 덩어리로 — 자기들끼리 줄바꿈되지 않게 */
+    '.ss-rg{display:flex;gap:8px;flex-wrap:nowrap}' +
     '.ss-rb{background:transparent;border:1px solid #d8d4c8;color:#8a8578;border-radius:16px;' +
     'padding:5px 13px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;' +
-    'transition:all .15s;line-height:1.5}' +
+    'transition:border-color .15s,background .15s,color .15s;line-height:1.5;white-space:nowrap;' +
+    'flex:0 0 auto}' +
     '.ss-rb:hover{border-color:#F07040;color:#F07040}' +
     '.ss-rb.on{border-color:#F07040;background:#F0704014;color:#F07040}' +
-    '.ss-rb b{font-weight:700;margin-left:4px}' +
+    /* 숫자 자리를 미리 비워둔다 — 눌러서 카운트가 생겨도 버튼 폭이 안 변함 */
+    '.ss-rb b{font-weight:700;margin-left:3px;display:inline-block;min-width:8px;text-align:left}' +
+    /* 좁은 화면(375px 기준)에선 4개가 한 줄에 안 들어가 공유는 아이콘만 */
+    '@media(max-width:430px){.ss-react{gap:6px}.ss-rg{gap:6px}' +
+    '.ss-rb{padding:5px 9px;font-size:11px}.ss-sh .lb{display:none}}' +
     /* 오늘의 논점 블록 */
     /* 3월 재개호 브랜드 팔레트: 주황 #F07040/#E55A00, 크림 #fafaf7, 보더 #e8e8e0 */
     '.ss-talk{margin:26px 0 8px;padding:20px 22px;border:1px solid #e8e8e0;border-radius:10px;' +
@@ -58,7 +65,8 @@
     '.ss-rb{border-color:#e0ddd5;color:#8a8578}' +
     '.ss-rb:hover{border-color:#F07040;color:#E55A00}' +
     '.ss-rb.on{border-color:#F07040;background:#F0704012;color:#E55A00}' +
-    '.ss-sh{margin-left:auto;color:#9a958a}';
+    '.ss-sh{margin-left:auto;color:#9a958a}' +
+    '.ss-sh b{display:none}';
 
   function esc(s) {
     return (s || '').replace(/[&<>]/g, function (c) {
@@ -148,18 +156,21 @@
         var wrap = document.createElement('div');
         wrap.className = 'ss-react';
         wrap._shared = {};
+        var rg = document.createElement('div');
+        rg.className = 'ss-rg';
         REACTS.forEach(function (r) {
           var b = document.createElement('button');
           b.type = 'button';
           b.className = 'ss-rb';
           b.innerHTML = r[0] + ' ' + r[1] + '<b class="n"></b>';
           b.addEventListener('click', function () { vote(key, r[0], wrap); });
-          wrap.appendChild(b);
+          rg.appendChild(b);
         });
+        wrap.appendChild(rg);
         var sh = document.createElement('button');
         sh.type = 'button';
         sh.className = 'ss-rb ss-sh';
-        sh.textContent = '🔗 공유';
+        sh.innerHTML = '🔗<span class="lb"> 공유</span>';
         sh.setAttribute('aria-label', '이 스토리 공유');
         sh.addEventListener('click', function () { openShare(s); });
         wrap.appendChild(sh);
