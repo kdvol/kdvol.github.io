@@ -1,25 +1,25 @@
 /**
- * 순살 반응 집계 Worker — Cloudflare Workers + KV (무료 티어)
+ * 순살 반응 집계 Worker — Cloudflare Workers + D1 (무료)
  *
- * 배포(대시보드, 5분):
- *   1) Workers & Pages → Create → Worker → 이름 `soonsal-react` → Deploy
- *   2) Settings → Variables → KV Namespace Bindings → Add
- *      Variable name: REACTIONS  /  KV namespace: 새로 만들기(`soonsal-reactions`)
- *   3) Edit code → 이 파일 전체 붙여넣기 → Deploy
- *   4) 배포된 주소(https://soonsal-react.<계정>.workers.dev)를 /ss-config.js 에 넣기
+ * ⚠️ KV에서 D1로 이전한 이유 (2026-08-07)
+ *   KV 무료 티어는 list()가 하루 1,000회 제한인데, 스토리별 카운트 조회에 list를 써서
+ *   페이지뷰 1회당 list 5회가 나갔다 → 약 200뷰 만에 한도 소진, 집계가 끊김.
+ *   D1은 하루 읽기 500만 / 쓰기 10만 행이라 같은 무료 조건에서 100배 여유.
+ *
+ * 배포:  cd workers && npx wrangler deploy
+ * 스키마: npx wrangler d1 execute soonsal-react --remote --file schema.sql
  *
  * 엔드포인트
- *   POST /react     {story, emoji, delta:±1}  → 집계 증감 후 해당 스토리 카운트 반환
- *   GET  /counts?story=0805-1                 → {"👍":3,"🔥":1}
- *   GET  /counts                              → {"0805-1":{"👍":3}, ...}  (운영자 통계용)
- *
- * 저장 구조: key `r:{story}:{emoji}` , metadata {c:count}
- *   → list() 한 번으로 카운트까지 읽어 KV read 요청을 아낌(무료 한도 보호)
+ *   GET  /counts?issue=0806   → {"0806-1":{"👍":3}, ...}   ← 페이지 1회 호출(권장)
+ *   GET  /counts?story=0806-1 → {"👍":3,"🔥":1}
+ *   GET  /counts              → 전체(운영자 통계용)
+ *   POST /react {story,emoji,delta:±1} → 해당 스토리 카운트
  */
 
 const ALLOW_ORIGINS = ['https://soonsal.com', 'https://www.soonsal.com'];
 const EMOJI = ['👍', '🤔', '🔥'];
 const STORY_RE = /^[0-9]{4}c?-[0-9]{1,2}$/;   // 0805-1 / 0805c-3
+const ISSUE_RE = /^[0-9]{4}c?$/;              // 0806 / 0806c
 
 function cors(origin) {
   const allow = ALLOW_ORIGINS.includes(origin) ? origin : ALLOW_ORIGINS[0];
@@ -31,39 +31,21 @@ function cors(origin) {
   };
 }
 
-function json(data, origin, status = 200) {
+function json(data, origin, status = 200, extra = {}) {
   return new Response(JSON.stringify(data), {
     status,
-    headers: { 'content-type': 'application/json; charset=utf-8', ...cors(origin) },
+    headers: {
+      'content-type': 'application/json; charset=utf-8',
+      ...cors(origin), ...extra,
+    },
   });
 }
 
-async function countsFor(env, story) {
+const byStory = (rows) => {
   const out = {};
-  const list = await env.REACTIONS.list({ prefix: `r:${story}:` });
-  for (const k of list.keys) {
-    const emoji = k.name.split(':').pop();
-    out[emoji] = (k.metadata && k.metadata.c) || 0;
-  }
+  for (const r of rows) (out[r.story] = out[r.story] || {})[r.emoji] = r.count;
   return out;
-}
-
-async function countsAll(env) {
-  const out = {};
-  let cursor;
-  do {
-    const list = await env.REACTIONS.list({ prefix: 'r:', cursor });
-    for (const k of list.keys) {
-      const parts = k.name.split(':');           // r : story : emoji
-      const story = parts[1], emoji = parts[2];
-      const c = (k.metadata && k.metadata.c) || 0;
-      if (!c) continue;
-      (out[story] = out[story] || {})[emoji] = c;
-    }
-    cursor = list.list_complete ? null : list.cursor;
-  } while (cursor);
-  return out;
-}
+};
 
 export default {
   async fetch(request, env) {
@@ -73,39 +55,64 @@ export default {
     if (request.method === 'OPTIONS') {
       return new Response(null, { status: 204, headers: cors(origin) });
     }
-    if (!env.REACTIONS) {
-      return json({ error: 'KV binding REACTIONS 가 설정되지 않았습니다' }, origin, 500);
+    if (!env.DB) {
+      return json({ error: 'D1 binding DB 가 설정되지 않았습니다' }, origin, 500);
     }
 
-    // 집계 조회
-    if (request.method === 'GET' && url.pathname === '/counts') {
-      const story = url.searchParams.get('story');
-      if (story) {
-        if (!STORY_RE.test(story)) return json({}, origin);
-        return json(await countsFor(env, story), origin);
+    try {
+      if (request.method === 'GET' && url.pathname === '/counts') {
+        const story = url.searchParams.get('story');
+        const issue = url.searchParams.get('issue');
+
+        // 페이지 단위 일괄 조회 — 요청/읽기 수를 스토리 수만큼 줄인다
+        if (issue) {
+          if (!ISSUE_RE.test(issue)) return json({}, origin);
+          const { results } = await env.DB
+            .prepare('select story, emoji, count from reactions where story like ?1 and count > 0')
+            .bind(issue + '-%').all();
+          return json(byStory(results || {}), origin,
+                      200, { 'Cache-Control': 'public, max-age=20' });
+        }
+        if (story) {
+          if (!STORY_RE.test(story)) return json({}, origin);
+          const { results } = await env.DB
+            .prepare('select emoji, count from reactions where story = ?1 and count > 0')
+            .bind(story).all();
+          const out = {};
+          for (const r of results || []) out[r.emoji] = r.count;
+          return json(out, origin, 200, { 'Cache-Control': 'public, max-age=20' });
+        }
+        const { results } = await env.DB
+          .prepare('select story, emoji, count from reactions where count > 0').all();
+        return json(byStory(results || []), origin);
       }
-      return json(await countsAll(env), origin);
+
+      if (request.method === 'POST' && url.pathname === '/react') {
+        let body;
+        try { body = await request.json(); } catch (e) { return json({ error: 'bad json' }, origin, 400); }
+        const { story, emoji } = body || {};
+        const delta = Number(body && body.delta);
+
+        if (!STORY_RE.test(String(story || ''))) return json({ error: 'bad story' }, origin, 400);
+        if (!EMOJI.includes(emoji)) return json({ error: 'bad emoji' }, origin, 400);
+        if (delta !== 1 && delta !== -1) return json({ error: 'bad delta' }, origin, 400);
+
+        await env.DB.prepare(
+          `insert into reactions (story, emoji, count) values (?1, ?2, max(?3, 0))
+           on conflict(story, emoji) do update set count = max(count + ?3, 0)`
+        ).bind(story, emoji, delta).run();
+
+        const { results } = await env.DB
+          .prepare('select emoji, count from reactions where story = ?1 and count > 0')
+          .bind(story).all();
+        const out = {};
+        for (const r of results || []) out[r.emoji] = r.count;
+        return json(out, origin);
+      }
+    } catch (err) {
+      return json({ error: 'server', detail: String(err).slice(0, 120) }, origin, 500);
     }
 
-    // 반응 증감
-    if (request.method === 'POST' && url.pathname === '/react') {
-      let body;
-      try { body = await request.json(); } catch (e) { return json({ error: 'bad json' }, origin, 400); }
-      const { story, emoji } = body || {};
-      const delta = Number(body && body.delta);
-
-      if (!STORY_RE.test(String(story || ''))) return json({ error: 'bad story' }, origin, 400);
-      if (!EMOJI.includes(emoji)) return json({ error: 'bad emoji' }, origin, 400);
-      if (delta !== 1 && delta !== -1) return json({ error: 'bad delta' }, origin, 400);
-
-      const key = `r:${story}:${emoji}`;
-      const cur = await env.REACTIONS.getWithMetadata(key);
-      const now = Math.max(((cur.metadata && cur.metadata.c) || 0) + delta, 0);
-      await env.REACTIONS.put(key, String(now), { metadata: { c: now } });
-
-      return json(await countsFor(env, story), origin);
-    }
-
-    return json({ ok: true, endpoints: ['/counts', '/counts?story=', 'POST /react'] }, origin);
+    return json({ ok: true, endpoints: ['/counts?issue=', '/counts?story=', 'POST /react'] }, origin);
   },
 };

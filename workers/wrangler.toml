@@ -2,7 +2,9 @@ name = "soonsal-react"
 main = "reactions.js"
 compatibility_date = "2026-08-01"
 
-# KV 바인딩 — id는 `wrangler kv namespace create REACTIONS` 실행 후 채워짐
-[[kv_namespaces]]
-binding = "REACTIONS"
-id = "5b62e660c416477481d00f52b3da04f4"
+# 반응 집계 저장소 — D1(무료: 읽기 500만/일, 쓰기 10만/일)
+# KV는 list()가 1,000회/일이라 페이지뷰당 소진되어 2026-08-07 이전함
+[[d1_databases]]
+binding = "DB"
+database_name = "soonsal-react"
+database_id = "c4b8a02b-97d0-4d03-b80e-d3301793740a"
