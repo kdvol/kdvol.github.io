@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """운영자용 반응 통계 페이지 (/stats/).
 
-스토리별 👍🤔🔥 집계를 한 화면에 보여준다. 데이터는 Supabase(무료 티어)에서
-브라우저가 직접 읽는다 — 서버 불필요. 미설정 시엔 설정 안내를 표시.
+스토리별 👍🤔🔥 집계를 한 화면에 보여준다. 데이터는 Cloudflare Worker(D1)의
+/counts 엔드포인트에서 브라우저가 직접 읽는다. 미설정 시엔 설정 안내를 표시.
 스토리 제목·날짜·링크는 빌드 시점에 story_atoms.json에서 심는다.
 
 noindex(검색 노출 X). sitemap에도 넣지 않음.
@@ -54,24 +54,6 @@ def build(atoms=None):
     smap = {a["id"]: {"t": re.sub(r"^[^\w<>&\"']{1,4}\s+", "", a["title"]).strip(),
                       "d": a["date"], "u": a["url"]} for a in recent}
 
-    setup_sql = """-- 기존 Supabase 프로젝트에 그대로 추가해도 안전(soonsal_ 접두어)
-create table if not exists soonsal_reactions (
-  story text not null, emoji text not null,
-  count int not null default 0,
-  primary key (story, emoji)
-);
-alter table soonsal_reactions enable row level security;
-create policy "read" on soonsal_reactions for select using (true);
-
-create or replace function soonsal_react(p_story text, p_emoji text, p_delta int)
-returns void language plpgsql security definer as $$
-begin
-  insert into soonsal_reactions(story, emoji, count)
-  values (p_story, p_emoji, greatest(p_delta, 0))
-  on conflict (story, emoji)
-  do update set count = greatest(soonsal_reactions.count + p_delta, 0);
-end; $$;"""
-
     html = f"""<!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex,nofollow">
@@ -89,19 +71,20 @@ var SMAP = {json.dumps(smap, ensure_ascii=False)};
 var EMO = ['👍','🤔','🔥'];
 var SS = window.SS_CFG||{{}};
 var API = SS.worker || null;
-var CFG = SS.supabase;
 var app = document.getElementById('app');
 
 function setup() {{
   app.innerHTML = '<div class="setup"><h2>아직 집계 저장소가 연결되지 않았습니다</h2>' +
     '<p style="color:#bbb;font-size:.9rem;margin-bottom:12px">지금은 반응이 각자 브라우저에만 남습니다. ' +
-    'Cloudflare Worker + KV(무료)를 연결하면 전체 집계가 이 화면에 쌓입니다.</p>' +
-    '<ol><li>Cloudflare → Workers &amp; Pages → <b>Create Worker</b> (이름: soonsal-react)</li>' +
-    '<li>Settings → Variables → <b>KV Namespace Bindings</b> 추가<br>' +
-    'Variable name: <code>REACTIONS</code> / 네임스페이스: 새로 생성</li>' +
-    '<li>Edit code에 리포의 <code>workers/reactions.js</code> 전체 붙여넣고 Deploy</li>' +
-    '<li>배포 주소를 <code>/ss-config.js</code>에 입력</li></ol>' +
+    'Cloudflare Worker + D1(무료)을 연결하면 전체 집계가 이 화면에 쌓입니다.</p>' +
+    '<ol><li>리포의 <code>workers/</code>에서 <code>npx wrangler d1 create soonsal-react</code></li>' +
+    '<li>출력된 <code>database_id</code>를 <code>wrangler.toml</code>의 ' +
+    '<code>[[d1_databases]]</code>에 넣기 (binding: <code>DB</code>)</li>' +
+    '<li><code>npx wrangler d1 execute soonsal-react --remote --file schema.sql</code> 로 테이블 생성</li>' +
+    '<li><code>npx wrangler deploy</code> 후 배포 주소를 <code>/ss-config.js</code>에 입력</li></ol>' +
     '<pre>// ss-config.js' + String.fromCharCode(10) + 'window.SS_CFG = {{ worker: "https://soonsal-react.계정.workers.dev" }};</pre>' +
+    '<p style="color:#777;font-size:.82rem;margin-top:12px">※ KV는 쓰지 않습니다. ' +
+    'list 한도(1,000회/일)가 페이지뷰마다 소진돼 2026-08-07에 D1으로 이전했습니다.</p>' +
     '</div>';
 }}
 
@@ -145,11 +128,6 @@ if (API) {{
       }});
       render(rows);
     }}).catch(fail);
-}} else if (CFG) {{
-  fetch(CFG.url + '/rest/v1/' + (CFG.table || 'soonsal_reactions') + '?select=story,emoji,count', {{ headers: {{ apikey: CFG.key }} }})
-    .then(function (r) {{ return r.json(); }})
-    .then(render)
-    .catch(fail);
 }} else {{ setup(); }}
 </script>
 </body></html>"""
