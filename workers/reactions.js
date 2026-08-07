@@ -13,7 +13,11 @@
  *   GET  /counts?issue=0806   → {"0806-1":{"👍":3}, ...}   ← 페이지 1회 호출(권장)
  *   GET  /counts?story=0806-1 → {"👍":3,"🔥":1}
  *   GET  /counts              → 전체(운영자 통계용)
+ *   GET  /activity            → {last:{story:ts}, events:[[ts,story,delta],...]} (최근 14일)
  *   POST /react {story,emoji,delta:±1} → 해당 스토리 카운트
+ *
+ * 시각 기록: reactions.updated_at(마지막 반응) + events(클릭 로그).
+ *   집계 테이블만으론 "발행 직후 언제 몰렸는지"를 알 수 없어 로그를 따로 남긴다.
  */
 
 const ALLOW_ORIGINS = ['https://soonsal.com', 'https://www.soonsal.com'];
@@ -87,6 +91,18 @@ export default {
         return json(byStory(results || []), origin);
       }
 
+      // 운영자 통계용 — 마지막 반응 시각 + 최근 14일 클릭 로그
+      if (request.method === 'GET' && url.pathname === '/activity') {
+        const [lastQ, evQ] = await env.DB.batch([
+          env.DB.prepare('select story, max(updated_at) as t from reactions where updated_at is not null group by story'),
+          env.DB.prepare("select ts, story, delta from events where ts > unixepoch() - 1209600 order by ts"),
+        ]);
+        const last = {};
+        for (const r of lastQ.results || []) last[r.story] = r.t;
+        const events = (evQ.results || []).map((r) => [r.ts, r.story, r.delta]);
+        return json({ last, events, now: Math.floor(Date.now() / 1000) }, origin);
+      }
+
       if (request.method === 'POST' && url.pathname === '/react') {
         let body;
         try { body = await request.json(); } catch (e) { return json({ error: 'bad json' }, origin, 400); }
@@ -97,10 +113,17 @@ export default {
         if (!EMOJI.includes(emoji)) return json({ error: 'bad emoji' }, origin, 400);
         if (delta !== 1 && delta !== -1) return json({ error: 'bad delta' }, origin, 400);
 
-        await env.DB.prepare(
-          `insert into reactions (story, emoji, count) values (?1, ?2, max(?3, 0))
-           on conflict(story, emoji) do update set count = max(count + ?3, 0)`
-        ).bind(story, emoji, delta).run();
+        await env.DB.batch([
+          env.DB.prepare(
+            `insert into reactions (story, emoji, count, updated_at)
+             values (?1, ?2, max(?3, 0), unixepoch())
+             on conflict(story, emoji) do update set
+               count = max(count + ?3, 0), updated_at = unixepoch()`
+          ).bind(story, emoji, delta),
+          env.DB.prepare(
+            `insert into events (story, emoji, delta, ts) values (?1, ?2, ?3, unixepoch())`
+          ).bind(story, emoji, delta),
+        ]);
 
         const { results } = await env.DB
           .prepare('select emoji, count from reactions where story = ?1 and count > 0')
@@ -113,6 +136,6 @@ export default {
       return json({ error: 'server', detail: String(err).slice(0, 120) }, origin, 500);
     }
 
-    return json({ ok: true, endpoints: ['/counts?issue=', '/counts?story=', 'POST /react'] }, origin);
+    return json({ ok: true, endpoints: ['/counts?issue=', '/counts?story=', '/activity', 'POST /react'] }, origin);
   },
 };

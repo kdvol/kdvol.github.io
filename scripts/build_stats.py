@@ -41,6 +41,12 @@ font-size:.78rem;line-height:1.6;color:#bbb;margin:10px 0}
 .row:hover .ti{color:#F07040}
 .cnt{display:flex;gap:9px;white-space:nowrap;font-size:.85rem;color:#aaa;font-variant-numeric:tabular-nums}
 .cnt span.z{color:#3a3a3a}
+.when{color:#5c5c5c;font-size:.74rem;white-space:nowrap;padding-top:3px}
+.spark{background:#161616;border:1px solid #232323;border-radius:10px;padding:12px 16px 10px;margin-bottom:6px}
+.spark .sl{font-size:.75rem;color:#888;margin-bottom:9px}
+.spark .bars{display:flex;align-items:flex-end;gap:3px;height:36px}
+.spark .bars i{flex:1;background:#F07040;border-radius:2px 2px 0 0;opacity:.85;min-height:2px}
+@media(max-width:520px){.when{display:none}.row{gap:9px}}
 .empty{color:#777;font-size:.9rem;padding:22px 4px}
 """
 
@@ -88,24 +94,72 @@ function setup() {{
     '</div>';
 }}
 
-function render(rows) {{
+// unix초 → '3분 전' / '2시간 전' / '3일 전'
+function ago(ts, now) {{
+  if (!ts) return '';
+  var s = Math.max(0, now - ts);
+  if (s < 60) return '방금';
+  if (s < 3600) return Math.floor(s / 60) + '분 전';
+  if (s < 86400) return Math.floor(s / 3600) + '시간 전';
+  return Math.floor(s / 86400) + '일 전';
+}}
+
+// 최근 24시간을 1시간 단위로 쪼갠 막대 (발행 직후 언제 몰리는지)
+function sparkline(events, now) {{
+  var b = new Array(24).fill(0), max = 0;
+  events.forEach(function (e) {{
+    if (e[2] !== 1) return;                    // 취소(-1)는 제외
+    var h = Math.floor((now - e[0]) / 3600);
+    if (h >= 0 && h < 24) b[23 - h]++;
+  }});
+  b.forEach(function (n) {{ if (n > max) max = n; }});
+  if (!max) return '';
+  var bars = b.map(function (n, i) {{
+    var hh = new Date((now - (23 - i) * 3600) * 1000).getHours();
+    return '<i style="height:' + Math.max(2, Math.round(n / max * 34)) + 'px" title="' +
+           hh + '시 · ' + n + '건"></i>';
+  }}).join('');
+  return '<div class="spark"><div class="sl">최근 24시간 (시간대별)</div><div class="bars">' +
+         bars + '</div></div>';
+}}
+
+function render(rows, act) {{
+  var last = (act && act.last) || {{}};
+  var events = (act && act.events) || [];
+  var now = (act && act.now) || Math.floor(Date.now() / 1000);
+
   var by = {{}};
   rows.forEach(function (r) {{ (by[r.story] = by[r.story] || {{}})[r.emoji] = r.count; }});
   var keys = Object.keys(by).sort(function (a, b) {{
     var sa = 0, sb = 0;
     EMO.forEach(function (e) {{ sa += by[a][e] || 0; sb += by[b][e] || 0; }});
-    return sb - sa;
+    if (sb !== sa) return sb - sa;
+    return (last[b] || 0) - (last[a] || 0);
   }});
   if (!keys.length) {{ app.innerHTML = '<div class="empty">아직 반응이 없습니다.</div>'; return; }}
   var tot = 0, st = 0;
   keys.forEach(function (k) {{ EMO.forEach(function (e) {{ tot += by[k][e] || 0; }}); st++; }});
+  var d1 = 0, d7 = 0, newest = 0;
+  events.forEach(function (e) {{
+    if (e[2] !== 1) return;
+    if (now - e[0] < 86400) d1++;
+    if (now - e[0] < 604800) d7++;
+  }});
+  Object.keys(last).forEach(function (k) {{ if (last[k] > newest) newest = last[k]; }});
+
   var h = '<div class="sum">' +
     '<div class="kpi"><div class="v">' + tot + '</div><div class="l">전체 반응</div></div>' +
-    '<div class="kpi"><div class="v">' + st + '</div><div class="l">반응받은 스토리</div></div></div>';
+    '<div class="kpi"><div class="v">' + d1 + '</div><div class="l">최근 24시간</div></div>' +
+    '<div class="kpi"><div class="v">' + d7 + '</div><div class="l">최근 7일</div></div>' +
+    '<div class="kpi"><div class="v">' + st + '</div><div class="l">반응받은 스토리</div></div></div>' +
+    sparkline(events, now) +
+    (newest ? '<p class="sub" style="margin:14px 0 4px">마지막 반응 ' + ago(newest, now) + '</p>' : '');
+
   keys.forEach(function (k) {{
     var m = SMAP[k] || {{ t: k, d: '', u: '#' }};
     h += '<a class="row" href="' + m.u + '"><span class="dt">' + (m.d || '').slice(5) + '</span>' +
-      '<span class="ti">' + m.t + '</span><span class="cnt">' +
+      '<span class="ti">' + m.t + '</span>' +
+      '<span class="when">' + ago(last[k], now) + '</span><span class="cnt">' +
       EMO.map(function (e) {{
         var n = by[k][e] || 0;
         return '<span class="' + (n ? '' : 'z') + '">' + e + ' ' + n + '</span>';
@@ -117,17 +171,20 @@ function render(rows) {{
 function fail() {{ app.innerHTML = '<div class="empty">집계를 불러오지 못했습니다.</div>'; }}
 
 if (API) {{
-  fetch(API.replace(/[/]$/, '') + '/counts')
-    .then(function (r) {{ return r.json(); }})
-    .then(function (obj) {{        // {{story: {{emoji: n}}}} → rows
-      var rows = [];
-      Object.keys(obj || {{}}).forEach(function (s) {{
-        Object.keys(obj[s]).forEach(function (e) {{
-          rows.push({{ story: s, emoji: e, count: obj[s][e] }});
-        }});
+  var base = API.replace(/[/]$/, '');
+  var jsonOf = function (r) {{ return r.json(); }};
+  Promise.all([
+    fetch(base + '/counts').then(jsonOf),
+    fetch(base + '/activity').then(jsonOf).catch(function () {{ return null; }}),
+  ]).then(function (res) {{      // counts: {{story: {{emoji: n}}}} → rows
+    var obj = res[0] || {{}}, rows = [];
+    Object.keys(obj).forEach(function (s) {{
+      Object.keys(obj[s]).forEach(function (e) {{
+        rows.push({{ story: s, emoji: e, count: obj[s][e] }});
       }});
-      render(rows);
-    }}).catch(fail);
+    }});
+    render(rows, res[1]);
+  }}).catch(fail);
 }} else {{ setup(); }}
 </script>
 </body></html>"""
