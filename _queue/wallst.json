@@ -9,6 +9,6 @@
   "youtube_title": "",
   "name": "wallst",
   "date": "20260809",
-  "target_epoch": 1786269600,
-  "dry_run": true
+  "target_epoch": 1786237200,
+  "dry_run": false
 }
