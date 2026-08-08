@@ -3,12 +3,12 @@
   "video": "_publish/sv/toon1/reel.mp4",
   "caption_txt": "_publish/sv/toon1/POST.txt",
   "post_txt": "_publish/sv/toon1/POST.txt",
-  "prefix": "sv/2026/0813_toon1",
+  "prefix": "sv/2026/0819_toon1",
   "instagram": true,
   "youtube": false,
   "youtube_title": "",
   "name": "toon1",
-  "date": "20260813",
-  "target_epoch": 1786582800,
+  "date": "20260819",
+  "target_epoch": 1787101200,
   "dry_run": false
 }
