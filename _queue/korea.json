@@ -3,12 +3,12 @@
   "video": "_publish/sv/korea/reel.mp4",
   "caption_txt": "_publish/sv/korea/POST.txt",
   "post_txt": "_publish/sv/korea/POST.txt",
-  "prefix": "sv/2026/0810_korea",
+  "prefix": "sv/2026/0811_korea",
   "instagram": true,
   "youtube": false,
   "youtube_title": "",
   "name": "korea",
-  "date": "20260810",
-  "target_epoch": 1786323600,
+  "date": "20260811",
+  "target_epoch": 1786410000,
   "dry_run": false
 }
