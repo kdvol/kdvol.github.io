@@ -3,12 +3,12 @@
   "video": "_publish/sv/asylum/reel.mp4",
   "caption_txt": "_publish/sv/asylum/POST.txt",
   "post_txt": "_publish/sv/asylum/POST.txt",
-  "prefix": "sv/2026/0815_asylum",
+  "prefix": "sv/2026/0813_asylum",
   "instagram": true,
   "youtube": false,
   "youtube_title": "",
   "name": "asylum",
-  "date": "20260815",
-  "target_epoch": 1786755600,
+  "date": "20260813",
+  "target_epoch": 1786582800,
   "dry_run": false
 }
