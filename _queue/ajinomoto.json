@@ -3,12 +3,12 @@
   "video": "_publish/sv/ajinomoto/reel.mp4",
   "caption_txt": "_publish/sv/ajinomoto/POST.txt",
   "post_txt": "_publish/sv/ajinomoto/POST.txt",
-  "prefix": "sv/2026/0812_ajinomoto",
+  "prefix": "sv/2026/0817_ajinomoto",
   "instagram": true,
   "youtube": false,
   "youtube_title": "",
   "name": "ajinomoto",
-  "date": "20260812",
-  "target_epoch": 1786496400,
+  "date": "20260817",
+  "target_epoch": 1786928400,
   "dry_run": false
 }
