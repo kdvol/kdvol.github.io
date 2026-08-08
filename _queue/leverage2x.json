@@ -3,12 +3,12 @@
   "video": "_publish/sv/leverage2x/reel.mp4",
   "caption_txt": "_publish/sv/leverage2x/POST.txt",
   "post_txt": "_publish/sv/leverage2x/POST.txt",
-  "prefix": "sv/2026/0815_leverage2x",
+  "prefix": "sv/2026/0818_leverage2x",
   "instagram": true,
   "youtube": false,
   "youtube_title": "",
   "name": "leverage2x",
-  "date": "20260815",
-  "target_epoch": 1786755600,
+  "date": "20260818",
+  "target_epoch": 1787014800,
   "dry_run": false
 }
