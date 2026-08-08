@@ -1,0 +1,14 @@
+{
+  "type": "single_video",
+  "video": "_publish/sv/typetest/reel.mp4",
+  "caption_txt": "_publish/sv/typetest/POST.txt",
+  "post_txt": "_publish/sv/typetest/POST.txt",
+  "prefix": "sv/2026/0811_typetest",
+  "instagram": true,
+  "youtube": false,
+  "youtube_title": "",
+  "name": "typetest",
+  "date": "20260811",
+  "target_epoch": 1786410000,
+  "dry_run": false
+}
