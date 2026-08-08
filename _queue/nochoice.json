@@ -1,0 +1,14 @@
+{
+  "type": "single_video",
+  "video": "_publish/sv/nochoice/reel.mp4",
+  "caption_txt": "_publish/sv/nochoice/POST.txt",
+  "post_txt": "_publish/sv/nochoice/POST.txt",
+  "prefix": "sv/2026/0814_nochoice",
+  "instagram": true,
+  "youtube": false,
+  "youtube_title": "",
+  "name": "nochoice",
+  "date": "20260814",
+  "target_epoch": 1786669200,
+  "dry_run": false
+}
