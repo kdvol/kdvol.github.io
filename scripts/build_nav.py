@@ -91,6 +91,10 @@ def main():
         t = p.read_text(encoding="utf-8")
         new = NAV_RE.sub(_nav(active), t, count=1)
         for a, b in CSS_FIXES:
+            # b가 a를 통째로 품는 '덧붙이기' 치환은 매 빌드마다 다시 걸린다.
+            # 이미 적용된 파일은 건너뛰지 않으면 규칙이 무한히 쌓임(실제로 37벌까지 늘었음).
+            if a in b and b in new:
+                continue
             new = new.replace(a, b)
         if new != t:
             p.write_text(new, encoding="utf-8")
