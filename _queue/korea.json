@@ -1,0 +1,14 @@
+{
+  "type": "single_video",
+  "video": "_publish/sv/korea/reel.mp4",
+  "caption_txt": "_publish/sv/korea/POST.txt",
+  "post_txt": "_publish/sv/korea/POST.txt",
+  "prefix": "sv/2026/0810_korea",
+  "instagram": true,
+  "youtube": false,
+  "youtube_title": "",
+  "name": "korea",
+  "date": "20260810",
+  "target_epoch": 1786323600,
+  "dry_run": false
+}
