@@ -3,12 +3,12 @@
   "video": "_publish/sv/glyph/reel.mp4",
   "caption_txt": "_publish/sv/glyph/POST.txt",
   "post_txt": "_publish/sv/glyph/POST.txt",
-  "prefix": "sv/2026/0827_glyph",
+  "prefix": "sv/2026/0828_glyph",
   "instagram": true,
   "youtube": false,
   "youtube_title": "",
   "name": "glyph",
-  "date": "20260827",
-  "target_epoch": 1787792400,
+  "date": "20260828",
+  "target_epoch": 1787913600,
   "dry_run": false
 }
