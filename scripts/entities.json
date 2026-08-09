@@ -940,14 +940,14 @@
       "example": "📈 거래소 거래량, 5개월 만에 반등 — RWA 선물 $311B 신기록",
       "ko": false
     },
+    "GLP-1": {
+      "count": 11,
+      "example": "💉 직원 살 빼는 데 2.5억불 쓰는 은행",
+      "ko": false
+    },
     "FIFA": {
       "count": 11,
       "example": "⚽ 팔지 말라는 걸 팔겠다는 FIFA",
-      "ko": false
-    },
-    "GLP-1": {
-      "count": 10,
-      "example": "💊 올해 IPO 수익률 1등, 바이오",
       "ko": false
     },
     "BofA": {
