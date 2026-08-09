@@ -3,12 +3,12 @@
   "video": "_publish/sv/ecolab/reel.mp4",
   "caption_txt": "_publish/sv/ecolab/POST.txt",
   "post_txt": "_publish/sv/ecolab/POST.txt",
-  "prefix": "sv/2026/0825_ecolab",
+  "prefix": "sv/2026/0826_ecolab",
   "instagram": true,
   "youtube": false,
   "youtube_title": "",
   "name": "ecolab",
-  "date": "20260825",
-  "target_epoch": 1787619600,
+  "date": "20260826",
+  "target_epoch": 1787740800,
   "dry_run": false
 }
