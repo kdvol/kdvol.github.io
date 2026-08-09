@@ -1,8 +1,15 @@
 {
-  "html": "_publish/순살카드뉴스_20260713.html",
-  "date": "20260713",
-  "name": "wallst",
-  "post_txt": "_publish/wallst.POST.txt",
-  "target_epoch": 1783904400,
-  "dry_run": false
+ "type": "single_video",
+ "video": "_publish/sv/wallst/reel.mp4",
+ "caption_txt": "_publish/sv/wallst/POST.txt",
+ "post_txt": "_publish/sv/wallst/POST.txt",
+ "prefix": "sv/2026/0809_wallst",
+ "instagram": true,
+ "youtube": false,
+ "youtube_title": "",
+ "name": "wallst",
+ "date": "20260809",
+ "target_epoch": 1786237200,
+ "dry_run": false,
+ "ig_media_id": "17857782840695180"
 }
