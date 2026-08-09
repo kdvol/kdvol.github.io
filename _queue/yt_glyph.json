@@ -1,0 +1,14 @@
+{
+  "type": "single_video",
+  "video": "_publish/sv/yt_glyph/reel.mp4",
+  "caption_txt": "_publish/sv/yt_glyph/POST.txt",
+  "post_txt": "_publish/sv/yt_glyph/POST.txt",
+  "prefix": "sv/2026/0810_yt_glyph",
+  "instagram": false,
+  "youtube": true,
+  "youtube_title": "글자 2개 바꿨더니 트레이딩 AI 10개 중 9개가 속음 🔤",
+  "name": "yt_glyph",
+  "date": "20260810",
+  "target_epoch": 1786356000,
+  "dry_run": false
+}
