@@ -1,0 +1,14 @@
+{
+  "type": "single_video",
+  "video": "_publish/sv/ecolab/reel.mp4",
+  "caption_txt": "_publish/sv/ecolab/POST.txt",
+  "post_txt": "_publish/sv/ecolab/POST.txt",
+  "prefix": "sv/2026/0825_ecolab",
+  "instagram": true,
+  "youtube": false,
+  "youtube_title": "",
+  "name": "ecolab",
+  "date": "20260825",
+  "target_epoch": 1787619600,
+  "dry_run": false
+}
