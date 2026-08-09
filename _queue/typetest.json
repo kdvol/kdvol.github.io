@@ -3,12 +3,12 @@
   "video": "_publish/sv/typetest/reel.mp4",
   "caption_txt": "_publish/sv/typetest/POST.txt",
   "post_txt": "_publish/sv/typetest/POST.txt",
-  "prefix": "sv/2026/0815_typetest",
+  "prefix": "sv/2026/0816_typetest",
   "instagram": true,
   "youtube": false,
   "youtube_title": "",
   "name": "typetest",
-  "date": "20260815",
-  "target_epoch": 1786755600,
+  "date": "20260816",
+  "target_epoch": 1786876800,
   "dry_run": false
 }
