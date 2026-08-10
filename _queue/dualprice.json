@@ -4,5 +4,5 @@
   "name": "dualprice",
   "post_txt": "_publish/dualprice.POST.txt",
   "target_epoch": 1786498800,
-  "dry_run": false
+  "dry_run": true
 }
