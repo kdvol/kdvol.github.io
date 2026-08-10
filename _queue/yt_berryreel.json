@@ -10,5 +10,5 @@
   "name": "yt_berryreel",
   "date": "20260816",
   "target_epoch": 1786873200,
-  "dry_run": true
+  "dry_run": false
 }
