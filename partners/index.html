@@ -73,6 +73,40 @@ h3 { font-size:20px; font-weight:700; margin-bottom:16px; color:var(--white); }
 .product-table tr:hover td { background:var(--surface); }
 .product-table .highlight { color:var(--accent); font-weight:700; font-family:'Space Grotesk',monospace; }
 
+
+/* ===== 실제 사례 페이지 ===== */
+.case-hero{background:linear-gradient(135deg,rgba(243,140,97,.14),rgba(243,140,97,.03));border:1px solid var(--accent);border-radius:18px;padding:22px 26px;margin-bottom:26px;}
+.case-hero .eyebrow{font-size:11px;font-weight:800;letter-spacing:2px;color:var(--accent);margin-bottom:8px;}
+.case-hero h3{font-size:24px;font-weight:900;color:var(--white);margin:0 0 8px;letter-spacing:-0.6px;}
+.case-hero p{font-size:14px;color:var(--text);margin:0;}
+.nl{background:#f5f5f0;border-radius:14px;overflow:hidden;border:1px solid var(--border);color:#111;}
+.nl-head{background:#1a1a1a;padding:11px 16px;}
+.nl-head span{color:#fff;font-size:12px;font-weight:700;}
+.sf-band{background:linear-gradient(135deg,#032D60 0%,#0B5CAB 55%,#0176D3 100%);padding:16px 18px;text-align:center;}
+.sf-kicker{font-size:9px;font-weight:700;color:rgba(255,255,255,.6);letter-spacing:2px;margin-bottom:9px;}
+.sf-logo{width:88px;height:auto;background:#fff;border-radius:8px;padding:8px 13px;display:inline-block;}
+.sf-line{font-size:11.5px;color:rgba(255,255,255,.92);margin-top:9px;}
+.nl-body{padding:18px 20px;}
+.nl-title{font-size:17px;font-weight:900;color:#111;margin-bottom:11px;line-height:1.35;}
+.nl-b{display:flex;gap:7px;font-size:12px;color:#333;line-height:1.7;margin-bottom:8px;}
+.nl-b .d{color:#111;font-weight:700;flex-shrink:0;}
+.nl-b b{color:#111;}
+.nl-link{color:#F38C61;text-decoration:underline;font-weight:600;}
+.nl-note{font-size:10px;color:#999;margin-top:10px;}
+.cn-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:6px 0 0;}
+.cn-grid img{width:100%;border-radius:12px;border:1px solid var(--border);display:block;}
+.cn-cap{font-size:12px;color:var(--text-dim);text-align:center;margin-top:8px;}
+.app-grid{display:grid;grid-template-columns:0.8fr 0.8fr 1.4fr;gap:16px;align-items:start;}
+.app-grid figure{margin:0;}
+.app-grid figure img{width:100%;height:520px;object-fit:contain;object-position:top;background:#fff;border-radius:12px;border:1px solid var(--border);display:block;}
+.app-grid > div img{width:100%;border-radius:12px;border:1px solid var(--border);display:block;}
+.app-grid figcaption{font-size:11.5px;color:var(--text-dim);text-align:center;margin-top:7px;}
+@media (max-width:768px){
+  .cn-grid{grid-template-columns:repeat(2,1fr);}
+  .app-grid{grid-template-columns:1fr;}
+  .app-grid figure img{height:auto;}
+}
+
 /* Pricing */
 .pricing-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:24px; margin:32px 0; }
 .pricing-card { background:var(--surface); border:1px solid var(--border); border-radius:16px; padding:32px; position:relative; }
@@ -595,6 +629,143 @@ p { margin-bottom:16px; font-size:15px; }
 
   <p class="dim small mt-32">* 위 레이아웃은 2026.04.07 순살브리핑 실제 콘텐츠 기준 예시 · 모든 단가는 VAT 별도</p>
   <div class="page-num">03-1</div>
+</div>
+
+<!-- PAGE: CASE 1 — SALESFORCE -->
+<div class="page">
+  <h2><span class="num">03-2</span>실제 발행 사례 — Salesforce</h2>
+  <div class="case-hero">
+    <div class="eyebrow">CASE 01 · 뉴스레터 브랜디드 스토리</div>
+    <h3>세일즈포스코리아 『Trusted AI Playbook』 캠페인</h3>
+    <p>20페이지 리포트를 순살이 정독해 앵글을 직접 설계하고, 순살 톤 네이티브 콘텐츠로 재작성했습니다. 스토리 5편 중 <strong style="color:var(--accent)">두 번째 슬롯</strong>에 배치되어 앞뒤 에디토리얼과 같은 형식으로 소비됩니다. <span class="dim">2026.08.05 발행</span></p>
+  </div>
+
+  <div class="nl">
+    <div class="nl-head"><span>순살브리핑 · 2026년 8월 5일 (수)</span></div>
+    <div class="sf-band">
+      <div class="sf-kicker">SPONSORED BY</div>
+      <img src="assets/salesforce.svg" alt="Salesforce" class="sf-logo"/>
+      <div class="sf-line">규제를 지키면서 성과를 내는 금융 AI — Trusted AI Playbook</div>
+    </div>
+    <div class="nl-body">
+      <div class="nl-title">🏦 AI 쓰라면서요, 사고 나면 책임은 제가 지고요</div>
+      <div class="nl-b"><span class="d">◾</span><span>금융권 망분리가 풀렸음. '갈라파고스' 소리 듣던 국내 금융 IT가 클라우드로 나갈 길이 열린 것. 근데 정작 금융사 임원들 표정이 어두움. 한 손엔 가속 페달, 다른 손엔 <b>책무구조도</b>라는 브레이크를 같이 쥐여준 셈. 이제 AI 사고는 시스템 오류로 끝나지 않음. <b>경영진 개인의 징계</b>로 직결되는, 위임이 안 되는 리스크가 됐음</span></div>
+      <div class="nl-b"><span class="d">◾</span><span>고객은 이미 앞서 가는 중. 세일즈포스 조사에서 한국 소비자 <b>82%</b>가 "AI가 금융 거래를 더 빠르게 처리할 것"이라 답했음. 근데 업권마다 발이 묶여 있음. 은행은 지점·콜센터·앱이 따로 놀고, 증권은 대중부유층까지 AI PB 사업을 넓혀야 하는데 레거시가 발목 잡는 중</span></div>
+      <div class="nl-b"><span class="d">◾</span><span>밖에선 다르게 풀고 있음. 미쓰비시 UFJ 은행은 Salesforce Platform으로 개발 비용·기간을 최대 <b>67%</b> 줄였음. Hero FinCorp는 MuleSoft와 Atlas 추론 엔진으로 2일 걸리던 대출 승인을 <b>30분</b>에 끝냄. 공통점은 자체 구축 대신 검증된 <b>Trust Layer</b>를 통해 AI 응답을 구현했다는 것. 세일즈포스가 베인앤드컴퍼니와 낸 <span class="nl-link">『Trusted AI Playbook』</span>의 결론은 후자임</span></div>
+      <div class="nl-note">* 본 콘텐츠는 세일즈포스의 후원을 받아 제작되었습니다.</div>
+    </div>
+  </div>
+  <p class="dim small" style="margin-top:12px;">브랜드 가이드라인·필수 메시지·공식 표기·UTM 트래킹을 반영하고 발행 전 광고주 검수를 거쳤습니다. · 전문 : <a href="https://soonsal.com/newsletters/2026/0805.html" style="color:var(--accent);text-decoration:underline;" target="_blank">soonsal.com/newsletters/2026/0805.html</a></p>
+  <div class="page-num">03-2</div>
+</div>
+
+<!-- PAGE: CASE 2 — 한국투자증권 -->
+<div class="page">
+  <h2><span class="num">03-3</span>실제 공급 콘텐츠 — 한국투자증권</h2>
+  <div class="case-hero">
+    <div class="eyebrow">CASE 02 · IG 카드뉴스 제작·공급</div>
+    <h3>한국투자증권 ELW 시리즈</h3>
+    <p>ELW 민감도(Greeks)처럼 어려운 파생상품 개념을 일반 투자자가 이해할 수 있는 형태로 제작했습니다. 주제 선정부터 카피·일러스트·디자인까지 <strong style="color:var(--accent)">전 과정을 순살이 수행</strong>하고 공동 브랜딩으로 발행했습니다.</p>
+  </div>
+
+  <div class="cn-grid">
+    <img src="assets/cardnews_01.png" alt="한국투자증권 카드뉴스 1">
+    <img src="assets/cardnews_02.png" alt="한국투자증권 카드뉴스 2">
+    <img src="assets/cardnews_03.png" alt="한국투자증권 카드뉴스 3">
+    <img src="assets/cardnews_04.png" alt="한국투자증권 카드뉴스 4">
+  </div>
+  <p class="cn-cap">한국투자증권 × 순살 공동 브랜딩 · 실제 발행 카드뉴스</p>
+
+  <div class="two-col" style="margin-top:20px;">
+    <div class="col-box">
+      <h4>순살이 수행한 범위</h4>
+      <ul>
+        <li>주제 선정 · 스크립트 · 카피라이팅</li>
+        <li>일러스트 · 디자인 · 편집 전 과정</li>
+        <li>브랜드 공동 표기 및 검수 대응</li>
+      </ul>
+    </div>
+    <div class="col-box">
+      <h4>적용 가능 주제</h4>
+      <ul>
+        <li>파생·연금·해외주식·ETF 등 상품 설명</li>
+        <li>시황·리서치 리포트의 대중향 변환</li>
+        <li>신규 상품 출시 연계 캠페인</li>
+      </ul>
+    </div>
+  </div>
+  <div class="page-num">03-3</div>
+</div>
+
+<!-- PAGE: CASE 3 — 미래에셋자산운용 -->
+<div class="page">
+  <h2><span class="num">03-4</span>실제 발행 콘텐츠 — 미래에셋자산운용</h2>
+  <div class="case-hero">
+    <div class="eyebrow">CASE 03 · IG 카드뉴스 브랜디드</div>
+    <h3>미래에셋자산운용 ETF 캠페인</h3>
+    <p>운용사의 상품 메시지를 순살 톤 콘텐츠로 재구성해 발행했습니다. 1~8장이 <strong style="color:var(--accent)">에디토리얼 내러티브로 빌드업</strong>하고 후반부에 상품이 직접 노출되는 구조로, 광고 1장이 아니라 10장 전체가 하나의 브랜드 스토리로 기능합니다.</p>
+  </div>
+
+  <div class="cn-grid">
+    <img src="assets/mirae_1.jpg" alt="미래에셋자산운용 카드뉴스 1">
+    <img src="assets/mirae_2.jpg" alt="미래에셋자산운용 카드뉴스 2">
+    <img src="assets/mirae_3.jpg" alt="미래에셋자산운용 카드뉴스 3">
+    <img src="assets/mirae_4.jpg" alt="미래에셋자산운용 카드뉴스 4">
+  </div>
+  <p class="cn-cap">미래에셋자산운용 × 순살 · 실제 발행 카드뉴스</p>
+
+  <div class="two-col" style="margin-top:20px;">
+    <div class="col-box">
+      <h4>구성 방식</h4>
+      <ul>
+        <li>1~8장 : 독자 관심사 기반 에디토리얼 빌드업</li>
+        <li>9장 : 상품명·서비스명 직접 노출</li>
+        <li>10장 : 마무리 및 액션 유도</li>
+      </ul>
+    </div>
+    <div class="col-box">
+      <h4>확산 특성</h4>
+      <ul>
+        <li>게시당 도달 30~220K</li>
+        <li>알고리즘이 2장째를 독립 노출시켜 오가닉 증폭</li>
+        <li>저장·공유율이 높게 형성</li>
+      </ul>
+    </div>
+  </div>
+  <div class="page-num">03-4</div>
+</div>
+
+<!-- PAGE: CASE 4 — BC카드 -->
+<div class="page">
+  <h2><span class="num">03-5</span>인앱 콘텐츠 공급 — BC카드 '페이북'</h2>
+  <div class="case-hero">
+    <div class="eyebrow">CASE 04 · 콘텐츠 라이선싱</div>
+    <h3>페이북 앱 '투자의 시작' 일간 공급</h3>
+    <p>순살 채널에 광고를 싣는 것과 별개로, <strong style="color:var(--accent)">파트너사 앱에 순살이 콘텐츠를 라이선스로 공급</strong>하는 모델입니다. 앱 내 콘텐츠 영역에 순살 제작 일간 브리핑이 실리고, 공동 브랜딩으로 노출됩니다.</p>
+  </div>
+
+  <div class="app-grid">
+    <figure><img src="assets/bc_list.jpg" alt="페이북 콘텐츠 목록"><figcaption>콘텐츠 목록 — 순살 제작 콘텐츠가 일자별로 축적</figcaption></figure>
+    <figure><img src="assets/bc_brief.jpg" alt="페이북 오늘의 브리핑"><figcaption>오늘의 브리핑 — 순살 제작 일간 콘텐츠</figcaption></figure>
+    <div>
+      <div class="col-box">
+        <h4>공급 구성</h4>
+        <ul>
+          <li>일간 브리핑 — 시황 데이터 + 해설</li>
+          <li>주간 일정 · 차트 · 영상 섹션</li>
+          <li>이전/다음 글 내비게이션 설계</li>
+          <li>콘텐츠 URL 페이지 제작·운영 포함</li>
+        </ul>
+      </div>
+      <img src="assets/bc_brand.jpg" alt="페이북 X 순살 공동 브랜딩" style="margin-top:12px;">
+      <p class="cn-cap" style="margin-top:6px;">앱 하단 공동 브랜딩 표기</p>
+      <div class="col-box" style="margin-top:12px;">
+        <h4>금융사 요건 대응</h4>
+        <p style="font-size:13px;margin-bottom:0;">투자권유 해당 여부·자료 신뢰성·책임 소재를 명시한 <strong>컴플라이언스 고지문</strong>을 콘텐츠 하단에 포함해 발행합니다.</p>
+      </div>
+    </div>
+  </div>
+  <div class="page-num">03-5</div>
 </div>
 
 <!-- PAGE 4: ANNUAL PACKAGES -->
