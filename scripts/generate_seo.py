@@ -193,6 +193,11 @@ def main():
     except Exception as e:
         print(f"⚠️ build_privacy 실패(계속 진행): {e}")
     try:
+        import build_talk
+        build_talk.build(atoms)             # /talk/ 스토리 막론 전체 코멘트
+    except Exception as e:
+        print(f"⚠️ build_talk 실패(계속 진행): {e}")
+    try:
         import build_legacy_redirects
         build_legacy_redirects.build()      # 2월 이관 전 옛 URL → 현재 주소
     except Exception as e:

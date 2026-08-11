@@ -359,6 +359,33 @@ export default {
         return json({ ok: true, on: on, n: ((n.results || [])[0] || {}).n || 0 }, origin);
       }
 
+      // ── 전체 코멘트 (스토리 막론) ─────────────────────────
+      // 스토리마다 흩어져 있으면 아무도 못 본다. 한 화면에 모아 두면
+      // 대화가 이어진다. 공개된 글만, 최신 스레드부터.
+      if (request.method === 'GET' && url.pathname === '/recent') {
+        const lim = Math.min(Math.max(parseInt(url.searchParams.get('n') || '60', 10) || 60, 1), 200);
+        // 최근에 움직인 스레드를 고르고, 그 스레드의 글을 통째로 가져온다.
+        // 답글만 새로 달려도 그 스레드가 위로 올라와야 대화가 이어져 보인다.
+        const { results } = await env.DB.prepare(
+          `with live as (
+             select id, story, issue, nick, body, ts, tag, co, parent_id,
+                    coalesce(root_id, id) as root_id
+             from comments where state = 1
+           ),
+           recent as (
+             select root_id, max(ts) as last_ts from live group by root_id
+             order by last_ts desc limit ?1
+           )
+           select l.id, l.story, l.issue, l.nick, l.body, l.ts, l.tag, l.co,
+                  l.parent_id, l.root_id, r.last_ts,
+                  (select count(*) from comment_likes k where k.cid = l.id) as likes
+           from live l join recent r on r.root_id = l.root_id
+           order by r.last_ts desc, l.root_id desc, l.id`
+        ).bind(lim).all();
+        return json({ items: results || [], off: commentsOff ? 1 : 0 }, origin, 200,
+                     { 'Cache-Control': 'public, max-age=10' });
+      }
+
       // ── 내 알림 ──────────────────────────────────────────
       // 익명 번호로만 조회한다. 번호는 추측할 수 없는 난수이고, 알림에는
       // 개인정보가 없다(상대 닉네임과 내 글 위치뿐).
