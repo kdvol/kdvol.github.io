@@ -58,6 +58,20 @@ h2 small{color:#666;font-weight:400;font-size:.78rem;margin-left:7px}
 .tabs button{background:#161616;border:1px solid #232323;color:#888;border-radius:7px;padding:6px 13px;
 font-size:.8rem;cursor:pointer;font-family:inherit}
 .tabs button.on{border-color:#F07040;color:#F07040}
+.cm{display:flex;gap:10px;padding:10px 2px;border-bottom:1px solid #1c1c1c;font-size:.86rem;line-height:1.6}
+.cm .k{color:#8a8578;font-weight:700;white-space:nowrap;font-size:.78rem;padding-top:2px}
+.cm .b{flex:1;color:#ddd;word-break:break-word}
+.cm .s{color:#666;font-size:.72rem;white-space:nowrap;padding-top:3px}
+.cm .j{color:#5f5f5f;font-size:.72rem;display:block;margin-top:3px}
+.tag{display:inline-block;font-size:.68rem;padding:1px 6px;border-radius:4px;margin-right:5px;
+border:1px solid #333;color:#999}
+.tag.hold{border-color:#7a5a20;color:#c99a3a}
+.tag.spam{border-color:#7a2020;color:#d06060}
+.tag.live{border-color:#20603a;color:#4ea87a}
+.act{display:flex;gap:5px;white-space:nowrap}
+.act button{background:#1c1c1c;border:1px solid #2c2c2c;color:#999;border-radius:6px;padding:3px 9px;
+font-size:.72rem;cursor:pointer;font-family:inherit}
+.act button:hover{border-color:#F07040;color:#F07040}
 </style></head><body><div class="wrap">
 <h1>순살 대시보드</h1>
 <p class="sub">몇 명이 와서 무엇에 반응했는지 — 운영자용 화면 (검색 노출 안 됨)</p>
@@ -247,7 +261,106 @@ function renderReactions() {
 }
 
 // ── 탭 ───────────────────────────────────────────────────
-var TABS = [['community', '커뮤니티'], ['reactions', '반응']];
+// ── 댓글 (자동 판정 감사) ────────────────────────────────
+// 사람이 처리하는 대기열이 아니다. moderate_comments.py(LLM)가 이미 판정한 결과를
+// 훑어보고, 틀린 게 있을 때만 뒤집는 화면이다. 관리자 키가 없으면 읽기만 된다.
+var ADMIN = null;
+try { ADMIN = localStorage.getItem('ss_admin'); } catch (e) {}
+
+var ST = { '1': ['live', '공개'], '0': ['hold', '검토 중'], '-1': ['hold', '숨김'], '-2': ['spam', '스팸'] };
+
+function modFetch(path, opts) {
+  opts = opts || {};
+  opts.headers = Object.assign({ 'x-admin-key': ADMIN || '', 'content-type': 'application/json' },
+                               opts.headers || {});
+  return fetch(API.replace(/[/]$/, '') + path, opts).then(function (r) {
+    if (r.status === 401) throw new Error('unauthorized');
+    return r.json();
+  });
+}
+
+function askKey() {
+  var k = prompt('관리자 키를 넣어주세요 (한 번만)');
+  if (!k) return;
+  try { localStorage.setItem('ss_admin', k.trim()); } catch (e) {}
+  ADMIN = k.trim();
+  renderComments();
+}
+
+function setState(id, st) {
+  modFetch('/mod', { method: 'POST', body: JSON.stringify({ id: id, state: st, judge: '수동' }) })
+    .then(renderComments)
+    .catch(function () { alert('반영하지 못했습니다'); });
+}
+
+function cmRow(c, canAct) {
+  var s = ST[String(c.state)] || ['', ''];
+  var when = new Date(c.ts * 1000);
+  var h = '<div class="cm"><span class="k">' + esc(c.nick) + '</span><span class="b">' +
+    '<span class="tag ' + s[0] + '">' + s[1] + '</span>' +
+    (c.hold ? '<span class="tag">' + esc(c.hold) + '</span>' : '') + esc(c.body) +
+    (c.judge ? '<span class="j">판정: ' + esc(c.judge) + '</span>' : '') + '</span>' +
+    '<span class="s">' + (when.getMonth() + 1) + '/' + when.getDate() + '</span>';
+  if (canAct) {
+    h += '<span class="act">' +
+      (c.state !== 1 ? '<button data-a="1" data-i="' + c.id + '">공개</button>' : '') +
+      (c.state !== -1 ? '<button data-a="-1" data-i="' + c.id + '">숨김</button>' : '') +
+      '</span>';
+  }
+  return h + '</div>';
+}
+
+function esc(s) {
+  return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) {
+    return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c];
+  });
+}
+
+function renderComments() {
+  if (!ADMIN) {
+    app.innerHTML = '<div class="card"><b style="color:#F07040">잠겨 있습니다</b>' +
+      '<p class="note">댓글은 <code>scripts/moderate_comments.py</code>가 매일 자동으로 판정합니다. ' +
+      '이 화면은 그 결과를 확인하고 틀린 것만 뒤집는 용도입니다.</p>' +
+      '<div class="tabs" style="margin-top:12px"><button id="kbtn">관리자 키 입력</button></div></div>';
+    document.getElementById('kbtn').addEventListener('click', askKey);
+    return;
+  }
+  app.innerHTML = '<div class="empty">불러오는 중…</div>';
+  Promise.all([modFetch('/mod?state=0'), modFetch('/mod?state=1'), modFetch('/mod?state=-2')])
+    .then(function (r) {
+      var held = r[0].items || [], live = r[1].items || [], spam = r[2].items || [];
+      var h = '<div class="sum">' + kpi(held.length, '검토 중', '자동 판정 대기') +
+        kpi(live.length, '공개') + kpi(spam.length, '스팸 차단') + '</div>';
+      if (held.length) {
+        h += '<h2>검토 중 <small>다음 자동 실행에서 판정됩니다</small></h2><div class="card">' +
+          held.map(function (c) { return cmRow(c, true); }).join('') + '</div>';
+      }
+      h += '<h2>공개된 댓글</h2><div class="card">' +
+        (live.length ? live.map(function (c) { return cmRow(c, true); }).join('')
+                     : '<div class="empty">아직 없습니다.</div>') + '</div>';
+      if (spam.length) {
+        h += '<h2>스팸으로 내려간 것 <small>자동 판정 결과 확인용</small></h2><div class="card">' +
+          spam.map(function (c) { return cmRow(c, true); }).join('') + '</div>';
+      }
+      app.innerHTML = h;
+      app.querySelectorAll('.act button').forEach(function (b) {
+        b.addEventListener('click', function () {
+          setState(parseInt(b.getAttribute('data-i'), 10), parseInt(b.getAttribute('data-a'), 10));
+        });
+      });
+    })
+    .catch(function (e) {
+      if (String(e.message) === 'unauthorized') {
+        try { localStorage.removeItem('ss_admin'); } catch (x) {}
+        ADMIN = null;
+        renderComments();
+        return;
+      }
+      app.innerHTML = '<div class="empty">불러오지 못했습니다.</div>';
+    });
+}
+
+var TABS = [['community', '커뮤니티'], ['reactions', '반응'], ['comments', '댓글']];
 function paintTabs() {
   document.getElementById('tabs').innerHTML = TABS.map(function (t) {
     return '<button data-t="' + t[0] + '"' + (TAB === t[0] ? ' class="on"' : '') + '>' + t[1] + '</button>';
@@ -258,7 +371,9 @@ document.getElementById('tabs').addEventListener('click', function (e) {
   if (!b) return;
   TAB = b.getAttribute('data-t');
   paintTabs();
-  TAB === 'community' ? renderCommunity() : renderReactions();
+  TAB === 'community' ? renderCommunity()
+    : TAB === 'comments' ? renderComments()
+    : renderReactions();
 });
 
 function fail() { app.innerHTML = '<div class="empty">집계를 불러오지 못했습니다.</div>'; }
