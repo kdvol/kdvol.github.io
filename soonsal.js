@@ -89,6 +89,17 @@
     '.ss-cpn{flex:1 1 100%;font-size:10px;color:#a8a294;line-height:1.5}' +
     '.ss-cg{font-size:9px;color:#8a8578;border:1px solid #e6e1d5;border-radius:4px;' +
     'padding:0 4px;margin-left:4px;white-space:nowrap;font-weight:400}' +
+    '.ss-crep{padding-left:16px;border-left:2px solid #efeae0;margin-left:2px}' +
+    '.ss-cact{display:inline-flex;gap:6px;margin-left:6px;vertical-align:middle}' +
+    '.ss-cact button{background:none;border:none;padding:0 2px;font-size:10px;color:#a8a294;' +
+    'cursor:pointer;font-family:inherit;line-height:1.4}' +
+    '.ss-cact button:hover{color:#F07040}' +
+    '.ss-clike.on{color:#F07040;font-weight:600}' +
+    '.ss-clike b{font-weight:600;margin-left:1px}' +
+    '.ss-crt{display:flex;align-items:center;gap:8px;font-size:11px;color:#8a8578;' +
+    'background:#faf8f3;border:1px solid #e6e1d5;border-radius:6px;padding:5px 8px;margin-bottom:6px}' +
+    '.ss-crt button{background:none;border:none;color:#a8a294;font-size:10px;cursor:pointer;' +
+    'font-family:inherit;margin-left:auto}' +
     '.ss-cnt{margin-left:auto;font-size:11px;color:#b0aca2;font-variant-numeric:tabular-nums}' +
     '.ss-cgo{background:#E55A00;color:#fff;border:none;border-radius:7px;padding:8px 15px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit}' +
     '.ss-cgo:disabled{background:#d8d4c8;cursor:default}' +
@@ -399,6 +410,7 @@
     w.className = 'ss-cwrap';
     var pr = profOf(), nick = pr.n || '';
     w.innerHTML =
+      '<div class="ss-crt" hidden></div>' +
       '<textarea class="ss-cin" rows="2" maxlength="140" placeholder="한 줄로 남겨주세요"></textarea>' +
       '<input class="ss-hp" name="website" tabindex="-1" aria-hidden="true"/>' +
       '<div class="ss-crow">' +
@@ -451,15 +463,81 @@
     setTimeout(function () { ta.focus(); }, 50);
   }
 
+  function likedSet() {
+    try { return JSON.parse(localStorage.getItem('ss_liked') || '{}'); } catch (e) { return {}; }
+  }
+  function setLiked(m) { try { localStorage.setItem('ss_liked', JSON.stringify(m)); } catch (e) {} }
+
+  function ciHTML(c, liked, isReply) {
+    var n = c.l || 0;
+    return '<div class="ss-ci' + (isReply ? ' ss-crep' : '') + '" data-i="' + (c.i || '') + '">' +
+      '<span class="ss-ck">' + esc(c.k) +
+      (c.g ? '<span class="ss-cg">' + esc(c.g) + '</span>' : '') + '</span>' +
+      '<span class="ss-cb">' + esc(c.b) + (c.held ? '<span class="ss-chold">검토 중</span>' : '') +
+      (c.held ? '' :
+        '<span class="ss-cact">' +
+          '<button type="button" class="ss-clike' + (liked[c.i] ? ' on' : '') + '" data-i="' + c.i + '">' +
+            '♥<b>' + (n || '') + '</b></button>' +
+          (isReply ? '' : '<button type="button" class="ss-crep-b" data-i="' + c.i +
+                          '" data-k="' + esc(c.k) + '">답글</button>') +
+        '</span>') +
+      '</span><span class="ss-ct">' + cAgo(c.t) + '</span></div>';
+  }
+
   function renderC(key, w) {
     var list = w.querySelector('.ss-clist');
-    var items = CMTS[key] || [];
-    list.innerHTML = items.map(function (c) {
-      return '<div class="ss-ci"><span class="ss-ck">' + esc(c.k) +
-        (c.g ? '<span class="ss-cg">' + esc(c.g) + '</span>' : '') + '</span>' +
-        '<span class="ss-cb">' + esc(c.b) + (c.held ? '<span class="ss-chold">검토 중</span>' : '') +
-        '</span><span class="ss-ct">' + cAgo(c.t) + '</span></div>';
+    var items = CMTS[key] || [], liked = likedSet();
+
+    // 1단계 스레드로 묶는다 — 원글 아래에 그 답글들을 시간순으로
+    var roots = [], kids = {};
+    items.forEach(function (c) {
+      if (c.p) (kids[c.p] = kids[c.p] || []).push(c);
+      else roots.push(c);
+    });
+    list.innerHTML = roots.map(function (c) {
+      return ciHTML(c, liked, false) +
+        (kids[c.i] || []).map(function (r) { return ciHTML(r, liked, true); }).join('');
     }).join('');
+
+    list.querySelectorAll('.ss-clike').forEach(function (b) {
+      b.addEventListener('click', function () { toggleLike(b, key, w); });
+    });
+    list.querySelectorAll('.ss-crep-b').forEach(function (b) {
+      b.addEventListener('click', function () {
+        setReplyTo(w, parseInt(b.getAttribute('data-i'), 10), b.getAttribute('data-k'));
+      });
+    });
+  }
+
+  function toggleLike(btn, key, w) {
+    var id = parseInt(btn.getAttribute('data-i'), 10), v = vid();
+    if (!API || !v || !id) return;
+    btn.disabled = true;
+    fetch(API.replace(/[/]$/, '') + '/like', {
+      method: 'POST', headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ id: id, v: v }),
+    }).then(function (r) { return r.json(); }).then(function (res) {
+      btn.disabled = false;
+      if (!res || !res.ok) return;
+      var m = likedSet();
+      if (res.on) m[id] = 1; else delete m[id];
+      setLiked(m);
+      btn.className = 'ss-clike' + (res.on ? ' on' : '');
+      btn.querySelector('b').textContent = res.n || '';
+      (CMTS[key] || []).forEach(function (c) { if (c.i === id) c.l = res.n; });
+    }).catch(function () { btn.disabled = false; });
+  }
+
+  function setReplyTo(w, id, nick) {
+    w._reply = id;
+    var bar = w.querySelector('.ss-crt');
+    bar.innerHTML = '<span>' + esc(nick) + '님에게 답글</span>' +
+      '<button type="button" class="ss-crx">취소</button>';
+    bar.hidden = false;
+    bar.querySelector('.ss-crx').addEventListener('click', function () {
+      w._reply = null; bar.hidden = true;
+    });
+    w.querySelector('.ss-cin').focus();
   }
 
   function submitC(key, w, go) {
@@ -482,6 +560,7 @@
       method: 'POST',
       headers: { 'content-type': 'application/json' },
       body: JSON.stringify({ story: key, v: v, nick: nick, body: body, tag: tag, co: co,
+                             parent: w._reply || 0,
                              hp: w.querySelector('.ss-hp').value }),
     }).then(function (r) { return r.json(); }).then(function (res) {
       if (res && res.error) {
@@ -495,7 +574,10 @@
       w.querySelector('.ss-cnt').textContent = '0/140';
       // 보류(state 0)여도 본인 화면에는 남긴다 — 실패로 보이면 다시 쓰고 도배가 된다
       var mine = { i: res.id, k: nick, b: body, t: Math.floor(Date.now() / 1000),
-                   g: [tag, co].filter(Boolean).join(' · '), held: res.state === 0 };
+                   g: [tag, co].filter(Boolean).join(' · '), p: w._reply || undefined,
+                   held: res.state === 0 };
+      w._reply = null;
+      var rt = w.querySelector('.ss-crt'); if (rt) rt.hidden = true;
       (CMTS[key] = CMTS[key] || []).push(mine);
       if (!mine.held) paintPill(key);
       renderC(key, w);
