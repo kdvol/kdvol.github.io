@@ -67,7 +67,9 @@ const BODY_MAX = 140;
 // 보류 건은 사람이 아니라 LLM(scripts/moderate_comments.py)이 하루 단위로 푼다.
 const HOLD_RULES = [
   ['url', /https?:\/\/|www\.|\b[a-z0-9-]+\.(com|net|co\.kr|kr|io|me|link|xyz|top|cc|shop)\b/i],
-  ['invite', /t\.me|텔레그램|오픈\s?카톡|오픈\s?채팅|open\.kakao|카톡\s?아이디|디엠|\bDM\b/i],
+  // '텔레그램'·'DM' 같은 낱말만으로 잡으면 오탐이 난다 — 순살은 텔레그램 수다방을
+  // 운영하고 독자가 그 얘기를 정상적으로 한다. 실제 유인 형태만 본다.
+  ['invite', /t\.me\/|open\.kakao|오픈\s?카톡|오픈\s?채팅|카톡\s?(아이디|아디)|텔레그램\s*(방|링크|초대|주소)|디엠\s*(주세요|주시면|보내)/i],
   ['lead', /리딩\s?방|수익\s?인증|원금\s?보장|급등주|종목\s?추천|무료\s?체험|단타\s?방|수익률\s?보장/],
   ['tel', /01[016-9][-. ]?\d{3,4}[-. ]?\d{4}/],
   ['spam', /(.)\1{9,}/],
