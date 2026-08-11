@@ -4,6 +4,7 @@
 deploy.py가 git commit 직전에 호출한다 (단독 실행도 가능).
 콘텐츠 파일을 건드리지 않고 루트에 3개 파일만 쓴다.
 """
+import json
 import re
 from datetime import date, datetime, timezone, timedelta
 from pathlib import Path
@@ -44,19 +45,51 @@ def get_title(path):
     return m.group(1).strip() if m else path.stem
 
 
+def _traffic_priority():
+    """실제로 읽히는 페이지의 우선순위를 올린다.
+
+    auto_improve.py가 남긴 content/signals.json의 조회수를 읽어, 상위 트래픽 페이지에
+    가산점을 준다. 여기서 적용해야 매 빌드마다 유지된다 — sitemap을 통째로 다시 쓰기
+    때문에 밖에서 고쳐두면 다음 빌드에 날아간다. 파일이 없으면 가산점 0.
+    """
+    p = ROOT / "content" / "signals.json"
+    if not p.exists():
+        return {}
+    try:
+        top = json.loads(p.read_text(encoding="utf-8")).get("top_paths", [])
+    except (OSError, ValueError) as e:
+        print(f"⚠️ signals.json 읽기 실패(가산점 없이 진행): {type(e).__name__}")
+        return {}
+    hits = {r["path"]: r["hits"] for r in top if r.get("hits")}
+    if not hits:
+        return {}
+    peak = max(hits.values())
+    return {path: (0.2 if h >= peak * 0.5 else 0.1) for path, h in hits.items()}
+
+
 def build_sitemap():
     urls = []
     today = date.today().isoformat()
+    bonus = _traffic_priority()
+
+    def prio_of(url, base):
+        # sitemap은 디렉터리를 슬래시 없이 쓰고(/newsletters) 브라우저는 있게 보낸다
+        path = url.replace(BASE, "") or "/"
+        b = bonus.get(path) or bonus.get(path.rstrip("/") + "/") or bonus.get(path + "/") or 0
+        return f"{min(1.0, float(base) + b):.1f}"
+
     for idx in INDEXES:
         p = ROOT / idx / "index.html"
         if p.exists():
-            urls.append((f"{BASE}/{idx}", today, "1.0" if idx == "" else "0.7"))
+            u = f"{BASE}/{idx}"
+            urls.append((u, today, prio_of(u, "1.0" if idx == "" else "0.7")))
     for pattern, prio in SECTIONS:
         for p in sorted(ROOT.glob(pattern)):
             if p.name == "index.html":
                 continue
             rel = p.relative_to(ROOT).as_posix()
-            urls.append((f"{BASE}/{rel}", page_date(p).isoformat(), prio))
+            u = f"{BASE}/{rel}"
+            urls.append((u, page_date(p).isoformat(), prio_of(u, prio)))
     body = "".join(
         f"<url><loc>{escape(u)}</loc><lastmod>{d}</lastmod><priority>{pr}</priority></url>\n"
         for u, d, pr in urls)

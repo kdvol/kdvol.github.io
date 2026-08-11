@@ -1,0 +1,59 @@
+# 방문·참여 데이터를 읽어 사이트를 스스로 고치는 루프.
+#
+# KD가 /stats/ 대시보드를 열어 판단할 시간이 없다는 전제로 만든다. 사람이 보지 않아도
+# 데이터가 사이트에 반영되도록, 매일 두 가지를 돌린다.
+#   1) moderate_comments.py — 보류된 코멘트를 LLM이 판정(공개/숨김/스팸+차단)
+#   2) auto_improve.py      — 조회·반응을 신호로 환산 → signals.json → sitemap 우선순위,
+#                             그리고 챗이 읽는 /api/signals.json(다음 회차 주제 힌트)
+name: auto-improve
+
+on:
+  schedule:
+    - cron: "30 20 * * *"      # 05:30 KST — 조간 발행 전에 신호를 갱신해 둔다
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "true면 커밋하지 않고 결과만 출력"
+        default: "false"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: auto-improve
+  cancel-in-progress: false
+
+jobs:
+  improve:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+
+      - name: 보류 코멘트 자동 판정
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          SOONSAL_ADMIN_KEY: ${{ secrets.SOONSAL_ADMIN_KEY }}
+        run: python3 scripts/moderate_comments.py
+
+      - name: 방문·반응 신호 갱신
+        run: python3 scripts/auto_improve.py
+
+      - name: 사이트 재생성 (신호를 sitemap·페이지에 반영)
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: python3 scripts/generate_seo.py
+
+      - name: 커밋
+        if: ${{ github.event.inputs.dry_run != 'true' }}
+        run: |
+          git config user.name  "soonsal-bot"
+          git config user.email "bot@soonsal.com"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "변경 없음"
+          else
+            git commit -m "auto-improve: 방문·반응 신호 반영 [skip ci]"
+            git push
+          fi

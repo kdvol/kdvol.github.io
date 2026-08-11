@@ -56,3 +56,32 @@ create table if not exists refs (
   n   integer not null default 0,
   primary key (day, src)
 );
+
+-- ── 스토리별 익명 코멘트 (2026-08-11) ─────────────────────────
+-- state: 1 공개 / 0 보류 / -1 숨김 / -2 스팸
+-- 보류 건은 사람이 아니라 scripts/moderate_comments.py(LLM)가 처리한다.
+-- issue는 클라이언트 입력을 믿지 않고 서버가 story에서 잘라 넣는다.
+create table if not exists comments (
+  id    integer primary key autoincrement,
+  story text not null,              -- 0811-3 / 0811c-2
+  issue text not null,              -- 0811 / 0811c
+  nick  text not null,
+  body  text not null,
+  vid   text not null,              -- 익명 난수(localStorage). 개인정보 아님
+  ts    integer not null,
+  state integer not null default 1,
+  flags integer not null default 0,
+  hold  text,                       -- 보류 사유 url/lead/tel/spam/flag/word
+  judge text                        -- LLM 판정 근거(자동 모더레이션 기록)
+);
+create index if not exists idx_c_issue on comments(issue, state, id desc);
+create index if not exists idx_c_vid   on comments(vid, ts);
+create index if not exists idx_c_mod   on comments(state, id desc);
+
+create table if not exists blocks (
+  vid text primary key, ts integer not null, note text
+);
+
+create table if not exists modwords (   -- 재배포 없이 금칙어 추가
+  w text primary key, ts integer not null
+);

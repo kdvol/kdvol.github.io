@@ -36,7 +36,7 @@ function cors(origin) {
   return {
     'Access-Control-Allow-Origin': allow,
     'Access-Control-Allow-Methods': 'GET,POST,OPTIONS',
-    'Access-Control-Allow-Headers': 'content-type',
+    'Access-Control-Allow-Headers': 'content-type, x-admin-key',
     'Access-Control-Max-Age': '86400',
   };
 }
@@ -52,11 +52,41 @@ function json(data, origin, status = 200, extra = {}) {
 }
 
 // ── 트래킹 상수 ──────────────────────────────────────────────
-const KIND = ['read', 'react', 'share', 'telegram', 'instagram'];
+const KIND = ['read', 'react', 'share', 'telegram', 'instagram', 'comment'];
 const SRC = ['direct', 'telegram', 'instagram', 'search', 'mail', 'other'];
 const VID_RE = /^[a-z0-9]{8,24}$/;
 // KST 자정 기준 날짜. UTC로 끊으면 한국 새벽 방문이 전날로 잡힌다.
 const DAY = "date(unixepoch() + 32400, 'unixepoch')";
+
+// ── 코멘트 상수 ──────────────────────────────────────────────
+const NICK_RE = /^[가-힣a-zA-Z0-9._ -]{1,12}$/;
+const NICK_BAN = /순살|운영자|관리자|admin|soonsal/i;
+const BODY_MAX = 140;
+
+// 자동 보류 규칙 — 걸리는 것만 잡아두고 나머지는 즉시 게시.
+// 보류 건은 사람이 아니라 LLM(scripts/moderate_comments.py)이 하루 단위로 푼다.
+const HOLD_RULES = [
+  ['url', /https?:\/\/|www\.|\b[a-z0-9-]+\.(com|net|co\.kr|kr|io|me|link|xyz|top|cc|shop)\b/i],
+  ['invite', /t\.me|텔레그램|오픈\s?카톡|오픈\s?채팅|open\.kakao|카톡\s?아이디|디엠|\bDM\b/i],
+  ['lead', /리딩\s?방|수익\s?인증|원금\s?보장|급등주|종목\s?추천|무료\s?체험|단타\s?방|수익률\s?보장/],
+  ['tel', /01[016-9][-. ]?\d{3,4}[-. ]?\d{4}/],
+  ['spam', /(.)\1{9,}/],
+];
+
+function holdReason(body) {
+  for (const [name, re] of HOLD_RULES) if (re.test(body)) return name;
+  if (new Set(body.replace(/\s/g, '')).size < 3) return 'spam';
+  return null;
+}
+
+// 길이를 흘리지 않는 비교 (관리자 키 검증용)
+function keyEq(a, b) {
+  if (typeof a !== 'string' || typeof b !== 'string' || !a || !b) return false;
+  let d = a.length ^ b.length;
+  const n = Math.max(a.length, b.length);
+  for (let i = 0; i < n; i++) d |= (a.charCodeAt(i % a.length) ^ b.charCodeAt(i % b.length));
+  return d === 0;
+}
 
 // 경로 카디널리티를 묶는다 — 스토리 앵커·쿼리·해시는 버리고 페이지 단위로만
 function normPath(p) {
@@ -110,6 +140,133 @@ export default {
         const { results } = await env.DB
           .prepare('select story, emoji, count from reactions where count > 0').all();
         return json(byStory(results || []), origin);
+      }
+
+      // ── 코멘트 ────────────────────────────────────────────
+      const commentsOff = env.COMMENTS === 'off';   // 사고 시 wrangler 한 줄로 즉시 차단
+
+      // 페이지 진입 시 1회 — 반응 카운트와 코멘트를 함께 준다(요청 수 절약)
+      if (request.method === 'GET' && (url.pathname === '/page' || url.pathname === '/comments')) {
+        const issue = url.searchParams.get('issue') || '';
+        if (!ISSUE_RE.test(issue)) return json({}, origin);
+
+        const q = [env.DB.prepare(
+          'select story, emoji, count from reactions where story like ?1 and count > 0'
+        ).bind(issue + '-%')];
+        if (!commentsOff) {
+          q.push(env.DB.prepare(
+            'select id, story, nick, body, ts from comments where issue = ?1 and state = 1 order by id limit 200'
+          ).bind(issue));
+        }
+        const res = await env.DB.batch(q);
+        const comments = {};
+        for (const r of (res[1] && res[1].results) || []) {
+          (comments[r.story] = comments[r.story] || []).push(
+            { i: r.id, k: r.nick, b: r.body, t: r.ts });
+        }
+        const out = url.pathname === '/comments'
+          ? { comments, off: commentsOff ? 1 : 0 }
+          : { counts: byStory(res[0].results || []), comments, off: commentsOff ? 1 : 0 };
+        return json(out, origin, 200, { 'Cache-Control': 'public, max-age=20' });
+      }
+
+      if (request.method === 'POST' && url.pathname === '/comment') {
+        if (commentsOff) return json({ error: 'off' }, origin, 403);
+        let b;
+        try { b = await request.json(); } catch (e) { return json({ error: 'bad json' }, origin, 400); }
+
+        // 허니팟 — 봇만 채우는 필드. 조용히 버린다(성공처럼 보이게)
+        if (b && b.hp) return json({ ok: true, state: 1 }, origin);
+
+        const story = String((b && b.story) || '');
+        const vid = String((b && b.v) || '');
+        const nick = String((b && b.nick) || '').trim();
+        const body = String((b && b.body) || '').replace(/[\u0000-\u001f\u007f]/g, '').trim();
+
+        if (!STORY_RE.test(story)) return json({ error: 'bad story' }, origin, 400);
+        if (!VID_RE.test(vid)) return json({ error: 'bad vid' }, origin, 400);
+        if (!NICK_RE.test(nick) || NICK_BAN.test(nick)) return json({ error: 'bad nick' }, origin, 400);
+        if (!body || body.length > BODY_MAX) return json({ error: 'bad body' }, origin, 400);
+
+        const [blocked, recent, words] = await env.DB.batch([
+          env.DB.prepare('select 1 as x from blocks where vid = ?1').bind(vid),
+          env.DB.prepare(
+            'select count(*) as n, max(ts) as t from comments where vid = ?1 and ts > unixepoch() - 86400'
+          ).bind(vid),
+          env.DB.prepare('select w from modwords'),
+        ]);
+        // 차단된 vid에는 성공한 것처럼 응답한다 — 차단을 알려주면 ID를 지우고 돌아온다
+        if ((blocked.results || []).length) return json({ ok: true, state: 1 }, origin);
+
+        const rl = (recent.results || [])[0] || { n: 0, t: 0 };
+        const now = Math.floor(Date.now() / 1000);
+        if (rl.n >= 10) return json({ error: 'too many' }, origin, 429);
+        if (rl.t && now - rl.t < 60) return json({ error: 'too fast' }, origin, 429);
+
+        let hold = holdReason(body);
+        if (!hold) {
+          for (const r of words.results || []) {
+            if (r.w && body.indexOf(r.w) >= 0) { hold = 'word'; break; }
+          }
+        }
+        const state = hold ? 0 : 1;
+
+        const ins = await env.DB.prepare(
+          `insert into comments (story, issue, nick, body, vid, ts, state, hold)
+           values (?1, ?2, ?3, ?4, ?5, unixepoch(), ?6, ?7)`
+        ).bind(story, story.split('-')[0], nick, body, vid, state, hold).run();
+
+        return json({ ok: true, state, hold, id: ins.meta && ins.meta.last_row_id }, origin);
+      }
+
+      // 신고 3건이면 자동 보류 — 정보통신망법 임시조치를 사람 없이 굴리는 지점
+      if (request.method === 'POST' && url.pathname === '/flag') {
+        let b;
+        try { b = await request.json(); } catch (e) { return json({ ok: true }, origin); }
+        const id = parseInt((b && b.id) || 0, 10);
+        if (!id) return json({ ok: true }, origin);
+        await env.DB.batch([
+          env.DB.prepare('update comments set flags = flags + 1 where id = ?1').bind(id),
+          env.DB.prepare(
+            "update comments set state = 0, hold = 'flag' where id = ?1 and state = 1 and flags >= 3"
+          ).bind(id),
+        ]);
+        return json({ ok: true }, origin);
+      }
+
+      // ── 자동 모더레이션용 (관리자 키 필요) ──────────────────
+      if (url.pathname === '/mod') {
+        const key = request.headers.get('x-admin-key') || '';
+        if (!env.ADMIN_KEY || !keyEq(key, env.ADMIN_KEY)) {
+          return json({ error: 'unauthorized' }, origin, 401);
+        }
+        if (request.method === 'GET') {
+          const state = parseInt(url.searchParams.get('state') || '0', 10);
+          const { results } = await env.DB.prepare(
+            `select id, story, issue, nick, body, ts, hold, flags, judge
+             from comments where state = ?1 order by id desc limit 100`
+          ).bind(state).all();
+          return json({ state, items: results || [] }, origin);
+        }
+        if (request.method === 'POST') {
+          let b;
+          try { b = await request.json(); } catch (e) { return json({ error: 'bad json' }, origin, 400); }
+          const id = parseInt((b && b.id) || 0, 10);
+          const st = parseInt((b && b.state), 10);
+          if (!id || ![1, 0, -1, -2].includes(st)) return json({ error: 'bad args' }, origin, 400);
+          const stmts = [env.DB.prepare(
+            'update comments set state = ?2, judge = ?3 where id = ?1'
+          ).bind(id, st, String((b && b.judge) || '').slice(0, 120))];
+          if (b && b.block) {
+            stmts.push(env.DB.prepare(
+              `insert into blocks (vid, ts, note)
+               select vid, unixepoch(), 'auto' from comments where id = ?1
+               on conflict(vid) do nothing`
+            ).bind(id));
+          }
+          await env.DB.batch(stmts);
+          return json({ ok: true }, origin);
+        }
       }
 
       // 운영자 통계용 — 마지막 반응 시각 + 최근 14일 클릭 로그

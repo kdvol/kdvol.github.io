@@ -1,0 +1,165 @@
+{
+ "generated": "2026-08-11T19:20:37+09:00",
+ "window_days": 30,
+ "traffic": {
+  "views_30d": 24,
+  "people_7d": 10,
+  "repeat_rate": 0,
+  "read_rate": 74,
+  "react_rate": 0,
+  "comment": 1
+ },
+ "hot_stories": [
+  {
+   "id": "0810-2",
+   "title": "🇰🇷 빚투 청산 끝났다더니 하루 만에 유턴",
+   "date": "2026-08-10",
+   "url": "/newsletters/2026/0810.html#story-2",
+   "views": 1,
+   "react": 4
+  },
+  {
+   "id": "0807-3",
+   "title": "⚖️ 변호사 말고는 못 갖던 로펌, 쪼개서 파는 중",
+   "date": "2026-08-07",
+   "url": "/newsletters/2026/0807.html#story-3",
+   "views": 0,
+   "react": 4
+  },
+  {
+   "id": "0810-1",
+   "title": "🤖 쿵후하는 로봇, 90억불짜리 상장",
+   "date": "2026-08-10",
+   "url": "/newsletters/2026/0810.html#story-1",
+   "views": 1,
+   "react": 3
+  },
+  {
+   "id": "0810-3",
+   "title": "💉 직원 살 빼는 데 2.5억불 쓰는 은행",
+   "date": "2026-08-10",
+   "url": "/newsletters/2026/0810.html#story-3",
+   "views": 1,
+   "react": 2
+  },
+  {
+   "id": "0807-4",
+   "title": "🐶 알레르기 단백질 하나를 지운 강아지의 등장",
+   "date": "2026-08-07",
+   "url": "/newsletters/2026/0807.html#story-4",
+   "views": 0,
+   "react": 2
+  },
+  {
+   "id": "0811-3",
+   "title": "💰 버크셔 현금, 4년 만에 처음 줄었음",
+   "date": "2026-08-11",
+   "url": "/newsletters/2026/0811.html#story-3",
+   "views": 11,
+   "react": 1
+  },
+  {
+   "id": "0810-5",
+   "title": "🍓 코카콜라 다음, 슈퍼마켓 2위의 정체",
+   "date": "2026-08-10",
+   "url": "/newsletters/2026/0810.html#story-5",
+   "views": 1,
+   "react": 1
+  },
+  {
+   "id": "0810-4",
+   "title": "🍔 와퍼 하나로 뒤집힌 버거 2위 싸움",
+   "date": "2026-08-10",
+   "url": "/newsletters/2026/0810.html#story-4",
+   "views": 1,
+   "react": 1
+  },
+  {
+   "id": "0807-1",
+   "title": "🏝 전 세계 이익을 다 벌었다는 2인 사무실",
+   "date": "2026-08-07",
+   "url": "/newsletters/2026/0807.html#story-1",
+   "views": 0,
+   "react": 1
+  },
+  {
+   "id": "0805-3",
+   "title": "🔥 산불 날 확률에 돈을 거는 채권",
+   "date": "2026-08-05",
+   "url": "/newsletters/2026/0805.html#story-3",
+   "views": 0,
+   "react": 1
+  },
+  {
+   "id": "0805-2",
+   "title": "🏦 AI 쓰라면서요, 사고 나면 책임은 제가 지고요",
+   "date": "2026-08-05",
+   "url": "/newsletters/2026/0805.html#story-2",
+   "views": 0,
+   "react": 1
+  },
+  {
+   "id": "0811-5",
+   "title": "💥 폭망 직전 갔더니, 쩐주들이 더 몰림",
+   "date": "2026-08-11",
+   "url": "/newsletters/2026/0811.html#story-5",
+   "views": 11,
+   "react": 0
+  }
+ ],
+ "hot_topics": [
+  "banks-wallst",
+  "ipo",
+  "deals",
+  "ai",
+  "korea-market",
+  "bigtech"
+ ],
+ "hot_entities": [
+  "goldman",
+  "apple",
+  "morgan-stanley",
+  "kospi",
+  "tesla",
+  "xi-jinping",
+  "nasdaq",
+  "cocacola",
+  "berkshire",
+  "buffett"
+ ],
+ "refs": {
+  "direct": 17,
+  "search": 1,
+  "other": 1
+ },
+ "top_paths": [
+  {
+   "path": "/newsletters/2026/0811.html",
+   "hits": 11
+  },
+  {
+   "path": "/topics/ai.html",
+   "hits": 4
+  },
+  {
+   "path": "/",
+   "hits": 4
+  },
+  {
+   "path": "/newsletters/",
+   "hits": 2
+  },
+  {
+   "path": "/school/",
+   "hits": 1
+  },
+  {
+   "path": "/newsletters/2026/0810.html",
+   "hits": 1
+  },
+  {
+   "path": "/cardnews/",
+   "hits": 1
+  }
+ ]
+}

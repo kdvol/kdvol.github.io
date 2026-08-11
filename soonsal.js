@@ -197,12 +197,12 @@
   }
 
   // ── 스토리별 반응 (무로그인) ─────────────────────────────
-  // 숫자는 항상 보인다. Supabase 설정(SS_CFG.supabase)이 있으면 공유 집계,
+  // 숫자는 항상 보인다. Worker(D1)가 붙어 있으면 공유 집계,
   // 없으면 내 클릭만 로컬 집계 — 어느 쪽이든 버튼이 "죽어" 보이지 않게.
   var REACTS = [['👍', '좋았음'], ['🤔', '글쎄'], ['🔥', '중요함']];
   var CFG = window.SS_CFG || {};
   var API = CFG.worker || null;              // Cloudflare Worker(권장)
-  var HAS_BACKEND = !!(API || CFG.supabase);
+  var HAS_BACKEND = !!API;
 
   function storyKey(story) {
     var m = location.pathname.match(/\/newsletters\/2026\/(\d{4})(-crypto)?\.html/);
@@ -222,7 +222,7 @@
   function render(wrap, key) {
     var mine = localVotes()[key];
     var shared = wrap._shared || {};
-    var btns = wrap.querySelectorAll('.ss-rb:not(.ss-sh)');
+    var btns = wrap.querySelectorAll('.ss-rg .ss-rb');   // 반응 3개만 — 다른 pill이 끼어들어도 안전
     for (var i = 0; i < btns.length; i++) {
       var emoji = REACTS[i][0];
       var n = shared[emoji] || 0;
