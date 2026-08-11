@@ -256,17 +256,19 @@ export default {
         }
         // 답글 대상. 1단계만 허용한다 — 트리가 깊어지면 모바일에서 못 읽는다.
         // 답글의 답글은 같은 스레드의 형제로 붙인다(root_id를 물려받음).
-        let parentId = null, rootId = null;
+        let parentId = null, rootId = null, parentVid = null, parentNick = null;
         const pid = parseInt((b && b.parent) || 0, 10);
         if (pid > 0) {
           const pr = await env.DB.prepare(
-            'select id, story, root_id, state from comments where id = ?1'
+            'select id, story, root_id, state, vid, nick from comments where id = ?1'
           ).bind(pid).all();
           const par = (pr.results || [])[0];
           // 같은 스토리의 공개된 댓글에만 답글을 달 수 있다
           if (par && par.story === story && par.state === 1) {
             parentId = par.id;
             rootId = par.root_id || par.id;
+            parentVid = par.vid;
+            parentNick = par.nick;
           }
         }
 
@@ -288,6 +290,14 @@ export default {
         ).bind(story, story.split('-')[0], nick, body, vid, state, hold, tag, co,
                parentId, rootId).run();
 
+        // 답글이 달렸다고 원글 작성자에게 남긴다. 공개된 글에만, 자기 자신 제외.
+        if (parentId && parentVid && parentVid !== vid && state === 1) {
+          ctx.waitUntil(env.DB.prepare(
+            `insert into notices (vid, kind, cid, rid, who, story, ts)
+             values (?1, 'reply', ?2, ?3, ?4, ?5, unixepoch())`
+          ).bind(parentVid, parentId, ins.meta.last_row_id, nick, story).run());
+        }
+
         // 최상위 글은 자기 자신이 스레드 뿌리다
         if (!rootId) {
           await env.DB.prepare('update comments set root_id = id where id = ?1')
@@ -302,7 +312,8 @@ export default {
           `${issue.endsWith('c') ? '-crypto' : ''}.html">${story}</a>` +
           (hold ? ' · 자동 판정 대기' : ''));
 
-        return json({ ok: true, state, hold, id: ins.meta && ins.meta.last_row_id }, origin);
+        return json({ ok: true, state, hold, id: ins.meta && ins.meta.last_row_id,
+                      to: parentNick || undefined }, origin);
       }
 
       // 신고 3건이면 자동 보류 — 정보통신망법 임시조치를 사람 없이 굴리는 지점
@@ -329,9 +340,45 @@ export default {
              : 'delete from comment_likes where cid = ?1 and vid = ?2'
         ).bind(cid, vid).run();
 
+        // 좋아요를 받았다고 글쓴이에게 남긴다. 켤 때만, 자기 글 제외, 하루 한 번만.
+        if (on) {
+          ctx.waitUntil(env.DB.prepare(
+            // who는 비워 둔다 — 여기에 누른 사람의 익명 번호를 넣으면
+            // 받는 사람에게 남의 ID가 그대로 보인다. 좋아요는 익명이다.
+            `insert into notices (vid, kind, cid, who, story, ts)
+             select c.vid, 'like', c.id, null, c.story, unixepoch() from comments c
+             where c.id = ?1 and c.vid <> ?2
+               and not exists (select 1 from notices n where n.vid = c.vid
+                               and n.kind = 'like' and n.cid = c.id
+                               and n.ts > unixepoch() - 86400)`
+          ).bind(cid, vid).run());
+        }
+
         const n = await env.DB.prepare('select count(*) as n from comment_likes where cid = ?1')
           .bind(cid).all();
         return json({ ok: true, on: on, n: ((n.results || [])[0] || {}).n || 0 }, origin);
+      }
+
+      // ── 내 알림 ──────────────────────────────────────────
+      // 익명 번호로만 조회한다. 번호는 추측할 수 없는 난수이고, 알림에는
+      // 개인정보가 없다(상대 닉네임과 내 글 위치뿐).
+      if (url.pathname === '/notices') {
+        const nvid = String(url.searchParams.get('v') || '');
+        if (!VID_RE.test(nvid)) return json({ items: [], n: 0 }, origin);
+
+        if (request.method === 'POST') {      // 읽음 처리
+          await env.DB.prepare('update notices set seen = 1 where vid = ?1').bind(nvid).run();
+          return json({ ok: true }, origin);
+        }
+        const { results } = await env.DB.prepare(
+          `select n.id, n.kind, n.cid, n.who, n.story, n.ts, n.seen,
+                  substr(c.body, 1, 40) as snip
+           from notices n left join comments c on c.id = n.cid
+           where n.vid = ?1 and n.ts > unixepoch() - 7776000
+           order by n.id desc limit 30`
+        ).bind(nvid).all();
+        const items = results || [];
+        return json({ items, n: items.filter((r) => !r.seen).length }, origin);
       }
 
       if (request.method === 'POST' && url.pathname === '/flag') {

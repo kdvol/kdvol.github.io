@@ -121,3 +121,19 @@ create table if not exists hops (
   primary key (day, frm, to_)
 );
 create index if not exists idx_hops_day on hops(day);
+
+-- 알림: 내 댓글에 답글이 달리거나 좋아요를 받으면 한 줄 쌓인다.
+-- 이메일 없이 익명 번호로만 전달한다 — 다음 방문 때 사이트에서 보여준다.
+-- 읽으면 seen=1, 90일 지난 건 자동 삭제(보관 목적이 없다).
+create table if not exists notices (
+  id   integer primary key autoincrement,
+  vid  text not null,              -- 받는 사람(익명 번호)
+  kind text not null,              -- reply | like
+  cid  integer not null,           -- 내 댓글 id
+  rid  integer,                    -- 답글 id (kind=reply)
+  who  text,                       -- 상대 닉네임(표시용)
+  story text not null,
+  ts   integer not null,
+  seen integer not null default 0
+);
+create index if not exists idx_nt_vid on notices(vid, seen, id desc);
