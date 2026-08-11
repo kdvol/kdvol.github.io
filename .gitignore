@@ -7,3 +7,10 @@ node_modules/
 
 # 거래처 액세스 코드 — 절대 커밋 금지(리포가 공개다)
 workers/.partner-codes.json
+
+# 로컬 자격증명 — 절대 커밋 금지
+.env
+.env.local
+.env.*.local
+*.pem
+*.key
