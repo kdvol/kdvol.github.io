@@ -72,8 +72,19 @@ padding-left:11px;position:relative}
 h2.tk{font-size:1.16rem;font-weight:800;margin:34px 0 3px;letter-spacing:-.02em}
 h2.tk + p{margin:0 0 15px;color:#8a8578;font-size:.85rem}
 .card{background:#fff;border:1px solid #ece8de;border-radius:16px;padding:20px 19px;margin-bottom:12px;
-display:block;text-decoration:none;color:inherit;transition:border-color .15s,transform .15s}
-.card:hover{border-color:#F07040;transform:translateY(-1px)}
+transition:border-color .15s}
+.card:hover{border-color:#F07040}
+.card a{text-decoration:none;color:inherit;display:block}
+.tz{display:block;position:relative;border-radius:11px;overflow:hidden;margin:0 0 13px;
+cursor:pointer;background:#000;aspect-ratio:16/9}
+.tz img{width:100%;height:100%;object-fit:cover;display:block;opacity:.88;transition:opacity .2s}
+.tz:hover img{opacity:1}
+.tz iframe{width:100%;height:100%;border:0;display:block}
+.tz .pl{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:48px;height:48px;
+border-radius:50%;background:rgba(0,0,0,.6);color:#fff;display:flex;align-items:center;
+justify-content:center;font-size:16px;padding-left:3px}
+.tz .lb{position:absolute;left:11px;bottom:10px;background:rgba(0,0,0,.62);color:#fff;
+font-size:.7rem;font-weight:700;border-radius:5px;padding:3px 8px}
 .card.best{border:2px solid #F07040;background:linear-gradient(180deg,#fff9f5,#fff)}
 .tag{display:inline-block;font-size:.68rem;font-weight:700;border-radius:5px;padding:2px 7px;
 margin-bottom:9px;background:#fdf0e9;color:#E55A00}
@@ -124,8 +135,17 @@ def card_html(c):
         price = (f"<span class='pr'><s>{won(c['list'])}</s>{won(c['price'])}</span>")
         save = f"<span class='save'>{won(c['list'] - c['price'])} 아낌</span>"
 
-    return f"""<a class="card{' best' if c.get('best') else ''}" href="{BASE}{c['id']}"
- target="_blank" rel="noopener">
+    # 티저는 클릭해야 재생한다 — iframe을 처음부터 심으면 카드마다 유튜브를 불러
+    # 페이지가 무거워진다. 썸네일만 걸고 누를 때 바꿔 끼운다.
+    teaser = ""
+    if c.get("teaser"):
+        teaser = (f'<span class="tz" data-v="{c["teaser"]}">'
+                  f'<img src="https://i.ytimg.com/vi/{c["teaser"]}/hqdefault.jpg" alt="맛보기 영상"'
+                  f' loading="lazy" width="480" height="270"/>'
+                  f'<span class="pl">▶</span><span class="lb">1분 맛보기</span></span>')
+
+    return f"""<div class="card{' best' if c.get('best') else ''}">
+<a class="hit" href="{BASE}{c['id']}" target="_blank" rel="noopener">
 {'<span class="tag">3종 통합 · 개별 구매 대비 20% 할인</span>' if c.get('best') else ''}
 <h3>{H.escape(c['t'])}</h3>
 <p class="sb">{H.escape(c['sub'])}</p>
@@ -134,8 +154,10 @@ def card_html(c):
 <ul class="who">{''.join(f'<li>{H.escape(w)}</li>' for w in c['who'])}</ul>
 <p class="sec">이걸 배웁니다</p>
 <ul>{''.join(f'<li>{H.escape(l)}</li>' for l in c['learn'])}</ul>
-<div class="buy">{price}{save}<span class="go">자세히 보기 →</span></div>
-</a>"""
+</a>{teaser}
+<a class="buy" href="{BASE}{c['id']}" target="_blank" rel="noopener">
+{price}{save}<span class="go">자세히 보기 →</span></a>
+</div>"""
 
 
 def build(courses=None):
@@ -186,6 +208,18 @@ font-family:'DM Sans',-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo',san
 {nav}
 <div class="sc">{body}</div>
 <script src="/soonsal.js" defer></script>
+<script>
+// 맛보기 영상 — 누를 때만 유튜브를 불러온다
+document.querySelectorAll('.tz').forEach(function (b) {{
+  b.addEventListener('click', function () {{
+    var v = b.getAttribute('data-v');
+    if (!v) return;
+    b.innerHTML = '<iframe src="https://www.youtube-nocookie.com/embed/' + v +
+      '?autoplay=1&rel=0" allow="autoplay; encrypted-media" allowfullscreen></iframe>';
+    b.removeAttribute('data-v');
+  }});
+}});
+</script>
 </body></html>"""
     (OUT / "index.html").write_text(html, encoding="utf-8")
     print(f"🎓 school: 강의 {len(courses)}개 · 캡틴 {len(CAPTAINS)}명")

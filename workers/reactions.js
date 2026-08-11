@@ -15,8 +15,9 @@
  *   GET  /counts              → 전체(운영자 통계용)
  *   GET  /activity            → {last:{story:ts}, events:[[ts,story,delta],...]} (최근 14일)
  *   POST /react {story,emoji,delta:±1} → 해당 스토리 카운트
- *   POST /t  {t:"hit"|"ev", ...}       → 방문·참여 집계 (204, 본문 없음)
+ *   POST /t  {t:"hit"|"ev"|"topic", ...} → 방문·참여·토픽 집계 (204, 본문 없음)
  *   GET  /insights?days=30             → 운영자 대시보드용 집계
+ *   GET  /topic-insights?days=30       → 토픽별 view/dwell/반응/댓글/공유
  *
  * 트래킹 원칙: 개인정보를 저장하지 않는다. IP·UA·쿠키를 쓰지 않고,
  *   브라우저 localStorage의 익명 난수 ID만 받는다. 원본 로그도 남기지 않고
@@ -28,8 +29,10 @@
 
 const ALLOW_ORIGINS = ['https://soonsal.com', 'https://www.soonsal.com'];
 const EMOJI = ['👍', '🤔', '🔥'];
-const STORY_RE = /^[0-9]{4}c?-[0-9]{1,2}$/;   // 0805-1 / 0805c-3
-const ISSUE_RE = /^[0-9]{4}c?$/;              // 0806 / 0806c
+const LEGACY_STORY_RE = /^[0-9]{4}c?-[0-9]{1,2}$/; // 0805-1 / 0805c-3
+const MORNING_STORY_RE = /^m[0-9]{8}-[a-z0-9]+(?:-[a-z0-9]+)*$/;
+const STORY_RE = /^(?:[0-9]{4}c?-[0-9]{1,2}|m[0-9]{8}-[a-z0-9]+(?:-[a-z0-9]+)*)$/;
+const ISSUE_RE = /^(?:[0-9]{4}c?|m[0-9]{8})$/; // 0806 / 0806c / m20260812
 
 function cors(origin) {
   const allow = ALLOW_ORIGINS.includes(origin) ? origin : ALLOW_ORIGINS[0];
@@ -53,6 +56,7 @@ function json(data, origin, status = 200, extra = {}) {
 
 // ── 트래킹 상수 ──────────────────────────────────────────────
 const KIND = ['read', 'react', 'share', 'telegram', 'instagram', 'comment'];
+const TOPIC_KIND = ['impression', 'view', 'dwell', 'share'];
 const SRC = ['direct', 'telegram', 'instagram', 'search', 'mail', 'other'];
 // 하이픈 허용 — 'agent-...' 형태를 정상적인 ID로 받기 위해서다. 형식 검증에
 // 걸려 거부되면 집계 제외가 '우연히' 동작하는 셈이라, 의도한 AGENT_VID 검사가
@@ -133,6 +137,34 @@ function normPath(p) {
   p = p.split('?')[0].split('#')[0].slice(0, 80);
   if (!/^\/[A-Za-z0-9/_.-]*$/.test(p)) return null;
   return p === '' ? '/' : p;
+}
+
+function issueOf(story) {
+  if (LEGACY_STORY_RE.test(story)) return story.replace(/-[0-9]{1,2}$/, '');
+  if (MORNING_STORY_RE.test(story)) return story.slice(0, 9);
+  return null;
+}
+
+function storyLink(story) {
+  const morning = String(story).match(/^m([0-9]{4})([0-9]{2})([0-9]{2})-([a-z0-9]+(?:-[a-z0-9]+)*)$/);
+  if (morning) return `https://soonsal.com/morning/${morning[1]}/${morning[2]}${morning[3]}.html#${morning[4]}`;
+  const legacy = String(story).match(/^([0-9]{4})(c?)-([0-9]{1,2})$/);
+  if (!legacy) return 'https://soonsal.com';
+  return `https://soonsal.com/newsletters/${new Date().getFullYear()}/${legacy[1]}`
+    + `${legacy[2] ? '-crypto' : ''}.html#story-${legacy[3]}`;
+}
+
+function kstDay() {
+  return new Date(Date.now() + 32400000).toISOString().slice(0, 10);
+}
+
+// 같은 브라우저인지 세는 데 raw vid를 저장하지 않는다. 토픽·종류·날짜까지
+// secret과 함께 해시해 다른 토픽의 행동을 서로 연결할 수도 없게 한다.
+async function topicSignature(env, topic, kind, vid) {
+  if (!env.ADMIN_KEY || !VID_RE.test(vid)) return null;
+  const raw = `${env.ADMIN_KEY}:${kstDay()}:${topic}:${kind}:${vid}`;
+  const digest = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(raw));
+  return [...new Uint8Array(digest)].map((b) => b.toString(16).padStart(2, '0')).join('').slice(0, 32);
 }
 
 const byStory = (rows) => {
@@ -229,6 +261,8 @@ export default {
         const body = String((b && b.body) || '').replace(/[\u0000-\u001f\u007f]/g, '').trim();
 
         if (!STORY_RE.test(story)) return json({ error: 'bad story' }, origin, 400);
+        const storyIssue = issueOf(story);
+        if (!storyIssue) return json({ error: 'bad issue' }, origin, 400);
         if (!VID_RE.test(vid)) return json({ error: 'bad vid' }, origin, 400);
         if (!NICK_RE.test(nick) || NICK_BAN.test(nick)) return json({ error: 'bad nick' }, origin, 400);
         if (!body || body.length > BODY_MAX) return json({ error: 'bad body' }, origin, 400);
@@ -287,7 +321,7 @@ export default {
           `insert into comments (story, issue, nick, body, vid, ts, state, hold, tag, co,
                                  parent_id, root_id)
            values (?1, ?2, ?3, ?4, ?5, unixepoch(), ?6, ?7, ?8, ?9, ?10, ?11)`
-        ).bind(story, story.split('-')[0], nick, body, vid, state, hold, tag, co,
+        ).bind(story, storyIssue, nick, body, vid, state, hold, tag, co,
                parentId, rootId).run();
 
         // 답글이 달렸다고 원글 작성자에게 남긴다. 공개된 글에만, 자기 자신 제외.
@@ -304,12 +338,10 @@ export default {
             .bind(ins.meta.last_row_id).run();
         }
 
-        const issue = story.split('-')[0];
         notify(env, ctx,
           `💬 <b>${esc(nick)}</b>${hold ? ` <i>(검토 중 · ${hold})</i>` : ''}\n` +
           `${esc(body)}\n\n` +
-          `<a href="https://soonsal.com/newsletters/2026/${issue.replace('c', '')}` +
-          `${issue.endsWith('c') ? '-crypto' : ''}.html">${story}</a>` +
+          `<a href="${storyLink(story)}">${story}</a>` +
           (hold ? ' · 자동 판정 대기' : ''));
 
         return json({ ok: true, state, hold, id: ins.meta && ins.meta.last_row_id,
@@ -538,7 +570,35 @@ export default {
         }
 
         const stmts = [];
-        if (b.t === 'hit') {
+        if (b.t === 'topic') {
+          const topic = String((b && b.topic) || '');
+          const kind = String((b && b.k) || '');
+          if (!MORNING_STORY_RE.test(topic) || !TOPIC_KIND.includes(kind)) {
+            return new Response(null, { status: 204, headers: cors(origin) });
+          }
+          const ms = kind === 'dwell'
+            ? Math.min(Math.max(parseInt((b && b.ms) || 0, 10) || 0, 0), 1800000) : 0;
+          stmts.push(env.DB.prepare(
+            `insert into topic_metrics (day, topic, kind, n, ms)
+             values (${DAY}, ?1, ?2, 1, ?3)
+             on conflict(day, topic, kind) do update set n = n + 1, ms = ms + ?3`
+          ).bind(topic, kind, ms));
+          const sig = await topicSignature(env, topic, kind, vid);
+          if (sig) {
+            stmts.push(env.DB.prepare(
+              `insert into topic_uniques (day, topic, kind, sig)
+               values (${DAY}, ?1, ?2, ?3)
+               on conflict(day, topic, kind, sig) do nothing`
+            ).bind(topic, kind, sig));
+          }
+          if (kind === 'impression') {
+            const src = SRC.includes(b.r) ? b.r : 'other';
+            stmts.push(env.DB.prepare(
+              `insert into topic_refs (day, topic, src, n) values (${DAY}, ?1, ?2, 1)
+               on conflict(day, topic, src) do update set n = n + 1`
+            ).bind(topic, src));
+          }
+        } else if (b.t === 'hit') {
           const path = normPath(b.p);
           if (!path) return new Response(null, { status: 204, headers: cors(origin) });
           const first = b.f ? 1 : 0;                       // 오늘 이 페이지 첫 방문인가
@@ -588,6 +648,63 @@ export default {
 
         await env.DB.batch(stmts);
         return new Response(null, { status: 204, headers: cors(origin) });
+      }
+
+      // 토픽별 편집 신호. raw vid나 개인별 이동 경로는 반환하지 않는다.
+      if (request.method === 'GET' && url.pathname === '/topic-insights') {
+        if (!adminOk(request, env)) return json({ error: 'unauthorized' }, origin, 401);
+        const days = Math.min(Math.max(parseInt(url.searchParams.get('days') || '30', 10) || 30, 1), 120);
+        const since = `date(unixepoch() + 32400, 'unixepoch', '-${days} days')`;
+        const [metrics, uniques, reacts, comments, refs] = await env.DB.batch([
+          env.DB.prepare(
+            `select topic,
+                    sum(case when kind = 'impression' then n else 0 end) as impressions,
+                    sum(case when kind = 'view' then n else 0 end) as views,
+                    sum(case when kind = 'dwell' then ms else 0 end) as dwell_ms,
+                    sum(case when kind = 'share' then n else 0 end) as shares
+             from topic_metrics where day >= ${since} group by topic`),
+          env.DB.prepare(
+            `select topic, kind, count(*) as n from topic_uniques
+             where day >= ${since} group by topic, kind`),
+          env.DB.prepare(
+            `select story as topic, max(sum(delta), 0) as reactions from events
+             where story like 'm%' and date(ts + 32400, 'unixepoch') >= ${since}
+             group by story`),
+          env.DB.prepare(
+            `select story as topic, count(*) as comments, count(distinct vid) as commenters
+             from comments where state = 1 and story like 'm%'
+               and date(ts + 32400, 'unixepoch') >= ${since} group by story`),
+          env.DB.prepare(
+            `select topic, src, sum(n) as n from topic_refs
+             where day >= ${since} group by topic, src order by n desc`),
+        ]);
+        const out = {};
+        function row(topic) {
+          if (!out[topic]) out[topic] = {
+            topic, impressions: 0, views: 0, dwell_ms: 0, shares: 0,
+            reactions: 0, unique_reactors: 0, comments: 0, unique_commenters: 0,
+            unique_viewers: 0, referrals: {},
+          };
+          return out[topic];
+        }
+        for (const r of metrics.results || []) Object.assign(row(r.topic), r);
+        for (const r of uniques.results || []) {
+          if (r.kind === 'react') row(r.topic).unique_reactors = r.n;
+          if (r.kind === 'view') row(r.topic).unique_viewers = r.n;
+        }
+        for (const r of reacts.results || []) row(r.topic).reactions = r.reactions || 0;
+        for (const r of comments.results || []) {
+          row(r.topic).comments = r.comments || 0;
+          row(r.topic).unique_commenters = r.commenters || 0;
+        }
+        for (const r of refs.results || []) row(r.topic).referrals[r.src] = r.n;
+        const topics = Object.values(out).map((r) => {
+          r.avg_dwell_seconds = r.views ? Math.round(r.dwell_ms / r.views / 100) / 10 : 0;
+          r.engagement_rate = r.views
+            ? Math.round((r.reactions + r.comments + r.shares) / r.views * 10000) / 10000 : 0;
+          return r;
+        }).sort((a, b) => b.engagement_rate - a.engagement_rate || b.views - a.views);
+        return json({ days, topics }, origin);
       }
 
       // ── 운영자 대시보드 집계 ──────────────────────────────
@@ -677,7 +794,7 @@ export default {
         if (!EMOJI.includes(emoji)) return json({ error: 'bad emoji' }, origin, 400);
         if (delta !== 1 && delta !== -1) return json({ error: 'bad delta' }, origin, 400);
 
-        await env.DB.batch([
+        const updates = [
           env.DB.prepare(
             `insert into reactions (story, emoji, count, updated_at)
              values (?1, ?2, max(?3, 0), unixepoch())
@@ -687,7 +804,17 @@ export default {
           env.DB.prepare(
             `insert into events (story, emoji, delta, ts) values (?1, ?2, ?3, unixepoch())`
           ).bind(story, emoji, delta),
-        ]);
+        ];
+        const reactVid = String((body && body.v) || '');
+        if (delta === 1 && MORNING_STORY_RE.test(story) && VID_RE.test(reactVid)) {
+          const sig = await topicSignature(env, story, 'react', reactVid);
+          if (sig) updates.push(env.DB.prepare(
+            `insert into topic_uniques (day, topic, kind, sig)
+             values (${DAY}, ?1, 'react', ?2)
+             on conflict(day, topic, kind, sig) do nothing`
+          ).bind(story, sig));
+        }
+        await env.DB.batch(updates);
 
         const { results } = await env.DB
           .prepare('select emoji, count from reactions where story = ?1 and count > 0')
@@ -700,6 +827,6 @@ export default {
       return json({ error: 'server', detail: String(err).slice(0, 120) }, origin, 500);
     }
 
-    return json({ ok: true, endpoints: ['/counts?issue=', '/counts?story=', '/activity', '/insights', 'POST /react', 'POST /t'] }, origin);
+    return json({ ok: true, endpoints: ['/counts?issue=', '/counts?story=', '/activity', '/insights', '/topic-insights', 'POST /react', 'POST /t'] }, origin);
   },
 };

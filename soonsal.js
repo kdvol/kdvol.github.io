@@ -233,6 +233,70 @@
     if (v) beacon({ t: 'ev', v: v, k: kind });
   }
 
+  function trackTopic(kind, story, ms) {
+    if (!story || optedOut() || navigator.webdriver) return;
+    var key = typeof story === 'string' ? story : storyKey(story);
+    if (!/^m\d{8}-[a-z0-9]+(?:-[a-z0-9]+)*$/.test(key || '')) return;
+    var v = vid();
+    if (!v) return;
+    beacon({ t: 'topic', v: v, topic: key, k: kind,
+             ms: Math.max(0, Math.min(Number(ms) || 0, 1800000)), r: refSrc() });
+  }
+
+  // 토픽별 읽기 신호. 서버에는 토픽·집계 종류·밀리초만 남고 개인별 열람 이력은
+  // 만들지 않는다. unique는 Worker가 토픽별 비가역 서명으로 바꾼다.
+  function mountTopicTracking() {
+    if (!API || !window.IntersectionObserver || navigator.webdriver || optedOut()) return;
+    var topics = document.querySelectorAll('.story[data-ss-story^="m"]');
+    if (!topics.length) return;
+    var state = {};
+
+    function row(el) {
+      var key = storyKey(el);
+      if (!state[key]) state[key] = { key: key, impression: false, view: false,
+                                      timer: null, started: 0 };
+      return state[key];
+    }
+    function stop(s) {
+      if (s.timer) { clearTimeout(s.timer); s.timer = null; }
+      if (s.started) {
+        var elapsed = Date.now() - s.started;
+        s.started = 0;
+        if (elapsed >= 1000) trackTopic('dwell', s.key, elapsed);
+      }
+    }
+
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        var s = row(entry.target);
+        if (entry.isIntersecting && entry.intersectionRatio > 0 && !s.impression) {
+          s.impression = true;
+          trackTopic('impression', s.key);
+        }
+        if (entry.isIntersecting && entry.intersectionRatio >= 0.5) {
+          if (!s.started) s.started = Date.now();
+          if (!s.view && !s.timer) {
+            s.timer = setTimeout(function () {
+              s.timer = null;
+              s.view = true;
+              trackTopic('view', s.key);
+            }, 1000);
+          }
+        } else {
+          stop(s);
+        }
+      });
+    }, { threshold: [0, 0.5] });
+
+    for (var i = 0; i < topics.length; i++) observer.observe(topics[i]);
+    window.addEventListener('pagehide', function () {
+      Object.keys(state).forEach(function (key) { stop(state[key]); });
+    });
+    document.addEventListener('visibilitychange', function () {
+      if (document.hidden) Object.keys(state).forEach(function (key) { stop(state[key]); });
+    });
+  }
+
   // 이 브라우저를 집계에서 뺀다 (/stats/의 '내 방문 빼기' 버튼이 세운다).
   // 운영자가 하루에 몇 번씩 확인하는 방문이 지표를 부풀리는 걸 막는 용도.
   function optedOut() {
@@ -301,11 +365,16 @@
     sb.type = 'button';
     sb.innerHTML = '🔗 <span>공유하기</span>';
     sb.setAttribute('aria-label', '공유하기');
-    sb.addEventListener('click', function () { track('share'); openShare(); });
+    sb.addEventListener('click', function () {
+      var current = currentStory();
+      track('share');
+      trackTopic('share', current);
+      openShare(current);
+    });
     document.body.appendChild(sb);
 
-    // 딥링크(#story-N)로 들어오면 그 스토리로 확실히 스크롤
-    if (location.hash && location.hash.indexOf('#story-') === 0) {
+    // 딥링크(#story-N / #topic-slug)로 들어오면 해당 블록으로 확실히 스크롤
+    if (location.hash) {
       var target = document.getElementById(location.hash.slice(1));
       if (target) setTimeout(function () { target.scrollIntoView(true); }, 80);
     }
@@ -319,6 +388,7 @@
     mountReactions();   // 스토리별 무로그인 반응
     mountTalk();        // 오늘의 논점 → 텔레그램
     trackView();        // 방문 집계 (익명, /stats/ 제외)
+    mountTopicTracking(); // Morning 토픽별 노출·읽기·체류(집계값만)
     mountNotice();      // 수집 안내(전 페이지 공통 푸터가 없어 여기서)
   }
 
@@ -330,7 +400,20 @@
   var API = CFG.worker || null;              // Cloudflare Worker(권장)
   var HAS_BACKEND = !!API;
 
+  var STORY_KEY_RE = /^(?:\d{4}c?-\d{1,2}|m\d{8}-[a-z0-9]+(?:-[a-z0-9]+)*)$/;
+  var ISSUE_KEY_RE = /^(?:\d{4}c?|m\d{8})$/;
+
+  function issueKey() {
+    var marked = document.querySelector('[data-ss-issue]');
+    var explicit = marked && marked.getAttribute('data-ss-issue');
+    if (explicit && ISSUE_KEY_RE.test(explicit)) return explicit;
+    var m = location.pathname.match(/\/newsletters\/2026\/(\d{4})(-crypto)?\.html/);
+    return m ? m[1] + (m[2] ? 'c' : '') : null;
+  }
+
   function storyKey(story) {
+    var explicit = story && story.getAttribute && story.getAttribute('data-ss-story');
+    if (explicit && STORY_KEY_RE.test(explicit)) return explicit;
     var m = location.pathname.match(/\/newsletters\/2026\/(\d{4})(-crypto)?\.html/);
     var all = document.querySelectorAll('.story'), idx = 0;
     for (var i = 0; i < all.length; i++) { if (all[i] === story) { idx = i + 1; break; } }
@@ -648,6 +731,9 @@
 
   function storyUrl(story) {
     if (!story) return '#';
+    var morning = String(story).match(/^m(\d{4})(\d{2})(\d{2})-([a-z0-9]+(?:-[a-z0-9]+)*)$/);
+    if (morning) return '/morning/' + morning[1] + '/' + morning[2] + morning[3] +
+      '.html#' + morning[4];
     var m = String(story).match(/^(\d{4})(c?)-(\d+)$/);
     if (!m) return '#';
     var y = new Date().getFullYear();
@@ -740,7 +826,11 @@
         sh.className = 'ss-rb ss-sh';
         sh.innerHTML = '🔗<span class="lb"> 공유</span>';
         sh.setAttribute('aria-label', '이 스토리 공유');
-        sh.addEventListener('click', function () { track('share'); openShare(s); });
+        sh.addEventListener('click', function () {
+          track('share');
+          trackTopic('share', s);
+          openShare(s);
+        });
         wrap.appendChild(sh);
 
         body.appendChild(wrap);
@@ -752,13 +842,12 @@
     refreshIssue();   // 페이지 전체 카운트를 한 번에 (요청·읽기 절약)
   }
 
-  // 이 페이지(뉴스레터 1호)의 모든 스토리 카운트를 1회 요청으로 받아 뿌린다
+  // 이 페이지의 모든 스토리/토픽 카운트를 1회 요청으로 받아 뿌린다
   function refreshIssue() {
     if (!API) return;
-    var m = location.pathname.match(/\/newsletters\/2026\/(\d{4})(-crypto)?\.html/);
-    if (!m) return;
-    var issue = m[1] + (m[2] ? 'c' : '');
-    fetch(API.replace(/[/]$/, '') + '/page?issue=' + issue)
+    var issue = issueKey();
+    if (!issue) return;
+    fetch(API.replace(/[/]$/, '') + '/page?issue=' + encodeURIComponent(issue))
       .then(function (r) { return r.json(); })
       .then(function (d) {
         var counts = (d && d.counts) || {};
@@ -792,7 +881,7 @@
     if (API) {
       fetch(API.replace(/\/$/, '') + '/react', {
         method: 'POST', headers: { 'content-type': 'application/json' },
-        body: JSON.stringify({ story: key, emoji: emoji, delta: delta })
+        body: JSON.stringify({ story: key, emoji: emoji, delta: delta, v: vid() })
       }).then(function (r) { return r.json(); })
         .then(function (o) { wrap._shared = o || {}; render(wrap, key); })
         .catch(function () {});
@@ -875,6 +964,10 @@
 
   // 스토리 → 스토리별 OG 페이지(/s/{id}.html) URL. 공유 미리보기가 스토리 기준으로 뜸.
   function shimUrl(story) {
+    var key = storyKey(story);
+    if (/^m\d{8}-/.test(key || '')) {
+      return location.origin + location.pathname + (story.id ? '#' + story.id : '');
+    }
     // id 파싱 금지(광고 스토리 등 커스텀 id가 잘못된 URL을 만들었음) → 위치 기반.
     // atomize의 넘버링과 동일: 전체 .story div 중 몇 번째인가.
     var m = location.pathname.match(/\/newsletters\/2026\/(\d{4})(-crypto)?\.html/);

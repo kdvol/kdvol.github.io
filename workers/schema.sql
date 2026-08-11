@@ -122,6 +122,39 @@ create table if not exists hops (
 );
 create index if not exists idx_hops_day on hops(day);
 
+-- ── Morning 토픽별 편집 신호 (2026-08-12) ────────────────────
+-- 개인별 열람 로그를 만들지 않고 일자·토픽·종류별 합계만 보관한다.
+-- dwell은 밀리초 합계. n은 이벤트 수라 avg dwell = ms / qualified view로 계산한다.
+create table if not exists topic_metrics (
+  day   text not null,
+  topic text not null,             -- m20260812-nvidia-financing
+  kind  text not null,             -- impression / view / dwell / share
+  n     integer not null default 0,
+  ms    integer not null default 0,
+  primary key (day, topic, kind)
+);
+create index if not exists idx_tm_topic on topic_metrics(topic, day);
+
+-- unique는 raw vid가 아니라 Worker가 secret+day+topic+kind+vid를 SHA-256 처리한 값.
+-- 토픽이 달라지면 같은 브라우저인지 연결할 수 없다.
+create table if not exists topic_uniques (
+  day   text not null,
+  topic text not null,
+  kind  text not null,             -- view / react 등
+  sig   text not null,
+  primary key (day, topic, kind, sig)
+);
+create index if not exists idx_tu_topic on topic_uniques(topic, day, kind);
+
+create table if not exists topic_refs (
+  day   text not null,
+  topic text not null,
+  src   text not null,             -- direct / telegram / instagram / search / mail / other
+  n     integer not null default 0,
+  primary key (day, topic, src)
+);
+create index if not exists idx_tr_topic on topic_refs(topic, day);
+
 -- 알림: 내 댓글에 답글이 달리거나 좋아요를 받으면 한 줄 쌓인다.
 -- 이메일 없이 익명 번호로만 전달한다 — 다음 방문 때 사이트에서 보여준다.
 -- 읽으면 seen=1, 90일 지난 건 자동 삭제(보관 목적이 없다).

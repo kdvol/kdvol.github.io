@@ -28,8 +28,19 @@ padding-left:11px;position:relative}
 h2.tk{font-size:1.16rem;font-weight:800;margin:34px 0 3px;letter-spacing:-.02em}
 h2.tk + p{margin:0 0 15px;color:#8a8578;font-size:.85rem}
 .card{background:#fff;border:1px solid #ece8de;border-radius:16px;padding:20px 19px;margin-bottom:12px;
-display:block;text-decoration:none;color:inherit;transition:border-color .15s,transform .15s}
-.card:hover{border-color:#F07040;transform:translateY(-1px)}
+transition:border-color .15s}
+.card:hover{border-color:#F07040}
+.card a{text-decoration:none;color:inherit;display:block}
+.tz{display:block;position:relative;border-radius:11px;overflow:hidden;margin:0 0 13px;
+cursor:pointer;background:#000;aspect-ratio:16/9}
+.tz img{width:100%;height:100%;object-fit:cover;display:block;opacity:.88;transition:opacity .2s}
+.tz:hover img{opacity:1}
+.tz iframe{width:100%;height:100%;border:0;display:block}
+.tz .pl{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:48px;height:48px;
+border-radius:50%;background:rgba(0,0,0,.6);color:#fff;display:flex;align-items:center;
+justify-content:center;font-size:16px;padding-left:3px}
+.tz .lb{position:absolute;left:11px;bottom:10px;background:rgba(0,0,0,.62);color:#fff;
+font-size:.7rem;font-weight:700;border-radius:5px;padding:3px 8px}
 .card.best{border:2px solid #F07040;background:linear-gradient(180deg,#fff9f5,#fff)}
 .tag{display:inline-block;font-size:.68rem;font-weight:700;border-radius:5px;padding:2px 7px;
 margin-bottom:9px;background:#fdf0e9;color:#E55A00}
@@ -86,8 +97,8 @@ border-bottom:2px solid transparent;transition:color .2s,border-color .2s;flex-s
 <div class="caps"><div class="cap"><div class="nm">IBD 캡틴</div>
 <ul><li>전 Deutsche Bank 기업금융부(IBD) 등 글로벌 기업금융 10년+</li><li>현 국내 유니콘 기업 Head of Corporate Development</li><li>대규모 투자유치·전략투자 집행 총괄</li></ul></div><div class="cap"><div class="nm">캡틴 Jack</div>
 <ul><li>현직 홍콩 Portfolio Manager</li><li>글로벌 자산운용사 바이사이드 현업</li><li>연합뉴스 보도</li></ul></div><div class="cap"><div class="nm">퀀트 캡틴</div>
-<ul><li>홍콩 스위스계 은행 퀀트 펀드 6년 — 퀀트 리서치·트레이딩</li><li>스탠포드 경제·수학 전공</li></ul></div></div><h2 class="tk">투자은행(IBD) 트랙</h2><p>기업의 자본 조달과 인수합병을 다루는 쪽</p><a class="card best" href="https://soonsal.liveklass.com/classes/42917"
- target="_blank" rel="noopener">
+<ul><li>홍콩 스위스계 은행 퀀트 펀드 6년 — 퀀트 리서치·트레이딩</li><li>스탠포드 경제·수학 전공</li></ul></div></div><h2 class="tk">투자은행(IBD) 트랙</h2><p>기업의 자본 조달과 인수합병을 다루는 쪽</p><div class="card best">
+<a class="hit" href="https://soonsal.liveklass.com/classes/42917" target="_blank" rel="noopener">
 <span class="tag">3종 통합 · 개별 구매 대비 20% 할인</span>
 <h3>IBD + IPO + M&amp;A 통합본</h3>
 <p class="sb">투자은행 커리어 3종을 한 번에</p>
@@ -96,9 +107,11 @@ border-bottom:2px solid transparent;transition:color .2s,border-color .2s;flex-s
 <ul class="who"><li>투자은행 커리어를 처음부터 제대로 잡고 싶은 분</li><li>IBD·IPO·M&amp;A를 흩어진 정보 말고 한 줄기로 이해하고 싶은 분</li></ul>
 <p class="sec">이걸 배웁니다</p>
 <ul><li>IBD 직무·연봉·커리어패스 (9강 2시간 33분)</li><li>IPO 절차와 밸류에이션, 빅히트·카카오게임즈 케이스 (10강 2시간 35분)</li><li>M&amp;A 절차와 실사, 카카오 10년 100만배 성장 케이스 (12강 3시간 40분)</li></ul>
-<div class="buy"><span class='pr'><s>630,000원</s>500,000원</span><span class='save'>130,000원 아낌</span><span class="go">자세히 보기 →</span></div>
-</a><a class="card" href="https://soonsal.liveklass.com/classes/38648"
- target="_blank" rel="noopener">
+</a>
+<a class="buy" href="https://soonsal.liveklass.com/classes/42917" target="_blank" rel="noopener">
+<span class='pr'><s>630,000원</s>500,000원</span><span class='save'>130,000원 아낌</span><span class="go">자세히 보기 →</span></a>
+</div><div class="card">
+<a class="hit" href="https://soonsal.liveklass.com/classes/38648" target="_blank" rel="noopener">
 
 <h3>IBD 순살만 발라보기</h3>
 <p class="sb">투자은행의 꽃, IBD 입문</p>
@@ -107,9 +120,11 @@ border-bottom:2px solid transparent;transition:color .2s,border-color .2s;flex-s
 <ul class="who"><li>IB가 뭐 하는 곳인지부터 막막한 분</li><li>IBD 인터뷰를 앞둔 분</li></ul>
 <p class="sec">이걸 배웁니다</p>
 <ul><li>투자은행 구조와 부서별 큰 그림, 은행 간 차이</li><li>IBD 직급별 업무·연봉 구조, 딜 팀 구성</li><li>실전 인터뷰 가이드와 자격 조건</li></ul>
-<div class="buy"><span class='pr'>170,000원</span><span class="go">자세히 보기 →</span></div>
-</a><a class="card" href="https://soonsal.liveklass.com/classes/42392"
- target="_blank" rel="noopener">
+</a>
+<a class="buy" href="https://soonsal.liveklass.com/classes/38648" target="_blank" rel="noopener">
+<span class='pr'>170,000원</span><span class="go">자세히 보기 →</span></a>
+</div><div class="card">
+<a class="hit" href="https://soonsal.liveklass.com/classes/42392" target="_blank" rel="noopener">
 
 <h3>IPO 순살만 발라보기</h3>
 <p class="sb">기업이 상장하는 과정 전부</p>
@@ -118,9 +133,11 @@ border-bottom:2px solid transparent;transition:color .2s,border-color .2s;flex-s
 <ul class="who"><li>IPO 절차를 실무 관점에서 알고 싶은 분</li><li>자본시장 부서 커리어를 보는 분</li></ul>
 <p class="sec">이걸 배웁니다</p>
 <ul><li>IPO 절차와 IBD의 역할, 기업가치평가 방법</li><li>빅히트·카카오게임즈 상장 뒷배경 케이스 스터디</li><li>유상증자·블록딜·CB 등 자본시장 업무</li></ul>
-<div class="buy"><span class='pr'>190,000원</span><span class="go">자세히 보기 →</span></div>
-</a><a class="card" href="https://soonsal.liveklass.com/classes/42832"
- target="_blank" rel="noopener">
+</a>
+<a class="buy" href="https://soonsal.liveklass.com/classes/42392" target="_blank" rel="noopener">
+<span class='pr'>190,000원</span><span class="go">자세히 보기 →</span></a>
+</div><div class="card">
+<a class="hit" href="https://soonsal.liveklass.com/classes/42832" target="_blank" rel="noopener">
 
 <h3>M&amp;A의 세계, 입문하기</h3>
 <p class="sb">기업은 왜, 어떻게 사고파는가</p>
@@ -129,9 +146,11 @@ border-bottom:2px solid transparent;transition:color .2s,border-color .2s;flex-s
 <ul class="who"><li>M&amp;A 절차를 처음부터 끝까지 보고 싶은 분</li><li>VC·컨설팅·대기업에서 딜을 만날 수 있는 분</li></ul>
 <p class="sec">이걸 배웁니다</p>
 <ul><li>기업이 M&amp;A를 추진하는 이유와 성장 전략</li><li>카카오 10년 100만배 성장의 M&amp;A 해부</li><li>전략적 투자자 vs 재무적 투자자의 이해관계</li><li>딜 프로세스와 실사(Due Diligence) 주의사항</li></ul>
-<div class="buy"><span class='pr'>270,000원</span><span class="go">자세히 보기 →</span></div>
-</a><h2 class="tk">바이사이드·퀀트 트랙</h2><p>돈을 굴리는 쪽, 그리고 그걸 자동화하는 쪽</p><a class="card" href="https://soonsal.liveklass.com/classes/10659"
- target="_blank" rel="noopener">
+</a>
+<a class="buy" href="https://soonsal.liveklass.com/classes/42832" target="_blank" rel="noopener">
+<span class='pr'>270,000원</span><span class="go">자세히 보기 →</span></a>
+</div><h2 class="tk">바이사이드·퀀트 트랙</h2><p>돈을 굴리는 쪽, 그리고 그걸 자동화하는 쪽</p><div class="card">
+<a class="hit" href="https://soonsal.liveklass.com/classes/10659" target="_blank" rel="noopener">
 
 <h3>글로벌 자산운용사·헤지펀드 뚫기</h3>
 <p class="sb">바이사이드 이직·취업 실전 공략</p>
@@ -140,9 +159,11 @@ border-bottom:2px solid transparent;transition:color .2s,border-color .2s;flex-s
 <ul class="who"><li>국내에서 홍콩 등 해외 바이사이드로 가고 싶은 분</li><li>셀사이드에서 바이사이드로 넘어가려는 분</li></ul>
 <p class="sec">이걸 배웁니다</p>
 <ul><li>바이사이드 커리어패스별 직무·연봉 범위·근속년수</li><li>홍콩 리크루터가 레주메에서 보는 것</li><li>인터뷰 예상 질문과 답변 구성법</li></ul>
-<div class="buy"><span class='pr'>150,000원</span><span class="go">자세히 보기 →</span></div>
-</a><a class="card" href="https://soonsal.liveklass.com/classes/10965"
- target="_blank" rel="noopener">
+</a><span class="tz" data-v="RHqjigulW20"><img src="https://i.ytimg.com/vi/RHqjigulW20/hqdefault.jpg" alt="맛보기 영상" loading="lazy" width="480" height="270"/><span class="pl">▶</span><span class="lb">1분 맛보기</span></span>
+<a class="buy" href="https://soonsal.liveklass.com/classes/10659" target="_blank" rel="noopener">
+<span class='pr'>150,000원</span><span class="go">자세히 보기 →</span></a>
+</div><div class="card">
+<a class="hit" href="https://soonsal.liveklass.com/classes/10965" target="_blank" rel="noopener">
 
 <h3>퀀트 트레이딩 원포인트 레슨</h3>
 <p class="sb">AI 시대의 투자, 외계어 없이</p>
@@ -151,9 +172,11 @@ border-bottom:2px solid transparent;transition:color .2s,border-color .2s;flex-s
 <ul class="who"><li>금융공학·S&amp;T 커리어에 관심 있는 분</li><li>코딩은 되는데 뭘 모델링할지 모르겠는 분</li></ul>
 <p class="sec">이걸 배웁니다</p>
 <ul><li>퀀트 트레이딩이 실제로 굴러가는 방식</li><li>내 돈이 퀀트 펀드에서 어떻게 운용되는지</li><li>이론 위에 얹은 홍콩 퀀트 펀드 실무 경험</li></ul>
-<div class="buy"><span class='pr'>180,000원</span><span class="go">자세히 보기 →</span></div>
-</a><a class="card" href="https://soonsal.liveklass.com/classes/10662"
- target="_blank" rel="noopener">
+</a><span class="tz" data-v="PdnyMyFOwl8"><img src="https://i.ytimg.com/vi/PdnyMyFOwl8/hqdefault.jpg" alt="맛보기 영상" loading="lazy" width="480" height="270"/><span class="pl">▶</span><span class="lb">1분 맛보기</span></span>
+<a class="buy" href="https://soonsal.liveklass.com/classes/10965" target="_blank" rel="noopener">
+<span class='pr'>180,000원</span><span class="go">자세히 보기 →</span></a>
+</div><div class="card">
+<a class="hit" href="https://soonsal.liveklass.com/classes/10662" target="_blank" rel="noopener">
 
 <h3>빌 아크만은 하락장에서 어떻게 3조를 벌었나</h3>
 <p class="sb">헤지펀드 투자전략 해부</p>
@@ -162,8 +185,22 @@ border-bottom:2px solid transparent;transition:color .2s,border-color .2s;flex-s
 <ul class="who"><li>주식 외에 채권·파생상품도 쓰고 싶은 분</li><li>헤지펀드 투자전략을 깊이 보고 싶은 분</li></ul>
 <p class="sec">이걸 배웁니다</p>
 <ul><li>코로나 하락장 3조 베팅 딥다이브</li><li>CDS·회사채 개념과 실제 활용법</li><li>주주서한을 함께 읽으며 행간 읽기</li></ul>
-<div class="buy"><span class='pr'>100,000원</span><span class="go">자세히 보기 →</span></div>
-</a><p class="note">모든 강의는 결제 후 180일간 무제한 다시 보기.
+</a>
+<a class="buy" href="https://soonsal.liveklass.com/classes/10662" target="_blank" rel="noopener">
+<span class='pr'>100,000원</span><span class="go">자세히 보기 →</span></a>
+</div><p class="note">모든 강의는 결제 후 180일간 무제한 다시 보기.
 결제와 수강은 순살스쿨(liveklass)에서 진행됩니다.</p></div>
 <script src="/soonsal.js" defer></script>
-<script src="/ss-config.js"></script><script src="/soonsal.js" defer></script></body></html>
+<script>
+// 맛보기 영상 — 누를 때만 유튜브를 불러온다
+document.querySelectorAll('.tz').forEach(function (b) {
+  b.addEventListener('click', function () {
+    var v = b.getAttribute('data-v');
+    if (!v) return;
+    b.innerHTML = '<iframe src="https://www.youtube-nocookie.com/embed/' + v +
+      '?autoplay=1&rel=0" allow="autoplay; encrypted-media" allowfullscreen></iframe>';
+    b.removeAttribute('data-v');
+  });
+});
+</script>
+</body></html>
