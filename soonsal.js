@@ -150,6 +150,14 @@
     try { fetch(url, { method: 'POST', body: s, keepalive: true }).catch(function () {}); } catch (e) {}
   }
 
+  // 서버에도 제외를 남긴다 — localStorage만 믿으면 그 브라우저를 정리하는 순간
+  // 다시 섞이고, 이미 쌓인 방문자 기록도 남는다.
+  function forgetMe() {
+    var v = vid();
+    if (v) beacon({ t: 'forget', v: v });
+  }
+  window.ssForgetMe = forgetMe;   // /stats/ 버튼에서 호출
+
   function track(kind) {          // read / react / share / telegram / instagram / comment
     if (optedOut()) return;
     var v = vid();

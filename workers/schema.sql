@@ -85,3 +85,11 @@ create table if not exists blocks (
 create table if not exists modwords (   -- 재배포 없이 금칙어 추가
   w text primary key, ts integer not null
 );
+
+-- 집계에서 뺄 브라우저 (운영자 본인·개발용 접속)
+-- localStorage만으로 막으면 그 브라우저를 지우는 순간 다시 섞인다.
+-- 서버에도 남겨 두면 같은 ID로 오는 한 영구히 제외된다.
+create table if not exists tracking_optout (
+  vid text primary key,
+  ts  integer not null
+);

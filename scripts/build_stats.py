@@ -163,7 +163,21 @@ function renderCommunity() {
   // 사람 수는 visitors 테이블에서 온 값(v.today / v.active7)을 쓴다.
   var people0 = (v.today === undefined || v.today === null) ? today.uniq : v.today;
 
-  var h = '<div class="sum">' +
+  var L = ins.lifetime || {};
+  var h = '';
+  if (L.people) {
+    var lr = pct(L.repeat_v, L.people);
+    var le = L.engage || {};
+    h += '<h2>전체 기간 <small>' + (L.since || '') + ' 집계 시작 · ' + (L.days || 0) + '일</small></h2>' +
+      '<div class="sum">' +
+      kpi(L.people, '누적 방문자', (L.hits || 0) + '뷰', true) +
+      kpi(lr + '%', '재방문율', (L.repeat_v || 0) + '명', true) +
+      kpi(le.react || 0, '반응', null, true) +
+      kpi(le.comment || 0, '댓글', null, true) + '</div>' +
+      '<h2>최근 ' + ins.days + '일</h2>';
+  }
+
+  h += '<div class="sum">' +
     kpi(people0, '오늘 방문자', today.hits + '뷰', true) +
     kpi(people7, '7일 방문자', h7 + '뷰 · 중복 제외', true) +
     kpi(pct(v.repeat_v, v.total) + '%', '재방문율', (v.repeat_v || 0) + '/' + (v.total || 0) + '명', true) +
@@ -217,11 +231,17 @@ function renderCommunity() {
     ob.className = on ? 'on' : '';
   }
   ob.addEventListener('click', function () {
+    var on = false;
+    try { on = localStorage.getItem('ss_optout') === '1'; } catch (e) {}
     try {
-      var on = localStorage.getItem('ss_optout') === '1';
       if (on) localStorage.removeItem('ss_optout');
       else localStorage.setItem('ss_optout', '1');
     } catch (e) {}
+    // 켤 때는 서버에도 남기고 이미 쌓인 이 브라우저의 방문자 기록을 지운다
+    if (!on && window.ssForgetMe) {
+      window.ssForgetMe();
+      setTimeout(function () { location.reload(); }, 600);
+    }
     paintOpt();
   });
   paintOpt();

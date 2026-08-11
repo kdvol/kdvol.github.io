@@ -314,6 +314,24 @@ export default {
         const vid = String((b && b.v) || '');
         if (!VID_RE.test(vid)) return new Response(null, { status: 204, headers: cors(origin) });
 
+        // 'forget' — 이 브라우저를 영구 제외하고 그동안의 방문자 기록을 지운다.
+        // 페이지뷰 합계는 경로별 집계라 되돌릴 수 없다(개인별 열람 이력을 남기지
+        // 않는 설계의 대가). 사람 수 지표는 정확해진다.
+        if (b.t === 'forget') {
+          await env.DB.batch([
+            env.DB.prepare('insert into tracking_optout (vid, ts) values (?1, unixepoch()) '
+                         + 'on conflict(vid) do nothing').bind(vid),
+            env.DB.prepare('delete from visitors where vid = ?1').bind(vid),
+          ]);
+          return new Response(null, { status: 204, headers: cors(origin) });
+        }
+
+        const skip = await env.DB.prepare('select 1 as x from tracking_optout where vid = ?1')
+          .bind(vid).all();
+        if ((skip.results || []).length) {
+          return new Response(null, { status: 204, headers: cors(origin) });
+        }
+
         const stmts = [];
         if (b.t === 'hit') {
           const path = normPath(b.p);
@@ -386,8 +404,21 @@ export default {
              from visitors`),
         ]);
 
+        // 전체 기간 누적 — 창(days)과 무관하게 집계 시작 이후 전부
+        const life = await env.DB.batch([
+          env.DB.prepare('select sum(hits) as hits, min(day) as since, '
+                       + 'count(distinct day) as days from views'),
+          env.DB.prepare('select count(*) as people, sum(case when days >= 2 then 1 else 0 end) '
+                       + 'as repeat_v from visitors'),
+          env.DB.prepare('select kind, sum(n) as n from engage group by kind'),
+        ]);
+        const lifeEng = {};
+        for (const r of (life[2].results || [])) lifeEng[r.kind] = r.n;
+
         return json({
           days,
+          lifetime: Object.assign({}, (life[0].results || [])[0], (life[1].results || [])[0],
+                                  { engage: lifeEng }),
           daily: daily.results || [],
           top: top.results || [],
           engage: eng.results || [],
