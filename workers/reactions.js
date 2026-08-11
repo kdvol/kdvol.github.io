@@ -65,6 +65,8 @@ const BODY_MAX = 140;
 
 // 자동 보류 규칙 — 걸리는 것만 잡아두고 나머지는 즉시 게시.
 // 보류 건은 사람이 아니라 LLM(scripts/moderate_comments.py)이 하루 단위로 푼다.
+const AGENT_VID = /^agent-/i;   // 집계에서 항상 빼는 개발용 브라우저
+
 const HOLD_RULES = [
   ['url', /https?:\/\/|www\.|\b[a-z0-9-]+\.(com|net|co\.kr|kr|io|me|link|xyz|top|cc|shop)\b/i],
   // '텔레그램'·'DM' 같은 낱말만으로 잡으면 오탐이 난다 — 순살은 텔레그램 수다방을
@@ -325,6 +327,14 @@ export default {
                          + 'on conflict(vid) do nothing').bind(vid),
             env.DB.prepare('delete from visitors where vid = ?1').bind(vid),
           ]);
+          return new Response(null, { status: 204, headers: cors(origin) });
+        }
+
+        // 개발·검증용 브라우저는 'agent-'로 시작하는 ID를 쓴다. 자동 감지는 불가능하다 —
+        // navigator.webdriver는 false이고 UA도 일반 Chrome과 같다(둘 다 확인함).
+        // 그래서 약속된 접두사를 서버가 무조건 무시한다. 저장소를 비워도 ID만 다시
+        // 넣으면 그만이고, DB 조회도 필요 없다.
+        if (AGENT_VID.test(vid)) {
           return new Response(null, { status: 204, headers: cors(origin) });
         }
 
