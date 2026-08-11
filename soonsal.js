@@ -74,6 +74,87 @@
     });
   }
 
+  // ── 방문·참여 트래킹 ─────────────────────────────────────
+  // 목표는 페이지뷰 숫자가 아니라 "다시 오는 사람이 있는가, 반응하는가".
+  // 개인정보는 보내지 않는다 — 쿠키·IP·UA 없이 localStorage 난수 ID 하나만.
+  var VID_KEY = 'ss_vid', SEEN_KEY = 'ss_seen';
+
+  function vid() {
+    try {
+      var v = localStorage.getItem(VID_KEY);
+      if (!v || !/^[a-z0-9]{8,24}$/.test(v)) {
+        v = (Math.random().toString(36).slice(2) + Math.random().toString(36).slice(2)).slice(0, 16);
+        localStorage.setItem(VID_KEY, v);
+      }
+      return v;
+    } catch (e) { return null; }   // 프라이빗 모드 등 → 트래킹 포기
+  }
+
+  // 오늘 이 경로를 처음 여는가 (순방문 계산용, 브라우저에서만 판단)
+  function firstToday(path) {
+    try {
+      var today = new Date(Date.now() + 324e5).toISOString().slice(0, 10);   // KST
+      var s = JSON.parse(localStorage.getItem(SEEN_KEY) || '{}');
+      if (s.d !== today) s = { d: today, p: [] };
+      if (s.p.indexOf(path) >= 0) return 0;
+      s.p.push(path);
+      localStorage.setItem(SEEN_KEY, JSON.stringify(s));
+      return 1;
+    } catch (e) { return 0; }
+  }
+
+  function refSrc() {
+    var r = document.referrer || '';
+    if (/utm_source=mail|[?&]m=1\b/.test(location.search)) return 'mail';
+    if (!r) return 'direct';
+    if (/t\.me|telegram/i.test(r)) return 'telegram';
+    if (/instagram|ig\.me/i.test(r)) return 'instagram';
+    if (/google\.|naver\.|daum\.|bing\.|duckduckgo/i.test(r)) return 'search';
+    if (r.indexOf(location.origin) === 0) return 'direct';   // 사이트 내 이동
+    return 'other';
+  }
+
+  function beacon(body) {
+    if (!API) return;
+    var url = API.replace(/[/]$/, '') + '/t';
+    var s = JSON.stringify(body);
+    // sendBeacon은 프리플라이트 없이 나가고 페이지를 떠나도 살아남는다
+    try {
+      if (navigator.sendBeacon && navigator.sendBeacon(url, s)) return;
+    } catch (e) {}
+    try { fetch(url, { method: 'POST', body: s, keepalive: true }).catch(function () {}); } catch (e) {}
+  }
+
+  function track(kind) {          // read / react / share / telegram / instagram
+    var v = vid();
+    if (v) beacon({ t: 'ev', v: v, k: kind });
+  }
+
+  function trackView() {
+    if (!API) return;
+    if (navigator.webdriver) return;                       // 자동화 브라우저 제외
+    if (/\/stats\//.test(location.pathname)) return;       // 운영자 화면은 집계 안 함
+    var v = vid();
+    if (!v) return;
+    var path = location.pathname;
+    beacon({ t: 'hit', v: v, p: path, f: firstToday(path), r: refSrc() });
+
+    // "읽었다" 판정 — 70%까지 내려갔거나 45초 이상 머물렀을 때 1회
+    var done = false;
+    function mark() {
+      if (done) return;
+      done = true;
+      track('read');
+      window.removeEventListener('scroll', onScroll);
+    }
+    function onScroll() {
+      var h = document.documentElement.scrollHeight - window.innerHeight;
+      if (h <= 0 || (window.scrollY + window.innerHeight) / (h + window.innerHeight) >= 0.7) mark();
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    setTimeout(mark, 45000);
+  }
+
   function init() {
     var st = document.createElement('style');
     st.textContent = CSS;
@@ -87,6 +168,7 @@
     fab.setAttribute('aria-label', '텔레그램 실시간 대화방');
     fab.title = '텔레그램 대화방';
     fab.textContent = '💬';
+    fab.addEventListener('click', function () { track('telegram'); });
     document.body.appendChild(fab);
 
     var sb = document.createElement('button');
@@ -94,7 +176,7 @@
     sb.type = 'button';
     sb.innerHTML = '🔗 <span>공유하기</span>';
     sb.setAttribute('aria-label', '공유하기');
-    sb.addEventListener('click', function () { openShare(); });
+    sb.addEventListener('click', function () { track('share'); openShare(); });
     document.body.appendChild(sb);
 
     // 딥링크(#story-N)로 들어오면 그 스토리로 확실히 스크롤
@@ -103,8 +185,15 @@
       if (target) setTimeout(function () { target.scrollIntoView(true); }, 80);
     }
 
+    // data-ss-ev가 붙은 링크(논점 블록의 텔레그램·인스타)는 위임으로 한 번에
+    document.addEventListener('click', function (e) {
+      var a = e.target && e.target.closest && e.target.closest('[data-ss-ev]');
+      if (a) track(a.getAttribute('data-ss-ev'));
+    });
+
     mountReactions();   // 스토리별 무로그인 반응
     mountTalk();        // 오늘의 논점 → 텔레그램
+    trackView();        // 방문 집계 (익명, /stats/ 제외)
   }
 
   // ── 스토리별 반응 (무로그인) ─────────────────────────────
@@ -172,7 +261,7 @@
         sh.className = 'ss-rb ss-sh';
         sh.innerHTML = '🔗<span class="lb"> 공유</span>';
         sh.setAttribute('aria-label', '이 스토리 공유');
-        sh.addEventListener('click', function () { openShare(s); });
+        sh.addEventListener('click', function () { track('share'); openShare(s); });
         wrap.appendChild(sh);
 
         body.appendChild(wrap);
@@ -200,6 +289,7 @@
   }
 
   function vote(key, emoji, wrap) {
+    if (localVotes()[key] !== emoji) track('react');   // 취소 클릭은 세지 않는다
     var v = localVotes(), was = v[key];
     if (was === emoji) { delete v[key]; } else { v[key] = emoji; }
     saveVotes(v);
@@ -269,9 +359,9 @@
       '<div class="ss-talk-q">혼자 보기 아까우면 —<br>' +
       '텔레그램에선 다들 뭐라 하는지 보고, 인스타에선 카드뉴스로 한 번 더.</div>' +
       '<div class="ss-talk-btns">' +
-      '<a class="ss-talk-b" href="https://t.me/soonsal" target="_blank" rel="noopener">' +
+      '<a class="ss-talk-b" data-ss-ev="telegram" href="https://t.me/soonsal" target="_blank" rel="noopener">' +
       '텔레그램 수다방 →</a>' +
-      '<a class="ss-talk-b ig" href="https://instagram.com/soonsal.brief" target="_blank" rel="noopener">' +
+      '<a class="ss-talk-b ig" data-ss-ev="instagram" href="https://instagram.com/soonsal.brief" target="_blank" rel="noopener">' +
       '인스타 구경</a>' +
       '</div>';
     (last.parentNode || document.body).insertBefore(box, last.nextSibling);
