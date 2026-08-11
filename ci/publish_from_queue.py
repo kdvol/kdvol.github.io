@@ -51,6 +51,15 @@ def due_items(only=None):
         if not only and int(d.get("attempts", 0)) >= MAX_ATTEMPTS:
             log(f"⏸ {mf.stem}: 재시도 {d.get('attempts')}회 초과 — 보류(원인 확인 후 attempts 리셋)")
             continue
+        # ── ★ 이미 나간 것인가 (2026-08-11 중복 발행 사고 · 2차 방어)
+        #    멱등 마커는 「큐 파일이 done/ 으로 옮겨졌는가」 하나뿐이다. 그런데 낡은 트리를
+        #    체크아웃하면 **큐에도 있고 done 에도 있는** 상태가 보인다. 그때 발행하면 두 번 나간다.
+        #    (근본 원인은 워크플로의 Sync 스텝에서 막지만, 여기서도 한 번 더 본다 —
+        #     같은 영상이 두 번 올라가는 사고는 되돌릴 수가 없다.)
+        if (DONE / mf.name).exists():
+            log(f"⛔ {mf.stem}: done/ 에 이미 있다 — **발행하지 않는다**(중복 방어). "
+                f"큐 파일을 지우고 원인을 확인할 것")
+            continue
         items.append((mf, d))
     return items
 
