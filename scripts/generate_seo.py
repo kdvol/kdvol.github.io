@@ -208,6 +208,11 @@ def main():
     except Exception as e:
         print(f"⚠️ build_youtube 실패(계속 진행): {e}")
     try:
+        import build_school
+        build_school.build()                # /school/ 강의 판매 (liveklass 링크)
+    except Exception as e:
+        print(f"⚠️ build_school 실패(계속 진행): {e}")
+    try:
         import build_legacy_redirects
         build_legacy_redirects.build()      # 2월 이관 전 옛 URL → 현재 주소
     except Exception as e:
