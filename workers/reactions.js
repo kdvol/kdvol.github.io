@@ -55,7 +55,7 @@ function json(data, origin, status = 200, extra = {}) {
 }
 
 // ── 트래킹 상수 ──────────────────────────────────────────────
-const KIND = ['read', 'react', 'share', 'telegram', 'instagram', 'comment'];
+const KIND = ['read', 'react', 'share', 'telegram', 'instagram', 'comment', 'school'];
 const TOPIC_KIND = ['impression', 'view', 'dwell', 'share'];
 const SRC = ['direct', 'telegram', 'instagram', 'search', 'mail', 'other'];
 // 하이픈 허용 — 'agent-...' 형태를 정상적인 ID로 받기 위해서다. 형식 검증에
