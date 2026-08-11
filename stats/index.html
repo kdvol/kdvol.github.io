@@ -118,6 +118,21 @@ function bars(items, unit) {
       '<span class="vn">' + i[1] + (unit || '') + '</span></div>';
   }).join('');
 }
+// 대시보드 전체가 관리자 키를 요구한다. 방문 수치는 광고 단가 협상에 쓰이는
+// 영업 정보라 주소만 알면 열리는 상태로 두지 않는다.
+function gate() {
+  app.innerHTML = '<div class="card"><b style="color:#F07040">잠겨 있습니다</b>' +
+    '<p class="note">운영자 대시보드입니다. 관리자 키를 한 번 넣으면 이 브라우저에 저장됩니다.</p>' +
+    '<div class="tabs" style="margin-top:12px"><button id="gk">관리자 키 입력</button></div></div>';
+  document.getElementById('gk').addEventListener('click', function () {
+    var k = prompt('관리자 키');
+    if (!k) return;
+    try { localStorage.setItem('ss_admin', k.trim()); } catch (e) {}
+    ADMIN = k.trim();
+    location.reload();
+  });
+}
+
 function setup() {
   app.innerHTML = '<div class="setup"><h2>아직 집계 저장소가 연결되지 않았습니다</h2>' +
     '<p style="color:#bbb;font-size:.9rem;margin-bottom:12px">Cloudflare Worker + D1(무료)을 ' +
@@ -486,10 +501,18 @@ document.getElementById('tabs').addEventListener('click', function (e) {
 
 function fail() { app.innerHTML = '<div class="empty">집계를 불러오지 못했습니다.</div>'; }
 
-if (API) {
+if (!API) {
+  setup();
+} else if (!ADMIN) {
+  gate();                       // 키가 없으면 아무 수치도 부르지 않는다
+} else {
   var base = API.replace(/[/]$/, '');
   var get = function (p) {
-    return fetch(base + p).then(function (r) { return r.json(); }).catch(function () { return null; });
+    return fetch(base + p, { headers: { 'x-admin-key': ADMIN } })
+      .then(function (r) {
+        if (r.status === 401) throw new Error('unauthorized');
+        return r.json();
+      });
   };
   Promise.all([get('/counts'), get('/activity'), get('/insights?days=30')])
     .then(function (res) {
@@ -498,8 +521,16 @@ if (API) {
       D.insights = res[2];
       paintTabs();
       renderCommunity();
-    }).catch(fail);
-} else { setup(); }
+    }).catch(function (e) {
+      if (String(e.message) === 'unauthorized') {
+        try { localStorage.removeItem('ss_admin'); } catch (x) {}
+        ADMIN = null;
+        gate();                 // 키가 틀렸으면 지우고 다시 묻는다
+        return;
+      }
+      fail();
+    });
+}
 
 </script>
 </body></html>
