@@ -87,8 +87,8 @@
     '.ss-cprof{flex:1 1 auto;min-width:0;background:none;border:none;padding:6px 0;' +
     'font-family:inherit;font-size:13px;color:#6b6659;cursor:pointer;text-align:left;' +
     'overflow:hidden;text-overflow:ellipsis;white-space:nowrap}' +
-    '.ss-cprof i{font-style:normal;color:#a8a294;font-size:11px;margin-left:6px}' +
-    '.ss-cprof i.add{color:#c4a08c}' +
+    '.ss-cprof i{font-style:normal;color:#a8a294;font-size:12px;margin-left:5px}' +
+    '.ss-cprof u{text-decoration:none;color:#c4bfb2;font-size:10px;margin-left:5px}' +
     '.ss-cnt{font-size:12px;color:#c0bcb2;font-variant-numeric:tabular-nums;flex:0 0 auto}' +
     '.ss-cgo{flex:0 0 auto;background:#E55A00;color:#fff;border:none;border-radius:10px;' +
     'padding:11px 20px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;' +
@@ -98,7 +98,7 @@
     '.ss-cpf{margin-top:10px;padding:12px 13px;background:#faf8f3;border-radius:10px;' +
     'display:flex;flex-direction:column;gap:9px}' +
     // display를 지정하면 [hidden]의 기본 display:none을 이겨 버린다. 명시해야 접힌다.
-    '.ss-cpf[hidden],.ss-crt[hidden]{display:none}' +
+    '.ss-cpf[hidden],.ss-crt[hidden],.ss-cpl[hidden]{display:none}' +
     '.ss-cpl{display:flex;align-items:center;gap:10px;font-size:12px;color:#8a8578}' +
     '.ss-cpl input,.ss-cpl select{flex:1;min-width:0;border:1px solid #e6e1d5;border-radius:8px;' +
     'padding:9px 10px;font-size:16px;font-family:inherit;background:#fff;color:#2b2b2b;' +
@@ -390,8 +390,10 @@
   }
 
   function idLabel(pr) {
+    // 이름 자체가 버튼이다. 'ˇ'만으로 더 있다는 걸 알린다 —
+    // 별도 '업종 +' 글씨는 버튼이 두 개인 줄 알게 만들었다.
     return esc(pr.n || '이름 짓는 중') +
-      (pr.i ? '<i>' + esc(pr.i) + '</i>' : '<i class="add">업종 +</i>');
+      (pr.i ? '<i>· ' + esc(pr.i) + '</i>' : '') + '<u>ˇ</u>';
   }
 
   function profOf() {
@@ -462,11 +464,12 @@
           INDS.map(function (i) {
             return '<option' + (i === pr.i ? ' selected' : '') + '>' + i + '</option>';
           }).join('') + '</select></label>' +
-        '<label class="ss-cpl">직장' +
-          '<input class="ss-cco" maxlength="20" placeholder="선택" value="' + esc(pr.c || '') + '"/>' +
-        '</label>' +
         '<label class="ss-csc"><input type="checkbox" class="ss-cscb"' + (pr.sc ? ' checked' : '') +
           '/> 직장도 같이 보이기</label>' +
+        '<label class="ss-cpl ss-cco-w"' + (pr.sc ? '' : ' hidden') + '>직장' +
+          '<input class="ss-cco" maxlength="20" placeholder="예: 증권사" value="' +
+          esc(pr.c || '') + '"/>' +
+        '</label>' +
         '<div class="ss-cpn">이 브라우저에만 저장돼요.</div>' +
       '</div>' +
       '<div class="ss-clist"></div>' +
@@ -498,6 +501,12 @@
     }
     ['.ss-cind', '.ss-cco', '.ss-cscb', '.ss-cnick'].forEach(function (s) {
       w.querySelector(s).addEventListener('change', saveProf);
+    });
+    // 직장은 '같이 보이기'를 켠 사람만 적는다 — 안 보일 걸 적게 할 이유가 없다
+    var scb = w.querySelector('.ss-cscb'), cow = w.querySelector('.ss-cco-w');
+    scb.addEventListener('change', function () {
+      cow.hidden = !scb.checked;
+      if (scb.checked) w.querySelector('.ss-cco').focus();
     });
 
     renderC(key, w);
