@@ -48,6 +48,234 @@ font-size:.78rem;line-height:1.6;color:#bbb;margin:10px 0}
 .spark .bars i{flex:1;background:#F07040;border-radius:2px 2px 0 0;opacity:.85;min-height:2px}
 @media(max-width:520px){.when{display:none}.row{gap:9px}}
 .empty{color:#777;font-size:.9rem;padding:22px 4px}
+h2{font-size:.95rem;color:#ddd;margin:30px 0 10px;letter-spacing:-.01em}
+h2 small{color:#666;font-weight:400;font-size:.78rem;margin-left:7px}
+.kpi.hero .v{font-size:1.9rem}
+.kpi .d{font-size:.7rem;color:#5f5f5f;margin-top:3px}
+.card{background:#161616;border:1px solid #232323;border-radius:10px;padding:14px 16px;margin-bottom:10px}
+.trend{display:flex;align-items:flex-end;gap:2px;height:64px;margin-top:4px}
+.trend i{flex:1;background:#F07040;border-radius:2px 2px 0 0;min-height:2px;opacity:.85;position:relative}
+.trend i.u{background:#3f6fd8}
+.tl{display:flex;justify-content:space-between;font-size:.7rem;color:#5f5f5f;margin-top:6px}
+.lgd{display:flex;gap:14px;font-size:.72rem;color:#888;margin-top:8px}
+.lgd b{display:inline-block;width:8px;height:8px;border-radius:2px;margin-right:5px}
+.bar{display:flex;align-items:center;gap:10px;padding:7px 2px;font-size:.85rem}
+.bar .nm{width:104px;color:#bbb;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bar .tr{flex:1;background:#1c1c1c;border-radius:3px;height:9px;overflow:hidden}
+.bar .fl{height:100%;background:#F07040;border-radius:3px}
+.bar .vn{width:62px;text-align:right;color:#999;font-variant-numeric:tabular-nums;font-size:.8rem}
+.note{color:#5f5f5f;font-size:.75rem;line-height:1.7;margin-top:10px}
+.tabs{display:flex;gap:6px;margin-bottom:16px}
+.tabs button{background:#161616;border:1px solid #232323;color:#888;border-radius:7px;padding:6px 13px;
+font-size:.8rem;cursor:pointer;font-family:inherit}
+.tabs button.on{border-color:#F07040;color:#F07040}
+"""
+
+DASH_JS = r"""
+var EMO = ['👍','🤔','🔥'];
+var SS = window.SS_CFG || {};
+var API = SS.worker || null;
+var app = document.getElementById('app');
+var D = {};                    // counts / activity / insights
+var TAB = 'community';
+
+// ── 공통 ─────────────────────────────────────────────────
+function ago(ts, now) {
+  if (!ts) return '';
+  var s = Math.max(0, now - ts);
+  if (s < 60) return '방금';
+  if (s < 3600) return Math.floor(s / 60) + '분 전';
+  if (s < 86400) return Math.floor(s / 3600) + '시간 전';
+  return Math.floor(s / 86400) + '일 전';
+}
+function pct(a, b) { return b > 0 ? Math.round(a / b * 100) : 0; }
+function kpi(v, l, d, hero) {
+  return '<div class="kpi' + (hero ? ' hero' : '') + '"><div class="v">' + v + '</div>' +
+         '<div class="l">' + l + '</div>' + (d ? '<div class="d">' + d + '</div>' : '') + '</div>';
+}
+function bars(items, unit) {
+  var max = 0;
+  items.forEach(function (i) { if (i[1] > max) max = i[1]; });
+  if (!max) return '<div class="empty">아직 데이터가 없습니다.</div>';
+  return items.map(function (i) {
+    return '<div class="bar"><span class="nm" title="' + i[0] + '">' + i[0] + '</span>' +
+      '<span class="tr"><span class="fl" style="width:' + Math.max(2, i[1] / max * 100) + '%"></span></span>' +
+      '<span class="vn">' + i[1] + (unit || '') + '</span></div>';
+  }).join('');
+}
+function setup() {
+  app.innerHTML = '<div class="setup"><h2>아직 집계 저장소가 연결되지 않았습니다</h2>' +
+    '<p style="color:#bbb;font-size:.9rem;margin-bottom:12px">Cloudflare Worker + D1(무료)을 ' +
+    '연결하면 방문·반응이 이 화면에 쌓입니다.</p>' +
+    '<ol><li>리포의 <code>workers/</code>에서 <code>npx wrangler d1 create soonsal-react</code></li>' +
+    '<li>출력된 <code>database_id</code>를 <code>wrangler.toml</code>의 ' +
+    '<code>[[d1_databases]]</code>에 넣기 (binding: <code>DB</code>)</li>' +
+    '<li><code>npx wrangler d1 execute soonsal-react --remote --file schema.sql</code></li>' +
+    '<li><code>npx wrangler deploy</code> 후 배포 주소를 <code>/ss-config.js</code>에 입력</li></ol>' +
+    '<p style="color:#777;font-size:.82rem;margin-top:12px">※ KV는 쓰지 않습니다. ' +
+    'list 한도(1,000회/일)가 페이지뷰마다 소진돼 2026-08-07에 D1으로 이전했습니다.</p></div>';
+}
+
+// ── 커뮤니티(방문) 화면 ──────────────────────────────────
+var SRC_KO = { direct: '직접·북마크', telegram: '텔레그램', instagram: '인스타그램',
+               search: '검색', mail: '뉴스레터', other: '기타' };
+var KIND_KO = { read: '끝까지 읽음', react: '반응', share: '공유', telegram: '텔레그램 이동',
+                instagram: '인스타 이동' };
+
+function renderCommunity() {
+  var ins = D.insights;
+  if (!ins) { app.innerHTML = '<div class="empty">방문 집계를 불러오지 못했습니다.</div>'; return; }
+  var daily = ins.daily || [], v = ins.visitors || {};
+  if (!daily.length) {
+    app.innerHTML = '<div class="card"><b style="color:#F07040">아직 방문 기록이 없습니다.</b>' +
+      '<p class="note">방금 붙인 집계라 지금부터 쌓입니다. 페이지를 한 번 열어보면 바로 잡힙니다.<br>' +
+      '수집 항목: 익명 난수 ID·경로·유입 경로뿐. 쿠키·IP·UA는 쓰지 않습니다.</p></div>';
+    return;
+  }
+
+  var today = daily[daily.length - 1] || { hits: 0, uniq: 0 };
+  var sumH = 0, sumU = 0;
+  daily.forEach(function (d) { sumH += d.hits; sumU += d.uniq; });
+  var last7 = daily.slice(-7), h7 = 0, u7 = 0;
+  last7.forEach(function (d) { h7 += d.hits; u7 += d.uniq; });
+
+  var eng = {};
+  (ins.engage || []).forEach(function (e) { eng[e.kind] = (eng[e.kind] || 0) + e.n; });
+  var acts = (eng.react || 0) + (eng.share || 0) + (eng.telegram || 0) + (eng.instagram || 0);
+
+  var h = '<div class="sum">' +
+    kpi(today.uniq, '오늘 방문자', today.hits + '뷰', true) +
+    kpi(u7, '7일 방문자', h7 + '뷰', true) +
+    kpi(pct(v.repeat_v, v.total) + '%', '재방문율', (v.repeat_v || 0) + '/' + (v.total || 0) + '명', true) +
+    kpi(pct(acts, sumU) + '%', '참여율', acts + '건 / ' + sumU + '방문', true) +
+    '</div>';
+
+  // 일별 추이 — 뷰(주황) 위에 순방문자(파랑)를 겹쳐 보여준다
+  var max = 1;
+  daily.forEach(function (d) { if (d.hits > max) max = d.hits; });
+  h += '<h2>일별 추이 <small>최근 ' + ins.days + '일</small></h2><div class="card"><div class="trend">' +
+    daily.map(function (d) {
+      return '<i style="height:' + Math.max(2, d.hits / max * 60) + 'px" title="' + d.day +
+        ' · ' + d.hits + '뷰 / ' + d.uniq + '명"><i class="u" style="position:absolute;left:0;right:0;bottom:0;height:' +
+        Math.max(1, d.uniq / max * 60) + 'px"></i></i>';
+    }).join('') +
+    '</div><div class="tl"><span>' + daily[0].day.slice(5) + '</span><span>' +
+    daily[daily.length - 1].day.slice(5) + '</span></div>' +
+    '<div class="lgd"><span><b style="background:#F07040"></b>페이지뷰</span>' +
+    '<span><b style="background:#3f6fd8"></b>순방문자</span></div></div>';
+
+  // 커뮤니티 지표 — 온 사람 중 얼마나 남기고 가는가
+  h += '<h2>참여 <small>방문자가 실제로 한 행동</small></h2><div class="card">' +
+    bars(Object.keys(KIND_KO).map(function (k) { return [KIND_KO[k], eng[k] || 0]; }), '건') +
+    '<p class="note">끝까지 읽음 = 페이지 70%까지 내려갔거나 45초 이상 머문 방문. ' +
+    '읽음률 ' + pct(eng.read || 0, sumU) + '% · 반응률 ' + pct(eng.react || 0, sumU) + '%</p></div>';
+
+  h += '<h2>유입 경로</h2><div class="card">' +
+    bars((ins.refs || []).map(function (r) { return [SRC_KO[r.src] || r.src, r.n]; }), '명') + '</div>';
+
+  h += '<h2>많이 본 페이지</h2><div class="card">' +
+    bars((ins.top || []).slice(0, 12).map(function (r) {
+      var m = r.path.match(/(\d{4})(-crypto)?\.html$/);
+      var nm = m ? (m[1].slice(0, 2) + '/' + m[1].slice(2) + (m[2] ? ' 크립토' : '') + ' 브리핑') : r.path;
+      return [nm, r.hits];
+    }), '뷰') + '</div>';
+
+  h += '<p class="note">쿠키·IP·UA를 저장하지 않습니다. 브라우저 localStorage의 익명 난수 ID로 ' +
+    '같은 사람인지만 구분하고, 원본 로그 없이 일자별 집계만 남깁니다. ' +
+    '재방문 = 서로 다른 날에 2일 이상 방문한 사람.</p>';
+  app.innerHTML = h;
+}
+
+// ── 반응 화면 ────────────────────────────────────────────
+function sparkline(events, now) {
+  var b = new Array(24).fill(0), max = 0;
+  events.forEach(function (e) {
+    if (e[2] !== 1) return;
+    var hh = Math.floor((now - e[0]) / 3600);
+    if (hh >= 0 && hh < 24) b[23 - hh]++;
+  });
+  b.forEach(function (n) { if (n > max) max = n; });
+  if (!max) return '';
+  var bs = b.map(function (n, i) {
+    var hh = new Date((now - (23 - i) * 3600) * 1000).getHours();
+    return '<i style="height:' + Math.max(2, Math.round(n / max * 34)) + 'px" title="' +
+           hh + '시 · ' + n + '건"></i>';
+  }).join('');
+  return '<div class="spark"><div class="sl">최근 24시간 (시간대별)</div><div class="bars">' + bs + '</div></div>';
+}
+
+function renderReactions() {
+  var obj = D.counts || {}, act = D.activity;
+  var last = (act && act.last) || {}, events = (act && act.events) || [];
+  var now = (act && act.now) || Math.floor(Date.now() / 1000);
+
+  var by = {};
+  Object.keys(obj).forEach(function (s) { by[s] = obj[s]; });
+  var keys = Object.keys(by).sort(function (a, b) {
+    var sa = 0, sb = 0;
+    EMO.forEach(function (e) { sa += by[a][e] || 0; sb += by[b][e] || 0; });
+    if (sb !== sa) return sb - sa;
+    return (last[b] || 0) - (last[a] || 0);
+  });
+  if (!keys.length) { app.innerHTML = '<div class="empty">아직 반응이 없습니다.</div>'; return; }
+
+  var tot = 0, st = keys.length;
+  keys.forEach(function (k) { EMO.forEach(function (e) { tot += by[k][e] || 0; }); });
+  var d1 = 0, d7 = 0, newest = 0;
+  events.forEach(function (e) {
+    if (e[2] !== 1) return;
+    if (now - e[0] < 86400) d1++;
+    if (now - e[0] < 604800) d7++;
+  });
+  Object.keys(last).forEach(function (k) { if (last[k] > newest) newest = last[k]; });
+
+  var h = '<div class="sum">' + kpi(tot, '전체 반응') + kpi(d1, '최근 24시간') +
+    kpi(d7, '최근 7일') + kpi(st, '반응받은 스토리') + '</div>' + sparkline(events, now) +
+    (newest ? '<p class="sub" style="margin:14px 0 4px">마지막 반응 ' + ago(newest, now) + '</p>' : '');
+
+  keys.forEach(function (k) {
+    var m = SMAP[k] || { t: k, d: '', u: '#' };
+    h += '<a class="row" href="' + m.u + '"><span class="dt">' + (m.d || '').slice(5) + '</span>' +
+      '<span class="ti">' + m.t + '</span><span class="when">' + ago(last[k], now) + '</span>' +
+      '<span class="cnt">' + EMO.map(function (e) {
+        var n = by[k][e] || 0;
+        return '<span class="' + (n ? '' : 'z') + '">' + e + ' ' + n + '</span>';
+      }).join('') + '</span></a>';
+  });
+  app.innerHTML = h;
+}
+
+// ── 탭 ───────────────────────────────────────────────────
+var TABS = [['community', '커뮤니티'], ['reactions', '반응']];
+function paintTabs() {
+  document.getElementById('tabs').innerHTML = TABS.map(function (t) {
+    return '<button data-t="' + t[0] + '"' + (TAB === t[0] ? ' class="on"' : '') + '>' + t[1] + '</button>';
+  }).join('');
+}
+document.getElementById('tabs').addEventListener('click', function (e) {
+  var b = e.target.closest('button');
+  if (!b) return;
+  TAB = b.getAttribute('data-t');
+  paintTabs();
+  TAB === 'community' ? renderCommunity() : renderReactions();
+});
+
+function fail() { app.innerHTML = '<div class="empty">집계를 불러오지 못했습니다.</div>'; }
+
+if (API) {
+  var base = API.replace(/[/]$/, '');
+  var get = function (p) {
+    return fetch(base + p).then(function (r) { return r.json(); }).catch(function () { return null; });
+  };
+  Promise.all([get('/counts'), get('/activity'), get('/insights?days=30')])
+    .then(function (res) {
+      D.counts = res[0] || {};
+      D.activity = res[1];
+      D.insights = res[2];
+      paintTabs();
+      renderCommunity();
+    }).catch(fail);
+} else { setup(); }
 """
 
 
@@ -63,129 +291,19 @@ def build(atoms=None):
     html = f"""<!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex,nofollow">
-<title>반응 통계 — 순살브리핑</title>
+<title>순살 대시보드 — 방문·반응</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700;800&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet"/>
 <script src="/ss-config.js"></script>
 <style>{CSS}</style></head><body><div class="wrap">
-<h1>반응 통계</h1>
-<p class="sub">독자들이 어떤 스토리에 반응했는지 — 운영자용 화면 (검색 노출 안 됨)</p>
+<h1>순살 대시보드</h1>
+<p class="sub">몇 명이 와서 무엇에 반응했는지 — 운영자용 화면 (검색 노출 안 됨)</p>
+<div class="tabs" id="tabs"></div>
 <div id="app"><div class="empty">불러오는 중…</div></div>
 </div>
 <script>
 var SMAP = {json.dumps(smap, ensure_ascii=False)};
-var EMO = ['👍','🤔','🔥'];
-var SS = window.SS_CFG||{{}};
-var API = SS.worker || null;
-var app = document.getElementById('app');
-
-function setup() {{
-  app.innerHTML = '<div class="setup"><h2>아직 집계 저장소가 연결되지 않았습니다</h2>' +
-    '<p style="color:#bbb;font-size:.9rem;margin-bottom:12px">지금은 반응이 각자 브라우저에만 남습니다. ' +
-    'Cloudflare Worker + D1(무료)을 연결하면 전체 집계가 이 화면에 쌓입니다.</p>' +
-    '<ol><li>리포의 <code>workers/</code>에서 <code>npx wrangler d1 create soonsal-react</code></li>' +
-    '<li>출력된 <code>database_id</code>를 <code>wrangler.toml</code>의 ' +
-    '<code>[[d1_databases]]</code>에 넣기 (binding: <code>DB</code>)</li>' +
-    '<li><code>npx wrangler d1 execute soonsal-react --remote --file schema.sql</code> 로 테이블 생성</li>' +
-    '<li><code>npx wrangler deploy</code> 후 배포 주소를 <code>/ss-config.js</code>에 입력</li></ol>' +
-    '<pre>// ss-config.js' + String.fromCharCode(10) + 'window.SS_CFG = {{ worker: "https://soonsal-react.계정.workers.dev" }};</pre>' +
-    '<p style="color:#777;font-size:.82rem;margin-top:12px">※ KV는 쓰지 않습니다. ' +
-    'list 한도(1,000회/일)가 페이지뷰마다 소진돼 2026-08-07에 D1으로 이전했습니다.</p>' +
-    '</div>';
-}}
-
-// unix초 → '3분 전' / '2시간 전' / '3일 전'
-function ago(ts, now) {{
-  if (!ts) return '';
-  var s = Math.max(0, now - ts);
-  if (s < 60) return '방금';
-  if (s < 3600) return Math.floor(s / 60) + '분 전';
-  if (s < 86400) return Math.floor(s / 3600) + '시간 전';
-  return Math.floor(s / 86400) + '일 전';
-}}
-
-// 최근 24시간을 1시간 단위로 쪼갠 막대 (발행 직후 언제 몰리는지)
-function sparkline(events, now) {{
-  var b = new Array(24).fill(0), max = 0;
-  events.forEach(function (e) {{
-    if (e[2] !== 1) return;                    // 취소(-1)는 제외
-    var h = Math.floor((now - e[0]) / 3600);
-    if (h >= 0 && h < 24) b[23 - h]++;
-  }});
-  b.forEach(function (n) {{ if (n > max) max = n; }});
-  if (!max) return '';
-  var bars = b.map(function (n, i) {{
-    var hh = new Date((now - (23 - i) * 3600) * 1000).getHours();
-    return '<i style="height:' + Math.max(2, Math.round(n / max * 34)) + 'px" title="' +
-           hh + '시 · ' + n + '건"></i>';
-  }}).join('');
-  return '<div class="spark"><div class="sl">최근 24시간 (시간대별)</div><div class="bars">' +
-         bars + '</div></div>';
-}}
-
-function render(rows, act) {{
-  var last = (act && act.last) || {{}};
-  var events = (act && act.events) || [];
-  var now = (act && act.now) || Math.floor(Date.now() / 1000);
-
-  var by = {{}};
-  rows.forEach(function (r) {{ (by[r.story] = by[r.story] || {{}})[r.emoji] = r.count; }});
-  var keys = Object.keys(by).sort(function (a, b) {{
-    var sa = 0, sb = 0;
-    EMO.forEach(function (e) {{ sa += by[a][e] || 0; sb += by[b][e] || 0; }});
-    if (sb !== sa) return sb - sa;
-    return (last[b] || 0) - (last[a] || 0);
-  }});
-  if (!keys.length) {{ app.innerHTML = '<div class="empty">아직 반응이 없습니다.</div>'; return; }}
-  var tot = 0, st = 0;
-  keys.forEach(function (k) {{ EMO.forEach(function (e) {{ tot += by[k][e] || 0; }}); st++; }});
-  var d1 = 0, d7 = 0, newest = 0;
-  events.forEach(function (e) {{
-    if (e[2] !== 1) return;
-    if (now - e[0] < 86400) d1++;
-    if (now - e[0] < 604800) d7++;
-  }});
-  Object.keys(last).forEach(function (k) {{ if (last[k] > newest) newest = last[k]; }});
-
-  var h = '<div class="sum">' +
-    '<div class="kpi"><div class="v">' + tot + '</div><div class="l">전체 반응</div></div>' +
-    '<div class="kpi"><div class="v">' + d1 + '</div><div class="l">최근 24시간</div></div>' +
-    '<div class="kpi"><div class="v">' + d7 + '</div><div class="l">최근 7일</div></div>' +
-    '<div class="kpi"><div class="v">' + st + '</div><div class="l">반응받은 스토리</div></div></div>' +
-    sparkline(events, now) +
-    (newest ? '<p class="sub" style="margin:14px 0 4px">마지막 반응 ' + ago(newest, now) + '</p>' : '');
-
-  keys.forEach(function (k) {{
-    var m = SMAP[k] || {{ t: k, d: '', u: '#' }};
-    h += '<a class="row" href="' + m.u + '"><span class="dt">' + (m.d || '').slice(5) + '</span>' +
-      '<span class="ti">' + m.t + '</span>' +
-      '<span class="when">' + ago(last[k], now) + '</span><span class="cnt">' +
-      EMO.map(function (e) {{
-        var n = by[k][e] || 0;
-        return '<span class="' + (n ? '' : 'z') + '">' + e + ' ' + n + '</span>';
-      }}).join('') + '</span></a>';
-  }});
-  app.innerHTML = h;
-}}
-
-function fail() {{ app.innerHTML = '<div class="empty">집계를 불러오지 못했습니다.</div>'; }}
-
-if (API) {{
-  var base = API.replace(/[/]$/, '');
-  var jsonOf = function (r) {{ return r.json(); }};
-  Promise.all([
-    fetch(base + '/counts').then(jsonOf),
-    fetch(base + '/activity').then(jsonOf).catch(function () {{ return null; }}),
-  ]).then(function (res) {{      // counts: {{story: {{emoji: n}}}} → rows
-    var obj = res[0] || {{}}, rows = [];
-    Object.keys(obj).forEach(function (s) {{
-      Object.keys(obj[s]).forEach(function (e) {{
-        rows.push({{ story: s, emoji: e, count: obj[s][e] }});
-      }});
-    }});
-    render(rows, res[1]);
-  }}).catch(fail);
-}} else {{ setup(); }}
+{DASH_JS}
 </script>
 </body></html>"""
     (OUT / "index.html").write_text(html, encoding="utf-8")

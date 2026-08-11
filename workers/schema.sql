@@ -20,3 +20,39 @@ create table if not exists events (
   ts integer not null              -- unix seconds, UTC
 );
 create index if not exists idx_events_ts on events(ts);
+
+-- ── 방문·참여 트래킹 (2026-08-11) ──────────────────────────────
+-- 목표는 페이지뷰 숫자가 아니라 "다시 오는 사람이 있는가, 반응하는가".
+-- 원본 로그를 쌓지 않고 일자별로 집계만 남긴다(용량·프라이버시 양쪽).
+-- 개인정보는 저장하지 않는다 — IP·UA·쿠키 없음, localStorage의 익명 난수 ID만.
+
+create table if not exists views (
+  day  text not null,              -- KST 기준 YYYY-MM-DD
+  path text not null,
+  hits integer not null default 0,
+  uniq integer not null default 0, -- 그날 그 페이지를 처음 연 사람 수
+  primary key (day, path)
+);
+
+create table if not exists visitors (
+  vid       text primary key,      -- 익명 난수(브라우저 localStorage)
+  first_day text not null,
+  last_day  text not null,
+  days      integer not null default 1,   -- 방문한 날짜 수 → 재방문 판정
+  hits      integer not null default 0
+);
+create index if not exists idx_visitors_last on visitors(last_day);
+
+create table if not exists engage (
+  day  text not null,
+  kind text not null,              -- read / react / share / telegram / instagram
+  n    integer not null default 0,
+  primary key (day, kind)
+);
+
+create table if not exists refs (
+  day text not null,
+  src text not null,               -- direct / telegram / instagram / search / mail / other
+  n   integer not null default 0,
+  primary key (day, src)
+);

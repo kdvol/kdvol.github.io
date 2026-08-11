@@ -15,6 +15,12 @@
  *   GET  /counts              → 전체(운영자 통계용)
  *   GET  /activity            → {last:{story:ts}, events:[[ts,story,delta],...]} (최근 14일)
  *   POST /react {story,emoji,delta:±1} → 해당 스토리 카운트
+ *   POST /t  {t:"hit"|"ev", ...}       → 방문·참여 집계 (204, 본문 없음)
+ *   GET  /insights?days=30             → 운영자 대시보드용 집계
+ *
+ * 트래킹 원칙: 개인정보를 저장하지 않는다. IP·UA·쿠키를 쓰지 않고,
+ *   브라우저 localStorage의 익명 난수 ID만 받는다. 원본 로그도 남기지 않고
+ *   일자별 집계만 갱신한다.
  *
  * 시각 기록: reactions.updated_at(마지막 반응) + events(클릭 로그).
  *   집계 테이블만으론 "발행 직후 언제 몰렸는지"를 알 수 없어 로그를 따로 남긴다.
@@ -43,6 +49,21 @@ function json(data, origin, status = 200, extra = {}) {
       ...cors(origin), ...extra,
     },
   });
+}
+
+// ── 트래킹 상수 ──────────────────────────────────────────────
+const KIND = ['read', 'react', 'share', 'telegram', 'instagram'];
+const SRC = ['direct', 'telegram', 'instagram', 'search', 'mail', 'other'];
+const VID_RE = /^[a-z0-9]{8,24}$/;
+// KST 자정 기준 날짜. UTC로 끊으면 한국 새벽 방문이 전날로 잡힌다.
+const DAY = "date(unixepoch() + 32400, 'unixepoch')";
+
+// 경로 카디널리티를 묶는다 — 스토리 앵커·쿼리·해시는 버리고 페이지 단위로만
+function normPath(p) {
+  if (typeof p !== 'string') return null;
+  p = p.split('?')[0].split('#')[0].slice(0, 80);
+  if (!/^\/[A-Za-z0-9/_.-]*$/.test(p)) return null;
+  return p === '' ? '/' : p;
 }
 
 const byStory = (rows) => {
@@ -103,6 +124,92 @@ export default {
         return json({ last, events, now: Math.floor(Date.now() / 1000) }, origin);
       }
 
+      // ── 방문·참여 수집 ────────────────────────────────────
+      // 응답 본문이 없다(204). 실패해도 페이지에 영향 주지 않는 게 우선.
+      if (request.method === 'POST' && url.pathname === '/t') {
+        let b;
+        try { b = await request.json(); } catch (e) { return new Response(null, { status: 204, headers: cors(origin) }); }
+        const vid = String((b && b.v) || '');
+        if (!VID_RE.test(vid)) return new Response(null, { status: 204, headers: cors(origin) });
+
+        const stmts = [];
+        if (b.t === 'hit') {
+          const path = normPath(b.p);
+          if (!path) return new Response(null, { status: 204, headers: cors(origin) });
+          const first = b.f ? 1 : 0;                       // 오늘 이 페이지 첫 방문인가
+          const src = SRC.includes(b.r) ? b.r : 'other';
+
+          stmts.push(
+            env.DB.prepare(
+              `insert into views (day, path, hits, uniq) values (${DAY}, ?1, 1, ?2)
+               on conflict(day, path) do update set hits = hits + 1, uniq = uniq + ?2`
+            ).bind(path, first),
+            // days는 '오늘 첫 방문'일 때만 +1 → 방문한 날짜 수 = 재방문 판정 근거
+            env.DB.prepare(
+              `insert into visitors (vid, first_day, last_day, days, hits)
+               values (?1, ${DAY}, ${DAY}, 1, 1)
+               on conflict(vid) do update set
+                 hits = hits + 1,
+                 days = days + (case when last_day <> ${DAY} then 1 else 0 end),
+                 last_day = ${DAY}`
+            ).bind(vid),
+          );
+          if (first) {
+            stmts.push(env.DB.prepare(
+              `insert into refs (day, src, n) values (${DAY}, ?1, 1)
+               on conflict(day, src) do update set n = n + 1`
+            ).bind(src));
+          }
+        } else if (b.t === 'ev') {
+          if (!KIND.includes(b.k)) return new Response(null, { status: 204, headers: cors(origin) });
+          stmts.push(env.DB.prepare(
+            `insert into engage (day, kind, n) values (${DAY}, ?1, 1)
+             on conflict(day, kind) do update set n = n + 1`
+          ).bind(b.k));
+        } else {
+          return new Response(null, { status: 204, headers: cors(origin) });
+        }
+
+        await env.DB.batch(stmts);
+        return new Response(null, { status: 204, headers: cors(origin) });
+      }
+
+      // ── 운영자 대시보드 집계 ──────────────────────────────
+      if (request.method === 'GET' && url.pathname === '/insights') {
+        const days = Math.min(Math.max(parseInt(url.searchParams.get('days') || '30', 10) || 30, 1), 120);
+        const since = `date(unixepoch() + 32400, 'unixepoch', '-${days} days')`;
+
+        const [daily, top, eng, ref, vis] = await env.DB.batch([
+          env.DB.prepare(
+            `select day, sum(hits) as hits, sum(uniq) as uniq from views
+             where day >= ${since} group by day order by day`),
+          env.DB.prepare(
+            `select path, sum(hits) as hits, sum(uniq) as uniq from views
+             where day >= ${since} group by path order by hits desc limit 25`),
+          env.DB.prepare(
+            `select day, kind, n from engage where day >= ${since}`),
+          env.DB.prepare(
+            `select src, sum(n) as n from refs where day >= ${since} group by src order by n desc`),
+          // 재방문 = 서로 다른 날 2일 이상 방문한 사람
+          env.DB.prepare(
+            `select
+               count(*) as total,
+               sum(case when days >= 2 then 1 else 0 end) as repeat_v,
+               sum(case when last_day >= ${since} then 1 else 0 end) as active,
+               sum(case when first_day >= ${since} then 1 else 0 end) as fresh
+             from visitors`),
+        ]);
+
+        return json({
+          days,
+          daily: daily.results || [],
+          top: top.results || [],
+          engage: eng.results || [],
+          refs: ref.results || [],
+          visitors: (vis.results || [])[0] || {},
+        }, origin);
+      }
+
       if (request.method === 'POST' && url.pathname === '/react') {
         let body;
         try { body = await request.json(); } catch (e) { return json({ error: 'bad json' }, origin, 400); }
@@ -136,6 +243,6 @@ export default {
       return json({ error: 'server', detail: String(err).slice(0, 120) }, origin, 500);
     }
 
-    return json({ ok: true, endpoints: ['/counts?issue=', '/counts?story=', '/activity', 'POST /react'] }, origin);
+    return json({ ok: true, endpoints: ['/counts?issue=', '/counts?story=', '/activity', '/insights', 'POST /react', 'POST /t'] }, origin);
   },
 };
