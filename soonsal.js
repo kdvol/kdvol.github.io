@@ -47,7 +47,7 @@
     '.ss-rb b{font-weight:700;margin-left:3px;display:inline-block;min-width:8px;text-align:left}' +
     /* 좁은 화면(375px 기준)에선 4개가 한 줄에 안 들어가 공유는 아이콘만 */
     '@media(max-width:430px){.ss-react{gap:6px}.ss-rg{gap:6px}' +
-    '.ss-rb{padding:5px 9px;font-size:11px}.ss-sh .lb{display:none}}' +
+    '.ss-rb{padding:5px 9px;font-size:11px}.ss-sh .lb,.ss-cbtn .lb{display:none}}' +
     /* 오늘의 논점 블록 */
     /* 3월 재개호 브랜드 팔레트: 주황 #F07040/#E55A00, 크림 #fafaf7, 보더 #e8e8e0 */
     '.ss-talk{margin:26px 0 8px;padding:20px 22px;border:1px solid #e8e8e0;border-radius:10px;' +
@@ -65,6 +65,27 @@
     '.ss-rb{border-color:#e0ddd5;color:#8a8578}' +
     '.ss-rb:hover{border-color:#F07040;color:#E55A00}' +
     '.ss-rb.on{border-color:#F07040;background:#F0704012;color:#E55A00}' +
+    /* 수집 안내 */
+    '.ss-notice{text-align:center;font-size:11px;color:#9a958a;line-height:1.7;padding:14px 16px 18px;font-family:inherit}' +
+    '.ss-notice a{color:#9a958a;text-decoration:underline}' +
+    /* 코멘트 */
+    '.ss-cbtn{margin-left:0}' +
+    '.ss-cwrap{margin:8px 0 4px;padding:12px 14px;border:1px solid #e8e8e0;border-radius:10px;background:#fafaf7;font-family:inherit}' +
+    '.ss-cin{width:100%;border:1px solid #e0ddd5;border-radius:8px;padding:9px 11px;font-size:13px;font-family:inherit;box-sizing:border-box;resize:none;background:#fff}' +
+    '.ss-cin:focus{outline:none;border-color:#F07040}' +
+    '.ss-crow{display:flex;gap:7px;align-items:center;margin-top:8px}' +
+    '.ss-cnick{flex:0 0 96px;font-size:12px}' +
+    '.ss-cnt{margin-left:auto;font-size:11px;color:#b0aca2;font-variant-numeric:tabular-nums}' +
+    '.ss-cgo{background:#E55A00;color:#fff;border:none;border-radius:7px;padding:8px 15px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit}' +
+    '.ss-cgo:disabled{background:#d8d4c8;cursor:default}' +
+    '.ss-clist{margin-top:10px}' +
+    '.ss-ci{display:flex;gap:8px;padding:7px 0;border-top:1px solid #eceae2;font-size:13px;line-height:1.6;color:#333}' +
+    '.ss-ck{color:#8a8578;font-weight:700;white-space:nowrap;font-size:12px;padding-top:1px}' +
+    '.ss-cb{flex:1;word-break:break-word}' +
+    '.ss-ct{color:#b0aca2;font-size:11px;white-space:nowrap;padding-top:2px}' +
+    '.ss-chold{color:#b0aca2;font-size:11px;margin-left:5px}' +
+    '.ss-cnote{color:#b0aca2;font-size:11px;line-height:1.7;margin-top:9px}' +
+    '.ss-hp{position:absolute;left:-9999px;width:1px;height:1px}' +
     '.ss-sh{margin-left:auto;color:#9a958a}' +
     '.ss-sh b{display:none}';
 
@@ -155,6 +176,20 @@
     setTimeout(mark, 45000);
   }
 
+
+  // 수집 안내 한 줄. 푸터가 있는 페이지(뉴스레터·허브)는 푸터 안에, 없는 페이지
+  // (topics/wiki/search 등 생성 페이지)는 본문 끝에 붙인다. 사이트 공통 푸터가
+  // 없어서 이 파일이 전 페이지를 덮는 유일한 경로다.
+  function mountNotice() {
+    if (document.querySelector('.ss-notice')) return;
+    var d = document.createElement('div');
+    d.className = 'ss-notice';
+    d.innerHTML = '쿠키 없이 익명 방문 통계만 수집합니다 · ' +
+      '<a href="/privacy/">수집 안내</a>';
+    var f = document.querySelector('.footer-inner') || document.querySelector('.footer');
+    (f || document.body).appendChild(d);
+  }
+
   function init() {
     var st = document.createElement('style');
     st.textContent = CSS;
@@ -194,6 +229,7 @@
     mountReactions();   // 스토리별 무로그인 반응
     mountTalk();        // 오늘의 논점 → 텔레그램
     trackView();        // 방문 집계 (익명, /stats/ 제외)
+    mountNotice();      // 수집 안내(전 페이지 공통 푸터가 없어 여기서)
   }
 
   // ── 스토리별 반응 (무로그인) ─────────────────────────────
@@ -232,6 +268,132 @@
     }
   }
 
+
+  // ── 스토리별 한 줄 코멘트 ───────────────────────────────────
+  // 접힌 상태의 비용을 0에 수렴시킨다 — 0건이면 pill 하나만 늘고, 빈 입력창이나
+  // "아직 댓글이 없습니다" 문구는 그리지 않는다. 그 문구가 죽은 사이트 신호다.
+  var CMTS = {};        // storyKey → [{i,k,b,t}]
+  var COPEN = null;     // 동시에 하나만 펼친다
+  var CBTN = {};        // storyKey → pill
+
+  function nickOf() {
+    try { return localStorage.getItem('ss_nick') || ''; } catch (e) { return ''; }
+  }
+  function setNick(n) { try { localStorage.setItem('ss_nick', n); } catch (e) {} }
+
+  function cAgo(ts) {
+    var s = Math.max(0, Math.floor(Date.now() / 1000) - ts);
+    if (s < 60) return '방금';
+    if (s < 3600) return Math.floor(s / 60) + '분';
+    if (s < 86400) return Math.floor(s / 3600) + '시간';
+    return Math.floor(s / 86400) + '일';
+  }
+
+  function paintPill(key) {
+    var b = CBTN[key];
+    if (!b) return;
+    var n = (CMTS[key] || []).length;
+    b.querySelector('.n').textContent = n ? n : '';
+    b.querySelector('.lb').textContent = n ? ' 한마디' : ' 한 줄 남기기';
+  }
+
+  function closeC() {
+    if (COPEN && COPEN.parentNode) COPEN.parentNode.removeChild(COPEN);
+    COPEN = null;
+  }
+
+  function openC(key, pill) {
+    if (COPEN && COPEN._key === key) { closeC(); return; }
+    closeC();
+    var w = document.createElement('div');
+    w._key = key;
+    w.className = 'ss-cwrap';
+    var nick = nickOf();
+    w.innerHTML =
+      '<textarea class="ss-cin" rows="2" maxlength="140" placeholder="한 줄로 남겨주세요"></textarea>' +
+      '<input class="ss-hp" name="website" tabindex="-1" aria-hidden="true"/>' +
+      '<div class="ss-crow">' +
+        '<input class="ss-cin ss-cnick" maxlength="12" placeholder="닉네임" value="' + esc(nick) + '"/>' +
+        '<span class="ss-cnt">0/140</span>' +
+        '<button type="button" class="ss-cgo" disabled>남기기</button>' +
+      '</div>' +
+      '<div class="ss-clist"></div>' +
+      '<div class="ss-cnote">남긴 글의 책임은 작성자에게 있습니다. 투자 권유·광고·비방은 ' +
+      '사전 통보 없이 숨겨집니다.</div>';
+
+    var ta = w.querySelector('.ss-cin');
+    var go = w.querySelector('.ss-cgo');
+    var cnt = w.querySelector('.ss-cnt');
+    ta.addEventListener('input', function () {
+      cnt.textContent = ta.value.length + '/140';
+      go.disabled = !ta.value.trim();
+    });
+    go.addEventListener('click', function () { submitC(key, w, go); });
+
+    renderC(key, w);
+    pill.parentNode.parentNode.insertBefore(w, pill.parentNode.nextSibling);
+    COPEN = w;
+    setTimeout(function () { ta.focus(); }, 50);
+  }
+
+  function renderC(key, w) {
+    var list = w.querySelector('.ss-clist');
+    var items = CMTS[key] || [];
+    list.innerHTML = items.map(function (c) {
+      return '<div class="ss-ci"><span class="ss-ck">' + esc(c.k) + '</span>' +
+        '<span class="ss-cb">' + esc(c.b) + (c.held ? '<span class="ss-chold">검토 중</span>' : '') +
+        '</span><span class="ss-ct">' + cAgo(c.t) + '</span></div>';
+    }).join('');
+  }
+
+  function submitC(key, w, go) {
+    var ta = w.querySelector('.ss-cin');
+    var ni = w.querySelector('.ss-cnick');
+    var body = ta.value.trim();
+    var nick = (ni.value || '').trim() || '순살독자';
+    if (!body) return;
+    go.disabled = true;
+    setNick(nick);
+    var v = vid();
+    if (!API || !v) { toast('잠시 후 다시 시도해주세요'); go.disabled = false; return; }
+
+    fetch(API.replace(/[/]$/, '') + '/comment', {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ story: key, v: v, nick: nick, body: body,
+                             hp: w.querySelector('.ss-hp').value }),
+    }).then(function (r) { return r.json(); }).then(function (res) {
+      if (res && res.error) {
+        toast(res.error === 'too fast' ? '조금 뒤에 다시 남겨주세요'
+            : res.error === 'too many' ? '오늘은 여기까지만'
+            : '남기지 못했습니다');
+        go.disabled = false;
+        return;
+      }
+      ta.value = '';
+      w.querySelector('.ss-cnt').textContent = '0/140';
+      // 보류(state 0)여도 본인 화면에는 남긴다 — 실패로 보이면 다시 쓰고 도배가 된다
+      var mine = { i: res.id, k: nick, b: body, t: Math.floor(Date.now() / 1000),
+                   held: res.state === 0 };
+      (CMTS[key] = CMTS[key] || []).push(mine);
+      if (!mine.held) paintPill(key);
+      renderC(key, w);
+      track('comment');
+      toast(mine.held ? '확인 후 보여드릴게요 🐟' : '남겼음 🐟');
+    }).catch(function () { toast('남기지 못했습니다'); go.disabled = false; });
+  }
+
+  function mountComment(body, key, wrap) {
+    var b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'ss-rb ss-cbtn';
+    b.innerHTML = '💬<span class="lb"> 한 줄 남기기</span><b class="n"></b>';
+    b.addEventListener('click', function () { openC(key, b); });
+    wrap.insertBefore(b, wrap.querySelector('.ss-sh'));
+    CBTN[key] = b;
+    paintPill(key);
+  }
+
   var WRAPS = {};   // storyKey → wrap (페이지 단위 일괄 갱신용)
 
   function mountReactions() {
@@ -265,6 +427,7 @@
         wrap.appendChild(sh);
 
         body.appendChild(wrap);
+        mountComment(body, key, wrap);
         render(wrap, key);
         WRAPS[key] = wrap;
       })(stories[i]);
@@ -278,13 +441,17 @@
     var m = location.pathname.match(/\/newsletters\/2026\/(\d{4})(-crypto)?\.html/);
     if (!m) return;
     var issue = m[1] + (m[2] ? 'c' : '');
-    fetch(API.replace(/[/]$/, '') + '/counts?issue=' + issue)
+    fetch(API.replace(/[/]$/, '') + '/page?issue=' + issue)
       .then(function (r) { return r.json(); })
-      .then(function (obj) {
+      .then(function (d) {
+        var counts = (d && d.counts) || {};
+        var cm = (d && d.comments) || {};
         Object.keys(WRAPS).forEach(function (k) {
-          WRAPS[k]._shared = (obj && obj[k]) || {};
+          WRAPS[k]._shared = counts[k] || {};
           render(WRAPS[k], k);
+          if (cm[k]) { CMTS[k] = cm[k]; paintPill(k); }
         });
+        if (d && d.off && COPEN) closeC();
       }).catch(function () {});
   }
 
