@@ -50,7 +50,8 @@ def main():
         return 0
 
     try:
-        ins = _get("/insights?days=7")
+        # /insights는 관리자 키가 필요하다 — 없으면 401로 요약이 통째로 실패한다
+        ins = _get("/insights?days=7", admin=os.environ.get("SOONSAL_ADMIN_KEY"))
     except Exception as e:
         print(f"⚠️ digest: 집계 조회 실패 {type(e).__name__}")
         return 0

@@ -34,9 +34,13 @@ KST = timezone(timedelta(hours=9))
 
 
 def _get(path, timeout=30):
-    req = urllib.request.Request(
-        WORKER.rstrip("/") + path,
-        headers={"Origin": "https://soonsal.com", "user-agent": "soonsal-improver/1.0"})
+    # /insights·/activity는 관리자 키가 필요하다(집계는 영업 정보라 공개하지 않는다).
+    # /counts만 공개다.
+    h = {"Origin": "https://soonsal.com", "user-agent": "soonsal-improver/1.0"}
+    admin = os.environ.get("SOONSAL_ADMIN_KEY")
+    if admin:
+        h["x-admin-key"] = admin
+    req = urllib.request.Request(WORKER.rstrip("/") + path, headers=h)
     with urllib.request.urlopen(req, timeout=timeout) as r:
         return json.loads(r.read())
 

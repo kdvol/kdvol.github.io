@@ -1,13 +1,13 @@
 {
- "generated": "2026-08-11T19:20:37+09:00",
+ "generated": "2026-08-11T23:56:18+09:00",
  "window_days": 30,
  "traffic": {
-  "views_30d": 24,
-  "people_7d": 10,
+  "views_30d": 61,
+  "people_7d": 22,
   "repeat_rate": 0,
-  "read_rate": 74,
+  "read_rate": 70,
   "react_rate": 0,
-  "comment": 1
+  "comment": 0
  },
  "hot_stories": [
   {
@@ -23,7 +23,7 @@
    "title": "⚖️ 변호사 말고는 못 갖던 로펌, 쪼개서 파는 중",
    "date": "2026-08-07",
    "url": "/newsletters/2026/0807.html#story-3",
-   "views": 0,
+   "views": 1,
    "react": 4
   },
   {
@@ -33,6 +33,14 @@
    "url": "/newsletters/2026/0810.html#story-1",
    "views": 1,
    "react": 3
+  },
+  {
+   "id": "0811-3",
+   "title": "💰 버크셔 현금, 4년 만에 처음 줄었음",
+   "date": "2026-08-11",
+   "url": "/newsletters/2026/0811.html#story-3",
+   "views": 25,
+   "react": 1
   },
   {
    "id": "0810-3",
@@ -47,16 +55,40 @@
    "title": "🐶 알레르기 단백질 하나를 지운 강아지의 등장",
    "date": "2026-08-07",
    "url": "/newsletters/2026/0807.html#story-4",
-   "views": 0,
+   "views": 1,
    "react": 2
   },
   {
-   "id": "0811-3",
-   "title": "💰 버크셔 현금, 4년 만에 처음 줄었음",
+   "id": "0811-5",
+   "title": "💥 폭망 직전 갔더니, 쩐주들이 더 몰림",
    "date": "2026-08-11",
-   "url": "/newsletters/2026/0811.html#story-3",
-   "views": 11,
-   "react": 1
+   "url": "/newsletters/2026/0811.html#story-5",
+   "views": 25,
+   "react": 0
+  },
+  {
+   "id": "0811-4",
+   "title": "🦫 오른쪽 보고 웃는 동물은 다 우리 것?",
+   "date": "2026-08-11",
+   "url": "/newsletters/2026/0811.html#story-4",
+   "views": 25,
+   "react": 0
+  },
+  {
+   "id": "0811-2",
+   "title": "🔌 자사주 사 모으던 인텔, 이번엔 주식 발행",
+   "date": "2026-08-11",
+   "url": "/newsletters/2026/0811.html#story-2",
+   "views": 25,
+   "react": 0
+  },
+  {
+   "id": "0811-1",
+   "title": "💸 칩만 팔던 엔비디아, 이젠 돈까지 주선",
+   "date": "2026-08-11",
+   "url": "/newsletters/2026/0811.html#story-1",
+   "views": 25,
+   "react": 0
   },
   {
    "id": "0810-5",
@@ -73,81 +105,65 @@
    "url": "/newsletters/2026/0810.html#story-4",
    "views": 1,
    "react": 1
-  },
-  {
-   "id": "0807-1",
-   "title": "🏝 전 세계 이익을 다 벌었다는 2인 사무실",
-   "date": "2026-08-07",
-   "url": "/newsletters/2026/0807.html#story-1",
-   "views": 0,
-   "react": 1
-  },
-  {
-   "id": "0805-3",
-   "title": "🔥 산불 날 확률에 돈을 거는 채권",
-   "date": "2026-08-05",
-   "url": "/newsletters/2026/0805.html#story-3",
-   "views": 0,
-   "react": 1
-  },
-  {
-   "id": "0805-2",
-   "title": "🏦 AI 쓰라면서요, 사고 나면 책임은 제가 지고요",
-   "date": "2026-08-05",
-   "url": "/newsletters/2026/0805.html#story-2",
-   "views": 0,
-   "react": 1
-  },
-  {
-   "id": "0811-5",
-   "title": "💥 폭망 직전 갔더니, 쩐주들이 더 몰림",
-   "date": "2026-08-11",
-   "url": "/newsletters/2026/0811.html#story-5",
-   "views": 11,
-   "react": 0
   }
  ],
  "hot_topics": [
   "banks-wallst",
-  "ipo",
   "deals",
   "ai",
+  "ipo",
   "korea-market",
   "bigtech"
  ],
  "hot_entities": [
   "goldman",
   "apple",
+  "tesla",
   "morgan-stanley",
   "kospi",
-  "tesla",
+  "cocacola",
   "xi-jinping",
   "nasdaq",
-  "cocacola",
   "berkshire",
   "buffett"
  ],
  "refs": {
-  "direct": 17,
-  "search": 1,
+  "direct": 44,
+  "search": 2,
   "other": 1
  },
  "top_paths": [
   {
    "path": "/newsletters/2026/0811.html",
-   "hits": 11
-  },
-  {
-   "path": "/topics/ai.html",
-   "hits": 4
+   "hits": 25
   },
   {
    "path": "/",
-   "hits": 4
+   "hits": 16
   },
   {
    "path": "/newsletters/",
+   "hits": 4
+  },
+  {
+   "path": "/topics/",
+   "hits": 3
+  },
+  {
+   "path": "/youtube/",
    "hits": 2
+  },
+  {
+   "path": "/newsletters/2026/0716-crypto.html",
+   "hits": 2
+  },
+  {
+   "path": "/wiki/nyse.html",
+   "hits": 1
+  },
+  {
+   "path": "/wiki/nvidia.html",
+   "hits": 1
   },
   {
    "path": "/school/",
@@ -158,7 +174,11 @@
    "hits": 1
   },
   {
-   "path": "/cardnews/",
+   "path": "/newsletters/2026/0807.html",
+   "hits": 1
+  },
+  {
+   "path": "/newsletters/2026/0312.html",
    "hits": 1
   }
  ]
