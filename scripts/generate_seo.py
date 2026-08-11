@@ -198,6 +198,11 @@ def main():
     except Exception as e:
         print(f"⚠️ build_talk 실패(계속 진행): {e}")
     try:
+        import build_cardnews_light
+        build_cardnews_light.main()         # 새 카드뉴스 페이지도 자동 경량화
+    except Exception as e:
+        print(f"⚠️ build_cardnews_light 실패(계속 진행): {e}")
+    try:
         import build_legacy_redirects
         build_legacy_redirects.build()      # 2월 이관 전 옛 URL → 현재 주소
     except Exception as e:
