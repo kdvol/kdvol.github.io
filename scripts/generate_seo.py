@@ -185,6 +185,11 @@ def main():
     except Exception as e:
         print(f"⚠️ build_api 실패(계속 진행): {e}")
     try:
+        import build_privacy
+        build_privacy.build()               # /privacy/ 수집 안내 (푸터 링크에서만 닿음)
+    except Exception as e:
+        print(f"⚠️ build_privacy 실패(계속 진행): {e}")
+    try:
         import build_sharepages
         build_sharepages.build(atoms)       # 스토리별 OG 공유 페이지(/s/)
     except Exception as e:
