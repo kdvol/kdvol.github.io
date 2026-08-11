@@ -69,6 +69,12 @@ h2 small{color:#666;font-weight:400;font-size:.78rem;margin-left:7px}
 .tabs button{background:#161616;border:1px solid #232323;color:#888;border-radius:7px;padding:6px 13px;
 font-size:.8rem;cursor:pointer;font-family:inherit}
 .tabs button.on{border-color:#F07040;color:#F07040}
+.sortbar{margin:18px 0 4px;align-items:center}
+.sortbar .cn{color:#5f5f5f;font-size:.74rem;margin-left:auto}
+#more{text-align:center;padding:14px 0}
+#more button.more{background:#151515;border:1px solid #262626;color:#8a8578;border-radius:8px;
+padding:9px 20px;font-size:.8rem;cursor:pointer;font-family:inherit}
+#more button.more:hover{border-color:#F07040;color:#F07040}
 .cm{display:flex;gap:10px;padding:10px 2px;border-bottom:1px solid #1c1c1c;font-size:.86rem;line-height:1.6}
 .cm .k{color:#8a8578;font-weight:700;white-space:nowrap;font-size:.78rem;padding-top:2px}
 .cm .b{flex:1;color:#ddd;word-break:break-word}
@@ -248,13 +254,9 @@ function renderCommunity() {
 }
 
 // ── 반응 화면 ────────────────────────────────────────────
-function sparkline(events, now) {
-  var b = new Array(24).fill(0), max = 0;
-  events.forEach(function (e) {
-    if (e[2] !== 1) return;
-    var hh = Math.floor((now - e[0]) / 3600);
-    if (hh >= 0 && hh < 24) b[23 - hh]++;
-  });
+function sparkline(b, now) {
+  var max = 0;
+  b = b || [];
   b.forEach(function (n) { if (n > max) max = n; });
   if (!max) return '';
   var bs = b.map(function (n, i) {
@@ -265,45 +267,98 @@ function sparkline(events, now) {
   return '<div class="spark"><div class="sl">최근 24시간 (시간대별)</div><div class="bars">' + bs + '</div></div>';
 }
 
+// 정렬 — 데이터는 이미 다 받아 뒀으니 클라이언트에서 바꾼다(재요청 없음)
+var SORTS = [
+  ['hot',  '반응 많은 순'],
+  ['new',  '최신 반응 순'],
+  ['date', '콘텐츠 날짜 순'],
+];
+var SORT = 'hot';
+try { SORT = localStorage.getItem('ss_sort') || 'hot'; } catch (e) {}
+
+var PAGE = 30;   // 한 번에 그리는 줄 수 — 스크롤이 끝에 닿으면 더 그린다
+
+function rowHTML(k, by, last, now) {
+  var m = SMAP[k] || { t: k, d: '', u: '#' };
+  return '<a class="row" href="' + m.u + '"><span class="dt">' + (m.d || '').slice(5) + '</span>' +
+    '<span class="ti">' + m.t + '</span><span class="when">' + ago(last[k], now) + '</span>' +
+    '<span class="cnt">' + EMO.map(function (e) {
+      var n = by[k][e] || 0;
+      return '<span class="' + (n ? '' : 'z') + '">' + e + ' ' + n + '</span>';
+    }).join('') + '</span></a>';
+}
+
 function renderReactions() {
   var obj = D.counts || {}, act = D.activity;
-  var last = (act && act.last) || {}, events = (act && act.events) || [];
+  var last = (act && act.last) || {}, hours = (act && act.hours) || [];
   var now = (act && act.now) || Math.floor(Date.now() / 1000);
 
-  var by = {};
-  Object.keys(obj).forEach(function (s) { by[s] = obj[s]; });
-  var keys = Object.keys(by).sort(function (a, b) {
-    var sa = 0, sb = 0;
-    EMO.forEach(function (e) { sa += by[a][e] || 0; sb += by[b][e] || 0; });
-    if (sb !== sa) return sb - sa;
-    return (last[b] || 0) - (last[a] || 0);
+  var by = {}, sum = {};
+  Object.keys(obj).forEach(function (s) {
+    by[s] = obj[s];
+    var n = 0;
+    EMO.forEach(function (e) { n += obj[s][e] || 0; });
+    sum[s] = n;
   });
+
+  var keys = Object.keys(by);
   if (!keys.length) { app.innerHTML = '<div class="empty">아직 반응이 없습니다.</div>'; return; }
 
-  var tot = 0, st = keys.length;
-  keys.forEach(function (k) { EMO.forEach(function (e) { tot += by[k][e] || 0; }); });
-  var d1 = 0, d7 = 0, newest = 0;
-  events.forEach(function (e) {
-    if (e[2] !== 1) return;
-    if (now - e[0] < 86400) d1++;
-    if (now - e[0] < 604800) d7++;
-  });
+  var cmp = {
+    hot:  function (a, b) { return (sum[b] - sum[a]) || ((last[b] || 0) - (last[a] || 0)); },
+    new:  function (a, b) { return ((last[b] || 0) - (last[a] || 0)) || (sum[b] - sum[a]); },
+    date: function (a, b) {
+      var da = (SMAP[a] || {}).d || '', db = (SMAP[b] || {}).d || '';
+      return (db < da ? -1 : db > da ? 1 : 0) || (sum[b] - sum[a]);
+    },
+  };
+  keys.sort(cmp[SORT] || cmp.hot);
+
+  var tot = 0;
+  keys.forEach(function (k) { tot += sum[k]; });
+  var d1 = (act && act.d1) || 0, d7 = (act && act.d7) || 0, newest = 0;
   Object.keys(last).forEach(function (k) { if (last[k] > newest) newest = last[k]; });
 
   var h = '<div class="sum">' + kpi(tot, '전체 반응') + kpi(d1, '최근 24시간') +
-    kpi(d7, '최근 7일') + kpi(st, '반응받은 스토리') + '</div>' + sparkline(events, now) +
+    kpi(d7, '최근 7일') + kpi(keys.length, '반응받은 스토리') + '</div>' + sparkline(hours, now) +
     (newest ? '<p class="sub" style="margin:14px 0 4px">마지막 반응 ' + ago(newest, now) + '</p>' : '');
 
-  keys.forEach(function (k) {
-    var m = SMAP[k] || { t: k, d: '', u: '#' };
-    h += '<a class="row" href="' + m.u + '"><span class="dt">' + (m.d || '').slice(5) + '</span>' +
-      '<span class="ti">' + m.t + '</span><span class="when">' + ago(last[k], now) + '</span>' +
-      '<span class="cnt">' + EMO.map(function (e) {
-        var n = by[k][e] || 0;
-        return '<span class="' + (n ? '' : 'z') + '">' + e + ' ' + n + '</span>';
-      }).join('') + '</span></a>';
-  });
+  h += '<div class="tabs sortbar">' + SORTS.map(function (s) {
+    return '<button data-s="' + s[0] + '"' + (s[0] === SORT ? ' class="on"' : '') + '>' + s[1] + '</button>';
+  }).join('') + '<span class="cn">' + keys.length + '개</span></div>' +
+    '<div id="rows"></div><div id="more"></div>';
   app.innerHTML = h;
+
+  app.querySelectorAll('.sortbar button').forEach(function (b) {
+    b.addEventListener('click', function () {
+      SORT = b.getAttribute('data-s');
+      try { localStorage.setItem('ss_sort', SORT); } catch (e) {}
+      renderReactions();
+    });
+  });
+
+  // 스크롤이 바닥에 닿을 때만 다음 묶음을 그린다. 400개가 넘어가면 한 번에
+  // 다 그리는 비용이 눈에 띄어서, 보이는 만큼만 만든다.
+  var rows = document.getElementById('rows'), sent = document.getElementById('more'), n = 0;
+  function draw() {
+    var part = keys.slice(n, n + PAGE);
+    if (!part.length) { sent.innerHTML = ''; return; }
+    rows.insertAdjacentHTML('beforeend', part.map(function (k) {
+      return rowHTML(k, by, last, now);
+    }).join(''));
+    n += part.length;
+    sent.innerHTML = n < keys.length
+      ? '<button class="more">' + (keys.length - n) + '개 더 보기</button>' : '';
+    var mb = sent.querySelector('button');
+    if (mb) mb.addEventListener('click', draw);
+  }
+  draw();
+  if (window.IntersectionObserver) {
+    var io = new IntersectionObserver(function (es) {
+      if (es[0].isIntersecting && n < keys.length) draw();
+    }, { rootMargin: '300px' });
+    io.observe(sent);
+  }
 }
 
 // ── 탭 ───────────────────────────────────────────────────

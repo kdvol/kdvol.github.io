@@ -300,14 +300,25 @@ export default {
 
       // 운영자 통계용 — 마지막 반응 시각 + 최근 14일 클릭 로그
       if (request.method === 'GET' && url.pathname === '/activity') {
-        const [lastQ, evQ] = await env.DB.batch([
+        // 원본 이벤트를 그대로 내리면 반응이 쌓이는 만큼 응답이 커진다. 화면이
+        // 쓰는 건 전부 집계값(24시간 시간대별 막대, 최근 1일·7일 합계)이라
+        // 서버에서 접어서 보낸다. 응답 크기는 반응 수와 무관해진다.
+        const [lastQ, hourQ, sumQ] = await env.DB.batch([
           env.DB.prepare('select story, max(updated_at) as t from reactions where updated_at is not null group by story'),
-          env.DB.prepare("select ts, story, delta from events where ts > unixepoch() - 1209600 order by ts"),
+          env.DB.prepare('select cast((unixepoch() - ts) / 3600 as integer) as hh, count(*) as n '
+                       + 'from events where delta = 1 and ts > unixepoch() - 86400 group by hh'),
+          env.DB.prepare('select sum(case when ts > unixepoch() - 86400 then 1 else 0 end) as d1, '
+                       + 'count(*) as d7 from events where delta = 1 and ts > unixepoch() - 604800'),
         ]);
         const last = {};
         for (const r of lastQ.results || []) last[r.story] = r.t;
-        const events = (evQ.results || []).map((r) => [r.ts, r.story, r.delta]);
-        return json({ last, events, now: Math.floor(Date.now() / 1000) }, origin);
+        const hours = new Array(24).fill(0);
+        for (const r of hourQ.results || []) {
+          if (r.hh >= 0 && r.hh < 24) hours[23 - r.hh] = r.n;
+        }
+        const s = (sumQ.results || [])[0] || {};
+        return json({ last, hours, d1: s.d1 || 0, d7: s.d7 || 0,
+                      now: Math.floor(Date.now() / 1000) }, origin);
       }
 
       // ── 방문·참여 수집 ────────────────────────────────────
