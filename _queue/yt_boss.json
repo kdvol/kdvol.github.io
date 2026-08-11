@@ -1,0 +1,15 @@
+{
+  "type": "single_video",
+  "video": "_publish/sv/yt_boss/reel.mp4",
+  "caption_txt": "_publish/sv/yt_boss/POST.txt",
+  "post_txt": "_publish/sv/yt_boss/POST.txt",
+  "prefix": "sv/2026/0814_yt_boss",
+  "instagram": false,
+  "youtube": true,
+  "youtube_title": "회사에서 제일 먼저 막힌 건 사장이었다",
+  "name": "yt_boss",
+  "date": "20260814",
+  "target_epoch": 1786700400,
+  "dry_run": false,
+  "thumb_offset_ms": 1048
+}
