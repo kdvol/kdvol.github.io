@@ -4,12 +4,12 @@
   "caption_txt": "_publish/sv/buffett/POST.txt",
   "post_txt": "_publish/sv/buffett/POST.txt",
   "prefix": "sv/2026/0901_buffett",
-  "instagram": true,
-  "youtube": false,
+  "instagram": false,
+  "youtube": true,
   "youtube_title": "워렌 버핏, 90년 인생을 갈아넣은 필승 전략",
-  "name": "buffett",
-  "date": "20260816",
-  "target_epoch": 1786876800,
+  "name": "yt_buffett",
+  "date": "20260813",
+  "target_epoch": 1786614000,
   "dry_run": false,
   "thumb_offset_ms": 1453
 }
