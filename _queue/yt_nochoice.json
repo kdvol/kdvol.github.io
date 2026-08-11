@@ -8,7 +8,7 @@
   "youtube": true,
   "youtube_title": "",
   "name": "yt_nochoice",
-  "date": "20260812",
-  "target_epoch": 1786527600,
+  "date": "20260811",
+  "target_epoch": 1786441200,
   "dry_run": false
 }
