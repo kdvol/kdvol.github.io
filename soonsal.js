@@ -439,7 +439,7 @@
     var ta = w.querySelector('.ss-cin');
     var ni = w.querySelector('.ss-cnick');
     var body = ta.value.trim();
-    var nick = (ni.value || '').trim() || '순살독자';
+    var nick = (ni.value || '').trim() || '독자';
     if (!body) return;
     go.disabled = true;
     var pr = profOf();
