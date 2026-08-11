@@ -72,7 +72,8 @@ create table if not exists comments (
   state integer not null default 1,
   flags integer not null default 0,
   hold  text,                       -- 보류 사유 url/lead/tel/spam/flag/word
-  judge text                        -- LLM 판정 근거(자동 모더레이션 기록)
+  judge text,                       -- LLM 판정 근거(자동 모더레이션 기록)
+  tag   text                        -- 자칭 업종(프리셋) — 검증된 소속이 아니다
 );
 create index if not exists idx_c_issue on comments(issue, state, id desc);
 create index if not exists idx_c_vid   on comments(vid, ts);

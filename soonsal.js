@@ -78,7 +78,17 @@
     '.ss-cin{width:100%;border:1px solid #e0ddd5;border-radius:8px;padding:9px 11px;font-size:13px;font-family:inherit;box-sizing:border-box;resize:none;background:#fff}' +
     '.ss-cin:focus{outline:none;border-color:#F07040}' +
     '.ss-crow{display:flex;gap:7px;align-items:center;margin-top:8px}' +
-    '.ss-cnick{flex:0 0 96px;font-size:12px}' +
+    '.ss-cnick{flex:0 0 78px;font-size:12px}' +
+    '.ss-cprof{flex:0 0 auto;background:none;border:1px dashed #d9d4c6;color:#8a8578;' +
+    'border-radius:6px;padding:3px 7px;font-size:10px;cursor:pointer;font-family:inherit;' +
+    'white-space:nowrap;max-width:88px;overflow:hidden;text-overflow:ellipsis}' +
+    '.ss-cpf{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:6px 0 0}' +
+    '.ss-cind,.ss-cco{border:1px solid #e6e1d5;border-radius:6px;padding:5px 7px;font-size:11px;' +
+    'font-family:inherit;background:#fff;color:#2b2b2b;max-width:132px}' +
+    '.ss-csc{font-size:10px;color:#8a8578;display:flex;align-items:center;gap:3px}' +
+    '.ss-cpn{flex:1 1 100%;font-size:10px;color:#a8a294;line-height:1.5}' +
+    '.ss-cg{font-size:9px;color:#8a8578;border:1px solid #e6e1d5;border-radius:4px;' +
+    'padding:0 4px;margin-left:4px;white-space:nowrap;font-weight:400}' +
     '.ss-cnt{margin-left:auto;font-size:11px;color:#b0aca2;font-variant-numeric:tabular-nums}' +
     '.ss-cgo{background:#E55A00;color:#fff;border:none;border-radius:7px;padding:8px 15px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit}' +
     '.ss-cgo:disabled{background:#d8d4c8;cursor:default}' +
@@ -306,10 +316,28 @@
   var COPEN = null;     // 동시에 하나만 펼친다
   var CBTN = {};        // storyKey → pill
 
-  function nickOf() {
-    try { return localStorage.getItem('ss_nick') || ''; } catch (e) { return ''; }
+  // 익명 프로필 — 전부 이 브라우저에만 남는다. 서버로는 닉네임과 업종만 가고,
+  // 직장은 본인이 '함께 표시'를 켜지 않는 한 아예 전송하지 않는다.
+  var INDS = ['금융·투자', 'IT·개발', '제조·엔지니어링', '유통·소비재', '헬스케어·바이오',
+              '미디어·광고', '법률·회계', '교육', '공공·비영리', '창업·자영업', '학생', '기타'];
+
+  function profOf() {
+    var p = null;
+    try { p = JSON.parse(localStorage.getItem('ss_prof') || 'null'); } catch (e) {}
+    if (!p) {                                   // 예전에 닉네임만 쓰던 사람 이어받기
+      var old = '';
+      try { old = localStorage.getItem('ss_nick') || ''; } catch (e) {}
+      p = { n: old, i: '', c: '', sc: 0 };
+    }
+    return p;
   }
-  function setNick(n) { try { localStorage.setItem('ss_nick', n); } catch (e) {} }
+  function setProf(p) {
+    try {
+      localStorage.setItem('ss_prof', JSON.stringify(p));
+      localStorage.setItem('ss_nick', p.n || '');   // 옛 키도 맞춰 둔다
+    } catch (e) {}
+  }
+  function nickOf() { return profOf().n || ''; }
 
   function cAgo(ts) {
     var s = Math.max(0, Math.floor(Date.now() / 1000) - ts);
@@ -338,14 +366,26 @@
     var w = document.createElement('div');
     w._key = key;
     w.className = 'ss-cwrap';
-    var nick = nickOf();
+    var pr = profOf(), nick = pr.n || '';
     w.innerHTML =
       '<textarea class="ss-cin" rows="2" maxlength="140" placeholder="한 줄로 남겨주세요"></textarea>' +
       '<input class="ss-hp" name="website" tabindex="-1" aria-hidden="true"/>' +
       '<div class="ss-crow">' +
         '<input class="ss-cin ss-cnick" maxlength="12" placeholder="닉네임" value="' + esc(nick) + '"/>' +
+        '<button type="button" class="ss-cprof" title="프로필">' +
+          (pr.i ? esc(pr.i) : '＋업종') + '</button>' +
         '<span class="ss-cnt">0/140</span>' +
         '<button type="button" class="ss-cgo" disabled>남기기</button>' +
+      '</div>' +
+      '<div class="ss-cpf" hidden>' +
+        '<select class="ss-cind"><option value="">업종 선택 안 함</option>' +
+        INDS.map(function (i) {
+          return '<option' + (i === pr.i ? ' selected' : '') + '>' + i + '</option>';
+        }).join('') + '</select>' +
+        '<input class="ss-cco" maxlength="20" placeholder="직장 (선택)" value="' + esc(pr.c || '') + '"/>' +
+        '<label class="ss-csc"><input type="checkbox" class="ss-cscb"' + (pr.sc ? ' checked' : '') +
+          '/> 직장도 함께 표시</label>' +
+        '<div class="ss-cpn">이 브라우저에만 저장됩니다. 표시한 정보는 확인된 소속이 아닙니다.</div>' +
       '</div>' +
       '<div class="ss-clist"></div>' +
       '<div class="ss-cnote">남긴 글의 책임은 작성자에게 있습니다. 투자 권유·광고·비방은 ' +
@@ -360,6 +400,20 @@
     });
     go.addEventListener('click', function () { submitC(key, w, go); });
 
+    var pf = w.querySelector('.ss-cpf'), pb = w.querySelector('.ss-cprof');
+    pb.addEventListener('click', function () { pf.hidden = !pf.hidden; });
+    function saveProf() {
+      var p = profOf();
+      p.i = w.querySelector('.ss-cind').value;
+      p.c = (w.querySelector('.ss-cco').value || '').trim();
+      p.sc = w.querySelector('.ss-cscb').checked ? 1 : 0;
+      setProf(p);
+      pb.textContent = p.i || '＋업종';
+    }
+    ['.ss-cind', '.ss-cco', '.ss-cscb'].forEach(function (s) {
+      w.querySelector(s).addEventListener('change', saveProf);
+    });
+
     renderC(key, w);
     pill.parentNode.parentNode.insertBefore(w, pill.parentNode.nextSibling);
     COPEN = w;
@@ -370,7 +424,8 @@
     var list = w.querySelector('.ss-clist');
     var items = CMTS[key] || [];
     list.innerHTML = items.map(function (c) {
-      return '<div class="ss-ci"><span class="ss-ck">' + esc(c.k) + '</span>' +
+      return '<div class="ss-ci"><span class="ss-ck">' + esc(c.k) +
+        (c.g ? '<span class="ss-cg">' + esc(c.g) + '</span>' : '') + '</span>' +
         '<span class="ss-cb">' + esc(c.b) + (c.held ? '<span class="ss-chold">검토 중</span>' : '') +
         '</span><span class="ss-ct">' + cAgo(c.t) + '</span></div>';
     }).join('');
@@ -383,14 +438,19 @@
     var nick = (ni.value || '').trim() || '순살독자';
     if (!body) return;
     go.disabled = true;
-    setNick(nick);
+    var pr = profOf();
+    pr.n = nick;
+    setProf(pr);
+    // 업종은 프리셋, 직장은 '함께 표시'를 켠 경우에만 보낸다(안 켜면 전송 자체를 안 함)
+    var tag = pr.i || '';
+    var co = pr.sc ? (pr.c || '') : '';
     var v = vid();
     if (!API || !v) { toast('잠시 후 다시 시도해주세요'); go.disabled = false; return; }
 
     fetch(API.replace(/[/]$/, '') + '/comment', {
       method: 'POST',
       headers: { 'content-type': 'application/json' },
-      body: JSON.stringify({ story: key, v: v, nick: nick, body: body,
+      body: JSON.stringify({ story: key, v: v, nick: nick, body: body, tag: tag, co: co,
                              hp: w.querySelector('.ss-hp').value }),
     }).then(function (r) { return r.json(); }).then(function (res) {
       if (res && res.error) {
@@ -404,7 +464,7 @@
       w.querySelector('.ss-cnt').textContent = '0/140';
       // 보류(state 0)여도 본인 화면에는 남긴다 — 실패로 보이면 다시 쓰고 도배가 된다
       var mine = { i: res.id, k: nick, b: body, t: Math.floor(Date.now() / 1000),
-                   held: res.state === 0 };
+                   g: [tag, co].filter(Boolean).join(' · '), held: res.state === 0 };
       (CMTS[key] = CMTS[key] || []).push(mine);
       if (!mine.held) paintPill(key);
       renderC(key, w);

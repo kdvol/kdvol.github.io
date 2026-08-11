@@ -54,7 +54,10 @@ function json(data, origin, status = 200, extra = {}) {
 // ── 트래킹 상수 ──────────────────────────────────────────────
 const KIND = ['read', 'react', 'share', 'telegram', 'instagram', 'comment'];
 const SRC = ['direct', 'telegram', 'instagram', 'search', 'mail', 'other'];
-const VID_RE = /^[a-z0-9]{8,24}$/;
+// 하이픈 허용 — 'agent-...' 형태를 정상적인 ID로 받기 위해서다. 형식 검증에
+// 걸려 거부되면 집계 제외가 '우연히' 동작하는 셈이라, 의도한 AGENT_VID 검사가
+// 실제로 도는지 확인할 수 없다.
+const VID_RE = /^[a-z0-9-]{8,32}$/;
 // KST 자정 기준 날짜. UTC로 끊으면 한국 새벽 방문이 전날로 잡힌다.
 const DAY = "date(unixepoch() + 32400, 'unixepoch')";
 
@@ -66,6 +69,14 @@ const BODY_MAX = 140;
 // 자동 보류 규칙 — 걸리는 것만 잡아두고 나머지는 즉시 게시.
 // 보류 건은 사람이 아니라 LLM(scripts/moderate_comments.py)이 하루 단위로 푼다.
 const AGENT_VID = /^agent-/i;   // 집계에서 항상 빼는 개발용 브라우저
+
+// 댓글에 붙는 업종 태그. 프리셋에서만 고르게 한다 — 자유입력을 받으면
+// '금감원 국장' 같은 직함 참칭이 가능해지고, 검증할 방법이 없는 소속이
+// 투자 얘기에 가짜 권위를 실어준다. 표시용 문자열이 곧 화이트리스트다.
+const TAGS = new Set([
+  '금융·투자', 'IT·개발', '제조·엔지니어링', '유통·소비재', '헬스케어·바이오',
+  '미디어·광고', '법률·회계', '교육', '공공·비영리', '창업·자영업', '학생', '기타',
+]);
 
 const HOLD_RULES = [
   ['url', /https?:\/\/|www\.|\b[a-z0-9-]+\.(com|net|co\.kr|kr|io|me|link|xyz|top|cc|shop)\b/i],
@@ -176,14 +187,15 @@ export default {
         ).bind(issue + '-%')];
         if (!commentsOff) {
           q.push(env.DB.prepare(
-            'select id, story, nick, body, ts from comments where issue = ?1 and state = 1 order by id limit 200'
+            'select id, story, nick, body, ts, tag, co from comments where issue = ?1 and state = 1 order by id limit 200'
           ).bind(issue));
         }
         const res = await env.DB.batch(q);
         const comments = {};
         for (const r of (res[1] && res[1].results) || []) {
           (comments[r.story] = comments[r.story] || []).push(
-            { i: r.id, k: r.nick, b: r.body, t: r.ts });
+            { i: r.id, k: r.nick, b: r.body, t: r.ts,
+              g: [r.tag, r.co].filter(Boolean).join(' · ') || undefined });
         }
         const out = url.pathname === '/comments'
           ? { comments, off: commentsOff ? 1 : 0 }
@@ -232,10 +244,19 @@ export default {
         }
         const state = hold ? 0 : 1;
 
+        // 업종 태그 — 화이트리스트에 없으면 조용히 버린다(에러로 막을 것까진 아니다)
+        const rawTag = String((b && b.tag) || '').trim();
+        const tag = TAGS.has(rawTag) ? rawTag : null;
+
+        // 직장은 자유입력이라 화이트리스트가 없다. 대신 본문과 똑같은 보류 규칙을
+        // 태우고(링크·연락처·유인 문구), 꺾쇠는 지운다. 참칭 판단은 LLM 몫이다.
+        const rawCo = String((b && b.co) || '').replace(/[<>]/g, '').trim().slice(0, 20);
+        const co = rawCo && !holdReason(rawCo) ? rawCo : null;
+
         const ins = await env.DB.prepare(
-          `insert into comments (story, issue, nick, body, vid, ts, state, hold)
-           values (?1, ?2, ?3, ?4, ?5, unixepoch(), ?6, ?7)`
-        ).bind(story, story.split('-')[0], nick, body, vid, state, hold).run();
+          `insert into comments (story, issue, nick, body, vid, ts, state, hold, tag, co)
+           values (?1, ?2, ?3, ?4, ?5, unixepoch(), ?6, ?7, ?8, ?9)`
+        ).bind(story, story.split('-')[0], nick, body, vid, state, hold, tag, co).run();
 
         const issue = story.split('-')[0];
         notify(env, ctx,
@@ -272,7 +293,7 @@ export default {
         if (request.method === 'GET') {
           const state = parseInt(url.searchParams.get('state') || '0', 10);
           const { results } = await env.DB.prepare(
-            `select id, story, issue, nick, body, ts, hold, flags, judge
+            `select id, story, issue, nick, body, ts, hold, flags, judge, tag, co
              from comments where state = ?1 order by id desc limit 100`
           ).bind(state).all();
           return json({ state, items: results || [] }, origin);

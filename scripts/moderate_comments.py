@@ -41,6 +41,10 @@ PROMPT = """너는 한국 금융 뉴스레터 '순살브리핑' 웹사이트의 
 - spam: 리딩방·오픈채팅 유인, 사기 의심 링크, 수익 보장 문구, 연락처 유도.
   spam은 작성자를 자동 차단하므로 확신이 있을 때만 쓴다.
 
+self_claimed는 작성자가 스스로 붙인 소속이다(업종·직장). 확인된 정보가 아니니
+신뢰의 근거로 삼지 않는다. 감독기관·수사기관·언론을 사칭해 조언에 권위를 실으려는
+경우(금감원·검찰·기자 등)는 hide.
+
 애매하면 show 쪽으로 기운다 — 정상 글을 묻는 비용이 스팸 하나를 놓치는 비용보다 크다.
 단, 금전 피해로 이어질 수 있는 것(사기 링크·리딩방)은 애매해도 spam.
 
@@ -71,7 +75,10 @@ def _judge(items):
     if not key:
         return None
     payload = [{"id": i["id"], "hold": i.get("hold"), "nick": i["nick"],
-                "body": i["body"]} for i in items]
+                "body": i["body"],
+                # 자칭 소속. 검증된 정보가 아니므로 판정에 권위를 실어주면 안 된다.
+                "self_claimed": " · ".join(x for x in (i.get("tag"), i.get("co")) if x) or None}
+               for i in items]
     body = json.dumps({
         "model": MODEL, "max_tokens": 2048,
         "messages": [{"role": "user",
