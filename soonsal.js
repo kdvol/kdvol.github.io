@@ -84,11 +84,17 @@
     '.ss-cin:focus{outline:none;border-color:#F07040;box-shadow:0 0 0 3px rgba(240,112,64,.10)}' +
     '.ss-crow{display:flex;gap:8px;align-items:center;margin-top:8px}' +
     // 이름 + 업종을 한 버튼에. 평소엔 그냥 글씨처럼 보이고 누르면 편집이 열린다.
-    '.ss-cprof{flex:1 1 auto;min-width:0;background:none;border:none;padding:6px 0;' +
+    '.ss-cprof{flex:1 1 auto;min-width:0;background:none;border:none;padding:5px 0;' +
     'font-family:inherit;font-size:13px;color:#6b6659;cursor:pointer;text-align:left;' +
-    'overflow:hidden;text-overflow:ellipsis;white-space:nowrap}' +
-    '.ss-cprof i{font-style:normal;color:#a8a294;font-size:12px;margin-left:5px}' +
-    '.ss-cprof u{text-decoration:none;color:#c4bfb2;font-size:10px;margin-left:5px}' +
+    'overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:flex;' +
+    'align-items:baseline;gap:5px}' +
+    '.ss-cprof .nm{font-weight:700;color:#3a3a3a;border-bottom:1px dashed #c4bfb2;' +
+    'padding-bottom:1px}' +
+    '.ss-cprof i{font-style:normal;color:#a8a294;font-size:12px;flex:0 1 auto;' +
+    'overflow:hidden;text-overflow:ellipsis}' +
+    '.ss-cprof em{font-style:normal;color:#F07040;font-size:11px;background:#fdf0e9;' +
+    'border-radius:5px;padding:2px 6px;white-space:nowrap;flex:0 0 auto}' +
+    '.ss-cprof:hover .nm{border-bottom-color:#F07040}' +
     '.ss-cnt{font-size:12px;color:#c0bcb2;font-variant-numeric:tabular-nums;flex:0 0 auto}' +
     '.ss-cgo{flex:0 0 auto;background:#E55A00;color:#fff;border:none;border-radius:10px;' +
     'padding:11px 20px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;' +
@@ -390,10 +396,10 @@
   }
 
   function idLabel(pr) {
-    // 이름 자체가 버튼이다. 'ˇ'만으로 더 있다는 걸 알린다 —
-    // 별도 '업종 +' 글씨는 버튼이 두 개인 줄 알게 만들었다.
-    return esc(pr.n || '이름 짓는 중') +
-      (pr.i ? '<i>· ' + esc(pr.i) + '</i>' : '') + '<u>ˇ</u>';
+    // 이름을 바꿀 수 있다는 걸 눈에 보이게 한다. 자동으로 지어준 이름이라
+    // 바꿔도 된다는 걸 모르면 그냥 그대로 쓰고 만다.
+    return '<span class="nm">' + esc(pr.n || '이름 짓는 중') + '</span>' +
+      (pr.i ? '<i>· ' + esc(pr.i) + '</i>' : '') + '<em>✎ 바꾸기</em>';
   }
 
   function profOf() {
