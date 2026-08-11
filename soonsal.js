@@ -119,7 +119,11 @@
   // 명시적으로 표시한다 — 서버가 'agent-' 접두사를 무조건 무시한다.
   try {
     if (/[?&]ss=agent\b/.test(location.search)) {
-      localStorage.setItem('ss_vid', 'agent-' + (localStorage.getItem('ss_vid') || 'x'));
+      var cur = localStorage.getItem('ss_vid') || '';
+      // 이미 표시된 브라우저에서 또 열어도 접두사가 겹쳐 붙지 않게 한다
+      if (!/^agent-/.test(cur)) {
+        localStorage.setItem('ss_vid', ('agent-' + (cur || 'x')).slice(0, 32));
+      }
       localStorage.setItem('ss_optout', '1');
     }
   } catch (e) {}
