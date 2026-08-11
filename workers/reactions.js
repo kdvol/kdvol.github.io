@@ -445,6 +445,17 @@ export default {
           const first = b.f ? 1 : 0;                       // 오늘 이 페이지 첫 방문인가
           const src = SRC.includes(b.r) ? b.r : 'other';
 
+          // 직전에 본 페이지 → 지금 페이지. 경로 쌍의 합계만 올린다.
+          // 방문자 ID는 여기 들어가지 않는다 — 개인별 열람 이력을 만들지 않겠다는
+          // 약속을 지키면서 '어디서 와서 무엇을 더 보는지'만 남긴다.
+          const frm = normPath(b.pv);
+          if (frm && frm !== path) {
+            stmts.push(env.DB.prepare(
+              `insert into hops (day, frm, to_, n) values (${DAY}, ?1, ?2, 1)
+               on conflict(day, frm, to_) do update set n = n + 1`
+            ).bind(frm, path));
+          }
+
           stmts.push(
             env.DB.prepare(
               `insert into views (day, path, hits, uniq) values (${DAY}, ?1, 1, ?2)
@@ -489,7 +500,7 @@ export default {
         const days = Math.min(Math.max(parseInt(url.searchParams.get('days') || '30', 10) || 30, 1), 120);
         const since = `date(unixepoch() + 32400, 'unixepoch', '-${days} days')`;
 
-        const [daily, top, eng, ref, vis] = await env.DB.batch([
+        const [daily, top, eng, ref, hop, vis] = await env.DB.batch([
           env.DB.prepare(
             `select day, sum(hits) as hits, sum(uniq) as uniq from views
              where day >= ${since} group by day order by day`),
@@ -500,6 +511,10 @@ export default {
             `select day, kind, n from engage where day >= ${since}`),
           env.DB.prepare(
             `select src, sum(n) as n from refs where day >= ${since} group by src order by n desc`),
+          // 이동 쌍 상위 — 어떤 글에서 어떤 글로 넘어가는지
+          env.DB.prepare(
+            `select frm, to_, sum(n) as n from hops where day >= ${since}
+             group by frm, to_ order by n desc limit 20`),
           // 재방문 = 서로 다른 날 2일 이상 방문한 사람.
           // active7은 일별 uniq 합과 다르다 — 합계는 이틀 온 사람을 두 번 센다.
           env.DB.prepare(
@@ -548,6 +563,7 @@ export default {
           top: top.results || [],
           engage: eng.results || [],
           refs: ref.results || [],
+          hops: hop.results || [],
           visitors: (vis.results || [])[0] || {},
         }, origin);
       }

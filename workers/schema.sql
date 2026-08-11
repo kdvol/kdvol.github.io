@@ -109,3 +109,15 @@ create table if not exists comment_likes (
   primary key (cid, vid)
 );
 create index if not exists idx_cl_cid on comment_likes(cid);
+
+-- 이동 쌍: "A 다음 B를 봤다"를 경로 쌍으로만 센다.
+-- 누가 그랬는지는 남기지 않는다 — 개인별 열람 이력을 만들지 않는다는 약속을
+-- 지키면서 "어디서 와서 무엇을 더 보는지"만 본다.
+create table if not exists hops (
+  day  text not null,
+  frm  text not null,
+  to_  text not null,
+  n    integer not null default 0,
+  primary key (day, frm, to_)
+);
+create index if not exists idx_hops_day on hops(day);
