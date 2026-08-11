@@ -100,6 +100,13 @@
     'background:#faf8f3;border:1px solid #e6e1d5;border-radius:6px;padding:5px 8px;margin-bottom:6px}' +
     '.ss-crt button{background:none;border:none;color:#a8a294;font-size:10px;cursor:pointer;' +
     'font-family:inherit;margin-left:auto}' +
+    '.ss-nt{position:fixed;left:16px;right:16px;bottom:16px;max-width:420px;margin:0 auto;' +
+    'background:#2b2b2b;color:#f5f2ea;border-radius:10px;padding:11px 13px;display:flex;' +
+    'align-items:center;gap:10px;font-size:13px;z-index:9999;box-shadow:0 6px 24px rgba(0,0,0,.24)}' +
+    '.ss-nt span{flex:1}' +
+    '.ss-nt a{color:#F5A481;text-decoration:none;font-weight:600;white-space:nowrap}' +
+    '.ss-nt button{background:none;border:none;color:#9a958a;font-size:13px;cursor:pointer;' +
+    'font-family:inherit;padding:0 2px}' +
     '.ss-cnt{margin-left:auto;font-size:11px;color:#b0aca2;font-variant-numeric:tabular-nums}' +
     '.ss-cgo{background:#E55A00;color:#fff;border:none;border-radius:7px;padding:8px 15px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit}' +
     '.ss-cgo:disabled{background:#d8d4c8;cursor:default}' +
@@ -538,14 +545,70 @@
 
   function setReplyTo(w, id, nick) {
     w._reply = id;
+    w._replyTag = '@' + nick + ' ';
     var bar = w.querySelector('.ss-crt');
     bar.innerHTML = '<span>' + esc(nick) + '님에게 답글</span>' +
       '<button type="button" class="ss-crx">취소</button>';
     bar.hidden = false;
+
+    // 인스타처럼 @닉네임을 미리 넣어 준다. 지우고 쓸 수도 있다.
+    var ta = w.querySelector('.ss-cin');
+    if (ta.value.indexOf('@') !== 0) ta.value = w._replyTag + ta.value;
+    ta.dispatchEvent(new Event('input'));
+
     bar.querySelector('.ss-crx').addEventListener('click', function () {
-      w._reply = null; bar.hidden = true;
+      if (w._replyTag && ta.value.indexOf(w._replyTag) === 0) {
+        ta.value = ta.value.slice(w._replyTag.length);
+        ta.dispatchEvent(new Event('input'));
+      }
+      w._reply = null; w._replyTag = null; bar.hidden = true;
     });
-    w.querySelector('.ss-cin').focus();
+    ta.focus();
+  }
+
+  // ── 알림 ─────────────────────────────────────────────
+  // 이메일도 계정도 없으니 익명 번호로 받아 사이트 안에서 보여준다.
+  function loadNotices() {
+    var v = vid();
+    if (!API || !v) return;
+    fetch(API.replace(/[/]$/, '') + '/notices?v=' + encodeURIComponent(v))
+      .then(function (r) { return r.json(); })
+      .then(function (d) { if (d && d.n) showNotice(d); })
+      .catch(function () {});
+  }
+
+  function showNotice(d) {
+    if (document.querySelector('.ss-nt')) return;
+    var b = document.createElement('div');
+    b.className = 'ss-nt';
+    var first = (d.items || [])[0] || {};
+    var msg = d.n === 1
+      ? (first.kind === 'reply' ? (first.who || '누군가') + '님이 답글을 남겼어요'
+                                : '내 코멘트가 좋아요를 받았어요')
+      : '새 소식 ' + d.n + '개';
+    b.innerHTML = '<span>🐟 ' + esc(msg) + '</span>' +
+      '<a href="' + storyUrl(first.story) + '">보기</a>' +
+      '<button type="button" aria-label="닫기">✕</button>';
+    document.body.appendChild(b);
+
+    function dismiss() {
+      var v = vid();
+      if (API && v) {
+        fetch(API.replace(/[/]$/, '') + '/notices?v=' + encodeURIComponent(v), { method: 'POST' })
+          .catch(function () {});
+      }
+      if (b.parentNode) b.parentNode.removeChild(b);
+    }
+    b.querySelector('button').addEventListener('click', dismiss);
+    b.querySelector('a').addEventListener('click', dismiss);
+  }
+
+  function storyUrl(story) {
+    if (!story) return '#';
+    var m = String(story).match(/^(\d{4})(c?)-(\d+)$/);
+    if (!m) return '#';
+    var y = new Date().getFullYear();
+    return '/newsletters/' + y + '/' + m[1] + (m[2] ? 'c' : '') + '.html#story-' + m[3];
   }
 
   function submitC(key, w, go) {
@@ -837,9 +900,15 @@
     }
   }
 
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', init);
-  } else {
+  function boot() {
     init();
+    // 알림은 화면이 자리잡은 뒤에 — 첫 렌더를 늦추지 않는다
+    setTimeout(loadNotices, 1500);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', boot);
+  } else {
+    boot();
   }
 })();
