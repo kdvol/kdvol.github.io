@@ -74,49 +74,59 @@
     '.ss-notice a{color:#9a958a;text-decoration:underline}' +
     /* 코멘트 */
     '.ss-cbtn{margin-left:0}' +
-    '.ss-cwrap{margin:8px 0 4px;padding:12px 14px;border:1px solid #e8e8e0;border-radius:10px;background:#fafaf7;font-family:inherit}' +
-    '.ss-cin{width:100%;border:1px solid #e0ddd5;border-radius:8px;padding:9px 11px;font-size:13px;font-family:inherit;box-sizing:border-box;resize:none;background:#fff}' +
-    '.ss-cin:focus{outline:none;border-color:#F07040}' +
-    '.ss-crow{display:flex;gap:7px;align-items:center;margin-top:8px}' +
-    '.ss-cnick{flex:0 0 78px;font-size:12px}' +
-    '.ss-cprof{flex:0 0 auto;background:none;border:1px dashed #d9d4c6;color:#8a8578;' +
-    'border-radius:6px;padding:3px 7px;font-size:10px;cursor:pointer;font-family:inherit;' +
-    'white-space:nowrap;max-width:88px;overflow:hidden;text-overflow:ellipsis}' +
-    '.ss-cpf{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:6px 0 0}' +
-    '.ss-cind,.ss-cco{border:1px solid #e6e1d5;border-radius:6px;padding:5px 7px;font-size:11px;' +
-    'font-family:inherit;background:#fff;color:#2b2b2b;max-width:132px}' +
-    '.ss-csc{font-size:10px;color:#8a8578;display:flex;align-items:center;gap:3px}' +
-    '.ss-cpn{flex:1 1 100%;font-size:10px;color:#a8a294;line-height:1.5}' +
-    '.ss-cg{font-size:9px;color:#8a8578;border:1px solid #e6e1d5;border-radius:4px;' +
-    'padding:0 4px;margin-left:4px;white-space:nowrap;font-weight:400}' +
-    '.ss-crep{padding-left:16px;border-left:2px solid #efeae0;margin-left:2px}' +
-    '.ss-cact{display:inline-flex;gap:6px;margin-left:6px;vertical-align:middle}' +
-    '.ss-cact button{background:none;border:none;padding:0 2px;font-size:10px;color:#a8a294;' +
+    // 폰에서 쓰기 편한 게 최우선. 입력창을 크게 잡고, 나머지는 눌러야 나온다.
+    // 글자 크기 16px 미만이면 iOS가 포커스 때 화면을 확대해 버린다.
+    '.ss-cwrap{margin:10px 0 4px;font-family:inherit}' +
+    '.ss-cin{width:100%;border:1px solid #e2ded4;border-radius:12px;padding:13px 14px;' +
+    'font-size:16px;line-height:1.55;font-family:inherit;box-sizing:border-box;resize:none;' +
+    'background:#fff;color:#2b2b2b;-webkit-appearance:none}' +
+    '.ss-cin::placeholder{color:#b5b0a4}' +
+    '.ss-cin:focus{outline:none;border-color:#F07040;box-shadow:0 0 0 3px rgba(240,112,64,.10)}' +
+    '.ss-crow{display:flex;gap:8px;align-items:center;margin-top:8px}' +
+    // 이름 + 업종을 한 버튼에. 평소엔 그냥 글씨처럼 보이고 누르면 편집이 열린다.
+    '.ss-cprof{flex:1 1 auto;min-width:0;background:none;border:none;padding:6px 0;' +
+    'font-family:inherit;font-size:13px;color:#6b6659;cursor:pointer;text-align:left;' +
+    'overflow:hidden;text-overflow:ellipsis;white-space:nowrap}' +
+    '.ss-cprof i{font-style:normal;color:#a8a294;font-size:11px;margin-left:6px}' +
+    '.ss-cprof i.add{color:#c4a08c}' +
+    '.ss-cnt{font-size:12px;color:#c0bcb2;font-variant-numeric:tabular-nums;flex:0 0 auto}' +
+    '.ss-cgo{flex:0 0 auto;background:#E55A00;color:#fff;border:none;border-radius:10px;' +
+    'padding:11px 20px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;' +
+    'min-height:42px;-webkit-appearance:none}' +
+    '.ss-cgo:disabled{background:#e8e4da;color:#b0aca2;cursor:default}' +
+    // 프로필 — 눌러야 열리고, 한 줄에 라벨+입력이 나란히 붙어 자리를 덜 먹는다
+    '.ss-cpf{margin-top:10px;padding:12px 13px;background:#faf8f3;border-radius:10px;' +
+    'display:flex;flex-direction:column;gap:9px}' +
+    '.ss-cpl{display:flex;align-items:center;gap:10px;font-size:12px;color:#8a8578}' +
+    '.ss-cpl input,.ss-cpl select{flex:1;min-width:0;border:1px solid #e6e1d5;border-radius:8px;' +
+    'padding:9px 10px;font-size:16px;font-family:inherit;background:#fff;color:#2b2b2b;' +
+    '-webkit-appearance:none}' +
+    '.ss-cpl input:focus,.ss-cpl select:focus{outline:none;border-color:#F07040}' +
+    '.ss-csc{display:flex;align-items:center;gap:7px;font-size:12px;color:#8a8578}' +
+    '.ss-cpn{font-size:11px;color:#b5b0a4}' +
+    // 목록 — 줄마다 선을 긋지 않는다. 간격만으로 나눈다.
+    '.ss-clist{margin-top:14px;display:flex;flex-direction:column;gap:13px}' +
+    '.ss-ci{font-size:14px;line-height:1.62;color:#333}' +
+    '.ss-ck{font-weight:700;color:#2b2b2b;margin-right:6px}' +
+    '.ss-cb{color:#3a3a3a}' +
+    '.ss-ct{color:#c0bcb2;font-size:11px;margin-left:6px;white-space:nowrap}' +
+    '.ss-cg{font-size:10px;color:#8a8578;background:#f2efe7;border-radius:4px;' +
+    'padding:1px 5px;margin-left:5px;white-space:nowrap;font-weight:500}' +
+    '.ss-chold{font-size:10px;color:#c08a3a;margin-left:6px}' +
+    '.ss-crep{padding-left:13px;border-left:2px solid #efeae0;margin-left:3px}' +
+    '.ss-cact{display:inline-flex;gap:10px;margin-left:8px;vertical-align:baseline}' +
+    '.ss-cact button{background:none;border:none;padding:2px 0;font-size:12px;color:#a8a294;' +
     'cursor:pointer;font-family:inherit;line-height:1.4}' +
     '.ss-cact button:hover{color:#F07040}' +
-    '.ss-clike.on{color:#F07040;font-weight:600}' +
-    '.ss-clike b{font-weight:600;margin-left:1px}' +
-    '.ss-crt{display:flex;align-items:center;gap:8px;font-size:11px;color:#8a8578;' +
-    'background:#faf8f3;border:1px solid #e6e1d5;border-radius:6px;padding:5px 8px;margin-bottom:6px}' +
-    '.ss-crt button{background:none;border:none;color:#a8a294;font-size:10px;cursor:pointer;' +
-    'font-family:inherit;margin-left:auto}' +
-    '.ss-nt{position:fixed;left:16px;right:16px;bottom:16px;max-width:420px;margin:0 auto;' +
-    'background:#2b2b2b;color:#f5f2ea;border-radius:10px;padding:11px 13px;display:flex;' +
-    'align-items:center;gap:10px;font-size:13px;z-index:9999;box-shadow:0 6px 24px rgba(0,0,0,.24)}' +
-    '.ss-nt span{flex:1}' +
-    '.ss-nt a{color:#F5A481;text-decoration:none;font-weight:600;white-space:nowrap}' +
-    '.ss-nt button{background:none;border:none;color:#9a958a;font-size:13px;cursor:pointer;' +
-    'font-family:inherit;padding:0 2px}' +
-    '.ss-cnt{margin-left:auto;font-size:11px;color:#b0aca2;font-variant-numeric:tabular-nums}' +
-    '.ss-cgo{background:#E55A00;color:#fff;border:none;border-radius:7px;padding:8px 15px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit}' +
-    '.ss-cgo:disabled{background:#d8d4c8;cursor:default}' +
-    '.ss-clist{margin-top:10px}' +
-    '.ss-ci{display:flex;gap:8px;padding:7px 0;border-top:1px solid #eceae2;font-size:13px;line-height:1.6;color:#333}' +
-    '.ss-ck{color:#8a8578;font-weight:700;white-space:nowrap;font-size:12px;padding-top:1px}' +
-    '.ss-cb{flex:1;word-break:break-word}' +
-    '.ss-ct{color:#b0aca2;font-size:11px;white-space:nowrap;padding-top:2px}' +
-    '.ss-chold{color:#b0aca2;font-size:11px;margin-left:5px}' +
-    '.ss-cnote{color:#b0aca2;font-size:11px;line-height:1.7;margin-top:9px}' +
+    '.ss-clike.on{color:#F07040;font-weight:700}' +
+    '.ss-clike b{font-weight:700;margin-left:2px}' +
+    '.ss-crt{display:flex;align-items:center;gap:8px;font-size:12px;color:#6b6659;' +
+    'background:#f7f4ec;border-radius:8px;padding:7px 10px;margin-bottom:7px}' +
+    '.ss-crt button{background:none;border:none;color:#a8a294;font-size:11px;cursor:pointer;' +
+    'font-family:inherit;margin-left:auto;padding:2px 4px}' +
+    // 안내문은 입력 중에만
+    '.ss-cnote{color:#b5b0a4;font-size:11px;line-height:1.65;margin-top:9px;display:none}' +
+    '.ss-cwrap.on .ss-cnote{display:block}' +
     '.ss-hp{position:absolute;left:-9999px;width:1px;height:1px}' +
     '.ss-sh{margin-left:auto;color:#9a958a}' +
     '.ss-sh b{display:none}';
@@ -377,6 +387,11 @@
     return RNAMES[h % RNAMES.length] + ' ' + (h % 90 + 10);
   }
 
+  function idLabel(pr) {
+    return esc(pr.n || '이름 짓는 중') +
+      (pr.i ? '<i>' + esc(pr.i) + '</i>' : '<i class="add">업종 +</i>');
+  }
+
   function profOf() {
     var p = null;
     try { p = JSON.parse(localStorage.getItem('ss_prof') || 'null'); } catch (e) {}
@@ -426,36 +441,46 @@
     var pr = profOf(), nick = pr.n || '';
     w.innerHTML =
       '<div class="ss-crt" hidden></div>' +
-      '<textarea class="ss-cin" rows="2" maxlength="140" placeholder="한 줄로 남겨주세요"></textarea>' +
+      '<textarea class="ss-cin" rows="3" maxlength="140" ' +
+        'placeholder="어떻게 보셨어요? 한 줄이면 충분해요"></textarea>' +
       '<input class="ss-hp" name="website" tabindex="-1" aria-hidden="true"/>' +
       '<div class="ss-crow">' +
-        '<input class="ss-cin ss-cnick" maxlength="12" placeholder="닉네임" value="' + esc(nick) + '"/>' +
-        '<button type="button" class="ss-cprof" title="프로필">' +
-          (pr.i ? esc(pr.i) : '＋업종') + '</button>' +
-        '<span class="ss-cnt">0/140</span>' +
+        // 이름과 프로필을 버튼 하나로 합쳤다. 이름은 이미 지어져 있으니
+        // 대부분은 누를 일이 없고, 누르면 그때 바꾸는 자리가 열린다.
+        '<button type="button" class="ss-cprof">' + idLabel(pr) + '</button>' +
+        '<span class="ss-cnt"></span>' +
         '<button type="button" class="ss-cgo" disabled>남기기</button>' +
       '</div>' +
       '<div class="ss-cpf" hidden>' +
-        '<select class="ss-cind"><option value="">업종 선택 안 함</option>' +
-        INDS.map(function (i) {
-          return '<option' + (i === pr.i ? ' selected' : '') + '>' + i + '</option>';
-        }).join('') + '</select>' +
-        '<input class="ss-cco" maxlength="20" placeholder="직장 (선택)" value="' + esc(pr.c || '') + '"/>' +
+        '<label class="ss-cpl">이름' +
+          '<input class="ss-cnick" maxlength="12" placeholder="닉네임" value="' + esc(nick) + '"/>' +
+        '</label>' +
+        '<label class="ss-cpl">업종<select class="ss-cind">' +
+          '<option value="">안 밝힘</option>' +
+          INDS.map(function (i) {
+            return '<option' + (i === pr.i ? ' selected' : '') + '>' + i + '</option>';
+          }).join('') + '</select></label>' +
+        '<label class="ss-cpl">직장' +
+          '<input class="ss-cco" maxlength="20" placeholder="선택" value="' + esc(pr.c || '') + '"/>' +
+        '</label>' +
         '<label class="ss-csc"><input type="checkbox" class="ss-cscb"' + (pr.sc ? ' checked' : '') +
-          '/> 직장도 함께 표시</label>' +
-        '<div class="ss-cpn">이 브라우저에만 저장됩니다. 표시한 정보는 확인된 소속이 아닙니다.</div>' +
+          '/> 직장도 같이 보이기</label>' +
+        '<div class="ss-cpn">이 브라우저에만 저장돼요.</div>' +
       '</div>' +
       '<div class="ss-clist"></div>' +
-      '<div class="ss-cnote">남긴 글의 책임은 작성자에게 있습니다. 투자 권유·광고·비방은 ' +
+      '<div class="ss-cnote">투자 권유·광고·비방은 ' +
       '사전 통보 없이 숨겨집니다.</div>';
 
     var ta = w.querySelector('.ss-cin');
     var go = w.querySelector('.ss-cgo');
     var cnt = w.querySelector('.ss-cnt');
     ta.addEventListener('input', function () {
-      cnt.textContent = ta.value.length + '/140';
+      var n = ta.value.length;
+      // 늘 140을 들이밀 필요는 없다. 얼마 안 남았을 때만 알려준다.
+      cnt.textContent = n > 105 ? (140 - n) : '';
       go.disabled = !ta.value.trim();
     });
+    ta.addEventListener('focus', function () { w.className = 'ss-cwrap on'; });
     go.addEventListener('click', function () { submitC(key, w, go); });
 
     var pf = w.querySelector('.ss-cpf'), pb = w.querySelector('.ss-cprof');
@@ -465,10 +490,11 @@
       p.i = w.querySelector('.ss-cind').value;
       p.c = (w.querySelector('.ss-cco').value || '').trim();
       p.sc = w.querySelector('.ss-cscb').checked ? 1 : 0;
+      p.n = (w.querySelector('.ss-cnick').value || '').trim() || p.n;
       setProf(p);
-      pb.textContent = p.i || '＋업종';
+      pb.innerHTML = idLabel(p);
     }
-    ['.ss-cind', '.ss-cco', '.ss-cscb'].forEach(function (s) {
+    ['.ss-cind', '.ss-cco', '.ss-cscb', '.ss-cnick'].forEach(function (s) {
       w.querySelector(s).addEventListener('change', saveProf);
     });
 
@@ -642,7 +668,7 @@
         return;
       }
       ta.value = '';
-      w.querySelector('.ss-cnt').textContent = '0/140';
+      w.querySelector('.ss-cnt').textContent = '';
       // 보류(state 0)여도 본인 화면에는 남긴다 — 실패로 보이면 다시 쓰고 도배가 된다
       var mine = { i: res.id, k: nick, b: body, t: Math.floor(Date.now() / 1000),
                    g: [tag, co].filter(Boolean).join(' · '), p: w._reply || undefined,
