@@ -133,6 +133,14 @@
     '.ss-crt button{background:none;border:none;color:#a8a294;font-size:11px;cursor:pointer;' +
     'font-family:inherit;margin-left:auto;padding:2px 4px}' +
     // 안내문은 입력 중에만
+    '.ss-sch{margin:34px auto 8px;max-width:640px;background:#fff;border:1px solid #ece8de;' +
+    'border-radius:14px;padding:17px 18px}' +
+    '.ss-sch .t{font-weight:800;font-size:14px;letter-spacing:-.01em;margin-bottom:6px}' +
+    '.ss-sch p{margin:0 0 12px;font-size:13px;line-height:1.68;color:#6b6659}' +
+    '.ss-sch .r{display:flex;align-items:center;gap:10px}' +
+    '.ss-sch a{color:#E55A00;text-decoration:none;font-weight:700;font-size:13px}' +
+    '.ss-sch button{margin-left:auto;background:none;border:none;color:#c4bfb2;font-size:12px;' +
+    'cursor:pointer;font-family:inherit;padding:2px 4px}' +
     '.ss-cnote{color:#b5b0a4;font-size:11px;line-height:1.65;margin-top:9px;display:none}' +
     '.ss-cwrap.on .ss-cnote{display:block}' +
     '.ss-hp{position:absolute;left:-9999px;width:1px;height:1px}' +
@@ -1036,10 +1044,48 @@
     }
   }
 
+  // ── 스쿨 입구 ────────────────────────────────────────
+  // 트래픽은 뉴스레터에 있는데(30일 85회) 스쿨은 3회다. 뉴스레터 어디에도
+  // 스쿨 언급이 없었다. 다 읽은 사람에게 맨 끝에서 한 번만 말을 건다 —
+  // 읽는 중간을 끊지 않고, 닫으면 한 달간 다시 뜨지 않는다.
+  var SCHOOL_HIDE = 30 * 86400 * 1000;
+
+  function schoolMuted() {
+    try {
+      var v = parseInt(localStorage.getItem('ss_school_x') || '0', 10);
+      return v && Date.now() - v < SCHOOL_HIDE;
+    } catch (e) { return false; }
+  }
+
+  function mountSchool() {
+    if (!/^\/newsletters\//.test(location.pathname)) return;
+    if (schoolMuted() || document.querySelector('.ss-sch')) return;
+
+    // 뉴스레터는 .footer로 끝난다. 그 바로 앞에 넣어 읽기를 끊지 않는다.
+    var host = document.querySelector('.footer') || document.querySelector('footer');
+    var d = document.createElement('div');
+    d.className = 'ss-sch';
+    d.innerHTML =
+      '<div class="t">이 브리핑을 만드는 사람들이 여는 클래스</div>' +
+      '<p>홍콩·한국 투자은행과 헤지펀드 현직자에게 듣는 IBD·M&amp;A·바이사이드. ' +
+      '맛보기 영상부터 보셔도 됩니다.</p>' +
+      '<div class="r"><a href="/school/">순살 스쿨 보기 →</a>' +
+      '<button type="button" aria-label="닫기">✕</button></div>';
+    if (host && host.parentNode) host.parentNode.insertBefore(d, host);
+    else document.body.appendChild(d);
+
+    d.querySelector('button').addEventListener('click', function () {
+      try { localStorage.setItem('ss_school_x', String(Date.now())); } catch (e) {}
+      if (d.parentNode) d.parentNode.removeChild(d);
+    });
+    d.querySelector('a').addEventListener('click', function () { track('school'); });
+  }
+
   function boot() {
     init();
     // 알림은 화면이 자리잡은 뒤에 — 첫 렌더를 늦추지 않는다
     setTimeout(loadNotices, 1500);
+    setTimeout(mountSchool, 900);
   }
 
   if (document.readyState === 'loading') {
