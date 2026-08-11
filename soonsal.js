@@ -131,7 +131,9 @@
   function vid() {
     try {
       var v = localStorage.getItem(VID_KEY);
-      if (!v || !/^[a-z0-9]{8,24}$/.test(v)) {
+      // 하이픈 허용 — 서버 VID_RE와 같아야 한다. 여기서 걸러내면 ?ss=agent가
+      // 심어둔 'agent-...' 표식을 다음 호출에서 지우고 새로 만들어 버린다.
+      if (!v || !/^[a-z0-9-]{8,32}$/.test(v)) {
         v = (Math.random().toString(36).slice(2) + Math.random().toString(36).slice(2)).slice(0, 16);
         localStorage.setItem(VID_KEY, v);
       }
