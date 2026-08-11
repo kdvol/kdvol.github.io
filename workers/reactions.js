@@ -199,6 +199,7 @@ export default {
                sum(case when last_day >= ${since} then 1 else 0 end) as active,
                sum(case when last_day >= date(unixepoch() + 32400, 'unixepoch', '-7 days')
                         then 1 else 0 end) as active7,
+               sum(case when last_day = ${DAY} then 1 else 0 end) as today,
                sum(case when first_day >= ${since} then 1 else 0 end) as fresh
              from visitors`),
         ]);

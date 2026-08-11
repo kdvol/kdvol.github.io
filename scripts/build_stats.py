@@ -145,11 +145,15 @@ function renderCommunity() {
   (ins.engage || []).forEach(function (e) { eng[e.kind] = (eng[e.kind] || 0) + e.n; });
   var acts = (eng.react || 0) + (eng.share || 0) + (eng.telegram || 0) + (eng.instagram || 0);
 
+  // views.uniq는 '경로별' 첫 방문이라 한 사람이 3페이지를 보면 3으로 잡힌다.
+  // 사람 수는 visitors 테이블에서 온 값(v.today / v.active7)을 쓴다.
+  var people0 = (v.today === undefined || v.today === null) ? today.uniq : v.today;
+
   var h = '<div class="sum">' +
-    kpi(today.uniq, '오늘 방문자', today.hits + '뷰', true) +
+    kpi(people0, '오늘 방문자', today.hits + '뷰', true) +
     kpi(people7, '7일 방문자', h7 + '뷰 · 중복 제외', true) +
     kpi(pct(v.repeat_v, v.total) + '%', '재방문율', (v.repeat_v || 0) + '/' + (v.total || 0) + '명', true) +
-    kpi(pct(acts, sumU) + '%', '참여율', acts + '건 / ' + sumU + '방문', true) +
+    kpi(pct(acts, sumU) + '%', '참여율', acts + '건 / ' + sumU + '순방문', true) +
     '</div>';
 
   // 일별 추이 — 뷰(주황) 위에 순방문자(파랑)를 겹쳐 보여준다
@@ -158,13 +162,13 @@ function renderCommunity() {
   h += '<h2>일별 추이 <small>최근 ' + ins.days + '일</small></h2><div class="card"><div class="trend">' +
     daily.map(function (d) {
       return '<i style="height:' + Math.max(2, d.hits / max * 60) + 'px" title="' + d.day +
-        ' · ' + d.hits + '뷰 / ' + d.uniq + '명"><i class="u" style="position:absolute;left:0;right:0;bottom:0;height:' +
+        ' · ' + d.hits + '뷰 / 순방문 ' + d.uniq + '"><i class="u" style="position:absolute;left:0;right:0;bottom:0;height:' +
         Math.max(1, d.uniq / max * 60) + 'px"></i></i>';
     }).join('') +
     '</div><div class="tl"><span>' + daily[0].day.slice(5) + '</span><span>' +
     daily[daily.length - 1].day.slice(5) + '</span></div>' +
     '<div class="lgd"><span><b style="background:#F07040"></b>페이지뷰</span>' +
-    '<span><b style="background:#3f6fd8"></b>순방문자</span></div></div>';
+    '<span><b style="background:#3f6fd8"></b>페이지 순방문</span></div></div>';
 
   // 커뮤니티 지표 — 온 사람 중 얼마나 남기고 가는가
   h += '<h2>참여 <small>방문자가 실제로 한 행동</small></h2><div class="card">' +
