@@ -42,8 +42,8 @@ h2 small{color:#666;font-weight:400;font-size:.78rem;margin-left:7px}
 .kpi.hero .v{font-size:1.9rem}
 .kpi .d{font-size:.7rem;color:#5f5f5f;margin-top:3px}
 .card{background:#161616;border:1px solid #232323;border-radius:10px;padding:14px 16px;margin-bottom:10px}
-.trend{display:flex;align-items:flex-end;gap:2px;height:64px;margin-top:4px}
-.trend i{flex:1;background:#F07040;border-radius:2px 2px 0 0;min-height:2px;opacity:.85;position:relative}
+.trend{display:flex;align-items:flex-end;gap:2px;height:64px;margin-top:4px;justify-content:flex-start}
+.trend i{flex:1 1 0;max-width:28px;background:#F07040;border-radius:2px 2px 0 0;min-height:2px;opacity:.85;position:relative}
 .trend i.u{background:#3f6fd8}
 .tl{display:flex;justify-content:space-between;font-size:.7rem;color:#5f5f5f;margin-top:6px}
 .lgd{display:flex;gap:14px;font-size:.72rem;color:#888;margin-top:8px}
@@ -133,6 +133,8 @@ function renderCommunity() {
   daily.forEach(function (d) { sumH += d.hits; sumU += d.uniq; });
   var last7 = daily.slice(-7), h7 = 0, u7 = 0;
   last7.forEach(function (d) { h7 += d.hits; u7 += d.uniq; });
+  // 일별 순방문 합은 이틀 온 사람을 두 번 센다 → 실제 사람 수는 active7
+  var people7 = (v.active7 === undefined || v.active7 === null) ? u7 : v.active7;
 
   var eng = {};
   (ins.engage || []).forEach(function (e) { eng[e.kind] = (eng[e.kind] || 0) + e.n; });
@@ -140,7 +142,7 @@ function renderCommunity() {
 
   var h = '<div class="sum">' +
     kpi(today.uniq, '오늘 방문자', today.hits + '뷰', true) +
-    kpi(u7, '7일 방문자', h7 + '뷰', true) +
+    kpi(people7, '7일 방문자', h7 + '뷰 · 중복 제외', true) +
     kpi(pct(v.repeat_v, v.total) + '%', '재방문율', (v.repeat_v || 0) + '/' + (v.total || 0) + '명', true) +
     kpi(pct(acts, sumU) + '%', '참여율', acts + '건 / ' + sumU + '방문', true) +
     '</div>';

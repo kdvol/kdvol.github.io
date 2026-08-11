@@ -190,12 +190,15 @@ export default {
             `select day, kind, n from engage where day >= ${since}`),
           env.DB.prepare(
             `select src, sum(n) as n from refs where day >= ${since} group by src order by n desc`),
-          // 재방문 = 서로 다른 날 2일 이상 방문한 사람
+          // 재방문 = 서로 다른 날 2일 이상 방문한 사람.
+          // active7은 일별 uniq 합과 다르다 — 합계는 이틀 온 사람을 두 번 센다.
           env.DB.prepare(
             `select
                count(*) as total,
                sum(case when days >= 2 then 1 else 0 end) as repeat_v,
                sum(case when last_day >= ${since} then 1 else 0 end) as active,
+               sum(case when last_day >= date(unixepoch() + 32400, 'unixepoch', '-7 days')
+                        then 1 else 0 end) as active7,
                sum(case when first_day >= ${since} then 1 else 0 end) as fresh
              from visitors`),
         ]);
