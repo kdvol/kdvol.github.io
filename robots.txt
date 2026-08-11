@@ -4,5 +4,6 @@ Disallow: /_queue/
 Disallow: /_publish/
 Disallow: /node_modules/
 Disallow: /stats/
+Disallow: /partners/
 
 Sitemap: https://soonsal.com/sitemap.xml
