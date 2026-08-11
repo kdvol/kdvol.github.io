@@ -381,6 +381,31 @@ export default {
         return json({ items, n: items.filter((r) => !r.seen).length }, origin);
       }
 
+      // ── 보관 기간 지난 데이터 삭제 ────────────────────────
+      // 방침에 적은 기간을 실제로 지키려면 지우는 쪽도 자동이어야 한다.
+      // 지울 테이블은 화이트리스트로 고정한다 — 이름을 받아 SQL에 넣는 자리다.
+      if (request.method === 'POST' && url.pathname === '/purge') {
+        if (!adminOk(request, env)) return json({ error: 'unauthorized' }, origin, 401);
+        let b;
+        try { b = await request.json(); } catch (e) { return json({ error: 'bad json' }, origin, 400); }
+
+        const ALLOWED = { notices: 'ts', hops: 'day', events: 'ts' };
+        const deleted = {};
+        for (const r of (b && b.rules) || []) {
+          const col = ALLOWED[r.table];
+          const days = Math.min(Math.max(parseInt(r.days || 0, 10) || 0, 1), 3650);
+          if (!col) continue;
+          // day는 'YYYY-MM-DD' 문자열, ts는 유닉스 초 — 컬럼 종류에 맞춰 비교한다
+          const res = await env.DB.prepare(
+            col === 'day'
+              ? `delete from ${r.table} where day < date(unixepoch() + 32400, 'unixepoch', '-${days} days')`
+              : `delete from ${r.table} where ts < unixepoch() - ${days * 86400}`
+          ).run();
+          deleted[r.table] = (res.meta && res.meta.changes) || 0;
+        }
+        return json({ ok: true, deleted }, origin);
+      }
+
       if (request.method === 'POST' && url.pathname === '/flag') {
         let b;
         try { b = await request.json(); } catch (e) { return json({ ok: true }, origin); }
