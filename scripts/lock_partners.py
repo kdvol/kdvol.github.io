@@ -29,15 +29,17 @@ ROOT = Path(__file__).resolve().parent.parent
 ITERATIONS = 210_000
 MARK = "<!-- soonsal:locked -->"
 
-# 잠글 대상과 실제 액세스 코드(원본 페이지에 박혀 있던 값 그대로).
-# 코드는 결과물에 들어가지 않는다 — 여기서 키만 만들고 버린다.
-# 한 페이지에 코드가 여러 개면 전부 적는다. 내용은 한 번만 암호화하고 코드별로
-# 그 키를 감싸므로(키 래핑) 코드가 늘어도 파일이 커지지 않는다.
-TARGETS = {
-    "partners/index.html": ["soonsal2026", "soonsalbiz26"],
-    "partners/salesforce/index.html": ["salesforceads2026"],
-    "partners/KIM/index.html": ["soonsal2026"],
-}
+# 액세스 코드는 이 파일에 두지 않는다. 리포가 공개라서 여기 적으면 그대로 유출된다.
+# workers/.partner-codes.json(gitignore됨)에서 읽는다. 없으면 잠금을 건너뛴다 —
+# 코드 없이 임의 값으로 암호화하면 거래처가 전부 잠긴다.
+CODES_FILE = ROOT / "workers/.partner-codes.json"
+
+
+def load_targets():
+    if not CODES_FILE.exists():
+        print(f"  ⚠️ {CODES_FILE.name} 없음 — 잠금을 건너뛴다")
+        return {}
+    return json.loads(CODES_FILE.read_text(encoding="utf-8"))
 
 
 def _derive(code: str, salt: bytes) -> bytes:
@@ -190,7 +192,7 @@ def main():
     only = sys.argv[1] if len(sys.argv) > 1 else None
     print("🔐 lock_partners: 제안서 본문 암호화")
     n = 0
-    for rel, codes in TARGETS.items():
+    for rel, codes in load_targets().items():
         if only and not rel.startswith(only.rstrip("/")):
             continue
         n += lock_file(rel, codes)

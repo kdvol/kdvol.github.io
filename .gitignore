@@ -4,3 +4,6 @@ __pycache__/
 content/story_atoms.json
 .DS_Store
 node_modules/
+
+# 거래처 액세스 코드 — 절대 커밋 금지(리포가 공개다)
+workers/.partner-codes.json
