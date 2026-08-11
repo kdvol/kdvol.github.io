@@ -8,8 +8,8 @@
   "youtube": false,
   "youtube_title": "",
   "name": "boss",
-  "date": "20260828",
-  "target_epoch": 1787913600,
+  "date": "20260824",
+  "target_epoch": 1787568000,
   "dry_run": false,
   "thumb_offset_ms": 1048
 }
