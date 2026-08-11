@@ -150,14 +150,22 @@
     try { fetch(url, { method: 'POST', body: s, keepalive: true }).catch(function () {}); } catch (e) {}
   }
 
-  function track(kind) {          // read / react / share / telegram / instagram
+  function track(kind) {          // read / react / share / telegram / instagram / comment
+    if (optedOut()) return;
     var v = vid();
     if (v) beacon({ t: 'ev', v: v, k: kind });
+  }
+
+  // 이 브라우저를 집계에서 뺀다 (/stats/의 '내 방문 빼기' 버튼이 세운다).
+  // 운영자가 하루에 몇 번씩 확인하는 방문이 지표를 부풀리는 걸 막는 용도.
+  function optedOut() {
+    try { return localStorage.getItem('ss_optout') === '1'; } catch (e) { return false; }
   }
 
   function trackView() {
     if (!API) return;
     if (navigator.webdriver) return;                       // 자동화 브라우저 제외
+    if (optedOut()) return;                                // 운영자 본인 브라우저
     if (/\/stats\//.test(location.pathname)) return;       // 운영자 화면은 집계 안 함
     var v = vid();
     if (!v) return;

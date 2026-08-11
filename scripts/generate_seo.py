@@ -190,6 +190,11 @@ def main():
     except Exception as e:
         print(f"⚠️ build_privacy 실패(계속 진행): {e}")
     try:
+        import build_legacy_redirects
+        build_legacy_redirects.build()      # 2월 이관 전 옛 URL → 현재 주소
+    except Exception as e:
+        print(f"⚠️ build_legacy_redirects 실패(계속 진행): {e}")
+    try:
         import build_sharepages
         build_sharepages.build(atoms)       # 스토리별 OG 공유 페이지(/s/)
     except Exception as e:

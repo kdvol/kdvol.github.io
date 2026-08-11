@@ -201,9 +201,30 @@ function renderCommunity() {
     }), '뷰') + '</div>';
 
   h += '<p class="note">쿠키·IP·UA를 저장하지 않습니다. 브라우저 localStorage의 익명 난수 ID로 ' +
-    '같은 사람인지만 구분하고, 원본 로그 없이 일자별 집계만 남깁니다. ' +
-    '재방문 = 서로 다른 날에 2일 이상 방문한 사람.</p>';
+    '같은 사람인지만 구분하고, 원본 로그 없이 일자별 집계만 남깁니다.<br>' +
+    '재방문 = 서로 다른 날에 2일 이상 방문한 사람. 같은 브라우저로 하루에 여러 번 들어와도 ' +
+    '1명으로 셉니다. 다만 <b>기기·브라우저가 다르면 다른 사람으로 잡힙니다</b> ' +
+    '(IP를 안 쓰기 때문에 합칠 방법이 없습니다).</p>' +
+    '<div class="tabs" style="margin-top:14px"><button id="optbtn"></button></div>';
   app.innerHTML = h;
+
+  // 운영자 본인 방문이 지표를 부풀리지 않게 — 확인하러 들어오는 기기마다 눌러둔다
+  var ob = document.getElementById('optbtn');
+  function paintOpt() {
+    var on = false;
+    try { on = localStorage.getItem('ss_optout') === '1'; } catch (e) {}
+    ob.textContent = on ? '✓ 이 브라우저는 집계에서 빠져 있음 (되돌리기)' : '이 브라우저를 집계에서 빼기';
+    ob.className = on ? 'on' : '';
+  }
+  ob.addEventListener('click', function () {
+    try {
+      var on = localStorage.getItem('ss_optout') === '1';
+      if (on) localStorage.removeItem('ss_optout');
+      else localStorage.setItem('ss_optout', '1');
+    } catch (e) {}
+    paintOpt();
+  });
+  paintOpt();
 }
 
 // ── 반응 화면 ────────────────────────────────────────────
