@@ -194,7 +194,11 @@ export default {
         ).bind(issue + '-%')];
         if (!commentsOff) {
           q.push(env.DB.prepare(
-            'select id, story, nick, body, ts, tag, co from comments where issue = ?1 and state = 1 order by id limit 200'
+            `select c.id, c.story, c.nick, c.body, c.ts, c.tag, c.co, c.parent_id,
+                    coalesce(c.root_id, c.id) as root_id,
+                    (select count(*) from comment_likes l where l.cid = c.id) as likes
+             from comments c where c.issue = ?1 and c.state = 1
+             order by coalesce(c.root_id, c.id), c.id limit 300`
           ).bind(issue));
         }
         const res = await env.DB.batch(q);
@@ -202,7 +206,8 @@ export default {
         for (const r of (res[1] && res[1].results) || []) {
           (comments[r.story] = comments[r.story] || []).push(
             { i: r.id, k: r.nick, b: r.body, t: r.ts,
-              g: [r.tag, r.co].filter(Boolean).join(' · ') || undefined });
+              g: [r.tag, r.co].filter(Boolean).join(' · ') || undefined,
+              p: r.parent_id || undefined, l: r.likes || undefined });
         }
         const out = url.pathname === '/comments'
           ? { comments, off: commentsOff ? 1 : 0 }
@@ -249,6 +254,22 @@ export default {
             if (r.w && body.indexOf(r.w) >= 0) { hold = 'word'; break; }
           }
         }
+        // 답글 대상. 1단계만 허용한다 — 트리가 깊어지면 모바일에서 못 읽는다.
+        // 답글의 답글은 같은 스레드의 형제로 붙인다(root_id를 물려받음).
+        let parentId = null, rootId = null;
+        const pid = parseInt((b && b.parent) || 0, 10);
+        if (pid > 0) {
+          const pr = await env.DB.prepare(
+            'select id, story, root_id, state from comments where id = ?1'
+          ).bind(pid).all();
+          const par = (pr.results || [])[0];
+          // 같은 스토리의 공개된 댓글에만 답글을 달 수 있다
+          if (par && par.story === story && par.state === 1) {
+            parentId = par.id;
+            rootId = par.root_id || par.id;
+          }
+        }
+
         const state = hold ? 0 : 1;
 
         // 업종 태그 — 화이트리스트에 없으면 조용히 버린다(에러로 막을 것까진 아니다)
@@ -261,9 +282,17 @@ export default {
         const co = rawCo && !holdReason(rawCo) ? rawCo : null;
 
         const ins = await env.DB.prepare(
-          `insert into comments (story, issue, nick, body, vid, ts, state, hold, tag, co)
-           values (?1, ?2, ?3, ?4, ?5, unixepoch(), ?6, ?7, ?8, ?9)`
-        ).bind(story, story.split('-')[0], nick, body, vid, state, hold, tag, co).run();
+          `insert into comments (story, issue, nick, body, vid, ts, state, hold, tag, co,
+                                 parent_id, root_id)
+           values (?1, ?2, ?3, ?4, ?5, unixepoch(), ?6, ?7, ?8, ?9, ?10, ?11)`
+        ).bind(story, story.split('-')[0], nick, body, vid, state, hold, tag, co,
+               parentId, rootId).run();
+
+        // 최상위 글은 자기 자신이 스레드 뿌리다
+        if (!rootId) {
+          await env.DB.prepare('update comments set root_id = id where id = ?1')
+            .bind(ins.meta.last_row_id).run();
+        }
 
         const issue = story.split('-')[0];
         notify(env, ctx,
@@ -277,6 +306,34 @@ export default {
       }
 
       // 신고 3건이면 자동 보류 — 정보통신망법 임시조치를 사람 없이 굴리는 지점
+      // ── 댓글 좋아요 ───────────────────────────────────────
+      // 익명 번호당 한 번, 다시 누르면 취소. 스토리 반응(👍🤔🔥)과 별개다.
+      if (request.method === 'POST' && url.pathname === '/like') {
+        let b;
+        try { b = await request.json(); } catch (e) { return json({ error: 'bad json' }, origin, 400); }
+        const vid = String((b && b.v) || '');
+        const cid = parseInt((b && b.id) || 0, 10);
+        if (!VID_RE.test(vid) || !(cid > 0)) return json({ error: 'bad req' }, origin, 400);
+
+        // 공개된 댓글에만 누를 수 있다(숨겨진 글에 카운트가 쌓이면 복구 때 이상해진다)
+        const c = await env.DB.prepare('select 1 as x from comments where id = ?1 and state = 1')
+          .bind(cid).all();
+        if (!(c.results || []).length) return json({ error: 'no comment' }, origin, 404);
+
+        const had = await env.DB.prepare('select 1 as x from comment_likes where cid = ?1 and vid = ?2')
+          .bind(cid, vid).all();
+        const on = !(had.results || []).length;
+        await env.DB.prepare(
+          on ? 'insert into comment_likes (cid, vid, ts) values (?1, ?2, unixepoch()) '
+             + 'on conflict(cid, vid) do nothing'
+             : 'delete from comment_likes where cid = ?1 and vid = ?2'
+        ).bind(cid, vid).run();
+
+        const n = await env.DB.prepare('select count(*) as n from comment_likes where cid = ?1')
+          .bind(cid).all();
+        return json({ ok: true, on: on, n: ((n.results || [])[0] || {}).n || 0 }, origin);
+      }
+
       if (request.method === 'POST' && url.pathname === '/flag') {
         let b;
         try { b = await request.json(); } catch (e) { return json({ ok: true }, origin); }

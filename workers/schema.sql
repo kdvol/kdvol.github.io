@@ -94,3 +94,18 @@ create table if not exists tracking_optout (
   vid text primary key,
   ts  integer not null
 );
+
+-- 대댓글: parent_id가 있으면 그 댓글에 달린 답글이다(1단계만 — 트리가 깊어지면
+-- 모바일에서 읽을 수 없다). 스레드 정렬은 (root_id, id)로 한다.
+-- comments에 아래 두 컬럼을 더한다:
+--   parent_id integer  답글 대상 댓글 id
+--   root_id   integer  스레드 최상위 id(자기 자신이면 자기 id)
+
+-- 댓글 좋아요. 익명 번호당 한 번, 취소 가능.
+create table if not exists comment_likes (
+  cid integer not null,
+  vid text not null,
+  ts  integer not null,
+  primary key (cid, vid)
+);
+create index if not exists idx_cl_cid on comment_likes(cid);
