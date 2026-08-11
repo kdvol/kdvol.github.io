@@ -114,6 +114,11 @@ const esc = (s) => String(s == null ? '' : s)
   .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
 // 길이를 흘리지 않는 비교 (관리자 키 검증용)
+function adminOk(request, env) {
+  const key = request.headers.get('x-admin-key') || '';
+  return !!env.ADMIN_KEY && keyEq(key, env.ADMIN_KEY);
+}
+
 function keyEq(a, b) {
   if (typeof a !== 'string' || typeof b !== 'string' || !a || !b) return false;
   let d = a.length ^ b.length;
@@ -288,10 +293,7 @@ export default {
 
       // ── 자동 모더레이션용 (관리자 키 필요) ──────────────────
       if (url.pathname === '/mod') {
-        const key = request.headers.get('x-admin-key') || '';
-        if (!env.ADMIN_KEY || !keyEq(key, env.ADMIN_KEY)) {
-          return json({ error: 'unauthorized' }, origin, 401);
-        }
+        if (!adminOk(request, env)) return json({ error: 'unauthorized' }, origin, 401);
         if (request.method === 'GET') {
           const state = parseInt(url.searchParams.get('state') || '0', 10);
           const { results } = await env.DB.prepare(
@@ -323,6 +325,7 @@ export default {
 
       // 운영자 통계용 — 마지막 반응 시각 + 최근 14일 클릭 로그
       if (request.method === 'GET' && url.pathname === '/activity') {
+        if (!adminOk(request, env)) return json({ error: 'unauthorized' }, origin, 401);
         // 원본 이벤트를 그대로 내리면 반응이 쌓이는 만큼 응답이 커진다. 화면이
         // 쓰는 건 전부 집계값(24시간 시간대별 막대, 최근 1일·7일 합계)이라
         // 서버에서 접어서 보낸다. 응답 크기는 반응 수와 무관해진다.
@@ -421,7 +424,11 @@ export default {
       }
 
       // ── 운영자 대시보드 집계 ──────────────────────────────
+      // 관리자 키 필수. 방문자 수·상위 경로·유입 경로는 광고 단가 협상에 쓰이는
+      // 영업 정보다. robots.txt로 크롤러만 막는 걸로는 부족하다 — 주소만 알면
+      // 누구나 그대로 가져갈 수 있었다.
       if (request.method === 'GET' && url.pathname === '/insights') {
+        if (!adminOk(request, env)) return json({ error: 'unauthorized' }, origin, 401);
         const days = Math.min(Math.max(parseInt(url.searchParams.get('days') || '30', 10) || 30, 1), 120);
         const since = `date(unixepoch() + 32400, 'unixepoch', '-${days} days')`;
 
