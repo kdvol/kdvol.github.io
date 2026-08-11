@@ -104,6 +104,16 @@
   // 개인정보는 보내지 않는다 — 쿠키·IP·UA 없이 localStorage 난수 ID 하나만.
   var VID_KEY = 'ss_vid', SEEN_KEY = 'ss_seen';
 
+  // ?ss=agent 를 한 번 열면 이 브라우저는 영구히 집계에서 빠진다.
+  // 개발·검증용 브라우저(사람이 아닌 접속)를 위한 스위치다. 자동 감지가 안 되니
+  // 명시적으로 표시한다 — 서버가 'agent-' 접두사를 무조건 무시한다.
+  try {
+    if (/[?&]ss=agent\b/.test(location.search)) {
+      localStorage.setItem('ss_vid', 'agent-' + (localStorage.getItem('ss_vid') || 'x'));
+      localStorage.setItem('ss_optout', '1');
+    }
+  } catch (e) {}
+
   function vid() {
     try {
       var v = localStorage.getItem(VID_KEY);
