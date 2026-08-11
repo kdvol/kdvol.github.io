@@ -46,8 +46,12 @@
     /* 숫자 자리를 미리 비워둔다 — 눌러서 카운트가 생겨도 버튼 폭이 안 변함 */
     '.ss-rb b{font-weight:700;margin-left:3px;display:inline-block;min-width:8px;text-align:left}' +
     /* 좁은 화면(375px 기준)에선 4개가 한 줄에 안 들어가 공유는 아이콘만 */
-    '@media(max-width:430px){.ss-react{gap:6px}.ss-rg{gap:6px}' +
-    '.ss-rb{padding:5px 9px;font-size:11px}.ss-sh .lb,.ss-cbtn .lb{display:none}}' +
+    /* 좁은 화면(375px 가용폭 311px)에 반응3+코멘트+공유 5개를 한 줄에 넣는다.
+       아이콘만 남기고, 코멘트 pill은 카운트가 없을 때 예약 폭도 뺀다.
+       반응 버튼의 예약 폭은 그대로 둔다 — 눌렀을 때 폭이 변하면 정렬이 흔들린다. */
+    '@media(max-width:430px){.ss-react{gap:5px}.ss-rg{gap:5px}' +
+    '.ss-rb{padding:5px 9px;font-size:11px}.ss-sh .lb,.ss-cbtn .lb{display:none}' +
+    '.ss-sh,.ss-cbtn{padding:5px 8px}.ss-cbtn b:empty{display:none}}' +
     /* 오늘의 논점 블록 */
     /* 3월 재개호 브랜드 팔레트: 주황 #F07040/#E55A00, 크림 #fafaf7, 보더 #e8e8e0 */
     '.ss-talk{margin:26px 0 8px;padding:20px 22px;border:1px solid #e8e8e0;border-radius:10px;' +
