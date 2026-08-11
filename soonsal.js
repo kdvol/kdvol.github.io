@@ -97,6 +97,8 @@
     // 프로필 — 눌러야 열리고, 한 줄에 라벨+입력이 나란히 붙어 자리를 덜 먹는다
     '.ss-cpf{margin-top:10px;padding:12px 13px;background:#faf8f3;border-radius:10px;' +
     'display:flex;flex-direction:column;gap:9px}' +
+    // display를 지정하면 [hidden]의 기본 display:none을 이겨 버린다. 명시해야 접힌다.
+    '.ss-cpf[hidden],.ss-crt[hidden]{display:none}' +
     '.ss-cpl{display:flex;align-items:center;gap:10px;font-size:12px;color:#8a8578}' +
     '.ss-cpl input,.ss-cpl select{flex:1;min-width:0;border:1px solid #e6e1d5;border-radius:8px;' +
     'padding:9px 10px;font-size:16px;font-family:inherit;background:#fff;color:#2b2b2b;' +
