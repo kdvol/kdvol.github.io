@@ -195,6 +195,13 @@
   }
   window.ssForgetMe = forgetMe;   // /stats/ 버튼에서 호출
 
+  // 직전에 본 페이지 — 이동 쌍 집계용. 세션 저장소라 탭을 닫으면 사라지고,
+  // 서버에는 경로 쌍만 올라간다(누가 이동했는지는 남기지 않는다).
+  function prevPath() {
+    try { return sessionStorage.getItem('ss_pv') || ''; } catch (e) { return ''; }
+  }
+  function setPrevPath(p) { try { sessionStorage.setItem('ss_pv', p); } catch (e) {} }
+
   function track(kind) {          // read / react / share / telegram / instagram / comment
     if (optedOut()) return;
     var v = vid();
@@ -215,7 +222,8 @@
     var v = vid();
     if (!v) return;
     var path = location.pathname;
-    beacon({ t: 'hit', v: v, p: path, f: firstToday(path), r: refSrc() });
+    beacon({ t: 'hit', v: v, p: path, f: firstToday(path), r: refSrc(), pv: prevPath() });
+    setPrevPath(path);
 
     // "읽었다" 판정 — 70%까지 내려갔거나 45초 이상 머물렀을 때 1회
     var done = false;
