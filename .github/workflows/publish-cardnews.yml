@@ -58,6 +58,20 @@ jobs:
           EOF
         # ⚠️ deploy.py는 ~/instagram_pipeline/ 경로를 가정하므로, 런북 2-b(모듈 벤더링) 필요.
 
+      # ★ 발행 판단 직전에 최신 main 으로 맞춘다 (2026-08-11 중복 발행 사고)
+      #   actions/checkout 은 ref 를 안 주면 **실행이 큐에 들어간 순간의 커밋**을 받는다.
+      #   concurrency 는 이미 있었고 줄도 제대로 세웠다. 그런데 뒤 실행이 앞 실행의
+      #   「큐→done」 커밋을 못 본 채 낡은 트리로 판단해 **같은 영상을 두 번 올렸다.**
+      #     11:03:40  두 번째 실행이 큐에 들어감 (이 시점 SHA 를 받는다)
+      #     11:03:56  첫 실행이 done 커밋            ← 두 번째는 이걸 못 본다
+      #     11:05:13  두 번째가 같은 항목을 또 발행
+      #   git pull --rebase 는 **커밋 스텝**에만 있었다 — 이미 올린 뒤라 소용없다.
+      - name: Sync to latest main
+        run: |
+          git fetch origin main
+          git reset --hard origin/main
+          echo "발행 판단 기준 = $(git rev-parse --short HEAD)"
+
       - name: Run publish queue
         env:
           KDVOL_ROOT: ${{ github.workspace }}

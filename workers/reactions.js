@@ -79,6 +79,23 @@ function holdReason(body) {
   return null;
 }
 
+// 운영자 즉시 알림. 토큰이 없으면 아무 일도 하지 않는다.
+// 응답을 기다리지 않는다 — 알림이 늦거나 실패해도 코멘트 등록은 성공해야 한다.
+function notify(env, ctx, text) {
+  if (!env.TG_TOKEN || !env.TG_CHAT) return;
+  const p = fetch(`https://api.telegram.org/bot${env.TG_TOKEN}/sendMessage`, {
+    method: 'POST',
+    headers: { 'content-type': 'application/json' },
+    body: JSON.stringify({
+      chat_id: env.TG_CHAT, text, parse_mode: 'HTML', disable_web_page_preview: true,
+    }),
+  }).catch(() => {});
+  if (ctx && ctx.waitUntil) ctx.waitUntil(p);
+}
+
+const esc = (s) => String(s == null ? '' : s)
+  .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+
 // 길이를 흘리지 않는 비교 (관리자 키 검증용)
 function keyEq(a, b) {
   if (typeof a !== 'string' || typeof b !== 'string' || !a || !b) return false;
@@ -103,7 +120,7 @@ const byStory = (rows) => {
 };
 
 export default {
-  async fetch(request, env) {
+  async fetch(request, env, ctx) {
     const origin = request.headers.get('Origin') || '';
     const url = new URL(request.url);
 
@@ -215,6 +232,14 @@ export default {
           `insert into comments (story, issue, nick, body, vid, ts, state, hold)
            values (?1, ?2, ?3, ?4, ?5, unixepoch(), ?6, ?7)`
         ).bind(story, story.split('-')[0], nick, body, vid, state, hold).run();
+
+        const issue = story.split('-')[0];
+        notify(env, ctx,
+          `💬 <b>${esc(nick)}</b>${hold ? ` <i>(검토 중 · ${hold})</i>` : ''}\n` +
+          `${esc(body)}\n\n` +
+          `<a href="https://soonsal.com/newsletters/2026/${issue.replace('c', '')}` +
+          `${issue.endsWith('c') ? '-crypto' : ''}.html">${story}</a>` +
+          (hold ? ' · 자동 판정 대기' : ''));
 
         return json({ ok: true, state, hold, id: ins.meta && ins.meta.last_row_id }, origin);
       }
