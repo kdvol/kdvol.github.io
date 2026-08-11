@@ -147,6 +147,11 @@ def main():
     except Exception as e:
         print(f"⚠️ build_stats 실패(계속 진행): {e}")
     try:
+        import build_api
+        build_api.build(atoms)              # /api/entities.json (챗이 아카이브 줄 만들 때 조회)
+    except Exception as e:
+        print(f"⚠️ build_api 실패(계속 진행): {e}")
+    try:
         import build_sharepages
         build_sharepages.build(atoms)       # 스토리별 OG 공유 페이지(/s/)
     except Exception as e:
