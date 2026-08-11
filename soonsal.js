@@ -325,6 +325,20 @@
   var INDS = ['금융·투자', 'IT·개발', '제조·엔지니어링', '유통·소비재', '헬스케어·바이오',
               '미디어·광고', '법률·회계', '교육', '공공·비영리', '창업·자영업', '학생', '기타'];
 
+  // 닉네임을 안 치면 익명 번호에서 유도해 배정한다. 같은 브라우저는 늘 같은 이름이
+  // 나와야 해서 난수가 아니라 해시를 쓴다. 뒤 숫자는 동명이인 구분용 —
+  // 본인이 고른 이름이 아니라서 두 사람이 겹치면 같은 사람으로 오해받는다.
+  var RNAMES = ['루피', '조로', '나미', '우솝', '상디', '쵸파', '로빈', '프랑키', '브룩',
+    '징베', '에이스', '사보', '샹크스', '미호크', '버기', '크로커다일', '도플라밍고',
+    '로우', '키드', '스모커', '코비', '가프', '레일리', '로저', '흰수염', '카이도',
+    '빅맘', '페로나', '핸콕', '이조', '카쿠', '루치', '바솔로뮤', '보니', '드레이크', '봉쿠레'];
+
+  function autoNick(v) {
+    var h = 0;
+    for (var i = 0; i < v.length; i++) h = (h * 31 + v.charCodeAt(i)) >>> 0;
+    return RNAMES[h % RNAMES.length] + ' ' + (h % 90 + 10);
+  }
+
   function profOf() {
     var p = null;
     try { p = JSON.parse(localStorage.getItem('ss_prof') || 'null'); } catch (e) {}
@@ -333,6 +347,7 @@
       try { old = localStorage.getItem('ss_nick') || ''; } catch (e) {}
       p = { n: old, i: '', c: '', sc: 0 };
     }
+    if (!p.n) { p.n = autoNick(vid() || 'x'); setProf(p); }
     return p;
   }
   function setProf(p) {
@@ -439,7 +454,7 @@
     var ta = w.querySelector('.ss-cin');
     var ni = w.querySelector('.ss-cnick');
     var body = ta.value.trim();
-    var nick = (ni.value || '').trim() || '독자';
+    var nick = (ni.value || '').trim() || profOf().n || autoNick(vid() || 'x');
     if (!body) return;
     go.disabled = true;
     var pr = profOf();

@@ -450,6 +450,19 @@ export default {
              from visitors`),
         ]);
 
+        // 댓글 참여자 — 누가 썼는지가 아니라 '어떤 사람들이 오는지'만 본다.
+        // 업종 분포·작성자 수·재작성률 전부 집계값이고 개인은 식별하지 않는다.
+        const cm = await env.DB.batch([
+          env.DB.prepare("select coalesce(tag, '(미기재)') as tag, count(*) as n, "
+                       + 'count(distinct vid) as people from comments where state = 1 '
+                       + 'group by tag order by n desc'),
+          env.DB.prepare('select count(*) as total, count(distinct vid) as writers, '
+                       + "sum(case when co is not null then 1 else 0 end) as with_co "
+                       + 'from comments where state = 1'),
+          env.DB.prepare('select count(*) as repeat_w from (select vid from comments '
+                       + 'where state = 1 group by vid having count(*) >= 2)'),
+        ]);
+
         // 전체 기간 누적 — 창(days)과 무관하게 집계 시작 이후 전부
         const life = await env.DB.batch([
           env.DB.prepare('select sum(hits) as hits, min(day) as since, '
@@ -465,6 +478,8 @@ export default {
           days,
           lifetime: Object.assign({}, (life[0].results || [])[0], (life[1].results || [])[0],
                                   { engage: lifeEng }),
+          writers: Object.assign({}, (cm[1].results || [])[0], (cm[2].results || [])[0],
+                                 { byTag: cm[0].results || [] }),
           daily: daily.results || [],
           top: top.results || [],
           engage: eng.results || [],

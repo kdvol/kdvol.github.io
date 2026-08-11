@@ -183,6 +183,18 @@ function renderCommunity() {
       '<h2>최근 ' + ins.days + '일</h2>';
   }
 
+  // 댓글 참여자 — 어떤 업종의 사람들이 말을 거는지
+  var W = ins.writers || {};
+  if (W.total) {
+    h += '<h2>댓글 남긴 분들 <small>공개된 글 기준</small></h2>' +
+      '<div class="sum">' +
+      kpi(W.writers || 0, '작성자', (W.total || 0) + '개 글', true) +
+      kpi(pct(W.repeat_w, W.writers) + '%', '다시 쓴 비율', (W.repeat_w || 0) + '명', true) +
+      kpi(W.with_co || 0, '직장 공개', null, true) + '</div>' +
+      '<div class="card" style="margin-top:10px">' +
+      bars((W.byTag || []).map(function (r) { return [r.tag, r.n]; }), '개') + '</div>';
+  }
+
   h += '<div class="sum">' +
     kpi(people0, '오늘 방문자', today.hits + '뷰', true) +
     kpi(people7, '7일 방문자', h7 + '뷰 · 중복 제외', true) +
