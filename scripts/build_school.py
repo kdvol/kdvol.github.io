@@ -55,119 +55,122 @@ TRACKS = [
 
 CSS = """
 *{box-sizing:border-box}
-.sc{max-width:880px;margin:0 auto;padding:34px 16px 80px}
+.sc{max-width:1000px;margin:0 auto;padding:38px 20px 90px}
 
-/* 머리 — 배경 박스를 쓰지 않는다. nav 바로 아래 어두운 박스를 또 얹으면
-   층이 겹쳐 보인다. 여백과 타이포로 위계를 만든다. */
-.ph{margin-bottom:34px;padding-bottom:30px;border-bottom:1px solid #202020}
-.ph .ey{font-size:.72rem;font-weight:700;letter-spacing:.09em;color:#F07040;
-text-transform:uppercase;margin-bottom:11px}
-.ph h1{font-size:2rem;font-weight:800;letter-spacing:-.035em;line-height:1.24;
-margin:0 0 13px;color:#f2efe8}
-.ph p{margin:0;color:#8b8578;font-size:.95rem;line-height:1.75;max-width:54ch}
+/* 머리 */
+.ph{margin-bottom:30px;padding-bottom:26px;border-bottom:1px solid #1e1e1e}
+.ph .ey{font-size:.7rem;font-weight:800;letter-spacing:.12em;color:#F07040;
+text-transform:uppercase;margin-bottom:12px}
+.ph h1{font-size:2.1rem;font-weight:800;letter-spacing:-.04em;line-height:1.22;
+margin:0 0 12px;color:#f5f2ea}
+.ph p{margin:0;color:#8b8578;font-size:.93rem;line-height:1.75;max-width:50ch}
 
-/* 강사 — 이 가격대에선 첫 질문이다. 사진 없이 타이포만으로 신뢰를 만든다 */
-.caps{display:grid;grid-template-columns:repeat(auto-fit,minmax(232px,1fr));gap:1px;
-background:#202020;border:1px solid #202020;border-radius:14px;overflow:hidden;margin-bottom:44px}
-.cap{background:#141414;padding:19px 18px}
-.cap .nm{font-weight:800;font-size:.94rem;color:#f2efe8;margin-bottom:10px;
+/* 강사 — 세 칸 균등. 사진 없이 타이포만으로 신뢰를 만든다 */
+.caps{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1px;
+background:#1e1e1e;border:1px solid #1e1e1e;border-radius:12px;overflow:hidden;margin-bottom:52px}
+.cap{background:#141414;padding:18px 17px}
+.cap .nm{font-weight:800;font-size:.9rem;color:#f2efe8;margin-bottom:9px;
 display:flex;align-items:center;gap:7px}
 .cap .nm:before{content:"";width:5px;height:5px;border-radius:50%;background:#F07040;flex:0 0 auto}
 .cap ul{margin:0;padding:0}
-.cap li{list-style:none;font-size:.79rem;color:#8b8578;line-height:1.66;margin-bottom:4px}
+.cap li{list-style:none;font-size:.76rem;color:#807a6e;line-height:1.65;margin-bottom:3px}
 
-/* 트랙 */
-.tk{display:flex;align-items:baseline;gap:10px;margin:0 0 4px}
-.tk h2{font-size:1.14rem;font-weight:800;letter-spacing:-.02em;color:#f2efe8;margin:0}
-.tk .n{font-size:.72rem;color:#5f5a52;font-variant-numeric:tabular-nums}
-.tkd{color:#7a756c;font-size:.85rem;margin:0 0 18px;line-height:1.6}
-.trk{margin-bottom:46px}
+/* 트랙 머리 */
+.trk{margin-bottom:54px}
+.tk{display:flex;align-items:baseline;gap:9px;margin:0 0 3px}
+.tk h2{font-size:1.2rem;font-weight:800;letter-spacing:-.025em;color:#f2efe8;margin:0}
+.tk .n{font-size:.7rem;color:#57524a;font-variant-numeric:tabular-nums}
+.tkd{color:#736e66;font-size:.83rem;margin:0 0 20px;line-height:1.6}
 
-/* 강의 카드 */
-.card{border:1px solid #222;border-radius:16px;background:#141414;margin-bottom:13px;
-overflow:hidden;transition:border-color .18s}
-.card:hover{border-color:#333}
-.card.best{border-color:#4a2d1c;background:linear-gradient(168deg,#191512,#141414)}
-.card.best:hover{border-color:#6b3f24}
-.card>a{display:block;color:inherit}
-/* 커버 — 글만 있는 카드는 안 팔린다. liveklass 상세페이지의 실제 커버를 쓴다. */
-/* 높이를 고정한다. 원본 비율이 제각각이라(16:9, 배너형) 그대로 두면 카드마다
-   높이가 튄다. object-position:center로 가운데를 살린다. */
-.cv{display:block;position:relative;overflow:hidden;background:#0d0d0d;height:216px}
-.card.best .cv{height:286px}
-.cv img{width:100%;height:100%;object-fit:cover;object-position:center;display:block;
-transition:transform .4s ease}
-.card:hover .cv img{transform:scale(1.025)}
-.cv:after{content:"";position:absolute;inset:0;
-background:linear-gradient(180deg,transparent 55%,rgba(20,20,20,.92) 100%)}
-.cb{padding:18px 21px 0}
-.tag{display:inline-block;font-size:.68rem;font-weight:700;letter-spacing:.02em;
-border-radius:5px;padding:3px 9px;margin-bottom:11px;background:rgba(240,112,64,.13);color:#F5A481}
-/* 제목이 카드에서 가장 먼저 읽혀야 한다. 메타·불릿과 크기 차이를 확실히 벌린다. */
-.card h3{font-size:1.66rem;font-weight:800;letter-spacing:-.035em;line-height:1.26;
-margin:0 0 8px;color:#fbf9f5}
-.card.best h3{font-size:1.94rem}
-/* 7장이 다 같아 보이면 고르지 못한다. 강의마다 색과 단계를 준다. */
-.card{border-top:3px solid var(--ac,#333)}
-.lv{display:inline-flex;align-items:center;gap:6px;font-size:.7rem;font-weight:800;
-letter-spacing:.04em;color:var(--ac,#8b8578);margin-bottom:10px}
-.lv:before{content:"";width:16px;height:2px;background:var(--ac,#333);border-radius:2px}
-.card:hover{border-color:#333;border-top-color:var(--ac,#333)}
-.card.best:hover{border-color:#6b3f24;border-top-color:var(--ac,#F07040)}
-.card .sb{color:#8b8578;font-size:.92rem;margin:0 0 16px;line-height:1.55}
-.meta{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:16px}
-.meta span{font-size:.72rem;color:#8b8578;border:1px solid #262626;border-radius:6px;padding:3px 9px}
+/* 카드 — 통합본은 전체 폭, 나머지는 2열. 한 줄로 늘어놓으면 훑을 수 없다. */
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px}
+.card{border:1px solid #212121;border-top:3px solid var(--ac,#2a2a2a);border-radius:14px;
+background:#141414;overflow:hidden;display:flex;flex-direction:column;
+transition:border-color .18s,transform .18s}
+.card:hover{border-color:#2f2f2f;border-top-color:var(--ac,#2a2a2a);transform:translateY(-2px)}
+.card.hero{margin-bottom:16px;background:linear-gradient(172deg,#1a1512,#141414)}
+.card a{color:inherit;text-decoration:none}
+
+/* 커버 — 빌드 때 전부 880x495로 맞춰 넣었다. CSS는 한 규칙이면 된다. */
+.cv{display:block;aspect-ratio:16/9;background:#101010;overflow:hidden}
+.cv img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s ease}
+.card:hover .cv img{transform:scale(1.02)}
+
+.cb{padding:16px 18px 0;flex:1}
+.hd{display:flex;align-items:center;gap:8px;margin-bottom:9px;min-height:18px}
+.lv{font-size:.66rem;font-weight:800;letter-spacing:.06em;color:var(--ac,#8b8578);
+display:inline-flex;align-items:center;gap:6px}
+.lv:before{content:"";width:14px;height:2px;background:var(--ac,#2a2a2a);border-radius:2px}
+.tag{font-size:.65rem;font-weight:800;border-radius:4px;padding:3px 8px;
+background:rgba(240,112,64,.14);color:#F5A481;letter-spacing:.02em}
+
+.card h3{margin:0 0 6px;font-size:1.24rem;font-weight:800;letter-spacing:-.03em;
+line-height:1.3;color:#fbf9f5}
+.card.hero h3{font-size:1.7rem}
+.card .sb{color:#847e73;font-size:.85rem;margin:0 0 13px;line-height:1.55}
+.meta{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px}
+.meta span{font-size:.7rem;color:#847e73;border:1px solid #242424;border-radius:5px;padding:3px 8px}
 .meta .rt{border-color:#4a2d1c;color:#F5A481;font-weight:700}
 
-.sec{font-size:.68rem;font-weight:700;color:#5f5a52;letter-spacing:.08em;
-text-transform:uppercase;margin:0 0 7px}
-.card ul{margin:0 0 15px;padding:0}
-.card li{list-style:none;font-size:.86rem;line-height:1.68;color:#b8b2a8;
-padding-left:17px;position:relative;margin-bottom:4px}
-.card li:before{content:"";position:absolute;left:2px;top:.62em;width:5px;height:1px;background:#4a453d}
-.who li:before{content:"";left:1px;top:.5em;width:6px;height:6px;border-radius:50%;
-background:none;border:1px solid #57604f}
+/* 접힌 상세 — 펼치기 전엔 한 줄이다 */
+.det{border-top:1px solid #1c1c1c;margin:0 -18px}
+.det>summary{list-style:none;cursor:pointer;padding:12px 18px;font-size:.76rem;
+font-weight:700;color:#736e66;display:flex;align-items:center;gap:6px;transition:color .15s}
+.det>summary::-webkit-details-marker{display:none}
+.det>summary:after{content:"⌄";margin-left:auto;transition:transform .2s;font-size:.9rem}
+.det[open]>summary:after{transform:rotate(180deg)}
+.det>summary:hover{color:#b8b2a8}
+.det .dd{padding:0 18px 14px}
+.sec{font-size:.64rem;font-weight:800;color:#57524a;letter-spacing:.09em;
+text-transform:uppercase;margin:0 0 6px}
+.det ul{margin:0 0 12px;padding:0}
+.det li{list-style:none;font-size:.82rem;line-height:1.65;color:#a8a29a;
+padding-left:15px;position:relative;margin-bottom:3px}
+.det li:before{content:"";position:absolute;left:1px;top:.62em;width:5px;height:1px;background:#413c35}
+.who li:before{content:"";left:0;top:.5em;width:5px;height:5px;border-radius:50%;
+background:none;border:1px solid #4d5546}
 
 /* 맛보기 */
 .tz{display:block;position:relative;cursor:pointer;background:#000;aspect-ratio:16/9;
-margin:0 21px 17px;border-radius:11px;overflow:hidden;border:1px solid #262626}
-.tz img{width:100%;height:100%;object-fit:cover;display:block;opacity:.8;transition:opacity .25s}
+margin:0 18px 14px;border-radius:9px;overflow:hidden;border:1px solid #242424}
+.tz img{width:100%;height:100%;object-fit:cover;display:block;opacity:.78;transition:opacity .25s}
 .tz:hover img{opacity:1}
 .tz iframe{width:100%;height:100%;border:0;display:block}
-.tz .pl{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:50px;height:50px;
+.tz .pl{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:44px;height:44px;
 border-radius:50%;background:rgba(0,0,0,.5);border:1.5px solid rgba(255,255,255,.5);
-color:#fff;display:flex;align-items:center;justify-content:center;font-size:15px;padding-left:3px}
-.tz .lb{position:absolute;left:12px;bottom:11px;background:rgba(0,0,0,.6);color:#fff;
-font-size:.69rem;font-weight:700;border-radius:5px;padding:3px 9px;letter-spacing:.02em}
+color:#fff;display:flex;align-items:center;justify-content:center;font-size:14px;padding-left:3px}
+.tz .lb{position:absolute;left:11px;bottom:10px;background:rgba(0,0,0,.62);color:#fff;
+font-size:.66rem;font-weight:700;border-radius:4px;padding:3px 8px}
 
-/* 결제 줄 — 버튼이 카드 폭을 꽉 채우게. 예전엔 오른쪽에 떠서 어정쩡했다 */
-/* 결제 줄. .card a{display:block}이 이 flex를 이겨서 값들이 겹쳐 보였다 —
-   선택자를 .card>a로 좁히고 여기선 명시적으로 flex를 건다. */
-.card a.buy{display:flex;align-items:center;flex-wrap:wrap;gap:14px;padding:17px 21px;
-border-top:1px solid #1f1f1f;background:#121212}
-.pr{font-size:1.16rem;font-weight:800;letter-spacing:-.025em;color:#f2efe8;
+/* 결제 줄 */
+.card a.buy{display:flex;align-items:center;flex-wrap:wrap;gap:12px;padding:15px 18px;
+border-top:1px solid #1c1c1c;background:#111;margin-top:auto}
+.pr{font-size:1.08rem;font-weight:800;letter-spacing:-.025em;color:#f2efe8;
 font-variant-numeric:tabular-nums}
-.pr s{display:block;font-size:.76rem;font-weight:400;color:#5f5a52;margin-bottom:1px}
-.save{font-size:.71rem;color:#F5A481;font-weight:700;border:1px solid #4a2d1c;
-border-radius:5px;padding:4px 9px;white-space:nowrap}
-.go{margin-left:auto;background:#E55A00;color:#fff;border-radius:9px;padding:12px 22px;
-font-size:.86rem;font-weight:700;white-space:nowrap;transition:background .15s;
-flex:0 0 auto}
+.card.hero .pr{font-size:1.24rem}
+.pr s{display:block;font-size:.72rem;font-weight:400;color:#57524a;margin-bottom:1px}
+.save{font-size:.68rem;color:#F5A481;font-weight:700;border:1px solid #4a2d1c;
+border-radius:4px;padding:3px 8px;white-space:nowrap}
+.go{margin-left:auto;background:#E55A00;color:#fff;border-radius:8px;padding:11px 18px;
+font-size:.82rem;font-weight:800;white-space:nowrap;transition:background .15s;flex:0 0 auto}
 .card:hover .go{background:#F07040}
 
-.note{color:#5f5a52;font-size:.79rem;line-height:1.75;margin-top:34px;
-padding-top:24px;border-top:1px solid #1c1c1c;text-align:center}
-@media(max-width:600px){
- .sc{padding:26px 15px 70px}
- .ph h1{font-size:1.6rem}
- .card h3{font-size:1.38rem}.card.best h3{font-size:1.56rem}
- .cb{padding:18px 17px 0}
- .tz{margin:0 17px 15px}
- .cv{height:158px}.card.best .cv{height:196px}
- .card a.buy{padding:16px 17px;gap:11px}
- .go{margin-left:0;width:100%;text-align:center;padding:14px;margin-top:3px}
+.note{color:#57524a;font-size:.77rem;line-height:1.75;margin-top:10px;
+padding-top:26px;border-top:1px solid #1a1a1a;text-align:center}
+@media(max-width:640px){
+ .sc{padding:26px 15px 74px}
+ .ph h1{font-size:1.62rem}
+ .grid{grid-template-columns:1fr;gap:14px}
+ .card.hero h3{font-size:1.42rem}
+ .card h3{font-size:1.18rem}
+ .cb{padding:15px 16px 0}
+ .det{margin:0 -16px}.det>summary,.det .dd{padding-left:16px;padding-right:16px}
+ .tz{margin:0 16px 13px}
+ .card a.buy{padding:14px 16px;gap:10px}
+ .go{margin-left:0;width:100%;text-align:center;padding:13px;margin-top:2px}
 }
 """
+
 
 
 
@@ -175,13 +178,12 @@ def won(n):
     return f"{n:,}원"
 
 
-def card_html(c):
+def card_html(c, hero=False):
     cap = CAPTAINS[c["cap"]]
     meta = []
     if c.get("lessons"):
         meta.append(f"<span>{c['lessons']}강</span>")
-    meta += [f"<span>{c['time']}</span>", f"<span>{H.escape(cap['n'])}</span>",
-             "<span>180일 수강</span>"]
+    meta += [f"<span>{c['time']}</span>", f"<span>{H.escape(cap['n'])}</span>"]
     if c.get("rating"):
         meta.append(f"<span class='rt'>★ {c['rating']}</span>")
 
@@ -191,7 +193,17 @@ def card_html(c):
     else:
         price, save = f"<span class='pr'>{won(c['price'])}</span>", ""
 
-    # 티저는 누를 때만 재생한다 — 카드마다 iframe을 미리 심으면 페이지가 무거워진다
+    cover = (f'<span class="cv"><img src="{c["img"]}" alt="{H.escape(c["t"])}"'
+             f' loading="lazy" decoding="async" width="880" height="495"/></span>'
+             ) if c.get("img") else ""
+
+    # 접어 둔다. 카드마다 5~7줄을 펼쳐 놓으면 훑을 수 없다.
+    det = (f'<details class="det"><summary>커리큘럼 · 대상 보기</summary>'
+           f'<div class="dd"><p class="sec">이런 분께</p>'
+           f'<ul class="who">{"".join(f"<li>{H.escape(w)}</li>" for w in c["who"])}</ul>'
+           f'<p class="sec">이걸 배웁니다</p>'
+           f'<ul>{"".join(f"<li>{H.escape(l)}</li>" for l in c["learn"])}</ul></div></details>')
+
     teaser = ""
     if c.get("teaser"):
         teaser = (f'<span class="tz" data-v="{c["teaser"]}">'
@@ -199,23 +211,19 @@ def card_html(c):
                   f' alt="맛보기 영상" loading="lazy" width="480" height="270"/>'
                   f'<span class="pl">▶</span><span class="lb">1분 맛보기</span></span>')
 
-    cover = (f'<span class="cv"><img src="{c["img"]}" alt="{H.escape(c["t"])}"'
-             f' loading="lazy" decoding="async" width="880" height="495"/></span>') if c.get("img") else ""
-
-    lv = (f'<div class="lv">{H.escape(c["level"])}</div>') if c.get("level") else ""
+    lv = f'<span class="lv">{H.escape(c["level"])}</span>' if c.get("level") else ""
     ac = f' style="--ac:{c["accent"]}"' if c.get("accent") else ""
+    tag = ('<span class="tag">3종 통합 · 20% 할인</span>' if hero else "")
 
-    return f"""<div class="card{' best' if c.get('best') else ''}"{ac}>
-<a href="{BASE}{c['id']}" target="_blank" rel="noopener">{cover}<div class="cb">
-{'<span class="tag">3종 통합 · 개별 구매 대비 20% 할인</span>' if c.get('best') else lv}
-<h3>{H.escape(c['t'])}</h3>
+    return f"""<div class="card{' hero' if hero else ''}"{ac}>
+<a class="top" href="{BASE}{c['id']}" target="_blank" rel="noopener">{cover}</a>
+<div class="cb">
+<div class="hd">{lv}{tag}</div>
+<h3><a href="{BASE}{c['id']}" target="_blank" rel="noopener">{H.escape(c['t'])}</a></h3>
 <p class="sb">{H.escape(c['sub'])}</p>
 <div class="meta">{''.join(meta)}</div>
-<p class="sec">이런 분께</p>
-<ul class="who">{''.join(f'<li>{H.escape(w)}</li>' for w in c['who'])}</ul>
-<p class="sec">이걸 배웁니다</p>
-<ul>{''.join(f'<li>{H.escape(l)}</li>' for l in c['learn'])}</ul>
-</div></a>{teaser}
+{det}
+</div>{teaser}
 <a class="buy" href="{BASE}{c['id']}" target="_blank" rel="noopener">
 {price}{save}<span class="go">자세히 보기 →</span></a>
 </div>"""
@@ -241,10 +249,19 @@ def build(courses=None):
 <div class="caps">{caps}</div>"""
 
     for title, sub, ids in TRACKS:
-        cards = "".join(card_html(by[i]) for i in ids if i in by)
+        # 통합본은 전체 폭, 나머지는 2열. 7장을 한 줄로 세우면 훑을 수 없다.
+        hero_html, rest = "", []
+        for i in ids:
+            if i not in by:
+                continue
+            if by[i].get("best"):
+                hero_html = card_html(by[i], hero=True)
+            else:
+                rest.append(card_html(by[i]))
+        grid = f'<div class="grid">{"".join(rest)}</div>' if rest else ""
         body += (f'<div class="trk"><div class="tk"><h2>{title}</h2>'
                  f'<span class="n">{len(ids)}개 클래스</span></div>'
-                 f'<p class="tkd">{sub}</p>{cards}</div>')
+                 f'<p class="tkd">{sub}</p>{hero_html}{grid}</div>')
 
     body += """<p class="note">모든 클래스는 결제 후 180일간 무제한 다시 보기.<br>
 결제와 수강은 순살스쿨(liveklass)에서 진행됩니다.</p>"""
