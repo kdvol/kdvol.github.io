@@ -74,6 +74,9 @@ UNLOCK_JS = """
 // 그 비용을 올린다.
 (function () {
   var P = %%PAYLOAD%%;
+  // 코드별 유입 라벨. 어떤 코드로 열었는지는 열람 기록에 필요하지만,
+  // 코드 자체는 여기 담지 않는다 — 순서(슬롯)만 라벨과 짝지어 둔다.
+  var SRC = %%SOURCES%%;
   var b2a = function (s) { return Uint8Array.from(atob(s), function (c) { return c.charCodeAt(0); }); };
 
   async function unlock(code) {
@@ -114,12 +117,28 @@ UNLOCK_JS = """
   };
 
   // 게이트의 열람 버튼을 가로챈다. 원래 checkAccess는 평문 코드를 비교했다.
+  // 다만 원래 하던 일 중 '누가 열었는지 기록'(logView)은 그대로 이어받아야 한다 —
+  // 그게 빠지면 열람 알림이 통째로 끊긴다.
   window.addEventListener('DOMContentLoaded', function () {
     var err = document.getElementById('gate-error');
     window.checkAccess = function () {
+      var em = document.getElementById('gate-email');
       var el = document.getElementById('gate-password');
+      var email = em ? (em.value || '').trim() : '';
       var pw = el ? el.value : '';
-      window.ssUnlock(pw, null, function () {
+      if (em && (!email || email.indexOf('@') < 0)) {
+        if (err) { err.textContent = '이메일을 입력해주세요.'; err.style.display = 'block'; }
+        return;
+      }
+      window.ssUnlock(pw, function () {
+        try {
+          if (typeof logView === 'function') {
+            // 원본 logView는 페이지마다 인자가 다르다(email 또는 email, source).
+            // 여분 인자는 무시되므로 항상 둘 다 넘긴다.
+            logView(email, SRC[window.ssCodeIdx] || '');
+          }
+        } catch (e) {}
+      }, function () {
         if (err) { err.textContent = '액세스 코드가 올바르지 않습니다.'; err.style.display = 'block'; }
       });
     };
@@ -155,6 +174,13 @@ def _deck_span(html: str):
     return None
 
 
+# 코드 → 유입 라벨. 원본 partners/index.html의 ACCESS_CODES 맵과 같은 뜻이다.
+SOURCE_LABELS = {
+    "soonsal2026": "direct",
+    "soonsalbiz26": "partner",
+}
+
+
 def lock_file(rel: str, codes) -> bool:
     path = ROOT / rel
     if not path.exists():
@@ -174,6 +200,7 @@ def lock_file(rel: str, codes) -> bool:
     open_end, close_start = span
     inner = html[open_end:close_start]
     payload = _encrypt(inner, codes)
+    sources = [SOURCE_LABELS.get(c, "") for c in codes]
 
     # 껍데기에서 본문을 들어내고, 평문 코드 검사를 암호화 해제로 바꾼다
     shell = html[:open_end] + html[close_start:]
@@ -181,7 +208,8 @@ def lock_file(rel: str, codes) -> bool:
     shell = re.sub(r"const ACCESS_CODES?\s*=\s*\{.*?\}", "const ACCESS_CODES = {}", shell, flags=re.S)
     shell = re.sub(r"const ACCESS_CODE\s*=\s*'[^']*'", "const ACCESS_CODE = ''", shell)
 
-    js = UNLOCK_JS.replace("%%PAYLOAD%%", json.dumps(payload))
+    js = (UNLOCK_JS.replace("%%PAYLOAD%%", json.dumps(payload))
+          .replace("%%SOURCES%%", json.dumps(sources, ensure_ascii=False)))
     shell = shell.replace("</body>", MARK + "\n" + js + "\n</body>", 1)
     path.write_text(shell, encoding="utf-8")
     print(f"  🔒 {rel} — 본문 {len(inner):,}자, 코드 {len(codes)}개")
