@@ -77,6 +77,10 @@ def _active_for(path: Path):
 
 # ── 생성 페이지(주제별·검색·엔티티)용 공용 헤더 — 본 사이트와 동일 스타일 ──
 SEARCH_CSS = """
+.sub-btn-header{position:absolute;right:max(16px,calc(50% - 400px));top:50%;transform:translateY(-50%);
+background:#E55A00;color:#fff;padding:8px 18px;border-radius:6px;font-size:13px;font-weight:700;
+text-decoration:none;white-space:nowrap}
+@media(max-width:560px){.sub-btn-header{display:none}}
 .search-btn-header{position:absolute;right:max(16px,calc(50% - 400px));top:50%;transform:translateY(-50%);
 display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:8px;
 color:#8a857c;text-decoration:none}
@@ -193,6 +197,9 @@ FONT_LINK = ('<link rel="preconnect" href="https://fonts.googleapis.com"/>'
              '<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700;800&display=swap" rel="stylesheet"/>')
 
 
+SUB_BTN = ('<a href="https://subscribe.soonsal.com/subscribe" target="_blank" '
+           'rel="noopener" class="sub-btn-header">구독하기</a>')
+
 SEARCH_BTN = (
     '<a href="/search/" class="search-btn-header" aria-label="검색">'
     '<svg viewBox="0 0 24 24" width="19" height="19" fill="none" '
@@ -202,6 +209,17 @@ SEARCH_BTN = (
 # 홈·뉴스레터는 자기 헤더를 갖고 있다(생성 페이지가 아니다). 여는 태그 바로
 # 뒤에 버튼을 넣는다. position:absolute라 헤더에 position이 있어야 한다.
 HEADER_OPEN_RE = re.compile(r'<(div|header)([^>]*)class="site-header"([^>]*)>')
+
+
+def _with_subscribe(html: str) -> str:
+    """구독하기 버튼을 헤더에 보장한다. 페이지마다 자리가 달라지면 안 된다."""
+    if 'class="sub-btn-header"' in html:
+        return html
+    m = HEADER_OPEN_RE.search(html)
+    if not m:
+        return html
+    # 여는 태그 바로 뒤에 넣는다(절대 위치라 순서는 화면에 영향 없다)
+    return html[:m.end()] + SUB_BTN + html[m.end():]
 
 
 def _with_search(html: str) -> str:
@@ -257,6 +275,7 @@ def main():
         elif "</head>" in new:
             new = new.replace("</head>", enhancement + "\n</head>", 1)
         new = _with_search(new)
+        new = _with_subscribe(new)
         if new != t:
             p.write_text(new, encoding="utf-8")
             n += 1

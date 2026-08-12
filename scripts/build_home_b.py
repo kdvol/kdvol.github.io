@@ -113,38 +113,31 @@ CHANNELS = [
 
 
 def _chart():
-    """순살차트 최신 회차의 첫 다이어그램. 첫 화면에 글만 있으면 떠나게 된다.
+    """순살차트 최신 회차의 '오늘의 핵심 차트'.
 
-    스톡 이미지를 갖다 붙이지 않는다 — 순살이 매일 실제로 만드는 그림을 쓴다.
+    /morning/ 목록이 회차마다 .lead-chart로 그날의 핵심 차트를 명시한다 —
+    사람이 고른 값이다. 파일명 알파벳순으로 집으면 그날 제일 중요한 게 아니라
+    이름이 빠른 게 올라간다(ai-… 가 cpi-… 를 이긴다).
+
+    목록에서 못 찾으면 아무것도 걸지 않는다. 엉뚱한 차트를 대문에 거느니
+    비워 두는 게 낫다.
     """
-    days = sorted((ROOT / "morning" / "assets").glob("2026*"), reverse=True)
-    for d in days:
-        wide = sorted(f for f in d.glob("*-diagram.svg"))
-        if not wide:
-            continue
-        w = wide[0]
-        m = d.name           # 20260812
-        page = f"/morning/{m[:4]}/{m[4:]}.html"
-        if not (ROOT / page.lstrip("/")).exists():
-            continue
-        mob = w.with_name(w.name.replace("-diagram.svg", "-diagram-mobile.svg"))
-        # 그림만 덩그러니 놓으면 무슨 얘긴지 알 수 없다. 파일명 슬러그로
-        # 순살차트 본문에서 그 꼭지의 제목을 찾아 위에 건다.
-        slug = w.name.replace("-diagram.svg", "")
-        title = ""
-        try:
-            src = (ROOT / page.lstrip("/")).read_text(encoding="utf-8")
-            m2 = re.search(rf'data-ss-story="m\d{{8}}-{re.escape(slug)}"', src)
-            if m2:
-                h = re.search(r"<h2[^>]*>(.*?)</h2>", src[m2.start():m2.start() + 4000], re.S)
-                if h:
-                    title = re.sub(r"<[^>]+>", "", h.group(1)).strip()
-        except OSError:
-            pass
-        return {"wide": f"/morning/assets/{d.name}/{w.name}",
-                "mob": f"/morning/assets/{d.name}/{mob.name}" if mob.exists() else None,
-                "page": page, "title": title}
-    return None
+    idx = ROOT / "morning" / "index.html"
+    if not idx.exists():
+        return None
+    t = idx.read_text(encoding="utf-8")
+    m = re.search(r'<a class="lead-chart" href="([^"]+)".*?'
+                  r'<span class="lead-chart-title">(.*?)</span>\s*'
+                  r'<img src="([^"]+)"', t, re.S)
+    if not m:
+        return None
+    href, title, mob = m.group(1), m.group(2), m.group(3)
+    title = re.sub(r"<[^>]+>", "", title).strip()
+    page = "/morning/" + href.split("#")[0]
+    wide = mob.replace("-diagram-mobile.svg", "-diagram.svg")
+    if not (ROOT / wide.lstrip("/")).exists():
+        wide = mob
+    return {"wide": wide, "mob": mob, "page": page, "title": title}
 
 
 def _ticker() -> str:
