@@ -150,38 +150,38 @@
     '.ss-crt button{background:none;border:none;color:#a8a294;font-size:11px;cursor:pointer;' +
     'font-family:inherit;margin-left:auto;padding:2px 4px}' +
     // 안내문은 입력 중에만
-    '.ss-sch{margin:34px auto 8px;max-width:640px;background:#fff;border:1px solid #ece8de;' +
-    'border-radius:14px;padding:17px 18px}' +
-    '.ss-sch .t{font-weight:800;font-size:14px;letter-spacing:-.01em;margin-bottom:6px}' +
-    '.ss-sch p{margin:0 0 12px;font-size:13px;line-height:1.68;color:#6b6659}' +
-    '.ss-sch .r{display:flex;align-items:center;gap:10px}' +
-    '.ss-sch a{color:#E55A00;text-decoration:none;font-weight:700;font-size:13px}' +
-    '.ss-sch button{margin-left:auto;background:none;border:none;color:#c4bfb2;font-size:12px;' +
-    'cursor:pointer;font-family:inherit;padding:2px 4px}' +
-    // 쓰는 자리 — 버튼이 아니라 '입력칸'처럼 보이게 한다
-    // 순살 팀이 쓴 글은 팀 글이라고 밝힌다 — 독자 글과 섞이면 안 된다
-    '.ss-fabn{position:absolute;top:-3px;right:-3px;min-width:19px;height:19px;' +
-    'padding:0 5px;border-radius:10px;background:#E55A00;color:#fff;font-size:10px;' +
-    'font-weight:800;line-height:19px;text-align:center;box-shadow:0 0 0 2px #faf8f3}' +
-    '.ss-cop{background:#fdf8f4;border-left:2px solid #F07040;padding-left:9px;' +
-    'margin-left:-2px;border-radius:0 6px 6px 0}' +
-    '.ss-cob{font-size:9px;font-weight:700;color:#fff;background:#E55A00;' +
-    'border-radius:4px;padding:1px 5px;margin-left:5px;vertical-align:1px}' +
-    '.ss-cbar{display:flex;align-items:center;gap:9px;width:100%;margin:10px 0 2px;' +
-    'padding:12px 14px;background:#fff;border:1px solid #e4e0d6;border-radius:12px;' +
-    'font-family:inherit;font-size:13px;color:#6b6659;cursor:pointer;text-align:left;' +
-    'transition:border-color .15s,box-shadow .15s}' +
-    '.ss-cbar:hover{border-color:#F07040;box-shadow:0 0 0 3px rgba(240,112,64,.08)}' +
-    '.ss-cbar .ic{flex:0 0 auto;font-size:15px;line-height:1}' +
-    '.ss-cbar .tx{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}' +
-    '.ss-cbar .tx.ph{color:#a8a294}' +
-    '.ss-cbar .tx b{color:#E55A00;font-weight:700}' +
-    '.ss-cbar .tx i{font-style:normal;color:#6b6659}' +
-    '.ss-cbar .cta{flex:0 0 auto;font-size:11px;font-weight:700;color:#E55A00;' +
-    'background:#fdf0e9;border-radius:6px;padding:5px 10px}' +
-    '.ss-call{display:block;text-align:center;margin-top:12px;padding:9px;font-size:12px;' +
-    'color:#8a8578;border:1px solid #ece8de;border-radius:9px;text-decoration:none}' +
-    '.ss-call:hover{color:#E55A00;border-color:#E55A00}' +
+    // 뉴스레터 끝에 붙는 클래스 안내. 본문과 톤이 같으면 안 보이고,
+    // 광고처럼 보이면 안 누른다. 카드 하나에 숫자·자격·행동만 남긴다.
+    '.ss-sch{position:relative;margin:36px auto 10px;max-width:640px;' +
+    'background:linear-gradient(158deg,#241a14,#171310);border-radius:16px;' +
+    'padding:24px 22px 22px;color:#f0ede6;overflow:hidden}' +
+    '.ss-sch:before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;' +
+    'background:linear-gradient(180deg,#F07040,#E55A00)}' +
+    '.ss-sch .t{font-size:11px;font-weight:800;letter-spacing:.1em;color:#F5A481;' +
+    'text-transform:uppercase;margin-bottom:10px}' +
+    '.ss-sch .h{font-size:19px;font-weight:700;line-height:1.42;letter-spacing:-.02em;' +
+    'color:#f5f2ea;margin-bottom:9px}' +
+    '.ss-sch .h b{font-size:26px;font-weight:800;letter-spacing:-.035em;' +
+    'font-variant-numeric:tabular-nums;color:#fff}' +
+    '.ss-sch .w{font-size:12px;color:#9a9488;margin-bottom:17px;line-height:1.6}' +
+    '.ss-sch .cta{display:block;text-align:center;background:#E55A00;color:#fff;' +
+    'text-decoration:none;font-size:15px;font-weight:800;letter-spacing:-.01em;' +
+    'border-radius:11px;padding:15px;transition:background .15s}' +
+    '.ss-sch .cta:hover{background:#F07040}' +
+    '.ss-sch .x{position:absolute;top:12px;right:12px;background:none;border:none;' +
+    'color:#5f5a52;font-size:13px;cursor:pointer;font-family:inherit;padding:4px 6px;' +
+    'line-height:1}' +
+    '.ss-sch .x:hover{color:#9a9488}' +
+    '@media(max-width:560px){' +
+    '.ss-sch{padding:21px 18px 19px;margin:30px auto 10px}' +
+    '.ss-sch .h{font-size:17px}.ss-sch .h b{font-size:23px}' +
+    '.ss-sch .cta{font-size:14.5px;padding:14px}}' +
+    '.ss-notice{text-align:center;padding:14px 16px 4px}' +
+    '.ss-notice .go{display:inline-block;color:#E55A00;font-weight:700;font-size:13px;' +
+    'text-decoration:none;border:1px solid #f0d9c8;border-radius:20px;padding:8px 16px}' +
+    '.ss-notice .go:hover{background:#fdf0e9}' +
+    '.ss-notice .fine{display:block;color:#b5b0a4;font-size:10.5px;margin-top:9px;line-height:1.6}' +
+    '.ss-notice .fine a{color:#a8a294}' +
     '.ss-cnote{color:#b5b0a4;font-size:11px;line-height:1.65;margin-top:9px;display:none}' +
     '.ss-cwrap.on .ss-cnote{display:block}' +
     '.ss-hp{position:absolute;left:-9999px;width:1px;height:1px}' +
@@ -401,9 +401,10 @@
     d.className = 'ss-notice';
     // 뉴스레터에는 사이트 nav가 없다. 한마디로 가는 길이 여기 말고는 없어서
     // 수집 안내 줄에 같이 건다.
-    d.innerHTML = '<a href="/talk/">💬 순살톡</a> · ' +
-      '쿠키 없이 익명 방문 통계만 수집합니다 · ' +
-      '<a href="/privacy/">수집 안내</a>';
+    // 세 항목이 한 줄에 늘어져 있었다. 행동(순살톡)은 앞에 세우고 나머지는 뒤로.
+    d.innerHTML = '<a class="go" href="/talk/">💬 순살톡 — 독자 한마디 보기</a>' +
+      '<span class="fine">쿠키 없이 익명 방문 통계만 · ' +
+      '<a href="/privacy/">수집 안내</a></span>';
     var f = document.querySelector('.footer-inner') || document.querySelector('.footer');
     (f || document.body).appendChild(d);
   }
@@ -637,7 +638,7 @@
         '<div class="ss-cpn">이 브라우저에만 저장돼요.</div>' +
       '</div>' +
       '<div class="ss-clist"></div>' +
-      '<a class="ss-call" href="/talk/">순살톡에서 다른 회차 이야기도 보기 →</a>' +
+      '<a class="ss-call" href="/talk/">💬 순살톡에서 다른 이야기도 →</a>' +
       '<div class="ss-cnote">투자 권유·광고·비방은 ' +
       '사전 통보 없이 숨겨집니다.</div>';
 
@@ -1213,20 +1214,22 @@
     var host = document.querySelector('.footer') || document.querySelector('footer');
     var d = document.createElement('div');
     d.className = 'ss-sch';
+    // 설명을 읽게 만들면 안 누른다. 숫자로 못 박고 문턱 낮은 행동을 준다 —
+    // '스쿨 보기'보다 '1분 맛보기'가 누르기 쉽다.
     d.innerHTML =
-      '<div class="t">이 브리핑을 만드는 사람들이 여는 클래스</div>' +
-      '<p>홍콩·한국 투자은행과 헤지펀드 현직자에게 듣는 IBD·M&amp;A·바이사이드. ' +
-      '맛보기 영상부터 보셔도 됩니다.</p>' +
-      '<div class="r"><a href="/school/">순살 스쿨 보기 →</a>' +
-      '<button type="button" aria-label="닫기">✕</button></div>';
+      '<button type="button" class="x" aria-label="닫기">✕</button>' +
+      '<div class="t">현직자가 여는 클래스</div>' +
+      '<div class="h">IBD · IPO · M&amp;A<br><b>31강 8시간 48분</b></div>' +
+      '<div class="w">전 Deutsche Bank IBD · 현직 홍콩 PM</div>' +
+      '<a class="cta" href="/school/">1분 맛보기부터 보기 →</a>';
     if (host && host.parentNode) host.parentNode.insertBefore(d, host);
     else document.body.appendChild(d);
 
-    d.querySelector('button').addEventListener('click', function () {
+    d.querySelector('.x').addEventListener('click', function () {
       try { localStorage.setItem('ss_school_x', String(Date.now())); } catch (e) {}
       if (d.parentNode) d.parentNode.removeChild(d);
     });
-    d.querySelector('a').addEventListener('click', function () { track('school'); });
+    d.querySelector('.cta').addEventListener('click', function () { track('school'); });
   }
 
   function boot() {
