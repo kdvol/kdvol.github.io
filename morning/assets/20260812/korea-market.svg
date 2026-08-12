@@ -4,7 +4,7 @@
 <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#F07040"/></marker>
 </defs>
 <rect width="1080" height="1350" fill="#F5F5F0"/>
-<text x="72" y="78" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="28" font-weight="800" fill="#F07040">모닝순살 · SOONSAL</text>
+<text x="72" y="78" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="28" font-weight="800" fill="#F07040">순살차트 · SOONSAL</text>
 <text x="1008" y="78" text-anchor="end" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="23" fill="#888888">2026-08-12</text>
 <text x="72" y="160" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="50" font-weight="800" fill="#111111">한국 시장, 메모리 호재와 AI 주가</text>
 <text x="72" y="222" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="50" font-weight="800" fill="#111111">부담이 함께 들어옴</text>
