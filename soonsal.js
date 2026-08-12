@@ -430,10 +430,6 @@
     var hasTalk = !!document.querySelector('a[href$="/talk/"], a[href*="soonsal.com/talk/"]');
     // 뉴스레터 푸터에는 저작권 줄이 이미 있다. 또 넣으면 한 화면에 두 번 나온다.
     var hasCr = /©\s*\d{4}\s*순살브리핑/.test(document.body.textContent || '');
-    // 뉴스레터·카드뉴스 219개에는 푸터에 텔레그램 아이콘이 이미 있다.
-    // 없는 건 푸터 자체가 없는 생성 페이지(순살톡·주제별·위키·검색…)뿐이라
-    // 거기서만 한 줄에 얹는다. 있는 곳에 또 넣으면 같은 길이 두 번이 된다.
-    var hasTg = !!document.querySelector('a[href*="t.me/soonsal"]');
     // 사업자 정보는 접어 둔다. 필요한 사람은 펴서 보고, 읽으러 온 사람의
     // 눈에는 안 걸리게. 전화번호·통신판매업 신고번호는 확인 전이라 넣지 않았다 —
     // 틀린 번호를 싣는 건 안 싣는 것보다 나쁘다.
@@ -442,10 +438,6 @@
     var bits = [];
     if (!hasCr) bits.push('© ' + new Date().getFullYear() + ' (주)순살');
     bits.push('정보 제공 목적이며 매매 권유가 아닙니다');
-    if (!hasTg) {
-      bits.push('<a href="https://t.me/soonsal" target="_blank" rel="noopener">' +
-                '순살 텔레그램</a>');
-    }
     bits.push('쿠키 없이 익명 통계만 · <a href="/privacy/">수집 안내</a>');
     d.innerHTML = (hasTalk ? '' : '<a class="go" href="/talk/">💬 순살톡 — 순살러 한마디</a>') +
       '<p class="ss-legal">' + bits.join(' · ') +
