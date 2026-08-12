@@ -91,8 +91,11 @@ overflow:hidden;transition:border-color .18s}
 .card.best:hover{border-color:#6b3f24}
 .card>a{display:block;color:inherit}
 /* 커버 — 글만 있는 카드는 안 팔린다. liveklass 상세페이지의 실제 커버를 쓴다. */
-.cv{display:block;position:relative;aspect-ratio:16/9;overflow:hidden;background:#0d0d0d}
-.cv img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s ease}
+.cv{display:block;position:relative;overflow:hidden;background:#0d0d0d;height:230px}
+/* 통합본만 크게 — 나머지까지 16:9로 두면 카드 7장에 스크롤이 3400px가 넘는다 */
+.card.best .cv{height:300px}
+.cv img{width:100%;height:100%;object-fit:cover;object-position:center;display:block;
+transition:transform .4s ease}
 .card:hover .cv img{transform:scale(1.025)}
 .cv:after{content:"";position:absolute;inset:0;
 background:linear-gradient(180deg,transparent 55%,rgba(20,20,20,.92) 100%)}
@@ -149,6 +152,7 @@ padding-top:24px;border-top:1px solid #1c1c1c;text-align:center}
  .ph h1{font-size:1.6rem}
  .cb{padding:18px 17px 0}
  .tz{margin:0 17px 15px}
+ .cv{height:180px}.card.best .cv{height:210px}
  .card a.buy{padding:16px 17px;gap:11px}
  .go{margin-left:0;width:100%;text-align:center;padding:14px;margin-top:3px}
 }
@@ -185,7 +189,7 @@ def card_html(c):
                   f'<span class="pl">▶</span><span class="lb">1분 맛보기</span></span>')
 
     cover = (f'<span class="cv"><img src="{c["img"]}" alt="{H.escape(c["t"])}"'
-             f' loading="lazy" width="880" height="495"/></span>') if c.get("img") else ""
+             f' loading="lazy" decoding="async" width="880" height="495"/></span>') if c.get("img") else ""
 
     return f"""<div class="card{' best' if c.get('best') else ''}">
 <a href="{BASE}{c['id']}" target="_blank" rel="noopener">{cover}<div class="cb">
