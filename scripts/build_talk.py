@@ -246,6 +246,9 @@ function wire() {
       var th = b.closest('.th'), rf = th.querySelector('.rf');
       var ta = rf.querySelector('textarea'), go = rf.querySelector('.go');
       rf.className = 'rf on';
+      // 답글 버튼이 그대로 있으면 같은 기능이 두 군데 있는 것처럼 보인다
+      th.querySelectorAll('.rep').forEach(function (x) { x.style.visibility = 'hidden'; });
+      rf._btns = th;
       rf._pid = parseInt(b.getAttribute('data-i'), 10);
       rf._story = b.getAttribute('data-s');
       var tag = '@' + b.getAttribute('data-k') + ' ';
@@ -267,6 +270,9 @@ function wire() {
     ta.addEventListener('blur', function () { typing = false; });
     rf.querySelector('.x').addEventListener('click', function () {
       rf.className = 'rf'; ta.value = ''; typing = false;
+      if (rf._btns) rf._btns.querySelectorAll('.rep').forEach(function (x) {
+        x.style.visibility = '';
+      });
     });
     go.addEventListener('click', function () { submit(rf, ta, go); });
   });
@@ -286,6 +292,7 @@ function submit(rf, ta, go) {
     go.disabled = false;
     if (res && res.error) { alert('남기지 못했어요'); return; }
     ta.value = ''; rf.className = 'rf'; typing = false;
+    if (rf._btns) rf._btns.querySelectorAll('.rep').forEach(function (x) { x.style.visibility = ''; });
     load();                                   // 바로 반영
   }).catch(function () { go.disabled = false; });
 }

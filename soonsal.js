@@ -76,8 +76,13 @@
     '.ss-cbtn{margin-left:0}' +
     // 폰에서 쓰기 편한 게 최우선. 입력창을 크게 잡고, 나머지는 눌러야 나온다.
     // 글자 크기 16px 미만이면 iOS가 포커스 때 화면을 확대해 버린다.
-    '.ss-cwrap{margin:10px 0 4px;font-family:inherit}' +
-    '.ss-cin{width:100%;border:1px solid #e2ded4;border-radius:12px;padding:13px 14px;' +
+    '.ss-cwrap{margin:10px 0 4px;font-family:inherit;background:#fff;border:1px solid #F0C4AC;' +
+    'border-radius:12px;padding:12px 13px;box-shadow:0 1px 3px rgba(0,0,0,.03)}' +
+    '.ss-chd{display:flex;align-items:center;margin-bottom:9px;font-size:12px;color:#8a8578}' +
+    '.ss-cx{margin-left:auto;background:none;border:none;color:#b5b0a4;font-size:13px;' +
+    'cursor:pointer;font-family:inherit;padding:2px 4px;line-height:1}' +
+    '.ss-cx:hover{color:#6b6659}' +
+    '.ss-cin{width:100%;border:1px solid #ece8de;border-radius:10px;padding:12px 13px;' +
     'font-size:16px;line-height:1.55;font-family:inherit;box-sizing:border-box;resize:none;' +
     'background:#fff;color:#2b2b2b;-webkit-appearance:none}' +
     '.ss-cin::placeholder{color:#b5b0a4}' +
@@ -585,7 +590,10 @@
   }
 
   function closeC() {
-    if (COPEN && COPEN.parentNode) COPEN.parentNode.removeChild(COPEN);
+    if (COPEN) {
+      if (COPEN._bar) COPEN._bar.hidden = false;   // 감춰둔 바를 되돌린다
+      if (COPEN.parentNode) COPEN.parentNode.removeChild(COPEN);
+    }
     COPEN = null;
   }
 
@@ -597,6 +605,8 @@
     w.className = 'ss-cwrap';
     var pr = profOf(), nick = pr.n || '';
     w.innerHTML =
+      '<div class="ss-chd"><span>' + esc(pr.n || '') + '(으)로 남기기</span>' +
+        '<button type="button" class="ss-cx" aria-label="닫기">✕</button></div>' +
       '<div class="ss-crt" hidden></div>' +
       '<textarea class="ss-cin" rows="3" maxlength="140" ' +
         'placeholder="어떻게 보셨어요? 한 줄이면 충분해요"></textarea>' +
@@ -641,6 +651,7 @@
     });
     ta.addEventListener('focus', function () { w.className = 'ss-cwrap on'; });
     go.addEventListener('click', function () { submitC(key, w, go); });
+    w.querySelector('.ss-cx').addEventListener('click', closeC);
 
     var pf = w.querySelector('.ss-cpf'), pb = w.querySelector('.ss-cprof');
     pb.addEventListener('click', function () { pf.hidden = !pf.hidden; });
@@ -664,7 +675,11 @@
     });
 
     renderC(key, w);
-    pill.parentNode.parentNode.insertBefore(w, pill.parentNode.nextSibling);
+    // 바가 그대로 있고 그 아래 또 상자가 뜨면 두 개처럼 보인다.
+    // 바를 감추고 그 자리에 펼쳐서 '이어지는 한 덩어리'로 만든다.
+    w._bar = pill;
+    pill.parentNode.insertBefore(w, pill.nextSibling);
+    pill.hidden = true;
     COPEN = w;
     setTimeout(function () { ta.focus(); }, 50);
   }
