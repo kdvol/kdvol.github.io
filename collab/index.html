@@ -35,8 +35,12 @@ background:#161616;border:1px solid #222;border-radius:10px}
    품질·비율이 제각각이라 섞으면 오히려 조악해 보이고, 남의 로고를 임의로
    가공하는 것도 좋은 방법이 아니다. */
 .brands{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 24px}
-.brands span{font-size:.86rem;font-weight:700;letter-spacing:-.01em;color:#c9c4ba;
+.brands span{display:inline-flex;align-items:center;justify-content:center;min-height:42px;
+font-size:.86rem;font-weight:700;letter-spacing:-.01em;color:#c9c4ba;
 background:#181818;border:1px solid #262626;border-radius:8px;padding:9px 14px}
+/* 로고가 들어오면 흰 배경 로고도 어두운 판에서 읽히게 */
+.brands span.lg{background:#f7f5f0;padding:9px 16px}
+.brands span.lg img{height:22px;width:auto;display:block}
 /* 사례 — 실제 집행분만. 제작물을 직접 보여주는 게 설명보다 빠르다 */
 .cases{display:flex;flex-direction:column;gap:12px}
 .case{background:#161616;border:1px solid #232323;border-radius:12px;padding:17px 17px 15px}
@@ -211,9 +215,7 @@ border-radius:50%;background:#F07040;opacity:0;transition:opacity .2s}
 
 <section>
 <h2>이런 브랜드와 함께했습니다</h2>
-<div class="brands">
-<span>Salesforce</span><span>한국투자증권</span><span>미래에셋자산운용</span><span>BC카드 페이북</span>
-</div>
+<div class="brands"><span class="lg"><img src="/assets/collab/logo-salesforce.svg" alt="Salesforce" loading="lazy"/></span><span>한국투자증권</span><span>미래에셋자산운용</span><span>BC카드 페이북</span></div>
 
 <div class="cases">
 <div class="case">
