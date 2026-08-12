@@ -70,7 +70,11 @@ def main():
     if not cd:                                              # 예전 워커면 이벤트로
         comments = eng.get("comment", 0)
         readers = 0
-    reacts = eng.get("react", 0)
+    rd = ins.get("reactsDaily") or []
+    reacts = sum(r.get("up", 0) for r in rd)
+    undo = sum(r.get("undo", 0) for r in rd)
+    if not rd:
+        reacts, undo = eng.get("react", 0), 0
 
     # 아무 일도 없었으면 침묵한다
     if not (people or comments or reacts):
@@ -89,7 +93,7 @@ def main():
         "🐟 <b>순살 웹사이트 하루 요약</b>",
         "",
         f"방문 <b>{people}명</b> · {today.get('hits', 0)}뷰",
-        f"반응 {reacts}건 · 댓글 {comments}건"
+        f"반응 {reacts}건" + (f" (취소 {undo})" if undo else "") + f" · 댓글 {comments}건"
         + (f" (순살러 {readers}건)" if comments and readers else ""),
     ]
     if vis.get("total"):

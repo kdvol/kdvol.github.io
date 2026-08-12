@@ -780,6 +780,11 @@ export default {
                        + 'sum(case when op = 0 then 1 else 0 end) as readers '
                        + `from comments where state = 1 and ts >= unixepoch(${since}) `
                        + 'group by day order by day'),
+                  env.DB.prepare("select date(ts + 32400, 'unixepoch') as day, "
+                       + 'sum(case when delta = 1 then 1 else 0 end) as up, '
+                       + 'sum(case when delta = -1 then 1 else 0 end) as undo '
+                       + `from events where ts >= unixepoch(${since}) `
+                       + 'group by day order by day'),
         ]);
 
         // 전체 기간 누적 — 창(days)과 무관하게 집계 시작 이후 전부
@@ -806,6 +811,7 @@ export default {
           hops: hop.results || [],
           visitors: (vis.results || [])[0] || {},
           commentsDaily: cm[3].results || [],
+          reactsDaily: cm[4].results || [],
         }, origin);
       }
 
