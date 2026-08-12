@@ -53,7 +53,11 @@ color:#8a6f5c;margin-bottom:4px}
 .src .ti{display:block;font-size:.88rem;font-weight:700;letter-spacing:-.02em;
 color:#d8d3ca;line-height:1.4}
 .src:hover .ti{color:#fff}
-.src .mt{display:block;font-size:.68rem;color:#5a554d;margin-top:5px}
+/* 두 줄까지만. 더 길면 카드가 대화보다 커진다 */
+.src .ld{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;
+font-size:.78rem;line-height:1.55;color:#7a756c;margin-top:5px}
+.src:hover .ld{color:#8f8a80}
+.src .mt{display:block;font-size:.68rem;color:#5a554d;margin-top:6px}
 .src:hover .mt{color:#E55A00}
 
 
@@ -188,6 +192,10 @@ function slabel(story) {
   var m = SMAP[story];
   return m && m.l ? m.l : '';
 }
+function slead(story) {
+  var m = SMAP[story];
+  return m && m.s ? m.s : '';
+}
 
 function render(items) {
   if (!items.length) {
@@ -211,6 +219,7 @@ function render(items) {
       '<a class="src" href="' + href(head.story) + '">' +
         (slabel(head.story) ? '<span class="lb">' + esc(slabel(head.story)) + '</span>' : '') +
         '<span class="ti">' + esc(label(head.story)) + '</span>' +
+        (slead(head.story) ? '<span class="ld">' + esc(slead(head.story)) + '…</span>' : '') +
         '<span class="mt">' + sdate(head.story) + ' 브리핑 · 원문 보기 →</span>' +
       '</a>' +
 
@@ -377,6 +386,15 @@ document.addEventListener('visibilitychange', function () { if (!document.hidden
 """
 
 
+def _lead(body: str) -> str:
+    """첫 불렛의 앞머리. 카드에서 두 줄로 잘려 보이므로 넉넉히 80자만 남긴다."""
+    b = re.sub(r"<[^>]+>", "", body or "")
+    parts = b.split("◾")
+    s = parts[1] if len(parts) > 1 else b
+    s = re.sub(r"\s+", " ", s).strip()
+    return s[:80]
+
+
 def build(atoms=None):
     if atoms is None:
         atoms = json.loads(ATOMS.read_text(encoding="utf-8")) if ATOMS.exists() else []
@@ -386,9 +404,20 @@ def build(atoms=None):
     # 주소는 id에서 되살릴 수 있다(0716c-4 → /newsletters/2026/0716-crypto.html#story-4).
     # 600건 × 38자를 심을 이유가 없다. 그 자리를 섹션 라벨에 쓴다 — 카드에서
     # '무슨 이야기인지'를 먼저 알려주는 건 제목보다 라벨이다.
-    smap = {a["id"]: {"t": re.sub(r"^[^\w<>&\"']{1,4}\s+", "", a["title"]).strip()[:44],
-                      "l": (a.get("label") or "")[:26],
-                      "y": a.get("date", "")[:4]} for a in recent}
+    # 제목만으로는 '무슨 이야기에 달린 댓글인지' 안 잡힌다. 첫 불렛 앞머리를
+    # 같이 심는다. 다만 600건 전부에 붙이면 전송량이 20KB → 63KB가 된다.
+    # 댓글은 최근 회차에 달리니 최근 150건에만 붙이고 나머지는 제목까지만.
+    LEAD_N = 150
+    smap = {}
+    for i, a in enumerate(recent):
+        d = {"t": re.sub(r"^[^\w<>&\"']{1,4}\s+", "", a["title"]).strip()[:44],
+             "l": (a.get("label") or "")[:26],
+             "y": a.get("date", "")[:4]}
+        if i < LEAD_N:
+            s = _lead(a.get("body", ""))
+            if s:
+                d["s"] = s
+        smap[a["id"]] = d
 
     try:
         import build_nav
