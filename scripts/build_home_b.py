@@ -113,31 +113,61 @@ CHANNELS = [
 
 
 def _chart():
-    """순살차트 최신 회차의 '오늘의 핵심 차트'.
+    """홈에 걸 차트 하나. 절대 빈손으로 돌아오지 않는다.
 
-    /morning/ 목록이 회차마다 .lead-chart로 그날의 핵심 차트를 명시한다 —
-    사람이 고른 값이다. 파일명 알파벳순으로 집으면 그날 제일 중요한 게 아니라
-    이름이 빠른 게 올라간다(ai-… 가 cpi-… 를 이긴다).
+    1) /morning/ 목록의 .lead-chart — 그날의 핵심 차트로 지정된 것
+    2) 없으면 최신 회차 페이지에 '실린 순서'대로 첫 번째 다이어그램
+    3) 그것도 없으면 자산 폴더에서 아무거나
 
-    목록에서 못 찾으면 아무것도 걸지 않는다. 엉뚱한 차트를 대문에 거느니
-    비워 두는 게 낫다.
+    2번이 필요한 이유: 파일명 알파벳순으로 집으면 그날 제일 중요한 게 아니라
+    이름이 빠른 게 올라간다(ai-… 가 cpi-… 를 이긴다). 페이지에 실린 순서가
+    사람이 정한 순서다.
     """
+    # (1) 지정된 핵심 차트
     idx = ROOT / "morning" / "index.html"
-    if not idx.exists():
-        return None
-    t = idx.read_text(encoding="utf-8")
-    m = re.search(r'<a class="lead-chart" href="([^"]+)".*?'
-                  r'<span class="lead-chart-title">(.*?)</span>\s*'
-                  r'<img src="([^"]+)"', t, re.S)
-    if not m:
-        return None
-    href, title, mob = m.group(1), m.group(2), m.group(3)
-    title = re.sub(r"<[^>]+>", "", title).strip()
-    page = "/morning/" + href.split("#")[0]
-    wide = mob.replace("-diagram-mobile.svg", "-diagram.svg")
-    if not (ROOT / wide.lstrip("/")).exists():
-        wide = mob
-    return {"wide": wide, "mob": mob, "page": page, "title": title}
+    if idx.exists():
+        s = idx.read_text(encoding="utf-8")
+        m = re.search(r'<a class="lead-chart" href="([^"]+)".*?'
+                      r'<span class="lead-chart-title">(.*?)</span>\s*'
+                      r'<img src="([^"]+)"', s, re.S)
+        if m:
+            mob = m.group(3)
+            wide = mob.replace("-diagram-mobile.svg", "-diagram.svg")
+            if not (ROOT / wide.lstrip("/")).exists():
+                wide = mob
+            return {"wide": wide, "mob": mob,
+                    "page": "/morning/" + m.group(1).split("#")[0],
+                    "title": re.sub(r"<[^>]+>", "", m.group(2)).strip()}
+
+    # (2) 최신 회차에서 페이지 순서대로 첫 그림
+    pages = sorted(ROOT.glob("morning/2026/*.html"), reverse=True)
+    for pg in pages:
+        s = pg.read_text(encoding="utf-8")
+        im = re.search(r'src="(/morning/assets/\d+/[a-z0-9-]+-diagram[^"]*\.svg)', s)
+        if not im:
+            continue
+        mob = im.group(1).split("?")[0]
+        slug = re.sub(r"-diagram(-mobile)?\.svg$", "", mob.rsplit("/", 1)[1])
+        title = ""
+        sm = re.search(rf'data-ss-story="m\d{{8}}-{re.escape(slug)}"', s)
+        if sm:
+            h = re.search(r"<h2[^>]*>(.*?)</h2>", s[sm.start():sm.start() + 4000], re.S)
+            if h:
+                title = re.sub(r"<[^>]+>", "", h.group(1)).strip()
+        wide = mob.replace("-diagram-mobile.svg", "-diagram.svg")
+        if not (ROOT / wide.lstrip("/")).exists():
+            wide = mob
+        return {"wide": wide, "mob": mob,
+                "page": "/morning/" + str(pg.relative_to(ROOT / "morning")).replace("\\", "/"),
+                "title": title or "오늘의 순살차트"}
+
+    # (3) 최후 — 자산 폴더에 있는 아무 그림이라도
+    for d in sorted((ROOT / "morning" / "assets").glob("2026*"), reverse=True):
+        got = sorted(d.glob("*-diagram.svg"))
+        if got:
+            u = f"/morning/assets/{d.name}/{got[0].name}"
+            return {"wide": u, "mob": None, "page": "/morning/", "title": "오늘의 순살차트"}
+    return None
 
 
 def _ticker() -> str:
