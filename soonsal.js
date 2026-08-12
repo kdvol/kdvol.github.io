@@ -604,7 +604,7 @@
     b.innerHTML = n
       ? '<span class="ic">💬</span><span class="tx"><b>' + n + '개</b>의 한마디' +
         (who ? ' · <i>' + esc(who) + '</i>님이 마지막' : '') + '</span>' +
-        '<span class="cta">보고 쓰기</span>'
+        '<span class="cta">나도 한마디</span>'
       : '<span class="ic">💬</span><span class="tx ph">' + esc(b._prompt) + '</span>' +
         '<span class="cta">쓰기</span>';
   }
@@ -1008,7 +1008,10 @@
         });
         wrap.appendChild(sh);
 
-        body.appendChild(wrap);
+        // 면책 문구('매수매도 추천 아님…')는 .story-body 밖, 스토리의 마지막 문단이다.
+        // .story-body에 붙이면 반응·댓글이 그 위로 올라가 면책이 댓글 아래로 밀린다.
+        // 면책은 스토리의 일부이므로 항상 댓글보다 위에 있어야 한다 — 스토리 끝에 붙인다.
+        s.appendChild(wrap);
         mountComment(body, key, wrap);
         render(wrap, key);
         WRAPS[key] = wrap;
