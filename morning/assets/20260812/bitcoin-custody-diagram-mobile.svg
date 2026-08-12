@@ -18,9 +18,9 @@
 <text x="371.0" y="312.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="28" font-weight="800" fill="#222222">직접 보관 위험 재평가</text>
 <rect x="74" y="430" width="594" height="72" rx="18" fill="#FFFFFF" stroke="#DCD8CF" stroke-width="3" filter="url(#shadow)"/>
 <text x="371.0" y="466.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="28" font-weight="800" fill="#222222">비트코인 현물 ETF 유입</text>
-<path d="M 371.0 353 L 371.0 421" fill="none" stroke="#F07040" stroke-width="5" marker-end="url(#arrow)"/>
-<rect x="280.5" y="366.0" width="181" height="42" rx="21" fill="#FAFAF7" stroke="#E7D7CD"/>
-<text x="371.0" y="395.0" text-anchor="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="23" font-weight="800" fill="#8B4B2C">자금 이동</text>
+<path d="M 371.0 353 L 371.0 421" fill="none" stroke="#F07040" stroke-width="5" stroke-dasharray="12 10" marker-end="url(#arrow)"/>
+<rect x="240.0" y="366.0" width="262" height="42" rx="21" fill="#FAFAF7" stroke="#E7D7CD"/>
+<text x="371.0" y="395.0" text-anchor="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="23" font-weight="800" fill="#8B4B2C">같은 시기 발생</text>
 </g>
 <g class="motion-step motion-edge mobile-relation" data-motion-step="5" data-from="C" data-to="D" style="--motion-delay:2075ms">
 <circle cx="34" cy="548" r="19" fill="#241F1B"/><text x="34" y="555" text-anchor="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="19" font-weight="800" fill="#FFFFFF">3</text>

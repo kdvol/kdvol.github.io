@@ -25,7 +25,7 @@
 <g class="motion-step motion-edge mobile-relation" data-motion-step="1" data-from="D" data-to="B" style="--motion-delay:415ms">
 <circle cx="34" cy="467.2" r="19" fill="#241F1B"/><text x="34" y="474.2" text-anchor="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="19" font-weight="800" fill="#FFFFFF">3</text>
 <rect x="74" y="437.2" width="594" height="64" rx="18" fill="#FFF4EF" stroke="#F07040" stroke-width="3" filter="url(#shadow)"/>
-<text x="371.0" y="469.2" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="28" font-weight="800" fill="#222222">Nvidia 잔존가치 지원 최대 25%</text>
+<text x="371.0" y="469.2" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="28" font-weight="800" fill="#222222">Nvidia 잔존가치 지원 장치</text>
 <rect x="74" y="558.8" width="594" height="64" rx="18" fill="#FFFFFF" stroke="#DCD8CF" stroke-width="3" filter="url(#shadow)"/>
 <text x="371.0" y="590.8" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="28" font-weight="800" fill="#222222">AI 인프라 사업자 조달</text>
 <path d="M 371.0 506.2 L 371.0 549.8" fill="none" stroke="#F07040" stroke-width="5" stroke-dasharray="12 10" marker-end="url(#arrow)"/>
@@ -45,7 +45,7 @@
 <g class="motion-step motion-edge mobile-relation" data-motion-step="5" data-from="D" data-to="E" style="--motion-delay:2075ms">
 <circle cx="34" cy="870.4" r="19" fill="#241F1B"/><text x="34" y="877.4" text-anchor="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="19" font-weight="800" fill="#FFFFFF">5</text>
 <rect x="74" y="840.4" width="594" height="64" rx="18" fill="#FFF4EF" stroke="#F07040" stroke-width="3" filter="url(#shadow)"/>
-<text x="371.0" y="872.4" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="28" font-weight="800" fill="#222222">Nvidia 잔존가치 지원 최대 25%</text>
+<text x="371.0" y="872.4" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="28" font-weight="800" fill="#222222">Nvidia 잔존가치 지원 장치</text>
 <rect x="74" y="962.0" width="594" height="64" rx="18" fill="#FFF4EF" stroke="#F07040" stroke-width="3" filter="url(#shadow)"/>
 <text x="371.0" y="994.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="28" font-weight="800" fill="#222222">매출 확대와 금융 위험 결합</text>
 <path d="M 371.0 909.4 L 371.0 953.0" fill="none" stroke="#F07040" stroke-width="5" stroke-dasharray="12 10" marker-end="url(#arrow)"/>

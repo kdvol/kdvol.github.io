@@ -31,27 +31,31 @@ position:relative;transition:border-color .18s}
 border-radius:6px;padding:6px 10px;display:inline-block}
 .more{color:#8b8578;font-size:.86rem;line-height:1.75;margin:14px 0 0;padding:13px 15px;
 background:#161616;border:1px solid #222;border-radius:10px}
-/* 함께한 브랜드 — 로고 이미지 대신 워드마크로 통일한다. 받아온 로고는
-   품질·비율이 제각각이라 섞으면 오히려 조악해 보이고, 남의 로고를 임의로
-   가공하는 것도 좋은 방법이 아니다. */
-.brands{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 24px}
-.brands span{display:inline-flex;align-items:center;justify-content:center;min-height:42px;
-font-size:.86rem;font-weight:700;letter-spacing:-.01em;color:#c9c4ba;
-background:#181818;border:1px solid #262626;border-radius:8px;padding:9px 14px}
-/* 로고가 들어오면 흰 배경 로고도 어두운 판에서 읽히게 */
-.brands span.lg{background:#f7f5f0;padding:9px 16px}
-.brands span.lg img{height:22px;width:auto;display:block}
-/* 사례 — 실제 집행분만. 제작물을 직접 보여주는 게 설명보다 빠르다 */
-.cases{display:flex;flex-direction:column;gap:12px}
-.case{background:#161616;border:1px solid #232323;border-radius:12px;padding:17px 17px 15px}
-.case .ct{font-size:.72rem;font-weight:800;letter-spacing:.04em;color:#F5A481;margin-bottom:8px}
-.case p{color:#9a948a;font-size:.87rem;line-height:1.72;margin:0 0 12px}
-.case a{color:#F07040;font-size:.85rem;font-weight:700;text-decoration:none}
+/* 함께한 브랜드 — 8곳이 한 판에 고르게 놓이도록 격자로. 폭이 제각각인 칩을
+   흘려두면 줄 끝이 들쭉날쭉해 정돈돼 보이지 않는다. */
+.brands{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin:0 0 26px}
+.brands span{display:flex;align-items:center;justify-content:center;min-height:46px;
+padding:8px 10px;text-align:center;font-size:.8rem;font-weight:700;letter-spacing:-.02em;
+color:#c9c4ba;background:#181818;border:1px solid #262626;border-radius:9px;line-height:1.3}
+.brands span.lg{background:#f7f5f0}
+.brands span.lg img{height:20px;width:auto;display:block}
+@media(max-width:560px){.brands{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+/* 사례 — 썸네일(정사각) + 글. 행 구조가 같아야 눈이 편하다.
+   스샷을 크게 늘어놓으면 페이지가 길어지고 링크가 묻힌다. */
+.cases{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.case{display:flex;gap:14px;background:#161616;border:1px solid #232323;border-radius:12px;
+padding:15px 16px}
+.case .th{flex:0 0 auto;width:62px;height:62px;border-radius:9px;object-fit:cover;
+background:#f7f5f0;border:1px solid #242424;padding:0}
+.case img.th[src$=".svg"]{object-fit:contain;padding:9px}
+.case .cb{min-width:0;flex:1}
+.case .ct{font-size:.72rem;font-weight:800;letter-spacing:.02em;color:#F5A481;margin-bottom:7px}
+.case p{color:#948e84;font-size:.84rem;line-height:1.68;margin:0}
+.case a{display:inline-block;margin-top:9px;color:#F07040;font-size:.82rem;font-weight:700;
+text-decoration:none}
 .case a:hover{text-decoration:underline}
-.shots{display:grid;grid-template-columns:1fr 1fr;gap:9px}
-.shots.one{grid-template-columns:1fr;max-width:420px}
-.shots img{width:100%;height:auto;border-radius:8px;display:block;border:1px solid #242424}
-@media(max-width:560px){.shots{grid-template-columns:1fr}}
+@media(max-width:640px){.cases{grid-template-columns:1fr}}
 @media(max-width:560px){.scopes{grid-template-columns:1fr}}
 a{color:#eee;text-decoration:none}
 h1{font-size:1.8rem;letter-spacing:-.03em;margin-bottom:12px;line-height:1.35}
@@ -215,41 +219,45 @@ border-radius:50%;background:#F07040;opacity:0;transition:opacity .2s}
 
 <section>
 <h2>이런 브랜드와 함께했습니다</h2>
-<div class="brands"><span class="lg"><img src="/assets/collab/logo-salesforce.svg" alt="Salesforce" loading="lazy"/></span><span>한국투자증권</span><span>미래에셋자산운용</span><span>BC카드 페이북</span></div>
+<div class="brands"><span>미래에셋자산운용</span><span>한국투자증권</span><span>NH증권</span><span>신한카드</span><span>BC카드</span><span>네이버</span><span>두나무</span><span class="lg"><img src="/assets/collab/logo-salesforce.svg" alt="Salesforce" loading="lazy"/></span></div>
 
 <div class="cases">
 <div class="case">
+<img class="th" src="/assets/collab/logo-salesforce.svg" alt="Salesforce" loading="lazy"/>
+<div class="cb">
 <div class="ct">Salesforce · 스폰서 스토리</div>
-<p>금융권 망분리 규제 완화라는 시의성 있는 주제를 잡아, 브랜드가 말하고 싶은
-메시지를 순살 톤의 한 바닥으로 풀었습니다.</p>
-<a href="/newsletters/2026/0805.html#story-2">실제 발행분 보기 →</a>
-</div>
+<p>금융권 망분리 규제 완화라는 시의성 있는 주제로, 브랜드 메시지를 순살 톤의
+한 바닥으로 풀었습니다.</p>
+<a href="/newsletters/2026/0805.html#story-2">발행분 보기 →</a>
+</div></div>
 
 <div class="case">
-<div class="ct">한국투자증권 · 공동 브랜딩 카드뉴스</div>
-<p>ELW 민감도(Greeks)처럼 어려운 파생상품 개념을 일반 투자자가 이해할 수 있는
-형태로. 주제 선정부터 카피·일러스트·디자인까지 순살이 수행했습니다.</p>
-<div class="shots"><img src="/assets/collab/kis_elw_1.jpg" alt="한국투자증권 ELW 시리즈 카드뉴스"
- loading="lazy" width="760" height="760"/>
-<img src="/assets/collab/kis_elw_2.jpg" alt="한국투자증권 ELW 시리즈 카드뉴스"
- loading="lazy" width="760" height="760"/></div>
-</div>
-
-<div class="case">
+<img class="th" src="/assets/collab/th-mirae.jpg" alt="미래에셋자산운용 캠페인" loading="lazy"
+ width="240" height="240"/>
+<div class="cb">
 <div class="ct">미래에셋자산운용 · 브랜디드 카드뉴스</div>
-<p>앞부분이 에디토리얼 내러티브로 빌드업하고 후반부에 상품이 노출되는 구조.
-광고 한 장이 아니라 열 장 전체가 하나의 브랜드 스토리로 기능합니다.</p>
-<div class="shots one"><img src="/assets/collab/mirae_etf.jpg" alt="미래에셋자산운용 캠페인 카드뉴스"
- loading="lazy" width="900" height="900"/></div>
-</div>
+<p>10장 캐러셀 풀 제작. 앞부분이 에디토리얼로 빌드업하고 후반부에 상품이
+노출되는 구조입니다.</p>
+<a href="https://www.instagram.com/p/CbXDJFEBeta/" target="_blank" rel="noopener">인스타그램에서 보기 →</a>
+</div></div>
 
 <div class="case">
+<img class="th" src="/assets/collab/th-kis.jpg" alt="한국투자증권 ELW 시리즈" loading="lazy"
+ width="240" height="240"/>
+<div class="cb">
+<div class="ct">한국투자증권 · 공동 브랜딩 카드뉴스</div>
+<p>ELW 민감도(Greeks) 같은 파생상품 개념을 일반 투자자가 이해할 형태로.
+주제 선정부터 카피·일러스트·디자인까지 순살이 수행했습니다.</p>
+</div></div>
+
+<div class="case">
+<img class="th" src="/assets/collab/th-bc.jpg" alt="페이북 × 순살" loading="lazy"
+ width="240" height="240"/>
+<div class="cb">
 <div class="ct">BC카드 페이북 · 인앱 콘텐츠 공급</div>
 <p>파트너 앱 안에 순살 콘텐츠를 정기 공급했습니다. 브랜드 채널에 실리는
 형태의 협업입니다.</p>
-<div class="shots one"><img src="/assets/collab/bc_paybooc.jpg" alt="페이북 × 순살"
- loading="lazy" width="720" height="230"/></div>
-</div>
+</div></div>
 </div>
 
 <p class="note">스폰서 스토리는 일반 스토리와 같은 자리, 같은 문체로 실립니다.

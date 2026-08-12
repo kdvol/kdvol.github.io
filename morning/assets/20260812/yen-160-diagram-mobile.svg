@@ -7,7 +7,7 @@
 <rect x="74" y="34" width="594" height="72" rx="18" fill="#FFFFFF" stroke="#DCD8CF" stroke-width="3" filter="url(#shadow)"/>
 <text x="371.0" y="70.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="28" font-weight="800" fill="#222222">미일 공조 개입</text>
 <rect x="74" y="188" width="594" height="72" rx="18" fill="#FFFFFF" stroke="#DCD8CF" stroke-width="3" filter="url(#shadow)"/>
-<text x="371.0" y="224.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="28" font-weight="800" fill="#222222">상승분 절반가량 반납</text>
+<text x="371.0" y="224.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="28" font-weight="800" fill="#222222">공조 개입 뒤 약세 재개</text>
 <path d="M 371.0 111 L 371.0 179" fill="none" stroke="#F07040" stroke-width="5" marker-end="url(#arrow)"/>
 <rect x="280.5" y="124.0" width="181" height="42" rx="21" fill="#FAFAF7" stroke="#E7D7CD"/>
 <text x="371.0" y="153.0" text-anchor="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="23" font-weight="800" fill="#8B4B2C">효과 약화</text>
@@ -15,7 +15,7 @@
 <g class="motion-step motion-edge mobile-relation" data-motion-step="3" data-from="B" data-to="C" style="--motion-delay:1245ms">
 <circle cx="34" cy="306" r="19" fill="#241F1B"/><text x="34" y="313" text-anchor="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="19" font-weight="800" fill="#FFFFFF">2</text>
 <rect x="74" y="276" width="594" height="72" rx="18" fill="#FFFFFF" stroke="#DCD8CF" stroke-width="3" filter="url(#shadow)"/>
-<text x="371.0" y="312.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="28" font-weight="800" fill="#222222">상승분 절반가량 반납</text>
+<text x="371.0" y="312.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="28" font-weight="800" fill="#222222">공조 개입 뒤 약세 재개</text>
 <rect x="74" y="430" width="594" height="72" rx="18" fill="#FFFFFF" stroke="#DCD8CF" stroke-width="3" filter="url(#shadow)"/>
 <text x="371.0" y="466.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="28" font-weight="800" fill="#222222">달러당 160엔 접근</text>
 <path d="M 371.0 353 L 371.0 421" fill="none" stroke="#F07040" stroke-width="5" marker-end="url(#arrow)"/>
