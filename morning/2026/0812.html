@@ -51,12 +51,17 @@
 @media(max-width:560px){
 .nav>a.nav-desktop-link{display:none}
 .nav-menu a.nav-mobile-only{display:block}
-  .nav{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));width:100%}
-  .nav>a,.nav-more>summary{justify-content:center;padding:11px 3px;font-size:12px;letter-spacing:-.2px}
+  /* 코어 4개 + 더보기 = 5칸. 4칸으로 두면 다섯 번째가 다음 줄로 넘어간다. */
+  .nav{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));width:100%}
+  .nav>a,.nav-more>summary{justify-content:center;padding:11px 2px;font-size:11.5px;
+  letter-spacing:-.4px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
   .nav-more{position:static;min-width:0}
   .nav-menu{left:10px;right:10px;top:100%;grid-template-columns:repeat(2,minmax(0,1fr));min-width:0;padding:8px}
   .nav-menu a{text-align:center;padding:11px 6px}
   .nav-menu a.biz{border-top:0;margin-top:0;padding-top:11px}
+}
+@media(max-width:360px){
+  .nav>a,.nav-more>summary{font-size:10.5px;letter-spacing:-.5px;padding:11px 1px}
 }
 </style>
 <style id="soonsal-nav-visibility-v3">
@@ -68,6 +73,14 @@
   .nav>a.nav-desktop-link{display:none}
   .nav-menu a.nav-mobile-only{display:block}
   .nav-more.mobile-active>summary{color:#F07040;border-bottom-color:#F07040}
+  /* 코어 4개 + 더보기 = 5칸. 예전 CSS가 4칸이라 다섯 번째가 다음 줄로 넘어갔다.
+     이 블록은 페이지마다 나중에 주입되므로 안에 박힌 옛 규칙을 덮는다. */
+  .nav{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));width:100%}
+  .nav>a,.nav-more>summary{justify-content:center;padding:11px 2px;font-size:11.5px;
+    letter-spacing:-.4px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+}
+@media(max-width:360px){
+  .nav>a,.nav-more>summary{font-size:10.5px;letter-spacing:-.5px;padding:11px 1px}
 }
 </style>
 </head>

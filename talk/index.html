@@ -65,7 +65,11 @@ border-radius:16px;transition:background .15s,color .15s;min-height:32px}
 font-size:16px;font-family:inherit;resize:none;background:#181818;color:#eee;line-height:1.5}
 .rf textarea:focus{outline:none;border-color:#F07040;background:#1c1a18}
 .rf .row{display:flex;align-items:center;gap:8px;margin-top:8px}
-.rf .who{flex:1;font-size:.74rem;color:#6b665e;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.rf .who{flex:1;font-size:.74rem;color:#8b8578;overflow:hidden;text-overflow:ellipsis;
+white-space:nowrap;cursor:pointer;display:flex;align-items:center;gap:6px}
+.rf .who em{font-style:normal;color:#F07040;font-size:.68rem;background:#1f1713;
+border-radius:5px;padding:2px 7px;flex:0 0 auto}
+.rf .who:hover em{background:#2a1d16}
 .rf button.go{background:#E55A00;color:#fff;border:none;border-radius:18px;padding:8px 18px;
 font-size:.8rem;font-weight:700;cursor:pointer;font-family:inherit;min-height:34px}
 .rf button.go:disabled{background:#242424;color:#5f5a52}
@@ -117,12 +121,17 @@ background:#E55A00;color:#fff;padding:8px 18px;border-radius:6px;font-size:13px;
 @media(max-width:560px){
 .nav>a.nav-desktop-link{display:none}
 .nav-menu a.nav-mobile-only{display:block}
-  .nav{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));width:100%}
-  .nav>a,.nav-more>summary{justify-content:center;padding:11px 3px;font-size:12px;letter-spacing:-.2px}
+  /* 코어 4개 + 더보기 = 5칸. 4칸으로 두면 다섯 번째가 다음 줄로 넘어간다. */
+  .nav{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));width:100%}
+  .nav>a,.nav-more>summary{justify-content:center;padding:11px 2px;font-size:11.5px;
+  letter-spacing:-.4px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
   .nav-more{position:static;min-width:0}
   .nav-menu{left:10px;right:10px;top:100%;grid-template-columns:repeat(2,minmax(0,1fr));min-width:0;padding:8px}
   .nav-menu a{text-align:center;padding:11px 6px}
   .nav-menu a.biz{border-top:0;margin-top:0;padding-top:11px}
+}
+@media(max-width:360px){
+  .nav>a,.nav-more>summary{font-size:10.5px;letter-spacing:-.5px;padding:11px 1px}
 }
 </style><header class="site-header"><a class="logo-link" href="/"><img src="/favicon.svg" alt="" onerror="this.style.display='none'"><span class="logo-text">순살브리핑 Soonsal</span></a><a href="https://subscribe.soonsal.com/subscribe" target="_blank" rel="noopener" class="sub-btn-header">구독하기</a></header><nav class="nav" aria-label="주요 메뉴"><a href="/newsletters/">브리핑</a><a href="/morning/">모닝순살</a><a href="/talk/" class="active">순살톡</a><a href="/topics/">주제별</a><a href="/school/" class="nav-desktop-link">스쿨</a><a href="/advertise/" class="nav-desktop-link biz">광고 문의</a><details class="nav-more"><summary>더보기 <span aria-hidden="true">⌄</span></summary><section class="nav-menu" aria-label="추가 메뉴"><a href="/cardnews/">카드뉴스</a><a href="/youtube/">YouTube</a><a href="/school/" class="nav-mobile-only">스쿨</a><a href="/advertise/" class="nav-mobile-only biz">광고 문의</a></section></details></nav>
 <div class="wrap">
@@ -174,6 +183,11 @@ function avatar(nick, isOp) {
   var ch = s.replace(/[^가-힣A-Za-z0-9]/g, '').charAt(0) || '?';
   return '<span class="av" style="background:' + bg + (isOp ? ';color:#fff' : '') + '">' +
     esc(ch) + '</span>';
+}
+
+function whoLabel() {
+  var n = prof().n || '';
+  return (n ? esc(n) : '이름 없음') + '<em>✎ 바꾸기</em>';
 }
 
 function prof() {
@@ -282,9 +296,27 @@ function wire() {
       rf._story = b.getAttribute('data-s');
       var tag = '@' + b.getAttribute('data-k') + ' ';
       if (ta.value.indexOf('@') !== 0) ta.value = tag + ta.value;
-      rf.querySelector('.who').textContent = (prof().n || '') + ' (으)로 답글';
+      rf.querySelector('.who').innerHTML = whoLabel();
       go.disabled = !ta.value.trim();
       ta.focus();
+    });
+  });
+
+  // 답글 폼의 '누구로' 줄을 눌러 이름을 바꾼다. 스토리 댓글창에만 있고
+  // 여기엔 없어서, 순살톡에서 답글만 다는 사람은 이름을 못 바꿨다.
+  app.querySelectorAll('.who').forEach(function (el) {
+    el.addEventListener('click', function () {
+      var p = prof();
+      var v = prompt('이름을 바꿔요 (12자까지)', p.n || '');
+      if (v === null) return;
+      v = v.trim().slice(0, 12);
+      if (!v) return;
+      p.n = v;
+      try { localStorage.setItem('ss_prof', JSON.stringify(p));
+            localStorage.setItem('ss_nick', v); } catch (e) {}
+      app.querySelectorAll('.who').forEach(function (x) {
+        if (x.textContent) x.innerHTML = whoLabel();
+      });
     });
   });
 
