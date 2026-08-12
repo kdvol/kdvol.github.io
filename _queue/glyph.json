@@ -1,0 +1,14 @@
+{
+  "type": "single_video",
+  "video": "_publish/sv/glyph/reel.mp4",
+  "caption_txt": "_publish/sv/glyph/POST.txt",
+  "post_txt": "_publish/sv/glyph/POST.txt",
+  "prefix": "sv/2026/0828_glyph",
+  "instagram": true,
+  "youtube": false,
+  "youtube_title": "",
+  "name": "glyph",
+  "date": "20260816",
+  "target_epoch": 1786876800,
+  "dry_run": false
+}
