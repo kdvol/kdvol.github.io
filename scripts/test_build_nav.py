@@ -27,7 +27,7 @@ class BuildNavTest(unittest.TestCase):
                 self.assertIn('<nav class="nav" aria-label="주요 메뉴">', morning)
                 self.assertNotIn('<a href="/">홈</a>', morning)
                 self.assertIn('<a href="/newsletters/">브리핑</a>', morning)
-                self.assertIn('<a href="/morning/" class="active">아침 메모</a>', morning)
+                self.assertIn('<a href="/morning/" class="active">모닝순살</a>', morning)
                 self.assertIn('<a href="/topics/">주제별</a>', morning)
                 self.assertIn('<details class="nav-more">', morning)
                 self.assertIn('grid-template-columns:repeat(4,minmax(0,1fr))', morning)
