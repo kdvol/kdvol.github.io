@@ -15,7 +15,7 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-LINK = '<a href="https://soonsal.com/talk/">💬 독자 한마디</a>'
+LINK = '<a href="https://soonsal.com/talk/">💬 순살톡</a>'
 ANCHOR = '<a href="https://subscribe.soonsal.com/subscribe">구독하기</a>'
 
 

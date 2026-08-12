@@ -141,6 +141,19 @@
     '.ss-sch a{color:#E55A00;text-decoration:none;font-weight:700;font-size:13px}' +
     '.ss-sch button{margin-left:auto;background:none;border:none;color:#c4bfb2;font-size:12px;' +
     'cursor:pointer;font-family:inherit;padding:2px 4px}' +
+    // 쓰는 자리 — 버튼이 아니라 '입력칸'처럼 보이게 한다
+    '.ss-cbar{display:flex;align-items:center;gap:9px;width:100%;margin:10px 0 2px;' +
+    'padding:12px 14px;background:#fff;border:1px solid #e4e0d6;border-radius:12px;' +
+    'font-family:inherit;font-size:13px;color:#6b6659;cursor:pointer;text-align:left;' +
+    'transition:border-color .15s,box-shadow .15s}' +
+    '.ss-cbar:hover{border-color:#F07040;box-shadow:0 0 0 3px rgba(240,112,64,.08)}' +
+    '.ss-cbar .ic{flex:0 0 auto;font-size:15px;line-height:1}' +
+    '.ss-cbar .tx{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}' +
+    '.ss-cbar .tx.ph{color:#a8a294}' +
+    '.ss-cbar .tx b{color:#E55A00;font-weight:700}' +
+    '.ss-cbar .tx i{font-style:normal;color:#6b6659}' +
+    '.ss-cbar .cta{flex:0 0 auto;font-size:11px;font-weight:700;color:#E55A00;' +
+    'background:#fdf0e9;border-radius:6px;padding:5px 10px}' +
     '.ss-call{display:block;text-align:center;margin-top:12px;padding:9px;font-size:12px;' +
     'color:#8a8578;border:1px solid #ece8de;border-radius:9px;text-decoration:none}' +
     '.ss-call:hover{color:#E55A00;border-color:#E55A00}' +
@@ -363,7 +376,7 @@
     d.className = 'ss-notice';
     // 뉴스레터에는 사이트 nav가 없다. 한마디로 가는 길이 여기 말고는 없어서
     // 수집 안내 줄에 같이 건다.
-    d.innerHTML = '<a href="/talk/">💬 독자 한마디</a> · ' +
+    d.innerHTML = '<a href="/talk/">💬 순살톡</a> · ' +
       '쿠키 없이 익명 방문 통계만 수집합니다 · ' +
       '<a href="/privacy/">수집 안내</a>';
     var f = document.querySelector('.footer-inner') || document.querySelector('.footer');
@@ -541,9 +554,14 @@
   function paintPill(key) {
     var b = CBTN[key];
     if (!b) return;
-    var n = (CMTS[key] || []).length;
-    b.querySelector('.n').textContent = n ? n : '';
-    b.querySelector('.lb').textContent = n ? ' 한마디' : ' 한 줄 남기기';
+    var items = CMTS[key] || [], n = items.length;
+    var who = n ? items[n - 1].k : '';
+    b.innerHTML = n
+      ? '<span class="ic">💬</span><span class="tx"><b>' + n + '개</b>의 한마디' +
+        (who ? ' · <i>' + esc(who) + '</i>님이 마지막' : '') + '</span>' +
+        '<span class="cta">보고 쓰기</span>'
+      : '<span class="ic">💬</span><span class="tx ph">' + esc(b._prompt) + '</span>' +
+        '<span class="cta">쓰기</span>';
   }
 
   function closeC() {
@@ -588,7 +606,7 @@
         '<div class="ss-cpn">이 브라우저에만 저장돼요.</div>' +
       '</div>' +
       '<div class="ss-clist"></div>' +
-      '<a class="ss-call" href="/talk/">다른 회차 한마디도 보기 →</a>' +
+      '<a class="ss-call" href="/talk/">순살톡에서 다른 회차 이야기도 보기 →</a>' +
       '<div class="ss-cnote">투자 권유·광고·비방은 ' +
       '사전 통보 없이 숨겨집니다.</div>';
 
@@ -820,13 +838,26 @@
     });
   }
 
+  // 무엇을 쓸지 막막하면 아무도 안 쓴다. 스토리마다 다른 운을 띄운다.
+  var PROMPTS = [
+    '이 얘기 어떻게 보셨어요?',
+    '아는 게 있으면 한 줄 보태주세요',
+    '이거 진짜 이렇게 될까요?',
+    '읽고 든 생각 한 줄',
+    '비슷한 경험 있으신 분?',
+    '어느 쪽이 맞다고 보세요?',
+  ];
+
   function mountComment(body, key, wrap) {
     var b = document.createElement('button');
     b.type = 'button';
-    b.className = 'ss-rb ss-cbtn';
-    b.innerHTML = '💬<span class="lb"> 한 줄 남기기</span><b class="n"></b>';
+    b.className = 'ss-cbar';
+    var h = 0;
+    for (var i = 0; i < key.length; i++) h = (h * 31 + key.charCodeAt(i)) >>> 0;
+    b._prompt = PROMPTS[h % PROMPTS.length];
     b.addEventListener('click', function () { openC(key, b); });
-    wrap.insertBefore(b, wrap.querySelector('.ss-sh'));
+    // 반응 줄 '다음'에 놓는다 — 반응은 한 번 누르고 끝이고, 쓰는 건 그다음이다
+    wrap.parentNode.insertBefore(b, wrap.nextSibling);
     CBTN[key] = b;
     paintPill(key);
   }

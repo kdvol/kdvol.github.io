@@ -62,7 +62,10 @@ font-size:.82rem;font-weight:700;cursor:pointer;font-family:inherit}
 .rf button.go:disabled{background:#242424;color:#5f5a52}
 .rf button.x{background:none;border:none;color:#7a756c;font-size:.75rem;cursor:pointer;font-family:inherit}
 .empty{color:#7a756c;text-align:center;padding:52px 16px;line-height:1.7}
-.empty b{display:block;color:#b8b2a8;font-size:1rem;margin-bottom:6px}
+.empty b{display:block;color:#f0ede6;font-size:1.12rem;margin-bottom:9px;letter-spacing:-.02em}
+.empty .ecta{display:inline-block;margin-top:18px;background:#E55A00;color:#fff;
+text-decoration:none;font-weight:700;font-size:.87rem;border-radius:10px;padding:12px 20px}
+.empty .ecta:hover{background:#F07040}
 .new{background:#191512;border-color:#4a2d1c}
 """
 
@@ -110,8 +113,10 @@ function href(story) {
 
 function render(items) {
   if (!items.length) {
-    app.innerHTML = '<div class="empty"><b>아직 아무도 말을 걸지 않았어요</b>' +
-      '브리핑을 읽다가 한 줄 남기면 여기 모입니다.</div>';
+    app.innerHTML = '<div class="empty"><b>여기가 첫 줄이 될 자리예요</b>' +
+      '브리핑을 읽다 남긴 한마디가 회차 상관없이 여기 모입니다.<br>' +
+      '읽고 든 생각, 아는 이야기, 질문 — 무엇이든 좋아요.' +
+      '<a class="ecta" href="/">오늘 브리핑 읽으러 가기 →</a></div>';
     return;
   }
   // 스레드로 묶는다 — 서버가 이미 (최신 스레드, root, id) 순으로 준다
@@ -267,15 +272,15 @@ def build(atoms=None):
 
     html = f"""<!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>순살 한마디 — 독자들이 남긴 말</title>
-<meta name="description" content="순살브리핑 독자들이 스토리마다 남긴 한 줄을 한자리에 모았습니다."/>
+<title>순살톡 — 독자들이 남긴 말</title>
+<meta name="description" content="순살브리핑 독자들이 스토리마다 남긴 한 줄을 한자리에. 순살톡."/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700;800&display=swap" rel="stylesheet"/>
 <script src="/ss-config.js"></script>
 <style>{CSS}</style></head><body>
 {nav}
 <div class="wrap">
-<h1>한마디</h1>
+<h1>순살톡</h1>
 <p class="sub">브리핑을 읽다 남긴 한 줄이 여기 다 모입니다.
 <span class="live"><b></b>실시간</span><br>
 <a href="/">오늘 브리핑 보러 가기 →</a></p>

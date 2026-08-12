@@ -103,9 +103,11 @@ background:linear-gradient(180deg,transparent 55%,rgba(20,20,20,.92) 100%)}
 .cb{padding:18px 21px 0}
 .tag{display:inline-block;font-size:.68rem;font-weight:700;letter-spacing:.02em;
 border-radius:5px;padding:3px 9px;margin-bottom:11px;background:rgba(240,112,64,.13);color:#F5A481}
-.card h3{font-size:1.1rem;font-weight:800;letter-spacing:-.025em;line-height:1.4;
-margin:0 0 5px;color:#f2efe8}
-.card .sb{color:#7a756c;font-size:.85rem;margin:0 0 14px;line-height:1.55}
+/* 제목이 카드에서 가장 먼저 읽혀야 한다. 메타·불릿과 크기 차이를 벌린다. */
+.card h3{font-size:1.42rem;font-weight:800;letter-spacing:-.03em;line-height:1.32;
+margin:0 0 7px;color:#f7f4ee}
+.card.best h3{font-size:1.62rem}
+.card .sb{color:#8b8578;font-size:.92rem;margin:0 0 16px;line-height:1.55}
 .meta{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:16px}
 .meta span{font-size:.72rem;color:#8b8578;border:1px solid #262626;border-radius:6px;padding:3px 9px}
 .meta .rt{border-color:#4a2d1c;color:#F5A481;font-weight:700}
@@ -151,6 +153,7 @@ padding-top:24px;border-top:1px solid #1c1c1c;text-align:center}
 @media(max-width:600px){
  .sc{padding:26px 15px 70px}
  .ph h1{font-size:1.6rem}
+ .card h3{font-size:1.24rem}.card.best h3{font-size:1.36rem}
  .cb{padding:18px 17px 0}
  .tz{margin:0 17px 15px}
  .cv{height:158px}.card.best .cv{height:196px}
