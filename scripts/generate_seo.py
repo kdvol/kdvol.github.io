@@ -199,6 +199,11 @@ def main():
     except Exception as e:
         print(f"⚠️ build_talk 실패(계속 진행): {e}")
     try:
+        import add_talk_link
+        add_talk_link.main()                # 발행 HTML 자체에 한마디 링크(메일에서도 살아남게)
+    except Exception as e:
+        print(f"⚠️ add_talk_link 실패(계속 진행): {e}")
+    try:
         import build_cardnews_light
         build_cardnews_light.main()         # 새 카드뉴스 페이지도 자동 경량화
     except Exception as e:
