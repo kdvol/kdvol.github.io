@@ -130,7 +130,34 @@ text-decoration:none;box-shadow:0 10px 28px rgba(0,0,0,.28)}
 JS = r"""
 // ss-config.js 하나가 못 뜨면(네트워크 블립·차단기) 페이지 전체가
 // '불러오지 못했습니다'가 된다. 주소는 공개값이라 여기 적어 둔다.
-var API = (window.SS_CFG && window.SS_CFG.worker) || 'https://soonsal-react.kd-d0a.workers.dev';
+var HOSTS = (window.SS_CFG && window.SS_CFG.hosts) ||
+            [(window.SS_CFG && window.SS_CFG.worker) || 'https://soonsal-react.kd-d0a.workers.dev'];
+// 한 호스트가 막히면 다음 것으로 넘어간다. 한 번 통한 호스트는 기억해 두고
+// 다음부터 그것부터 쓴다 — 매번 막힌 곳을 먼저 두드릴 이유가 없다.
+try {
+  var okHost = localStorage.getItem('ss_host');
+  if (okHost && HOSTS.indexOf(okHost) > 0) {
+    HOSTS = [okHost].concat(HOSTS.filter(function (h) { return h !== okHost; }));
+  }
+} catch (e) {}
+var API = HOSTS[0];
+
+function apiFetch(path, opt) {
+  var i = 0;
+  function attempt() {
+    var host = HOSTS[i];
+    return fetch(host.replace(/[/]$/, '') + path, opt).then(function (r) {
+      API = host;
+      try { localStorage.setItem('ss_host', host); } catch (e) {}
+      return r;
+    }).catch(function (err) {
+      i += 1;
+      if (i < HOSTS.length) { return attempt(); }
+      throw err;
+    });
+  }
+  return attempt();
+}
 var app = document.getElementById('app');
 var seen = {}, first = true, liked = {};
 try { liked = JSON.parse(localStorage.getItem('ss_liked') || '{}'); } catch (e) {}
@@ -286,7 +313,7 @@ function wire() {
       var id = parseInt(b.getAttribute('data-i'), 10), v = vid();
       if (!API || !v) return;
       b.disabled = true;
-      fetch(API.replace(/[/]$/, '') + '/like', {
+      apiFetch('/like', {
         method: 'POST', headers: { 'content-type': 'application/json' },
         body: JSON.stringify({ id: id, v: v }),
       }).then(function (r) { return r.json(); }).then(function (res) {
@@ -359,7 +386,7 @@ function submit(rf, ta, go) {
   var body = ta.value.trim(), v = vid(), p = prof();
   if (!body || !API || !v) return;
   go.disabled = true;
-  fetch(API.replace(/[/]$/, '') + '/comment', {
+  apiFetch('/comment', {
     method: 'POST', headers: { 'content-type': 'application/json' },
     body: JSON.stringify({
       story: rf._story, v: v, nick: p.n || '순살러', body: body,
@@ -380,7 +407,7 @@ function load() {
   // 모바일에서 요청이 멈추면 화면이 '불러오는 중…'에 갇힌다 — 12초에 끊는다
   var ctl = typeof AbortController !== 'undefined' ? new AbortController() : null;
   var timer = setTimeout(function () { if (ctl) ctl.abort(); }, 12000);
-  fetch(API.replace(/[/]$/, '') + '/recent?n=60', { signal: ctl ? ctl.signal : undefined })
+  apiFetch('/recent?n=60', { signal: ctl ? ctl.signal : undefined })
     .then(function (r) { clearTimeout(timer); return r.json(); })
     .then(function (d) {
       if (d && d.off) {

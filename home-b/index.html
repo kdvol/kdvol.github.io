@@ -507,7 +507,61 @@ color:#8a857c;text-decoration:none}
   .hello-cta span { display: block; }
   .hello-web { text-align: right; }
   .hello-web a { font-size: 11px; color: #bbb; font-weight: 700; text-decoration: underline; letter-spacing: -0.2px; }
-</style></head><body>
+</style><style id="soonsal-nav-visibility-v3">
+.nav-menu a.nav-mobile-only{display:none}
+.nav>a.nav-desktop-link.biz{color:#F07040}
+.nav>a.nav-desktop-link.biz:hover{color:#ff8a52}
+.nav-menu a.biz{color:#F07040}
+@media(max-width:560px){
+  .nav>a.nav-desktop-link{display:none}
+  .nav-menu a.nav-mobile-only{display:block}
+  .nav-more.mobile-active>summary{color:#F07040;border-bottom-color:#F07040}
+  /* 코어 4개 + 더보기 = 5칸. 예전 CSS가 4칸이라 다섯 번째가 다음 줄로 넘어갔다.
+     이 블록은 페이지마다 나중에 주입되므로 안에 박힌 옛 규칙을 덮는다. */
+  .nav{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));width:100%}
+  .nav>a,.nav-more>summary{justify-content:center;padding:11px 2px;font-size:11.5px;
+    letter-spacing:-.4px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+}
+@media(max-width:360px){
+  .nav>a,.nav-more>summary{font-size:10.5px;letter-spacing:-.5px;padding:11px 1px}
+}
+/* ── 눌러보고 싶게 ──────────────────────────────────────
+   탭은 '지금 어디' 말고는 아무것도 알려주지 않는다. 더보기는 특히 그렇다 —
+   안에 뭐가 있는지 모르면 누를 이유가 없다. 세 가지를 바꾼다:
+   (1) 밑줄이 자라며 눌리는 느낌, (2) 화살표가 열림에 반응, (3) 메뉴 안에
+   아이콘을 붙여 목록이 아니라 '갈 곳'으로 보이게. */
+.nav>a,.nav-more>summary{position:relative;transition:color .18s}
+.nav>a:after,.nav-more>summary:after{content:"";position:absolute;left:50%;right:50%;
+bottom:-1px;height:2px;background:#F07040;border-radius:2px;
+transition:left .22s cubic-bezier(.4,0,.2,1),right .22s cubic-bezier(.4,0,.2,1)}
+.nav>a:hover:after,.nav-more>summary:hover:after{left:18%;right:18%}
+.nav>a.active:after,.nav-more.active>summary:after{left:0;right:0}
+
+.nav-more>summary span[aria-hidden]{display:inline-block;transition:transform .22s ease;
+margin-left:2px}
+.nav-more[open]>summary span[aria-hidden]{transform:rotate(180deg)}
+.nav-more[open]>summary{color:#F07040}
+
+.nav-menu{animation:navdrop .18s cubic-bezier(.2,.8,.2,1)}
+@keyframes navdrop{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
+.nav-menu a{transition:background .15s,color .15s,padding-left .15s}
+.nav-menu a:before{margin-right:7px;opacity:.9}
+.nav-menu a[href="/cardnews/"]:before{content:"🎴"}
+.nav-menu a[href="/youtube/"]:before{content:"▶"}
+.nav-menu a[href="/school/"]:before{content:"🎓"}
+.nav-menu a[href="/collab/"]:before{content:"✉"}
+.nav-menu a[href="/talk/"]:before{content:"💬"}
+
+/* 더보기 안에 뭐가 있는지 한 줄로 알려준다 — 열기 전에 궁금해지는 건 이 지점이다 */
+.nav-more>summary:before{content:"";position:absolute;top:9px;right:6px;width:5px;height:5px;
+border-radius:50%;background:#F07040;opacity:0;transition:opacity .2s}
+.nav-more:not([open])>summary:hover:before{opacity:.85}
+@media(max-width:560px){
+  .nav-menu a{text-align:left;padding-left:14px}
+  .nav-more>summary:before{right:3px;top:7px}
+}
+</style>
+</head><body>
 <div id="soonsal-live-ticker" style="display:none;"></div>
 <style>
 #soonsal-live-ticker{position:fixed;top:0;left:0;right:0;width:100%;background:#0a0a0a;border-bottom:1px solid #1a1a1a;overflow:hidden;z-index:99999;user-select:none;-webkit-user-select:none}
@@ -550,7 +604,7 @@ color:#8a857c;text-decoration:none}
 <script>
 (function(){'use strict';var WORKER_URL='https://soonsal-data.kd-d0a.workers.dev/';var COINGECKO_URL='https://api.coingecko.com/api/v3';var TRADFI_ORDER=['S&P 500','NASDAQ','Dow Jones','KOSPI','US 10Y','WTI Oil','Gold','DXY','EUR/USD','USD/JPY','USD/KRW'];var CRYPTO_ORDER=['Bitcoin','Ethereum','Solana','XRP','BNB','Crypto Total'];var CRYPTO_IDS={'Bitcoin':'bitcoin','Ethereum':'ethereum','Solana':'solana','XRP':'ripple','BNB':'binancecoin'};var REFRESH=60000;var container,timer,lastTradfi,lastCrypto;function init(){container=document.getElementById('soonsal-live-ticker');if(!container)return;container.style.display='block';container.innerHTML='<div class="stk-loading"><div class="stk-spin"></div>Loading market data...</div>';fetchAll();timer=setInterval(fetchAll,REFRESH)}function fetchAll(){var p1=fetchTradFi();var p2=fetchCrypto();Promise.allSettled?Promise.allSettled([p1,p2]).then(render):Promise.all([p1.catch(function(){return null}),p2.catch(function(){return null})]).then(render)}function fetchTradFi(){return fetch(WORKER_URL).then(function(r){return r.json()}).then(function(data){if(data.tradfi)lastTradfi=data;return data}).catch(function(e){console.warn('[Ticker] TradFi error:',e.message);return null})}function fetchCrypto(){var ids=Object.values(CRYPTO_IDS).join(',');var url=COINGECKO_URL+'/simple/price?ids='+ids+'&vs_currencies=usd&include_24hr_change=true&include_market_cap=true';var globalUrl=COINGECKO_URL+'/global';return Promise.all([fetch(url).then(function(r){return r.json()}),fetch(globalUrl).then(function(r){return r.json()}).catch(function(){return null})]).then(function(results){var prices=results[0];var global=results[1];var crypto={};for(var name in CRYPTO_IDS){var id=CRYPTO_IDS[name];var d=prices[id];if(!d)continue;var p=d.usd;var ch=d.usd_24h_change||0;crypto[name]={price:'$'+formatNum(p),change:(ch>=0?'+':'')+ch.toFixed(2)+'%',direction:ch>0.01?'up':ch<-0.01?'down':'zero'}}if(global&&global.data){var mc=global.data.total_market_cap&&global.data.total_market_cap.usd;var mch=global.data.market_cap_change_percentage_24h_usd;if(mc){crypto['Crypto Total']={price:'$'+(mc/1e12).toFixed(2)+'T',change:(mch>=0?'+':'')+(mch||0).toFixed(2)+'%',direction:mch>0?'up':mch<0?'down':'zero'}}}lastCrypto=crypto;return crypto}).catch(function(e){console.warn('[Ticker] Crypto error:',e.message);return null})}function render(){var tradfi=lastTradfi?lastTradfi.tradfi:{};var crypto=lastCrypto||{};var kst=lastTradfi?lastTradfi.kst:new Date().toLocaleString('ko-KR',{timeZone:'Asia/Seoul'});var html=[];html.push('<div class="stk-ts"><span class="stk-dot"></span><span class="stk-time">'+esc(kst)+' KST</span></div>');for(var i=0;i<TRADFI_ORDER.length;i++){var name=TRADFI_ORDER[i];var d=tradfi[name];if(d)html.push(makeItem(name,d,false))}html.push('<div class="stk-div"><span></span></div>');for(var j=0;j<CRYPTO_ORDER.length;j++){var cname=CRYPTO_ORDER[j];var cd=crypto[cname];if(cd)html.push(makeItem(cname,cd,true))}var track=html.join('');container.innerHTML='<div class="stk-track">'+track+track+'</div>'}function makeItem(name,d,isCrypto){var dir=d.direction||'zero';var arrow=dir==='up'?'<span class="au"></span>':dir==='down'?'<span class="ad"></span>':'';return'<div class="stk-item"><span class="stk-lbl'+(isCrypto?' crypto':'')+'">'+esc(name)+'</span><span class="stk-prc">'+esc(d.price)+'</span><span class="stk-chg '+dir+'">'+arrow+' '+esc(d.change)+'</span></div>'}function formatNum(n){if(n>=10000)return n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});if(n>=100)return n.toFixed(2);if(n>=1)return n.toFixed(2);return n.toFixed(4)}function esc(s){if(!s)return'';var d=document.createElement('span');d.textContent=String(s);return d.innerHTML}if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',init)}else{init()}})();
 </script>
-<header class="site-header"><a href="/search/" class="search-btn-header" aria-label="검색"><svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.6-3.6"/></svg></a><a class="logo-link" href="/"><img src="/favicon.svg" alt="" onerror="this.style.display='none'"><span class="logo-text">순살브리핑 Soonsal</span></a><a href="https://subscribe.soonsal.com/subscribe" target="_blank" rel="noopener" class="sub-btn-header">구독하기</a></header><nav class="nav" aria-label="주요 메뉴"><a href="/newsletters/" class="active">뉴스레터</a><a href="/chart/">순살차트</a><a href="/talk/">순살톡</a><a href="/school/" class="nav-desktop-link">스쿨</a><a href="/collab/" class="nav-desktop-link biz">협업 문의</a><details class="nav-more"><summary>더보기 <span aria-hidden="true">⌄</span></summary><section class="nav-menu" aria-label="추가 메뉴"><a href="/topics/">주제별</a><a href="/saved/">내가 모은 글</a><a href="/cardnews/">카드뉴스</a><a href="/youtube/">YouTube</a><a href="/school/" class="nav-mobile-only">스쿨</a><a href="/collab/" class="nav-mobile-only biz">협업 문의</a></section></details></nav><div class="wrap">
+<header class="site-header"><a href="/search/" class="search-btn-header" aria-label="검색"><svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.6-3.6"/></svg></a><a class="logo-link" href="/"><img src="/favicon.svg" alt="" onerror="this.style.display='none'"><span class="logo-text">순살브리핑 Soonsal</span></a><a href="https://subscribe.soonsal.com/subscribe" target="_blank" rel="noopener" class="sub-btn-header">구독하기</a></header><nav class="nav" aria-label="주요 메뉴"><a href="/newsletters/">뉴스레터</a><a href="/chart/">순살차트</a><a href="/talk/">순살톡</a><a href="/school/" class="nav-desktop-link">스쿨</a><a href="/collab/" class="nav-desktop-link biz">협업 문의</a><details class="nav-more"><summary>더보기 <span aria-hidden="true">⌄</span></summary><section class="nav-menu" aria-label="추가 메뉴"><a href="/topics/">주제별</a><a href="/saved/">내가 모은 글</a><a href="/cardnews/">카드뉴스</a><a href="/youtube/">YouTube</a><a href="/school/" class="nav-mobile-only">스쿨</a><a href="/collab/" class="nav-mobile-only biz">협업 문의</a></section></details></nav><div class="wrap">
 
 
 <h1>오늘자 뉴스레터<span class="issue">08.12</span></h1>
