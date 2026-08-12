@@ -2,43 +2,43 @@
 <defs><filter id="shadow" x="-20%" y="-20%" width="140%" height="160%"><feDropShadow dx="0" dy="6" stdDeviation="8" flood-color="#111111" flood-opacity=".09"/></filter>
 <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#F07040"/></marker></defs>
 <rect width="1080" height="860" fill="#FAFAF7"/>
-<g class="motion-step motion-edge" data-motion-step="1" style="--motion-delay:330ms">
+<g class="motion-step motion-edge" data-motion-step="1" style="--motion-delay:500ms">
 <path d="M 540.0 188.0 C 540.0 206.5, 540.0 206.5, 540.0 217.0" fill="none" stroke="#F07040" stroke-width="4" stroke-dasharray="12 10" marker-end="url(#arrow)"/>
 <rect x="468.0" y="176.5" width="144" height="36" rx="18" fill="#FAFAF7"/>
 <text x="540.0" y="203.5" text-anchor="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="18" fill="#8B4B2C">중간 해법</text>
 </g>
-<g class="motion-step motion-edge" data-motion-step="3" style="--motion-delay:990ms">
+<g class="motion-step motion-edge" data-motion-step="3" style="--motion-delay:1500ms">
 <path d="M 540.0 343.0 C 540.0 361.5, 540.0 361.5, 540.0 372.0" fill="none" stroke="#F07040" stroke-width="4" stroke-dasharray="12 10" marker-end="url(#arrow)"/>
 <rect x="468.0" y="331.5" width="144" height="36" rx="18" fill="#FAFAF7"/>
 <text x="540.0" y="358.5" text-anchor="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="18" fill="#8B4B2C">파워트레인 믹스</text>
 </g>
-<g class="motion-step motion-edge" data-motion-step="5" style="--motion-delay:1650ms">
+<g class="motion-step motion-edge" data-motion-step="5" style="--motion-delay:2500ms">
 <path d="M 540.0 498.0 C 540.0 516.5, 540.0 516.5, 540.0 527.0" fill="none" stroke="#F07040" stroke-width="4" stroke-dasharray="12 10" marker-end="url(#arrow)"/>
 <rect x="468.0" y="486.5" width="144" height="36" rx="18" fill="#FAFAF7"/>
 <text x="540.0" y="513.5" text-anchor="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="18" fill="#8B4B2C">수요 구성</text>
 </g>
-<g class="motion-step motion-edge" data-motion-step="7" style="--motion-delay:2310ms">
+<g class="motion-step motion-edge" data-motion-step="7" style="--motion-delay:3500ms">
 <path d="M 540.0 653.0 C 540.0 671.5, 540.0 671.5, 540.0 682.0" fill="none" stroke="#F07040" stroke-width="4" stroke-dasharray="12 10" marker-end="url(#arrow)"/>
 <rect x="468.0" y="641.5" width="144" height="36" rx="18" fill="#FAFAF7"/>
 <text x="540.0" y="668.5" text-anchor="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="18" fill="#8B4B2C">한국 영향</text>
 </g>
-<g class="motion-step motion-node" data-motion-step="0" style="--motion-delay:0ms;--motion-accent-delay:560ms">
+<g class="motion-step motion-node" data-motion-step="0" style="--motion-delay:0ms;--motion-accent-delay:760ms">
 <rect class="motion-node-shape" x="160.0" y="70.0" width="760.0" height="118" rx="22" fill="#FFFFFF" stroke="#E0DDD5" stroke-width="3" filter="url(#shadow)"/>
 <text x="540.0" y="129.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="700" fill="#222222">충전 인프라·가격 부담</text>
 </g>
-<g class="motion-step motion-node" data-motion-step="2" style="--motion-delay:660ms;--motion-accent-delay:1220ms">
+<g class="motion-step motion-node" data-motion-step="2" style="--motion-delay:1000ms;--motion-accent-delay:1760ms">
 <rect class="motion-node-shape" x="160.0" y="225.0" width="760.0" height="118" rx="22" fill="#FFFFFF" stroke="#E0DDD5" stroke-width="3" filter="url(#shadow)"/>
 <text x="540.0" y="284.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="700" fill="#222222">아시아 하이브리드 판매 증가</text>
 </g>
-<g class="motion-step motion-node" data-motion-step="4" style="--motion-delay:1320ms;--motion-accent-delay:1880ms">
+<g class="motion-step motion-node" data-motion-step="4" style="--motion-delay:2000ms;--motion-accent-delay:2760ms">
 <rect class="motion-node-shape" x="160.0" y="380.0" width="760.0" height="118" rx="22" fill="#FFFFFF" stroke="#E0DDD5" stroke-width="3" filter="url(#shadow)"/>
 <text x="540.0" y="439.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="700" fill="#222222">차량당 배터리 탑재량 감소</text>
 </g>
-<g class="motion-step motion-node" data-motion-step="6" style="--motion-delay:1980ms;--motion-accent-delay:2540ms">
+<g class="motion-step motion-node" data-motion-step="6" style="--motion-delay:3000ms;--motion-accent-delay:3760ms">
 <rect class="motion-node-shape" x="160.0" y="535.0" width="760.0" height="118" rx="22" fill="#FFFFFF" stroke="#E0DDD5" stroke-width="3" filter="url(#shadow)"/>
 <text x="540.0" y="594.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="700" fill="#222222">배터리 셀 수요 믹스 변화</text>
 </g>
-<g class="motion-step motion-node motion-risk" data-motion-step="8" style="--motion-delay:2640ms;--motion-accent-delay:3200ms">
+<g class="motion-step motion-node motion-risk" data-motion-step="8" style="--motion-delay:4000ms;--motion-accent-delay:4760ms">
 <rect class="motion-node-shape" x="160.0" y="690.0" width="760.0" height="118" rx="22" fill="#FFF4EF" stroke="#F07040" stroke-width="3" filter="url(#shadow)"/>
 <text x="540.0" y="749.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="700" fill="#222222">국내 이차전지 성장 가정 부담</text>
 </g>
