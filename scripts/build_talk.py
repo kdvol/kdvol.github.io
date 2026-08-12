@@ -27,52 +27,85 @@ CSS = """
 body{margin:0;background:#111;color:#eee;
 font-family:'DM Sans',-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo','Malgun Gothic',sans-serif;
 -webkit-font-smoothing:antialiased}
-.wrap{max-width:620px;margin:0 auto;padding:22px 16px 80px}
-h1{font-size:1.5rem;font-weight:800;margin:0 0 4px;letter-spacing:-.02em;color:#f2efe8}
-.sub{color:#8b8578;font-size:.87rem;margin:0 0 20px;line-height:1.6}
-.sub a{color:#E55A00;text-decoration:none;font-weight:600}
-.live{display:inline-flex;align-items:center;gap:5px;font-size:.72rem;color:#8b8578;
-background:#161616;border:1px solid #262626;border-radius:20px;padding:3px 10px;margin-left:6px}
-.live b{width:6px;height:6px;border-radius:50%;background:#4ea87a;display:inline-block}
-.th{background:#141414;border:1px solid #222;border-radius:14px;padding:14px 15px;margin-bottom:11px}
-.src{font-size:.72rem;color:#7a756c;margin-bottom:9px;display:flex;gap:6px;align-items:baseline}
-.src a{color:#8b8578;text-decoration:none;border-bottom:1px solid #2a2a2a;
-overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.src a:hover{color:#E55A00;border-bottom-color:#E55A00}
-.src .dt{flex:0 0 auto;color:#5f5a52}
-.c{font-size:.93rem;line-height:1.65;padding:7px 0}
-.c.rep{padding-left:13px;border-left:2px solid #262626;margin-left:2px}
-.c .k{font-weight:700;color:#f0ede6;margin-right:5px}
-.c .g{font-size:.66rem;color:#8b8578;background:#1e1e1e;border-radius:4px;padding:1px 5px;margin-right:4px}
-/* 순살 팀 글은 팀 글이라고 밝힌다 — 독자 글과 섞이면 안 된다 */
-.c.op{background:#191512;border-left:2px solid #E55A00;padding-left:11px;
-margin-left:-2px;border-radius:0 8px 8px 0}
-.c .ob{font-size:.62rem;font-weight:700;color:#fff;background:#E55A00;border-radius:4px;
-padding:1px 6px;margin-right:5px;vertical-align:1px}
-.c .t{color:#5f5a52;font-size:.7rem;margin-left:5px}
-.act{display:inline-flex;gap:11px;margin-left:7px}
-.act button{background:none;border:none;padding:2px 0;font-size:.75rem;color:#7a756c;
-cursor:pointer;font-family:inherit}
-.act button:hover{color:#E55A00}
+.wrap{max-width:600px;margin:0 auto;padding:20px 0 96px}
+.hd{padding:0 16px 16px}
+h1{font-size:1.44rem;font-weight:800;margin:0 0 5px;letter-spacing:-.025em;color:#f2efe8}
+.sub{color:#8b8578;font-size:.86rem;margin:0;line-height:1.6}
+.live{display:inline-flex;align-items:center;gap:5px;font-size:.7rem;color:#8b8578;
+background:#161616;border:1px solid #262626;border-radius:20px;padding:3px 9px;margin-left:6px}
+.live b{width:6px;height:6px;border-radius:50%;background:#4ea87a;display:inline-block;
+animation:bp 2.4s ease-in-out infinite}
+@keyframes bp{0%,100%{opacity:1}50%{opacity:.35}}
+
+/* 스레드 = 카드가 아니라 '줄'. 트위터처럼 경계선만으로 나눈다 —
+   모바일에서 카드마다 테두리가 있으면 화면이 조각조각 나 보인다. */
+.th{border-top:1px solid #1c1c1c;padding:15px 16px 7px;transition:background .5s}
+.th.new{background:#17130f}
+.src{display:flex;gap:7px;align-items:baseline;margin-bottom:11px;font-size:.72rem}
+.src a{color:#7a756c;text-decoration:none;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.src a:before{content:"↩ ";color:#4a453d}
+.src a:hover{color:#E55A00}
+.src .dt{margin-left:auto;flex:0 0 auto;color:#4a453d}
+
+/* 코멘트 한 줄 — 아바타 + 본문. 인스타·링크드인 공통 문법이다. */
+.c{display:flex;gap:10px;padding:5px 0}
+.c.rep{padding-left:30px;position:relative}
+.c.rep:before{content:"";position:absolute;left:15px;top:0;bottom:0;width:1.5px;background:#232323}
+.av{flex:0 0 auto;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;
+justify-content:center;font-size:.78rem;font-weight:800;color:#111;letter-spacing:-.02em}
+.c.rep .av{width:26px;height:26px;font-size:.68rem}
+.bd{flex:1;min-width:0}
+.nm{display:flex;align-items:baseline;gap:6px;flex-wrap:wrap;line-height:1.3}
+.nm .k{font-weight:700;color:#f0ede6;font-size:.87rem}
+.nm .g{font-size:.65rem;color:#8b8578;background:#1e1e1e;border-radius:4px;padding:1px 6px}
+.nm .t{font-size:.7rem;color:#4a453d}
+.tx{color:#ccc6bb;font-size:.93rem;line-height:1.62;margin-top:3px;word-break:break-word}
+.c.op .nm .k{color:#F5A481}
+.ob{font-size:.62rem;font-weight:700;color:#fff;background:#E55A00;border-radius:4px;padding:1px 6px}
+
+/* 액션 — 아이콘 + 숫자, 탭 영역을 넉넉히 */
+.act{display:flex;gap:4px;margin:5px 0 0 -8px}
+.act button{display:flex;align-items:center;gap:5px;background:none;border:none;
+padding:7px 8px;font-size:.76rem;color:#6b665e;cursor:pointer;font-family:inherit;
+border-radius:16px;transition:background .15s,color .15s;min-height:32px}
+.act button:hover{background:#1c1c1c;color:#b8b2a8}
+.act .like:hover{color:#E55A00}
 .act .like.on{color:#E55A00;font-weight:700}
-.rf{margin-top:10px;display:none}
-.rf.on{display:block}
-.rf textarea{width:100%;border:1px solid #2a2a2a;border-radius:10px;padding:11px 12px;
-font-size:16px;font-family:inherit;resize:none;background:#1a1a1a;color:#eee;line-height:1.5}
-.rf textarea:focus{outline:none;border-color:#F07040}
-.rf .row{display:flex;align-items:center;gap:8px;margin-top:7px}
-.rf .who{flex:1;font-size:.78rem;color:#8b8578;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.rf button.go{background:#E55A00;color:#fff;border:none;border-radius:9px;padding:9px 17px;
-font-size:.82rem;font-weight:700;cursor:pointer;font-family:inherit}
+.act .like.on:hover{background:#1f1613}
+
+/* 답글 입력 — 아바타 옆에 붙여 대화가 이어지는 느낌 */
+.rf{display:none;gap:10px;padding:9px 0 12px 30px}
+.rf.on{display:flex}
+.rf .bx{flex:1;min-width:0}
+.rf textarea{width:100%;border:1px solid #2a2a2a;border-radius:16px;padding:10px 14px;
+font-size:16px;font-family:inherit;resize:none;background:#181818;color:#eee;line-height:1.5}
+.rf textarea:focus{outline:none;border-color:#F07040;background:#1c1a18}
+.rf .row{display:flex;align-items:center;gap:8px;margin-top:8px}
+.rf .who{flex:1;font-size:.74rem;color:#6b665e;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.rf button.go{background:#E55A00;color:#fff;border:none;border-radius:18px;padding:8px 18px;
+font-size:.8rem;font-weight:700;cursor:pointer;font-family:inherit;min-height:34px}
 .rf button.go:disabled{background:#242424;color:#5f5a52}
-.rf button.x{background:none;border:none;color:#7a756c;font-size:.75rem;cursor:pointer;font-family:inherit}
-.empty{color:#7a756c;text-align:center;padding:52px 16px;line-height:1.7}
-.empty b{display:block;color:#f0ede6;font-size:1.12rem;margin-bottom:9px;letter-spacing:-.02em}
-.empty .ecta{display:inline-block;margin-top:18px;background:#E55A00;color:#fff;
-text-decoration:none;font-weight:700;font-size:.87rem;border-radius:10px;padding:12px 20px}
+.rf button.x{background:none;border:none;color:#6b665e;font-size:.76rem;cursor:pointer;
+font-family:inherit;padding:8px 4px}
+
+.empty{color:#7a756c;text-align:center;padding:56px 20px;line-height:1.75;font-size:.9rem}
+.empty b{display:block;color:#f0ede6;font-size:1.14rem;margin-bottom:10px;letter-spacing:-.02em}
+.empty .ecta{display:inline-block;margin-top:20px;background:#E55A00;color:#fff;
+text-decoration:none;font-weight:700;font-size:.87rem;border-radius:22px;padding:13px 24px}
 .empty .ecta:hover{background:#F07040}
-.new{background:#191512;border-color:#4a2d1c}
+
+/* 하단 고정 입력 유도 — 모바일에서 항상 손 닿는 자리 */
+.fab{position:fixed;left:0;right:0;bottom:0;z-index:50;padding:10px 14px
+calc(10px + env(safe-area-inset-bottom));background:linear-gradient(180deg,rgba(17,17,17,0),#111 38%)}
+.fab a{display:flex;align-items:center;gap:9px;max-width:600px;margin:0 auto;
+background:#1a1a1a;border:1px solid #2c2c2c;border-radius:24px;padding:12px 16px;
+color:#8b8578;font-size:.86rem;text-decoration:none}
+.fab a:hover{border-color:#F07040;color:#c9c4ba}
+.fab .go{margin-left:auto;background:#E55A00;color:#fff;border-radius:16px;
+padding:6px 13px;font-size:.76rem;font-weight:700}
+@media(min-width:620px){.wrap{padding-bottom:80px}}
 """
+
 
 JS = r"""
 var API = (window.SS_CFG && window.SS_CFG.worker) || '';
@@ -102,6 +135,17 @@ function vid() {
     return v;
   } catch (e) { return null; }
 }
+// 이름에서 색을 뽑아 아바타를 만든다. 이미지 없이도 누가 누군지 구분된다.
+var AVC = ['#F0A070','#8FB0A0','#A09CD8','#D89AA8','#C8B060','#7FA8C8','#B8A090','#98B87F'];
+function avatar(nick, isOp) {
+  var h = 0, s = String(nick || '?');
+  for (var i = 0; i < s.length; i++) h = (h * 31 + s.charCodeAt(i)) >>> 0;
+  var bg = isOp ? '#E55A00' : AVC[h % AVC.length];
+  var ch = s.replace(/[^가-힣A-Za-z0-9]/g, '').charAt(0) || '?';
+  return '<span class="av" style="background:' + bg + (isOp ? ';color:#fff' : '') + '">' +
+    esc(ch) + '</span>';
+}
+
 function prof() {
   try { return JSON.parse(localStorage.getItem('ss_prof') || 'null') || {}; } catch (e) { return {}; }
 }
@@ -139,10 +183,12 @@ function render(items) {
       '<span class="dt">' + ago(head.ts) + '</span></div>' +
       list.map(function (c) { return one(c, c.parent_id); }).join('') +
       '<div class="rf" data-r="' + rid + '">' +
-        '<textarea rows="2" maxlength="140" placeholder="답글 남기기"></textarea>' +
-        '<div class="row"><span class="who"></span>' +
-          '<button type="button" class="x">취소</button>' +
-          '<button type="button" class="go" disabled>남기기</button></div>' +
+        '<div class="bx">' +
+          '<textarea rows="1" maxlength="140" placeholder="답글 남기기"></textarea>' +
+          '<div class="row"><span class="who"></span>' +
+            '<button type="button" class="x">취소</button>' +
+            '<button type="button" class="go" disabled>남기기</button></div>' +
+        '</div>' +
       '</div></div>';
   }).join('');
   app.innerHTML = html;
@@ -155,16 +201,22 @@ function one(c, isRep) {
   var tag = [c.tag, c.co].filter(Boolean).join(' · ');
   return '<div class="c' + (isRep ? ' rep' : '') + (c.op ? ' op' : '') +
     '" data-i="' + c.id + '">' +
-    '<span class="k">' + esc(c.nick) + '</span>' +
-    (c.op ? '<span class="ob">순살 팀</span>' : '') +
-    (tag ? '<span class="g">' + esc(tag) + '</span>' : '') +
-    esc(c.body) +
-    '<span class="act">' +
-      '<button type="button" class="like' + (liked[c.id] ? ' on' : '') + '" data-i="' + c.id + '">' +
-        '♥ ' + (c.likes || '') + '</button>' +
-      (isRep ? '' : '<button type="button" class="rep" data-i="' + c.id +
-                    '" data-k="' + esc(c.nick) + '" data-s="' + esc(c.story) + '">답글</button>') +
-    '</span><span class="t">' + ago(c.ts) + '</span></div>';
+    avatar(c.nick, c.op) +
+    '<div class="bd">' +
+      '<div class="nm"><span class="k">' + esc(c.nick) + '</span>' +
+        (c.op ? '<span class="ob">순살 팀</span>' : '') +
+        (tag ? '<span class="g">' + esc(tag) + '</span>' : '') +
+        '<span class="t">' + ago(c.ts) + '</span></div>' +
+      '<div class="tx">' + esc(c.body) + '</div>' +
+      '<div class="act">' +
+        '<button type="button" class="like' + (liked[c.id] ? ' on' : '') +
+          '" data-i="' + c.id + '">' + (liked[c.id] ? '♥' : '♡') +
+          '<span>' + (c.likes || '') + '</span></button>' +
+        (isRep ? '' : '<button type="button" class="rep" data-i="' + c.id +
+                      '" data-k="' + esc(c.nick) + '" data-s="' + esc(c.story) + '">' +
+                      '↩ <span>답글</span></button>') +
+      '</div>' +
+    '</div></div>';
 }
 
 function wire() {
@@ -182,7 +234,7 @@ function wire() {
         if (res.on) liked[id] = 1; else delete liked[id];
         try { localStorage.setItem('ss_liked', JSON.stringify(liked)); } catch (e) {}
         b.className = 'like' + (res.on ? ' on' : '');
-        b.textContent = '♥ ' + (res.n || '');
+        b.innerHTML = (res.on ? '♥' : '♡') + '<span>' + (res.n || '') + '</span>';
       }).catch(function () { b.disabled = false; });
     });
   });
@@ -204,7 +256,11 @@ function wire() {
 
   app.querySelectorAll('.rf').forEach(function (rf) {
     var ta = rf.querySelector('textarea'), go = rf.querySelector('.go');
-    ta.addEventListener('input', function () { go.disabled = !ta.value.trim(); });
+    ta.addEventListener('input', function () {
+      go.disabled = !ta.value.trim();
+      ta.style.height = 'auto';
+      ta.style.height = Math.min(ta.scrollHeight, 140) + 'px';
+    });
     ta.addEventListener('focus', function () { typing = true; });
     ta.addEventListener('blur', function () { typing = false; });
     rf.querySelector('.x').addEventListener('click', function () {
@@ -287,12 +343,14 @@ def build(atoms=None):
 <style>{CSS}</style></head><body>
 {nav}
 <div class="wrap">
-<h1>순살톡</h1>
-<p class="sub">브리핑을 읽다 남긴 한 줄이 여기 다 모입니다.
-<span class="live"><b></b>실시간</span><br>
-<a href="/">오늘 브리핑 보러 가기 →</a></p>
+<div class="hd">
+<h1>순살톡<span class="live"><b></b>실시간</span></h1>
+<p class="sub">브리핑을 읽다 남긴 한 줄이 회차 상관없이 여기 모입니다.</p>
+</div>
 <div id="app"><div class="empty">불러오는 중…</div></div>
 </div>
+<div class="fab"><a href="/"><span>💬</span>
+<span>오늘 브리핑 읽고 한마디 남기기</span><span class="go">가기</span></a></div>
 <script src="/soonsal.js" defer></script>
 <script>
 var SMAP = {json.dumps(smap, ensure_ascii=False)};

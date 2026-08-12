@@ -113,21 +113,32 @@
     '.ss-csc{display:flex;align-items:center;gap:7px;font-size:12px;color:#8a8578}' +
     '.ss-cpn{font-size:11px;color:#b5b0a4}' +
     // 목록 — 줄마다 선을 긋지 않는다. 간격만으로 나눈다.
-    '.ss-clist{margin-top:14px;display:flex;flex-direction:column;gap:13px}' +
-    '.ss-ci{font-size:14px;line-height:1.62;color:#333}' +
-    '.ss-ck{font-weight:700;color:#2b2b2b;margin-right:6px}' +
-    '.ss-cb{color:#3a3a3a}' +
-    '.ss-ct{color:#c0bcb2;font-size:11px;margin-left:6px;white-space:nowrap}' +
-    '.ss-cg{font-size:10px;color:#8a8578;background:#f2efe7;border-radius:4px;' +
-    'padding:1px 5px;margin-left:5px;white-space:nowrap;font-weight:500}' +
+    '.ss-clist{margin-top:14px;display:flex;flex-direction:column;gap:2px}' +
+    '.ss-ci{display:flex;gap:9px;padding:9px 0;font-size:14px}' +
+    '.ss-crep{padding-left:26px;position:relative}' +
+    '.ss-crep:before{content:"";position:absolute;left:13px;top:0;bottom:0;width:1.5px;' +
+    'background:#eceae2}' +
+    '.ss-av{flex:0 0 auto;width:30px;height:30px;border-radius:50%;display:flex;' +
+    'align-items:center;justify-content:center;font-size:12px;font-weight:800;color:#3a3a3a;' +
+    'letter-spacing:-.02em}' +
+    '.ss-crep .ss-av{width:25px;height:25px;font-size:11px}' +
+    '.ss-cbd{flex:1;min-width:0}' +
+    '.ss-cnm{display:flex;align-items:baseline;gap:5px;flex-wrap:wrap;line-height:1.3}' +
+    '.ss-cnm b{font-weight:700;color:#2b2b2b;font-size:13px}' +
+    '.ss-cbx{color:#3a3a3a;font-size:14px;line-height:1.62;margin-top:2px;word-break:break-word}' +
+    '.ss-ct{color:#b5b0a4;font-size:11px}' +
+    '.ss-cg{font-size:10px;color:#8a8578;background:#f2efe7;border-radius:4px;padding:1px 6px}' +
     '.ss-chold{font-size:10px;color:#c08a3a;margin-left:6px}' +
-    '.ss-crep{padding-left:13px;border-left:2px solid #efeae0;margin-left:3px}' +
-    '.ss-cact{display:inline-flex;gap:10px;margin-left:8px;vertical-align:baseline}' +
-    '.ss-cact button{background:none;border:none;padding:2px 0;font-size:12px;color:#a8a294;' +
-    'cursor:pointer;font-family:inherit;line-height:1.4}' +
-    '.ss-cact button:hover{color:#F07040}' +
-    '.ss-clike.on{color:#F07040;font-weight:700}' +
-    '.ss-clike b{font-weight:700;margin-left:2px}' +
+    '.ss-cop .ss-cnm b{color:#E55A00}' +
+    '.ss-cob{font-size:9px;font-weight:700;color:#fff;background:#E55A00;border-radius:4px;' +
+    'padding:1px 6px}' +
+    // 액션 — 탭 영역을 넉넉히. 모바일에서 작은 글씨는 누르기 어렵다.
+    '.ss-cact{display:flex;gap:2px;margin:3px 0 0 -8px}' +
+    '.ss-cact button{display:flex;align-items:center;gap:4px;background:none;border:none;' +
+    'padding:6px 8px;font-size:12px;color:#a8a294;cursor:pointer;font-family:inherit;' +
+    'border-radius:14px;min-height:30px;transition:background .15s,color .15s}' +
+    '.ss-cact button:hover{background:#f4f1ea;color:#6b6659}' +
+    '.ss-clike.on{color:#E55A00;font-weight:700}' +
     '.ss-crt{display:flex;align-items:center;gap:8px;font-size:12px;color:#6b6659;' +
     'background:#f7f4ec;border-radius:8px;padding:7px 10px;margin-bottom:7px}' +
     '.ss-crt button{background:none;border:none;color:#a8a294;font-size:11px;cursor:pointer;' +
@@ -654,6 +665,16 @@
     setTimeout(function () { ta.focus(); }, 50);
   }
 
+  // 이름에서 색을 뽑아 아바타를 만든다 — /talk/ 와 같은 문법
+  var AVC = ['#E8A87C','#8FB0A0','#A09CD8','#D89AA8','#C8B060','#7FA8C8','#B8A090','#98B87F'];
+  function avatar(nick, isOp) {
+    var h = 0, s = String(nick || '?');
+    for (var i = 0; i < s.length; i++) h = (h * 31 + s.charCodeAt(i)) >>> 0;
+    var ch = s.replace(/[^가-힣A-Za-z0-9]/g, '').charAt(0) || '?';
+    return '<span class="ss-av" style="background:' + (isOp ? '#E55A00' : AVC[h % AVC.length]) +
+      (isOp ? ';color:#fff' : '') + '">' + esc(ch) + '</span>';
+  }
+
   function likedSet() {
     try { return JSON.parse(localStorage.getItem('ss_liked') || '{}'); } catch (e) { return {}; }
   }
@@ -663,18 +684,23 @@
     var n = c.l || 0;
     return '<div class="ss-ci' + (isReply ? ' ss-crep' : '') + (c.o ? ' ss-cop' : '') +
       '" data-i="' + (c.i || '') + '">' +
-      '<span class="ss-ck">' + esc(c.k) +
-      (c.o ? '<span class="ss-cob">순살 팀</span>' : '') +
-      (c.g ? '<span class="ss-cg">' + esc(c.g) + '</span>' : '') + '</span>' +
-      '<span class="ss-cb">' + esc(c.b) + (c.held ? '<span class="ss-chold">검토 중</span>' : '') +
-      (c.held ? '' :
-        '<span class="ss-cact">' +
-          '<button type="button" class="ss-clike' + (liked[c.i] ? ' on' : '') + '" data-i="' + c.i + '">' +
-            '♥<b>' + (n || '') + '</b></button>' +
-          (isReply ? '' : '<button type="button" class="ss-crep-b" data-i="' + c.i +
-                          '" data-k="' + esc(c.k) + '">답글</button>') +
-        '</span>') +
-      '</span><span class="ss-ct">' + cAgo(c.t) + '</span></div>';
+      avatar(c.k, c.o) +
+      '<div class="ss-cbd">' +
+        '<div class="ss-cnm"><b>' + esc(c.k) + '</b>' +
+          (c.o ? '<span class="ss-cob">순살 팀</span>' : '') +
+          (c.g ? '<span class="ss-cg">' + esc(c.g) + '</span>' : '') +
+          '<span class="ss-ct">' + cAgo(c.t) + '</span></div>' +
+        '<div class="ss-cbx">' + esc(c.b) +
+          (c.held ? '<span class="ss-chold">검토 중</span>' : '') + '</div>' +
+        (c.held ? '' :
+          '<div class="ss-cact">' +
+            '<button type="button" class="ss-clike' + (liked[c.i] ? ' on' : '') +
+              '" data-i="' + c.i + '">' + (liked[c.i] ? '♥' : '♡') +
+              '<span>' + (n || '') + '</span></button>' +
+            (isReply ? '' : '<button type="button" class="ss-crep-b" data-i="' + c.i +
+                            '" data-k="' + esc(c.k) + '">↩ <span>답글</span></button>') +
+          '</div>') +
+      '</div></div>';
   }
 
   function renderC(key, w) {
@@ -716,7 +742,7 @@
       if (res.on) m[id] = 1; else delete m[id];
       setLiked(m);
       btn.className = 'ss-clike' + (res.on ? ' on' : '');
-      btn.querySelector('b').textContent = res.n || '';
+      btn.innerHTML = (res.on ? '♥' : '♡') + '<span>' + (res.n || '') + '</span>';
       (CMTS[key] || []).forEach(function (c) { if (c.i === id) c.l = res.n; });
     }).catch(function () { btn.disabled = false; });
   }
