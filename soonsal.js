@@ -72,6 +72,19 @@
     /* 수집 안내 */
     '.ss-notice{text-align:center;font-size:11px;color:#9a958a;line-height:1.7;padding:14px 16px 18px;font-family:inherit}' +
     '.ss-notice a{color:#9a958a;text-decoration:underline}' +
+    // 눈에 최대한 안 띄게. 본문보다 두 톤 아래로 두고, 사업자 정보는 접는다.
+    '.ss-legal{max-width:560px;margin:16px auto 0;padding-top:14px;' +
+      'border-top:1px solid rgba(128,120,105,.22);font-size:10.5px;line-height:1.75;color:#6f6a60}' +
+    '.ss-legal .dis{margin:0}' +
+    '.ss-legal .biz{margin-top:8px}' +
+    '.ss-legal .biz summary{cursor:pointer;color:#7d786d;list-style:none;display:inline-block;' +
+      'padding:2px 0;text-decoration:underline;text-underline-offset:2px}' +
+    '.ss-legal .biz summary::-webkit-details-marker{display:none}' +
+    '.ss-legal .biz summary:before{content:"＋ "}' +
+    '.ss-legal .biz[open] summary:before{content:"－ "}' +
+    '.ss-legal .biz p{margin:6px 0 0}' +
+    '.ss-legal .cr{margin:9px 0 0;color:#635f56}' +
+    '.ss-legal a{color:inherit}' +
     /* 코멘트 */
     '.ss-cbtn{margin-left:0}' +
     // 폰에서 쓰기 편한 게 최우선. 입력창을 크게 잡고, 나머지는 눌러야 나온다.
@@ -201,6 +214,9 @@
     '.ss-notice .go:hover{background:#fdf0e9}' +
     '.ss-notice .fine{display:block;color:#b5b0a4;font-size:10.5px;margin-top:9px;line-height:1.6}' +
     '.ss-notice .fine a{color:#a8a294}' +
+    '.ss-legal{border-top-color:#e8e4db;color:#a5a096}' +
+    '.ss-legal .biz summary{color:#a5a096}' +
+    '.ss-legal .cr{color:#b5b0a4}' +
     '.ss-cnote{color:#b5b0a4;font-size:11px;line-height:1.65;margin-top:9px;display:none}' +
     '.ss-cwrap.on .ss-cnote{display:block}' +
     '.ss-hp{position:absolute;left:-9999px;width:1px;height:1px}' +
@@ -422,9 +438,27 @@
     // 큰 버튼을 얹으니 같은 곳으로 가는 길이 한 화면에 둘이었다.
     // 이미 있으면 안 붙인다 — 푸터가 아예 없는 생성 페이지에서만 길을 낸다.
     var hasTalk = !!document.querySelector('a[href$="/talk/"], a[href*="soonsal.com/talk/"]');
+    // 뉴스레터 푸터에는 저작권 줄이 이미 있다. 또 넣으면 한 화면에 두 번 나온다.
+    var hasCr = /©\s*\d{4}\s*순살브리핑/.test(document.body.textContent || '');
+    // 사업자 정보는 접어 둔다. 필요한 사람은 펴서 보고, 읽으러 온 사람의
+    // 눈에는 안 걸리게. 전화번호·통신판매업 신고번호는 확인 전이라 넣지 않았다 —
+    // 틀린 번호를 싣는 건 안 싣는 것보다 나쁘다.
     d.innerHTML = (hasTalk ? '' : '<a class="go" href="/talk/">💬 순살톡 — 순살러 한마디</a>') +
       '<span class="fine">쿠키 없이 익명 방문 통계만 · ' +
-      '<a href="/privacy/">수집 안내</a></span>';
+      '<a href="/privacy/">수집 안내</a></span>' +
+      '<div class="ss-legal">' +
+        '<p class="dis">순살브리핑의 모든 콘텐츠는 정보 제공을 목적으로 하며, ' +
+        '특정 종목의 매매를 권유하지 않습니다. 투자 판단과 그 결과는 ' +
+        '투자자 본인에게 귀속됩니다.</p>' +
+        '<details class="biz"><summary>사업자 정보</summary>' +
+          '<p>순살브리핑 · 대표 신기동<br>' +
+          '서울시 동작구 현충로 52<br>' +
+          '사업자등록번호 120-88-27830<br>' +
+          '<a href="mailto:team@soonsal.com">team@soonsal.com</a></p>' +
+        '</details>' +
+        (hasCr ? '' : '<p class="cr">© ' + new Date().getFullYear() +
+          ' 순살브리핑. All rights reserved.</p>') +
+      '</div>';
     var f = document.querySelector('.footer-inner') || document.querySelector('.footer');
     (f || document.body).appendChild(d);
   }
