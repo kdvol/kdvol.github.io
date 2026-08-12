@@ -1050,7 +1050,8 @@ def post_to_instagram(image_urls, ctype, date_fmt, keywords="", html="", target_
     # --target= flag overrides automatic routing
     TARGET_MAP = {
         "brief":  None,                  # @soonsal.brief (env default)
-        "crypto": "17841452792245949",   # 모닝순살 전용(이름 변경 전 @soonsal.crypto)
+        "morning": "17841452792245949",  # 모닝순살 전용(숫자 ID 고정)
+        "crypto": "17841452792245949",   # legacy alias: --target=morning과 동일 계정
         "global": "17841442721220991",   # @soonsal.global
         "zzal":   "17841452650743738",   # @soonsal.zzal
     }
@@ -1058,12 +1059,13 @@ def post_to_instagram(image_urls, ctype, date_fmt, keywords="", html="", target_
     ig_account = None
     if target_override and target_override in TARGET_MAP:
         ig_account = TARGET_MAP[target_override]
-        print(f"  🎯 Target override: @soonsal.{target_override}")
+        target_label = "모닝순살 IG" if target_override in {"morning", "crypto"} else f"@soonsal.{target_override}"
+        print(f"  🎯 Target override: {target_label}")
     elif ctype == "english-card":
         ig_account = TARGET_MAP["global"]
         print(f"  🌍 Target: @soonsal.global")
     elif ctype == "crypto-card":
-        ig_account = TARGET_MAP["crypto"]
+        ig_account = TARGET_MAP["morning"]
         print(f"  ☀️ Target: 모닝순살 IG (ID {ig_account})")
     elif ctype == "zzal":
         ig_account = TARGET_MAP["zzal"]
@@ -1118,7 +1120,7 @@ def main():
     no_instagram   = "--no-instagram"    in sys.argv  # 웹 발행만, Instagram 스킵
     instagram_only = "--instagram-only"  in sys.argv  # Instagram 발행만, 웹 발행 스킵
 
-    # --target=brief|crypto|global : Instagram 발행 대상 계정 오버라이드
+    # --target=brief|morning|global : Instagram 발행 대상 계정 오버라이드
     target_override = None
     for arg in sys.argv:
         if arg.startswith("--target="):
@@ -1133,7 +1135,8 @@ def main():
         print("  --no-instagram:     웹 발행만 (Instagram 스킵)")
         print("  --instagram-only:   Instagram 발행만 (웹 발행 스킵)")
         print("  --target=brief:     Instagram 대상 → @soonsal.brief")
-        print("  --target=crypto:    Instagram 대상 → 모닝순살 전용 계정(ID 고정)")
+        print("  --target=morning:   Instagram 대상 → 모닝순살 전용 계정(ID 고정)")
+        print("  --target=crypto:    legacy alias → --target=morning")
         print("  --target=global:    Instagram 대상 → @soonsal.global")
         print("  --target=zzal:      Instagram 대상 → @soonsal.zzal")
         sys.exit(1)
