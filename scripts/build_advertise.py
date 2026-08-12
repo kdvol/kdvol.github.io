@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""협업 문의 페이지 (/advertise/).
+"""협업 문의 페이지 (/collab/).
 
 광고 하나가 아니라 협업 여섯 갈래를 늘어놓는다 — 채널 광고·라이선싱·런칭
 패키지·아카이브 스폰서십·공동 리포트·채널 운영. 각 항목에 고를 수 있는
@@ -16,7 +16,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 BASE = "https://soonsal.com"
-OUT = ROOT / "advertise"
+OUT = ROOT / "collab"
 EMAIL = "team@soonsal.com"
 
 CSS = """
@@ -39,6 +39,23 @@ position:relative;transition:border-color .18s}
 border-radius:6px;padding:6px 10px;display:inline-block}
 .more{color:#8b8578;font-size:.86rem;line-height:1.75;margin:14px 0 0;padding:13px 15px;
 background:#161616;border:1px solid #222;border-radius:10px}
+/* 함께한 브랜드 — 로고 이미지 대신 워드마크로 통일한다. 받아온 로고는
+   품질·비율이 제각각이라 섞으면 오히려 조악해 보이고, 남의 로고를 임의로
+   가공하는 것도 좋은 방법이 아니다. */
+.brands{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 24px}
+.brands span{font-size:.86rem;font-weight:700;letter-spacing:-.01em;color:#c9c4ba;
+background:#181818;border:1px solid #262626;border-radius:8px;padding:9px 14px}
+/* 사례 — 실제 집행분만. 제작물을 직접 보여주는 게 설명보다 빠르다 */
+.cases{display:flex;flex-direction:column;gap:12px}
+.case{background:#161616;border:1px solid #232323;border-radius:12px;padding:17px 17px 15px}
+.case .ct{font-size:.72rem;font-weight:800;letter-spacing:.04em;color:#F5A481;margin-bottom:8px}
+.case p{color:#9a948a;font-size:.87rem;line-height:1.72;margin:0 0 12px}
+.case a{color:#F07040;font-size:.85rem;font-weight:700;text-decoration:none}
+.case a:hover{text-decoration:underline}
+.shots{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.shots.one{grid-template-columns:1fr;max-width:420px}
+.shots img{width:100%;height:auto;border-radius:8px;display:block;border:1px solid #242424}
+@media(max-width:560px){.shots{grid-template-columns:1fr}}
 @media(max-width:560px){.scopes{grid-template-columns:1fr}}
 a{color:#eee;text-decoration:none}
 h1{font-size:1.8rem;letter-spacing:-.03em;margin-bottom:12px;line-height:1.35}
@@ -77,7 +94,7 @@ border-radius:9px;font-size:1rem;letter-spacing:-.01em}
 def build():
     import build_nav
     OUT.mkdir(exist_ok=True)
-    canonical = f"{BASE}/advertise/"
+    canonical = f"{BASE}/collab/"
     subject = "%5B%ED%98%91%EC%97%85%20%EB%AC%B8%EC%9D%98%5D%20"  # [협업 문의]
     body = (
         "%EB%B8%8C%EB%9E%9C%EB%93%9C%2F%ED%9A%8C%EC%82%AC%3A%0A"        # 브랜드/회사:
@@ -138,27 +155,46 @@ def build():
 </section>
 
 <section>
-<h2>최근 집행 사례</h2>
-<div class="card"><ul>
-<li><b>Salesforce — 스폰서 스토리</b><br>
-금융권 망분리 규제 완화라는 시의성 있는 주제를 잡아, 브랜드가 말하고 싶은 메시지를
-순살 톤의 한 바닥으로 풀었습니다.<br>
-<a href="/newsletters/2026/0805.html#story-2" style="color:#F07040">실제 발행분 보기 →</a></li>
-</ul></div>
-<p class="note" style="margin-bottom:10px">실제 제작물로 톤과 형식을 확인하실 수 있습니다.</p>
-<div class="two">
-<div class="card"><ul>
-<li><b>뉴스레터 스토리</b><br>
-<a href="/partners/salesforce/NewsletterSample.html" style="color:#F07040">Salesforce 샘플 →</a></li>
-</ul></div>
-<div class="card"><ul>
-<li><b>카드뉴스</b><br>
-<a href="/cardnews/2026/0806.html" style="color:#F07040">AI에게 아이를 빼앗김 →</a><br>
-<a href="/cardnews/2026/0804.html" style="color:#F07040">미국은 6배를 열었고 →</a></li>
-</ul></div>
+<h2>이런 브랜드와 함께했습니다</h2>
+<div class="brands">
+<span>Salesforce</span><span>한국투자증권</span><span>미래에셋자산운용</span><span>BC카드 페이북</span>
 </div>
-<p class="note" style="margin-top:10px">카드뉴스는 인스타그램 피드에 맞춘 정사각 포맷으로,
-브랜드 콘텐츠도 동일한 제작 프로세스를 거칩니다.</p>
+
+<div class="cases">
+<div class="case">
+<div class="ct">Salesforce · 스폰서 스토리</div>
+<p>금융권 망분리 규제 완화라는 시의성 있는 주제를 잡아, 브랜드가 말하고 싶은
+메시지를 순살 톤의 한 바닥으로 풀었습니다.</p>
+<a href="/newsletters/2026/0805.html#story-2">실제 발행분 보기 →</a>
+</div>
+
+<div class="case">
+<div class="ct">한국투자증권 · 공동 브랜딩 카드뉴스</div>
+<p>ELW 민감도(Greeks)처럼 어려운 파생상품 개념을 일반 투자자가 이해할 수 있는
+형태로. 주제 선정부터 카피·일러스트·디자인까지 순살이 수행했습니다.</p>
+<div class="shots"><img src="/assets/collab/kis_elw_1.jpg" alt="한국투자증권 ELW 시리즈 카드뉴스"
+ loading="lazy" width="760" height="760"/>
+<img src="/assets/collab/kis_elw_2.jpg" alt="한국투자증권 ELW 시리즈 카드뉴스"
+ loading="lazy" width="760" height="760"/></div>
+</div>
+
+<div class="case">
+<div class="ct">미래에셋자산운용 · 브랜디드 카드뉴스</div>
+<p>앞부분이 에디토리얼 내러티브로 빌드업하고 후반부에 상품이 노출되는 구조.
+광고 한 장이 아니라 열 장 전체가 하나의 브랜드 스토리로 기능합니다.</p>
+<div class="shots one"><img src="/assets/collab/mirae_etf.jpg" alt="미래에셋자산운용 캠페인 카드뉴스"
+ loading="lazy" width="900" height="900"/></div>
+</div>
+
+<div class="case">
+<div class="ct">BC카드 페이북 · 인앱 콘텐츠 공급</div>
+<p>파트너 앱 안에 순살 콘텐츠를 정기 공급했습니다. 브랜드 채널에 실리는
+형태의 협업입니다.</p>
+<div class="shots one"><img src="/assets/collab/bc_paybooc.jpg" alt="페이북 × 순살"
+ loading="lazy" width="720" height="230"/></div>
+</div>
+</div>
+
 <p class="note">스폰서 스토리는 일반 스토리와 같은 자리, 같은 문체로 실립니다.
 상단에 스폰서 표기를 분명히 하되, 읽는 흐름을 끊지 않습니다.</p>
 </section>
@@ -184,8 +220,8 @@ def build():
 
 <div class="scope"><div class="sn">03</div>
 <h3>런칭 패키지</h3>
-<p>신상품·신규 상장 일정에 맞춰 한 세트로 묶습니다.
-D-3 티저 → 당일 스토리 → D+7 카드뉴스.</p>
+<p>출시·공개 일정에 맞춰 한 세트로 묶습니다. 사전 티저 → 당일 스토리 →
+후속 카드뉴스. 신제품·서비스 오픈·신규 상장 모두 같은 구조입니다.</p>
 <div class="rng">건별 · 연 1~4건</div></div>
 
 <div class="scope"><div class="sn">04</div>
@@ -246,7 +282,7 @@ D-3 티저 → 당일 스토리 → D+7 카드뉴스.</p>
 
 </div></body></html>"""
     (OUT / "index.html").write_text(html, encoding="utf-8")
-    print("📣 advertise: /advertise/ 협업 문의 페이지")
+    print("📣 advertise: /collab/ 협업 문의 페이지")
     return 1
 
 

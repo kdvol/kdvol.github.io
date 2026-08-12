@@ -1,0 +1,338 @@
+<!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>협업 문의 — 순살브리핑</title>
+<meta name="description" content="순살브리핑 협업 문의. 매일 아침 금융·경제·크립토를 읽는 독자에게 브랜드를 각인시키는 브랜딩 매체. 스폰서 스토리·로고 노출·AI 검색까지 함께 설계합니다.">
+<link rel="canonical" href="https://soonsal.com/collab/"><meta name="robots" content="index, follow">
+<meta property="og:type" content="website"><meta property="og:site_name" content="순살브리핑 Soonsal">
+<meta property="og:title" content="협업 문의 — 순살브리핑">
+<meta property="og:description" content="순살브리핑 협업 문의. 매일 아침 금융·경제·크립토를 읽는 독자에게 브랜드를 각인시키는 브랜딩 매체. 스폰서 스토리·로고 노출·AI 검색까지 함께 설계합니다.">
+<meta property="og:url" content="https://soonsal.com/collab/">
+<meta property="og:image" content="https://soonsal.com/og-cover-v2.png">
+<meta property="og:locale" content="ko_KR">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com"/><link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700;800&display=swap" rel="stylesheet"/>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#111;color:#eee;font-family:'DM Sans','Apple SD Gothic Neo','Malgun Gothic',sans-serif;
+-webkit-text-size-adjust:100%;line-height:1.7}
+.wrap{max-width:720px;margin:0 auto;padding:34px 18px 72px}
+/* 협업 스코프 — 광고 하나가 아니라 여러 갈래임이 한눈에 보여야 한다.
+   카드마다 번호·제목·설명·범위. 범위가 있어야 "얼마예요"가 아니라
+   "우린 이만큼 필요해요"로 대화가 시작된다. */
+.lead{color:#9a948a;font-size:.92rem;line-height:1.8;margin:0 0 20px}
+.scopes{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px}
+.scope{background:#161616;border:1px solid #242424;border-radius:12px;padding:18px 18px 16px;
+position:relative;transition:border-color .18s}
+.scope:hover{border-color:#3a3a3a}
+.scope .sn{font-size:.68rem;font-weight:800;letter-spacing:.1em;color:#F07040;margin-bottom:9px}
+.scope h3{font-size:1.02rem;font-weight:800;letter-spacing:-.02em;color:#f2efe8;margin:0 0 7px}
+.scope p{color:#8b8578;font-size:.86rem;line-height:1.7;margin:0 0 13px}
+.scope .rng{font-size:.75rem;color:#c9c4ba;background:#1e1e1e;border:1px solid #2a2a2a;
+border-radius:6px;padding:6px 10px;display:inline-block}
+.more{color:#8b8578;font-size:.86rem;line-height:1.75;margin:14px 0 0;padding:13px 15px;
+background:#161616;border:1px solid #222;border-radius:10px}
+/* 함께한 브랜드 — 로고 이미지 대신 워드마크로 통일한다. 받아온 로고는
+   품질·비율이 제각각이라 섞으면 오히려 조악해 보이고, 남의 로고를 임의로
+   가공하는 것도 좋은 방법이 아니다. */
+.brands{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 24px}
+.brands span{font-size:.86rem;font-weight:700;letter-spacing:-.01em;color:#c9c4ba;
+background:#181818;border:1px solid #262626;border-radius:8px;padding:9px 14px}
+/* 사례 — 실제 집행분만. 제작물을 직접 보여주는 게 설명보다 빠르다 */
+.cases{display:flex;flex-direction:column;gap:12px}
+.case{background:#161616;border:1px solid #232323;border-radius:12px;padding:17px 17px 15px}
+.case .ct{font-size:.72rem;font-weight:800;letter-spacing:.04em;color:#F5A481;margin-bottom:8px}
+.case p{color:#9a948a;font-size:.87rem;line-height:1.72;margin:0 0 12px}
+.case a{color:#F07040;font-size:.85rem;font-weight:700;text-decoration:none}
+.case a:hover{text-decoration:underline}
+.shots{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.shots.one{grid-template-columns:1fr;max-width:420px}
+.shots img{width:100%;height:auto;border-radius:8px;display:block;border:1px solid #242424}
+@media(max-width:560px){.shots{grid-template-columns:1fr}}
+@media(max-width:560px){.scopes{grid-template-columns:1fr}}
+a{color:#eee;text-decoration:none}
+h1{font-size:1.8rem;letter-spacing:-.03em;margin-bottom:12px;line-height:1.35}
+.lede{color:#aaa;font-size:1rem;line-height:1.8;margin-bottom:8px}
+.kicker{color:#F07040;font-size:.78rem;font-weight:700;letter-spacing:.12em;margin-bottom:10px}
+h2{font-size:1.06rem;margin:0 0 12px;letter-spacing:-.01em}
+section{margin:38px 0}
+.card{background:#161616;border:1px solid #232323;border-radius:13px;padding:20px 22px}
+.card+.card{margin-top:10px}
+ul{list-style:none;margin:0}
+li{position:relative;padding-left:17px;margin:9px 0;color:#bbb;font-size:.93rem;line-height:1.7}
+li:before{content:"";position:absolute;left:0;top:.62em;width:5px;height:5px;border-radius:50%;background:#F07040}
+li.no:before{background:#555}
+li b{color:#eee;font-weight:600}
+.hl{color:#F07040;font-weight:700}
+.two{display:grid;gap:10px}
+@media(min-width:640px){.two{grid-template-columns:1fr 1fr}}
+.steps{counter-reset:s}
+.steps li{padding-left:34px;margin:14px 0}
+.steps li:before{counter-increment:s;content:counter(s);width:22px;height:22px;border-radius:50%;
+background:#F0704022;color:#F07040;font-size:.72rem;font-weight:700;display:flex;align-items:center;
+justify-content:center;top:.2em;border:1px solid #F0704055}
+.note{color:#777;font-size:.85rem;line-height:1.7;margin-top:14px}
+.cta{background:linear-gradient(180deg,#1c1a17,#161514);border:1px solid #3a2b20;border-radius:14px;
+padding:26px 22px;text-align:center;margin-top:36px}
+.cta h2{font-size:1.15rem;margin-bottom:8px}
+.cta p{color:#aaa;font-size:.92rem;margin-bottom:18px}
+.btn{display:inline-block;background:#E55A00;color:#fff;font-weight:700;padding:14px 30px;
+border-radius:9px;font-size:1rem;letter-spacing:-.01em}
+.btn:hover{background:#cc4e00}
+.mail{display:block;margin-top:12px;color:#F07040;font-size:.9rem}
+.tagline{color:#666;font-size:.82rem;margin-top:28px;text-align:center;line-height:1.8}
+
+.site-header{padding:26px 20px 18px;border-bottom:1px solid #222;display:flex;justify-content:center;position:relative;background:#111}
+.logo-link{display:flex;align-items:center;gap:10px;text-decoration:none;color:#fff}
+.logo-link img{height:26px;width:auto}
+.logo-text{font-size:22px;font-weight:800;letter-spacing:-0.5px;font-family:'DM Sans','Apple SD Gothic Neo',sans-serif}
+.sub-btn-header{position:absolute;right:max(16px,calc(50% - 400px));top:50%;transform:translateY(-50%);
+background:#E55A00;color:#fff;padding:8px 18px;border-radius:6px;font-size:13px;font-weight:700;text-decoration:none;white-space:nowrap}
+@media(max-width:560px){.sub-btn-header{display:none}}
+.crumb{color:#F07040;font-size:.88rem;display:inline-block;margin-bottom:14px;text-decoration:none}
+
+.nav{position:relative;display:flex;justify-content:center;align-items:stretch;overflow:visible;border-bottom:1px solid #222;background:#151515;z-index:100}
+.nav>a,.nav-more>summary{display:flex;align-items:center;padding:12px 18px;font-size:13px;font-weight:700;color:#777;white-space:nowrap;text-decoration:none;border:0;border-bottom:2px solid transparent;cursor:pointer;list-style:none;transition:color .2s,border-color .2s,background .2s}
+.nav-more>summary::-webkit-details-marker{display:none}
+.nav>a:hover,.nav-more>summary:hover{color:#ccc}
+.nav>a.active,.nav-more.active>summary{color:#F07040;border-bottom-color:#F07040}
+/* 데스크톱/모바일 갈래. 이 두 규칙이 없어서 스쿨·광고 문의가 바와 더보기에
+   이중으로 렌더됐고, 가로 스크롤 위치에 따라 보이는 항목이 달라졌다. */
+.nav-mobile-only{display:none}
+.nav-more{position:relative;flex-shrink:0}
+.nav-more[open]>summary{color:#fff;background:#202020}
+.nav-menu{position:absolute;top:100%;right:0;z-index:1001;display:grid;min-width:190px;padding:8px;background:#1b1b1b;border:1px solid #333;border-radius:0 0 8px 8px;box-shadow:0 12px 26px rgba(0,0,0,.28)}
+.nav-menu a{display:block;padding:10px 12px;border-radius:5px;color:#aaa;text-decoration:none;font-size:13px;font-weight:700;white-space:nowrap}
+.nav-menu a:hover,.nav-menu a.active{color:#fff;background:#282828}
+.nav-menu a.active{color:#F07040}
+.nav-menu a.biz{color:#777;border-top:1px solid #303030;margin-top:4px;padding-top:12px}
+@media(max-width:560px){
+.nav>a.nav-desktop-link{display:none}
+.nav-menu a.nav-mobile-only{display:block}
+  /* 코어 4개 + 더보기 = 5칸. 4칸으로 두면 다섯 번째가 다음 줄로 넘어간다. */
+  .nav{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));width:100%}
+  .nav>a,.nav-more>summary{justify-content:center;padding:11px 2px;font-size:11.5px;
+  letter-spacing:-.4px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .nav-more{position:static;min-width:0}
+  .nav-menu{left:10px;right:10px;top:100%;grid-template-columns:repeat(2,minmax(0,1fr));min-width:0;padding:8px}
+  .nav-menu a{text-align:center;padding:11px 6px}
+  .nav-menu a.biz{border-top:0;margin-top:0;padding-top:11px}
+}
+@media(max-width:360px){
+  .nav>a,.nav-more>summary{font-size:10.5px;letter-spacing:-.5px;padding:11px 1px}
+}
+
+</style><style id="soonsal-nav-visibility-v3">
+.nav-menu a.nav-mobile-only{display:none}
+.nav>a.nav-desktop-link.biz{color:#F07040}
+.nav>a.nav-desktop-link.biz:hover{color:#ff8a52}
+.nav-menu a.biz{color:#F07040}
+@media(max-width:560px){
+  .nav>a.nav-desktop-link{display:none}
+  .nav-menu a.nav-mobile-only{display:block}
+  .nav-more.mobile-active>summary{color:#F07040;border-bottom-color:#F07040}
+  /* 코어 4개 + 더보기 = 5칸. 예전 CSS가 4칸이라 다섯 번째가 다음 줄로 넘어갔다.
+     이 블록은 페이지마다 나중에 주입되므로 안에 박힌 옛 규칙을 덮는다. */
+  .nav{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));width:100%}
+  .nav>a,.nav-more>summary{justify-content:center;padding:11px 2px;font-size:11.5px;
+    letter-spacing:-.4px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+}
+@media(max-width:360px){
+  .nav>a,.nav-more>summary{font-size:10.5px;letter-spacing:-.5px;padding:11px 1px}
+}
+/* ── 눌러보고 싶게 ──────────────────────────────────────
+   탭은 '지금 어디' 말고는 아무것도 알려주지 않는다. 더보기는 특히 그렇다 —
+   안에 뭐가 있는지 모르면 누를 이유가 없다. 세 가지를 바꾼다:
+   (1) 밑줄이 자라며 눌리는 느낌, (2) 화살표가 열림에 반응, (3) 메뉴 안에
+   아이콘을 붙여 목록이 아니라 '갈 곳'으로 보이게. */
+.nav>a,.nav-more>summary{position:relative;transition:color .18s}
+.nav>a:after,.nav-more>summary:after{content:"";position:absolute;left:50%;right:50%;
+bottom:-1px;height:2px;background:#F07040;border-radius:2px;
+transition:left .22s cubic-bezier(.4,0,.2,1),right .22s cubic-bezier(.4,0,.2,1)}
+.nav>a:hover:after,.nav-more>summary:hover:after{left:18%;right:18%}
+.nav>a.active:after,.nav-more.active>summary:after{left:0;right:0}
+
+.nav-more>summary span[aria-hidden]{display:inline-block;transition:transform .22s ease;
+margin-left:2px}
+.nav-more[open]>summary span[aria-hidden]{transform:rotate(180deg)}
+.nav-more[open]>summary{color:#F07040}
+
+.nav-menu{animation:navdrop .18s cubic-bezier(.2,.8,.2,1)}
+@keyframes navdrop{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
+.nav-menu a{transition:background .15s,color .15s,padding-left .15s}
+.nav-menu a:before{margin-right:7px;opacity:.9}
+.nav-menu a[href="/cardnews/"]:before{content:"🎴"}
+.nav-menu a[href="/youtube/"]:before{content:"▶"}
+.nav-menu a[href="/school/"]:before{content:"🎓"}
+.nav-menu a[href="/collab/"]:before{content:"✉"}
+.nav-menu a[href="/talk/"]:before{content:"💬"}
+
+/* 더보기 안에 뭐가 있는지 한 줄로 알려준다 — 열기 전에 궁금해지는 건 이 지점이다 */
+.nav-more>summary:before{content:"";position:absolute;top:9px;right:6px;width:5px;height:5px;
+border-radius:50%;background:#F07040;opacity:0;transition:opacity .2s}
+.nav-more:not([open])>summary:hover:before{opacity:.85}
+@media(max-width:560px){
+  .nav-menu a{text-align:left;padding-left:14px}
+  .nav-more>summary:before{right:3px;top:7px}
+}
+</style>
+</head><body>
+<header class="site-header"><a class="logo-link" href="/"><img src="/favicon.svg" alt="" onerror="this.style.display='none'"><span class="logo-text">순살브리핑 Soonsal</span></a><a href="https://subscribe.soonsal.com/subscribe" target="_blank" rel="noopener" class="sub-btn-header">구독하기</a></header><nav class="nav" aria-label="주요 메뉴"><a href="/newsletters/">브리핑</a><a href="/morning/">모닝순살</a><a href="/talk/">순살톡</a><a href="/topics/">주제별</a><a href="/school/" class="nav-desktop-link">스쿨</a><a href="/collab/" class="nav-desktop-link active biz">협업 문의</a><details class="nav-more mobile-active"><summary>더보기 <span aria-hidden="true">⌄</span></summary><section class="nav-menu" aria-label="추가 메뉴"><a href="/cardnews/">카드뉴스</a><a href="/youtube/">YouTube</a><a href="/school/" class="nav-mobile-only">스쿨</a><a href="/collab/" class="nav-mobile-only active biz">협업 문의</a></section></details></nav>
+<div class="wrap">
+
+<div class="kicker">PARTNERSHIP</div>
+<h1>순살에서 브랜드는<br>광고가 아니라 이야기가 됩니다</h1>
+<p class="lede">순살브리핑은 매일 아침, 글로벌 금융·경제·크립토를 순살만 발라 전합니다.
+스폰서 스토리도 같은 자리에 같은 문체로 <span class="hl">한 바닥</span>을 씁니다.
+독자는 건너뛰지 않고 끝까지 읽게 됩니다.</p>
+
+<section>
+<h2>순살은 이런 매체입니다</h2>
+<div class="card"><ul>
+<li><b>브랜딩 매체입니다.</b> 클릭을 파는 곳이 아니라, 브랜드가 기억되는 곳입니다.
+당장의 전환율보다 "이 브랜드 순살에서 봤다"는 인식을 만듭니다.</li>
+<li><b>독자는 업계 사람들입니다.</b> 금융·투자·테크 업계의 실무자와 의사결정권자가
+매일 아침 같은 시간에 읽습니다.</li>
+<li><b>원고는 순살이 씁니다.</b> 브랜드가 하고 싶은 이야기를 순살 문체로 한 바닥 풀어드리고,
+초안은 함께 다듬습니다. 배너를 붙이는 것보다 손이 더 가지만, 그만큼 읽힙니다.</li>
+</ul></div>
+</section>
+
+<section>
+<h2>숫자 대신, 이렇게 말씀드립니다</h2>
+<div class="card"><ul>
+<li><span class="hl">비슷한 규모의 금융 뉴스레터 평균 오픈율 대비 4배</span>가 매일 아침 열립니다.
+(구체적 수치는, 소개서에서 디테일하게 설명 드립니다)</li>
+<li><span class="hl">매일 같은 시간, 약 10분.</span> 스크롤하며 스쳐 가는 매체가 아니라
+정해진 시간에 자리 잡고 읽는 매체입니다.</li>
+<li><span class="hl">읽는 사람이 다릅니다.</span> 금융·투자·테크 업계의 실무자와 의사결정권자가
+주 독자층입니다.</li>
+</ul></div>
+</section>
+
+<section>
+<h2>이런 브랜드와 함께했습니다</h2>
+<div class="brands">
+<span>Salesforce</span><span>한국투자증권</span><span>미래에셋자산운용</span><span>BC카드 페이북</span>
+</div>
+
+<div class="cases">
+<div class="case">
+<div class="ct">Salesforce · 스폰서 스토리</div>
+<p>금융권 망분리 규제 완화라는 시의성 있는 주제를 잡아, 브랜드가 말하고 싶은
+메시지를 순살 톤의 한 바닥으로 풀었습니다.</p>
+<a href="/newsletters/2026/0805.html#story-2">실제 발행분 보기 →</a>
+</div>
+
+<div class="case">
+<div class="ct">한국투자증권 · 공동 브랜딩 카드뉴스</div>
+<p>ELW 민감도(Greeks)처럼 어려운 파생상품 개념을 일반 투자자가 이해할 수 있는
+형태로. 주제 선정부터 카피·일러스트·디자인까지 순살이 수행했습니다.</p>
+<div class="shots"><img src="/assets/collab/kis_elw_1.jpg" alt="한국투자증권 ELW 시리즈 카드뉴스"
+ loading="lazy" width="760" height="760"/>
+<img src="/assets/collab/kis_elw_2.jpg" alt="한국투자증권 ELW 시리즈 카드뉴스"
+ loading="lazy" width="760" height="760"/></div>
+</div>
+
+<div class="case">
+<div class="ct">미래에셋자산운용 · 브랜디드 카드뉴스</div>
+<p>앞부분이 에디토리얼 내러티브로 빌드업하고 후반부에 상품이 노출되는 구조.
+광고 한 장이 아니라 열 장 전체가 하나의 브랜드 스토리로 기능합니다.</p>
+<div class="shots one"><img src="/assets/collab/mirae_etf.jpg" alt="미래에셋자산운용 캠페인 카드뉴스"
+ loading="lazy" width="900" height="900"/></div>
+</div>
+
+<div class="case">
+<div class="ct">BC카드 페이북 · 인앱 콘텐츠 공급</div>
+<p>파트너 앱 안에 순살 콘텐츠를 정기 공급했습니다. 브랜드 채널에 실리는
+형태의 협업입니다.</p>
+<div class="shots one"><img src="/assets/collab/bc_paybooc.jpg" alt="페이북 × 순살"
+ loading="lazy" width="720" height="230"/></div>
+</div>
+</div>
+
+<p class="note">스폰서 스토리는 일반 스토리와 같은 자리, 같은 문체로 실립니다.
+상단에 스폰서 표기를 분명히 하되, 읽는 흐름을 끊지 않습니다.</p>
+</section>
+
+<section>
+<h2>이렇게 함께할 수 있습니다</h2>
+<p class="lead">광고 한 가지가 아닙니다. 순살이 매일 만드는 것(콘텐츠·채널·독자)을
+어느 쪽으로 쓰실지에 따라 형태가 달라집니다. <b style="color:#ccc">아래에서 고르시면
+그에 맞춰 견적을 드립니다.</b></p>
+
+<div class="scopes">
+<div class="scope"><div class="sn">01</div>
+<h3>순살 채널 광고</h3>
+<p>순살브리핑·인스타그램에 브랜드 기획으로 발행합니다.
+브랜디드 스토리 · 카드뉴스 · 릴스 · 배너 전 포맷.</p>
+<div class="rng">포맷·횟수 선택 · 건별 또는 연 단위</div></div>
+
+<div class="scope"><div class="sn">02</div>
+<h3>콘텐츠 라이선싱</h3>
+<p>순살 에디토리얼을 브랜드 채널 전용 편집본으로 제작·납품합니다.
+채널은 이미 있고 채울 콘텐츠만 필요한 경우.</p>
+<div class="rng">주 1~5회 중 선택 · 연 단위</div></div>
+
+<div class="scope"><div class="sn">03</div>
+<h3>런칭 패키지</h3>
+<p>출시·공개 일정에 맞춰 한 세트로 묶습니다. 사전 티저 → 당일 스토리 →
+후속 카드뉴스. 신제품·서비스 오픈·신규 상장 모두 같은 구조입니다.</p>
+<div class="rng">건별 · 연 1~4건</div></div>
+
+<div class="scope"><div class="sn">04</div>
+<h3>아카이브 스폰서십</h3>
+<p>「브랜드와 함께 만드는 ○○ 사전」. 검색으로 계속 유입되는 자산이라
+시간이 지날수록 가치가 올라갑니다.</p>
+<div class="rng">연 단위 · 항목 수 협의</div></div>
+
+</div>
+
+<p class="more">이 밖에도 채널 운영, 리서치 협업 등 형태를 더 넓힐 수 있습니다.
+필요하신 그림을 알려주시면 개별로 안내드립니다.</p>
+
+<p class="note">어떤 형태든 <span class="hl">원고는 순살이 씁니다.</span>
+발행 후에는 주제별·기업별 페이지에 남아 계속 읽히고, AI 검색이 읽어가기 좋은
+구조로 실립니다. 같은 업종에서는 소수 파트너와만 함께해
+<span class="hl">브랜드 차별화</span>를 강조합니다 — 월 편성 슬롯이 조기에
+마감될 수 있습니다.</p>
+</section>
+
+<section>
+<h2>이것만 미리 말씀드립니다</h2>
+<div class="card">
+<p style="color:#aaa;font-size:.9rem;line-height:1.75;margin-bottom:12px">
+독자의 신뢰가 곧 광고 효과라고 믿습니다. 그래서 아래 경우에는 아쉽지만
+함께하기 어렵습니다 — 브랜드를 가리려는 게 아니라, 실었을 때 서로에게
+결과가 좋지 않기 때문입니다.</p>
+<ul>
+<li class="no">원금·수익 보장을 내세운 투자 권유, 리딩방·유사수신성 서비스</li>
+<li class="no">독자 데이터(이메일·개인정보) 제공이 필요한 형태 —
+순살은 <span class="hl">어떤 경우에도 구독자 데이터를 제공하지 않습니다</span></li>
+<li class="no">사실 확인이 어려운 표현이 꼭 들어가야 하는 콘텐츠</li>
+</ul></div>
+</section>
+
+<section>
+<h2>진행은 이렇게</h2>
+<div class="card"><ul class="steps">
+<li>문의 주시면 영업일 기준 2일 안에 회신드립니다</li>
+<li><span class="hl">핏 리뷰</span> — 브랜드가 가장 잘 드러날 각도를 먼저 함께 찾습니다.
+지금 타이밍이 아니라고 판단되면 솔직하게 말씀드립니다</li>
+<li>소개서·제안서와 편성 일정 협의</li>
+<li>원고는 순살이 쓰고, <span class="hl">초안은 발행 전에 확인</span>하실 수 있습니다</li>
+<li>발행 후 성과 리포트 (콘텐츠가 충분히 소비된 뒤 정리해 드립니다)</li>
+</ul></div>
+</section>
+
+<div class="cta">
+<h2>가볍게 물어보셔도 됩니다</h2>
+<p>예산이나 시기가 아직 정해지지 않았어도 괜찮습니다.<br>
+브랜드와 하고 싶은 이야기만 알려주시면, 어떤 방식이 맞을지 함께 찾아드릴게요.</p>
+<a class="btn" href="mailto:team@soonsal.com?subject=%5B%ED%98%91%EC%97%85%20%EB%AC%B8%EC%9D%98%5D%20&body=%EB%B8%8C%EB%9E%9C%EB%93%9C%2F%ED%9A%8C%EC%82%AC%3A%0A%EB%8B%B4%EB%8B%B9%EC%9E%90%3A%0A%ED%9D%AC%EB%A7%9D%20%EC%8B%9C%EA%B8%B0%3A%0A%EB%AA%A9%ED%91%9C%2F%ED%95%98%EA%B3%A0%20%EC%8B%B6%EC%9D%80%20%EC%9D%B4%EC%95%BC%EA%B8%B0%3A%0A">협업 문의 메일 보내기</a>
+<a class="mail" href="mailto:team@soonsal.com">team@soonsal.com</a>
+</div>
+
+<p class="tagline">순살브리핑 · 글로벌 금융경제 살코기<br>
+매일 아침, 순살만 발라낸 금융·경제 브리핑</p>
+
+</div></body></html>

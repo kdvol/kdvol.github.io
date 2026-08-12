@@ -14,10 +14,10 @@ ROOT = Path(__file__).resolve().parent.parent
 
 CORE_ITEMS = [("/newsletters/", "브리핑"), ("/morning/", "모닝순살"),
               ("/talk/", "순살톡"), ("/topics/", "주제별")]
-DESKTOP_ITEMS = [("/school/", "스쿨"), ("/advertise/", "협업 문의")]
+DESKTOP_ITEMS = [("/school/", "스쿨"), ("/collab/", "협업 문의")]
 MENU_ITEMS = [("/cardnews/", "카드뉴스"), ("/youtube/", "YouTube")]
 MORE_ITEMS = MENU_ITEMS + DESKTOP_ITEMS
-BIZ = {"/advertise/"}
+BIZ = {"/collab/"}
 
 NAV_RE = re.compile(r'<(?:div|nav)\s+class="nav"(?:\s[^>]*)?>.*?</(?:div|nav)>', re.S)
 NAV_STYLE_RE = re.compile(r'<style id="soonsal-nav-v2">.*?</style>', re.S)
@@ -65,7 +65,8 @@ def _active_for(path: Path):
         "cardnews": "/cardnews/",
         "youtube": "/youtube/",
         "school": "/school/",
-        "advertise": "/advertise/",
+        "advertise": "/collab/",
+        "collab": "/collab/",
         "talk": "/talk/",
     }.get(section)
 
@@ -147,7 +148,7 @@ margin-left:2px}
 .nav-menu a[href="/cardnews/"]:before{content:"🎴"}
 .nav-menu a[href="/youtube/"]:before{content:"▶"}
 .nav-menu a[href="/school/"]:before{content:"🎓"}
-.nav-menu a[href="/advertise/"]:before{content:"✉"}
+.nav-menu a[href="/collab/"]:before{content:"✉"}
 .nav-menu a[href="/talk/"]:before{content:"💬"}
 
 /* 더보기 안에 뭐가 있는지 한 줄로 알려준다 — 열기 전에 궁금해지는 건 이 지점이다 */

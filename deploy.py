@@ -1018,7 +1018,7 @@ def _ig_already_posted(caption, ig_account_id=None):
 def post_to_instagram(image_urls, ctype, date_fmt, keywords="", html="", target_override=None):
     """Post carousel to Instagram via ~/instagram_pipeline/ modules.
     
-    Routes english-card to @soonsal.global, crypto-card to @soonsal.crypto,
+    Routes english-card to @soonsal.global, crypto-card to the Morning Soonsal account,
     zzal to @soonsal.zzal, others to @soonsal.brief.
     Token: unified INSTAGRAM_ACCESS_TOKEN for all accounts.
     --target flag overrides account routing.
@@ -1050,7 +1050,7 @@ def post_to_instagram(image_urls, ctype, date_fmt, keywords="", html="", target_
     # --target= flag overrides automatic routing
     TARGET_MAP = {
         "brief":  None,                  # @soonsal.brief (env default)
-        "crypto": "17841452792245949",   # @soonsal.crypto
+        "crypto": "17841452792245949",   # 모닝순살 전용(이름 변경 전 @soonsal.crypto)
         "global": "17841442721220991",   # @soonsal.global
         "zzal":   "17841452650743738",   # @soonsal.zzal
     }
@@ -1064,7 +1064,7 @@ def post_to_instagram(image_urls, ctype, date_fmt, keywords="", html="", target_
         print(f"  🌍 Target: @soonsal.global")
     elif ctype == "crypto-card":
         ig_account = TARGET_MAP["crypto"]
-        print(f"  🪙 Target: @soonsal.crypto")
+        print(f"  ☀️ Target: 모닝순살 IG (ID {ig_account})")
     elif ctype == "zzal":
         ig_account = TARGET_MAP["zzal"]
         print(f"  🎴 Target: @soonsal.zzal")
@@ -1133,7 +1133,7 @@ def main():
         print("  --no-instagram:     웹 발행만 (Instagram 스킵)")
         print("  --instagram-only:   Instagram 발행만 (웹 발행 스킵)")
         print("  --target=brief:     Instagram 대상 → @soonsal.brief")
-        print("  --target=crypto:    Instagram 대상 → @soonsal.crypto")
+        print("  --target=crypto:    Instagram 대상 → 모닝순살 전용 계정(ID 고정)")
         print("  --target=global:    Instagram 대상 → @soonsal.global")
         print("  --target=zzal:      Instagram 대상 → @soonsal.zzal")
         sys.exit(1)
