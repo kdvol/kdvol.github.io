@@ -82,7 +82,11 @@ border-radius:16px;transition:background .15s,color .15s;min-height:32px}
 font-size:16px;font-family:inherit;resize:none;background:#181818;color:#eee;line-height:1.5}
 .rf textarea:focus{outline:none;border-color:#F07040;background:#1c1a18}
 .rf .row{display:flex;align-items:center;gap:8px;margin-top:8px}
-.rf .who{flex:1;font-size:.74rem;color:#6b665e;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.rf .who{flex:1;font-size:.74rem;color:#8b8578;overflow:hidden;text-overflow:ellipsis;
+white-space:nowrap;cursor:pointer;display:flex;align-items:center;gap:6px}
+.rf .who em{font-style:normal;color:#F07040;font-size:.68rem;background:#1f1713;
+border-radius:5px;padding:2px 7px;flex:0 0 auto}
+.rf .who:hover em{background:#2a1d16}
 .rf button.go{background:#E55A00;color:#fff;border:none;border-radius:18px;padding:8px 18px;
 font-size:.8rem;font-weight:700;cursor:pointer;font-family:inherit;min-height:34px}
 .rf button.go:disabled{background:#242424;color:#5f5a52}
@@ -145,6 +149,11 @@ function avatar(nick, isOp) {
   var ch = s.replace(/[^가-힣A-Za-z0-9]/g, '').charAt(0) || '?';
   return '<span class="av" style="background:' + bg + (isOp ? ';color:#fff' : '') + '">' +
     esc(ch) + '</span>';
+}
+
+function whoLabel() {
+  var n = prof().n || '';
+  return (n ? esc(n) : '이름 없음') + '<em>✎ 바꾸기</em>';
 }
 
 function prof() {
@@ -253,9 +262,27 @@ function wire() {
       rf._story = b.getAttribute('data-s');
       var tag = '@' + b.getAttribute('data-k') + ' ';
       if (ta.value.indexOf('@') !== 0) ta.value = tag + ta.value;
-      rf.querySelector('.who').textContent = (prof().n || '') + ' (으)로 답글';
+      rf.querySelector('.who').innerHTML = whoLabel();
       go.disabled = !ta.value.trim();
       ta.focus();
+    });
+  });
+
+  // 답글 폼의 '누구로' 줄을 눌러 이름을 바꾼다. 스토리 댓글창에만 있고
+  // 여기엔 없어서, 순살톡에서 답글만 다는 사람은 이름을 못 바꿨다.
+  app.querySelectorAll('.who').forEach(function (el) {
+    el.addEventListener('click', function () {
+      var p = prof();
+      var v = prompt('이름을 바꿔요 (12자까지)', p.n || '');
+      if (v === null) return;
+      v = v.trim().slice(0, 12);
+      if (!v) return;
+      p.n = v;
+      try { localStorage.setItem('ss_prof', JSON.stringify(p));
+            localStorage.setItem('ss_nick', v); } catch (e) {}
+      app.querySelectorAll('.who').forEach(function (x) {
+        if (x.textContent) x.innerHTML = whoLabel();
+      });
     });
   });
 
