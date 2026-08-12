@@ -315,7 +315,7 @@ def build(atoms=None):
 <style>{CSS}{build_nav.HEADER_CSS}</style>
 <style>{nl_css}</style></head><body>
 {ticker}
-{build_nav.header_html("/newsletters/")}<div class="wrap">
+{build_nav.header_html(None)}<div class="wrap">
 
 
 <h1>오늘자 뉴스레터<span class="issue">{dt}</span></h1>

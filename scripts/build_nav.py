@@ -60,7 +60,7 @@ def _active_for(path: Path):
     section = rel.parts[0]
     if section == "newsletters":
         return "/newsletters/"
-    if section == "morning":
+    if section in {"chart", "morning"}:
         return "/chart/"
     if section in {"topics", "wiki", "search"}:
         return "/topics/"
@@ -227,6 +227,22 @@ def _fix_nav_cols(html: str) -> str:
     return NAV_COLS_RE.sub(rf'\g<1>{len(CORE_ITEMS) + 1}\g<2>', html)
 
 
+TICKER_FILE = Path(__file__).resolve().parent / "_ticker.html"
+TICKER_RE = re.compile(r'<div id="soonsal-live-ticker".*?</script>', re.S)
+
+
+def _with_ticker(html: str) -> str:
+    """상단 시황 띠를 헤더 있는 모든 페이지에 보장한다."""
+    if not TICKER_FILE.exists() or "<body" not in html:
+        return html
+    block = TICKER_FILE.read_text(encoding="utf-8")
+    if TICKER_RE.search(html):
+        return TICKER_RE.sub(lambda _: block, html, count=1)
+    i = html.index("<body")
+    j = html.index(">", i) + 1
+    return html[:j] + "\n" + block + html[j:]
+
+
 def _with_subscribe(html: str) -> str:
     """구독하기 버튼을 헤더에 보장한다. 페이지마다 자리가 달라지면 안 된다."""
     if 'class="sub-btn-header"' in html:
@@ -292,6 +308,7 @@ def main():
             new = new.replace("</head>", enhancement + "\n</head>", 1)
         new = _with_search(new)
         new = _with_subscribe(new)
+        new = _with_ticker(new)
         new = _fix_nav_cols(new)
         if new != t:
             p.write_text(new, encoding="utf-8")
