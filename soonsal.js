@@ -141,6 +141,9 @@
     '.ss-sch a{color:#E55A00;text-decoration:none;font-weight:700;font-size:13px}' +
     '.ss-sch button{margin-left:auto;background:none;border:none;color:#c4bfb2;font-size:12px;' +
     'cursor:pointer;font-family:inherit;padding:2px 4px}' +
+    '.ss-call{display:block;text-align:center;margin-top:12px;padding:9px;font-size:12px;' +
+    'color:#8a8578;border:1px solid #ece8de;border-radius:9px;text-decoration:none}' +
+    '.ss-call:hover{color:#E55A00;border-color:#E55A00}' +
     '.ss-cnote{color:#b5b0a4;font-size:11px;line-height:1.65;margin-top:9px;display:none}' +
     '.ss-cwrap.on .ss-cnote{display:block}' +
     '.ss-hp{position:absolute;left:-9999px;width:1px;height:1px}' +
@@ -358,7 +361,10 @@
     if (document.querySelector('.ss-notice')) return;
     var d = document.createElement('div');
     d.className = 'ss-notice';
-    d.innerHTML = '쿠키 없이 익명 방문 통계만 수집합니다 · ' +
+    // 뉴스레터에는 사이트 nav가 없다. 한마디로 가는 길이 여기 말고는 없어서
+    // 수집 안내 줄에 같이 건다.
+    d.innerHTML = '<a href="/talk/">💬 독자 한마디</a> · ' +
+      '쿠키 없이 익명 방문 통계만 수집합니다 · ' +
       '<a href="/privacy/">수집 안내</a>';
     var f = document.querySelector('.footer-inner') || document.querySelector('.footer');
     (f || document.body).appendChild(d);
@@ -582,6 +588,7 @@
         '<div class="ss-cpn">이 브라우저에만 저장돼요.</div>' +
       '</div>' +
       '<div class="ss-clist"></div>' +
+      '<a class="ss-call" href="/talk/">다른 회차 한마디도 보기 →</a>' +
       '<div class="ss-cnote">투자 권유·광고·비방은 ' +
       '사전 통보 없이 숨겨집니다.</div>';
 
