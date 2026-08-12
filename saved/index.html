@@ -1,0 +1,178 @@
+<!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>내가 모은 스토리 — 순살브리핑</title>
+<meta name="description" content="순살브리핑에서 반응을 남기거나 한마디를 쓴 스토리를 한자리에 모았습니다.">
+<!-- 사람마다 내용이 다른 화면이라 색인 대상이 아니다 -->
+<meta name="robots" content="noindex,follow">
+<link rel="canonical" href="https://soonsal.com/saved/">
+<link rel="preconnect" href="https://fonts.googleapis.com"/><link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700;800&display=swap" rel="stylesheet"/>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#faf9f5;color:#1a1a1a;font-family:'Pretendard',-apple-system,BlinkMacSystemFont,
+'Segoe UI',sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased}
+.wrap{max-width:720px;margin:0 auto;padding:30px 18px 80px}
+h1{font-size:1.6rem;font-weight:800;letter-spacing:-.03em;margin-bottom:6px}
+.sub{color:#8a857c;font-size:.9rem;margin-bottom:24px;line-height:1.7}
+.bar{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:18px}
+.fb{background:#fff;border:1px solid #e6e1d8;border-radius:999px;padding:7px 14px;
+font-size:.84rem;font-weight:700;color:#6b665e;cursor:pointer;font-family:inherit}
+.fb.on{background:#1a1a1a;border-color:#1a1a1a;color:#fff}
+.fb .n{color:#a9a49b;font-weight:600;margin-left:5px}
+.fb.on .n{color:#d8d3ca}
+.it{display:flex;gap:13px;background:#fff;border:1px solid #ece8e0;border-radius:12px;
+padding:14px 16px;margin-bottom:9px;text-decoration:none;color:inherit}
+.it:hover{border-color:#d8d3ca}
+.it .mk{flex:0 0 auto;width:34px;height:34px;border-radius:9px;background:#f6f4ef;
+border:1px solid #ece8e0;display:flex;align-items:center;justify-content:center;font-size:1rem}
+.it .bd{min-width:0;flex:1}
+.it .bd>span{display:block}
+.it .lb{font-size:.68rem;font-weight:800;letter-spacing:.05em;color:#b09a86;margin-bottom:3px}
+.it .tt{font-size:.97rem;font-weight:700;letter-spacing:-.02em;line-height:1.45;
+overflow-wrap:anywhere}
+.it .dt{font-size:.78rem;color:#a9a49b;margin-top:4px}
+.empty{background:#fff;border:1px dashed #ddd8ce;border-radius:12px;padding:34px 22px;
+text-align:center;color:#8a857c;font-size:.92rem;line-height:1.8}
+.empty b{display:block;color:#3a3632;font-size:1.02rem;margin-bottom:8px}
+.empty a{color:#E55A00;font-weight:700;text-decoration:none}
+.fine{margin-top:26px;padding-top:18px;border-top:1px solid #ece8e0;
+color:#a9a49b;font-size:.78rem;line-height:1.8}
+.fine a{color:#8a857c}
+
+.site-header{padding:26px 20px 18px;border-bottom:1px solid #222;display:flex;justify-content:center;position:relative;background:#111}
+.logo-link{display:flex;align-items:center;gap:10px;text-decoration:none;color:#fff}
+.logo-link img{height:26px;width:auto}
+.logo-text{font-size:22px;font-weight:800;letter-spacing:-0.5px;font-family:'DM Sans','Apple SD Gothic Neo',sans-serif}
+.sub-btn-header{position:absolute;right:max(16px,calc(50% - 400px));top:50%;transform:translateY(-50%);
+background:#E55A00;color:#fff;padding:8px 18px;border-radius:6px;font-size:13px;font-weight:700;text-decoration:none;white-space:nowrap}
+@media(max-width:560px){.sub-btn-header{display:none}}
+.crumb{color:#F07040;font-size:.88rem;display:inline-block;margin-bottom:14px;text-decoration:none}
+
+.nav{position:relative;display:flex;justify-content:center;align-items:stretch;overflow:visible;border-bottom:1px solid #222;background:#151515;z-index:100}
+.nav>a,.nav-more>summary{display:flex;align-items:center;padding:12px 18px;font-size:13px;font-weight:700;color:#777;white-space:nowrap;text-decoration:none;border:0;border-bottom:2px solid transparent;cursor:pointer;list-style:none;transition:color .2s,border-color .2s,background .2s}
+.nav-more>summary::-webkit-details-marker{display:none}
+.nav>a:hover,.nav-more>summary:hover{color:#ccc}
+.nav>a.active,.nav-more.active>summary{color:#F07040;border-bottom-color:#F07040}
+/* 데스크톱/모바일 갈래. 이 두 규칙이 없어서 스쿨·광고 문의가 바와 더보기에
+   이중으로 렌더됐고, 가로 스크롤 위치에 따라 보이는 항목이 달라졌다. */
+.nav-mobile-only{display:none}
+.nav-more{position:relative;flex-shrink:0}
+.nav-more[open]>summary{color:#fff;background:#202020}
+.nav-menu{position:absolute;top:100%;right:0;z-index:1001;display:grid;min-width:190px;padding:8px;background:#1b1b1b;border:1px solid #333;border-radius:0 0 8px 8px;box-shadow:0 12px 26px rgba(0,0,0,.28)}
+.nav-menu a{display:block;padding:10px 12px;border-radius:5px;color:#aaa;text-decoration:none;font-size:13px;font-weight:700;white-space:nowrap}
+.nav-menu a:hover,.nav-menu a.active{color:#fff;background:#282828}
+.nav-menu a.active{color:#F07040}
+.nav-menu a.biz{color:#777;border-top:1px solid #303030;margin-top:4px;padding-top:12px}
+@media(max-width:560px){
+.nav>a.nav-desktop-link{display:none}
+.nav-menu a.nav-mobile-only{display:block}
+  /* 코어 4개 + 더보기 = 5칸. 4칸으로 두면 다섯 번째가 다음 줄로 넘어간다. */
+  .nav{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));width:100%}
+  .nav>a,.nav-more>summary{justify-content:center;padding:11px 2px;font-size:11.5px;
+  letter-spacing:-.4px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .nav-more{position:static;min-width:0}
+  .nav-menu{left:10px;right:10px;top:100%;grid-template-columns:repeat(2,minmax(0,1fr));min-width:0;padding:8px}
+  .nav-menu a{text-align:center;padding:11px 6px}
+  .nav-menu a.biz{border-top:0;margin-top:0;padding-top:11px}
+}
+@media(max-width:360px){
+  .nav>a,.nav-more>summary{font-size:10.5px;letter-spacing:-.5px;padding:11px 1px}
+}
+
+</style></head><body>
+<header class="site-header"><a class="logo-link" href="/"><img src="/favicon.svg" alt="" onerror="this.style.display='none'"><span class="logo-text">순살브리핑 Soonsal</span></a><a href="https://subscribe.soonsal.com/subscribe" target="_blank" rel="noopener" class="sub-btn-header">구독하기</a></header><nav class="nav" aria-label="주요 메뉴"><a href="/newsletters/">뉴스레터</a><a href="/morning/">순살차트</a><a href="/talk/">순살톡</a><a href="/topics/">주제별</a><a href="/school/" class="nav-desktop-link">스쿨</a><a href="/collab/" class="nav-desktop-link biz">협업 문의</a><details class="nav-more active"><summary>더보기 <span aria-hidden="true">⌄</span></summary><section class="nav-menu" aria-label="추가 메뉴"><a href="/saved/" class="active">내가 모은 글</a><a href="/cardnews/">카드뉴스</a><a href="/youtube/">YouTube</a><a href="/school/" class="nav-mobile-only">스쿨</a><a href="/collab/" class="nav-mobile-only biz">협업 문의</a></section></details></nav><div class="wrap">
+<h1>내가 모은 스토리</h1>
+<p class="sub">반응을 남기거나 한마디를 쓴 스토리가 여기 쌓입니다.</p>
+<div class="bar" id="bar"></div>
+<div id="app"><div class="empty">불러오는 중…</div></div>
+<p class="fine">로그인이 없어서 <b>이 브라우저에만</b> 저장됩니다.
+기록을 지우거나 다른 기기로 옮기면 목록도 사라져요.
+수집 항목은 <a href="/privacy/">수집 안내</a>에 정리해 뒀습니다.</p>
+</div>
+<script src="/soonsal.js" defer></script>
+<script>
+(function () {
+  var MK = { '👍': '👍', '🤔': '🤔', '🔥': '🔥' };
+  var app = document.getElementById('app'), bar = document.getElementById('bar');
+  var MAP = null, MODE = 'all';
+
+  function rd(k) { try { return JSON.parse(localStorage.getItem(k) || '{}'); } catch (e) { return {}; } }
+
+  // id에서 주소를 되살린다. 0716c-4 → /newsletters/2026/0716-crypto.html#story-4
+  function urlOf(id, date) {
+    var m = /^(\d{4})(c?)-(\d+)$/.exec(id);
+    if (!m) return null;
+    return '/newsletters/' + date.slice(0, 4) + '/' + m[1] +
+           (m[2] ? '-crypto' : '') + '.html#story-' + m[3];
+  }
+
+  function items() {
+    var rc = rd('ss_react'), cm = rd('ss_cmt'), keys = {}, out = [];
+    Object.keys(rc).forEach(function (k) { keys[k] = 1; });
+    Object.keys(cm).forEach(function (k) { keys[k] = 1; });
+    Object.keys(keys).forEach(function (k) {
+      var a = MAP && MAP[k];
+      if (!a) return;                       // 지난 회차가 아톰에서 빠졌으면 건너뛴다
+      out.push({ k: k, t: a[0], d: a[1], l: a[2] || '',
+                 e: rc[k] || '', c: !!cm[k] });
+    });
+    // 최신 회차부터. 같은 날이면 스토리 번호 순.
+    out.sort(function (a, b) { return a.d === b.d ? (a.k < b.k ? -1 : 1) : (a.d < b.d ? 1 : -1); });
+    return out;
+  }
+
+  function paint() {
+    var all = items();
+    var shown = all.filter(function (x) {
+      if (MODE === 'all') return true;
+      if (MODE === 'cmt') return x.c;
+      return x.e === MODE;
+    });
+
+    var counts = { all: all.length, cmt: 0 };
+    ['👍', '🤔', '🔥'].forEach(function (e) { counts[e] = 0; });
+    all.forEach(function (x) { if (x.c) counts.cmt++; if (x.e) counts[x.e]++; });
+
+    var tabs = [['all', '전체'], ['🔥', '🔥 중요함'],
+                ['👍', '👍 좋았음'], ['🤔', '🤔 글쎄'],
+                ['cmt', '💬 한마디']];
+    bar.innerHTML = tabs.filter(function (t) { return counts[t[0]]; }).map(function (t) {
+      return '<button class="fb' + (MODE === t[0] ? ' on' : '') + '" data-m="' + t[0] + '">' +
+             t[1] + '<span class="n">' + counts[t[0]] + '</span></button>';
+    }).join('');
+
+    if (!all.length) {
+      app.innerHTML = '<div class="empty"><b>아직 모인 게 없어요</b>' +
+        '스토리 아래 👍 🤔 🔥 를 누르거나 한마디를 남기면<br>' +
+        '여기 쌓입니다. <a href="/newsletters/">브리핑 보러 가기 →</a></div>';
+      return;
+    }
+    app.innerHTML = shown.map(function (x) {
+      var u = urlOf(x.k, x.d);
+      var mk = x.e || '💬';
+      return '<a class="it" href="' + (u || '/newsletters/') + '">' +
+        '<span class="mk">' + mk + '</span><span class="bd">' +
+        (x.l ? '<span class="lb">' + x.l + '</span>' : '') +
+        '<span class="tt">' + x.t + '</span>' +
+        '<span class="dt">' + x.d.slice(5).replace('-', '.') +
+        (x.c && x.e ? ' · 💬 한마디 남김' : '') + '</span>' +
+        '</span></a>';
+    }).join('');
+  }
+
+  bar.addEventListener('click', function (e) {
+    var b = e.target.closest && e.target.closest('.fb');
+    if (b) { MODE = b.getAttribute('data-m'); paint(); }
+  });
+
+  // 저장한 게 없으면 56KB를 받을 이유가 없다
+  var rc = rd('ss_react'), cm = rd('ss_cmt');
+  if (!Object.keys(rc).length && !Object.keys(cm).length) { MAP = {}; paint(); return; }
+  fetch('/saved/stories.json').then(function (r) { return r.json(); })
+    .then(function (j) { MAP = j; paint(); })
+    .catch(function () {
+      app.innerHTML = '<div class="empty"><b>목록을 불러오지 못했어요</b>' +
+        '잠시 뒤 새로고침해 주세요.</div>';
+    });
+})();
+</script>
+</body></html>

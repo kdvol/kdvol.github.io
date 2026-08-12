@@ -12,10 +12,11 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 
-CORE_ITEMS = [("/newsletters/", "브리핑"), ("/morning/", "순살차트"),
+CORE_ITEMS = [("/newsletters/", "뉴스레터"), ("/morning/", "순살차트"),
               ("/talk/", "순살톡"), ("/topics/", "주제별")]
 DESKTOP_ITEMS = [("/school/", "스쿨"), ("/collab/", "협업 문의")]
-MENU_ITEMS = [("/cardnews/", "카드뉴스"), ("/youtube/", "YouTube")]
+MENU_ITEMS = [("/saved/", "내가 모은 글"), ("/cardnews/", "카드뉴스"),
+              ("/youtube/", "YouTube")]
 MORE_ITEMS = MENU_ITEMS + DESKTOP_ITEMS
 BIZ = {"/collab/"}
 

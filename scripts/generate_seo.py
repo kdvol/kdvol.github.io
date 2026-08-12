@@ -184,6 +184,11 @@ def main():
     except Exception as e:
         print(f"⚠️ build_stats 실패(계속 진행): {e}")
     try:
+        import build_saved
+        build_saved.build()                 # 내가 모은 스토리(/saved/, 브라우저 로컬)
+    except Exception as e:
+        print(f"⚠️ build_saved 실패(계속 진행): {e}")
+    try:
         import build_api
         build_api.build(atoms)              # /api/entities.json (챗이 아카이브 줄 만들 때 조회)
     except Exception as e:
