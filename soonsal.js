@@ -131,6 +131,7 @@
     '.ss-cnm{display:flex;align-items:baseline;gap:5px;flex-wrap:wrap;line-height:1.3}' +
     '.ss-cnm b{font-weight:700;color:#2b2b2b;font-size:13px}' +
     '.ss-cbx{color:#3a3a3a;font-size:14px;line-height:1.62;margin-top:2px;word-break:break-word}' +
+    '.ss-cbx .ss-at{color:#8a857c;font-weight:600}' +
     '.ss-ct{color:#b5b0a4;font-size:11px}' +
     '.ss-cg{font-size:10px;color:#8a8578;background:#f2efe7;border-radius:4px;padding:1px 6px}' +
     '.ss-chold{font-size:10px;color:#c08a3a;margin-left:6px}' +
@@ -733,7 +734,16 @@
   }
   function setLiked(m) { try { localStorage.setItem('ss_liked', JSON.stringify(m)); } catch (e) {} }
 
-  function ciHTML(c, liked, isReply) {
+  function atHTML(body, toNick) {
+    var s = esc(body);
+    if (!toNick) return s;
+    var tag = esc('@' + toNick);
+    return s.indexOf(tag) === 0
+      ? '<span class="ss-at">' + tag + '</span>' + s.slice(tag.length)
+      : s;
+  }
+
+  function ciHTML(c, liked, isReply, toNick) {
     var n = c.l || 0;
     return '<div class="ss-ci' + (isReply ? ' ss-crep' : '') + (c.o ? ' ss-cop' : '') +
       '" data-i="' + (c.i || '') + '">' +
@@ -744,7 +754,7 @@
             (c.o === 2 ? '🤖 봇' : '순살 팀') + '</span>' : '') +
           (c.g ? '<span class="ss-cg">' + esc(c.g) + '</span>' : '') +
           '<span class="ss-ct">' + cAgo(c.t) + '</span></div>' +
-        '<div class="ss-cbx">' + esc(c.b) +
+        '<div class="ss-cbx">' + atHTML(c.b, toNick) +
           (c.held ? '<span class="ss-chold">검토 중</span>' : '') + '</div>' +
         (c.held ? '' :
           '<div class="ss-cact">' +
@@ -781,7 +791,10 @@
     // 스레드 안에서는 쓴 순서대로 — 깊이를 더 파지 않고 대화가 이어지게 한다
     list.innerHTML = order.map(function (rid) {
       var g = groups[rid].slice().sort(function (a, b) { return a.i - b.i; });
-      return g.map(function (c, i) { return ciHTML(c, liked, i > 0); }).join('');
+      return g.map(function (c, i) {
+        var par = c.p && byId[c.p];
+        return ciHTML(c, liked, i > 0, par ? par.k : '');
+      }).join('');
     }).join('');
 
     list.querySelectorAll('.ss-clike').forEach(function (b) {
