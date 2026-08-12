@@ -12,6 +12,8 @@
   - 브랜딩 매체 프레임 (클릭 유도 매체 아님)
   - 구독자 데이터 제공 불가 명시
 """
+import math
+import re
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -41,12 +43,13 @@ border-radius:6px;padding:6px 10px;display:inline-block}
 background:#161616;border:1px solid #222;border-radius:10px}
 /* 함께한 브랜드 — 8곳이 한 판에 고르게 놓이도록 격자로. 폭이 제각각인 칩을
    흘려두면 줄 끝이 들쭉날쭉해 정돈돼 보이지 않는다. */
-.brands{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin:0 0 26px}
-.brands span{display:flex;align-items:center;justify-content:center;min-height:46px;
-padding:8px 10px;text-align:center;font-size:.8rem;font-weight:700;letter-spacing:-.02em;
-color:#c9c4ba;background:#181818;border:1px solid #262626;border-radius:9px;line-height:1.3}
-.brands span.lg{background:#f7f5f0}
-.brands span.lg img{height:20px;width:auto;display:block}
+.brands{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:0 0 28px}
+.brands span{display:flex;align-items:center;justify-content:center;min-height:86px;
+padding:12px 14px;text-align:center;font-size:.86rem;font-weight:700;letter-spacing:-.02em;
+color:#3a3632;background:#f7f5f0;border:1px solid #e6e1d8;border-radius:11px;line-height:1.3}
+/* 폭은 로고마다 계산해 style로 박는다(logo_width). 여기서는 판을 넘지 않게만 막는다 */
+.brands span.lg{padding:12px 7px}
+.brands span.lg img{max-width:97%;height:auto;display:block}
 @media(max-width:560px){.brands{grid-template-columns:repeat(2,minmax(0,1fr))}}
 
 /* 사례 — 썸네일(정사각) + 글. 행 구조가 같아야 눈이 편하다.
@@ -56,7 +59,11 @@ color:#c9c4ba;background:#181818;border:1px solid #262626;border-radius:9px;line
 padding:15px 16px}
 .case .th{flex:0 0 auto;width:62px;height:62px;border-radius:9px;object-fit:cover;
 background:#f7f5f0;border:1px solid #242424;padding:0}
-.case img.th[src$=".svg"]{object-fit:contain;padding:9px}
+.case img.th[src*="/logo-"]{object-fit:contain;padding:9px;background:#f7f5f0}
+/* 로고 파일이 없는 곳은 글자로 채운다. 자리를 비우면 행 높이가 어긋나고,
+   출처가 불분명한 로고를 끌어다 쓰는 것보다 이쪽이 낫다. */
+.case .th.tx{display:flex;align-items:center;justify-content:center;background:#f7f5f0;
+  border:1px solid #e6e1d8;color:#3a3632;font-size:.8rem;font-weight:800;letter-spacing:-.01em}
 .case .cb{min-width:0;flex:1}
 .case .ct{font-size:.72rem;font-weight:800;letter-spacing:.02em;color:#F5A481;margin-bottom:7px}
 .case p{color:#948e84;font-size:.84rem;line-height:1.68;margin:0}
@@ -117,17 +124,50 @@ BRANDS = [
 ]
 
 
+# 로고를 높이로만 맞추면 존재감이 제각각이 된다. NH·한국투자는 가로로 긴
+# 워드마크(7:1)라 높이를 맞추면 띠처럼 길어지고, BC카드·네이버는 정사각이라
+# 같은 높이에서 눈에 잘 안 띈다. 그래서 높이가 아니라 '면적'을 맞춘다 —
+# 폭 = √(목표면적 × 가로세로비). 그러면 긴 것도 네모난 것도 비슷하게 보인다.
+LOGO_AREA = 3600
+
+
+def _dims(f: Path):
+    """로고의 가로세로. SVG는 viewBox, PNG는 실제 픽셀."""
+    if f.suffix == ".png":
+        try:
+            from PIL import Image
+            return Image.open(f).size
+        except Exception:
+            return (0, 0)
+    s = f.read_text(errors="replace")
+    m = re.search(r'viewBox="\s*[\d.eE+-]+\s+[\d.eE+-]+\s+([\d.eE+-]+)\s+([\d.eE+-]+)', s)
+    if m:
+        return float(m.group(1)), float(m.group(2))
+    w = re.search(r'\swidth="([\d.]+)', s)
+    h = re.search(r'\sheight="([\d.]+)', s)
+    return (float(w.group(1)), float(h.group(1))) if w and h else (0, 0)
+
+
+def logo_path(slug: str):
+    for ext in ("svg", "png", "jpg"):
+        f = ROOT / f"assets/collab/logo-{slug}.{ext}"
+        if f.exists():
+            return f, f"/assets/collab/logo-{slug}.{ext}"
+    return None, None
+
+
+def logo_width(f: Path) -> int:
+    w, h = _dims(f)
+    return 96 if not h else round(math.sqrt(LOGO_AREA * (w / h)))
+
+
 def brands_html():
     out = []
     for name, slug in BRANDS:
-        logo = None
-        for ext in ("svg", "png", "jpg"):
-            f = ROOT / f"assets/collab/logo-{slug}.{ext}"
-            if f.exists():
-                logo = f"/assets/collab/logo-{slug}.{ext}"
-                break
-        if logo:
-            out.append(f'<span class="lg"><img src="{logo}" alt="{name}" loading="lazy"/></span>')
+        f, url = logo_path(slug)
+        if url:
+            out.append(f'<span class="lg"><img src="{url}" alt="{name}" '
+                       f'style="width:{logo_width(f)}px" loading="lazy"/></span>')
         else:
             out.append(f"<span>{name}</span>")
     return "".join(out)
@@ -205,7 +245,7 @@ def build():
 <div class="case">
 <img class="th" src="/assets/collab/logo-salesforce.svg" alt="Salesforce" loading="lazy"/>
 <div class="cb">
-<div class="ct">Salesforce · 스폰서 스토리</div>
+<div class="ct">Salesforce · 콘텐츠 협업</div>
 <p>금융권 망분리 규제 완화라는 시의성 있는 주제로, 브랜드 메시지를 순살 톤의
 한 바닥으로 풀었습니다.</p>
 <a href="/newsletters/2026/0805.html#story-2">발행분 보기 →</a>
@@ -231,15 +271,44 @@ def build():
 </div></div>
 
 <div class="case">
-<img class="th" src="/assets/collab/th-bc.jpg" alt="페이북 × 순살" loading="lazy"
- width="240" height="240"/>
+<img class="th" src="/assets/collab/logo-bccard.svg" alt="BC카드" loading="lazy"/>
 <div class="cb">
 <div class="ct">BC카드 페이북 · 인앱 콘텐츠 공급</div>
 <p>파트너 앱 안에 순살 콘텐츠를 정기 공급했습니다. 브랜드 채널에 실리는
 형태의 협업입니다.</p>
 </div></div>
-</div>
 
+<div class="case">
+<img class="th" src="/assets/collab/logo-nh.svg" alt="NH투자증권" loading="lazy"/>
+<div class="cb">
+<div class="ct">NH투자증권 나무 · 인앱 콘텐츠 공급</div>
+<p>BC카드 페이북과 같은 형태로, 나무 앱에 순살 콘텐츠를 공급했습니다.
+브랜드가 이미 가진 채널을 순살 콘텐츠로 채우는 방식입니다.</p>
+</div></div>
+
+<div class="case">
+<img class="th" src="/assets/collab/logo-shinhan.svg" alt="신한카드" loading="lazy"/>
+<div class="cb">
+<div class="ct">신한카드 · 신규 카드 홍보</div>
+<p>신규 카드 출시에 맞춰 홍보 콘텐츠를 함께 만들었습니다.
+상품 출시 일정에 맞춰 편성하는 런칭 협업입니다.</p>
+</div></div>
+
+<div class="case">
+<img class="th" src="/assets/collab/logo-naver.svg" alt="네이버" loading="lazy"/>
+<div class="cb">
+<div class="ct">네이버 · 콘텐츠 협업</div>
+<p>순살 에디토리얼을 파트너 지면에 맞춰 제작했습니다.
+Salesforce 건과 같은 형태의 콘텐츠 협업입니다.</p>
+</div></div>
+
+<div class="case">
+<img class="th" src="/assets/collab/logo-dunamu.svg" alt="두나무" loading="lazy"/>
+<div class="cb">
+<div class="ct">두나무 · 콘텐츠 협업</div>
+<p>순살 에디토리얼을 파트너 지면에 맞춰 제작했습니다.
+크립토 주제를 다루는 순살크립토 채널과도 맞닿아 있습니다.</p>
+</div></div>
 <p class="note">스폰서 스토리는 일반 스토리와 같은 자리, 같은 문체로 실립니다.
 상단에 스폰서 표기를 분명히 하되, 읽는 흐름을 끊지 않습니다.</p>
 </section>
