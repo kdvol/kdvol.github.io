@@ -4,5 +4,5 @@
   "name": "flock",
   "post_txt": "_publish/flock.POST.txt",
   "target_epoch": 1786842000,
-  "dry_run": true
+  "dry_run": false
 }
