@@ -28,6 +28,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 ROOT = Path(__file__).resolve().parent.parent
 OUT = ROOT / "home-b"
 ATOMS = ROOT / "content" / "story_atoms.json"
+TICKER = Path(__file__).resolve().parent / "_ticker.html"
 BASE = "https://soonsal.com"
 
 CSS = """
@@ -79,9 +80,6 @@ text-decoration:none;color:#e8e3da}
 .ch b{display:block;font-size:.92rem;font-weight:700;letter-spacing:-.02em}
 .ch span{display:block;color:#7a756c;font-size:.79rem;margin-top:4px;line-height:1.5}
 @media(max-width:560px){.ch{grid-template-columns:1fr}}
-.cmp{margin:26px 0 0;padding:13px 15px;background:#17140f;border:1px solid #2e2418;
-border-radius:9px;color:#8a8073;font-size:.78rem;line-height:1.7}
-.cmp b{color:#F0A070}
 """
 
 
@@ -129,6 +127,12 @@ def _chart():
                 "mob": f"/morning/assets/{d.name}/{mob.name}" if mob.exists() else None,
                 "page": page}
     return None
+
+
+def _ticker() -> str:
+    """상단 실시간 시황 바. index.html에서 떼어 둔 블록을 그대로 쓴다 —
+    새로 만들면 같은 것이 두 벌이 되고 한쪽만 고쳐지는 날이 온다."""
+    return TICKER.read_text(encoding="utf-8") if TICKER.exists() else ""
 
 
 def _issue_body(page: Path):
@@ -211,6 +215,7 @@ def build(atoms=None):
             for i, a in enumerate(today)],
     }
 
+    ticker = _ticker()
     c = _chart()
     chart_html = ""
     if c:
@@ -234,10 +239,9 @@ def build(atoms=None):
 <script type="application/ld+json">{json.dumps(ld, ensure_ascii=False)}</script>
 <style>{CSS}{build_nav.HEADER_CSS}</style>
 <style>{nl_css}</style></head><body>
+{ticker}
 {build_nav.header_html("/newsletters/")}<div class="wrap">
 
-<div class="cmp"><b>홈 새 안 (비교용)</b> — 현재 홈은 <a href="/" style="color:#F0A070">soonsal.com</a>
-그대로입니다. 검색에 잡히지 않도록 noindex 처리했습니다.</div>
 
 <h1>오늘자 뉴스레터<span class="issue">{dt}</span></h1>
 <div class="nlwrap" id="nlwrap">

@@ -73,18 +73,10 @@
     '.ss-notice{text-align:center;font-size:11px;color:#9a958a;line-height:1.7;padding:14px 16px 18px;font-family:inherit}' +
     '.ss-notice a{color:#9a958a;text-decoration:underline}' +
     // 눈에 최대한 안 띄게. 본문보다 두 톤 아래로 두고, 사업자 정보는 접는다.
-    '.ss-legal{max-width:560px;margin:16px auto 0;padding-top:14px;' +
-      'border-top:1px solid rgba(128,120,105,.22);font-size:10.5px;line-height:1.75;color:#6f6a60}' +
-    '.ss-legal .dis{margin:0}' +
-    '.ss-legal .biz{margin-top:6px}' +
-    '.ss-legal .biz summary{cursor:pointer;color:#7d786d;list-style:none;display:inline-block;' +
-      'padding:2px 0;text-decoration:underline;text-underline-offset:2px}' +
-    '.ss-legal .biz summary::-webkit-details-marker{display:none}' +
-    '.ss-legal .biz summary:before{content:"＋ "}' +
-    '.ss-legal .biz[open] summary:before{content:"－ "}' +
-    '.ss-legal .biz p{margin:6px 0 0}' +
-    '.ss-legal .cr{margin:6px 0 0;color:#635f56}' +
-    '.ss-legal a{color:inherit}' +
+    '.ss-legal{max-width:600px;margin:10px auto 0;font-size:10.5px;' +
+      'line-height:1.85;color:#6a655c}' +
+    '.ss-legal a{color:inherit;text-decoration:underline;text-underline-offset:2px}' +
+    '.ss-legal .bz{white-space:nowrap}' +
     /* 코멘트 */
     '.ss-cbtn{margin-left:0}' +
     // 폰에서 쓰기 편한 게 최우선. 입력창을 크게 잡고, 나머지는 눌러야 나온다.
@@ -214,9 +206,7 @@
     '.ss-notice .go:hover{background:#fdf0e9}' +
     '.ss-notice .fine{display:block;color:#b5b0a4;font-size:10.5px;margin-top:9px;line-height:1.6}' +
     '.ss-notice .fine a{color:#a8a294}' +
-    '.ss-legal{border-top-color:#e8e4db;color:#a5a096}' +
-    '.ss-legal .biz summary{color:#a5a096}' +
-    '.ss-legal .cr{color:#b5b0a4}' +
+    '.ss-legal{color:#b0aba0}' +
     '.ss-cnote{color:#b5b0a4;font-size:11px;line-height:1.65;margin-top:9px;display:none}' +
     '.ss-cwrap.on .ss-cnote{display:block}' +
     '.ss-hp{position:absolute;left:-9999px;width:1px;height:1px}' +
@@ -443,19 +433,24 @@
     // 사업자 정보는 접어 둔다. 필요한 사람은 펴서 보고, 읽으러 온 사람의
     // 눈에는 안 걸리게. 전화번호·통신판매업 신고번호는 확인 전이라 넣지 않았다 —
     // 틀린 번호를 싣는 건 안 싣는 것보다 나쁘다.
+    // 줄을 늘리는 대신 가운뎃점으로 잇는다. 구분선도 뺐다 — 안 읽히는 글을
+    // 칸까지 나눠 두면 그게 더 눈에 걸린다. 사업자 정보만 펼침으로 남긴다.
+    var bits = [];
+    if (!hasCr) bits.push('© ' + new Date().getFullYear() + ' (주)순살');
+    bits.push('정보 제공 목적이며 매매 권유가 아닙니다');
+    bits.push('쿠키 없이 익명 통계만 · <a href="/privacy/">수집 안내</a>');
     d.innerHTML = (hasTalk ? '' : '<a class="go" href="/talk/">💬 순살톡 — 순살러 한마디</a>') +
-      '<span class="fine">쿠키 없이 익명 방문 통계만 · ' +
-      '<a href="/privacy/">수집 안내</a></span>' +
-      '<div class="ss-legal">' +
-        '<p class="dis">정보 제공 목적이며 특정 종목의 매매를 권유하지 않습니다.</p>' +
-        '<details class="biz"><summary>(주)순살 사업자 정보</summary>' +
-          '<p>대표 신기동 · 사업자등록번호 120-88-27830<br>' +
-          '서울시 동작구 현충로 52 · ' +
-          '<a href="mailto:team@soonsal.com">team@soonsal.com</a></p>' +
-        '</details>' +
-        (hasCr ? '' : '<p class="cr">© ' + new Date().getFullYear() +
-          ' (주)순살</p>') +
-      '</div>';
+      '<p class="ss-legal">' + bits.join(' · ') +
+        ' · <span class="biz"><a href="#" class="bz">사업자 정보</a>' +
+        '<span class="bd" hidden> — (주)순살 · 대표 신기동 · ' +
+        '사업자등록번호 120-88-27830 · 서울시 동작구 현충로 52 · ' +
+        '<a href="mailto:team@soonsal.com">team@soonsal.com</a></span></span></p>';
+    var bz = d.querySelector('.bz'), bd = d.querySelector('.bd');
+    bz.addEventListener('click', function (e) {
+      e.preventDefault();
+      bd.hidden = !bd.hidden;
+      bz.style.display = bd.hidden ? '' : 'none';
+    });
     var f = document.querySelector('.footer-inner') || document.querySelector('.footer');
     (f || document.body).appendChild(d);
   }
