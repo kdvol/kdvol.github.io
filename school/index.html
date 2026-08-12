@@ -60,9 +60,11 @@ background:linear-gradient(180deg,transparent 55%,rgba(20,20,20,.92) 100%)}
 .cb{padding:18px 21px 0}
 .tag{display:inline-block;font-size:.68rem;font-weight:700;letter-spacing:.02em;
 border-radius:5px;padding:3px 9px;margin-bottom:11px;background:rgba(240,112,64,.13);color:#F5A481}
-.card h3{font-size:1.1rem;font-weight:800;letter-spacing:-.025em;line-height:1.4;
-margin:0 0 5px;color:#f2efe8}
-.card .sb{color:#7a756c;font-size:.85rem;margin:0 0 14px;line-height:1.55}
+/* 제목이 카드에서 가장 먼저 읽혀야 한다. 메타·불릿과 크기 차이를 벌린다. */
+.card h3{font-size:1.42rem;font-weight:800;letter-spacing:-.03em;line-height:1.32;
+margin:0 0 7px;color:#f7f4ee}
+.card.best h3{font-size:1.62rem}
+.card .sb{color:#8b8578;font-size:.92rem;margin:0 0 16px;line-height:1.55}
 .meta{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:16px}
 .meta span{font-size:.72rem;color:#8b8578;border:1px solid #262626;border-radius:6px;padding:3px 9px}
 .meta .rt{border-color:#4a2d1c;color:#F5A481;font-weight:700}
@@ -108,6 +110,7 @@ padding-top:24px;border-top:1px solid #1c1c1c;text-align:center}
 @media(max-width:600px){
  .sc{padding:26px 15px 70px}
  .ph h1{font-size:1.6rem}
+ .card h3{font-size:1.24rem}.card.best h3{font-size:1.36rem}
  .cb{padding:18px 17px 0}
  .tz{margin:0 17px 15px}
  .cv{height:158px}.card.best .cv{height:196px}
@@ -146,7 +149,7 @@ background:#E55A00;color:#fff;padding:8px 18px;border-radius:6px;font-size:13px;
   .nav-menu a{text-align:center;padding:11px 6px}
   .nav-menu a.biz{border-top:0;margin-top:0;padding-top:11px}
 }
-</style><header class="site-header"><a class="logo-link" href="/"><img src="/favicon.svg" alt="" onerror="this.style.display='none'"><span class="logo-text">순살브리핑 Soonsal</span></a><a href="https://subscribe.soonsal.com/subscribe" target="_blank" rel="noopener" class="sub-btn-header">구독하기</a></header><nav class="nav" aria-label="주요 메뉴"><a href="/newsletters/">브리핑</a><a href="/morning/">모닝순살</a><a href="/topics/">주제별</a><a href="/school/" class="nav-desktop-link active">스쿨</a><a href="/advertise/" class="nav-desktop-link biz">광고 문의</a><details class="nav-more mobile-active"><summary>더보기 <span aria-hidden="true">⌄</span></summary><section class="nav-menu" aria-label="추가 메뉴"><a href="/talk/">한마디</a><a href="/cardnews/">카드뉴스</a><a href="/youtube/">YouTube</a><a href="/school/" class="nav-mobile-only active">스쿨</a><a href="/advertise/" class="nav-mobile-only biz">광고 문의</a></section></details></nav>
+</style><header class="site-header"><a class="logo-link" href="/"><img src="/favicon.svg" alt="" onerror="this.style.display='none'"><span class="logo-text">순살브리핑 Soonsal</span></a><a href="https://subscribe.soonsal.com/subscribe" target="_blank" rel="noopener" class="sub-btn-header">구독하기</a></header><nav class="nav" aria-label="주요 메뉴"><a href="/newsletters/">브리핑</a><a href="/morning/">모닝순살</a><a href="/talk/">순살톡</a><a href="/topics/">주제별</a><a href="/school/" class="nav-desktop-link active">스쿨</a><a href="/advertise/" class="nav-desktop-link biz">광고 문의</a><details class="nav-more mobile-active"><summary>더보기 <span aria-hidden="true">⌄</span></summary><section class="nav-menu" aria-label="추가 메뉴"><a href="/cardnews/">카드뉴스</a><a href="/youtube/">YouTube</a><a href="/school/" class="nav-mobile-only active">스쿨</a><a href="/advertise/" class="nav-mobile-only biz">광고 문의</a></section></details></nav>
 <div class="sc"><div class="ph">
 <div class="ey">Soonsal School</div>
 <h1>현업에 있는 사람에게<br>직접 듣는 금융 커리어</h1>
