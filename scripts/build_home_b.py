@@ -154,7 +154,7 @@ def _issue_body(page: Path):
         return None
     depth, pos = 1, i + len('<div class="content">')
     end = None
-    for x in re.finditer(r"</?div\b", t[pos:]):
+    for x in re.finditer(r"</?div\b[^>]*>", t[pos:]):
         depth += -1 if x.group(0).startswith("</") else 1
         if depth == 0:
             end = pos + x.end()
@@ -164,6 +164,23 @@ def _issue_body(page: Path):
     body = t[i:end]
     # 본문 안에 base64가 남아 있으면 홈이 무거워진다 — 실제로는 헤더에만 있다
     body = re.sub(r'src="data:image/[^"]+"', 'src=""', body)
+
+    # 원본 뉴스레터의 div 짝이 맞지 않는 회차가 있다(여는 태그가 하나 더 많다).
+    # 그대로 심으면 이 블록이 안 닫히고, 뒤에 오는 것(전체 보기 버튼·순살차트·
+    # 지난 뉴스레터·채널 카드)이 전부 이 상자 안으로 빨려 들어간다.
+    # 상자는 접혀 있으니(overflow:hidden) 화면에서 통째로 사라진다.
+    # 그래서 여기서 짝을 맞춘다. 남는 닫는 태그는 버리고, 모자라면 채운다.
+    plain = re.sub(r"<!--.*?-->", "", body, flags=re.S)
+    gap = len(re.findall(r"<div\b", plain)) - len(re.findall(r"</div>", plain))
+    if gap > 0:
+        body += "</div>" * gap
+    elif gap < 0:
+        for _ in range(-gap):
+            body = body[::-1].replace(">vid/<"[::-1], "", 1)[::-1]
+
+    chk = re.sub(r"<!--.*?-->", "", body, flags=re.S)
+    assert len(re.findall(r"<div\b", chk)) == len(re.findall(r"</div>", chk)), \
+        "div 짝을 못 맞췄다 — 그대로 심으면 뒤 섹션이 삼켜진다"
     return css, body
 
 
