@@ -63,6 +63,7 @@ def _active_for(path: Path):
     if section in {"topics", "wiki", "search"}:
         return "/topics/"
     return {
+        "saved": "/saved/",
         "cardnews": "/cardnews/",
         "youtube": "/youtube/",
         "school": "/school/",

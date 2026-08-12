@@ -1,47 +1,47 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="720" height="720" viewBox="0 0 720 720" class="morning-diagram morning-diagram-mobile" data-mobile-layout="same-topology" data-motion-orientation="TB" data-motion-steps="9">
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="860" viewBox="0 0 720 860" class="morning-diagram morning-diagram-mobile" data-mobile-layout="same-topology" data-motion-orientation="TB" data-motion-steps="9">
 <defs><filter id="shadow" x="-20%" y="-20%" width="140%" height="160%"><feDropShadow dx="0" dy="6" stdDeviation="8" flood-color="#111111" flood-opacity=".09"/></filter>
 <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#F07040"/></marker></defs>
-<rect width="720" height="720" fill="#FAFAF7"/>
+<rect width="720" height="860" fill="#FAFAF7"/>
 <g class="motion-step motion-edge" data-motion-step="1" data-from="A" data-to="B" style="--motion-delay:415ms">
-<path d="M 360.0 120.0 C 360.0 140.0, 360.0 140.0, 360.0 152.0" fill="none" stroke="#F07040" stroke-width="4.5" marker-end="url(#arrow)"/>
-<rect x="288.5" y="121.0" width="143" height="34" rx="17" fill="#FAFAF7"/>
-<text x="360.0" y="144.0" text-anchor="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="22" font-weight="800" fill="#8B4B2C">효과 약화</text>
+<path d="M 360.0 130.0 C 360.0 162.8, 360.0 162.8, 360.0 187.5" fill="none" stroke="#F07040" stroke-width="4.5" marker-end="url(#arrow)"/>
+<rect x="288.5" y="143.8" width="143" height="34" rx="17" fill="#FAFAF7"/>
+<text x="360.0" y="166.8" text-anchor="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="22" font-weight="800" fill="#8B4B2C">효과 약화</text>
 </g>
 <g class="motion-step motion-edge" data-motion-step="3" data-from="B" data-to="C" style="--motion-delay:1245ms">
-<path d="M 360.0 246.0 C 360.0 266.0, 360.0 266.0, 360.0 278.0" fill="none" stroke="#F07040" stroke-width="4.5" marker-end="url(#arrow)"/>
-<rect x="306.0" y="247.0" width="108" height="34" rx="17" fill="#FAFAF7"/>
-<text x="360.0" y="270.0" text-anchor="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="22" font-weight="800" fill="#8B4B2C">재접근</text>
+<path d="M 360.0 281.5 C 360.0 314.2, 360.0 314.2, 360.0 339.0" fill="none" stroke="#F07040" stroke-width="4.5" marker-end="url(#arrow)"/>
+<rect x="306.0" y="295.2" width="108" height="34" rx="17" fill="#FAFAF7"/>
+<text x="360.0" y="318.2" text-anchor="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="22" font-weight="800" fill="#8B4B2C">재접근</text>
 </g>
 <g class="motion-step motion-edge" data-motion-step="5" data-from="C" data-to="D" style="--motion-delay:2075ms">
-<path d="M 360.0 372.0 C 360.0 392.0, 360.0 392.0, 360.0 404.0" fill="none" stroke="#F07040" stroke-width="4.5" stroke-dasharray="12 10" marker-end="url(#arrow)"/>
-<rect x="288.5" y="373.0" width="143" height="34" rx="17" fill="#FAFAF7"/>
-<text x="360.0" y="396.0" text-anchor="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="22" font-weight="800" fill="#8B4B2C">함께 약세</text>
+<path d="M 360.0 433.0 C 360.0 465.8, 360.0 465.8, 360.0 490.5" fill="none" stroke="#F07040" stroke-width="4.5" stroke-dasharray="12 10" marker-end="url(#arrow)"/>
+<rect x="288.5" y="446.8" width="143" height="34" rx="17" fill="#FAFAF7"/>
+<text x="360.0" y="469.8" text-anchor="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="22" font-weight="800" fill="#8B4B2C">함께 약세</text>
 </g>
 <g class="motion-step motion-edge" data-motion-step="7" data-from="D" data-to="E" style="--motion-delay:2905ms">
-<path d="M 360.0 498.0 C 360.0 518.0, 360.0 518.0, 360.0 530.0" fill="none" stroke="#F07040" stroke-width="4.5" stroke-dasharray="12 10" marker-end="url(#arrow)"/>
-<rect x="278.0" y="499.0" width="164" height="34" rx="17" fill="#FAFAF7"/>
-<text x="360.0" y="522.0" text-anchor="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="22" font-weight="800" fill="#8B4B2C">원화로 번짐</text>
+<path d="M 360.0 584.5 C 360.0 617.2, 360.0 617.2, 360.0 642.0" fill="none" stroke="#F07040" stroke-width="4.5" stroke-dasharray="12 10" marker-end="url(#arrow)"/>
+<rect x="278.0" y="598.2" width="164" height="34" rx="17" fill="#FAFAF7"/>
+<text x="360.0" y="621.2" text-anchor="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="22" font-weight="800" fill="#8B4B2C">원화로 번짐</text>
 </g>
 <g class="motion-step motion-node" data-motion-step="0" style="--motion-delay:0ms;--motion-accent-delay:660ms">
-<rect class="motion-node-shape" x="60.0" y="34.0" width="600.0" height="86" rx="20" fill="#FFFFFF" stroke="#DCD8CF" stroke-width="3" filter="url(#shadow)"/>
-<text x="360.0" y="77.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="800" fill="#222222">미일 공조 개입</text>
+<rect class="motion-node-shape" x="60.0" y="44.0" width="600.0" height="86" rx="20" fill="#FFFFFF" stroke="#DCD8CF" stroke-width="3" filter="url(#shadow)"/>
+<text x="360.0" y="87.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="800" fill="#222222">미일 공조 개입</text>
 </g>
 <g class="motion-step motion-node" data-motion-step="2" style="--motion-delay:830ms;--motion-accent-delay:1490ms">
-<rect class="motion-node-shape" x="60.0" y="160.0" width="600.0" height="86" rx="20" fill="#FFFFFF" stroke="#DCD8CF" stroke-width="3" filter="url(#shadow)"/>
-<text x="360.0" y="203.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="800" fill="#222222">공조 개입 뒤 약세 재개</text>
+<rect class="motion-node-shape" x="60.0" y="195.5" width="600.0" height="86" rx="20" fill="#FFFFFF" stroke="#DCD8CF" stroke-width="3" filter="url(#shadow)"/>
+<text x="360.0" y="238.5" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="800" fill="#222222">공조 개입 뒤 약세 재개</text>
 </g>
 <g class="motion-step motion-node" data-motion-step="4" style="--motion-delay:1660ms;--motion-accent-delay:2320ms">
-<rect class="motion-node-shape" x="60.0" y="286.0" width="600.0" height="86" rx="20" fill="#FFFFFF" stroke="#DCD8CF" stroke-width="3" filter="url(#shadow)"/>
-<text x="360.0" y="329.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="800" fill="#222222">달러당 160엔 접근</text>
+<rect class="motion-node-shape" x="60.0" y="347.0" width="600.0" height="86" rx="20" fill="#FFFFFF" stroke="#DCD8CF" stroke-width="3" filter="url(#shadow)"/>
+<text x="360.0" y="390.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="800" fill="#222222">달러당 160엔 접근</text>
 </g>
 <g class="motion-step motion-node" data-motion-step="6" style="--motion-delay:2490ms;--motion-accent-delay:3150ms">
-<rect class="motion-node-shape" x="60.0" y="412.0" width="600.0" height="86" rx="20" fill="#FFFFFF" stroke="#DCD8CF" stroke-width="3" filter="url(#shadow)"/>
-<text x="360.0" y="455.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="800" fill="#222222">아시아 통화 약세 압력</text>
+<rect class="motion-node-shape" x="60.0" y="498.5" width="600.0" height="86" rx="20" fill="#FFFFFF" stroke="#DCD8CF" stroke-width="3" filter="url(#shadow)"/>
+<text x="360.0" y="541.5" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="800" fill="#222222">아시아 통화 약세 압력</text>
 </g>
 <g class="motion-step motion-node motion-risk" data-motion-step="8" style="--motion-delay:3320ms;--motion-accent-delay:3980ms">
-<rect class="motion-node-shape" x="60.0" y="538.0" width="600.0" height="86" rx="20" fill="#FFF4EF" stroke="#F07040" stroke-width="3" filter="url(#shadow)"/>
-<text x="360.0" y="581.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="800" fill="#222222">원화 방어 부담 증가</text>
+<rect class="motion-node-shape" x="60.0" y="650.0" width="600.0" height="86" rx="20" fill="#FFF4EF" stroke="#F07040" stroke-width="3" filter="url(#shadow)"/>
+<text x="360.0" y="693.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="800" fill="#222222">원화 방어 부담 증가</text>
 </g>
-<line x1="40" y1="674" x2="680" y2="674" stroke="#E8E8E0" stroke-width="2"/>
-<text x="40" y="706" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="20" fill="#888888">실선 = 확인된 연결 · 점선 = 해석/영향 경로</text>
+<line x1="40" y1="812" x2="680" y2="812" stroke="#E8E8E0" stroke-width="2"/>
+<text x="40" y="844" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="20" fill="#888888">실선 = 확인된 연결 · 점선 = 해석/영향 경로</text>
 </svg>
