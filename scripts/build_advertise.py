@@ -43,8 +43,12 @@ background:#161616;border:1px solid #222;border-radius:10px}
    품질·비율이 제각각이라 섞으면 오히려 조악해 보이고, 남의 로고를 임의로
    가공하는 것도 좋은 방법이 아니다. */
 .brands{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 24px}
-.brands span{font-size:.86rem;font-weight:700;letter-spacing:-.01em;color:#c9c4ba;
+.brands span{display:inline-flex;align-items:center;justify-content:center;min-height:42px;
+font-size:.86rem;font-weight:700;letter-spacing:-.01em;color:#c9c4ba;
 background:#181818;border:1px solid #262626;border-radius:8px;padding:9px 14px}
+/* 로고가 들어오면 흰 배경 로고도 어두운 판에서 읽히게 */
+.brands span.lg{background:#f7f5f0;padding:9px 16px}
+.brands span.lg img{height:22px;width:auto;display:block}
 /* 사례 — 실제 집행분만. 제작물을 직접 보여주는 게 설명보다 빠르다 */
 .cases{display:flex;flex-direction:column;gap:12px}
 .case{background:#161616;border:1px solid #232323;border-radius:12px;padding:17px 17px 15px}
@@ -91,6 +95,33 @@ border-radius:9px;font-size:1rem;letter-spacing:-.01em}
 """
 
 
+# 함께한 브랜드. 로고 파일이 있으면 로고를, 없으면 워드마크를 쓴다 —
+# 파일을 assets/collab/logo-<slug>.svg|png 로 넣으면 다음 빌드에 자동으로 바뀐다.
+# 품질이 제각각인 로고를 억지로 섞으면 오히려 조악해 보이므로, 없는 건 글자로 둔다.
+BRANDS = [
+    ("Salesforce", "salesforce"),
+    ("한국투자증권", "kis"),
+    ("미래에셋자산운용", "mirae"),
+    ("BC카드 페이북", "paybooc"),
+]
+
+
+def brands_html():
+    out = []
+    for name, slug in BRANDS:
+        logo = None
+        for ext in ("svg", "png", "jpg"):
+            f = ROOT / f"assets/collab/logo-{slug}.{ext}"
+            if f.exists():
+                logo = f"/assets/collab/logo-{slug}.{ext}"
+                break
+        if logo:
+            out.append(f'<span class="lg"><img src="{logo}" alt="{name}" loading="lazy"/></span>')
+        else:
+            out.append(f"<span>{name}</span>")
+    return "".join(out)
+
+
 def build():
     import build_nav
     OUT.mkdir(exist_ok=True)
@@ -103,6 +134,7 @@ def build():
         "%EB%AA%A9%ED%91%9C%2F%ED%95%98%EA%B3%A0%20%EC%8B%B6%EC%9D%80%20%EC%9D%B4%EC%95%BC%EA%B8%B0%3A%0A"
     )
     mailto = f"mailto:{EMAIL}?subject={subject}&body={body}"
+    brands = brands_html()
 
     desc = ("순살브리핑 협업 문의. 매일 아침 금융·경제·크립토를 읽는 독자에게 "
             "브랜드를 각인시키는 브랜딩 매체. 스폰서 스토리·로고 노출·AI 검색까지 함께 설계합니다.")
@@ -156,9 +188,7 @@ def build():
 
 <section>
 <h2>이런 브랜드와 함께했습니다</h2>
-<div class="brands">
-<span>Salesforce</span><span>한국투자증권</span><span>미래에셋자산운용</span><span>BC카드 페이북</span>
-</div>
+<div class="brands">{brands}</div>
 
 <div class="cases">
 <div class="case">
