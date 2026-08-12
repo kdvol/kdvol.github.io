@@ -310,7 +310,7 @@ function submit(rf, ta, go) {
   fetch(API.replace(/[/]$/, '') + '/comment', {
     method: 'POST', headers: { 'content-type': 'application/json' },
     body: JSON.stringify({
-      story: rf._story, v: v, nick: p.n || '독자', body: body,
+      story: rf._story, v: v, nick: p.n || '순살러', body: body,
       tag: p.i || '', co: p.sc ? (p.c || '') : '', parent: rf._pid || 0,
     }),
   }).then(function (r) { return r.json(); }).then(function (res) {
@@ -369,18 +369,18 @@ def build(atoms=None):
 
     html = f"""<!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>순살톡 — 독자들이 남긴 말</title>
-<meta name="description" content="순살브리핑 독자들이 스토리마다 남긴 한 줄을 한자리에 모았습니다. 금융·경제 뉴스에 대한 독자 의견과 질문 — 순살톡."/>
+<title>순살톡 — 순살러들이 남긴 말</title>
+<meta name="description" content="순살브리핑을 읽는 순살러들이 스토리마다 남긴 한 줄을 한자리에 모았습니다. 금융·경제 뉴스에 대한 의견과 질문 — 순살톡."/>
 <link rel="canonical" href="https://soonsal.com/talk/"/>
 <meta property="og:type" content="website"/>
-<meta property="og:title" content="순살톡 — 독자들이 남긴 한마디"/>
+<meta property="og:title" content="순살톡 — 순살러들이 남긴 한마디"/>
 <meta property="og:description" content="브리핑을 읽다 남긴 한 줄이 회차 상관없이 여기 모입니다."/>
 <meta property="og:url" content="https://soonsal.com/talk/"/>
 <script type="application/ld+json">{{
 "@context":"https://schema.org","@type":"CollectionPage",
-"name":"순살톡 — 독자 한마디","url":"https://soonsal.com/talk/",
+"name":"순살톡 — 순살러 한마디","url":"https://soonsal.com/talk/",
 "inLanguage":"ko","isPartOf":{{"@type":"WebSite","name":"순살브리핑","url":"https://soonsal.com/"}},
-"about":{{"@type":"Thing","name":"글로벌 금융·경제·크립토 뉴스에 대한 독자 의견"}},
+"about":{{"@type":"Thing","name":"글로벌 금융·경제·크립토 뉴스에 대한 순살러 의견"}},
 "publisher":{{"@type":"Organization","name":"순살브리핑","url":"https://soonsal.com/"}}
 }}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>

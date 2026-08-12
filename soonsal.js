@@ -417,10 +417,11 @@
     if (document.querySelector('.ss-notice')) return;
     var d = document.createElement('div');
     d.className = 'ss-notice';
-    // 뉴스레터에는 사이트 nav가 없다. 한마디로 가는 길이 여기 말고는 없어서
-    // 수집 안내 줄에 같이 건다.
-    // 세 항목이 한 줄에 늘어져 있었다. 행동(순살톡)은 앞에 세우고 나머지는 뒤로.
-    d.innerHTML = '<a class="go" href="/talk/">💬 순살톡 — 독자 한마디 보기</a>' +
+    // 뉴스레터 푸터에는 이미 순살톡 링크가 한 줄 위에 박혀 있다. 여기에 또
+    // 큰 버튼을 얹으니 같은 곳으로 가는 길이 한 화면에 둘이었다.
+    // 이미 있으면 안 붙인다 — 푸터가 아예 없는 생성 페이지에서만 길을 낸다.
+    var hasTalk = !!document.querySelector('a[href$="/talk/"], a[href*="soonsal.com/talk/"]');
+    d.innerHTML = (hasTalk ? '' : '<a class="go" href="/talk/">💬 순살톡 — 순살러 한마디</a>') +
       '<span class="fine">쿠키 없이 익명 방문 통계만 · ' +
       '<a href="/privacy/">수집 안내</a></span>';
     var f = document.querySelector('.footer-inner') || document.querySelector('.footer');
@@ -437,7 +438,7 @@
     var fab = document.createElement('a');
     fab.className = 'ss-fab';
     fab.href = '/talk/';
-    fab.setAttribute('aria-label', '순살톡 — 독자 한마디');
+    fab.setAttribute('aria-label', '순살톡 — 순살러 한마디');
     fab.title = '순살톡';
     fab.innerHTML = '💬<b class="ss-fabn" hidden></b>';
     fab.addEventListener('click', function () { track('talk'); markTalkSeen(); });
