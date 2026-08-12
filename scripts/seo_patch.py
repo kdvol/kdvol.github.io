@@ -41,7 +41,7 @@ def _title(t):
 
 
 def _date_from_path(p: Path):
-    """morning/2026/0812.html → 2026-08-12. 경로가 곧 날짜다."""
+    """chart/2026/0812.html → 2026-08-12. 경로가 곧 날짜다."""
     m = re.search(r"/(\d{4})/(\d{2})(\d{2})", "/" + str(p).replace("\\", "/"))
     return f"{m.group(1)}-{m.group(2)}-{m.group(3)}" if m else ""
 
@@ -68,7 +68,7 @@ def patch_morning(p: Path) -> bool:
             {"@type": "BreadcrumbList", "itemListElement": [
                 {"@type": "ListItem", "position": 1, "name": "순살브리핑", "item": BASE + "/"},
                 {"@type": "ListItem", "position": 2, "name": "모닝순살",
-                 "item": BASE + "/morning/"},
+                 "item": BASE + "/chart/"},
                 {"@type": "ListItem", "position": 3, "name": title[:80], "item": url},
             ]},
         ],
@@ -128,7 +128,7 @@ def patch_breadcrumb(p: Path, section_name: str, section_url: str) -> bool:
 
 def main():
     n = 0
-    base = ROOT / "morning"
+    base = ROOT / "chart"
     if base.exists():
         for p in sorted(base.rglob("*.html")):
             n += patch_morning(p)

@@ -16,7 +16,7 @@ KST = timezone(timedelta(hours=9))
 
 SECTIONS = [  # (glob, 우선순위)
     ("newsletters/2026/*.html", "0.8"),
-    ("morning/2026/*.html", "0.8"),
+    ("chart/2026/*.html", "0.8"),
     ("cardnews/2026/*.html", "0.6"),
     ("english/2026/*.html", "0.6"),
     ("financial-english/*.html", "0.5"),
@@ -24,7 +24,7 @@ SECTIONS = [  # (glob, 우선순위)
     ("topics/*.html", "0.7"),
     ("wiki/*.html", "0.7"),
 ]
-INDEXES = ["", "newsletters/", "morning/", "cardnews/", "english/", "financial-english/", "youtube/", "topics/", "search/", "advertise/"]
+INDEXES = ["", "newsletters/", "chart/", "cardnews/", "english/", "financial-english/", "youtube/", "topics/", "search/", "advertise/"]
 
 DATED = re.compile(r"(\d{2})(\d{2})(?:-[a-z0-9-]+)?\.html$")
 

@@ -953,7 +953,7 @@
   function storyUrl(story) {
     if (!story) return '#';
     var morning = String(story).match(/^m(\d{4})(\d{2})(\d{2})-([a-z0-9]+(?:-[a-z0-9]+)*)$/);
-    if (morning) return '/morning/' + morning[1] + '/' + morning[2] + morning[3] +
+    if (morning) return '/chart/' + morning[1] + '/' + morning[2] + morning[3] +
       '.html#' + morning[4];
     var m = String(story).match(/^(\d{4})(c?)-(\d+)$/);
     if (!m) return '#';

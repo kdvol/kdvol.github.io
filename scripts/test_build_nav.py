@@ -16,7 +16,7 @@ class BuildNavTest(unittest.TestCase):
         try:
             with tempfile.TemporaryDirectory() as tmp:
                 root = Path(tmp)
-                for rel in ("index.html", "morning/2026/0812.html", "youtube/index.html"):
+                for rel in ("index.html", "chart/2026/0812.html", "youtube/index.html"):
                     path = root / rel
                     path.parent.mkdir(parents=True, exist_ok=True)
                     path.write_text(PAGE, encoding="utf-8")
@@ -27,11 +27,11 @@ class BuildNavTest(unittest.TestCase):
                 self.assertEqual(4, build_nav.main())
                 self.assertEqual(0, build_nav.main())
 
-                morning = (root / "morning/2026/0812.html").read_text(encoding="utf-8")
+                morning = (root / "chart/2026/0812.html").read_text(encoding="utf-8")
                 self.assertIn('<nav class="nav" aria-label="주요 메뉴">', morning)
                 self.assertNotIn('<a href="/">홈</a>', morning)
                 self.assertIn('<a href="/newsletters/">뉴스레터</a>', morning)
-                self.assertIn('<a href="/morning/" class="active">순살차트</a>', morning)
+                self.assertIn('<a href="/chart/" class="active">순살차트</a>', morning)
                 self.assertIn('<a href="/topics/">주제별</a>', morning)
                 self.assertIn('<a href="/school/" class="nav-desktop-link">스쿨</a>', morning)
                 self.assertIn('<a href="/collab/" class="nav-desktop-link biz">협업 문의</a>', morning)

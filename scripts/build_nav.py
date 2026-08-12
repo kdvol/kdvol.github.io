@@ -14,7 +14,7 @@ ROOT = Path(__file__).resolve().parent.parent
 
 # 주제별은 탭에서 뺐다. 검색과 하는 일이 같은데(찾기) 탭 한 칸을 차지했고,
 # /search/ 안에 이미 주제 입구가 18개 있다. 돋보기 하나로 합친다.
-CORE_ITEMS = [("/newsletters/", "뉴스레터"), ("/morning/", "순살차트"),
+CORE_ITEMS = [("/newsletters/", "뉴스레터"), ("/chart/", "순살차트"),
               ("/talk/", "순살톡")]
 DESKTOP_ITEMS = [("/school/", "스쿨"), ("/collab/", "협업 문의")]
 MENU_ITEMS = [("/topics/", "주제별"), ("/saved/", "내가 모은 글"), ("/cardnews/", "카드뉴스"),
@@ -61,7 +61,7 @@ def _active_for(path: Path):
     if section == "newsletters":
         return "/newsletters/"
     if section == "morning":
-        return "/morning/"
+        return "/chart/"
     if section in {"topics", "wiki", "search"}:
         return "/topics/"
     return {

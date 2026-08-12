@@ -507,61 +507,7 @@ color:#8a857c;text-decoration:none}
   .hello-cta span { display: block; }
   .hello-web { text-align: right; }
   .hello-web a { font-size: 11px; color: #bbb; font-weight: 700; text-decoration: underline; letter-spacing: -0.2px; }
-</style><style id="soonsal-nav-visibility-v3">
-.nav-menu a.nav-mobile-only{display:none}
-.nav>a.nav-desktop-link.biz{color:#F07040}
-.nav>a.nav-desktop-link.biz:hover{color:#ff8a52}
-.nav-menu a.biz{color:#F07040}
-@media(max-width:560px){
-  .nav>a.nav-desktop-link{display:none}
-  .nav-menu a.nav-mobile-only{display:block}
-  .nav-more.mobile-active>summary{color:#F07040;border-bottom-color:#F07040}
-  /* 코어 4개 + 더보기 = 5칸. 예전 CSS가 4칸이라 다섯 번째가 다음 줄로 넘어갔다.
-     이 블록은 페이지마다 나중에 주입되므로 안에 박힌 옛 규칙을 덮는다. */
-  .nav{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));width:100%}
-  .nav>a,.nav-more>summary{justify-content:center;padding:11px 2px;font-size:11.5px;
-    letter-spacing:-.4px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-}
-@media(max-width:360px){
-  .nav>a,.nav-more>summary{font-size:10.5px;letter-spacing:-.5px;padding:11px 1px}
-}
-/* ── 눌러보고 싶게 ──────────────────────────────────────
-   탭은 '지금 어디' 말고는 아무것도 알려주지 않는다. 더보기는 특히 그렇다 —
-   안에 뭐가 있는지 모르면 누를 이유가 없다. 세 가지를 바꾼다:
-   (1) 밑줄이 자라며 눌리는 느낌, (2) 화살표가 열림에 반응, (3) 메뉴 안에
-   아이콘을 붙여 목록이 아니라 '갈 곳'으로 보이게. */
-.nav>a,.nav-more>summary{position:relative;transition:color .18s}
-.nav>a:after,.nav-more>summary:after{content:"";position:absolute;left:50%;right:50%;
-bottom:-1px;height:2px;background:#F07040;border-radius:2px;
-transition:left .22s cubic-bezier(.4,0,.2,1),right .22s cubic-bezier(.4,0,.2,1)}
-.nav>a:hover:after,.nav-more>summary:hover:after{left:18%;right:18%}
-.nav>a.active:after,.nav-more.active>summary:after{left:0;right:0}
-
-.nav-more>summary span[aria-hidden]{display:inline-block;transition:transform .22s ease;
-margin-left:2px}
-.nav-more[open]>summary span[aria-hidden]{transform:rotate(180deg)}
-.nav-more[open]>summary{color:#F07040}
-
-.nav-menu{animation:navdrop .18s cubic-bezier(.2,.8,.2,1)}
-@keyframes navdrop{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
-.nav-menu a{transition:background .15s,color .15s,padding-left .15s}
-.nav-menu a:before{margin-right:7px;opacity:.9}
-.nav-menu a[href="/cardnews/"]:before{content:"🎴"}
-.nav-menu a[href="/youtube/"]:before{content:"▶"}
-.nav-menu a[href="/school/"]:before{content:"🎓"}
-.nav-menu a[href="/collab/"]:before{content:"✉"}
-.nav-menu a[href="/talk/"]:before{content:"💬"}
-
-/* 더보기 안에 뭐가 있는지 한 줄로 알려준다 — 열기 전에 궁금해지는 건 이 지점이다 */
-.nav-more>summary:before{content:"";position:absolute;top:9px;right:6px;width:5px;height:5px;
-border-radius:50%;background:#F07040;opacity:0;transition:opacity .2s}
-.nav-more:not([open])>summary:hover:before{opacity:.85}
-@media(max-width:560px){
-  .nav-menu a{text-align:left;padding-left:14px}
-  .nav-more>summary:before{right:3px;top:7px}
-}
-</style>
-</head><body>
+</style></head><body>
 <div id="soonsal-live-ticker" style="display:none;"></div>
 <style>
 #soonsal-live-ticker{position:fixed;top:0;left:0;right:0;width:100%;background:#0a0a0a;border-bottom:1px solid #1a1a1a;overflow:hidden;z-index:99999;user-select:none;-webkit-user-select:none}
@@ -604,12 +550,52 @@ border-radius:50%;background:#F07040;opacity:0;transition:opacity .2s}
 <script>
 (function(){'use strict';var WORKER_URL='https://soonsal-data.kd-d0a.workers.dev/';var COINGECKO_URL='https://api.coingecko.com/api/v3';var TRADFI_ORDER=['S&P 500','NASDAQ','Dow Jones','KOSPI','US 10Y','WTI Oil','Gold','DXY','EUR/USD','USD/JPY','USD/KRW'];var CRYPTO_ORDER=['Bitcoin','Ethereum','Solana','XRP','BNB','Crypto Total'];var CRYPTO_IDS={'Bitcoin':'bitcoin','Ethereum':'ethereum','Solana':'solana','XRP':'ripple','BNB':'binancecoin'};var REFRESH=60000;var container,timer,lastTradfi,lastCrypto;function init(){container=document.getElementById('soonsal-live-ticker');if(!container)return;container.style.display='block';container.innerHTML='<div class="stk-loading"><div class="stk-spin"></div>Loading market data...</div>';fetchAll();timer=setInterval(fetchAll,REFRESH)}function fetchAll(){var p1=fetchTradFi();var p2=fetchCrypto();Promise.allSettled?Promise.allSettled([p1,p2]).then(render):Promise.all([p1.catch(function(){return null}),p2.catch(function(){return null})]).then(render)}function fetchTradFi(){return fetch(WORKER_URL).then(function(r){return r.json()}).then(function(data){if(data.tradfi)lastTradfi=data;return data}).catch(function(e){console.warn('[Ticker] TradFi error:',e.message);return null})}function fetchCrypto(){var ids=Object.values(CRYPTO_IDS).join(',');var url=COINGECKO_URL+'/simple/price?ids='+ids+'&vs_currencies=usd&include_24hr_change=true&include_market_cap=true';var globalUrl=COINGECKO_URL+'/global';return Promise.all([fetch(url).then(function(r){return r.json()}),fetch(globalUrl).then(function(r){return r.json()}).catch(function(){return null})]).then(function(results){var prices=results[0];var global=results[1];var crypto={};for(var name in CRYPTO_IDS){var id=CRYPTO_IDS[name];var d=prices[id];if(!d)continue;var p=d.usd;var ch=d.usd_24h_change||0;crypto[name]={price:'$'+formatNum(p),change:(ch>=0?'+':'')+ch.toFixed(2)+'%',direction:ch>0.01?'up':ch<-0.01?'down':'zero'}}if(global&&global.data){var mc=global.data.total_market_cap&&global.data.total_market_cap.usd;var mch=global.data.market_cap_change_percentage_24h_usd;if(mc){crypto['Crypto Total']={price:'$'+(mc/1e12).toFixed(2)+'T',change:(mch>=0?'+':'')+(mch||0).toFixed(2)+'%',direction:mch>0?'up':mch<0?'down':'zero'}}}lastCrypto=crypto;return crypto}).catch(function(e){console.warn('[Ticker] Crypto error:',e.message);return null})}function render(){var tradfi=lastTradfi?lastTradfi.tradfi:{};var crypto=lastCrypto||{};var kst=lastTradfi?lastTradfi.kst:new Date().toLocaleString('ko-KR',{timeZone:'Asia/Seoul'});var html=[];html.push('<div class="stk-ts"><span class="stk-dot"></span><span class="stk-time">'+esc(kst)+' KST</span></div>');for(var i=0;i<TRADFI_ORDER.length;i++){var name=TRADFI_ORDER[i];var d=tradfi[name];if(d)html.push(makeItem(name,d,false))}html.push('<div class="stk-div"><span></span></div>');for(var j=0;j<CRYPTO_ORDER.length;j++){var cname=CRYPTO_ORDER[j];var cd=crypto[cname];if(cd)html.push(makeItem(cname,cd,true))}var track=html.join('');container.innerHTML='<div class="stk-track">'+track+track+'</div>'}function makeItem(name,d,isCrypto){var dir=d.direction||'zero';var arrow=dir==='up'?'<span class="au"></span>':dir==='down'?'<span class="ad"></span>':'';return'<div class="stk-item"><span class="stk-lbl'+(isCrypto?' crypto':'')+'">'+esc(name)+'</span><span class="stk-prc">'+esc(d.price)+'</span><span class="stk-chg '+dir+'">'+arrow+' '+esc(d.change)+'</span></div>'}function formatNum(n){if(n>=10000)return n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});if(n>=100)return n.toFixed(2);if(n>=1)return n.toFixed(2);return n.toFixed(4)}function esc(s){if(!s)return'';var d=document.createElement('span');d.textContent=String(s);return d.innerHTML}if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',init)}else{init()}})();
 </script>
-<header class="site-header"><a href="/search/" class="search-btn-header" aria-label="검색"><svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.6-3.6"/></svg></a><a class="logo-link" href="/"><img src="/favicon.svg" alt="" onerror="this.style.display='none'"><span class="logo-text">순살브리핑 Soonsal</span></a><a href="https://subscribe.soonsal.com/subscribe" target="_blank" rel="noopener" class="sub-btn-header">구독하기</a></header><nav class="nav" aria-label="주요 메뉴"><a href="/newsletters/">뉴스레터</a><a href="/morning/">순살차트</a><a href="/talk/">순살톡</a><a href="/school/" class="nav-desktop-link">스쿨</a><a href="/collab/" class="nav-desktop-link biz">협업 문의</a><details class="nav-more"><summary>더보기 <span aria-hidden="true">⌄</span></summary><section class="nav-menu" aria-label="추가 메뉴"><a href="/topics/">주제별</a><a href="/saved/">내가 모은 글</a><a href="/cardnews/">카드뉴스</a><a href="/youtube/">YouTube</a><a href="/school/" class="nav-mobile-only">스쿨</a><a href="/collab/" class="nav-mobile-only biz">협업 문의</a></section></details></nav><div class="wrap">
+<header class="site-header"><a href="/search/" class="search-btn-header" aria-label="검색"><svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.6-3.6"/></svg></a><a class="logo-link" href="/"><img src="/favicon.svg" alt="" onerror="this.style.display='none'"><span class="logo-text">순살브리핑 Soonsal</span></a><a href="https://subscribe.soonsal.com/subscribe" target="_blank" rel="noopener" class="sub-btn-header">구독하기</a></header><nav class="nav" aria-label="주요 메뉴"><a href="/newsletters/" class="active">뉴스레터</a><a href="/chart/">순살차트</a><a href="/talk/">순살톡</a><a href="/school/" class="nav-desktop-link">스쿨</a><a href="/collab/" class="nav-desktop-link biz">협업 문의</a><details class="nav-more"><summary>더보기 <span aria-hidden="true">⌄</span></summary><section class="nav-menu" aria-label="추가 메뉴"><a href="/topics/">주제별</a><a href="/saved/">내가 모은 글</a><a href="/cardnews/">카드뉴스</a><a href="/youtube/">YouTube</a><a href="/school/" class="nav-mobile-only">스쿨</a><a href="/collab/" class="nav-mobile-only biz">협업 문의</a></section></details></nav><div class="wrap">
 
 
 <h1>오늘자 뉴스레터<span class="issue">08.12</span></h1>
 <div class="nlwrap" id="nlwrap">
-  <div class="nl"><div class="content">
+  <div class="nl">
+
+<!-- HEADER -->
+
+
+
+
+<!-- HELLO -->
+  <div class="hello">
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;">
+      <tr><td class="hello-web" style="text-align:right;"><a href="https://soonsal.com/newsletters/2026/0812.html">웹에서 보기 &#8599;</a> <span style="color:#ddd;">·</span> <a href="https://soonsal.com/newsletters/">지난 호 &#8599;</a></td></tr>
+    </table>
+    <p class="hello-hi" style="font-size:17px; line-height:1.65;">아이폰 원가 1등이<br/>칩에서 메모리로📱</p>
+    <p style="font-size:11.5px; color:#bbb; margin:8px 0 0; letter-spacing:-0.2px;"><a href="https://soonsal.com/wiki/apple.html" style="color:#bbb; text-decoration:underline; font-weight:400;">순살이 다룬 애플 47건 &#8599;</a></p>
+    <div class="hello-divider"></div>
+    <p class="hello-cta">
+      <span>오늘 밤 물가 나옴. 시장이 세는 건 인하가 아니라 인상</span>
+      <span style="display:block; margin-top:9px;">💬 순살 웹사이트에 댓글창 오픈 &#8594; <a href="https://soonsal.com/newsletters/2026/0812.html">오늘 호에 한마디 남기기</a></span>
+    </p>
+  </div>
+
+<!-- MARKET TABLE -->
+  <div class="market-table">
+    <div class="market-title">📊 Markets</div>
+    <table>
+      <tr><td>S&amp;P 500</td><td>7,728.20</td><td class="down">▼ -0.32%</td></tr>
+      <tr><td>NASDAQ</td><td>26,445.45</td><td class="down">▼ -0.60%</td></tr>
+      <tr><td>Dow Jones</td><td>53,791.85</td><td class="down">▼ -0.34%</td></tr>
+      <tr><td>WTI 원유</td><td>$83.23</td><td class="up">▲ +1.34%</td></tr>
+      <tr><td>Gold</td><td>$4,428</td><td class="up">▲ +1.51%</td></tr>
+      <tr><td>VIX</td><td>15.28</td><td class="down">▼ -1.16%</td></tr>
+      <tr><td>10Y Treasury</td><td>4.68%</td><td class="down">▼ -1 bp</td></tr>
+      <tr><td>KOSPI</td><td>6,345.53</td><td class="up">▲ +0.73%</td></tr>
+      <tr><td>USDKRW</td><td>1,416.0</td><td class="down">▼ -2.4원</td></tr>
+      <tr><td>Bitcoin</td><td>$63,474</td><td class="down">▼ -0.8%</td></tr>
+    </table>
+    <div class="market-note">미국 증시·VIX: 8/11 종가 기준 (전 거래일 대비). 10Y 국채: 8/11 뉴욕 장후 시장. WTI·Gold: 8/11 종가 <span class="sub">(장 마감 뒤 전자거래는 제외)</span>. KOSPI: 8/11 종가. USD/KRW: 8/11 오후 3시 30분 종가. Bitcoin: 8/11 오후 4시 ET 기준</div>
+  </div>
+
+<!-- CONTENT -->
+  <div class="content">
 
 
 <!-- 순모닝 시황 -->
@@ -735,12 +721,98 @@ border-radius:50%;background:#F07040;opacity:0;transition:opacity .2s}
     </div>
 
 <!-- /content -->
-  </div></div>
+  </div>
+
+<!-- DEAL -->
+<div class="deal-section">
+  <div class="section-title">🤝 Deal, Deal, Deal</div>
+  <div class="deal-body">
+    <div class="bullet"><span class="dot">◾</span><span><strong>아폴로</strong>의 스포츠 전용 펀드, <strong>뉴욕 양키스</strong> 지주회사에 26억불을 대출과 지분을 섞어 넣음 — 아폴로가 미국 스포츠에 넣은 돈 중 최대. 메이저리그 규정상 펀드 한 곳이 구단 지분 15%를 못 넘어서, 슈타인브레너 가문 지배권은 그대로 <a href="https://fortune.com/2026/08/11/apollo-inks-2-6-billion-financing-deal-with-ny-yankees/" style="color:#888; font-size:12px;"><span class="sub">(Fortune)</span></a></span></div>
+    <div class="bullet"><span class="dot">◾</span><span><strong>뉴몬트</strong>, 경쟁사 <strong>배릭</strong>에 19.5억불 현금을 30일 안에 지급 — 네바다 합작광산을 두고 몇 년째 끌던 분쟁을 접고, 양쪽이 각자 개발 중이던 광구를 합작에 밀어넣기로 함. 배릭이 연내 추진하는 북미 금 사업 상장에 동의해준 게 핵심 <a href="https://www.barrick.com/English/news/news-details/2026/barrick-and-newmont-reach-agreement-regarding-nevada-gold-mines-joint-venture/default.aspx" style="color:#888; font-size:12px;"><span class="sub">(Barrick)</span></a></span></div>
+    <div class="bullet"><span class="dot">◾</span><span><strong>삼성SDI</strong>, <strong>GM</strong>이 들고 있던 인디애나 배터리 합작사 지분 49.99%를 전량 인수 — 35억불짜리 공장이 통째로 삼성SDI 단독 소유로 넘어감. 전기차 수요가 예상만큼 안 큰 게 이유고, 이 공장은 에너지저장장치 쪽으로도 물량을 돌릴 계획 <a href="https://www.cnbc.com/2026/08/11/south-koreas-samsung-sdi-to-buy-out-gms-battery-venture-stake.html" style="color:#888; font-size:12px;"><span class="sub">(CNBC)</span></a></span></div>
+    <div class="bullet"><span class="dot">◾</span><span><strong>오픈AI</strong>, 현직·퇴직 직원 주식 70억불어치를 회사 돈으로 사들임 — 몸값은 3월 조달 때와 똑같은 8,520억불. 이전 두 번은 외부 투자자를 데려와 사게 했는데 이번엔 자기 현금을 씀. 새 주주도, 새 가격표도 안 만들겠다는 선택 <a href="https://www.bloomberg.com/news/articles/2026-08-10/openai-buys-back-7-billion-of-employee-shares-in-tender-offer" style="color:#888; font-size:12px;"><span class="sub">(Bloomberg)</span></a></span></div>
+    <div class="bullet"><span class="dot">◾</span><span>테크 전용 은행 <strong>에레보</strong>, 몸값 80억불에 15억불 조달 협상 마무리 단계 — 2월에 인가받은 신생 은행인데 예금이 3월 말 11억불에서 7월 말 46억불로 불었음. 실리콘밸리은행이 무너지고 비어버린 자리를 노린 곳 <a href="https://techstartups.com/2026/08/10/palmer-luckeys-startup-bank-erebor-in-talks-to-raise-1-5-billion-at-8-billion-valuation/" style="color:#888; font-size:12px;"><span class="sub">(TechStartups)</span></a></span></div>
+  </div>
+</div>
+
+<!-- HEADLINE ROUNDUP -->
+<div class="headline-section">
+  <div class="section-title">📋 헤드라인 라운드업</div>
+  <div class="headline-item"><span class="headline-dot">·</span><span><a href="https://www.reuters.com/world/china/meta-launches-new-ai-model-zuckerberg-champions-open-weight-push-2026-08-10/">저커버그, 6,500단어짜리 AI 선언문 공개 — 노트북에서 돌아가는 개방형 모델을 내놓겠다며 중국산 오픈소스를 견제</a> — Reuters</span></div>
+  <div class="headline-item"><span class="headline-dot">·</span><span><a href="https://decrypt.co/375210/openai-pause-astra-ai-model-critical-cyber-capabilities">오픈AI, 차기 모델 아스트라의 사이버 공격 능력이 위험 수준일 수 있다며 개발을 멈춤 — 회사가 스스로 브레이크를 건 사례</a> — Decrypt</span></div>
+  <div class="headline-item"><span class="headline-dot">·</span><span><a href="https://www.bloomberg.com/news/articles/2026-08-10/emerging-market-stock-valuations-sink-below-half-of-s-p-500-s">신흥국 증시 밸류에이션이 S&amp;P 500의 절반 아래로 떨어짐 — 싸서 사는 게 아니라 안 사서 싼 구간이라는 논쟁</a> — Bloomberg</span></div>
+  <div class="headline-item"><span class="headline-dot">·</span><span><a href="https://www.bloomberg.com/news/articles/2026-08-10/investors-abandon-hedges-in-order-to-chase-soaring-stocks">투자자들이 하락 대비 보험을 걷어내고 상승장에 올라타는 중 — 물가 지표 직전에 안전장치가 얇아진 상태</a> — Bloomberg</span></div>
+  <div class="headline-item"><span class="headline-dot">·</span><span><a href="https://www.bloomberg.com/news/articles/2026-08-10/gautam-adani-wins-dismissal-of-us-securities-fraud-charges">인도 아다니 회장, 미국 증권사기 혐의를 벗음 — 판사는 기각을 밀어붙인 법무부 고위 인사의 처신을 따로 문제 삼았음</a> — Bloomberg</span></div>
+</div>
+
+<!-- WORD SECTION -->
+<div class="word-section">
+  <h3 class="word-section-title" style="font-size:15px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; color:#888">📚 오늘의 금융 영어</h3>
+  <div class="word-item">
+    <div class="word-en">Bill of materials (BOM)</div>
+    <div class="word-ko">제품 하나를 만드는 데 들어가는 부품값 총합. 완제품 회사 마진은 판매가에서 이걸 뺀 자리에서 나옴. 부품값이 오르는데 판매가를 못 올리면 그 차이가 그대로 마진에서 빠짐</div>
+    <div class="word-example">제품 하나에 들어가는 부품 원가 총액<br><br><em>"The BOM cost of the iPhone 18 Pro will rise 38%."</em></div>
+  </div>
+  <div class="word-item">
+    <div class="word-en">Tender offer</div>
+    <div class="word-ko">값과 기간을 미리 정해놓고 주식을 사겠다고 공개적으로 내거는 것. 비상장사에선 직원이 주식을 현금으로 바꿀 거의 유일한 통로라, 상장을 미룰수록 이걸 자주 열게 됨</div>
+    <div class="word-example">값을 정해놓고 여는 공개 매수<br><br><em>"OpenAI completed a $7 billion tender offer."</em></div>
+  </div>
+  <div class="word-item">
+    <div class="word-en">Sovereign wealth fund</div>
+    <div class="word-ko">나라가 벌어들인 돈을 굴리려고 만든 펀드. 산유국은 기름 팔아 쌓인 달러를 여기에 넣고, 기름이 안 팔리는 날을 대비해 다른 산업으로 옮겨 심음. 회수 기간을 10년 넘게 잡을 수 있는 게 최대 무기</div>
+    <div class="word-example">나라가 굴리는 투자 펀드<br><br><em>"Mubadala is Abu Dhabi's sovereign wealth fund."</em></div>
+  </div>
+
+  <h3 class="word-section-title" style="margin-top:32px; font-size:15px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; color:#888">💬 오늘의 원어민 표현</h3>
+  <div class="word-item">
+    <div class="word-en">"Edge case"</div>
+    <div class="word-ko">"가장자리 사례." 자주 안 나오지만 한 번 걸리면 시스템이 통째로 무너지는 예외 상황. 개발자들이 쓰던 말인데, 그건 예외가 아니라 기본이라고 규제당국이 받아치면서 다툼의 단어가 됐음</div>
+    <div class="word-example">드물게 튀어나오는 예외 상황<br><br><em>"The industry calls these situations edge cases."</em></div>
+  </div>
+  <div class="word-item">
+    <div class="word-en">"May-December romance"</div>
+    <div class="word-ko">"5월과 12월의 연애." 나이 차가 크게 나는 커플을 가리키는 말. 5월은 봄이라 젊은 쪽, 12월은 겨울이라 나이 든 쪽. 예전엔 12월이 남자인 경우만 떠올렸는데, 요즘은 순서가 바뀐 얘기가 늘어나는 중</div>
+    <div class="word-example">나이 차가 큰 커플<br><br><em>"Hollywood keeps flipping the May-December script."</em></div>
+  </div>
+</div>
+
+<div class="quote-section">
+  <div class="quote-text">"Emergency scenes are not rare or extreme edge cases."</div>
+  <div class="quote-attr">— <strong>Jonathan Morrison</strong> <em><span class="sub">(NHTSA Administrator, in a July letter to driverless-car developers)</span></em></div>
+</div>
+
+
+<div class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <img src="/favicon.svg" alt="순살" style="height:24px;"/>
+        <span>Soonsal</span>
+      </div>
+      <div class="footer-copy">© 2026 순살브리핑. All rights reserved.</div>
+      <div class="footer-links">
+        <a href="https://soonsal.com">soonsal.com</a> · <a href="https://subscribe.soonsal.com/subscribe">구독하기</a> · <a href="https://soonsal.com/talk/">💬 순살러 한마디</a>
+      </div>
+      <div class="social-row">
+        <a href="https://t.me/soonsal" class="social-icon" title="Telegram">
+          <svg viewBox="0 0 24 24"><path d="M9.78 18.65l.28-4.23 7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.3 3.64 12c-.88-.25-.89-.86.2-1.3l15.97-6.16c.73-.33 1.43.18 1.15 1.3l-2.72 12.81c-.19.91-.74 1.13-1.5.71L12.6 16.3l-1.99 1.93c-.23.23-.42.42-.83.42z"/></svg>
+        </a>
+        <a href="https://instagram.com/soonsal.brief" class="social-icon" title="Instagram">
+          <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+        </a>
+        <a href="https://youtube.com/@soonsal" class="social-icon" title="YouTube">
+          <svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+
+</div>
   <div class="fade"></div>
 </div>
 <button type="button" class="expand" id="expand">전체 보기 ↓</button>
 
-<h2>순살차트</h2><p class="sec">장 열리기 전, 오늘 시장에서 볼 것만 그림으로 정리합니다.</p><a class="chart" href="/morning/2026/0812.html"><span class="cap"><b>CPI 숫자보다 무서운 건, 한쪽에 몰린 채권 베팅</b></span><picture><source media="(min-width:640px)" srcset="/morning/assets/20260812/cpi-bond-shorts-diagram.svg"><img src="/morning/assets/20260812/cpi-bond-shorts-diagram-mobile.svg" alt="CPI 숫자보다 무서운 건, 한쪽에 몰린 채권 베팅" loading="lazy"></picture><span class="go">순살차트 전체 보기 →</span></a>
+<h2>순살차트</h2><p class="sec">장 열리기 전, 오늘 시장에서 볼 것만 그림으로 정리합니다.</p><a class="chart" href="/chart/2026/0812.html"><span class="cap"><b>CPI 숫자보다 무서운 건, 한쪽에 몰린 채권 베팅</b></span><picture><source media="(min-width:640px)" srcset="/chart/assets/20260812/cpi-bond-shorts-diagram.svg"><img src="/chart/assets/20260812/cpi-bond-shorts-diagram-mobile.svg" alt="CPI 숫자보다 무서운 건, 한쪽에 몰린 채권 베팅" loading="lazy"></picture><span class="go">순살차트 전체 보기 →</span></a>
 
 <h2>지난 뉴스레터</h2>
 <div class="arch"><a href="/newsletters/2026/0812.html"><span class="d">08.12</span><span class="t">🌴 비행기 기름 찾아 농사짓는 오일머니</span></a><a href="/newsletters/2026/0811.html"><span class="d">08.11</span><span class="t">💥 폭망 직전 갔더니, 쩐주들이 더 몰림</span></a><a href="/newsletters/2026/0810.html"><span class="d">08.10</span><span class="t">🍓 코카콜라 다음, 슈퍼마켓 2위의 정체</span></a><a href="/newsletters/2026/0807.html"><span class="d">08.07</span><span class="t">🤖 알파벳 한 글자에 속는 AI 트레이더</span></a><a href="/newsletters/2026/0806.html"><span class="d">08.06</span><span class="t">🎲 증권사도 이제 그냥 베팅업인가</span></a><a href="/newsletters/2026/0805.html"><span class="d">08.05</span><span class="t">💉 헌 주사기가 새것보다 비싼 동네</span></a><a href="/newsletters/2026/0804.html"><span class="d">08.04</span><span class="t">🎙️ 등교길 대화까지 AI에 맡기라는 제안</span></a><a href="/newsletters/2026/0803.html"><span class="d">08.03</span><span class="t">🚛 트럭 한 대도 없는 회사가 26년 만의 최악을 찍은 이유</span></a><a href="/newsletters/2026/0731.html"><span class="d">07.31</span><span class="t">🚁 배달앱이 항공사 면허를 딴 이유</span></a><a href="/newsletters/2026/0730.html"><span class="d">07.30</span><span class="t">🤖 외국산 로봇개, 신형부터 입국 금지</span></a><a href="/newsletters/2026/0729.html"><span class="d">07.29</span><span class="t">🐔 AI 피봇 끝판왕, 치킨집 등판</span></a><a href="/newsletters/2026/0728.html"><span class="d">07.28</span><span class="t">💰IPO 끝나자 직원들까지 고객으로</span></a></div>

@@ -115,7 +115,7 @@ CHANNELS = [
 def _chart():
     """홈에 걸 차트 하나. 절대 빈손으로 돌아오지 않는다.
 
-    1) /morning/ 목록의 .lead-chart — 그날의 핵심 차트로 지정된 것
+    1) /chart/ 목록의 .lead-chart — 그날의 핵심 차트로 지정된 것
     2) 없으면 최신 회차 페이지에 '실린 순서'대로 첫 번째 다이어그램
     3) 그것도 없으면 자산 폴더에서 아무거나
 
@@ -124,7 +124,7 @@ def _chart():
     사람이 정한 순서다.
     """
     # (1) 지정된 핵심 차트
-    idx = ROOT / "morning" / "index.html"
+    idx = ROOT / "chart" / "index.html"
     if idx.exists():
         s = idx.read_text(encoding="utf-8")
         m = re.search(r'<a class="lead-chart" href="([^"]+)".*?'
@@ -136,14 +136,14 @@ def _chart():
             if not (ROOT / wide.lstrip("/")).exists():
                 wide = mob
             return {"wide": wide, "mob": mob,
-                    "page": "/morning/" + m.group(1).split("#")[0],
+                    "page": "/chart/" + m.group(1).split("#")[0],
                     "title": re.sub(r"<[^>]+>", "", m.group(2)).strip()}
 
     # (2) 최신 회차에서 페이지 순서대로 첫 그림
-    pages = sorted(ROOT.glob("morning/2026/*.html"), reverse=True)
+    pages = sorted(ROOT.glob("chart/2026/*.html"), reverse=True)
     for pg in pages:
         s = pg.read_text(encoding="utf-8")
-        im = re.search(r'src="(/morning/assets/\d+/[a-z0-9-]+-diagram[^"]*\.svg)', s)
+        im = re.search(r'src="(/chart/assets/\d+/[a-z0-9-]+-diagram[^"]*\.svg)', s)
         if not im:
             continue
         mob = im.group(1).split("?")[0]
@@ -158,15 +158,15 @@ def _chart():
         if not (ROOT / wide.lstrip("/")).exists():
             wide = mob
         return {"wide": wide, "mob": mob,
-                "page": "/morning/" + str(pg.relative_to(ROOT / "morning")).replace("\\", "/"),
+                "page": "/chart/" + str(pg.relative_to(ROOT / "chart")).replace("\\", "/"),
                 "title": title or "오늘의 순살차트"}
 
     # (3) 최후 — 자산 폴더에 있는 아무 그림이라도
-    for d in sorted((ROOT / "morning" / "assets").glob("2026*"), reverse=True):
+    for d in sorted((ROOT / "chart" / "assets").glob("2026*"), reverse=True):
         got = sorted(d.glob("*-diagram.svg"))
         if got:
-            u = f"/morning/assets/{d.name}/{got[0].name}"
-            return {"wide": u, "mob": None, "page": "/morning/", "title": "오늘의 순살차트"}
+            u = f"/chart/assets/{d.name}/{got[0].name}"
+            return {"wide": u, "mob": None, "page": "/chart/", "title": "오늘의 순살차트"}
     return None
 
 
@@ -190,38 +190,35 @@ def _issue_body(page: Path):
     css = m.group(1) if m else ""
     css = re.sub(r"(?m)^\s*body\s*\{", ".nl{", css)
 
-    i = t.find('<div class="content">')
+    # .content만 가져오면 딜딜딜·헤드라인·영어 표현·명언·푸터가 통째로 잘린다.
+    # wrapper 안을 다 가져오고, 사이트 헤더와 겹치는 .header만 들어낸다.
+    i = t.find('<div class="wrapper"')
     if i < 0:
         return None
-    depth, pos = 1, i + len('<div class="content">')
-    end = None
-    for x in re.finditer(r"</?div\b[^>]*>", t[pos:]):
+    start = t.index(">", i) + 1
+    depth, end = 1, None
+    for x in re.finditer(r"</?div\b[^>]*>", t[start:]):
         depth += -1 if x.group(0).startswith("</") else 1
         if depth == 0:
-            end = pos + x.end()
+            end = start + x.start()
             break
     if end is None:
         return None
-    body = t[i:end]
-    # 본문 안에 base64가 남아 있으면 홈이 무거워진다 — 실제로는 헤더에만 있다
-    body = re.sub(r'src="data:image/[^"]+"', 'src=""', body)
+    body = t[start:end]
 
-    # 원본 뉴스레터의 div 짝이 맞지 않는 회차가 있다(여는 태그가 하나 더 많다).
-    # 그대로 심으면 이 블록이 안 닫히고, 뒤에 오는 것(전체 보기 버튼·순살차트·
-    # 지난 뉴스레터·채널 카드)이 전부 이 상자 안으로 빨려 들어간다.
-    # 상자는 접혀 있으니(overflow:hidden) 화면에서 통째로 사라진다.
-    # 그래서 여기서 짝을 맞춘다. 남는 닫는 태그는 버리고, 모자라면 채운다.
-    plain = re.sub(r"<!--.*?-->", "", body, flags=re.S)
-    gap = len(re.findall(r"<div\b", plain)) - len(re.findall(r"</div>", plain))
-    if gap > 0:
-        body += "</div>" * gap
-    elif gap < 0:
-        for _ in range(-gap):
-            body = body[::-1].replace(">vid/<"[::-1], "", 1)[::-1]
+    # 뉴스레터 자체 헤더(로고·날짜)는 사이트 헤더와 겹친다. 여기 박힌 base64
+    # 로고가 50KB 중 대부분이기도 하다.
+    h = re.search(r'<div class="header">', body)
+    if h:
+        d2, p2 = 1, h.end()
+        for x in re.finditer(r"</?div\b[^>]*>", body[p2:]):
+            d2 += -1 if x.group(0).startswith("</") else 1
+            if d2 == 0:
+                body = body[:h.start()] + body[p2 + x.end():]
+                break
 
-    chk = re.sub(r"<!--.*?-->", "", body, flags=re.S)
-    assert len(re.findall(r"<div\b", chk)) == len(re.findall(r"</div>", chk)), \
-        "div 짝을 못 맞췄다 — 그대로 심으면 뒤 섹션이 삼켜진다"
+    # 남은 base64(푸터 로고)는 파일 경로로 바꾼다 — 홈이 무거워질 이유가 없다
+    body = re.sub(r'src="data:image/[^"]+"', 'src="/favicon.svg"', body)
     return css, body
 
 

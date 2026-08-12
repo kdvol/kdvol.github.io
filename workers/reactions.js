@@ -152,7 +152,7 @@ function issueOf(story) {
 
 function storyLink(story) {
   const morning = String(story).match(/^m([0-9]{4})([0-9]{2})([0-9]{2})-([a-z0-9]+(?:-[a-z0-9]+)*)$/);
-  if (morning) return `https://soonsal.com/morning/${morning[1]}/${morning[2]}${morning[3]}.html#${morning[4]}`;
+  if (morning) return `https://soonsal.com/chart/${morning[1]}/${morning[2]}${morning[3]}.html#${morning[4]}`;
   const legacy = String(story).match(/^([0-9]{4})(c?)-([0-9]{1,2})$/);
   if (!legacy) return 'https://soonsal.com';
   return `https://soonsal.com/newsletters/${new Date().getFullYear()}/${legacy[1]}`
