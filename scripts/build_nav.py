@@ -12,7 +12,8 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 
-CORE_ITEMS = [("/newsletters/", "브리핑"), ("/morning/", "모닝순살"), ("/topics/", "주제별")]
+CORE_ITEMS = [("/newsletters/", "브리핑"), ("/morning/", "모닝순살"),
+              ("/talk/", "한마디"), ("/topics/", "주제별")]
 MORE_ITEMS = [("/cardnews/", "카드뉴스"), ("/youtube/", "YouTube"),
               ("/school/", "스쿨"), ("/advertise/", "광고 문의")]
 BIZ = {"/advertise/"}
@@ -52,6 +53,7 @@ def _active_for(path: Path):
         "youtube": "/youtube/",
         "school": "/school/",
         "advertise": "/advertise/",
+        "talk": "/talk/",
     }.get(section)
 
 

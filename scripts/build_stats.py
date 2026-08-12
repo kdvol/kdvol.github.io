@@ -113,12 +113,20 @@ function ago(ts, now) {
   return Math.floor(s / 86400) + '일 전';
 }
 function pct(a, b) { return b > 0 ? Math.round(a / b * 100) : 0; }
+// id에서 경로를 되살린다 — SMAP에 url을 담으면 항목당 40바이트가 더 붙는다.
+//   0811-3  → /newsletters/2026/0811.html#story-3
+//   0811c-2 → /newsletters/2026/0811c.html#story-2
+function sUrl(id) {
+  var m = String(id).match(/^(\d{4})(c?)-(\d+)$/);
+  if (!m) return '#';
+  return '/newsletters/' + SYEAR + '/' + m[1] + m[2] + '.html#story-' + m[3];
+}
+
 var PMAP = (function () {
-  // 스토리 메타에서 경로 → 제목 맵을 뽑는다(같은 회차 스토리는 첫 제목으로 대표)
   var o = {};
   Object.keys(SMAP).forEach(function (k) {
-    var u = (SMAP[k].u || '').split('#')[0];
-    if (u && !o[u]) o[u] = SMAP[k].d ? SMAP[k].d.slice(5) + ' 브리핑' : u;
+    var u = sUrl(k).split('#')[0];
+    if (u && !o[u]) o[u] = (SMAP[k].d || '') + ' 브리핑';
   });
   return o;
 })();
@@ -336,7 +344,8 @@ try { SORT = localStorage.getItem('ss_sort') || 'hot'; } catch (e) {}
 var PAGE = 30;   // 한 번에 그리는 줄 수 — 스크롤이 끝에 닿으면 더 그린다
 
 function rowHTML(k, by, last, now) {
-  var m = SMAP[k] || { t: k, d: '', u: '#' };
+  var m = SMAP[k] || { t: k, d: '' };
+  m = { t: m.t, d: m.d, u: sUrl(k) };
   return '<a class="row" href="' + m.u + '"><span class="dt">' + (m.d || '').slice(5) + '</span>' +
     '<span class="ti">' + m.t + '</span><span class="when">' + ago(last[k], now) + '</span>' +
     '<span class="cnt">' + EMO.map(function (e) {
@@ -590,9 +599,12 @@ def build(atoms=None):
         atoms = json.loads(ATOMS.read_text(encoding="utf-8")) if ATOMS.exists() else []
     OUT.mkdir(exist_ok=True)
     # 최근 60일치만 심는다(파일 크기 관리)
-    recent = sorted(atoms, key=lambda a: a.get("date", ""), reverse=True)[:400]
-    smap = {a["id"]: {"t": re.sub(r"^[^\w<>&\"']{1,4}\s+", "", a["title"]).strip(),
-                      "d": a["date"], "u": a["url"]} for a in recent}
+    # 대시보드가 실제로 보여주는 건 최근 반응·조회다. 400개를 심으면 44KB가
+    # 모바일에서 그대로 다운로드된다. 120개면 충분하고, url은 날짜·번호에서
+    # 복원할 수 있으니 뺀다(id가 0811-3 → /newsletters/2026/0811.html#story-3).
+    recent = sorted(atoms, key=lambda a: a.get("date", ""), reverse=True)[:120]
+    smap = {a["id"]: {"t": re.sub(r"^[^\w<>&\"']{1,4}\s+", "", a["title"]).strip()[:34],
+                      "d": a["date"][5:]} for a in recent}
 
     html = f"""<!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -608,6 +620,7 @@ def build(atoms=None):
 <div id="app"><div class="empty">불러오는 중…</div></div>
 </div>
 <script>
+var SYEAR = {json.dumps(str(recent[0]["date"][:4]) if recent else "2026")};
 var SMAP = {json.dumps(smap, ensure_ascii=False)};
 {DASH_JS}
 </script>

@@ -259,6 +259,12 @@ def build(atoms=None):
     smap = {a["id"]: {"t": re.sub(r"^[^\w<>&\"']{1,4}\s+", "", a["title"]).strip()[:44],
                       "u": a["url"]} for a in recent}
 
+    try:
+        import build_nav
+        nav = "<style>" + build_nav.HEADER_CSS + "</style>" + build_nav.header_html("/talk/")
+    except Exception:
+        nav = ""
+
     html = f"""<!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>순살 한마디 — 독자들이 남긴 말</title>
@@ -266,7 +272,9 @@ def build(atoms=None):
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700;800&display=swap" rel="stylesheet"/>
 <script src="/ss-config.js"></script>
-<style>{CSS}</style></head><body><div class="wrap">
+<style>{CSS}</style></head><body>
+{nav}
+<div class="wrap">
 <h1>한마디</h1>
 <p class="sub">브리핑을 읽다 남긴 한 줄이 여기 다 모입니다.
 <span class="live"><b></b>실시간</span><br>
