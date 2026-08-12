@@ -14,7 +14,7 @@ ROOT = Path(__file__).resolve().parent.parent
 
 CORE_ITEMS = [("/newsletters/", "브리핑"), ("/morning/", "모닝순살"),
               ("/talk/", "순살톡"), ("/topics/", "주제별")]
-DESKTOP_ITEMS = [("/school/", "스쿨"), ("/advertise/", "광고 문의")]
+DESKTOP_ITEMS = [("/school/", "스쿨"), ("/advertise/", "협업 문의")]
 MENU_ITEMS = [("/cardnews/", "카드뉴스"), ("/youtube/", "YouTube")]
 MORE_ITEMS = MENU_ITEMS + DESKTOP_ITEMS
 BIZ = {"/advertise/"}

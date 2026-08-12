@@ -1,5 +1,9 @@
 #!/usr/bin/env python3
-"""광고·파트너십 문의 페이지 (/advertise/).
+"""협업 문의 페이지 (/advertise/).
+
+광고 하나가 아니라 협업 여섯 갈래를 늘어놓는다 — 채널 광고·라이선싱·런칭
+패키지·아카이브 스폰서십·공동 리포트·채널 운영. 각 항목에 고를 수 있는
+범위를 붙여 "얼마예요"가 아니라 "우린 이만큼 필요해요"로 대화가 시작되게 한다.
 
 포지셔닝: 프리미엄·선별적. "아무나 광고하지 않는다"를 명시하되 문의는 쉽게.
 원칙(메모리 soonsal-ad-principles 준수):
@@ -20,6 +24,20 @@ CSS = """
 body{background:#111;color:#eee;font-family:'DM Sans','Apple SD Gothic Neo','Malgun Gothic',sans-serif;
 -webkit-text-size-adjust:100%;line-height:1.7}
 .wrap{max-width:720px;margin:0 auto;padding:34px 18px 72px}
+/* 협업 스코프 — 광고 하나가 아니라 여러 갈래임이 한눈에 보여야 한다.
+   카드마다 번호·제목·설명·범위. 범위가 있어야 "얼마예요"가 아니라
+   "우린 이만큼 필요해요"로 대화가 시작된다. */
+.lead{color:#9a948a;font-size:.92rem;line-height:1.8;margin:0 0 20px}
+.scopes{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px}
+.scope{background:#161616;border:1px solid #242424;border-radius:12px;padding:18px 18px 16px;
+position:relative;transition:border-color .18s}
+.scope:hover{border-color:#3a3a3a}
+.scope .sn{font-size:.68rem;font-weight:800;letter-spacing:.1em;color:#F07040;margin-bottom:9px}
+.scope h3{font-size:1.02rem;font-weight:800;letter-spacing:-.02em;color:#f2efe8;margin:0 0 7px}
+.scope p{color:#8b8578;font-size:.86rem;line-height:1.7;margin:0 0 13px}
+.scope .rng{font-size:.75rem;color:#c9c4ba;background:#1e1e1e;border:1px solid #2a2a2a;
+border-radius:6px;padding:6px 10px;display:inline-block}
+@media(max-width:560px){.scopes{grid-template-columns:1fr}}
 a{color:#eee;text-decoration:none}
 h1{font-size:1.8rem;letter-spacing:-.03em;margin-bottom:12px;line-height:1.35}
 .lede{color:#aaa;font-size:1rem;line-height:1.8;margin-bottom:8px}
@@ -58,7 +76,7 @@ def build():
     import build_nav
     OUT.mkdir(exist_ok=True)
     canonical = f"{BASE}/advertise/"
-    subject = "%5B%EA%B4%91%EA%B3%A0%20%EB%AC%B8%EC%9D%98%5D%20"      # [광고 문의]
+    subject = "%5B%ED%98%91%EC%97%85%20%EB%AC%B8%EC%9D%98%5D%20"  # [협업 문의]
     body = (
         "%EB%B8%8C%EB%9E%9C%EB%93%9C%2F%ED%9A%8C%EC%82%AC%3A%0A"        # 브랜드/회사:
         "%EB%8B%B4%EB%8B%B9%EC%9E%90%3A%0A"                            # 담당자:
@@ -67,16 +85,16 @@ def build():
     )
     mailto = f"mailto:{EMAIL}?subject={subject}&body={body}"
 
-    desc = ("순살브리핑 광고·파트너십 문의. 매일 아침 금융·경제·크립토를 읽는 독자에게 "
+    desc = ("순살브리핑 협업 문의. 매일 아침 금융·경제·크립토를 읽는 독자에게 "
             "브랜드를 각인시키는 브랜딩 매체. 스폰서 스토리·로고 노출·AI 검색까지 함께 설계합니다.")
 
     html = f"""<!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>광고·파트너십 문의 — 순살브리핑</title>
+<title>협업 문의 — 순살브리핑</title>
 <meta name="description" content="{desc}">
 <link rel="canonical" href="{canonical}"><meta name="robots" content="index, follow">
 <meta property="og:type" content="website"><meta property="og:site_name" content="순살브리핑 Soonsal">
-<meta property="og:title" content="광고·파트너십 문의 — 순살브리핑">
+<meta property="og:title" content="협업 문의 — 순살브리핑">
 <meta property="og:description" content="{desc}">
 <meta property="og:url" content="{canonical}">
 <meta property="og:image" content="{BASE}/og-cover-v2.png">
@@ -145,23 +163,53 @@ def build():
 
 <section>
 <h2>이렇게 함께할 수 있습니다</h2>
-<div class="two">
-<div class="card"><ul>
-<li><b>스토리 스폰서십</b><br>브리핑 안에 순살 톤으로 쓰는 한 바닥</li>
-<li><b>시리즈 편성</b><br>여러 회차에 걸쳐 쌓는 브랜딩</li>
-<li><b>브랜드 로고 노출</b><br>해당 회차 뉴스레터 안에 로고를 함께 배치</li>
-</ul></div>
-<div class="card"><ul>
-<li><b>카드뉴스·인스타그램</b><br>뉴스레터와 소셜 채널 연계</li>
-<li><b>AI 검색 노출</b><br>순살은 AI 검색엔진이 읽어가기 좋은 구조로 발행합니다.
-스폰서 스토리도 같은 구조로 실려, 관련 주제를 물었을 때 함께 인용될 수 있습니다</li>
-<li><b>웹 아카이브</b><br>메일은 하루지만 웹은 계속입니다. 발행 후에도 주제별·검색·
-기업별 페이지에서 계속 읽힙니다</li>
-</ul></div>
+<p class="lead">광고 한 가지가 아닙니다. 순살이 매일 만드는 것(콘텐츠·채널·독자)을
+어느 쪽으로 쓰실지에 따라 형태가 달라집니다. <b style="color:#ccc">아래에서 고르시면
+그에 맞춰 견적을 드립니다.</b></p>
+
+<div class="scopes">
+<div class="scope"><div class="sn">01</div>
+<h3>순살 채널 광고</h3>
+<p>순살브리핑·인스타그램에 브랜드 기획으로 발행합니다.
+브랜디드 스토리 · 카드뉴스 · 릴스 · 배너 전 포맷.</p>
+<div class="rng">포맷·횟수 선택 · 건별 또는 연 단위</div></div>
+
+<div class="scope"><div class="sn">02</div>
+<h3>콘텐츠 라이선싱</h3>
+<p>순살 에디토리얼을 브랜드 채널 전용 편집본으로 제작·납품합니다.
+채널은 이미 있고 채울 콘텐츠만 필요한 경우.</p>
+<div class="rng">주 1~5회 중 선택 · 연 단위</div></div>
+
+<div class="scope"><div class="sn">03</div>
+<h3>런칭 패키지</h3>
+<p>신상품·신규 상장 일정에 맞춰 한 세트로 묶습니다.
+D-3 티저 → 당일 스토리 → D+7 카드뉴스.</p>
+<div class="rng">건별 · 연 1~4건</div></div>
+
+<div class="scope"><div class="sn">04</div>
+<h3>아카이브 스폰서십</h3>
+<p>「브랜드와 함께 만드는 ○○ 사전」. 검색으로 계속 유입되는 자산이라
+시간이 지날수록 가치가 올라갑니다.</p>
+<div class="rng">연 단위 · 항목 수 협의</div></div>
+
+<div class="scope"><div class="sn">05</div>
+<h3>공동 리포트</h3>
+<p>순살 독자 설문을 <b style="color:#b8b2a8">집계 결과로만</b> 정리해 공동 리포트로
+발간하고 언론에 배포합니다. 개별 응답이나 구독자 명단은 넘기지 않습니다.</p>
+<div class="rng">연 1~2회 중 선택</div></div>
+
+<div class="scope"><div class="sn">06</div>
+<h3>채널 운영 대행</h3>
+<p>콘텐츠 제작을 넘어 채널 기획·편성·운영까지.
+위 항목이 자리를 잡은 뒤 확장하는 것을 권합니다.</p>
+<div class="rng">월 단위 · 범위에 따라</div></div>
 </div>
-<p class="note">패키지 구성과 단가는 문의 주시면 <b style="color:#bbb">소개서</b>로 안내드립니다.
-같은 업종에서는 소수 파트너와만 함께해 <span class="hl">브랜드 차별화</span>를 강조합니다.
-이에, 월 편성 슬롯이 조기에 마감될 수 있습니다.</p>
+
+<p class="note">어떤 형태든 <span class="hl">원고는 순살이 씁니다.</span>
+발행 후에는 주제별·기업별 페이지에 남아 계속 읽히고, AI 검색이 읽어가기 좋은
+구조로 실립니다. 같은 업종에서는 소수 파트너와만 함께해
+<span class="hl">브랜드 차별화</span>를 강조합니다 — 월 편성 슬롯이 조기에
+마감될 수 있습니다.</p>
 </section>
 
 <section>
@@ -195,7 +243,7 @@ def build():
 <h2>가볍게 물어보셔도 됩니다</h2>
 <p>예산이나 시기가 아직 정해지지 않았어도 괜찮습니다.<br>
 브랜드와 하고 싶은 이야기만 알려주시면, 어떤 방식이 맞을지 함께 찾아드릴게요.</p>
-<a class="btn" href="{mailto}">광고 문의 메일 보내기</a>
+<a class="btn" href="{mailto}">협업 문의 메일 보내기</a>
 <a class="mail" href="mailto:{EMAIL}">{EMAIL}</a>
 </div>
 
@@ -204,7 +252,7 @@ def build():
 
 </div></body></html>"""
     (OUT / "index.html").write_text(html, encoding="utf-8")
-    print("📣 advertise: /advertise/ 광고·파트너십 문의 페이지")
+    print("📣 advertise: /advertise/ 협업 문의 페이지")
     return 1
 
 
