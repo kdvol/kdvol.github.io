@@ -37,7 +37,7 @@ body{background:#111;color:#e8e3da;font-family:'Pretendard',-apple-system,BlinkM
 'Segoe UI',sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased}
 .wrap{max-width:720px;margin:0 auto;padding:0 18px 70px}
 h1,h2{font-size:.72rem;font-weight:800;letter-spacing:.1em;color:#E55A00;
-margin:34px 0 14px;text-transform:uppercase}
+margin:46px 0 12px;text-transform:uppercase}
 h1{margin-top:26px}
 /* 뉴스레터 CSS가 뒤에 실려 margin이 덮인다 — padding으로 못박는다 */
 .issue{color:#6f6a60;font-size:.78rem;font-weight:600;padding-left:9px;
@@ -54,15 +54,18 @@ background:linear-gradient(180deg,rgba(255,255,255,0),#fff)}
 border:1px solid #2c2c2c;border-radius:9px;color:#e8e3da;font-family:inherit;
 font-size:.88rem;font-weight:700;cursor:pointer}
 .expand:hover{background:#222;border-color:#3a3a3a}
-/* 첫 화면 아래에 그림 하나. 순살이 매일 실제로 만드는 차트를 쓴다. */
-.chart{display:block;margin:26px 0 4px;text-decoration:none;border:1px solid #232323;
+/* 구역 설명 한 줄. 제목만 있으면 무슨 구역인지 안 잡힌다. */
+.sec{color:#7a756c;font-size:.85rem;line-height:1.7;margin:-6px 0 14px}
+/* 그림만 놓지 않는다 — 무슨 얘긴지 위에 적어야 구역이 바뀐 것도 보인다 */
+.chart{display:block;margin:0;text-decoration:none;border:1px solid #232323;
 border-radius:12px;overflow:hidden;background:#151515}
+.chart .cap{display:block;padding:14px 16px 12px;color:#e8e3da;font-size:.95rem;
+font-weight:700;letter-spacing:-.02em;line-height:1.45}
 .chart img{display:block;width:100%;height:auto;max-width:100%}
-.chart .cap{display:block;padding:12px 15px;border-top:1px solid #1e1e1e;
-color:#8f8a80;font-size:.84rem}
-.chart .cap b{color:#F07040;font-weight:700;margin-right:6px}
+.chart .go{display:block;padding:12px 16px;border-top:1px solid #1e1e1e;
+color:#F07040;font-size:.83rem;font-weight:700}
 .chart:hover{border-color:#3a3a3a}
-.chart:hover .cap{color:#b8b2a8}
+.chart:hover .go{color:#FF8A5B}
 .more{display:inline-block;margin-top:16px;color:#F07040;font-size:.86rem;
 font-weight:700;text-decoration:none}
 .more:hover{text-decoration:underline}
@@ -101,6 +104,8 @@ def _clean(title: str) -> str:
 
 
 CHANNELS = [
+    ("https://t.me/soonsal", "순살 텔레그램",
+     "발행 알림부터 짧은 생각, 가끔 투표까지"),
     ("/talk/", "순살톡", "브리핑 읽고 남긴 한 줄이 모이는 곳"),
     ("/cardnews/", "카드뉴스", "인스타에서 한 장씩 넘겨 보기"),
     ("/school/", "순살스쿨", "현직자가 여는 IBD·IPO·M&A 클래스"),
@@ -123,9 +128,22 @@ def _chart():
         if not (ROOT / page.lstrip("/")).exists():
             continue
         mob = w.with_name(w.name.replace("-diagram.svg", "-diagram-mobile.svg"))
+        # 그림만 덩그러니 놓으면 무슨 얘긴지 알 수 없다. 파일명 슬러그로
+        # 순살차트 본문에서 그 꼭지의 제목을 찾아 위에 건다.
+        slug = w.name.replace("-diagram.svg", "")
+        title = ""
+        try:
+            src = (ROOT / page.lstrip("/")).read_text(encoding="utf-8")
+            m2 = re.search(rf'data-ss-story="m\d{{8}}-{re.escape(slug)}"', src)
+            if m2:
+                h = re.search(r"<h2[^>]*>(.*?)</h2>", src[m2.start():m2.start() + 4000], re.S)
+                if h:
+                    title = re.sub(r"<[^>]+>", "", h.group(1)).strip()
+        except OSError:
+            pass
         return {"wide": f"/morning/assets/{d.name}/{w.name}",
                 "mob": f"/morning/assets/{d.name}/{mob.name}" if mob.exists() else None,
-                "page": page}
+                "page": page, "title": title}
     return None
 
 
@@ -219,8 +237,10 @@ def build(atoms=None):
         f'<a href="{u}"><span class="d">{d[5:7]}.{d[8:10]}</span>'
         f'<span class="t">{escape(t)}</span></a>' for d, u, t in arch)
 
-    ch = "".join(f'<a href="{h}"><b>{escape(n)}</b><span>{escape(s)}</span></a>'
-                 for h, n, s in CHANNELS)
+    ch = "".join(
+        f'<a href="{h}"' + (' target="_blank" rel="noopener"' if h.startswith("http") else '')
+        + f'><b>{escape(n)}</b><span>{escape(s)}</span></a>'
+        for h, n, s in CHANNELS)
 
     ld = {
         "@context": "https://schema.org",
@@ -239,10 +259,14 @@ def build(atoms=None):
         src = c["mob"] or c["wide"]
         srcset = (f'<source media="(min-width:640px)" srcset="{c["wide"]}">'
                   if c["mob"] else "")
+        cap = escape(c["title"]) if c["title"] else "무빙 차트로 한눈에 순살만 쏙쏙"
         chart_html = (
+            '<h2>순살차트</h2>'
+            '<p class="sec">장 열리기 전, 오늘 시장에서 볼 것만 그림으로 정리합니다.</p>'
             f'<a class="chart" href="{c["page"]}">'
-            f'<picture>{srcset}<img src="{src}" alt="순살차트 다이어그램" loading="eager"></picture>'
-            f'<span class="cap"><b>순살차트</b> 무빙 차트로 한눈에 순살만 쏙쏙 →</span></a>')
+            f'<span class="cap"><b>{cap}</b></span>'
+            f'<picture>{srcset}<img src="{src}" alt="{cap}" loading="lazy"></picture>'
+            '<span class="go">순살차트 전체 보기 →</span></a>')
 
     title = "순살브리핑 — 글로벌 금융·경제·크립토 뉴스레터"
     desc = ("모건스탠리 홍콩 출신 금융인의 글로벌 금융·경제·크립토 뉴스 살코기. "
@@ -266,7 +290,7 @@ def build(atoms=None):
   <div class="fade"></div>
 </div>
 <button type="button" class="expand" id="expand">전체 보기 ↓</button>
-<a class="more" href="{today[0]['newsletter']}">이 날짜 페이지로 →</a>
+<a class="more" href="{today[0]['newsletter']}">최신 순살 뉴스레터 페이지로 →</a>
 
 {chart_html}
 

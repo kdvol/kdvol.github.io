@@ -11,7 +11,7 @@ body{background:#111;color:#e8e3da;font-family:'Pretendard',-apple-system,BlinkM
 'Segoe UI',sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased}
 .wrap{max-width:720px;margin:0 auto;padding:0 18px 70px}
 h1,h2{font-size:.72rem;font-weight:800;letter-spacing:.1em;color:#E55A00;
-margin:34px 0 14px;text-transform:uppercase}
+margin:46px 0 12px;text-transform:uppercase}
 h1{margin-top:26px}
 /* 뉴스레터 CSS가 뒤에 실려 margin이 덮인다 — padding으로 못박는다 */
 .issue{color:#6f6a60;font-size:.78rem;font-weight:600;padding-left:9px;
@@ -28,15 +28,18 @@ background:linear-gradient(180deg,rgba(255,255,255,0),#fff)}
 border:1px solid #2c2c2c;border-radius:9px;color:#e8e3da;font-family:inherit;
 font-size:.88rem;font-weight:700;cursor:pointer}
 .expand:hover{background:#222;border-color:#3a3a3a}
-/* 첫 화면 아래에 그림 하나. 순살이 매일 실제로 만드는 차트를 쓴다. */
-.chart{display:block;margin:26px 0 4px;text-decoration:none;border:1px solid #232323;
+/* 구역 설명 한 줄. 제목만 있으면 무슨 구역인지 안 잡힌다. */
+.sec{color:#7a756c;font-size:.85rem;line-height:1.7;margin:-6px 0 14px}
+/* 그림만 놓지 않는다 — 무슨 얘긴지 위에 적어야 구역이 바뀐 것도 보인다 */
+.chart{display:block;margin:0;text-decoration:none;border:1px solid #232323;
 border-radius:12px;overflow:hidden;background:#151515}
+.chart .cap{display:block;padding:14px 16px 12px;color:#e8e3da;font-size:.95rem;
+font-weight:700;letter-spacing:-.02em;line-height:1.45}
 .chart img{display:block;width:100%;height:auto;max-width:100%}
-.chart .cap{display:block;padding:12px 15px;border-top:1px solid #1e1e1e;
-color:#8f8a80;font-size:.84rem}
-.chart .cap b{color:#F07040;font-weight:700;margin-right:6px}
+.chart .go{display:block;padding:12px 16px;border-top:1px solid #1e1e1e;
+color:#F07040;font-size:.83rem;font-weight:700}
 .chart:hover{border-color:#3a3a3a}
-.chart:hover .cap{color:#b8b2a8}
+.chart:hover .go{color:#FF8A5B}
 .more{display:inline-block;margin-top:16px;color:#F07040;font-size:.86rem;
 font-weight:700;text-decoration:none}
 .more:hover{text-decoration:underline}
@@ -672,16 +675,16 @@ color:#8a857c;text-decoration:none}
   <div class="fade"></div>
 </div>
 <button type="button" class="expand" id="expand">전체 보기 ↓</button>
-<a class="more" href="/newsletters/2026/0812.html">이 날짜 페이지로 →</a>
+<a class="more" href="/newsletters/2026/0812.html">최신 순살 뉴스레터 페이지로 →</a>
 
-<a class="chart" href="/morning/2026/0812.html"><picture><source media="(min-width:640px)" srcset="/morning/assets/20260812/ai-physical-bottleneck-diagram.svg"><img src="/morning/assets/20260812/ai-physical-bottleneck-diagram-mobile.svg" alt="순살차트 다이어그램" loading="eager"></picture><span class="cap"><b>순살차트</b> 무빙 차트로 한눈에 순살만 쏙쏙 →</span></a>
+<h2>순살차트</h2><p class="sec">장 열리기 전, 오늘 시장에서 볼 것만 그림으로 정리합니다.</p><a class="chart" href="/morning/2026/0812.html"><span class="cap"><b>AI에 돈은 넘치는데, 전력과 변압기는 찍어낼 수 없음</b></span><picture><source media="(min-width:640px)" srcset="/morning/assets/20260812/ai-physical-bottleneck-diagram.svg"><img src="/morning/assets/20260812/ai-physical-bottleneck-diagram-mobile.svg" alt="AI에 돈은 넘치는데, 전력과 변압기는 찍어낼 수 없음" loading="lazy"></picture><span class="go">순살차트 전체 보기 →</span></a>
 
 <h2>지난 뉴스레터</h2>
 <div class="arch"><a href="/newsletters/2026/0812.html"><span class="d">08.12</span><span class="t">🌴 비행기 기름 찾아 농사짓는 오일머니</span></a><a href="/newsletters/2026/0811.html"><span class="d">08.11</span><span class="t">💥 폭망 직전 갔더니, 쩐주들이 더 몰림</span></a><a href="/newsletters/2026/0810.html"><span class="d">08.10</span><span class="t">🍓 코카콜라 다음, 슈퍼마켓 2위의 정체</span></a><a href="/newsletters/2026/0807.html"><span class="d">08.07</span><span class="t">🤖 알파벳 한 글자에 속는 AI 트레이더</span></a><a href="/newsletters/2026/0806.html"><span class="d">08.06</span><span class="t">🎲 증권사도 이제 그냥 베팅업인가</span></a><a href="/newsletters/2026/0805.html"><span class="d">08.05</span><span class="t">💉 헌 주사기가 새것보다 비싼 동네</span></a><a href="/newsletters/2026/0804.html"><span class="d">08.04</span><span class="t">🎙️ 등교길 대화까지 AI에 맡기라는 제안</span></a><a href="/newsletters/2026/0803.html"><span class="d">08.03</span><span class="t">🚛 트럭 한 대도 없는 회사가 26년 만의 최악을 찍은 이유</span></a><a href="/newsletters/2026/0731.html"><span class="d">07.31</span><span class="t">🚁 배달앱이 항공사 면허를 딴 이유</span></a><a href="/newsletters/2026/0730.html"><span class="d">07.30</span><span class="t">🤖 외국산 로봇개, 신형부터 입국 금지</span></a><a href="/newsletters/2026/0729.html"><span class="d">07.29</span><span class="t">🐔 AI 피봇 끝판왕, 치킨집 등판</span></a><a href="/newsletters/2026/0728.html"><span class="d">07.28</span><span class="t">💰IPO 끝나자 직원들까지 고객으로</span></a></div>
 <a class="more" href="/newsletters/">뉴스레터 전체 보기 →</a>
 
 <h2>더 많은 순살 둘러보기</h2>
-<div class="ch"><a href="/talk/"><b>순살톡</b><span>브리핑 읽고 남긴 한 줄이 모이는 곳</span></a><a href="/cardnews/"><b>카드뉴스</b><span>인스타에서 한 장씩 넘겨 보기</span></a><a href="/school/"><b>순살스쿨</b><span>현직자가 여는 IBD·IPO·M&amp;A 클래스</span></a></div>
+<div class="ch"><a href="https://t.me/soonsal" target="_blank" rel="noopener"><b>순살 텔레그램</b><span>발행 알림부터 짧은 생각, 가끔 투표까지</span></a><a href="/talk/"><b>순살톡</b><span>브리핑 읽고 남긴 한 줄이 모이는 곳</span></a><a href="/cardnews/"><b>카드뉴스</b><span>인스타에서 한 장씩 넘겨 보기</span></a><a href="/school/"><b>순살스쿨</b><span>현직자가 여는 IBD·IPO·M&amp;A 클래스</span></a></div>
 
 </div>
 <script>
