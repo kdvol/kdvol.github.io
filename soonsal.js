@@ -509,8 +509,38 @@
   // 없으면 내 클릭만 로컬 집계 — 어느 쪽이든 버튼이 "죽어" 보이지 않게.
   var REACTS = [['👍', '좋았음'], ['🤔', '글쎄'], ['🔥', '중요함']];
   // 설정 파일이 못 뜨면 반응·코멘트가 통째로 죽는다. 주소는 공개값이다.
-  var CFG = window.SS_CFG || { worker: 'https://soonsal-react.kd-d0a.workers.dev' };
-  var API = CFG.worker || null;              // Cloudflare Worker(권장)
+  var CFG = window.SS_CFG || {};
+  // workers.dev는 광고 차단기·사내망·일부 DNS 필터가 통째로 막는다. 그러면
+  // 반응·코멘트가 조용히 죽는다. 여러 호스트를 순서대로 시도하고, 통한 곳을
+  // 기억해 다음부터 그것부터 쓴다.
+  var HOSTS = CFG.hosts || [CFG.worker || 'https://soonsal-react.kd-d0a.workers.dev'];
+  try {
+    var okHost = localStorage.getItem('ss_host');
+    if (okHost && HOSTS.indexOf(okHost) > 0) {
+      HOSTS = [okHost].concat(HOSTS.filter(function (h) { return h !== okHost; }));
+    }
+  } catch (e) {}
+  var API = HOSTS[0] || null;                // Cloudflare Worker(권장)
+
+  // 첫 호스트가 막히면 다음으로 넘긴다. tfetch(시간 제한)는 그대로 쓴다.
+  function hfetch(path, opts, ms) {
+    var i = 0;
+    function attempt() {
+      var host = HOSTS[i];
+      return tfetch(host.replace(/[/]$/, '') + path, opts, ms).then(function (r) {
+        if (API !== host) {
+          API = host;
+          try { localStorage.setItem('ss_host', host); } catch (e) {}
+        }
+        return r;
+      }).catch(function (err) {
+        i += 1;
+        if (i < HOSTS.length) { return attempt(); }
+        throw err;
+      });
+    }
+    return attempt();
+  }
   var HAS_BACKEND = !!API;
 
   var STORY_KEY_RE = /^(?:\d{4}c?-\d{1,2}|m\d{8}-[a-z0-9]+(?:-[a-z0-9]+)*)$/;
@@ -838,7 +868,7 @@
     var id = parseInt(btn.getAttribute('data-i'), 10), v = vid();
     if (!API || !v || !id) return;
     btn.disabled = true;
-    tfetch(API.replace(/[/]$/, '') + '/like', {
+    hfetch('/like', {
       method: 'POST', headers: { 'content-type': 'application/json' },
       body: JSON.stringify({ id: id, v: v }),
     }, 20000).then(function (r) { return r.json(); }).then(function (res) {
@@ -895,7 +925,7 @@
   function loadTalkBadge() {
     var f = document.querySelector('.ss-fab');
     if (!API || !f) return;
-    tfetch(API.replace(/[/]$/, '') + '/recent?n=40', null, 8000)
+    hfetch('/recent?n=40', null, 8000)
       .then(function (r) { return r.json(); })
       .then(function (d) {
         var items = (d && d.items) || [];
@@ -918,7 +948,7 @@
   function loadNotices() {
     var v = vid();
     if (!API || !v) return;
-    tfetch(API.replace(/[/]$/, '') + '/notices?v=' + encodeURIComponent(v), null, 8000)
+    hfetch('/notices?v=' + encodeURIComponent(v), null, 8000)
       .then(function (r) { return r.json(); })
       .then(function (d) { if (d && d.n) showNotice(d); })
       .catch(function () {});
@@ -977,7 +1007,7 @@
     var v = vid();
     if (!API || !v) { toast('잠시 후 다시 시도해주세요'); go.disabled = false; return; }
 
-    tfetch(API.replace(/[/]$/, '') + '/comment', {
+    hfetch('/comment', {
       method: 'POST',
       headers: { 'content-type': 'application/json' },
       body: JSON.stringify({ story: key, v: v, nick: nick, body: body, tag: tag, co: co,
@@ -1092,7 +1122,7 @@
     if (!API) return;
     var issue = issueKey();
     if (!issue) return;
-    tfetch(API.replace(/[/]$/, '') + '/page?issue=' + encodeURIComponent(issue), null, 10000)
+    hfetch('/page?issue=' + encodeURIComponent(issue), null, 10000)
       .then(function (r) { return r.json(); })
       .then(function (d) {
         var counts = (d && d.counts) || {};
@@ -1142,7 +1172,7 @@
 
   function refresh(key, wrap) {
     if (API) {
-      tfetch(API.replace(/\/$/, '') + '/counts?story=' + encodeURIComponent(key), null, 8000)
+      hfetch('/counts?story=' + encodeURIComponent(key), null, 8000)
         .then(function (r) { return r.json(); })
         .then(function (o) { wrap._shared = o || {}; render(wrap, key); })
         .catch(function () {});
