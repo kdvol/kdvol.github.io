@@ -83,6 +83,60 @@ background:#E55A00;color:#fff;padding:8px 18px;border-radius:6px;font-size:13px;
   .nav>a,.nav-more>summary{font-size:10.5px;letter-spacing:-.5px;padding:11px 1px}
 }
 
-</style></head><body>
+</style><style id="soonsal-nav-visibility-v3">
+.nav-menu a.nav-mobile-only{display:none}
+.nav>a.nav-desktop-link.biz{color:#F07040}
+.nav>a.nav-desktop-link.biz:hover{color:#ff8a52}
+.nav-menu a.biz{color:#F07040}
+@media(max-width:560px){
+  .nav>a.nav-desktop-link{display:none}
+  .nav-menu a.nav-mobile-only{display:block}
+  .nav-more.mobile-active>summary{color:#F07040;border-bottom-color:#F07040}
+  /* 코어 4개 + 더보기 = 5칸. 예전 CSS가 4칸이라 다섯 번째가 다음 줄로 넘어갔다.
+     이 블록은 페이지마다 나중에 주입되므로 안에 박힌 옛 규칙을 덮는다. */
+  .nav{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));width:100%}
+  .nav>a,.nav-more>summary{justify-content:center;padding:11px 2px;font-size:11.5px;
+    letter-spacing:-.4px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+}
+@media(max-width:360px){
+  .nav>a,.nav-more>summary{font-size:10.5px;letter-spacing:-.5px;padding:11px 1px}
+}
+/* ── 눌러보고 싶게 ──────────────────────────────────────
+   탭은 '지금 어디' 말고는 아무것도 알려주지 않는다. 더보기는 특히 그렇다 —
+   안에 뭐가 있는지 모르면 누를 이유가 없다. 세 가지를 바꾼다:
+   (1) 밑줄이 자라며 눌리는 느낌, (2) 화살표가 열림에 반응, (3) 메뉴 안에
+   아이콘을 붙여 목록이 아니라 '갈 곳'으로 보이게. */
+.nav>a,.nav-more>summary{position:relative;transition:color .18s}
+.nav>a:after,.nav-more>summary:after{content:"";position:absolute;left:50%;right:50%;
+bottom:-1px;height:2px;background:#F07040;border-radius:2px;
+transition:left .22s cubic-bezier(.4,0,.2,1),right .22s cubic-bezier(.4,0,.2,1)}
+.nav>a:hover:after,.nav-more>summary:hover:after{left:18%;right:18%}
+.nav>a.active:after,.nav-more.active>summary:after{left:0;right:0}
+
+.nav-more>summary span[aria-hidden]{display:inline-block;transition:transform .22s ease;
+margin-left:2px}
+.nav-more[open]>summary span[aria-hidden]{transform:rotate(180deg)}
+.nav-more[open]>summary{color:#F07040}
+
+.nav-menu{animation:navdrop .18s cubic-bezier(.2,.8,.2,1)}
+@keyframes navdrop{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
+.nav-menu a{transition:background .15s,color .15s,padding-left .15s}
+.nav-menu a:before{margin-right:7px;opacity:.9}
+.nav-menu a[href="/cardnews/"]:before{content:"🎴"}
+.nav-menu a[href="/youtube/"]:before{content:"▶"}
+.nav-menu a[href="/school/"]:before{content:"🎓"}
+.nav-menu a[href="/advertise/"]:before{content:"✉"}
+.nav-menu a[href="/talk/"]:before{content:"💬"}
+
+/* 더보기 안에 뭐가 있는지 한 줄로 알려준다 — 열기 전에 궁금해지는 건 이 지점이다 */
+.nav-more>summary:before{content:"";position:absolute;top:9px;right:6px;width:5px;height:5px;
+border-radius:50%;background:#F07040;opacity:0;transition:opacity .2s}
+.nav-more:not([open])>summary:hover:before{opacity:.85}
+@media(max-width:560px){
+  .nav-menu a{text-align:left;padding-left:14px}
+  .nav-more>summary:before{right:3px;top:7px}
+}
+</style>
+</head><body>
 <header class="site-header"><a class="logo-link" href="/"><img src="/favicon.svg" alt="" onerror="this.style.display='none'"><span class="logo-text">순살브리핑 Soonsal</span></a><a href="https://subscribe.soonsal.com/subscribe" target="_blank" rel="noopener" class="sub-btn-header">구독하기</a></header><nav class="nav" aria-label="주요 메뉴"><a href="/newsletters/">브리핑</a><a href="/morning/">모닝순살</a><a href="/talk/">순살톡</a><a href="/topics/" class="active">주제별</a><a href="/school/" class="nav-desktop-link">스쿨</a><a href="/advertise/" class="nav-desktop-link biz">광고 문의</a><details class="nav-more"><summary>더보기 <span aria-hidden="true">⌄</span></summary><section class="nav-menu" aria-label="추가 메뉴"><a href="/cardnews/">카드뉴스</a><a href="/youtube/">YouTube</a><a href="/school/" class="nav-mobile-only">스쿨</a><a href="/advertise/" class="nav-mobile-only biz">광고 문의</a></section></details></nav><div class="wrap">
 <a class="crumb" href="/topics/">← 주제별 전체</a><div class="kind">🏢 기업</div><h1>시스코</h1><p class="sub">이 기업이(가) 등장한 스토리 11건 · 최근 2026-08-12 · 영어 표현 4개 · <a href="/topics/" style="color:#F07040">주제·대상 전체</a> · <a href="/search/" style="color:#F07040">검색</a></p><div class="sec"><h2>연관</h2><div class="chips"><a class="chip" href="/wiki/bok.html">🏛️ 한국은행<b>2</b></a><a class="chip" href="/wiki/anthropic.html">🏢 앤스로픽<b>4</b></a><a class="chip" href="/wiki/openai.html">🏢 오픈AI<b>3</b></a><a class="chip" href="/wiki/nvidia.html">🏢 엔비디아<b>2</b></a><a class="chip" href="/wiki/oil.html">🪙 원유<b>2</b></a></div></div><div class="sec"><h2>주제</h2><div class="chips"><a class="chip tp" href="/topics/ai.html">🤖 AI<b>6</b></a><a class="chip tp" href="/topics/trump-politics.html">🏳️ 트럼프·정책<b>3</b></a><a class="chip tp" href="/topics/deals.html">🤝 딜·M&amp;A<b>2</b></a><a class="chip tp" href="/topics/tesla-ev.html">🚗 테슬라·전기차<b>1</b></a><a class="chip tp" href="/topics/etf-funds.html">🧺 ETF·펀드<b>1</b></a><a class="chip tp" href="/topics/banks-wallst.html">🏦 월가·은행<b>1</b></a></div></div><div class="sec"><h2>타임라인 · 11건</h2><div class="story"><a href="/newsletters/2026/0812.html#story-2"><span class="d">2026-08-12</span><span class="st">도시는 계속 느는데, 숫자는 안 느는 중</span></a><div class="lb">MOBILITY · TECH</div></div><div class="story"><a href="/newsletters/2026/0810.html#story-5"><span class="d">2026-08-10</span><span class="st">코카콜라 다음, 슈퍼마켓 2위의 정체</span></a><div class="lb">FOOD · IP</div></div><div class="story"><a href="/newsletters/2026/0730.html#story-3"><span class="d">2026-07-30</span><span class="st">팔지 말라는 걸 팔겠다는 FIFA</span></a><div class="lb">SPORTS · PRIVATE CAPITAL</div><details class="eng"><summary>영어 표현 1</summary><div class="engbox"><div class="eng-t">Permanent capital</div><div class="eng-k">영구자본. 만기도 환매도 없는 돈. 보통 사모펀드는 10년쯤 뒤에 투자자에게 돈을 돌려줘야 하니 그 안에 팔아야 하는데, 영구자본은 그 시계가 없어 언제 팔지를 안 정해도 됨. 회수가 오래 걸리는 스포츠 구단이나 인프라에 이 구조가 붙는 이유고, FIFA 상업 자회사에 들어오겠다는 쪽도 영구자본 펀드</div><div class="eng-x"><span class="eng-xl">만기도 환매도 없어 팔 시점을 안 정해도 되는 돈</span> &ldquo;Thrive Eternal is structured as permanent capital.&rdquo;</div></div></details></div><div class="story"><a href="/newsletters/2026/0728.html#story-1"><span class="d">2026-07-28</span><span class="st">칩 팔려고 고객 빚보증까지 서려는 엔비디아</span></a><div class="lb">AI · FINANCE</div><details class="eng"><summary>영어 표현 1</summary><div class="engbox"><div class="eng-t">Backstop</div><div class="eng-k">지급 보증. 빌린 쪽이 못 갚으면 대신 갚아주겠다는 약속. 지금 나가는 돈은 없지만, 은행은 빌리는 회사 대신 보증 선 회사의 신용을 보고 돈을 내줌. 엔비디아가 OpenAI의 데이터센터 빚 2,500억불에 이걸 서는 방안을 논의 중</div><div class="eng-x"><span class="eng-xl">돈을 내주는 게 아니라 못 갚을 때 대신 갚겠다는 약속</span> &ldquo;Nvidia would backstop the lease and construction debt, not the chips.&rdquo;</div></div></details></div><div class="story"><a href="/newsletters/2026/0721.html#story-5"><span class="d">2026-07-21</span><span class="st">젠슨 황의 가죽자켓, 경매에서 96만불</span></a><div class="lb">CULTURE · COLLECTIBLES</div></div><div class="story"><a href="/newsletters/2026/0710.html#story-5"><span class="d">2026-07-10</span><span class="st">AI 주식, 기축통화 등극?</span></a><div class="lb">TECH · REAL ESTATE</div></div><div class="story"><a href="/newsletters/2026/0626.html#story-3"><span class="d">2026-06-26</span><span class="st">바이엘, 대법원 한 방에 +17%</span></a><div class="lb">LEGAL · PHARMA</div><details class="eng"><summary>영어 표현 1</summary><div class="engbox"><div class="eng-t">Preemption (Federal Preemption)</div><div class="eng-k">연방 선점 법리. 연방법이 주(州)법보다 우선한다는 헌법 원칙. 바이엘 사건에서 대법원은 EPA가 &quot;암 경고 불필요&quot;로 판단한 제품에 대해 주 법원이 기업에 책임을 물 수 없다고 판결 — 연방 규제가 주 소송을 선점한 것</div><div class="eng-x"><span class="eng-xl">바이엘 +20% 폭등의 핵심 법리</span> &ldquo;The Supreme Court ruled 7-2 that federal preemption bars state-law claims requiring cancer warnings the EPA deemed unnecessary.&rdquo;</div></div></details></div><div class="story"><a href="/newsletters/2026/0529.html#story-4"><span class="d">2026-05-29</span><span class="st">AI 머니가 집값을 갈라놓는 중</span></a><div class="lb">AI · REAL ESTATE</div></div><div class="story"><a href="/newsletters/2026/0414-crypto.html#story-3"><span class="d">2026-04-14</span><span class="st">AI가 DeFi를 뚫으면, 누가 막나</span></a><div class="lb">AI · DEFI</div><details class="eng"><summary>영어 표현 1</summary><div class="engbox"><div class="eng-t">Non-Human Identity (NHI)</div><div class="eng-k">비인간 ID. AI 에이전트, 봇, API 키, 서비스 계정 등 사람이 아닌 주체가 시스템에 접근할 때 쓰는 신원. DeFi에서 AI 에이전트가 스마트컨트랙트를 자동으로 실행하면서 NHI 보안이 핵심 이슈로 부상. 시스코가 인수 협상 중인 Astrix Security가 이 분야 전문</div><div class="eng-x"><span class="eng-xl">AI 에이전트가 늘수록 NHI 보안 시장도 폭발</span> &ldquo;As AI agents proliferate, securing non-human identities has become the next frontier in cybersecurity.&rdquo;</div></div></details></div><div class="story"><a href="/newsletters/2026/0414.html#story-5"><span class="d">2026-04-14</span><span class="st">AI가 공격하면 AI가 막는다</span></a><div class="lb">AI · CYBERSECURITY</div></div><div class="story"><a href="/newsletters/2026/0316.html#story-4"><span class="d">2026-03-16</span><span class="st">월급 0원인데 출근하라는 나라</span></a><div class="lb">GOVERNMENT · LABOR</div></div></div></div><script src="/ss-config.js"></script><script src="/soonsal.js" defer></script></body></html>

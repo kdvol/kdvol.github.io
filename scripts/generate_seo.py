@@ -238,6 +238,15 @@ def main():
         build_include.main()                # /soonsal.js 태그 1회 보장(FAB+공유는 그 파일에)
     except Exception as e:
         print(f"⚠️ build_include 실패(계속 진행): {e}")
+    # build_nav를 맨 앞에서 한 번 돌리지만, 그 뒤 생성기들이 페이지를 새로 쓰면서
+    # 주입한 nav 스타일이 지워진다(topics·wiki·search 등). 마지막에 한 번 더 돌려
+    # 모든 페이지가 같은 nav를 갖도록 맞춘다.
+    try:
+        import build_nav
+        build_nav.main()
+    except Exception as e:
+        print(f"⚠️ build_nav(최종) 실패(계속 진행): {e}")
+
     n_urls = build_sitemap()
     n_items = build_rss()
     build_robots()
