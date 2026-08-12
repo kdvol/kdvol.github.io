@@ -6,15 +6,15 @@
 <rect width="1080" height="1350" fill="#F5F5F0"/>
 <text x="72" y="78" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="28" font-weight="800" fill="#F07040">모닝순살 · SOONSAL</text>
 <text x="1008" y="78" text-anchor="end" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="23" fill="#888888">2026-08-12</text>
-<text x="72" y="160" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="50" font-weight="800" fill="#111111">비트코인 자금, 개인 지갑에서 ETF로</text>
-<text x="72" y="222" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="50" font-weight="800" fill="#111111">되돌아감</text>
-<text x="72" y="310" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="25" fill="#666666">직접 보관 위험이 비트코인 ETF 수요를 키우는 구조</text>
+<text x="72" y="160" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="50" font-weight="800" fill="#111111">비트코인 직접보관 위험 부각,</text>
+<text x="72" y="222" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="50" font-weight="800" fill="#111111">ETF에는 다시 자금이 들어옴</text>
+<text x="72" y="310" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="25" fill="#666666">직접 보관 위험과 비트코인 ETF 유입을 나란히 보는 구조</text>
 <path d="M 540.0 508.0 C 540.0 530.2, 540.0 530.2, 540.0 544.5" fill="none" stroke="#F07040" stroke-width="4" marker-end="url(#arrow)"/>
 <rect x="468.0" y="500.2" width="144" height="36" rx="18" fill="#F5F5F0"/>
 <text x="540.0" y="527.2" text-anchor="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="18" fill="#8B4B2C">보안 충격</text>
-<path d="M 540.0 670.5 C 540.0 692.8, 540.0 692.8, 540.0 707.0" fill="none" stroke="#F07040" stroke-width="4" marker-end="url(#arrow)"/>
+<path d="M 540.0 670.5 C 540.0 692.8, 540.0 692.8, 540.0 707.0" fill="none" stroke="#F07040" stroke-width="4" stroke-dasharray="12 10" marker-end="url(#arrow)"/>
 <rect x="468.0" y="662.8" width="144" height="36" rx="18" fill="#F5F5F0"/>
-<text x="540.0" y="689.8" text-anchor="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="18" fill="#8B4B2C">자금 이동</text>
+<text x="540.0" y="689.8" text-anchor="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="18" fill="#8B4B2C">같은 시기 발생</text>
 <path d="M 540.0 833.0 C 540.0 855.2, 540.0 855.2, 540.0 869.5" fill="none" stroke="#F07040" stroke-width="4" stroke-dasharray="12 10" marker-end="url(#arrow)"/>
 <rect x="468.0" y="825.2" width="144" height="36" rx="18" fill="#F5F5F0"/>
 <text x="540.0" y="852.2" text-anchor="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="18" fill="#8B4B2C">선호 확인</text>
