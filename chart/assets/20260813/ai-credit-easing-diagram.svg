@@ -27,7 +27,7 @@
 <text x="309.0" y="111.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="700" fill="#222222">엔비디아, 일부 프로젝트</text>
 <text x="309.0" y="147.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="700" fill="#222222">최대 25% 보증</text>
 </g>
-<g class="motion-step motion-node" data-motion-step="0" style="--motion-delay:0ms;--motion-accent-delay:660ms">
+<g class="motion-step motion-node" data-motion-step="0" style="--motion-delay:190ms;--motion-accent-delay:850ms">
 <rect class="motion-node-shape" x="556.0" y="70.0" width="430.0" height="118" rx="22" fill="#FFFFFF" stroke="#E0DDD5" stroke-width="3" filter="url(#shadow)"/>
 <text x="771.0" y="111.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="700" fill="#222222">SEC, 데이터센터 유동화는</text>
 <text x="771.0" y="147.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="700" fill="#222222">ABS 아님</text>

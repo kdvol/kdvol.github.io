@@ -27,7 +27,7 @@
 <text x="198.0" y="73.5" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="800" fill="#222222">구매력 기준 적정</text>
 <text x="198.0" y="100.5" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="800" fill="#222222">62.18엔</text>
 </g>
-<g class="motion-step motion-node" data-motion-step="0" style="--motion-delay:0ms;--motion-accent-delay:660ms">
+<g class="motion-step motion-node" data-motion-step="0" style="--motion-delay:190ms;--motion-accent-delay:850ms">
 <rect class="motion-node-shape" x="372.0" y="44.0" width="300.0" height="86" rx="20" fill="#FFFFFF" stroke="#DCD8CF" stroke-width="3" filter="url(#shadow)"/>
 <text x="522.0" y="73.5" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="800" fill="#222222">일본은행 정책 두고</text>
 <text x="522.0" y="100.5" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="800" fill="#222222">이견</text>
@@ -41,7 +41,7 @@
 <text x="198.0" y="679.5" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="800" fill="#222222">개입 이야기가 상시</text>
 <text x="198.0" y="706.5" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="800" fill="#222222">반영</text>
 </g>
-<g class="motion-step motion-node motion-risk" data-motion-step="4" style="--motion-delay:1660ms;--motion-accent-delay:2320ms">
+<g class="motion-step motion-node motion-risk" data-motion-step="4" style="--motion-delay:1850ms;--motion-accent-delay:2510ms">
 <rect class="motion-node-shape" x="372.0" y="650.0" width="300.0" height="86" rx="20" fill="#FFF4EF" stroke="#F07040" stroke-width="3" filter="url(#shadow)"/>
 <text x="522.0" y="666.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="800" fill="#222222">겹치는 품목에서</text>
 <text x="522.0" y="693.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="800" fill="#222222">한국 가격 우위</text>

@@ -296,6 +296,10 @@ def main():
             continue
         t = p.read_text(encoding="utf-8")
         if not NAV_RE.search(t):
+            only = _with_ticker(t)
+            if only != t:
+                p.write_text(only, encoding="utf-8")
+                n += 1
             continue
         new = NAV_RE.sub(_nav(_active_for(p)), t, count=1)
         if NAV_STYLE_RE.search(new):

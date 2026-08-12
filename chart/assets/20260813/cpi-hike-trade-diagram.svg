@@ -27,12 +27,12 @@
 <text x="229.3" y="111.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="700" fill="#222222">근원 물가 1년 전 대비</text>
 <text x="229.3" y="147.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="700" fill="#222222">2.5%</text>
 </g>
-<g class="motion-step motion-node" data-motion-step="0" style="--motion-delay:0ms;--motion-accent-delay:660ms">
+<g class="motion-step motion-node" data-motion-step="0" style="--motion-delay:190ms;--motion-accent-delay:850ms">
 <rect class="motion-node-shape" x="400.7" y="70.0" width="278.7" height="118" rx="22" fill="#FFFFFF" stroke="#E0DDD5" stroke-width="3" filter="url(#shadow)"/>
 <text x="540.0" y="111.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="700" fill="#222222">9월 인상 확률 약 50%</text>
 <text x="540.0" y="147.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="700" fill="#222222">선반영</text>
 </g>
-<g class="motion-step motion-node" data-motion-step="0" style="--motion-delay:0ms;--motion-accent-delay:660ms">
+<g class="motion-step motion-node" data-motion-step="0" style="--motion-delay:380ms;--motion-accent-delay:1040ms">
 <rect class="motion-node-shape" x="711.3" y="70.0" width="278.7" height="118" rx="22" fill="#FFFFFF" stroke="#E0DDD5" stroke-width="3" filter="url(#shadow)"/>
 <text x="850.7" y="111.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="700" fill="#222222">글로벌 채권 사상 최대 매도</text>
 <text x="850.7" y="147.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="700" fill="#222222">포지션</text>
