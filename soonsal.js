@@ -513,6 +513,19 @@
     try { localStorage.setItem('ss_react', JSON.stringify(v)); } catch (e) {}
   }
 
+  // 내가 한마디를 남긴 스토리. 서버는 반응을 합계로만 갖고 개인 기록을 남기지
+  // 않는다(그게 맞다). 그래서 '내가 뭘 봤나'를 되살릴 단서는 이 브라우저뿐이다.
+  function myComments() {
+    try { return JSON.parse(localStorage.getItem('ss_cmt') || '{}'); } catch (e) { return {}; }
+  }
+  function markMine(key) {
+    try {
+      var m = myComments();
+      m[key] = Math.floor(Date.now() / 1000);
+      localStorage.setItem('ss_cmt', JSON.stringify(m));
+    } catch (e) {}
+  }
+
   function render(wrap, key) {
     var mine = localVotes()[key];
     var shared = wrap._shared || {};
@@ -935,6 +948,7 @@
       w._reply = null;
       var rt = w.querySelector('.ss-crt'); if (rt) rt.hidden = true;
       (CMTS[key] = CMTS[key] || []).push(mine);
+      markMine(key);      // /saved/에서 내가 말 얹은 스토리를 되찾는 유일한 단서
       if (!mine.held) paintPill(key);
       renderC(key, w);
       track('comment');
