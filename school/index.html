@@ -134,6 +134,9 @@ background:#E55A00;color:#fff;padding:8px 18px;border-radius:6px;font-size:13px;
 .nav-more>summary::-webkit-details-marker{display:none}
 .nav>a:hover,.nav-more>summary:hover{color:#ccc}
 .nav>a.active,.nav-more.active>summary{color:#F07040;border-bottom-color:#F07040}
+/* 데스크톱/모바일 갈래. 이 두 규칙이 없어서 스쿨·광고 문의가 바와 더보기에
+   이중으로 렌더됐고, 가로 스크롤 위치에 따라 보이는 항목이 달라졌다. */
+.nav-mobile-only{display:none}
 .nav-more{position:relative;flex-shrink:0}
 .nav-more[open]>summary{color:#fff;background:#202020}
 .nav-menu{position:absolute;top:100%;right:0;z-index:1001;display:grid;min-width:190px;padding:8px;background:#1b1b1b;border:1px solid #333;border-radius:0 0 8px 8px;box-shadow:0 12px 26px rgba(0,0,0,.28)}
@@ -142,6 +145,8 @@ background:#E55A00;color:#fff;padding:8px 18px;border-radius:6px;font-size:13px;
 .nav-menu a.active{color:#F07040}
 .nav-menu a.biz{color:#777;border-top:1px solid #303030;margin-top:4px;padding-top:12px}
 @media(max-width:560px){
+.nav>a.nav-desktop-link{display:none}
+.nav-menu a.nav-mobile-only{display:block}
   .nav{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));width:100%}
   .nav>a,.nav-more>summary{justify-content:center;padding:11px 3px;font-size:12px;letter-spacing:-.2px}
   .nav-more{position:static;min-width:0}
