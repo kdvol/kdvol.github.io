@@ -174,14 +174,28 @@ def _deck_span(html: str):
     return None
 
 
-# 코드 → 유입 라벨. 원본 partners/index.html의 ACCESS_CODES 맵과 같은 뜻이다.
-SOURCE_LABELS = {
-    "soonsal2026": "direct",
-    "soonsalbiz26": "partner",
-}
+# 유입 라벨(direct/partner 등)은 코드와 함께 .partner-codes.json에 둔다.
+# 예전엔 이 파일에 코드→라벨 맵을 박아뒀는데, 그러면 리포가 공개라서
+# 코드가 그대로 유출된다 — 잠금을 만든 이유가 무색해진다.
+#
+#   "partners/foo/index.html": ["코드"]                        → 라벨 없음
+#   "partners/foo/index.html": [{"code": "코드", "label": "direct"}]  → 라벨 지정
 
 
-def lock_file(rel: str, codes) -> bool:
+def _split(entries):
+    """코드 목록을 (코드, 라벨) 두 리스트로 나눈다. 문자열·객체 둘 다 받는다."""
+    codes, labels = [], []
+    for e in entries:
+        if isinstance(e, dict):
+            codes.append(e["code"])
+            labels.append(e.get("label", ""))
+        else:
+            codes.append(e)
+            labels.append("")
+    return codes, labels
+
+
+def lock_file(rel: str, entries) -> bool:
     path = ROOT / rel
     if not path.exists():
         print(f"  ⚠️ 없음: {rel}")
@@ -199,8 +213,8 @@ def lock_file(rel: str, codes) -> bool:
         return False
     open_end, close_start = span
     inner = html[open_end:close_start]
+    codes, sources = _split(entries)
     payload = _encrypt(inner, codes)
-    sources = [SOURCE_LABELS.get(c, "") for c in codes]
 
     # 껍데기에서 본문을 들어내고, 평문 코드 검사를 암호화 해제로 바꾼다
     shell = html[:open_end] + html[close_start:]
@@ -220,10 +234,10 @@ def main():
     only = sys.argv[1] if len(sys.argv) > 1 else None
     print("🔐 lock_partners: 제안서 본문 암호화")
     n = 0
-    for rel, codes in load_targets().items():
+    for rel, entries in load_targets().items():
         if only and not rel.startswith(only.rstrip("/")):
             continue
-        n += lock_file(rel, codes)
+        n += lock_file(rel, entries)
     print(f"   {n}개 처리")
 
 
