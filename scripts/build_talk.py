@@ -221,9 +221,9 @@ function one(c, isRep) {
         '<button type="button" class="like' + (liked[c.id] ? ' on' : '') +
           '" data-i="' + c.id + '">' + (liked[c.id] ? '♥' : '♡') +
           '<span>' + (c.likes || '') + '</span></button>' +
-        (isRep ? '' : '<button type="button" class="repb" data-i="' + c.id +
-                      '" data-k="' + esc(c.nick) + '" data-s="' + esc(c.story) + '">' +
-                      '↩ <span>답글</span></button>') +
+        '<button type="button" class="repb" data-i="' + c.id +
+          '" data-k="' + esc(c.nick) + '" data-s="' + esc(c.story) + '">' +
+          '↩ <span>답글</span></button>' +
       '</div>' +
     '</div></div>';
 }

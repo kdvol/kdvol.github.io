@@ -55,6 +55,11 @@ function json(data, origin, status = 200, extra = {}) {
 }
 
 // ── 트래킹 상수 ──────────────────────────────────────────────
+// 9999는 테스트 전용 회차다. 그런 회차 페이지는 없지만 순살톡은 회차와
+// 무관하게 최근 글을 모아 보여줘서, 테스트 글이 그대로 공개 피드에 떴다.
+// 조회에서 걸러낸다 — 쓰기는 막지 않는다(테스트를 계속 할 수 있어야 한다).
+const TEST_ISSUE = '9999';
+
 const KIND = ['read', 'react', 'share', 'telegram', 'instagram', 'comment', 'school', 'talk'];
 const TOPIC_KIND = ['impression', 'view', 'dwell', 'share'];
 const SRC = ['direct', 'telegram', 'instagram', 'search', 'mail', 'other'];
@@ -239,7 +244,8 @@ export default {
           (comments[r.story] = comments[r.story] || []).push(
             { i: r.id, k: r.nick, b: r.body, t: r.ts,
               g: [r.tag, r.co].filter(Boolean).join(' · ') || undefined,
-              p: r.parent_id || undefined, l: r.likes || undefined,
+              p: r.parent_id || undefined, r: r.root_id || undefined,
+              l: r.likes || undefined,
               o: r.op ? 1 : undefined });
         }
         const out = url.pathname === '/comments'
@@ -414,7 +420,7 @@ export default {
           `with live as (
              select id, story, issue, nick, body, ts, tag, co, parent_id, op,
                     coalesce(root_id, id) as root_id
-             from comments where state = 1
+             from comments where state = 1 and issue <> ?2
            ),
            recent as (
              select root_id, max(ts) as last_ts from live group by root_id
@@ -425,7 +431,7 @@ export default {
                   (select count(*) from comment_likes k where k.cid = l.id) as likes
            from live l join recent r on r.root_id = l.root_id
            order by r.last_ts desc, l.root_id desc, l.id`
-        ).bind(lim).all();
+        ).bind(lim, TEST_ISSUE).all();
         return json({ items: results || [], off: commentsOff ? 1 : 0 }, origin, 200,
                      { 'Cache-Control': 'public, max-age=10' });
       }
