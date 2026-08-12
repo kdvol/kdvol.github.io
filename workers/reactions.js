@@ -226,7 +226,7 @@ export default {
         ).bind(issue + '-%')];
         if (!commentsOff) {
           q.push(env.DB.prepare(
-            `select c.id, c.story, c.nick, c.body, c.ts, c.tag, c.co, c.parent_id,
+            `select c.id, c.story, c.nick, c.body, c.ts, c.tag, c.co, c.parent_id, c.op,
                     coalesce(c.root_id, c.id) as root_id,
                     (select count(*) from comment_likes l where l.cid = c.id) as likes
              from comments c where c.issue = ?1 and c.state = 1
@@ -239,7 +239,8 @@ export default {
           (comments[r.story] = comments[r.story] || []).push(
             { i: r.id, k: r.nick, b: r.body, t: r.ts,
               g: [r.tag, r.co].filter(Boolean).join(' · ') || undefined,
-              p: r.parent_id || undefined, l: r.likes || undefined });
+              p: r.parent_id || undefined, l: r.likes || undefined,
+              o: r.op ? 1 : undefined });
         }
         const out = url.pathname === '/comments'
           ? { comments, off: commentsOff ? 1 : 0 }
@@ -264,7 +265,12 @@ export default {
         const storyIssue = issueOf(story);
         if (!storyIssue) return json({ error: 'bad issue' }, origin, 400);
         if (!VID_RE.test(vid)) return json({ error: 'bad vid' }, origin, 400);
-        if (!NICK_RE.test(nick) || NICK_BAN.test(nick)) return json({ error: 'bad nick' }, origin, 400);
+        // NICK_BAN은 '순살·운영자' 사칭을 막는 규칙이다. 키로 증명된 팀 본인은
+        // 그 이름을 써야 하므로 예외로 둔다 — 막으려던 대상이 아니다.
+        const opNick = adminOk(request, env);
+        if (!NICK_RE.test(nick) || (!opNick && NICK_BAN.test(nick))) {
+          return json({ error: 'bad nick' }, origin, 400);
+        }
         if (!body || body.length > BODY_MAX) return json({ error: 'bad body' }, origin, 400);
 
         const [blocked, recent, words] = await env.DB.batch([
@@ -306,6 +312,10 @@ export default {
           }
         }
 
+        // 순살 팀이 쓰는 글은 팀 글이라고 화면에 밝힌다. 독자인 척하지 않는다.
+        // 관리자 키가 맞을 때만 붙고, 키가 없으면 그냥 일반 코멘트다.
+        const isOp = adminOk(request, env) ? 1 : 0;
+
         const state = hold ? 0 : 1;
 
         // 업종 태그 — 화이트리스트에 없으면 조용히 버린다(에러로 막을 것까진 아니다)
@@ -319,10 +329,10 @@ export default {
 
         const ins = await env.DB.prepare(
           `insert into comments (story, issue, nick, body, vid, ts, state, hold, tag, co,
-                                 parent_id, root_id)
-           values (?1, ?2, ?3, ?4, ?5, unixepoch(), ?6, ?7, ?8, ?9, ?10, ?11)`
-        ).bind(story, storyIssue, nick, body, vid, state, hold, tag, co,
-               parentId, rootId).run();
+                                 parent_id, root_id, op)
+           values (?1, ?2, ?3, ?4, ?5, unixepoch(), ?6, ?7, ?8, ?9, ?10, ?11, ?12)`
+        ).bind(story, storyIssue, nick, body, vid, isOp ? 1 : state, hold, tag, co,
+               parentId, rootId, isOp).run();
 
         // 답글이 달렸다고 원글 작성자에게 남긴다. 공개된 글에만, 자기 자신 제외.
         if (parentId && parentVid && parentVid !== vid && state === 1) {
@@ -400,7 +410,7 @@ export default {
         // 답글만 새로 달려도 그 스레드가 위로 올라와야 대화가 이어져 보인다.
         const { results } = await env.DB.prepare(
           `with live as (
-             select id, story, issue, nick, body, ts, tag, co, parent_id,
+             select id, story, issue, nick, body, ts, tag, co, parent_id, op,
                     coalesce(root_id, id) as root_id
              from comments where state = 1
            ),

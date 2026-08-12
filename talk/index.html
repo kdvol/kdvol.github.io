@@ -27,6 +27,11 @@ overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .c.rep{padding-left:13px;border-left:2px solid #262626;margin-left:2px}
 .c .k{font-weight:700;color:#f0ede6;margin-right:5px}
 .c .g{font-size:.66rem;color:#8b8578;background:#1e1e1e;border-radius:4px;padding:1px 5px;margin-right:4px}
+/* 순살 팀 글은 팀 글이라고 밝힌다 — 독자 글과 섞이면 안 된다 */
+.c.op{background:#191512;border-left:2px solid #E55A00;padding-left:11px;
+margin-left:-2px;border-radius:0 8px 8px 0}
+.c .ob{font-size:.62rem;font-weight:700;color:#fff;background:#E55A00;border-radius:4px;
+padding:1px 6px;margin-right:5px;vertical-align:1px}
 .c .t{color:#5f5a52;font-size:.7rem;margin-left:5px}
 .act{display:inline-flex;gap:11px;margin-left:7px}
 .act button{background:none;border:none;padding:2px 0;font-size:.75rem;color:#7a756c;
@@ -171,8 +176,10 @@ function render(items) {
 
 function one(c, isRep) {
   var tag = [c.tag, c.co].filter(Boolean).join(' · ');
-  return '<div class="c' + (isRep ? ' rep' : '') + '" data-i="' + c.id + '">' +
+  return '<div class="c' + (isRep ? ' rep' : '') + (c.op ? ' op' : '') +
+    '" data-i="' + c.id + '">' +
     '<span class="k">' + esc(c.nick) + '</span>' +
+    (c.op ? '<span class="ob">순살 팀</span>' : '') +
     (tag ? '<span class="g">' + esc(tag) + '</span>' : '') +
     esc(c.body) +
     '<span class="act">' +

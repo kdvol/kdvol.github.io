@@ -37,6 +37,11 @@ jobs:
           SOONSAL_ADMIN_KEY: ${{ secrets.SOONSAL_ADMIN_KEY }}
         run: python3 scripts/moderate_comments.py
 
+      - name: 순살 팀 질문 하나 게시
+        env:
+          SOONSAL_ADMIN_KEY: ${{ secrets.SOONSAL_ADMIN_KEY }}
+        run: python3 scripts/post_prompts.py
+
       - name: 방문·반응 신호 갱신
         env:
           SOONSAL_ADMIN_KEY: ${{ secrets.SOONSAL_ADMIN_KEY }}

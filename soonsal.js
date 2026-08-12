@@ -142,6 +142,11 @@
     '.ss-sch button{margin-left:auto;background:none;border:none;color:#c4bfb2;font-size:12px;' +
     'cursor:pointer;font-family:inherit;padding:2px 4px}' +
     // 쓰는 자리 — 버튼이 아니라 '입력칸'처럼 보이게 한다
+    // 순살 팀이 쓴 글은 팀 글이라고 밝힌다 — 독자 글과 섞이면 안 된다
+    '.ss-cop{background:#fdf8f4;border-left:2px solid #F07040;padding-left:9px;' +
+    'margin-left:-2px;border-radius:0 6px 6px 0}' +
+    '.ss-cob{font-size:9px;font-weight:700;color:#fff;background:#E55A00;' +
+    'border-radius:4px;padding:1px 5px;margin-left:5px;vertical-align:1px}' +
     '.ss-cbar{display:flex;align-items:center;gap:9px;width:100%;margin:10px 0 2px;' +
     'padding:12px 14px;background:#fff;border:1px solid #e4e0d6;border-radius:12px;' +
     'font-family:inherit;font-size:13px;color:#6b6659;cursor:pointer;text-align:left;' +
@@ -656,8 +661,10 @@
 
   function ciHTML(c, liked, isReply) {
     var n = c.l || 0;
-    return '<div class="ss-ci' + (isReply ? ' ss-crep' : '') + '" data-i="' + (c.i || '') + '">' +
+    return '<div class="ss-ci' + (isReply ? ' ss-crep' : '') + (c.o ? ' ss-cop' : '') +
+      '" data-i="' + (c.i || '') + '">' +
       '<span class="ss-ck">' + esc(c.k) +
+      (c.o ? '<span class="ss-cob">순살 팀</span>' : '') +
       (c.g ? '<span class="ss-cg">' + esc(c.g) + '</span>' : '') + '</span>' +
       '<span class="ss-cb">' + esc(c.b) + (c.held ? '<span class="ss-chold">검토 중</span>' : '') +
       (c.held ? '' :
