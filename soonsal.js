@@ -235,6 +235,18 @@
   }
   function setPrevPath(p) { try { sessionStorage.setItem('ss_pv', p); } catch (e) {} }
 
+  // 타임아웃 없는 fetch는 모바일에서 그대로 매달린다. 화면이 '불러오는 중'에
+  // 갇히느니 끊고 없는 대로 그리는 편이 낫다.
+  function tfetch(url, opts, ms) {
+    opts = opts || {};
+    var ctl = typeof AbortController !== 'undefined' ? new AbortController() : null;
+    if (ctl) opts.signal = ctl.signal;
+    var timer = setTimeout(function () { if (ctl) ctl.abort(); }, ms || 10000);
+    return fetch(url, opts).then(function (r) {
+      clearTimeout(timer); return r;
+    }, function (e) { clearTimeout(timer); throw e; });
+  }
+
   function track(kind) {          // read / react / share / telegram / instagram / comment
     if (optedOut()) return;
     var v = vid();
@@ -662,10 +674,10 @@
     var id = parseInt(btn.getAttribute('data-i'), 10), v = vid();
     if (!API || !v || !id) return;
     btn.disabled = true;
-    fetch(API.replace(/[/]$/, '') + '/like', {
+    tfetch(API.replace(/[/]$/, '') + '/like', {
       method: 'POST', headers: { 'content-type': 'application/json' },
       body: JSON.stringify({ id: id, v: v }),
-    }).then(function (r) { return r.json(); }).then(function (res) {
+    }, 20000).then(function (r) { return r.json(); }).then(function (res) {
       btn.disabled = false;
       if (!res || !res.ok) return;
       var m = likedSet();
@@ -705,7 +717,7 @@
   function loadNotices() {
     var v = vid();
     if (!API || !v) return;
-    fetch(API.replace(/[/]$/, '') + '/notices?v=' + encodeURIComponent(v))
+    tfetch(API.replace(/[/]$/, '') + '/notices?v=' + encodeURIComponent(v), null, 8000)
       .then(function (r) { return r.json(); })
       .then(function (d) { if (d && d.n) showNotice(d); })
       .catch(function () {});
@@ -764,13 +776,13 @@
     var v = vid();
     if (!API || !v) { toast('잠시 후 다시 시도해주세요'); go.disabled = false; return; }
 
-    fetch(API.replace(/[/]$/, '') + '/comment', {
+    tfetch(API.replace(/[/]$/, '') + '/comment', {
       method: 'POST',
       headers: { 'content-type': 'application/json' },
       body: JSON.stringify({ story: key, v: v, nick: nick, body: body, tag: tag, co: co,
                              parent: w._reply || 0,
                              hp: w.querySelector('.ss-hp').value }),
-    }).then(function (r) { return r.json(); }).then(function (res) {
+    }, 20000).then(function (r) { return r.json(); }).then(function (res) {
       if (res && res.error) {
         toast(res.error === 'too fast' ? '조금 뒤에 다시 남겨주세요'
             : res.error === 'too many' ? '오늘은 여기까지만'
@@ -791,7 +803,14 @@
       renderC(key, w);
       track('comment');
       toast(mine.held ? '확인 후 보여드릴게요 🐟' : '남겼음 🐟');
-    }).catch(function () { toast('남기지 못했습니다'); go.disabled = false; });
+    }).catch(function (e) {
+      // 중간에 끊긴 것과 거절당한 것은 다르다. 끊긴 거라면 서버엔 들어갔을 수
+      // 있으니 '실패'라고 단정하면 다시 쓰게 되고 그게 도배가 된다.
+      var aborted = e && (e.name === 'AbortError' || String(e).indexOf('abort') >= 0);
+      toast(aborted ? '전송이 지연되고 있어요. 새로고침해 확인해 주세요'
+                    : '남기지 못했습니다');
+      go.disabled = false;
+    });
   }
 
   function mountComment(body, key, wrap) {
@@ -855,7 +874,7 @@
     if (!API) return;
     var issue = issueKey();
     if (!issue) return;
-    fetch(API.replace(/[/]$/, '') + '/page?issue=' + encodeURIComponent(issue))
+    tfetch(API.replace(/[/]$/, '') + '/page?issue=' + encodeURIComponent(issue), null, 10000)
       .then(function (r) { return r.json(); })
       .then(function (d) {
         var counts = (d && d.counts) || {};
@@ -905,7 +924,7 @@
 
   function refresh(key, wrap) {
     if (API) {
-      fetch(API.replace(/\/$/, '') + '/counts?story=' + encodeURIComponent(key))
+      tfetch(API.replace(/\/$/, '') + '/counts?story=' + encodeURIComponent(key), null, 8000)
         .then(function (r) { return r.json(); })
         .then(function (o) { wrap._shared = o || {}; render(wrap, key); })
         .catch(function () {});

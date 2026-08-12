@@ -534,7 +534,13 @@ document.getElementById('tabs').addEventListener('click', function (e) {
     : renderReactions();
 });
 
-function fail() { app.innerHTML = '<div class="empty">집계를 불러오지 못했습니다.</div>'; }
+function fail() {
+  app.innerHTML = '<div class="card"><b style="color:#F07040">불러오지 못했습니다</b>' +
+    '<p class="note">연결이 끊겼거나 응답이 너무 느립니다.</p>' +
+    '<div class="tabs" style="margin-top:12px"><button id="rt">다시 시도</button></div></div>';
+  var b = document.getElementById('rt');
+  if (b) b.addEventListener('click', function () { location.reload(); });
+}
 
 if (!API) {
   setup();
@@ -542,12 +548,22 @@ if (!API) {
   gate();                       // 키가 없으면 아무 수치도 부르지 않는다
 } else {
   var base = API.replace(/[/]$/, '');
+  // 타임아웃이 없으면 모바일에서 요청이 멈췄을 때 '불러오는 중…'이 영원히 남는다.
+  // 실제로 폰에서 그렇게 됐다. 12초면 끊고 다시 시도할 수 있게 한다.
   var get = function (p) {
-    return fetch(base + p, { headers: { 'x-admin-key': ADMIN } })
-      .then(function (r) {
-        if (r.status === 401) throw new Error('unauthorized');
-        return r.json();
-      });
+    var ctl = typeof AbortController !== 'undefined' ? new AbortController() : null;
+    var timer = setTimeout(function () { if (ctl) ctl.abort(); }, 12000);
+    return fetch(base + p, {
+      headers: { 'x-admin-key': ADMIN },
+      signal: ctl ? ctl.signal : undefined,
+    }).then(function (r) {
+      clearTimeout(timer);
+      if (r.status === 401) throw new Error('unauthorized');
+      return r.json();
+    }, function (e) {
+      clearTimeout(timer);
+      throw e;
+    });
   };
   Promise.all([get('/counts'), get('/activity'), get('/insights?days=30')])
     .then(function (res) {

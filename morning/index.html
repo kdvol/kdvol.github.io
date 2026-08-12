@@ -6,15 +6,44 @@
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:'Apple SD Gothic Neo','Malgun Gothic',Arial,sans-serif}
 .site-header{padding:26px 20px 18px;border-bottom:1px solid #222;display:flex;justify-content:center;position:relative;background:#111}
 .logo-link{display:flex;align-items:center;gap:10px;text-decoration:none;color:#fff}.logo-link img{height:26px;width:auto}.logo-text{font-size:22px;font-weight:800;letter-spacing:-.5px}
-.nav{display:flex;overflow-x:auto;background:#151515;border-bottom:1px solid #222;justify-content:safe center}
-.nav a{color:#777;padding:12px 17px;white-space:nowrap;text-decoration:none;font-size:13px;font-weight:700;border-bottom:2px solid transparent}
-.nav a.active{color:var(--orange);border-bottom-color:var(--orange)}.nav a.biz{color:#4d4d4d}main{max-width:680px;margin:32px auto;background:#fff;padding:42px 36px 68px;border-radius:4px;box-shadow:0 2px 12px rgba(0,0,0,.07)}
+
+    .nav{position:relative;display:flex;justify-content:center;align-items:stretch;overflow:visible;border-bottom:1px solid #222;background:#151515;z-index:100}
+    .nav>a,.nav-more>summary{display:flex;align-items:center;padding:12px 18px;font-size:13px;font-weight:700;color:#777;white-space:nowrap;text-decoration:none;border:0;border-bottom:2px solid transparent;cursor:pointer;list-style:none;transition:color .2s,border-color .2s,background .2s}
+    .nav-more>summary::-webkit-details-marker{display:none}.nav>a:hover,.nav-more>summary:hover{color:#ccc}.nav>a.active,.nav-more.active>summary{color:#F07040;border-bottom-color:#F07040}
+    .nav-more{position:relative;flex-shrink:0}.nav-more[open]>summary{color:#fff;background:#202020}
+    .nav-menu{position:absolute;top:100%;right:0;z-index:1001;display:grid;min-width:190px;padding:8px;background:#1b1b1b;border:1px solid #333;border-radius:0 0 8px 8px;box-shadow:0 12px 26px rgba(0,0,0,.28)}
+    .nav-menu a{display:block;padding:10px 12px;border-radius:5px;color:#aaa;text-decoration:none;font-size:13px;font-weight:700;white-space:nowrap}.nav-menu a:hover,.nav-menu a.active{color:#fff;background:#282828}.nav-menu a.active{color:#F07040}.nav-menu a.biz{color:#777;border-top:1px solid #303030;margin-top:4px;padding-top:12px}
+    @media(max-width:560px){.nav{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));width:100%}.nav>a,.nav-more>summary{justify-content:center;padding:11px 3px;font-size:12px;letter-spacing:-.2px}.nav-more{position:static;min-width:0}.nav-menu{left:10px;right:10px;top:100%;grid-template-columns:repeat(2,minmax(0,1fr));min-width:0;padding:8px}.nav-menu a{text-align:center;padding:11px 6px}.nav-menu a.biz{border-top:0;margin-top:0;padding-top:11px}}
+
+main{max-width:680px;margin:32px auto;background:#fff;padding:42px 36px 68px;border-radius:4px;box-shadow:0 2px 12px rgba(0,0,0,.07)}
 h1{font-size:36px;line-height:1.1;margin:0 0 14px;letter-spacing:-1px}.deck{color:var(--muted);font-size:15px;line-height:1.7;margin-bottom:42px}
 article{display:grid;grid-template-columns:130px 1fr auto;gap:18px;align-items:baseline;padding:26px 0;border-top:1px solid var(--line)}
 time,span{color:var(--muted);font-size:13px}article a{color:var(--ink);font-size:19px;font-weight:800;text-decoration:none}article a:hover{color:var(--orange)}
 @media(max-width:720px){main{margin:0;padding:34px 22px 60px;border-radius:0;box-shadow:none}article{grid-template-columns:1fr;gap:7px}article span{display:none}}
-</style></head><body>
+</style><style id="soonsal-nav-v2">
+.nav{position:relative;display:flex;justify-content:center;align-items:stretch;overflow:visible;border-bottom:1px solid #222;background:#151515;z-index:100}
+.nav>a,.nav-more>summary{display:flex;align-items:center;padding:12px 18px;font-size:13px;font-weight:700;color:#777;white-space:nowrap;text-decoration:none;border:0;border-bottom:2px solid transparent;cursor:pointer;list-style:none;transition:color .2s,border-color .2s,background .2s}
+.nav-more>summary::-webkit-details-marker{display:none}
+.nav>a:hover,.nav-more>summary:hover{color:#ccc}
+.nav>a.active,.nav-more.active>summary{color:#F07040;border-bottom-color:#F07040}
+.nav-more{position:relative;flex-shrink:0}
+.nav-more[open]>summary{color:#fff;background:#202020}
+.nav-menu{position:absolute;top:100%;right:0;z-index:1001;display:grid;min-width:190px;padding:8px;background:#1b1b1b;border:1px solid #333;border-radius:0 0 8px 8px;box-shadow:0 12px 26px rgba(0,0,0,.28)}
+.nav-menu a{display:block;padding:10px 12px;border-radius:5px;color:#aaa;text-decoration:none;font-size:13px;font-weight:700;white-space:nowrap}
+.nav-menu a:hover,.nav-menu a.active{color:#fff;background:#282828}
+.nav-menu a.active{color:#F07040}
+.nav-menu a.biz{color:#777;border-top:1px solid #303030;margin-top:4px;padding-top:12px}
+@media(max-width:560px){
+  .nav{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));width:100%}
+  .nav>a,.nav-more>summary{justify-content:center;padding:11px 3px;font-size:12px;letter-spacing:-.2px}
+  .nav-more{position:static;min-width:0}
+  .nav-menu{left:10px;right:10px;top:100%;grid-template-columns:repeat(2,minmax(0,1fr));min-width:0;padding:8px}
+  .nav-menu a{text-align:center;padding:11px 6px}
+  .nav-menu a.biz{border-top:0;margin-top:0;padding-top:11px}
+}
+</style>
+</head><body>
 <header class="site-header"><a class="logo-link" href="/"><img src="/favicon.svg" alt="" onerror="this.style.display='none'"><span class="logo-text">순살브리핑 Soonsal</span></a></header>
-<div class="nav"><a href="/">홈</a><a href="/newsletters/">브리핑</a><a href="/morning/" class="active">아침 메모</a><a href="/topics/">주제별</a><a href="/cardnews/">카드뉴스</a><a href="/youtube/">YouTube</a><a href="/school/">스쿨</a><a href="/advertise/" class="biz">광고 문의</a></div>
+<nav class="nav" aria-label="주요 메뉴"><a href="/newsletters/">브리핑</a><a href="/morning/" class="active">아침 메모</a><a href="/topics/">주제별</a><details class="nav-more"><summary>더보기 <span aria-hidden="true">⌄</span></summary><section class="nav-menu" aria-label="추가 메뉴"><a href="/cardnews/">카드뉴스</a><a href="/youtube/">YouTube</a><a href="/school/">스쿨</a><a href="/advertise/" class="biz">광고 문의</a></section></details></nav>
 <main><h1>아침 시장 메모</h1><p class="deck">오늘 시장에서 돈과 리스크가 움직이는 경로만 짧게 정리함.</p><article><time datetime="2026-08-12">2026-08-12</time><a href="2026/0812.html">돈이 움직이는 구조</a><span>9개 논점</span></article></main>
 <script src="/ss-config.js"></script><script src="/soonsal.js" defer></script></body></html>

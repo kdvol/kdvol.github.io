@@ -223,8 +223,11 @@ function submit(rf, ta, go) {
 var typing = false;
 function load() {
   if (!API) { app.innerHTML = '<div class="empty">집계 저장소가 연결되지 않았습니다.</div>'; return; }
-  fetch(API.replace(/[/]$/, '') + '/recent?n=60')
-    .then(function (r) { return r.json(); })
+  // 모바일에서 요청이 멈추면 화면이 '불러오는 중…'에 갇힌다 — 12초에 끊는다
+  var ctl = typeof AbortController !== 'undefined' ? new AbortController() : null;
+  var timer = setTimeout(function () { if (ctl) ctl.abort(); }, 12000);
+  fetch(API.replace(/[/]$/, '') + '/recent?n=60', { signal: ctl ? ctl.signal : undefined })
+    .then(function (r) { clearTimeout(timer); return r.json(); })
     .then(function (d) {
       if (d && d.off) {
         app.innerHTML = '<div class="empty"><b>코멘트를 잠시 닫았어요</b>곧 다시 열립니다.</div>';
@@ -233,7 +236,10 @@ function load() {
       render((d && d.items) || []);
     })
     .catch(function () {
-      if (first) app.innerHTML = '<div class="empty">불러오지 못했어요.</div>';
+      clearTimeout(timer);
+      // 이미 뭔가 보여주고 있으면 건드리지 않는다 — 갱신 실패로 화면을 비우면 손해다
+      if (first) app.innerHTML = '<div class="empty"><b>불러오지 못했어요</b>' +
+        '연결을 확인하고 새로고침해 주세요.</div>';
     });
 }
 
