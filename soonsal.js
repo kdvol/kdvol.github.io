@@ -435,7 +435,8 @@
       trackTopic('share', current);
       openShare(current);
     });
-    document.body.appendChild(sb);
+    // 순살톡은 하단에 고정 바가 있어 공유 버튼과 겹친다. 그 페이지에선 띄우지 않는다.
+    if (location.pathname.indexOf('/talk/') !== 0) document.body.appendChild(sb);
 
     // 딥링크(#story-N / #topic-slug)로 들어오면 해당 블록으로 확실히 스크롤
     if (location.hash) {
