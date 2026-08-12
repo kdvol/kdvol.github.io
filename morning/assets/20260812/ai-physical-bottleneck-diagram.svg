@@ -5,7 +5,7 @@
 <g class="motion-step motion-edge" data-motion-step="1" style="--motion-delay:415ms">
 <path d="M 309.0 188.0 C 309.0 232.3, 540.0 232.3, 540.0 268.7" fill="none" stroke="#F07040" stroke-width="4" stroke-dasharray="12 10" marker-end="url(#arrow)"/>
 <rect x="352.5" y="202.3" width="144" height="36" rx="18" fill="#FAFAF7"/>
-<text x="424.5" y="229.3" text-anchor="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="18" fill="#8B4B2C">금융화</text>
+<text x="424.5" y="229.3" text-anchor="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="18" fill="#8B4B2C">투자금 투입</text>
 </g>
 <g class="motion-step motion-edge" data-motion-step="1" style="--motion-delay:415ms">
 <path d="M 771.0 188.0 C 771.0 232.3, 540.0 232.3, 540.0 268.7" fill="none" stroke="#F07040" stroke-width="4" marker-end="url(#arrow)"/>
@@ -37,11 +37,11 @@
 </g>
 <g class="motion-step motion-node" data-motion-step="4" style="--motion-delay:1660ms;--motion-accent-delay:2320ms">
 <rect class="motion-node-shape" x="160.0" y="483.3" width="760.0" height="118" rx="22" fill="#FFFFFF" stroke="#E0DDD5" stroke-width="3" filter="url(#shadow)"/>
-<text x="540.0" y="542.3" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="700" fill="#222222">하이퍼스케일러 최종 ROI</text>
+<text x="540.0" y="542.3" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="700" fill="#222222">빅테크 AI 사업 수익성</text>
 </g>
 <g class="motion-step motion-node motion-risk" data-motion-step="6" style="--motion-delay:2490ms;--motion-accent-delay:3150ms">
 <rect class="motion-node-shape" x="160.0" y="690.0" width="760.0" height="118" rx="22" fill="#FFF4EF" stroke="#F07040" stroke-width="3" filter="url(#shadow)"/>
-<text x="540.0" y="749.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="700" fill="#222222">칩메이커 고마진 지속성</text>
+<text x="540.0" y="749.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="700" fill="#222222">칩 업체 고마진 지속성</text>
 </g>
 <line x1="72" y1="812" x2="1008" y2="812" stroke="#E8E8E0" stroke-width="2"/>
 <text x="72" y="842" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="17" fill="#888888">실선 = 확인된 연결 · 점선 = 해석/영향 경로</text>

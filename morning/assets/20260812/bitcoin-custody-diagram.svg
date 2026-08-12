@@ -28,7 +28,7 @@
 </g>
 <g class="motion-step motion-node" data-motion-step="2" style="--motion-delay:830ms;--motion-accent-delay:1490ms">
 <rect class="motion-node-shape" x="160.0" y="225.0" width="760.0" height="118" rx="22" fill="#FFFFFF" stroke="#E0DDD5" stroke-width="3" filter="url(#shadow)"/>
-<text x="540.0" y="284.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="700" fill="#222222">자가수탁 위험 재평가</text>
+<text x="540.0" y="284.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="700" fill="#222222">직접 보관 위험 재평가</text>
 </g>
 <g class="motion-step motion-node" data-motion-step="4" style="--motion-delay:1660ms;--motion-accent-delay:2320ms">
 <rect class="motion-node-shape" x="160.0" y="380.0" width="760.0" height="118" rx="22" fill="#FFFFFF" stroke="#E0DDD5" stroke-width="3" filter="url(#shadow)"/>
@@ -36,11 +36,11 @@
 </g>
 <g class="motion-step motion-node" data-motion-step="6" style="--motion-delay:2490ms;--motion-accent-delay:3150ms">
 <rect class="motion-node-shape" x="160.0" y="535.0" width="760.0" height="118" rx="22" fill="#FFFFFF" stroke="#E0DDD5" stroke-width="3" filter="url(#shadow)"/>
-<text x="540.0" y="594.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="700" fill="#222222">규제된 보관·유통 래퍼</text>
+<text x="540.0" y="594.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="700" fill="#222222">제도권 상품인 비트코인 ETF</text>
 </g>
 <g class="motion-step motion-node" data-motion-step="8" style="--motion-delay:3320ms;--motion-accent-delay:3980ms">
 <rect class="motion-node-shape" x="160.0" y="690.0" width="760.0" height="118" rx="22" fill="#FFFFFF" stroke="#E0DDD5" stroke-width="3" filter="url(#shadow)"/>
-<text x="540.0" y="749.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="700" fill="#222222">주식·RWA 토큰화 실험</text>
+<text x="540.0" y="749.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="700" fill="#222222">주식·실물자산 토큰화 실험</text>
 </g>
 <line x1="72" y1="812" x2="1008" y2="812" stroke="#E8E8E0" stroke-width="2"/>
 <text x="72" y="842" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="17" fill="#888888">실선 = 확인된 연결 · 점선 = 해석/영향 경로</text>

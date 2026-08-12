@@ -23,7 +23,7 @@
 </g>
 <g class="motion-step motion-node" data-motion-step="0" style="--motion-delay:0ms;--motion-accent-delay:660ms">
 <rect class="motion-node-shape" x="400.7" y="70.0" width="278.7" height="118" rx="22" fill="#FFFFFF" stroke="#E0DDD5" stroke-width="3" filter="url(#shadow)"/>
-<text x="540.0" y="129.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="700" fill="#222222">AI 최종 고객 ROI 지연</text>
+<text x="540.0" y="129.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="700" fill="#222222">AI 최종 고객 수익화 지연</text>
 </g>
 <g class="motion-step motion-node" data-motion-step="0" style="--motion-delay:0ms;--motion-accent-delay:660ms">
 <rect class="motion-node-shape" x="711.3" y="70.0" width="278.7" height="118" rx="22" fill="#FFFFFF" stroke="#E0DDD5" stroke-width="3" filter="url(#shadow)"/>
@@ -35,7 +35,7 @@
 </g>
 <g class="motion-step motion-node motion-risk" data-motion-step="2" style="--motion-delay:830ms;--motion-accent-delay:1490ms">
 <rect class="motion-node-shape" x="400.7" y="690.0" width="278.7" height="118" rx="22" fill="#FFF4EF" stroke="#F07040" stroke-width="3" filter="url(#shadow)"/>
-<text x="540.0" y="749.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="700" fill="#222222">업스트림 밸류에이션 부담</text>
+<text x="540.0" y="749.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="700" fill="#222222">AI 칩 업체 주가 부담</text>
 </g>
 <g class="motion-step motion-node motion-risk" data-motion-step="2" style="--motion-delay:830ms;--motion-accent-delay:1490ms">
 <rect class="motion-node-shape" x="711.3" y="690.0" width="278.7" height="118" rx="22" fill="#FFF4EF" stroke="#F07040" stroke-width="3" filter="url(#shadow)"/>

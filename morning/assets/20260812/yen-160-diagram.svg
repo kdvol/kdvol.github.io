@@ -15,12 +15,12 @@
 <g class="motion-step motion-edge" data-motion-step="5" style="--motion-delay:2075ms">
 <path d="M 540.0 498.0 C 540.0 516.5, 540.0 516.5, 540.0 527.0" fill="none" stroke="#F07040" stroke-width="4" stroke-dasharray="12 10" marker-end="url(#arrow)"/>
 <rect x="468.0" y="486.5" width="144" height="36" rx="18" fill="#FAFAF7"/>
-<text x="540.0" y="513.5" text-anchor="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="18" fill="#8B4B2C">동조 경로</text>
+<text x="540.0" y="513.5" text-anchor="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="18" fill="#8B4B2C">함께 약세</text>
 </g>
 <g class="motion-step motion-edge" data-motion-step="7" style="--motion-delay:2905ms">
 <path d="M 540.0 653.0 C 540.0 671.5, 540.0 671.5, 540.0 682.0" fill="none" stroke="#F07040" stroke-width="4" stroke-dasharray="12 10" marker-end="url(#arrow)"/>
 <rect x="468.0" y="641.5" width="144" height="36" rx="18" fill="#FAFAF7"/>
-<text x="540.0" y="668.5" text-anchor="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="18" fill="#8B4B2C">영향 경로</text>
+<text x="540.0" y="668.5" text-anchor="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="18" fill="#8B4B2C">원화로 번짐</text>
 </g>
 <g class="motion-step motion-node" data-motion-step="0" style="--motion-delay:0ms;--motion-accent-delay:660ms">
 <rect class="motion-node-shape" x="160.0" y="70.0" width="760.0" height="118" rx="22" fill="#FFFFFF" stroke="#E0DDD5" stroke-width="3" filter="url(#shadow)"/>
