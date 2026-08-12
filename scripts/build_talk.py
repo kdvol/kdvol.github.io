@@ -41,11 +41,21 @@ animation:bp 2.4s ease-in-out infinite}
    모바일에서 카드마다 테두리가 있으면 화면이 조각조각 나 보인다. */
 .th{border-top:1px solid #1c1c1c;padding:15px 16px 7px;transition:background .5s}
 .th.new{background:#17130f}
-.src{display:flex;gap:7px;align-items:baseline;margin-bottom:11px;font-size:.72rem}
-.src a{color:#7a756c;text-decoration:none;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.src a:before{content:"↩ ";color:#4a453d}
-.src a:hover{color:#E55A00}
-.src .dt{margin-left:auto;flex:0 0 auto;color:#4a453d}
+/* 원글이 무슨 이야기였는지가 스레드 머리에 있어야 댓글이 대화로 읽힌다.
+   한 줄짜리 회색 링크로는 아무도 안 누르고, 문맥도 안 준다.
+   다만 카드가 너무 세면 대화가 아니라 기사 목록처럼 보인다 — 배경을 한 톤만
+   올리고 왼쪽에 선을 둬서 '인용된 원글'로 읽히게 한다. */
+.src{display:block;text-decoration:none;background:#141414;border:1px solid #1f1f1f;
+border-left:2px solid #E55A00;border-radius:8px;padding:10px 13px;margin-bottom:10px}
+.src:hover{background:#181818;border-color:#2a2a2a;border-left-color:#F07040}
+.src .lb{display:block;font-size:.62rem;font-weight:800;letter-spacing:.07em;
+color:#8a6f5c;margin-bottom:4px}
+.src .ti{display:block;font-size:.88rem;font-weight:700;letter-spacing:-.02em;
+color:#d8d3ca;line-height:1.4}
+.src:hover .ti{color:#fff}
+.src .mt{display:block;font-size:.68rem;color:#5a554d;margin-top:5px}
+.src:hover .mt{color:#E55A00}
+
 
 /* 코멘트 한 줄 — 아바타 + 본문. 인스타·링크드인 공통 문법이다. */
 .c{display:flex;gap:10px;padding:5px 0}
@@ -164,8 +174,19 @@ function label(story) {
   return m ? m.t : story;
 }
 function href(story) {
+  var m = SMAP[story], x = /^(\d{4})(c?)-(\d+)$/.exec(story);
+  if (!m || !x) return '#';
+  return '/newsletters/' + m.y + '/' + x[1] + (x[2] ? '-crypto' : '') +
+         '.html#story-' + x[3];
+}
+// 0812-3 → 08.12. 날짜를 따로 심지 않는다.
+function sdate(story) {
+  var x = /^(\d{2})(\d{2})c?-/.exec(story);
+  return x ? x[1] + '.' + x[2] : '';
+}
+function slabel(story) {
   var m = SMAP[story];
-  return m ? m.u : '#';
+  return m && m.l ? m.l : '';
 }
 
 function render(items) {
@@ -187,8 +208,12 @@ function render(items) {
     var list = roots[rid], head = list[0];
     var isNew = !first && !seen[head.id];
     return '<div class="th' + (isNew ? ' new' : '') + '" data-r="' + rid + '">' +
-      '<div class="src"><a href="' + href(head.story) + '">' + esc(label(head.story)) + '</a>' +
-      '<span class="dt">' + ago(head.ts) + '</span></div>' +
+      '<a class="src" href="' + href(head.story) + '">' +
+        (slabel(head.story) ? '<span class="lb">' + esc(slabel(head.story)) + '</span>' : '') +
+        '<span class="ti">' + esc(label(head.story)) + '</span>' +
+        '<span class="mt">' + sdate(head.story) + ' 브리핑 · 원문 보기 →</span>' +
+      '</a>' +
+
       list.map(function (c) { return one(c, c.parent_id); }).join('') +
       '<div class="rf" data-r="' + rid + '">' +
         '<div class="bx">' +
@@ -358,8 +383,12 @@ def build(atoms=None):
     OUT.mkdir(exist_ok=True)
 
     recent = sorted(atoms, key=lambda a: a.get("date", ""), reverse=True)[:600]
+    # 주소는 id에서 되살릴 수 있다(0716c-4 → /newsletters/2026/0716-crypto.html#story-4).
+    # 600건 × 38자를 심을 이유가 없다. 그 자리를 섹션 라벨에 쓴다 — 카드에서
+    # '무슨 이야기인지'를 먼저 알려주는 건 제목보다 라벨이다.
     smap = {a["id"]: {"t": re.sub(r"^[^\w<>&\"']{1,4}\s+", "", a["title"]).strip()[:44],
-                      "u": a["url"]} for a in recent}
+                      "l": (a.get("label") or "")[:26],
+                      "y": a.get("date", "")[:4]} for a in recent}
 
     try:
         import build_nav
