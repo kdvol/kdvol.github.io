@@ -35,36 +35,33 @@ CSS = """
 body{background:#111;color:#e8e3da;font-family:'Pretendard',-apple-system,BlinkMacSystemFont,
 'Segoe UI',sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased}
 .wrap{max-width:720px;margin:0 auto;padding:0 18px 70px}
-.lede{padding:34px 0 26px;border-bottom:1px solid #1e1e1e}
-h1{font-size:1.72rem;font-weight:800;letter-spacing:-.035em;line-height:1.32;color:#fff}
-.lede p{color:#8f8a80;font-size:.95rem;margin-top:11px;line-height:1.75}
-.lede .cta{display:inline-block;margin-top:18px;background:#E55A00;color:#fff;
-padding:11px 22px;border-radius:8px;font-size:.9rem;font-weight:700;text-decoration:none}
-.lede .cta:hover{background:#CC4E00}
-.lede .sub{display:block;margin-top:10px;color:#5f5b53;font-size:.78rem}
-h2{font-size:.72rem;font-weight:800;letter-spacing:.1em;color:#E55A00;
+h1,h2{font-size:.72rem;font-weight:800;letter-spacing:.1em;color:#E55A00;
 margin:34px 0 14px;text-transform:uppercase}
-.issue{color:#6f6a60;font-size:.78rem;font-weight:600;margin-left:8px;letter-spacing:0}
-/* 첫 화면에 그림 하나. 글만 있으면 읽기 전에 떠난다. */
-.chart{display:block;margin:22px 0 4px;text-decoration:none;border:1px solid #232323;
+h1{margin-top:26px}
+/* 뉴스레터 CSS가 뒤에 실려 margin이 덮인다 — padding으로 못박는다 */
+.issue{color:#6f6a60;font-size:.78rem;font-weight:600;padding-left:9px;
+letter-spacing:0;text-transform:none}
+/* 들어오자마자 전체를 펴 놓으면 39화면이 된다. 한 화면 반쯤 보여주고
+   나머지는 접는다 — 서식은 그대로 살아 있고 글도 DOM에 다 있다(검색용). */
+.nlwrap{position:relative;max-height:min(72vh,700px);overflow:hidden;
+border:1px solid #232323;border-radius:12px}
+.nlwrap.open{max-height:none}
+.nlwrap .fade{position:absolute;left:0;right:0;bottom:0;height:150px;pointer-events:none;
+background:linear-gradient(180deg,rgba(255,255,255,0),#fff)}
+.nlwrap.open .fade{display:none}
+.expand{display:block;width:100%;margin-top:10px;padding:12px;background:#1a1a1a;
+border:1px solid #2c2c2c;border-radius:9px;color:#e8e3da;font-family:inherit;
+font-size:.88rem;font-weight:700;cursor:pointer}
+.expand:hover{background:#222;border-color:#3a3a3a}
+/* 첫 화면 아래에 그림 하나. 순살이 매일 실제로 만드는 차트를 쓴다. */
+.chart{display:block;margin:26px 0 4px;text-decoration:none;border:1px solid #232323;
 border-radius:12px;overflow:hidden;background:#151515}
-.chart img{display:block;width:100%;height:auto}
+.chart img{display:block;width:100%;height:auto;max-width:100%}
 .chart .cap{display:block;padding:12px 15px;border-top:1px solid #1e1e1e;
 color:#8f8a80;font-size:.84rem}
 .chart .cap b{color:#F07040;font-weight:700;margin-right:6px}
 .chart:hover{border-color:#3a3a3a}
 .chart:hover .cap{color:#b8b2a8}
-.st{padding:20px 0;border-bottom:1px solid #1c1c1c}
-.st:first-of-type{border-top:1px solid #1c1c1c}
-.st .lb{font-size:.63rem;font-weight:800;letter-spacing:.07em;color:#8a6f5c}
-.st h3{font-size:1.12rem;font-weight:800;letter-spacing:-.03em;line-height:1.38;margin-top:5px}
-.st h3 a{color:#e8e3da;text-decoration:none}
-.st h3 a:hover{color:#fff}
-.st ul{list-style:none;margin-top:10px}
-.st li{position:relative;padding-left:15px;color:#9a948a;font-size:.88rem;
-line-height:1.72;margin-top:8px}
-.st li:before{content:"";position:absolute;left:0;top:.62em;width:5px;height:5px;
-border-radius:1px;background:#4a453d}
 .more{display:inline-block;margin-top:16px;color:#F07040;font-size:.86rem;
 font-weight:700;text-decoration:none}
 .more:hover{text-decoration:underline}
@@ -106,7 +103,6 @@ def _clean(title: str) -> str:
 
 
 CHANNELS = [
-    ("/morning/", "순살차트", "무빙 차트로 한눈에 순살만 쏙쏙"),
     ("/talk/", "순살톡", "브리핑 읽고 남긴 한 줄이 모이는 곳"),
     ("/cardnews/", "카드뉴스", "인스타에서 한 장씩 넘겨 보기"),
     ("/school/", "순살스쿨", "현직자가 여는 IBD·IPO·M&A 클래스"),
@@ -135,6 +131,38 @@ def _chart():
     return None
 
 
+def _issue_body(page: Path):
+    """뉴스레터에서 style과 .content 마크업만 떼어 온다.
+
+    style은 body 규칙 하나만 일반 태그를 건드린다(나머지는 전부 클래스라
+    홈 CSS와 안 부딪힌다). 그 한 줄만 .nl로 바꿔 담는다.
+    """
+    if not page.exists():
+        return None
+    t = page.read_text(encoding="utf-8")
+
+    m = re.search(r"<style[^>]*>(.*?)</style>", t, re.S)
+    css = m.group(1) if m else ""
+    css = re.sub(r"(?m)^\s*body\s*\{", ".nl{", css)
+
+    i = t.find('<div class="content">')
+    if i < 0:
+        return None
+    depth, pos = 1, i + len('<div class="content">')
+    end = None
+    for x in re.finditer(r"</?div\b", t[pos:]):
+        depth += -1 if x.group(0).startswith("</") else 1
+        if depth == 0:
+            end = pos + x.end()
+            break
+    if end is None:
+        return None
+    body = t[i:end]
+    # 본문 안에 base64가 남아 있으면 홈이 무거워진다 — 실제로는 헤더에만 있다
+    body = re.sub(r'src="data:image/[^"]+"', 'src=""', body)
+    return css, body
+
+
 def build(atoms=None):
     import build_nav
 
@@ -150,24 +178,11 @@ def build(atoms=None):
                    key=lambda a: a.get("n", 0))
     dt = f"{latest_date[5:7]}.{latest_date[8:10]}"
 
-    # 제목만 늘어놓으면 '무슨 얘긴지' 알 수 없다. 불렛까지 그대로 실어
-    # 오늘 뉴스레터의 흐름이 홈에서 통째로 읽히게 한다. 이게 홈이 자기
-    # 본문을 갖는다는 뜻이기도 하다(iframe이면 남의 글이 된다).
-    def _bullets(body):
-        out = []
-        for b in (body or "").split("◾"):
-            b = re.sub(r"\s+", " ", re.sub(r"<[^>]+>", "", b)).strip()
-            if b:
-                out.append(f'<li>{escape(b)}</li>')
-        return "".join(out)
-
-    stories = "".join(
-        f'<article class="st" id="s{a.get("n", 0)}">'
-        f'<span class="lb">{escape((a.get("label") or "")[:30])}</span>'
-        f'<h3><a href="{a["url"]}">{escape(_clean(a["title"]))}</a></h3>'
-        f'<ul>{_bullets(a.get("body", ""))}</ul>'
-        f'</article>'
-        for a in today)
+    nl = _issue_body(ROOT / today[0]["newsletter"].lstrip("/"))
+    if not nl:
+        print("  ⚠️ 뉴스레터 본문을 못 읽음 — /home-b/ 건너뜀")
+        return 0
+    nl_css, nl_body = nl
 
     # 아카이브는 회차 단위로 최근 12개. 336개를 다 내려보낼 이유가 없다.
     seen, arch = set(), []
@@ -217,34 +232,42 @@ def build(atoms=None):
 <meta name="robots" content="noindex,nofollow">
 {build_nav.FONT_LINK}
 <script type="application/ld+json">{json.dumps(ld, ensure_ascii=False)}</script>
-<style>{CSS}{build_nav.HEADER_CSS}</style></head><body>
+<style>{CSS}{build_nav.HEADER_CSS}</style>
+<style>{nl_css}</style></head><body>
 {build_nav.header_html("/newsletters/")}<div class="wrap">
 
 <div class="cmp"><b>홈 새 안 (비교용)</b> — 현재 홈은 <a href="/" style="color:#F0A070">soonsal.com</a>
 그대로입니다. 검색에 잡히지 않도록 noindex 처리했습니다.</div>
 
-<section class="lede">
-<h1>매일 아침 5분,<br>글로벌 금융·경제 살코기</h1>
-<p>{escape(desc)}</p>
-<a class="cta" href="https://subscribe.soonsal.com/subscribe" target="_blank"
- rel="noopener">무료로 구독하기</a>
-<span class="sub">월~금 아침 발행 · 언제든 해지</span>
-</section>
+<h1>오늘자 뉴스레터<span class="issue">{dt}</span></h1>
+<div class="nlwrap" id="nlwrap">
+  <div class="nl">{nl_body}</div>
+  <div class="fade"></div>
+</div>
+<button type="button" class="expand" id="expand">전체 보기 ↓</button>
+<a class="more" href="{today[0]['newsletter']}">이 날짜 페이지로 →</a>
 
 {chart_html}
-
-<h2>오늘자 뉴스레터<span class="issue">{dt}</span></h2>
-{stories}
-<a class="more" href="{today[0]['newsletter']}">이 날짜 전체 보기 →</a>
-
-<h2>순살, 이런 것도 합니다</h2>
-<div class="ch">{ch}</div>
 
 <h2>지난 뉴스레터</h2>
 <div class="arch">{arch_html}</div>
 <a class="more" href="/newsletters/">뉴스레터 전체 보기 →</a>
 
+<h2>더 많은 순살 둘러보기</h2>
+<div class="ch">{ch}</div>
+
 </div>
+<script>
+(function () {{
+  var w = document.getElementById('nlwrap'), b = document.getElementById('expand');
+  if (!w || !b) return;
+  b.addEventListener('click', function () {{
+    var open = w.classList.toggle('open');
+    b.textContent = open ? '접기 ↑' : '전체 보기 ↓';
+    if (!open) w.scrollIntoView({{ block: 'start' }});
+  }});
+}})();
+</script>
 <script src="/soonsal.js" defer></script>
 </body></html>"""
     OUT.mkdir(exist_ok=True)
