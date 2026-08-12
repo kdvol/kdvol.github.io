@@ -14,25 +14,37 @@ ROOT = Path(__file__).resolve().parent.parent
 
 CORE_ITEMS = [("/newsletters/", "브리핑"), ("/morning/", "모닝순살"),
               ("/topics/", "주제별")]
-MORE_ITEMS = [("/talk/", "한마디"), ("/cardnews/", "카드뉴스"), ("/youtube/", "YouTube"),
-              ("/school/", "스쿨"), ("/advertise/", "광고 문의")]
+DESKTOP_ITEMS = [("/school/", "스쿨"), ("/advertise/", "광고 문의")]
+MENU_ITEMS = [("/talk/", "한마디"), ("/cardnews/", "카드뉴스"), ("/youtube/", "YouTube")]
+MORE_ITEMS = MENU_ITEMS + DESKTOP_ITEMS
 BIZ = {"/advertise/"}
 
 NAV_RE = re.compile(r'<(?:div|nav)\s+class="nav"(?:\s[^>]*)?>.*?</(?:div|nav)>', re.S)
 NAV_STYLE_RE = re.compile(r'<style id="soonsal-nav-v2">.*?</style>', re.S)
+NAV_ENHANCEMENT_RE = re.compile(r'<style id="soonsal-nav-visibility-v3">.*?</style>', re.S)
 NAV_CSS_PRESENT_RE = re.compile(r'\.nav-more\s*>\s*summary')
 
 
 def _nav(active):
-    def cls(h):
-        c = (["active"] if h == active else []) + (["biz"] if h in BIZ else [])
+    def cls(h, *extra):
+        c = list(extra) + (["active"] if h == active else []) + (["biz"] if h in BIZ else [])
         return f' class="{" ".join(c)}"' if c else ""
     core = "".join(f'<a href="{h}"{cls(h)}>{l}</a>' for h, l in CORE_ITEMS)
-    more_active = active in {href for href, _label in MORE_ITEMS}
-    more_cls = ' class="nav-more active"' if more_active else ' class="nav-more"'
-    more = "".join(f'<a href="{h}"{cls(h)}>{l}</a>' for h, l in MORE_ITEMS)
+    desktop = "".join(f'<a href="{h}"{cls(h, "nav-desktop-link")}>{l}</a>'
+                      for h, l in DESKTOP_ITEMS)
+    menu_hrefs = {href for href, _label in MENU_ITEMS}
+    desktop_hrefs = {href for href, _label in DESKTOP_ITEMS}
+    more_classes = ["nav-more"]
+    if active in menu_hrefs:
+        more_classes.append("active")
+    if active in desktop_hrefs:
+        more_classes.append("mobile-active")
+    more_cls = f' class="{" ".join(more_classes)}"'
+    more = "".join(
+        f'<a href="{h}"{cls(h, "nav-mobile-only") if h in desktop_hrefs else cls(h)}>{l}</a>'
+        for h, l in MORE_ITEMS)
     return (
-        '<nav class="nav" aria-label="주요 메뉴">' + core
+        '<nav class="nav" aria-label="주요 메뉴">' + core + desktop
         + f'<details{more_cls}><summary>더보기 <span aria-hidden="true">⌄</span></summary>'
         + f'<section class="nav-menu" aria-label="추가 메뉴">{more}</section></details></nav>'
     )
@@ -82,6 +94,18 @@ NAV_CSS = """
 }
 """
 
+NAV_ENHANCEMENT_CSS = """
+.nav-menu a.nav-mobile-only{display:none}
+.nav>a.nav-desktop-link.biz{color:#F07040}
+.nav>a.nav-desktop-link.biz:hover{color:#ff8a52}
+.nav-menu a.biz{color:#F07040}
+@media(max-width:560px){
+  .nav>a.nav-desktop-link{display:none}
+  .nav-menu a.nav-mobile-only{display:block}
+  .nav-more.mobile-active>summary{color:#F07040;border-bottom-color:#F07040}
+}
+"""
+
 HEADER_CSS = """
 .site-header{padding:26px 20px 18px;border-bottom:1px solid #222;display:flex;justify-content:center;position:relative;background:#111}
 .logo-link{display:flex;align-items:center;gap:10px;text-decoration:none;color:#fff}
@@ -111,6 +135,8 @@ def header_html(active="/topics/"):
 def main():
     n = 0
     style = f'<style id="soonsal-nav-v2">\n{NAV_CSS.strip()}\n</style>'
+    enhancement = (f'<style id="soonsal-nav-visibility-v3">\n'
+                   f'{NAV_ENHANCEMENT_CSS.strip()}\n</style>')
     for p in sorted(ROOT.rglob("*.html")):
         if not p.is_file():
             continue
@@ -122,6 +148,10 @@ def main():
             new = NAV_STYLE_RE.sub(style, new, count=1)
         elif not NAV_CSS_PRESENT_RE.search(new) and "</head>" in new:
             new = new.replace("</head>", style + "\n</head>", 1)
+        if NAV_ENHANCEMENT_RE.search(new):
+            new = NAV_ENHANCEMENT_RE.sub(enhancement, new, count=1)
+        elif "</head>" in new:
+            new = new.replace("</head>", enhancement + "\n</head>", 1)
         if new != t:
             p.write_text(new, encoding="utf-8")
             n += 1

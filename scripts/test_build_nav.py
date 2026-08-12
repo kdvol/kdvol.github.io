@@ -33,13 +33,20 @@ class BuildNavTest(unittest.TestCase):
                 self.assertIn('<a href="/newsletters/">브리핑</a>', morning)
                 self.assertIn('<a href="/morning/" class="active">모닝순살</a>', morning)
                 self.assertIn('<a href="/topics/">주제별</a>', morning)
+                self.assertIn('<a href="/school/" class="nav-desktop-link">스쿨</a>', morning)
+                self.assertIn('<a href="/advertise/" class="nav-desktop-link biz">광고 문의</a>', morning)
                 self.assertIn('<details class="nav-more">', morning)
                 self.assertIn('<section class="nav-menu" aria-label="추가 메뉴"><a href="/talk/">한마디</a>', morning)
+                self.assertIn('<a href="/school/" class="nav-mobile-only">스쿨</a>', morning)
+                self.assertIn('<a href="/advertise/" class="nav-mobile-only biz">광고 문의</a>', morning)
                 self.assertIn('grid-template-columns:repeat(4,minmax(0,1fr))', morning)
+                self.assertIn('.nav>a.nav-desktop-link{display:none}', morning)
                 self.assertEqual(1, morning.count('id="soonsal-nav-v2"'))
+                self.assertEqual(1, morning.count('id="soonsal-nav-visibility-v3"'))
 
                 topics_html = topics.read_text(encoding="utf-8")
                 self.assertNotIn('id="soonsal-nav-v2"', topics_html)
+                self.assertEqual(1, topics_html.count('id="soonsal-nav-visibility-v3"'))
                 self.assertEqual(1, topics_html.count('.nav-more>summary'))
 
                 youtube = (root / "youtube/index.html").read_text(encoding="utf-8")
@@ -53,6 +60,16 @@ class BuildNavTest(unittest.TestCase):
                 talk_html = talk.read_text(encoding="utf-8")
                 self.assertIn('<details class="nav-more active">', talk_html)
                 self.assertIn('<a href="/talk/" class="active">한마디</a>', talk_html)
+
+                school = root / "school/index.html"
+                school.parent.mkdir(parents=True, exist_ok=True)
+                school.write_text(PAGE, encoding="utf-8")
+                self.assertEqual(1, build_nav.main())
+                school_html = school.read_text(encoding="utf-8")
+                self.assertIn('<a href="/school/" class="nav-desktop-link active">스쿨</a>', school_html)
+                self.assertIn('<details class="nav-more mobile-active">', school_html)
+                self.assertIn('<a href="/school/" class="nav-mobile-only active">스쿨</a>', school_html)
+                self.assertEqual(0, build_nav.main())
         finally:
             build_nav.ROOT = original_root
 
