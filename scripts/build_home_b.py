@@ -45,14 +45,26 @@ padding:11px 22px;border-radius:8px;font-size:.9rem;font-weight:700;text-decorat
 h2{font-size:.72rem;font-weight:800;letter-spacing:.1em;color:#E55A00;
 margin:34px 0 14px;text-transform:uppercase}
 .issue{color:#6f6a60;font-size:.78rem;font-weight:600;margin-left:8px;letter-spacing:0}
-.st{display:block;padding:15px 0;border-bottom:1px solid #1c1c1c;text-decoration:none;color:inherit}
+/* 첫 화면에 그림 하나. 글만 있으면 읽기 전에 떠난다. */
+.chart{display:block;margin:22px 0 4px;text-decoration:none;border:1px solid #232323;
+border-radius:12px;overflow:hidden;background:#151515}
+.chart img{display:block;width:100%;height:auto}
+.chart .cap{display:block;padding:12px 15px;border-top:1px solid #1e1e1e;
+color:#8f8a80;font-size:.84rem}
+.chart .cap b{color:#F07040;font-weight:700;margin-right:6px}
+.chart:hover{border-color:#3a3a3a}
+.chart:hover .cap{color:#b8b2a8}
+.st{padding:20px 0;border-bottom:1px solid #1c1c1c}
 .st:first-of-type{border-top:1px solid #1c1c1c}
 .st .lb{font-size:.63rem;font-weight:800;letter-spacing:.07em;color:#8a6f5c}
-.st .ti{display:block;font-size:1.02rem;font-weight:700;letter-spacing:-.025em;
-line-height:1.4;color:#e8e3da;margin-top:4px}
-.st:hover .ti{color:#fff}
-.st .ld{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;
-font-size:.85rem;line-height:1.6;color:#7a756c;margin-top:6px}
+.st h3{font-size:1.12rem;font-weight:800;letter-spacing:-.03em;line-height:1.38;margin-top:5px}
+.st h3 a{color:#e8e3da;text-decoration:none}
+.st h3 a:hover{color:#fff}
+.st ul{list-style:none;margin-top:10px}
+.st li{position:relative;padding-left:15px;color:#9a948a;font-size:.88rem;
+line-height:1.72;margin-top:8px}
+.st li:before{content:"";position:absolute;left:0;top:.62em;width:5px;height:5px;
+border-radius:1px;background:#4a453d}
 .more{display:inline-block;margin-top:16px;color:#F07040;font-size:.86rem;
 font-weight:700;text-decoration:none}
 .more:hover{text-decoration:underline}
@@ -84,15 +96,43 @@ def _lead(body: str, n: int = 92) -> str:
 
 
 def _clean(title: str) -> str:
-    return re.sub(r"^[^\w<>&\"']{1,4}\s+", "", title or "").strip()
+    """제목은 이모지째로 쓴다.
+
+    /stats/에서는 앞 이모지를 뗀다 — 목록 마커(👍🤔🔥)와 부딪히기 때문이다.
+    홈에는 그런 마커가 없고, 이모지는 순살 제목의 일부다. 검색 때문에 뗀 게
+    아니다(구조화 데이터와 h1이 검색을 맡는다).
+    """
+    return (title or "").strip()
 
 
 CHANNELS = [
-    ("/morning/", "순살차트", "장 열리기 전, 오늘 시장에서 볼 것만"),
-    ("/talk/", "순살톡", "브리핑을 읽다 남긴 한 줄이 모이는 곳"),
-    ("/cardnews/", "카드뉴스", "인스타에서 한 장씩 넘겨 보는 판"),
+    ("/morning/", "순살차트", "무빙 차트로 한눈에 순살만 쏙쏙"),
+    ("/talk/", "순살톡", "브리핑 읽고 남긴 한 줄이 모이는 곳"),
+    ("/cardnews/", "카드뉴스", "인스타에서 한 장씩 넘겨 보기"),
     ("/school/", "순살스쿨", "현직자가 여는 IBD·IPO·M&A 클래스"),
 ]
+
+
+def _chart():
+    """순살차트 최신 회차의 첫 다이어그램. 첫 화면에 글만 있으면 떠나게 된다.
+
+    스톡 이미지를 갖다 붙이지 않는다 — 순살이 매일 실제로 만드는 그림을 쓴다.
+    """
+    days = sorted((ROOT / "morning" / "assets").glob("2026*"), reverse=True)
+    for d in days:
+        wide = sorted(f for f in d.glob("*-diagram.svg"))
+        if not wide:
+            continue
+        w = wide[0]
+        m = d.name           # 20260812
+        page = f"/morning/{m[:4]}/{m[4:]}.html"
+        if not (ROOT / page.lstrip("/")).exists():
+            continue
+        mob = w.with_name(w.name.replace("-diagram.svg", "-diagram-mobile.svg"))
+        return {"wide": f"/morning/assets/{d.name}/{w.name}",
+                "mob": f"/morning/assets/{d.name}/{mob.name}" if mob.exists() else None,
+                "page": page}
+    return None
 
 
 def build(atoms=None):
@@ -110,11 +150,23 @@ def build(atoms=None):
                    key=lambda a: a.get("n", 0))
     dt = f"{latest_date[5:7]}.{latest_date[8:10]}"
 
+    # 제목만 늘어놓으면 '무슨 얘긴지' 알 수 없다. 불렛까지 그대로 실어
+    # 오늘 뉴스레터의 흐름이 홈에서 통째로 읽히게 한다. 이게 홈이 자기
+    # 본문을 갖는다는 뜻이기도 하다(iframe이면 남의 글이 된다).
+    def _bullets(body):
+        out = []
+        for b in (body or "").split("◾"):
+            b = re.sub(r"\s+", " ", re.sub(r"<[^>]+>", "", b)).strip()
+            if b:
+                out.append(f'<li>{escape(b)}</li>')
+        return "".join(out)
+
     stories = "".join(
-        f'<a class="st" href="{a["url"]}">'
+        f'<article class="st" id="s{a.get("n", 0)}">'
         f'<span class="lb">{escape((a.get("label") or "")[:30])}</span>'
-        f'<span class="ti">{escape(_clean(a["title"]))}</span>'
-        f'<span class="ld">{escape(_lead(a.get("body", "")))}…</span></a>'
+        f'<h3><a href="{a["url"]}">{escape(_clean(a["title"]))}</a></h3>'
+        f'<ul>{_bullets(a.get("body", ""))}</ul>'
+        f'</article>'
         for a in today)
 
     # 아카이브는 회차 단위로 최근 12개. 336개를 다 내려보낼 이유가 없다.
@@ -144,6 +196,17 @@ def build(atoms=None):
             for i, a in enumerate(today)],
     }
 
+    c = _chart()
+    chart_html = ""
+    if c:
+        src = c["mob"] or c["wide"]
+        srcset = (f'<source media="(min-width:640px)" srcset="{c["wide"]}">'
+                  if c["mob"] else "")
+        chart_html = (
+            f'<a class="chart" href="{c["page"]}">'
+            f'<picture>{srcset}<img src="{src}" alt="순살차트 다이어그램" loading="eager"></picture>'
+            f'<span class="cap"><b>순살차트</b> 무빙 차트로 한눈에 순살만 쏙쏙 →</span></a>')
+
     title = "순살브리핑 — 글로벌 금융·경제·크립토 뉴스레터"
     desc = ("모건스탠리 홍콩 출신 금융인의 글로벌 금융·경제·크립토 뉴스 살코기. "
             "매일 아침 5분, 월~금 발행.")
@@ -168,16 +231,18 @@ def build(atoms=None):
 <span class="sub">월~금 아침 발행 · 언제든 해지</span>
 </section>
 
-<h2>오늘의 브리핑<span class="issue">{dt}</span></h2>
-{stories}
-<a class="more" href="{today[0]['newsletter']}">이 회차 전체 보기 →</a>
+{chart_html}
 
-<h2>순살의 다른 판</h2>
+<h2>오늘자 뉴스레터<span class="issue">{dt}</span></h2>
+{stories}
+<a class="more" href="{today[0]['newsletter']}">이 날짜 전체 보기 →</a>
+
+<h2>순살, 이런 것도 합니다</h2>
 <div class="ch">{ch}</div>
 
-<h2>지난 회차</h2>
+<h2>지난 뉴스레터</h2>
 <div class="arch">{arch_html}</div>
-<a class="more" href="/newsletters/">전체 아카이브 보기 →</a>
+<a class="more" href="/newsletters/">뉴스레터 전체 보기 →</a>
 
 </div>
 <script src="/soonsal.js" defer></script>

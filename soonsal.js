@@ -76,14 +76,14 @@
     '.ss-legal{max-width:560px;margin:16px auto 0;padding-top:14px;' +
       'border-top:1px solid rgba(128,120,105,.22);font-size:10.5px;line-height:1.75;color:#6f6a60}' +
     '.ss-legal .dis{margin:0}' +
-    '.ss-legal .biz{margin-top:8px}' +
+    '.ss-legal .biz{margin-top:6px}' +
     '.ss-legal .biz summary{cursor:pointer;color:#7d786d;list-style:none;display:inline-block;' +
       'padding:2px 0;text-decoration:underline;text-underline-offset:2px}' +
     '.ss-legal .biz summary::-webkit-details-marker{display:none}' +
     '.ss-legal .biz summary:before{content:"＋ "}' +
     '.ss-legal .biz[open] summary:before{content:"－ "}' +
     '.ss-legal .biz p{margin:6px 0 0}' +
-    '.ss-legal .cr{margin:9px 0 0;color:#635f56}' +
+    '.ss-legal .cr{margin:6px 0 0;color:#635f56}' +
     '.ss-legal a{color:inherit}' +
     /* 코멘트 */
     '.ss-cbtn{margin-left:0}' +
@@ -447,17 +447,14 @@
       '<span class="fine">쿠키 없이 익명 방문 통계만 · ' +
       '<a href="/privacy/">수집 안내</a></span>' +
       '<div class="ss-legal">' +
-        '<p class="dis">순살브리핑의 모든 콘텐츠는 정보 제공을 목적으로 하며, ' +
-        '특정 종목의 매매를 권유하지 않습니다. 투자 판단과 그 결과는 ' +
-        '투자자 본인에게 귀속됩니다.</p>' +
-        '<details class="biz"><summary>사업자 정보</summary>' +
-          '<p>순살브리핑 · 대표 신기동<br>' +
-          '서울시 동작구 현충로 52<br>' +
-          '사업자등록번호 120-88-27830<br>' +
+        '<p class="dis">정보 제공 목적이며 특정 종목의 매매를 권유하지 않습니다.</p>' +
+        '<details class="biz"><summary>(주)순살 사업자 정보</summary>' +
+          '<p>대표 신기동 · 사업자등록번호 120-88-27830<br>' +
+          '서울시 동작구 현충로 52 · ' +
           '<a href="mailto:team@soonsal.com">team@soonsal.com</a></p>' +
         '</details>' +
         (hasCr ? '' : '<p class="cr">© ' + new Date().getFullYear() +
-          ' 순살브리핑. All rights reserved.</p>') +
+          ' (주)순살</p>') +
       '</div>';
     var f = document.querySelector('.footer-inner') || document.querySelector('.footer');
     (f || document.body).appendChild(d);
