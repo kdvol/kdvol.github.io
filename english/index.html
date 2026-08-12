@@ -187,6 +187,28 @@
     .sub-btn-header { font-size:10px !important; padding:5px 10px !important; right:10px !important; }
   }
 </style>
+<style id="soonsal-nav-v2">
+.nav{position:relative;display:flex;justify-content:center;align-items:stretch;overflow:visible;border-bottom:1px solid #222;background:#151515;z-index:100}
+.nav>a,.nav-more>summary{display:flex;align-items:center;padding:12px 18px;font-size:13px;font-weight:700;color:#777;white-space:nowrap;text-decoration:none;border:0;border-bottom:2px solid transparent;cursor:pointer;list-style:none;transition:color .2s,border-color .2s,background .2s}
+.nav-more>summary::-webkit-details-marker{display:none}
+.nav>a:hover,.nav-more>summary:hover{color:#ccc}
+.nav>a.active,.nav-more.active>summary{color:#F07040;border-bottom-color:#F07040}
+.nav-more{position:relative;flex-shrink:0}
+.nav-more[open]>summary{color:#fff;background:#202020}
+.nav-menu{position:absolute;top:100%;right:0;z-index:1001;display:grid;min-width:190px;padding:8px;background:#1b1b1b;border:1px solid #333;border-radius:0 0 8px 8px;box-shadow:0 12px 26px rgba(0,0,0,.28)}
+.nav-menu a{display:block;padding:10px 12px;border-radius:5px;color:#aaa;text-decoration:none;font-size:13px;font-weight:700;white-space:nowrap}
+.nav-menu a:hover,.nav-menu a.active{color:#fff;background:#282828}
+.nav-menu a.active{color:#F07040}
+.nav-menu a.biz{color:#777;border-top:1px solid #303030;margin-top:4px;padding-top:12px}
+@media(max-width:560px){
+  .nav{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));width:100%}
+  .nav>a,.nav-more>summary{justify-content:center;padding:11px 3px;font-size:12px;letter-spacing:-.2px}
+  .nav-more{position:static;min-width:0}
+  .nav-menu{left:10px;right:10px;top:100%;grid-template-columns:repeat(2,minmax(0,1fr));min-width:0;padding:8px}
+  .nav-menu a{text-align:center;padding:11px 6px}
+  .nav-menu a.biz{border-top:0;margin-top:0;padding-top:11px}
+}
+</style>
 </head>
 <body>
 
@@ -197,7 +219,7 @@
   </a>
     <a href="https://subscribe.soonsal.com/subscribe" target="_blank" class="sub-btn-header" style="position:absolute;right:max(20px, calc(50% - 400px));background:#E55A00;color:#fff;padding:8px 20px;border-radius:6px;font-size:13px;font-weight:700;text-decoration:none;white-space:nowrap;" onmouseover="this.style.background=\'#CC4E00\'" onmouseout="this.style.background=\'#E55A00\'">구독하기</a>
   </div>
-<div class="nav"><a href="/">홈</a><a href="/newsletters/">브리핑</a><a href="/morning/">아침 메모</a><a href="/topics/">주제별</a><a href="/cardnews/">카드뉴스</a><a href="/youtube/">YouTube</a><a href="/school/">스쿨</a><a href="/advertise/" class="biz">광고 문의</a></div>
+<nav class="nav" aria-label="주요 메뉴"><a href="/newsletters/">브리핑</a><a href="/morning/">아침 메모</a><a href="/topics/">주제별</a><details class="nav-more"><summary>더보기 <span aria-hidden="true">⌄</span></summary><section class="nav-menu" aria-label="추가 메뉴"><a href="/cardnews/">카드뉴스</a><a href="/youtube/">YouTube</a><a href="/school/">스쿨</a><a href="/advertise/" class="biz">광고 문의</a></section></details></nav>
 
 <div style="max-width:800px; margin:0 auto; padding:24px 20px 0;">
   <div style="font-size:11px; font-weight:700; color:#F07040; text-transform:uppercase; letter-spacing:1.5px; margin-bottom:16px;">🌏 English Archive</div>
