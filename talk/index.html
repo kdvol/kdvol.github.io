@@ -130,7 +130,7 @@ text-decoration:none;box-shadow:0 10px 28px rgba(0,0,0,.28)}
   .nav-more.mobile-active>summary{color:#F07040;border-bottom-color:#F07040}
   /* 코어 4개 + 더보기 = 5칸. 예전 CSS가 4칸이라 다섯 번째가 다음 줄로 넘어갔다.
      이 블록은 페이지마다 나중에 주입되므로 안에 박힌 옛 규칙을 덮는다. */
-  .nav{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));width:100%}
+  .nav{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));width:100%}
   .nav>a,.nav-more>summary{justify-content:center;padding:11px 2px;font-size:11.5px;
     letter-spacing:-.4px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 }
@@ -184,6 +184,10 @@ background:#E55A00;color:#fff;padding:8px 18px;border-radius:6px;font-size:13px;
 @media(max-width:560px){.sub-btn-header{display:none}}
 .crumb{color:#F07040;font-size:.88rem;display:inline-block;margin-bottom:14px;text-decoration:none}
 
+.sub-btn-header{position:absolute;right:max(16px,calc(50% - 400px));top:50%;transform:translateY(-50%);
+background:#E55A00;color:#fff;padding:8px 18px;border-radius:6px;font-size:13px;font-weight:700;
+text-decoration:none;white-space:nowrap}
+@media(max-width:560px){.sub-btn-header{display:none}}
 .search-btn-header{position:absolute;right:max(16px,calc(50% - 400px));top:50%;transform:translateY(-50%);
 display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:8px;
 color:#8a857c;text-decoration:none}
@@ -212,8 +216,8 @@ color:#8a857c;text-decoration:none}
 @media(max-width:560px){
 .nav>a.nav-desktop-link{display:none}
 .nav-menu a.nav-mobile-only{display:block}
-  /* 코어 4개 + 더보기 = 5칸. 4칸으로 두면 다섯 번째가 다음 줄로 넘어간다. */
-  .nav{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));width:100%}
+  /* 칸 수는 항목 수를 따라간다 — 정의 뒤에서 CORE_ITEMS로 채운다 */
+  .nav{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));width:100%}
   .nav>a,.nav-more>summary{justify-content:center;padding:11px 2px;font-size:11.5px;
   letter-spacing:-.4px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
   .nav-more{position:static;min-width:0}
@@ -500,11 +504,33 @@ function load() {
       }
       render((d && d.items) || []);
     })
-    .catch(function () {
+    .catch(function (e) {
       clearTimeout(timer);
       // 이미 뭔가 보여주고 있으면 건드리지 않는다 — 갱신 실패로 화면을 비우면 손해다
-      if (first) app.innerHTML = '<div class="empty"><b>불러오지 못했어요</b>' +
-        '연결을 확인하고 새로고침해 주세요.</div>';
+      if (!first) { return; }
+      // 첫 시도가 실패해도 한 번은 더 해본다. 순간적인 끊김이 대부분이라
+      // 사람이 새로고침하기 전에 스스로 붙는 경우가 많다.
+      if (!load._retried) {
+        load._retried = 1;
+        setTimeout(load, 1200);
+        return;
+      }
+      // 두 번 다 실패했으면 왜 실패했는지까지 알려준다. '연결을 확인하라'만으로는
+      // 느린 건지 막힌 건지 알 수 없어 다음에 물어볼 것도 없다.
+      var slow = e && (e.name === 'AbortError' || String(e).indexOf('abort') >= 0);
+      app.innerHTML = '<div class="empty"><b>' +
+        (slow ? '응답이 너무 느려요' : '집계 서버에 닿지 못했어요') + '</b>' +
+        (slow ? '잠시 뒤 다시 시도해 주세요.'
+              : '광고 차단기나 사내망이 막고 있을 수 있어요.') +
+        '<br><button type="button" class="go" id="retry" ' +
+        'style="margin-top:12px;padding:8px 16px;border-radius:8px;cursor:pointer">' +
+        '다시 시도</button></div>';
+      var rb = document.getElementById('retry');
+      if (rb) rb.addEventListener('click', function () {
+        load._retried = 0;
+        app.innerHTML = '<div class="empty">불러오는 중…</div>';
+        load();
+      });
     });
 }
 
