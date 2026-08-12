@@ -189,10 +189,10 @@ def main():
     except Exception as e:
         print(f"⚠️ build_saved 실패(계속 진행): {e}")
     try:
-        import build_home_b
-        build_home_b.build(atoms)           # 홈 새 안(/home-b/, noindex, 비교용)
+        import build_home
+        build_home.build(atoms)             # 홈(index.html) — 최신 회차·차트로 매일 갱신
     except Exception as e:
-        print(f"⚠️ build_home_b 실패(계속 진행): {e}")
+        print(f"⚠️ build_home 실패(계속 진행): {e}")
     try:
         import build_api
         build_api.build(atoms)              # /api/entities.json (챗이 아카이브 줄 만들 때 조회)

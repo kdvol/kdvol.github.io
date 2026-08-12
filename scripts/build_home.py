@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""홈 새 안 (/home-b/). 기존 index.html은 건드리지 않는다 — 나란히 비교하기 위한 판.
+"""홈(index.html)을 매일 새로 만든다.
 
 지금 홈의 문제는 취향이 아니라 구조다.
   · 최신호가 <iframe>이라 그 글은 /newsletters/…의 것이지 홈의 것이 아니다.
@@ -26,7 +26,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 ROOT = Path(__file__).resolve().parent.parent
-OUT = ROOT / "home-b"
+OUT = ROOT      # index.html을 직접 쓴다
 ATOMS = ROOT / "content" / "story_atoms.json"
 TICKER = Path(__file__).resolve().parent / "_ticker.html"
 BASE = "https://soonsal.com"
@@ -307,7 +307,7 @@ def build(atoms=None):
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>{escape(title)}</title>
 <meta name="description" content="{escape(desc)}">
-<meta name="robots" content="noindex,nofollow">
+<link rel="canonical" href="https://soonsal.com/">
 {build_nav.FONT_LINK}
 <script type="application/ld+json">{json.dumps(ld, ensure_ascii=False)}</script>
 <style>{CSS}{build_nav.HEADER_CSS}</style>
@@ -346,9 +346,8 @@ def build(atoms=None):
 </script>
 <script src="/soonsal.js" defer></script>
 </body></html>"""
-    OUT.mkdir(exist_ok=True)
     (OUT / "index.html").write_text(html, encoding="utf-8")
-    print(f"🏠 home-b: /home-b/ 홈 새 안 — {len(html)//1024}KB "
+    print(f"🏠 home: index.html — {len(html)//1024}KB "
           f"(스토리 {len(today)} · 아카이브 {len(arch)})")
     return 1
 
