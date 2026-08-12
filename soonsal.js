@@ -1094,7 +1094,7 @@
       }).catch(function () {});
   }
 
-  // ── 오늘의 논점 → 텔레그램 ──────────────────────────────
+  // ── 오늘의 논점 → 순살톡 ────────────────────────────────
   function mountTalk() {
     if (!/\/newsletters\/2026\//.test(location.pathname)) return;
     if (document.querySelector('.ss-talk')) return;
@@ -1107,11 +1107,10 @@
     box.className = 'ss-talk';
     box.innerHTML =
       '<div class="ss-talk-h">💬 오늘 순살, 어땠음?</div>' +
-      '<div class="ss-talk-q">혼자 보기 아까우면 —<br>' +
-      '텔레그램에선 다들 뭐라 하는지 보고, 인스타에선 카드뉴스로 한 번 더.</div>' +
+      '<div class="ss-talk-q">한 줄이면 충분합니다.<br>' +
+      '다른 사람들이 어디에 밑줄 그었는지도 순살톡에 모여 있어요.</div>' +
       '<div class="ss-talk-btns">' +
-      '<a class="ss-talk-b" data-ss-ev="telegram" href="https://t.me/soonsal" target="_blank" rel="noopener">' +
-      '텔레그램 수다방 →</a>' +
+      '<a class="ss-talk-b" data-ss-ev="talk" href="/talk/">순살톡 가기 →</a>' +
       '<a class="ss-talk-b ig" data-ss-ev="instagram" href="https://instagram.com/soonsal.brief" target="_blank" rel="noopener">' +
       '인스타 구경</a>' +
       '</div>';
