@@ -14,7 +14,7 @@ ROOT = Path(__file__).resolve().parent.parent
 
 # 검색=주제별 내 접근, English=숨김. 커뮤니티 탭 제거(텔레그램은 플로팅 버튼 직결).
 # 콘텐츠 탭(독자용) + 비즈니스 탭(광고주용, 시각적으로 분리·비강조)
-ITEMS = [("/", "홈"), ("/newsletters/", "브리핑"), ("/topics/", "주제별"),
+ITEMS = [("/", "홈"), ("/newsletters/", "브리핑"), ("/morning/", "아침 메모"), ("/topics/", "주제별"),
          ("/cardnews/", "카드뉴스"), ("/youtube/", "YouTube"), ("/school/", "스쿨"),
          ("/advertise/", "광고 문의")]
 BIZ = {"/advertise/"}   # 비강조 스타일(.biz) 적용 대상
@@ -32,6 +32,7 @@ CSS_FIXES = [
 ]
 
 PAGES = {"index.html": "/", "newsletters/index.html": "/newsletters/",
+         "morning/index.html": "/morning/",
          "cardnews/index.html": "/cardnews/", "english/index.html": "/english/",
          "school/index.html": "/school/", "youtube/index.html": "/youtube/",
          "advertise/index.html": None}

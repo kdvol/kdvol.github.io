@@ -24,46 +24,46 @@ OUT = ROOT / "talk"
 
 CSS = """
 *{box-sizing:border-box}
-body{margin:0;background:#faf8f3;color:#2b2b2b;
+body{margin:0;background:#111;color:#eee;
 font-family:'DM Sans',-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo','Malgun Gothic',sans-serif;
 -webkit-font-smoothing:antialiased}
 .wrap{max-width:620px;margin:0 auto;padding:22px 16px 80px}
-h1{font-size:1.5rem;font-weight:800;margin:0 0 4px;letter-spacing:-.02em}
-.sub{color:#8a8578;font-size:.87rem;margin:0 0 20px;line-height:1.6}
+h1{font-size:1.5rem;font-weight:800;margin:0 0 4px;letter-spacing:-.02em;color:#f2efe8}
+.sub{color:#8b8578;font-size:.87rem;margin:0 0 20px;line-height:1.6}
 .sub a{color:#E55A00;text-decoration:none;font-weight:600}
-.live{display:inline-flex;align-items:center;gap:5px;font-size:.72rem;color:#8a8578;
-background:#fff;border:1px solid #e6e1d5;border-radius:20px;padding:3px 10px;margin-left:6px}
+.live{display:inline-flex;align-items:center;gap:5px;font-size:.72rem;color:#8b8578;
+background:#161616;border:1px solid #262626;border-radius:20px;padding:3px 10px;margin-left:6px}
 .live b{width:6px;height:6px;border-radius:50%;background:#4ea87a;display:inline-block}
-.th{background:#fff;border:1px solid #ece8de;border-radius:14px;padding:14px 15px;margin-bottom:11px}
-.src{font-size:.72rem;color:#a8a294;margin-bottom:9px;display:flex;gap:6px;align-items:baseline}
-.src a{color:#8a8578;text-decoration:none;border-bottom:1px solid #e6e1d5;
+.th{background:#141414;border:1px solid #222;border-radius:14px;padding:14px 15px;margin-bottom:11px}
+.src{font-size:.72rem;color:#7a756c;margin-bottom:9px;display:flex;gap:6px;align-items:baseline}
+.src a{color:#8b8578;text-decoration:none;border-bottom:1px solid #2a2a2a;
 overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .src a:hover{color:#E55A00;border-bottom-color:#E55A00}
-.src .dt{flex:0 0 auto;color:#c0bcb2}
+.src .dt{flex:0 0 auto;color:#5f5a52}
 .c{font-size:.93rem;line-height:1.65;padding:7px 0}
-.c.rep{padding-left:13px;border-left:2px solid #f0ece2;margin-left:2px}
-.c .k{font-weight:700;color:#2b2b2b;margin-right:5px}
-.c .g{font-size:.66rem;color:#8a8578;background:#f4f1e9;border-radius:4px;padding:1px 5px;margin-right:4px}
-.c .t{color:#c0bcb2;font-size:.7rem;margin-left:5px}
+.c.rep{padding-left:13px;border-left:2px solid #262626;margin-left:2px}
+.c .k{font-weight:700;color:#f0ede6;margin-right:5px}
+.c .g{font-size:.66rem;color:#8b8578;background:#1e1e1e;border-radius:4px;padding:1px 5px;margin-right:4px}
+.c .t{color:#5f5a52;font-size:.7rem;margin-left:5px}
 .act{display:inline-flex;gap:11px;margin-left:7px}
-.act button{background:none;border:none;padding:2px 0;font-size:.75rem;color:#a8a294;
+.act button{background:none;border:none;padding:2px 0;font-size:.75rem;color:#7a756c;
 cursor:pointer;font-family:inherit}
 .act button:hover{color:#E55A00}
 .act .like.on{color:#E55A00;font-weight:700}
 .rf{margin-top:10px;display:none}
 .rf.on{display:block}
-.rf textarea{width:100%;border:1px solid #e2ded4;border-radius:10px;padding:11px 12px;
-font-size:16px;font-family:inherit;resize:none;background:#fff;line-height:1.5}
+.rf textarea{width:100%;border:1px solid #2a2a2a;border-radius:10px;padding:11px 12px;
+font-size:16px;font-family:inherit;resize:none;background:#1a1a1a;color:#eee;line-height:1.5}
 .rf textarea:focus{outline:none;border-color:#F07040}
 .rf .row{display:flex;align-items:center;gap:8px;margin-top:7px}
-.rf .who{flex:1;font-size:.78rem;color:#8a8578;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.rf .who{flex:1;font-size:.78rem;color:#8b8578;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .rf button.go{background:#E55A00;color:#fff;border:none;border-radius:9px;padding:9px 17px;
 font-size:.82rem;font-weight:700;cursor:pointer;font-family:inherit}
-.rf button.go:disabled{background:#e8e4da;color:#b0aca2}
-.rf button.x{background:none;border:none;color:#a8a294;font-size:.75rem;cursor:pointer;font-family:inherit}
-.empty{color:#a8a294;text-align:center;padding:52px 16px;line-height:1.7}
-.empty b{display:block;color:#6b6659;font-size:1rem;margin-bottom:6px}
-.new{background:#fdf0e9;border-color:#f6d9c8}
+.rf button.go:disabled{background:#242424;color:#5f5a52}
+.rf button.x{background:none;border:none;color:#7a756c;font-size:.75rem;cursor:pointer;font-family:inherit}
+.empty{color:#7a756c;text-align:center;padding:52px 16px;line-height:1.7}
+.empty b{display:block;color:#b8b2a8;font-size:1rem;margin-bottom:6px}
+.new{background:#191512;border-color:#4a2d1c}
 """
 
 JS = r"""

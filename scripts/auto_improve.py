@@ -48,11 +48,17 @@ def _get(path, timeout=30):
 def collect():
     """Worker에서 원자료를 모은다. 실패하면 None — 호출부가 조용히 종료."""
     try:
-        return {
+        raw = {
             "insights": _get("/insights?days=30"),
             "counts": _get("/counts"),
             "activity": _get("/activity"),
         }
+        # Worker 배포 순서가 뒤여도 기존 자동 개선을 멈추지 않는다.
+        try:
+            raw["topic_insights"] = _get("/topic-insights?days=30")
+        except Exception:
+            raw["topic_insights"] = {"topics": []}
+        return raw
     except Exception as e:
         print(f"⚠️ auto_improve: 데이터 수집 실패({type(e).__name__}) — 건너뜀")
         return None
@@ -104,6 +110,33 @@ def analyse(raw, atoms):
     vis = ins.get("visitors", {}) or {}
     uniq = sum(d["uniq"] for d in ins.get("daily", [])) or 1
 
+    # Morning은 페이지 조회를 9개 토픽에 복제하지 않는다. Worker가 직접 잰
+    # qualified view·체류·반응·댓글·공유로 편집 점수를 만든다.
+    morning_topics = []
+    for row in (raw.get("topic_insights") or {}).get("topics", []):
+        editorial_score = (
+            row.get("views", 0)
+            + row.get("reactions", 0) * 20
+            + row.get("comments", 0) * 30
+            + row.get("shares", 0) * 35
+            + min(row.get("avg_dwell_seconds", 0), 120)
+        )
+        morning_topics.append({
+            "topic_id": row.get("topic"),
+            "views": row.get("views", 0),
+            "unique_viewers": row.get("unique_viewers", 0),
+            "avg_dwell_seconds": row.get("avg_dwell_seconds", 0),
+            "reactions": row.get("reactions", 0),
+            "unique_reactors": row.get("unique_reactors", 0),
+            "comments": row.get("comments", 0),
+            "unique_commenters": row.get("unique_commenters", 0),
+            "shares": row.get("shares", 0),
+            "engagement_rate": row.get("engagement_rate", 0),
+            "referrals": row.get("referrals", {}),
+            "editorial_score": round(editorial_score, 1),
+        })
+    morning_topics.sort(key=lambda row: (-row["editorial_score"], -row["views"], row["topic_id"] or ""))
+
     return {
         "generated": datetime.now(KST).isoformat(timespec="seconds"),
         "window_days": ins.get("days", 30),
@@ -120,6 +153,7 @@ def analyse(raw, atoms):
                          "views": s["views"], "react": s["react"]} for s in hot],
         "hot_topics": sorted(topic_w, key=topic_w.get, reverse=True)[:6],
         "hot_entities": sorted(ent_w, key=ent_w.get, reverse=True)[:10],
+        "morning_topics": morning_topics,
         "refs": {r["src"]: r["n"] for r in ins.get("refs", [])},
         "top_paths": [{"path": r["path"], "hits": r["hits"]} for r in ins.get("top", [])[:12]],
     }
@@ -145,6 +179,7 @@ def write_api(sig, atoms):
         "hot_topics": sig["hot_topics"],
         "hot_stories": [{"title": h["title"], "url": h["url"], "react": h["react"]}
                         for h in sig["hot_stories"][:6]],
+        "morning_promote": [row["topic_id"] for row in sig.get("morning_topics", [])[:6]],
         "refs": sig["refs"],
     }
     API_SIGNALS.parent.mkdir(exist_ok=True)

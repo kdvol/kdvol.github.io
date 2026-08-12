@@ -667,7 +667,9 @@ export default {
             `select topic, kind, count(*) as n from topic_uniques
              where day >= ${since} group by topic, kind`),
           env.DB.prepare(
-            `select story as topic, max(sum(delta), 0) as reactions from events
+            `select story as topic,
+                    case when sum(delta) > 0 then sum(delta) else 0 end as reactions
+             from events
              where story like 'm%' and date(ts + 32400, 'unixepoch') >= ${since}
              group by story`),
           env.DB.prepare(
