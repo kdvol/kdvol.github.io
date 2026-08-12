@@ -44,7 +44,7 @@ h1{margin-top:26px}
 letter-spacing:0;text-transform:none}
 /* 들어오자마자 전체를 펴 놓으면 39화면이 된다. 한 화면 반쯤 보여주고
    나머지는 접는다 — 서식은 그대로 살아 있고 글도 DOM에 다 있다(검색용). */
-.nlwrap{position:relative;max-height:min(72vh,700px);overflow:hidden;
+.nlwrap{position:relative;max-height:min(44vh,420px);overflow:hidden;
 border:1px solid #232323;border-radius:12px}
 .nlwrap.open{max-height:none}
 .nlwrap .fade{position:absolute;left:0;right:0;bottom:0;height:150px;pointer-events:none;
@@ -313,7 +313,6 @@ def build(atoms=None):
   <div class="fade"></div>
 </div>
 <button type="button" class="expand" id="expand">전체 보기 ↓</button>
-<a class="more" href="{today[0]['newsletter']}">최신 순살 뉴스레터 페이지로 →</a>
 
 {chart_html}
 

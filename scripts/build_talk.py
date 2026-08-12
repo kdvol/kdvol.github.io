@@ -389,11 +389,33 @@ function load() {
       }
       render((d && d.items) || []);
     })
-    .catch(function () {
+    .catch(function (e) {
       clearTimeout(timer);
       // 이미 뭔가 보여주고 있으면 건드리지 않는다 — 갱신 실패로 화면을 비우면 손해다
-      if (first) app.innerHTML = '<div class="empty"><b>불러오지 못했어요</b>' +
-        '연결을 확인하고 새로고침해 주세요.</div>';
+      if (!first) { return; }
+      // 첫 시도가 실패해도 한 번은 더 해본다. 순간적인 끊김이 대부분이라
+      // 사람이 새로고침하기 전에 스스로 붙는 경우가 많다.
+      if (!load._retried) {
+        load._retried = 1;
+        setTimeout(load, 1200);
+        return;
+      }
+      // 두 번 다 실패했으면 왜 실패했는지까지 알려준다. '연결을 확인하라'만으로는
+      // 느린 건지 막힌 건지 알 수 없어 다음에 물어볼 것도 없다.
+      var slow = e && (e.name === 'AbortError' || String(e).indexOf('abort') >= 0);
+      app.innerHTML = '<div class="empty"><b>' +
+        (slow ? '응답이 너무 느려요' : '집계 서버에 닿지 못했어요') + '</b>' +
+        (slow ? '잠시 뒤 다시 시도해 주세요.'
+              : '광고 차단기나 사내망이 막고 있을 수 있어요.') +
+        '<br><button type="button" class="go" id="retry" ' +
+        'style="margin-top:12px;padding:8px 16px;border-radius:8px;cursor:pointer">' +
+        '다시 시도</button></div>';
+      var rb = document.getElementById('retry');
+      if (rb) rb.addEventListener('click', function () {
+        load._retried = 0;
+        app.innerHTML = '<div class="empty">불러오는 중…</div>';
+        load();
+      });
     });
 }
 

@@ -112,8 +112,8 @@ NAV_CSS = """
 @media(max-width:560px){
 .nav>a.nav-desktop-link{display:none}
 .nav-menu a.nav-mobile-only{display:block}
-  /* 코어 4개 + 더보기 = 5칸. 4칸으로 두면 다섯 번째가 다음 줄로 넘어간다. */
-  .nav{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));width:100%}
+  /* 칸 수는 항목 수를 따라간다 — 정의 뒤에서 CORE_ITEMS로 채운다 */
+  .nav{display:grid;grid-template-columns:repeat(%%NAVCOLS%%,minmax(0,1fr));width:100%}
   .nav>a,.nav-more>summary{justify-content:center;padding:11px 2px;font-size:11.5px;
   letter-spacing:-.4px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
   .nav-more{position:static;min-width:0}
@@ -138,7 +138,7 @@ NAV_ENHANCEMENT_CSS = """
   .nav-more.mobile-active>summary{color:#F07040;border-bottom-color:#F07040}
   /* 코어 4개 + 더보기 = 5칸. 예전 CSS가 4칸이라 다섯 번째가 다음 줄로 넘어갔다.
      이 블록은 페이지마다 나중에 주입되므로 안에 박힌 옛 규칙을 덮는다. */
-  .nav{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));width:100%}
+  .nav{display:grid;grid-template-columns:repeat(%%NAVCOLS%%,minmax(0,1fr));width:100%}
   .nav>a,.nav-more>summary{justify-content:center;padding:11px 2px;font-size:11.5px;
     letter-spacing:-.4px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 }
@@ -182,6 +182,14 @@ border-radius:50%;background:#F07040;opacity:0;transition:opacity .2s}
 }
 """
 
+# 칸 수를 고정값으로 두면 항목이 줄었을 때(주제별을 뺐다) 빈 칸이 남아
+# nav가 왼쪽으로 쏠린다. 코어 항목 + 더보기 개수로 채운다.
+def _fill_cols(css):
+    return css.replace("%%NAVCOLS%%", str(len(CORE_ITEMS) + 1))
+
+NAV_CSS = _fill_cols(NAV_CSS)
+NAV_ENHANCEMENT_CSS = _fill_cols(NAV_ENHANCEMENT_CSS)
+
 HEADER_CSS = """
 .site-header{padding:26px 20px 18px;border-bottom:1px solid #222;display:flex;justify-content:center;position:relative;background:#111}
 .logo-link{display:flex;align-items:center;gap:10px;text-decoration:none;color:#fff}
@@ -209,6 +217,14 @@ SEARCH_BTN = (
 # 홈·뉴스레터는 자기 헤더를 갖고 있다(생성 페이지가 아니다). 여는 태그 바로
 # 뒤에 버튼을 넣는다. position:absolute라 헤더에 position이 있어야 한다.
 HEADER_OPEN_RE = re.compile(r'<(div|header)([^>]*)class="site-header"([^>]*)>')
+
+
+NAV_COLS_RE = re.compile(
+    r'(\.nav\{display:grid;grid-template-columns:repeat\()\d+(,minmax\(0,1fr\)\);width:100%\})')
+
+
+def _fix_nav_cols(html: str) -> str:
+    return NAV_COLS_RE.sub(rf'\g<1>{len(CORE_ITEMS) + 1}\g<2>', html)
 
 
 def _with_subscribe(html: str) -> str:
@@ -276,6 +292,7 @@ def main():
             new = new.replace("</head>", enhancement + "\n</head>", 1)
         new = _with_search(new)
         new = _with_subscribe(new)
+        new = _fix_nav_cols(new)
         if new != t:
             p.write_text(new, encoding="utf-8")
             n += 1

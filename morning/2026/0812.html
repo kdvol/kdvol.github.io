@@ -21,7 +21,7 @@
     .nav-more{position:relative;flex-shrink:0}.nav-more[open]>summary{color:#fff;background:#202020}
     .nav-menu{position:absolute;top:100%;right:0;z-index:1001;display:grid;min-width:190px;padding:8px;background:#1b1b1b;border:1px solid #333;border-radius:0 0 8px 8px;box-shadow:0 12px 26px rgba(0,0,0,.28)}
     .nav-menu a{display:block;padding:10px 12px;border-radius:5px;color:#aaa;text-decoration:none;font-size:13px;font-weight:700;white-space:nowrap}.nav-menu a:hover,.nav-menu a.active{color:#fff;background:#282828}.nav-menu a.active{color:#F07040}.nav-menu a.biz{color:#777;border-top:1px solid #303030;margin-top:4px;padding-top:12px}
-    @media(max-width:560px){.nav>a.nav-desktop-link{display:none}.nav-menu a.nav-mobile-only{display:block}.nav-more.mobile-active>summary{color:#F07040;border-bottom-color:#F07040}.nav{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));width:100%}.nav>a,.nav-more>summary{justify-content:center;padding:11px 2px;font-size:11.5px;letter-spacing:-.4px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.nav-more{position:static;min-width:0}.nav-menu{left:10px;right:10px;top:100%;grid-template-columns:repeat(2,minmax(0,1fr));min-width:0;padding:8px}.nav-menu a{text-align:center;padding:11px 6px}.nav-menu a.biz{border-top:0;margin-top:0;padding-top:11px}}
+    @media(max-width:560px){.nav>a.nav-desktop-link{display:none}.nav-menu a.nav-mobile-only{display:block}.nav-more.mobile-active>summary{color:#F07040;border-bottom-color:#F07040}.nav{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));width:100%}.nav>a,.nav-more>summary{justify-content:center;padding:11px 2px;font-size:11.5px;letter-spacing:-.4px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.nav-more{position:static;min-width:0}.nav-menu{left:10px;right:10px;top:100%;grid-template-columns:repeat(2,minmax(0,1fr));min-width:0;padding:8px}.nav-menu a{text-align:center;padding:11px 6px}.nav-menu a.biz{border-top:0;margin-top:0;padding-top:11px}}
     @media(max-width:360px){.nav>a,.nav-more>summary{font-size:10.5px;letter-spacing:-.5px;padding:11px 1px}}
 
     .memo-shell{max-width:760px;margin:28px auto 68px;padding:0 22px;background:transparent}
@@ -52,7 +52,7 @@
   .nav-more.mobile-active>summary{color:#F07040;border-bottom-color:#F07040}
   /* 코어 4개 + 더보기 = 5칸. 예전 CSS가 4칸이라 다섯 번째가 다음 줄로 넘어갔다.
      이 블록은 페이지마다 나중에 주입되므로 안에 박힌 옛 규칙을 덮는다. */
-  .nav{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));width:100%}
+  .nav{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));width:100%}
   .nav>a,.nav-more>summary{justify-content:center;padding:11px 2px;font-size:11.5px;
     letter-spacing:-.4px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 }
