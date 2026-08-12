@@ -69,6 +69,9 @@ justify-content:center;font-size:.78rem;font-weight:800;color:#111;letter-spacin
 .nm .g{font-size:.65rem;color:#8b8578;background:#1e1e1e;border-radius:4px;padding:1px 6px}
 .nm .t{font-size:.7rem;color:#4a453d}
 .tx{color:#ccc6bb;font-size:.93rem;line-height:1.62;margin-top:3px;word-break:break-word}
+/* 멘션은 '누구에게 하는 말인가'지 강조가 아니다. 주황은 행동(답글·원문 보기)에
+   쓰는 색이라 여기 쓰면 본문보다 태그가 먼저 읽힌다. 한 톤 낮추고 굵기만 준다. */
+.tx .at{color:#8f8578;font-weight:600}
 .c.op .nm .k{color:#F5A481}
 .ob{font-size:.62rem;font-weight:700;color:#fff;background:#E55A00;border-radius:4px;padding:1px 6px}
 .ob.bot{background:#5a6b7a}
@@ -254,7 +257,9 @@ function render(items) {
   }
   // 스레드로 묶는다 — 서버가 이미 (최신 스레드, root, id) 순으로 준다
   var order = [], roots = {};
+  NICK = {};
   items.forEach(function (c) {
+    NICK[c.id] = c.nick;
     if (!roots[c.root_id]) { roots[c.root_id] = []; order.push(c.root_id); }
     roots[c.root_id].push(c);
   });
@@ -286,6 +291,17 @@ function render(items) {
   wire();
 }
 
+var NICK = {};   // id → 닉네임. 답글 본문의 @태그를 정확히 집어내는 데 쓴다
+
+function atHTML(body, toNick) {
+  var s = esc(body);
+  if (!toNick) return s;
+  var tag = esc('@' + toNick);
+  return s.indexOf(tag) === 0
+    ? '<span class="at">' + tag + '</span>' + s.slice(tag.length)
+    : s;
+}
+
 function one(c, isRep) {
   var tag = [c.tag, c.co].filter(Boolean).join(' · ');
   return '<div class="c' + (isRep ? ' rep' : '') + (c.op ? ' op' : '') +
@@ -297,7 +313,7 @@ function one(c, isRep) {
           (c.op === 2 ? '🤖 봇' : '순살 팀') + '</span>' : '') +
         (tag ? '<span class="g">' + esc(tag) + '</span>' : '') +
         '<span class="t">' + ago(c.ts) + '</span></div>' +
-      '<div class="tx">' + esc(c.body) + '</div>' +
+      '<div class="tx">' + atHTML(c.body, NICK[c.parent_id] || '') + '</div>' +
       '<div class="act">' +
         '<button type="button" class="like' + (liked[c.id] ? ' on' : '') +
           '" data-i="' + c.id + '">' + (liked[c.id] ? '♥' : '♡') +
