@@ -7,6 +7,7 @@ import build_nav
 
 
 PAGE = '<html><head><style>.nav{overflow-x:auto}</style></head><body><div class="nav"><a href="/">old</a></div></body></html>'
+PRESTYLED_PAGE = '<html><head><style>.nav-more>summary{display:flex}</style></head><body><div class="nav"><a href="/">old</a></div></body></html>'
 
 
 class BuildNavTest(unittest.TestCase):
@@ -19,8 +20,11 @@ class BuildNavTest(unittest.TestCase):
                     path = root / rel
                     path.parent.mkdir(parents=True, exist_ok=True)
                     path.write_text(PAGE, encoding="utf-8")
+                topics = root / "topics/index.html"
+                topics.parent.mkdir(parents=True, exist_ok=True)
+                topics.write_text(PRESTYLED_PAGE, encoding="utf-8")
                 build_nav.ROOT = root
-                self.assertEqual(3, build_nav.main())
+                self.assertEqual(4, build_nav.main())
                 self.assertEqual(0, build_nav.main())
 
                 morning = (root / "morning/2026/0812.html").read_text(encoding="utf-8")
@@ -30,12 +34,25 @@ class BuildNavTest(unittest.TestCase):
                 self.assertIn('<a href="/morning/" class="active">모닝순살</a>', morning)
                 self.assertIn('<a href="/topics/">주제별</a>', morning)
                 self.assertIn('<details class="nav-more">', morning)
+                self.assertIn('<section class="nav-menu" aria-label="추가 메뉴"><a href="/talk/">한마디</a>', morning)
                 self.assertIn('grid-template-columns:repeat(4,minmax(0,1fr))', morning)
                 self.assertEqual(1, morning.count('id="soonsal-nav-v2"'))
+
+                topics_html = topics.read_text(encoding="utf-8")
+                self.assertNotIn('id="soonsal-nav-v2"', topics_html)
+                self.assertEqual(1, topics_html.count('.nav-more>summary'))
 
                 youtube = (root / "youtube/index.html").read_text(encoding="utf-8")
                 self.assertIn('<details class="nav-more active">', youtube)
                 self.assertIn('<a href="/youtube/" class="active">YouTube</a>', youtube)
+
+                talk = root / "talk/index.html"
+                talk.parent.mkdir(parents=True, exist_ok=True)
+                talk.write_text(PAGE, encoding="utf-8")
+                self.assertEqual(1, build_nav.main())
+                talk_html = talk.read_text(encoding="utf-8")
+                self.assertIn('<details class="nav-more active">', talk_html)
+                self.assertIn('<a href="/talk/" class="active">한마디</a>', talk_html)
         finally:
             build_nav.ROOT = original_root
 

@@ -13,13 +13,14 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 
 CORE_ITEMS = [("/newsletters/", "브리핑"), ("/morning/", "모닝순살"),
-              ("/talk/", "한마디"), ("/topics/", "주제별")]
-MORE_ITEMS = [("/cardnews/", "카드뉴스"), ("/youtube/", "YouTube"),
+              ("/topics/", "주제별")]
+MORE_ITEMS = [("/talk/", "한마디"), ("/cardnews/", "카드뉴스"), ("/youtube/", "YouTube"),
               ("/school/", "스쿨"), ("/advertise/", "광고 문의")]
 BIZ = {"/advertise/"}
 
 NAV_RE = re.compile(r'<(?:div|nav)\s+class="nav"(?:\s[^>]*)?>.*?</(?:div|nav)>', re.S)
 NAV_STYLE_RE = re.compile(r'<style id="soonsal-nav-v2">.*?</style>', re.S)
+NAV_CSS_PRESENT_RE = re.compile(r'\.nav-more\s*>\s*summary')
 
 
 def _nav(active):
@@ -119,7 +120,7 @@ def main():
         new = NAV_RE.sub(_nav(_active_for(p)), t, count=1)
         if NAV_STYLE_RE.search(new):
             new = NAV_STYLE_RE.sub(style, new, count=1)
-        elif "</head>" in new:
+        elif not NAV_CSS_PRESENT_RE.search(new) and "</head>" in new:
             new = new.replace("</head>", style + "\n</head>", 1)
         if new != t:
             p.write_text(new, encoding="utf-8")
