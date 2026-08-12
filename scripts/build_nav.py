@@ -76,11 +76,15 @@ def _active_for(path: Path):
 
 
 # ── 생성 페이지(주제별·검색·엔티티)용 공용 헤더 — 본 사이트와 동일 스타일 ──
-NAV_CSS = """
+SEARCH_CSS = """
 .search-btn-header{position:absolute;left:max(16px,calc(50% - 400px));top:50%;transform:translateY(-50%);
 display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:8px;
 color:#8a857c;text-decoration:none}
 .search-btn-header:hover{color:#fff;background:#1e1e1e}
+"""
+SEARCH_STYLE_RE = re.compile(r'<style id="soonsal-search-v1">.*?</style>', re.S)
+
+NAV_CSS = """
 .nav{position:relative;display:flex;justify-content:center;align-items:stretch;overflow:visible;border-bottom:1px solid #222;background:#151515;z-index:100}
 .nav>a,.nav-more>summary{display:flex;align-items:center;padding:12px 18px;font-size:13px;font-weight:700;color:#777;white-space:nowrap;text-decoration:none;border:0;border-bottom:2px solid transparent;cursor:pointer;list-style:none;transition:color .2s,border-color .2s,background .2s}
 .nav-more>summary::-webkit-details-marker{display:none}
@@ -178,7 +182,7 @@ HEADER_CSS = """
 background:#E55A00;color:#fff;padding:8px 18px;border-radius:6px;font-size:13px;font-weight:700;text-decoration:none;white-space:nowrap}
 @media(max-width:560px){.sub-btn-header{display:none}}
 .crumb{color:#F07040;font-size:.88rem;display:inline-block;margin-bottom:14px;text-decoration:none}
-""" + NAV_CSS
+""" + SEARCH_CSS + NAV_CSS
 
 FONT_LINK = ('<link rel="preconnect" href="https://fonts.googleapis.com"/>'
              '<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700;800&display=swap" rel="stylesheet"/>')
@@ -196,6 +200,13 @@ HEADER_OPEN_RE = re.compile(r'<(div|header)([^>]*)class="site-header"([^>]*)>')
 
 
 def _with_search(html: str) -> str:
+    # 스타일은 마크업과 늘 같이 간다. 한쪽만 들어가면 로고 옆에 덩그러니 붙는다.
+    style = f'<style id="soonsal-search-v1">\n{SEARCH_CSS.strip()}\n</style>'
+    if SEARCH_STYLE_RE.search(html):
+        html = SEARCH_STYLE_RE.sub(style, html, count=1)
+    elif "search-btn-header{position:absolute" not in html.replace("\n", "") \
+            and "</head>" in html:
+        html = html.replace("</head>", style + "\n</head>", 1)
     if 'class="search-btn-header"' in html:
         return html
     m = HEADER_OPEN_RE.search(html)
