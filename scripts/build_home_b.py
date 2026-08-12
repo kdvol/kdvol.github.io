@@ -44,7 +44,7 @@ h1{margin-top:26px}
 letter-spacing:0;text-transform:none}
 /* 들어오자마자 전체를 펴 놓으면 39화면이 된다. 한 화면 반쯤 보여주고
    나머지는 접는다 — 서식은 그대로 살아 있고 글도 DOM에 다 있다(검색용). */
-.nlwrap{position:relative;max-height:min(44vh,420px);overflow:hidden;
+.nlwrap{position:relative;max-height:min(92vh,745px);overflow:hidden;
 border:1px solid #232323;border-radius:12px}
 .nlwrap.open{max-height:none}
 .nlwrap .fade{position:absolute;left:0;right:0;bottom:0;height:150px;pointer-events:none;
@@ -207,8 +207,20 @@ def _issue_body(page: Path):
     body = t[start:end]
 
     # 뉴스레터 자체 헤더(로고·날짜)는 사이트 헤더와 겹친다. 여기 박힌 base64
-    # 로고가 50KB 중 대부분이기도 하다.
-    h = re.search(r'<div class="header">', body)
+    # 로고가 50KB 중 대부분이기도 하다. .hello(제목·리드·댓글 CTA)도 홈의
+    # '오늘자 뉴스레터' 머리말과 하는 말이 같아 뺀다 — 미리보기는 시황부터.
+    for cls in ("header", "hello"):
+        hm = re.search(rf'<div class="{cls}">', body)
+        if not hm:
+            continue
+        d3, p3 = 1, hm.end()
+        for x in re.finditer(r"</?div\b[^>]*>", body[p3:]):
+            d3 += -1 if x.group(0).startswith("</") else 1
+            if d3 == 0:
+                body = body[:hm.start()] + body[p3 + x.end():]
+                break
+
+    h = None
     if h:
         d2, p2 = 1, h.end()
         for x in re.finditer(r"</?div\b[^>]*>", body[p2:]):
