@@ -776,6 +776,10 @@ export default {
                        + 'from comments where state = 1'),
           env.DB.prepare('select count(*) as repeat_w from (select vid from comments '
                        + 'where state = 1 group by vid having count(*) >= 2)'),
+          env.DB.prepare("select date(ts + 32400, 'unixepoch') as day, count(*) as n, "
+                       + 'sum(case when op = 0 then 1 else 0 end) as readers '
+                       + `from comments where state = 1 and ts >= unixepoch(${since}) `
+                       + 'group by day order by day'),
         ]);
 
         // 전체 기간 누적 — 창(days)과 무관하게 집계 시작 이후 전부
@@ -801,6 +805,7 @@ export default {
           refs: ref.results || [],
           hops: hop.results || [],
           visitors: (vis.results || [])[0] || {},
+          commentsDaily: cm[3].results || [],
         }, origin);
       }
 

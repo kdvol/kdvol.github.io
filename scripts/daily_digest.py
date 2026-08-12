@@ -64,7 +64,12 @@ def main():
         eng[e["kind"]] = eng.get(e["kind"], 0) + e["n"]
 
     people = vis.get("today") or 0
-    comments = eng.get("comment", 0)
+    cd = ins.get("commentsDaily") or []
+    comments = sum(r.get("n", 0) for r in cd)
+    readers = sum(r.get("readers", 0) for r in cd)          # 순살 팀·봇을 뺀 수
+    if not cd:                                              # 예전 워커면 이벤트로
+        comments = eng.get("comment", 0)
+        readers = 0
     reacts = eng.get("react", 0)
 
     # 아무 일도 없었으면 침묵한다
@@ -84,7 +89,8 @@ def main():
         "🐟 <b>순살 웹사이트 하루 요약</b>",
         "",
         f"방문 <b>{people}명</b> · {today.get('hits', 0)}뷰",
-        f"반응 {reacts}건 · 댓글 {comments}건",
+        f"반응 {reacts}건 · 댓글 {comments}건"
+        + (f" (순살러 {readers}건)" if comments and readers else ""),
     ]
     if vis.get("total"):
         rate = round((vis.get("repeat_v", 0) / vis["total"]) * 100)
