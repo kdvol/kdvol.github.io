@@ -513,7 +513,8 @@
   // workers.dev는 광고 차단기·사내망·일부 DNS 필터가 통째로 막는다. 그러면
   // 반응·코멘트가 조용히 죽는다. 여러 호스트를 순서대로 시도하고, 통한 곳을
   // 기억해 다음부터 그것부터 쓴다.
-  var HOSTS = CFG.hosts || [CFG.worker || 'https://soonsal-react.kd-d0a.workers.dev'];
+  var HOSTS = CFG.hosts ||
+    ['https://api.soonsal.com', 'https://soonsal-react.kd-d0a.workers.dev'];
   try {
     var okHost = localStorage.getItem('ss_host');
     if (okHost && HOSTS.indexOf(okHost) > 0) {
