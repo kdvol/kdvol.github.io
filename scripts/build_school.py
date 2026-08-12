@@ -89,8 +89,14 @@ overflow:hidden;transition:border-color .18s}
 .card:hover{border-color:#333}
 .card.best{border-color:#4a2d1c;background:linear-gradient(168deg,#191512,#141414)}
 .card.best:hover{border-color:#6b3f24}
-.card a{display:block;color:inherit}
-.cb{padding:21px 21px 0}
+.card>a{display:block;color:inherit}
+/* 커버 — 글만 있는 카드는 안 팔린다. liveklass 상세페이지의 실제 커버를 쓴다. */
+.cv{display:block;position:relative;aspect-ratio:16/9;overflow:hidden;background:#0d0d0d}
+.cv img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s ease}
+.card:hover .cv img{transform:scale(1.025)}
+.cv:after{content:"";position:absolute;inset:0;
+background:linear-gradient(180deg,transparent 55%,rgba(20,20,20,.92) 100%)}
+.cb{padding:18px 21px 0}
 .tag{display:inline-block;font-size:.68rem;font-weight:700;letter-spacing:.02em;
 border-radius:5px;padding:3px 9px;margin-bottom:11px;background:rgba(240,112,64,.13);color:#F5A481}
 .card h3{font-size:1.1rem;font-weight:800;letter-spacing:-.025em;line-height:1.4;
@@ -122,15 +128,18 @@ color:#fff;display:flex;align-items:center;justify-content:center;font-size:15px
 font-size:.69rem;font-weight:700;border-radius:5px;padding:3px 9px;letter-spacing:.02em}
 
 /* 결제 줄 — 버튼이 카드 폭을 꽉 채우게. 예전엔 오른쪽에 떠서 어정쩡했다 */
-.buy{display:flex;align-items:center;gap:12px;padding:16px 21px;
+/* 결제 줄. .card a{display:block}이 이 flex를 이겨서 값들이 겹쳐 보였다 —
+   선택자를 .card>a로 좁히고 여기선 명시적으로 flex를 건다. */
+.card a.buy{display:flex;align-items:center;flex-wrap:wrap;gap:14px;padding:17px 21px;
 border-top:1px solid #1f1f1f;background:#121212}
 .pr{font-size:1.16rem;font-weight:800;letter-spacing:-.025em;color:#f2efe8;
 font-variant-numeric:tabular-nums}
 .pr s{display:block;font-size:.76rem;font-weight:400;color:#5f5a52;margin-bottom:1px}
 .save{font-size:.71rem;color:#F5A481;font-weight:700;border:1px solid #4a2d1c;
-border-radius:5px;padding:3px 8px}
-.go{margin-left:auto;background:#E55A00;color:#fff;border-radius:9px;padding:11px 20px;
-font-size:.86rem;font-weight:700;white-space:nowrap;transition:background .15s}
+border-radius:5px;padding:4px 9px;white-space:nowrap}
+.go{margin-left:auto;background:#E55A00;color:#fff;border-radius:9px;padding:12px 22px;
+font-size:.86rem;font-weight:700;white-space:nowrap;transition:background .15s;
+flex:0 0 auto}
 .card:hover .go{background:#F07040}
 
 .note{color:#5f5a52;font-size:.79rem;line-height:1.75;margin-top:34px;
@@ -140,8 +149,8 @@ padding-top:24px;border-top:1px solid #1c1c1c;text-align:center}
  .ph h1{font-size:1.6rem}
  .cb{padding:18px 17px 0}
  .tz{margin:0 17px 15px}
- .buy{flex-wrap:wrap;padding:15px 17px}
- .go{margin-left:0;width:100%;text-align:center;padding:13px}
+ .card a.buy{padding:16px 17px;gap:11px}
+ .go{margin-left:0;width:100%;text-align:center;padding:14px;margin-top:3px}
 }
 """
 
@@ -175,8 +184,11 @@ def card_html(c):
                   f' alt="맛보기 영상" loading="lazy" width="480" height="270"/>'
                   f'<span class="pl">▶</span><span class="lb">1분 맛보기</span></span>')
 
+    cover = (f'<span class="cv"><img src="{c["img"]}" alt="{H.escape(c["t"])}"'
+             f' loading="lazy" width="880" height="495"/></span>') if c.get("img") else ""
+
     return f"""<div class="card{' best' if c.get('best') else ''}">
-<a href="{BASE}{c['id']}" target="_blank" rel="noopener"><div class="cb">
+<a href="{BASE}{c['id']}" target="_blank" rel="noopener">{cover}<div class="cb">
 {'<span class="tag">3종 통합 · 개별 구매 대비 20% 할인</span>' if c.get('best') else ''}
 <h3>{H.escape(c['t'])}</h3>
 <p class="sb">{H.escape(c['sub'])}</p>

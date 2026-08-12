@@ -17,7 +17,8 @@
    "M&A 절차와 실사, 카카오 10년 100만배 성장 케이스 (12강 3시간 40분)"
   ],
   "cap": "ibd",
-  "best": true
+  "best": true,
+  "img": "/assets/school/42917.jpg"
  },
  {
   "id": "38648",
@@ -35,7 +36,8 @@
    "IBD 직급별 업무·연봉 구조, 딜 팀 구성",
    "실전 인터뷰 가이드와 자격 조건"
   ],
-  "cap": "ibd"
+  "cap": "ibd",
+  "img": "/assets/school/38648.jpg"
  },
  {
   "id": "42392",
@@ -53,7 +55,8 @@
    "빅히트·카카오게임즈 상장 뒷배경 케이스 스터디",
    "유상증자·블록딜·CB 등 자본시장 업무"
   ],
-  "cap": "ibd"
+  "cap": "ibd",
+  "img": "/assets/school/42392.jpg"
  },
  {
   "id": "42832",
@@ -72,7 +75,8 @@
    "전략적 투자자 vs 재무적 투자자의 이해관계",
    "딜 프로세스와 실사(Due Diligence) 주의사항"
   ],
-  "cap": "ibd"
+  "cap": "ibd",
+  "img": "/assets/school/42832.jpg"
  },
  {
   "id": "10659",
@@ -91,7 +95,8 @@
   ],
   "cap": "jack",
   "rating": "5.0",
-  "teaser": "RHqjigulW20"
+  "teaser": "RHqjigulW20",
+  "img": "/assets/school/10659.jpg"
  },
  {
   "id": "10965",
@@ -109,7 +114,8 @@
    "이론 위에 얹은 홍콩 퀀트 펀드 실무 경험"
   ],
   "cap": "quant",
-  "teaser": "PdnyMyFOwl8"
+  "teaser": "PdnyMyFOwl8",
+  "img": "/assets/school/10965.jpg"
  },
  {
   "id": "10662",
@@ -126,6 +132,7 @@
    "CDS·회사채 개념과 실제 활용법",
    "주주서한을 함께 읽으며 행간 읽기"
   ],
-  "cap": "jack"
+  "cap": "jack",
+  "img": "/assets/school/10662.jpg"
  }
 ]
