@@ -242,6 +242,41 @@
 @media(max-width:360px){
   .nav>a,.nav-more>summary{font-size:10.5px;letter-spacing:-.5px;padding:11px 1px}
 }
+/* ── 눌러보고 싶게 ──────────────────────────────────────
+   탭은 '지금 어디' 말고는 아무것도 알려주지 않는다. 더보기는 특히 그렇다 —
+   안에 뭐가 있는지 모르면 누를 이유가 없다. 세 가지를 바꾼다:
+   (1) 밑줄이 자라며 눌리는 느낌, (2) 화살표가 열림에 반응, (3) 메뉴 안에
+   아이콘을 붙여 목록이 아니라 '갈 곳'으로 보이게. */
+.nav>a,.nav-more>summary{position:relative;transition:color .18s}
+.nav>a:after,.nav-more>summary:after{content:"";position:absolute;left:50%;right:50%;
+bottom:-1px;height:2px;background:#F07040;border-radius:2px;
+transition:left .22s cubic-bezier(.4,0,.2,1),right .22s cubic-bezier(.4,0,.2,1)}
+.nav>a:hover:after,.nav-more>summary:hover:after{left:18%;right:18%}
+.nav>a.active:after,.nav-more.active>summary:after{left:0;right:0}
+
+.nav-more>summary span[aria-hidden]{display:inline-block;transition:transform .22s ease;
+margin-left:2px}
+.nav-more[open]>summary span[aria-hidden]{transform:rotate(180deg)}
+.nav-more[open]>summary{color:#F07040}
+
+.nav-menu{animation:navdrop .18s cubic-bezier(.2,.8,.2,1)}
+@keyframes navdrop{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
+.nav-menu a{transition:background .15s,color .15s,padding-left .15s}
+.nav-menu a:before{margin-right:7px;opacity:.9}
+.nav-menu a[href="/cardnews/"]:before{content:"🎴"}
+.nav-menu a[href="/youtube/"]:before{content:"▶"}
+.nav-menu a[href="/school/"]:before{content:"🎓"}
+.nav-menu a[href="/advertise/"]:before{content:"✉"}
+.nav-menu a[href="/talk/"]:before{content:"💬"}
+
+/* 더보기 안에 뭐가 있는지 한 줄로 알려준다 — 열기 전에 궁금해지는 건 이 지점이다 */
+.nav-more>summary:before{content:"";position:absolute;top:9px;right:6px;width:5px;height:5px;
+border-radius:50%;background:#F07040;opacity:0;transition:opacity .2s}
+.nav-more:not([open])>summary:hover:before{opacity:.85}
+@media(max-width:560px){
+  .nav-menu a{text-align:left;padding-left:14px}
+  .nav-more>summary:before{right:3px;top:7px}
+}
 </style>
 </head>
 <body>
