@@ -6,13 +6,12 @@
  * 통째로 막는 경우가 있다(실제로 겪음). 그럴 때 반응·코멘트·순살톡이 전부
  * 조용히 죽는다. 자사 도메인(api.soonsal.com)을 앞에 두면 그 실패가 사라진다.
  *
- * api.soonsal.com이 준비되면 아래 주석을 풀어 맨 앞에 놓으면 된다.
- * (Cloudflare 대시보드 → Workers → soonsal-react → Custom Domain 추가)
+ * 2026-08-13: api.soonsal.com을 워커 커스텀 도메인으로 붙이고 맨 앞에 뒀다.
  */
 window.SS_CFG = {
   hosts: [
-    // "https://api.soonsal.com",
-    "https://soonsal-react.kd-d0a.workers.dev"
+    "https://api.soonsal.com",                      // 자사 도메인 — 차단기에 안 걸린다
+    "https://soonsal-react.kd-d0a.workers.dev"      // 예비
   ]
 };
 window.SS_CFG.worker = window.SS_CFG.hosts[0];   // 예전 코드 호환

@@ -131,7 +131,7 @@ JS = r"""
 // ss-config.js 하나가 못 뜨면(네트워크 블립·차단기) 페이지 전체가
 // '불러오지 못했습니다'가 된다. 주소는 공개값이라 여기 적어 둔다.
 var HOSTS = (window.SS_CFG && window.SS_CFG.hosts) ||
-            [(window.SS_CFG && window.SS_CFG.worker) || 'https://soonsal-react.kd-d0a.workers.dev'];
+            ['https://api.soonsal.com', 'https://soonsal-react.kd-d0a.workers.dev'];
 // 한 호스트가 막히면 다음 것으로 넘어간다. 한 번 통한 호스트는 기억해 두고
 // 다음부터 그것부터 쓴다 — 매번 막힌 곳을 먼저 두드릴 이유가 없다.
 try {

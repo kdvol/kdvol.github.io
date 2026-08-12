@@ -97,7 +97,7 @@ font-size:.72rem;cursor:pointer;font-family:inherit}
 
 DASH_JS = r"""
 var EMO = ['👍','🤔','🔥'];
-var SS = window.SS_CFG || { worker: 'https://soonsal-react.kd-d0a.workers.dev' };
+var SS = window.SS_CFG || { worker: 'https://api.soonsal.com' };
 var API = SS.worker || null;
 var app = document.getElementById('app');
 var D = {};                    // counts / activity / insights
