@@ -221,7 +221,7 @@ function one(c, isRep) {
         '<button type="button" class="like' + (liked[c.id] ? ' on' : '') +
           '" data-i="' + c.id + '">' + (liked[c.id] ? '♥' : '♡') +
           '<span>' + (c.likes || '') + '</span></button>' +
-        (isRep ? '' : '<button type="button" class="rep" data-i="' + c.id +
+        (isRep ? '' : '<button type="button" class="repb" data-i="' + c.id +
                       '" data-k="' + esc(c.nick) + '" data-s="' + esc(c.story) + '">' +
                       '↩ <span>답글</span></button>') +
       '</div>' +
@@ -248,13 +248,13 @@ function wire() {
     });
   });
 
-  app.querySelectorAll('.rep').forEach(function (b) {
+  app.querySelectorAll('.repb').forEach(function (b) {
     b.addEventListener('click', function () {
       var th = b.closest('.th'), rf = th.querySelector('.rf');
       var ta = rf.querySelector('textarea'), go = rf.querySelector('.go');
       rf.className = 'rf on';
       // 답글 버튼이 그대로 있으면 같은 기능이 두 군데 있는 것처럼 보인다
-      th.querySelectorAll('.rep').forEach(function (x) { x.style.visibility = 'hidden'; });
+      th.querySelectorAll('.repb').forEach(function (x) { x.style.visibility = 'hidden'; });
       rf._btns = th;
       rf._pid = parseInt(b.getAttribute('data-i'), 10);
       rf._story = b.getAttribute('data-s');
@@ -295,7 +295,7 @@ function wire() {
     ta.addEventListener('blur', function () { typing = false; });
     rf.querySelector('.x').addEventListener('click', function () {
       rf.className = 'rf'; ta.value = ''; typing = false;
-      if (rf._btns) rf._btns.querySelectorAll('.rep').forEach(function (x) {
+      if (rf._btns) rf._btns.querySelectorAll('.repb').forEach(function (x) {
         x.style.visibility = '';
       });
     });
@@ -317,7 +317,7 @@ function submit(rf, ta, go) {
     go.disabled = false;
     if (res && res.error) { alert('남기지 못했어요'); return; }
     ta.value = ''; rf.className = 'rf'; typing = false;
-    if (rf._btns) rf._btns.querySelectorAll('.rep').forEach(function (x) { x.style.visibility = ''; });
+    if (rf._btns) rf._btns.querySelectorAll('.repb').forEach(function (x) { x.style.visibility = ''; });
     load();                                   // 바로 반영
   }).catch(function () { go.disabled = false; });
 }
