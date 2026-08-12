@@ -94,6 +94,15 @@ li b{color:#eee;font-weight:600}
 background:#F0704022;color:#F07040;font-size:.72rem;font-weight:700;display:flex;align-items:center;
 justify-content:center;top:.2em;border:1px solid #F0704055}
 .note{color:#777;font-size:.85rem;line-height:1.7;margin-top:14px}
+/* 소개 안내. CTA만큼 세게 잡으면 본 문의를 흐린다 — 한 단 낮춘 톤으로 그 위에 둔다 */
+.ref{background:#151413;border:1px solid #2a2724;border-radius:12px;padding:18px 20px;margin-top:30px;
+display:flex;gap:14px;align-items:flex-start}
+.ref .ic{flex:0 0 auto;width:34px;height:34px;border-radius:9px;background:#F0704018;
+border:1px solid #F0704040;display:flex;align-items:center;justify-content:center;font-size:1rem}
+.ref h3{font-size:.95rem;margin:1px 0 6px;color:#e8e3da}
+.ref p{color:#8f8981;font-size:.87rem;line-height:1.7;margin:0}
+.ref a{color:#F07040;font-weight:700;text-decoration:none}
+.ref a:hover{text-decoration:underline}
 .cta{background:linear-gradient(180deg,#1c1a17,#161514);border:1px solid #3a2b20;border-radius:14px;
 padding:26px 22px;text-align:center;margin-top:36px}
 .cta h2{font-size:1.15rem;margin-bottom:8px}
@@ -383,6 +392,16 @@ Salesforce 건과 같은 형태의 콘텐츠 협업입니다.</p>
 <li>발행 후 성과 리포트 (콘텐츠가 충분히 소비된 뒤 정리해 드립니다)</li>
 </ul></div>
 </section>
+
+<div class="ref">
+<span class="ic">🤝</span>
+<div>
+<h3>소개해주시면 사례합니다</h3>
+<p>이 페이지가 떠오르는 분이 주변에 계신가요. 순살과 맞을 브랜드나 담당자를
+연결해주시면 소개에 대한 사례를 드립니다. 조건은 건별로 다르니
+<a href="mailto:{EMAIL}?subject=%5B%EC%86%8C%EA%B0%9C%5D%20">개별로 연락</a> 주세요.</p>
+</div>
+</div>
 
 <div class="cta">
 <h2>가볍게 물어보셔도 됩니다</h2>
