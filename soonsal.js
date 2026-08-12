@@ -451,7 +451,12 @@
       bd.hidden = !bd.hidden;
       bz.style.display = bd.hidden ? '' : 'none';
     });
-    var f = document.querySelector('.footer-inner') || document.querySelector('.footer');
+    var f = null;
+    var cands = document.querySelectorAll('.footer-inner, .footer');
+    for (var fi = 0; fi < cands.length; fi++) {
+      if (cands[fi].closest && cands[fi].closest('.nl')) continue;   // 심어 온 뉴스레터 안
+      f = cands[fi];
+    }
     (f || document.body).appendChild(d);
   }
 
