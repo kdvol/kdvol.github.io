@@ -151,7 +151,17 @@ border-radius:50%;background:#F07040;opacity:0;transition:opacity .2s}
   .nav-more>summary:before{right:3px;top:7px}
 }
 </style>
-<style id="soonsal-search-v1">
+</head><body>
+<style>
+.site-header{padding:26px 20px 18px;border-bottom:1px solid #222;display:flex;justify-content:center;position:relative;background:#111}
+.logo-link{display:flex;align-items:center;gap:10px;text-decoration:none;color:#fff}
+.logo-link img{height:26px;width:auto}
+.logo-text{font-size:22px;font-weight:800;letter-spacing:-0.5px;font-family:'DM Sans','Apple SD Gothic Neo',sans-serif}
+.sub-btn-header{position:absolute;right:max(16px,calc(50% - 400px));top:50%;transform:translateY(-50%);
+background:#E55A00;color:#fff;padding:8px 18px;border-radius:6px;font-size:13px;font-weight:700;text-decoration:none;white-space:nowrap}
+@media(max-width:560px){.sub-btn-header{display:none}}
+.crumb{color:#F07040;font-size:.88rem;display:inline-block;margin-bottom:14px;text-decoration:none}
+
 .sub-btn-header{position:absolute;right:max(16px,calc(50% - 400px));top:50%;transform:translateY(-50%);
 background:#E55A00;color:#fff;padding:8px 18px;border-radius:6px;font-size:13px;font-weight:700;
 text-decoration:none;white-space:nowrap}
@@ -165,17 +175,6 @@ color:#8a857c;text-decoration:none}
 @media(max-width:560px){
   .site-header:has(.sub-btn-header) .search-btn-header{right:16px}
 }
-</style>
-</head><body>
-<style>
-.site-header{padding:26px 20px 18px;border-bottom:1px solid #222;display:flex;justify-content:center;position:relative;background:#111}
-.logo-link{display:flex;align-items:center;gap:10px;text-decoration:none;color:#fff}
-.logo-link img{height:26px;width:auto}
-.logo-text{font-size:22px;font-weight:800;letter-spacing:-0.5px;font-family:'DM Sans','Apple SD Gothic Neo',sans-serif}
-.sub-btn-header{position:absolute;right:max(16px,calc(50% - 400px));top:50%;transform:translateY(-50%);
-background:#E55A00;color:#fff;padding:8px 18px;border-radius:6px;font-size:13px;font-weight:700;text-decoration:none;white-space:nowrap}
-@media(max-width:560px){.sub-btn-header{display:none}}
-.crumb{color:#F07040;font-size:.88rem;display:inline-block;margin-bottom:14px;text-decoration:none}
 
 .nav{position:relative;display:flex;justify-content:center;align-items:stretch;overflow:visible;border-bottom:1px solid #222;background:#151515;z-index:100}
 .nav>a,.nav-more>summary{display:flex;align-items:center;padding:12px 18px;font-size:13px;font-weight:700;color:#777;white-space:nowrap;text-decoration:none;border:0;border-bottom:2px solid transparent;cursor:pointer;list-style:none;transition:color .2s,border-color .2s,background .2s}
@@ -195,7 +194,7 @@ background:#E55A00;color:#fff;padding:8px 18px;border-radius:6px;font-size:13px;
 @media(max-width:560px){
 .nav>a.nav-desktop-link{display:none}
 .nav-menu a.nav-mobile-only{display:block}
-  /* 코어 4개 + 더보기 = 5칸. 4칸으로 두면 다섯 번째가 다음 줄로 넘어간다. */
+  /* 칸 수는 항목 수를 따라간다 — 정의 뒤에서 CORE_ITEMS로 채운다 */
   .nav{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));width:100%}
   .nav>a,.nav-more>summary{justify-content:center;padding:11px 2px;font-size:11.5px;
   letter-spacing:-.4px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
@@ -208,7 +207,7 @@ background:#E55A00;color:#fff;padding:8px 18px;border-radius:6px;font-size:13px;
   .nav>a,.nav-more>summary{font-size:10.5px;letter-spacing:-.5px;padding:11px 1px}
 }
 
-</style><header class="site-header" style="position:relative"><a href="/search/" class="search-btn-header" aria-label="검색"><svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.6-3.6"/></svg></a><a class="logo-link" href="/"><img src="/favicon.svg" alt="" onerror="this.style.display='none'"><span class="logo-text">순살브리핑 Soonsal</span></a><a href="https://subscribe.soonsal.com/subscribe" target="_blank" rel="noopener" class="sub-btn-header">구독하기</a></header><nav class="nav" aria-label="주요 메뉴"><a href="/newsletters/">뉴스레터</a><a href="/chart/">순살차트</a><a href="/talk/">순살톡</a><a href="/school/" class="nav-desktop-link">스쿨</a><a href="/collab/" class="nav-desktop-link biz">협업 문의</a><details class="nav-more active"><summary>더보기 <span aria-hidden="true">⌄</span></summary><section class="nav-menu" aria-label="추가 메뉴"><a href="/topics/">주제별</a><a href="/saved/">내가 모은 글</a><a href="/cardnews/">카드뉴스</a><a href="/youtube/" class="active">YouTube</a><a href="/school/" class="nav-mobile-only">스쿨</a><a href="/collab/" class="nav-mobile-only biz">협업 문의</a></section></details></nav>
+</style><header class="site-header"><a href="/search/" class="search-btn-header" aria-label="검색"><svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.6-3.6"/></svg></a><a class="logo-link" href="/"><img src="/favicon.svg" alt="" onerror="this.style.display='none'"><span class="logo-text">순살브리핑 Soonsal</span></a><a href="https://subscribe.soonsal.com/subscribe" target="_blank" rel="noopener" class="sub-btn-header">구독하기</a></header><nav class="nav" aria-label="주요 메뉴"><a href="/newsletters/">뉴스레터</a><a href="/chart/">순살차트</a><a href="/talk/">순살톡</a><a href="/school/" class="nav-desktop-link">스쿨</a><a href="/collab/" class="nav-desktop-link biz">협업 문의</a><details class="nav-more active"><summary>더보기 <span aria-hidden="true">⌄</span></summary><section class="nav-menu" aria-label="추가 메뉴"><a href="/topics/">주제별</a><a href="/saved/">내가 모은 글</a><a href="/cardnews/">카드뉴스</a><a href="/youtube/" class="active">YouTube</a><a href="/school/" class="nav-mobile-only">스쿨</a><a href="/collab/" class="nav-mobile-only biz">협업 문의</a></section></details></nav>
 <div class="yt"><div class="ph">
 <div class="ey">순살 YouTube</div>
 <h1>보면서 이해하는<br>글로벌 금융</h1>
@@ -242,51 +241,51 @@ background:#E55A00;color:#fff;padding:8px 18px;border-radius:6px;font-size:13px;
 <span class="th"><img src="https://i.ytimg.com/vi/_p66bIdb1U4/hqdefault.jpg"
  alt="워렌 버핏, 90년 인생을 갈아넣은 필승 전략" loading="lazy" width="270" height="480"/></span>
 <span class="tt">워렌 버핏, 90년 인생을 갈아넣은 필승 전략</span>
-<span class="dd">08.11 · 1,276</span></a><a class="sc" href="https://www.youtube.com/shorts/jQPdfoKGaTs" target="_blank" rel="noopener">
+<span class="dd">08.11 · 1,328</span></a><a class="sc" href="https://www.youtube.com/shorts/jQPdfoKGaTs" target="_blank" rel="noopener">
 <span class="th"><img src="https://i.ytimg.com/vi/jQPdfoKGaTs/hqdefault.jpg"
  alt="글자 두세 개 바꿨더니 트레이딩 AI 10개 중 9개가 속음 🔤" loading="lazy" width="270" height="480"/></span>
 <span class="tt">글자 두세 개 바꿨더니 트레이딩 AI 10개 중 9개가 속음 🔤</span>
-<span class="dd">08.10 · 1,291</span></a><a class="sc" href="https://www.youtube.com/shorts/WXhC9kuCE58" target="_blank" rel="noopener">
+<span class="dd">08.10 · 1,307</span></a><a class="sc" href="https://www.youtube.com/shorts/WXhC9kuCE58" target="_blank" rel="noopener">
 <span class="th"><img src="https://i.ytimg.com/vi/WXhC9kuCE58/hqdefault.jpg"
  alt="슈퍼컴퓨터 10대 중 7대를 식히는 건 세제 회사임 🧊" loading="lazy" width="270" height="480"/></span>
 <span class="tt">슈퍼컴퓨터 10대 중 7대를 식히는 건 세제 회사임 🧊</span>
-<span class="dd">08.09 · 1,696</span></a><a class="sc" href="https://www.youtube.com/shorts/pOVzxnUz_p4" target="_blank" rel="noopener">
+<span class="dd">08.09 · 1,720</span></a><a class="sc" href="https://www.youtube.com/shorts/pOVzxnUz_p4" target="_blank" rel="noopener">
 <span class="th"><img src="https://i.ytimg.com/vi/pOVzxnUz_p4/hqdefault.jpg"
  alt="미국에서 가장 큰 정신병원 3곳은 전부 교도소임 🔒" loading="lazy" width="270" height="480"/></span>
 <span class="tt">미국에서 가장 큰 정신병원 3곳은 전부 교도소임 🔒</span>
-<span class="dd">08.08 · 3,136</span></a><a class="sc" href="https://www.youtube.com/shorts/GWTy7UhnfFo" target="_blank" rel="noopener">
+<span class="dd">08.08 · 3,139</span></a><a class="sc" href="https://www.youtube.com/shorts/GWTy7UhnfFo" target="_blank" rel="noopener">
 <span class="th"><img src="https://i.ytimg.com/vi/GWTy7UhnfFo/hqdefault.jpg"
  alt="월가에서 &quot;팔아라&quot;는 4.9%뿐 📉" loading="lazy" width="270" height="480"/></span>
 <span class="tt">월가에서 &quot;팔아라&quot;는 4.9%뿐 📉</span>
-<span class="dd">08.07 · 1,975</span></a><a class="sc" href="https://www.youtube.com/shorts/YXlH3buEx6M" target="_blank" rel="noopener">
+<span class="dd">08.07 · 1,977</span></a><a class="sc" href="https://www.youtube.com/shorts/YXlH3buEx6M" target="_blank" rel="noopener">
 <span class="th"><img src="https://i.ytimg.com/vi/YXlH3buEx6M/hqdefault.jpg"
  alt="조미료 회사가 AI 칩 95% 독점 (일본 아지노모토)" loading="lazy" width="270" height="480"/></span>
 <span class="tt">조미료 회사가 AI 칩 95% 독점 (일본 아지노모토)</span>
-<span class="dd">08.07 · 2,069</span></a><a class="sc" href="https://www.youtube.com/shorts/RMDKU_TyVK8" target="_blank" rel="noopener">
+<span class="dd">08.07 · 2,072</span></a><a class="sc" href="https://www.youtube.com/shorts/RMDKU_TyVK8" target="_blank" rel="noopener">
 <span class="th"><img src="https://i.ytimg.com/vi/RMDKU_TyVK8/hqdefault.jpg"
  alt="레버리지 ETF가 반토막 날 때, 은행은 뭘 샀나" loading="lazy" width="270" height="480"/></span>
 <span class="tt">레버리지 ETF가 반토막 날 때, 은행은 뭘 샀나</span>
-<span class="dd">08.07 · 1,366</span></a><a class="sc" href="https://www.youtube.com/shorts/xv0yK6gvfSI" target="_blank" rel="noopener">
+<span class="dd">08.07 · 1,368</span></a><a class="sc" href="https://www.youtube.com/shorts/xv0yK6gvfSI" target="_blank" rel="noopener">
 <span class="th"><img src="https://i.ytimg.com/vi/xv0yK6gvfSI/hqdefault.jpg"
  alt="지금 대한민국 근황 — 코스피 6,800" loading="lazy" width="270" height="480"/></span>
 <span class="tt">지금 대한민국 근황 — 코스피 6,800</span>
-<span class="dd">07.20 · 184</span></a><a class="sc" href="https://www.youtube.com/shorts/52jYBlUZeRI" target="_blank" rel="noopener">
+<span class="dd">07.20 · 185</span></a><a class="sc" href="https://www.youtube.com/shorts/52jYBlUZeRI" target="_blank" rel="noopener">
 <span class="th"><img src="https://i.ytimg.com/vi/52jYBlUZeRI/hqdefault.jpg"
  alt="하락장에 미쳐버린 개미 커뮤니티" loading="lazy" width="270" height="480"/></span>
 <span class="tt">하락장에 미쳐버린 개미 커뮤니티</span>
-<span class="dd">07.19 · 134</span></a><a class="sc" href="https://www.youtube.com/shorts/d2od47BXq2k" target="_blank" rel="noopener">
+<span class="dd">07.19 · 136</span></a><a class="sc" href="https://www.youtube.com/shorts/d2od47BXq2k" target="_blank" rel="noopener">
 <span class="th"><img src="https://i.ytimg.com/vi/d2od47BXq2k/hqdefault.jpg"
  alt="하락장에 물렸을 때 유형 테스트 — 당신은 몇 번?" loading="lazy" width="270" height="480"/></span>
 <span class="tt">하락장에 물렸을 때 유형 테스트 — 당신은 몇 번?</span>
-<span class="dd">07.18 · 149</span></a><a class="sc" href="https://www.youtube.com/shorts/W3yckTGtFZw" target="_blank" rel="noopener">
+<span class="dd">07.18 · 151</span></a><a class="sc" href="https://www.youtube.com/shorts/W3yckTGtFZw" target="_blank" rel="noopener">
 <span class="th"><img src="https://i.ytimg.com/vi/W3yckTGtFZw/hqdefault.jpg"
  alt="S&amp;P 500은 하품이 나와서요 — 레버리지 무한루프" loading="lazy" width="270" height="480"/></span>
 <span class="tt">S&amp;P 500은 하품이 나와서요 — 레버리지 무한루프</span>
-<span class="dd">07.17 · 553</span></a><a class="sc" href="https://www.youtube.com/shorts/_frgjYQI85Y" target="_blank" rel="noopener">
+<span class="dd">07.17 · 554</span></a><a class="sc" href="https://www.youtube.com/shorts/_frgjYQI85Y" target="_blank" rel="noopener">
 <span class="th"><img src="https://i.ytimg.com/vi/_frgjYQI85Y/hqdefault.jpg"
  alt="2026 코스피 롤러코스터 — 개미 전원 탑승" loading="lazy" width="270" height="480"/></span>
 <span class="tt">2026 코스피 롤러코스터 — 개미 전원 탑승</span>
-<span class="dd">07.16 · 230</span></a></div><a class="more" href="https://www.youtube.com/@soonsal/shorts" target="_blank" rel="noopener">채널에서 전체 보기 →</a><div class="bridge">
+<span class="dd">07.16 · 231</span></a></div><a class="more" href="https://www.youtube.com/@soonsal/shorts" target="_blank" rel="noopener">채널에서 전체 보기 →</a><div class="bridge">
 <div class="ey">Soonsal School</div>
 <h3>영상으로 궁금해졌다면, 다음은 클래스</h3>
 <p>홍콩·한국의 투자은행과 헤지펀드에서 지금도 일하는 사람들이
