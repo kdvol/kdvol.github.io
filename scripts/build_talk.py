@@ -128,7 +128,9 @@ text-decoration:none;box-shadow:0 10px 28px rgba(0,0,0,.28)}
 
 
 JS = r"""
-var API = (window.SS_CFG && window.SS_CFG.worker) || '';
+// ss-config.js 하나가 못 뜨면(네트워크 블립·차단기) 페이지 전체가
+// '불러오지 못했습니다'가 된다. 주소는 공개값이라 여기 적어 둔다.
+var API = (window.SS_CFG && window.SS_CFG.worker) || 'https://soonsal-react.kd-d0a.workers.dev';
 var app = document.getElementById('app');
 var seen = {}, first = true, liked = {};
 try { liked = JSON.parse(localStorage.getItem('ss_liked') || '{}'); } catch (e) {}

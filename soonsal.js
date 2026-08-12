@@ -508,7 +508,8 @@
   // 숫자는 항상 보인다. Worker(D1)가 붙어 있으면 공유 집계,
   // 없으면 내 클릭만 로컬 집계 — 어느 쪽이든 버튼이 "죽어" 보이지 않게.
   var REACTS = [['👍', '좋았음'], ['🤔', '글쎄'], ['🔥', '중요함']];
-  var CFG = window.SS_CFG || {};
+  // 설정 파일이 못 뜨면 반응·코멘트가 통째로 죽는다. 주소는 공개값이다.
+  var CFG = window.SS_CFG || { worker: 'https://soonsal-react.kd-d0a.workers.dev' };
   var API = CFG.worker || null;              // Cloudflare Worker(권장)
   var HAS_BACKEND = !!API;
 

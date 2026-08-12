@@ -77,10 +77,15 @@ def _active_for(path: Path):
 
 # ── 생성 페이지(주제별·검색·엔티티)용 공용 헤더 — 본 사이트와 동일 스타일 ──
 SEARCH_CSS = """
-.search-btn-header{position:absolute;left:max(16px,calc(50% - 400px));top:50%;transform:translateY(-50%);
+.search-btn-header{position:absolute;right:max(16px,calc(50% - 400px));top:50%;transform:translateY(-50%);
 display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:8px;
 color:#8a857c;text-decoration:none}
 .search-btn-header:hover{color:#fff;background:#1e1e1e}
+/* 구독하기가 있는 페이지에서는 그 왼쪽으로 비켜 앉는다 */
+.site-header:has(.sub-btn-header) .search-btn-header{right:calc(max(16px,50% - 400px) + 96px)}
+@media(max-width:560px){
+  .site-header:has(.sub-btn-header) .search-btn-header{right:16px}
+}
 """
 SEARCH_STYLE_RE = re.compile(r'<style id="soonsal-search-v1">.*?</style>', re.S)
 
