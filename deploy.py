@@ -784,16 +784,25 @@ INSTAGRAM_PIPELINE = Path(os.environ.get("INSTAGRAM_PIPELINE", str(Path.home() /
 R2_PUBLIC_URL = "https://pub-cb0321b52a854a95af8d6bb1688b2ecd.r2.dev"
 
 # Instagram captions
+#
+# ★ 첫 줄을 날짜·계정명에 쓰지 않는다 (2026-08-12).
+#   순살 자체 실측 (soonsal-build/kidongki/pool/BENCH_soonsal_vs_ianpark.md):
+#
+#     「순살브리핑 카드뉴스 2026.MM.DD」로 시작   84편   좋아요 중앙 115
+#     바로 내용으로 시작                        36편   좋아요 중앙 154
+#
+#   전체의 70%가 첫 줄을 날짜에 버리고 있었고, 그쪽 중앙값이 34% 낮다.
+#   요약을 위로 올리고 날짜·계정명은 아래로 내린다 — 정보는 그대로 두고 자리만 바꾼다.
 IG_CAPTIONS = {
     "card": (
-        "순살브리핑 카드뉴스 {date_fmt}\n\n"
         "{summary}\n\n"
+        "순살브리핑 카드뉴스 {date_fmt}\n\n"
         "#순살브리핑 #금융 #경제 #투자 #주식 #시장분석 "
         "#글로벌경제 #매크로 #금융뉴스 #경제공부"
     ),
     "crypto-card": (
-        "순살크립토 카드뉴스 {date_fmt}\n\n"
         "{summary}\n\n"
+        "순살크립토 카드뉴스 {date_fmt}\n\n"
         "#순살크립토 #비트코인 #크립토 #블록체인 #Web3 "
         "#금융 #투자 #BTC #ETF #암호화폐"
     ),
