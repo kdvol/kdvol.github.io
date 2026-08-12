@@ -229,6 +229,51 @@ def card_html(c, hero=False):
 </div>"""
 
 
+def course_ld(courses):
+    """강의 목록을 Course로 표시한다. 검색에서 강의 리치결과(제공자·분량·가격)로
+    잡히는 형태다. 지어낸 값은 넣지 않는다 — 평점은 표시된 강의만."""
+    items = []
+    for i, c in enumerate(courses, 1):
+        cap = CAPTAINS[c["cap"]]
+        node = {
+            "@type": "Course",
+            "name": c["t"],
+            "description": c["sub"] + " — " + " / ".join(c["learn"])[:180],
+            "url": BASE + c["id"],
+            "provider": {"@type": "Organization", "name": "순살 스쿨",
+                         "url": "https://soonsal.com/school/"},
+            "inLanguage": "ko",
+            "offers": {"@type": "Offer", "price": c["price"], "priceCurrency": "KRW",
+                       "category": "Paid", "availability": "https://schema.org/InStock",
+                       "url": BASE + c["id"]},
+            "hasCourseInstance": {
+                "@type": "CourseInstance",
+                "courseMode": "online",
+                "courseWorkload": _iso_dur(c["time"]),
+                "instructor": {"@type": "Person", "name": cap["n"],
+                               "description": cap["b"][0]},
+            },
+        }
+        if c.get("img"):
+            node["image"] = "https://soonsal.com" + c["img"]
+        if c.get("rating"):
+            node["aggregateRating"] = {"@type": "AggregateRating",
+                                       "ratingValue": c["rating"], "ratingCount": 1,
+                                       "bestRating": "5"}
+        items.append({"@type": "ListItem", "position": i, "item": node})
+    return {"@context": "https://schema.org", "@type": "ItemList",
+            "name": "순살 스쿨 클래스", "itemListElement": items}
+
+
+def _iso_dur(s):
+    """'8시간 48분' → 'PT8H48M'. 검색이 읽는 형식은 ISO 8601이다."""
+    import re as _re
+    h = _re.search(r"(\d+)시간", s)
+    m = _re.search(r"(\d+)분", s)
+    out = "PT" + (f"{h.group(1)}H" if h else "") + (f"{m.group(1)}M" if m else "")
+    return out if out != "PT" else None
+
+
 def build(courses=None):
     if courses is None:
         courses = json.loads((ROOT / "content/school_courses.json").read_text(encoding="utf-8"))
@@ -275,7 +320,15 @@ def build(courses=None):
     html = f"""<!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>순살 스쿨 | 금융권 취업·투자 클래스</title>
-<meta name="description" content="홍콩·한국의 투자은행과 헤지펀드 현직자에게 배우는 IBD·IPO·M&A·바이사이드·퀀트 클래스."/>
+<meta name="description" content="홍콩·한국의 투자은행과 헤지펀드 현직자에게 배우는 IBD·IPO·M&A·바이사이드·퀀트 클래스. 31강 8시간 48분 통합본부터 1분 맛보기까지."/>
+<link rel="canonical" href="https://soonsal.com/school/"/>
+<meta property="og:type" content="website"/>
+<meta property="og:title" content="순살 스쿨 — 현직자가 여는 금융 커리어 클래스"/>
+<meta property="og:description" content="전 Deutsche Bank IBD · 현직 홍콩 PM · 홍콩 퀀트펀드 6년. IBD·IPO·M&A·바이사이드·퀀트."/>
+<meta property="og:url" content="https://soonsal.com/school/"/>
+<meta property="og:image" content="https://soonsal.com/assets/school/42917.jpg"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<script type="application/ld+json">{json.dumps(course_ld(courses), ensure_ascii=False)}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700;800&display=swap" rel="stylesheet"/>
 <script src="/ss-config.js"></script>

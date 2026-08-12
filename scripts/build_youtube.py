@@ -178,6 +178,46 @@ def hero_block(h):
 </div>"""
 
 
+def video_ld(vids, hero):
+    """영상 목록을 VideoObject로 표시한다. 썸네일·업로드일·URL만 쓴다 —
+    조회수는 RSS 값이 실시간이 아니라 넣지 않는다(틀린 숫자를 심는 게 더 나쁘다)."""
+    items, seen = [], set()
+    pool = []
+    for k in ("career",):
+        if hero.get(k):
+            pool.append((hero[k], False))
+    for k in ("teasers", "weekly"):
+        for v in hero.get(k) or []:
+            pool.append((v, False))
+    for v in vids[:12]:
+        pool.append((v, True))
+
+    for v, is_short in pool:
+        vid = v.get("id")
+        if not vid or vid in seen:
+            continue
+        seen.add(vid)
+        node = {
+            "@type": "VideoObject",
+            "name": v.get("t") or "순살브리핑",
+            "thumbnailUrl": f"https://i.ytimg.com/vi/{vid}/hqdefault.jpg",
+            "contentUrl": (f"https://www.youtube.com/shorts/{vid}" if is_short
+                           else f"https://www.youtube.com/watch?v={vid}"),
+            "embedUrl": f"https://www.youtube-nocookie.com/embed/{vid}",
+            "inLanguage": "ko",
+            "publisher": {"@type": "Organization", "name": "순살브리핑",
+                          "url": "https://soonsal.com/"},
+        }
+        if v.get("d"):
+            node["uploadDate"] = v["d"]
+        if v.get("dsc") or v.get("d0"):
+            node["description"] = v.get("dsc") or v.get("d0")
+        items.append({"@type": "ListItem", "position": len(items) + 1, "item": node})
+
+    return {"@context": "https://schema.org", "@type": "ItemList",
+            "name": "순살브리핑 영상", "itemListElement": items}
+
+
 def build(nav_html=None):
     if nav_html is None:
         try:
@@ -238,7 +278,14 @@ IBD·M&amp;A·바이사이드·퀀트를 직접 풀어드립니다.</p>
     html = f"""<!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>YouTube | 순살브리핑</title>
-<meta name="description" content="순살브리핑 유튜브 — 1분 숏츠로 오늘의 시장, 긴 영상으로 커리어와 산업의 맥락."/>
+<meta name="description" content="순살브리핑 유튜브 — 1분 숏츠로 오늘의 시장, 긴 영상으로 금융 커리어와 산업의 맥락. 매일 새 영상."/>
+<link rel="canonical" href="https://soonsal.com/youtube/"/>
+<meta property="og:type" content="website"/>
+<meta property="og:title" content="순살브리핑 YouTube — 보면서 이해하는 글로벌 금융"/>
+<meta property="og:description" content="1분 숏츠로 오늘의 시장, 긴 영상으로 커리어와 산업의 맥락."/>
+<meta property="og:url" content="https://soonsal.com/youtube/"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<script type="application/ld+json">{json.dumps(video_ld(vids, hero), ensure_ascii=False)}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700;800&display=swap" rel="stylesheet"/>
 <script src="/ss-config.js"></script>
