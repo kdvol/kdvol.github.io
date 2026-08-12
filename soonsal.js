@@ -150,6 +150,24 @@
     '.ss-crt button{background:none;border:none;color:#a8a294;font-size:11px;cursor:pointer;' +
     'font-family:inherit;margin-left:auto;padding:2px 4px}' +
     // 안내문은 입력 중에만
+    // 쓰는 자리 — 버튼이 아니라 입력칸처럼 보이고, 펼치면 한 덩어리로 이어진다.
+    // 아래 두 규칙은 스쿨 안내 개편 때 함께 빠졌지만 마크업은 계속 사용 중이다.
+    '.ss-cbar{display:flex;align-items:center;gap:9px;width:100%;margin:10px 0 2px;' +
+    'padding:12px 14px;background:#fff;border:1px solid #e4e0d6;border-radius:12px;' +
+    'font-family:inherit;font-size:13px;color:#6b6659;cursor:pointer;text-align:left;' +
+    'transition:border-color .15s,box-shadow .15s}' +
+    '.ss-cbar[hidden]{display:none}' +
+    '.ss-cbar:hover{border-color:#F07040;box-shadow:0 0 0 3px rgba(240,112,64,.08)}' +
+    '.ss-cbar .ic{flex:0 0 auto;font-size:15px;line-height:1}' +
+    '.ss-cbar .tx{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}' +
+    '.ss-cbar .tx.ph{color:#a8a294}' +
+    '.ss-cbar .tx b{color:#E55A00;font-weight:700}' +
+    '.ss-cbar .tx i{font-style:normal;color:#6b6659}' +
+    '.ss-cbar .cta{flex:0 0 auto;font-size:11px;font-weight:700;color:#E55A00;' +
+    'background:#fdf0e9;border-radius:6px;padding:5px 10px}' +
+    '.ss-call{display:block;text-align:center;margin-top:12px;padding:9px;font-size:12px;' +
+    'color:#8a8578;border:1px solid #ece8de;border-radius:9px;text-decoration:none}' +
+    '.ss-call:hover{color:#E55A00;border-color:#E55A00}' +
     // 뉴스레터 끝에 붙는 클래스 안내. 본문과 톤이 같으면 안 보이고,
     // 광고처럼 보이면 안 누른다. 카드 하나에 숫자·자격·행동만 남긴다.
     '.ss-sch{position:relative;margin:36px auto 10px;max-width:640px;' +
