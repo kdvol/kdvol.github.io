@@ -15,10 +15,12 @@
     .nav{position:relative;display:flex;justify-content:center;align-items:stretch;overflow:visible;border-bottom:1px solid #222;background:#151515;z-index:100}
     .nav>a,.nav-more>summary{display:flex;align-items:center;padding:12px 18px;font-size:13px;font-weight:700;color:#777;white-space:nowrap;text-decoration:none;border:0;border-bottom:2px solid transparent;cursor:pointer;list-style:none;transition:color .2s,border-color .2s,background .2s}
     .nav-more>summary::-webkit-details-marker{display:none}.nav>a:hover,.nav-more>summary:hover{color:#ccc}.nav>a.active,.nav-more.active>summary{color:#F07040;border-bottom-color:#F07040}
+    .nav-mobile-only{display:none}.nav>a.nav-desktop-link.biz,.nav-menu a.biz{color:#F07040}
     .nav-more{position:relative;flex-shrink:0}.nav-more[open]>summary{color:#fff;background:#202020}
     .nav-menu{position:absolute;top:100%;right:0;z-index:1001;display:grid;min-width:190px;padding:8px;background:#1b1b1b;border:1px solid #333;border-radius:0 0 8px 8px;box-shadow:0 12px 26px rgba(0,0,0,.28)}
     .nav-menu a{display:block;padding:10px 12px;border-radius:5px;color:#aaa;text-decoration:none;font-size:13px;font-weight:700;white-space:nowrap}.nav-menu a:hover,.nav-menu a.active{color:#fff;background:#282828}.nav-menu a.active{color:#F07040}.nav-menu a.biz{color:#777;border-top:1px solid #303030;margin-top:4px;padding-top:12px}
-    @media(max-width:560px){.nav{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));width:100%}.nav>a,.nav-more>summary{justify-content:center;padding:11px 3px;font-size:12px;letter-spacing:-.2px}.nav-more{position:static;min-width:0}.nav-menu{left:10px;right:10px;top:100%;grid-template-columns:repeat(2,minmax(0,1fr));min-width:0;padding:8px}.nav-menu a{text-align:center;padding:11px 6px}.nav-menu a.biz{border-top:0;margin-top:0;padding-top:11px}}
+    @media(max-width:560px){.nav>a.nav-desktop-link{display:none}.nav-menu a.nav-mobile-only{display:block}.nav-more.mobile-active>summary{color:#F07040;border-bottom-color:#F07040}.nav{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));width:100%}.nav>a,.nav-more>summary{justify-content:center;padding:11px 2px;font-size:11.5px;letter-spacing:-.4px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.nav-more{position:static;min-width:0}.nav-menu{left:10px;right:10px;top:100%;grid-template-columns:repeat(2,minmax(0,1fr));min-width:0;padding:8px}.nav-menu a{text-align:center;padding:11px 6px}.nav-menu a.biz{border-top:0;margin-top:0;padding-top:11px}}
+    @media(max-width:360px){.nav>a,.nav-more>summary{font-size:10.5px;letter-spacing:-.5px;padding:11px 1px}}
 
     .memo-shell{max-width:680px;margin:32px auto;background:var(--paper);border-radius:4px;box-shadow:0 2px 12px rgba(0,0,0,.07);overflow:visible}
     .memo-head{padding:34px 36px 30px;border-bottom:2px solid #111}.memo-kicker{font-size:11px;font-weight:800;letter-spacing:1.5px;color:var(--orange);text-transform:uppercase}
@@ -27,62 +29,14 @@
     .story-label{display:inline-block;font-size:10px;font-weight:700;letter-spacing:1.1px;text-transform:uppercase;color:#888;background:#f0f0e8;padding:2px 8px;border-radius:2px;margin-bottom:10px}
     .story-title{font-size:23px;font-weight:800;line-height:1.35;margin:0 0 14px;color:#111;letter-spacing:-.5px}
     .opening{font-size:16px;font-weight:600;line-height:1.75;color:#333;margin:0 0 20px}
-    figure{margin:22px 0}figure img{display:block;width:100%;height:auto;border:1px solid #e0ddd5;border-radius:10px;background:#fafaf7}
+    figure{margin:22px 0}.diagram-live{position:relative;overflow:hidden;aspect-ratio:1080/860;border:1px solid #e0ddd5;border-radius:10px;background:#fafaf7;contain:layout paint}.diagram-live img,.diagram-live svg{display:block;width:100%;height:auto}.diagram-live svg{position:absolute;inset:0}
+    .diagram-live.is-prepared .motion-step{opacity:0;transform-box:fill-box;transform-origin:center}.diagram-live.is-running .motion-node{animation:morning-node-in 520ms cubic-bezier(.16,1,.3,1) var(--motion-delay) forwards}.diagram-live.is-running .motion-edge{animation:morning-edge-in 460ms cubic-bezier(.16,1,.3,1) var(--motion-delay) forwards}.diagram-live.is-running .motion-risk .motion-node-shape{animation:morning-risk-pulse 620ms cubic-bezier(.16,1,.3,1) var(--motion-accent-delay) both}.diagram-live.is-paused .motion-step,.diagram-live.is-paused .motion-node-shape{animation-play-state:paused!important}
+    @keyframes morning-node-in{0%{opacity:0;transform:translateY(18px) scale(.97)}100%{opacity:1;transform:none}}@keyframes morning-edge-in{0%{opacity:0;clip-path:inset(0 0 100% 0)}12%{opacity:1}100%{opacity:1;clip-path:inset(0)}}@keyframes morning-risk-pulse{0%,100%{filter:url(#shadow)}55%{filter:url(#shadow) drop-shadow(0 0 13px rgba(240,112,64,.42))}}
+    @media(prefers-reduced-motion:reduce){.diagram-live .motion-step{opacity:1!important;transform:none!important;clip-path:none!important;animation:none!important}}
     .soonsal-point{margin-top:20px;padding:16px 18px;background:#fafaf7;border-left:4px solid var(--orange);border-radius:0 8px 8px 0}.soonsal-point strong{display:block;color:#111;font-size:12px;font-weight:900;letter-spacing:.5px;margin-bottom:4px}.soonsal-point p{font-size:14px;line-height:1.7;color:#444;margin:0}
     .memo-footer{padding:24px 36px 30px;border-top:1px solid var(--line)}.page-nav{display:grid;grid-template-columns:1fr 1fr;gap:10px}.page-nav a{display:flex;align-items:center;justify-content:center;min-height:46px;padding:10px 14px;border:1px solid #d9d9d1;border-radius:7px;color:#333;background:#fff;text-decoration:none;font-size:13px;font-weight:800;transition:background .15s,border-color .15s,color .15s}.page-nav a:hover{border-color:var(--orange);color:#111;background:#fff8f5}.page-nav a.primary{border-color:var(--orange);background:var(--orange);color:#111}.page-nav a.primary:hover{background:#e96839;color:#111}
     @media(max-width:720px){.sub-btn-header{display:none}.memo-shell{margin:0;border-radius:0;box-shadow:none}.memo-head{padding:28px 22px 24px}.content{padding:4px 22px 28px}.story{padding:34px 0 30px}.story-title{font-size:22px}.opening{font-size:15px}.memo-footer{padding:20px 22px 28px}}
   </style>
-<style id="soonsal-nav-v2">
-.nav{position:relative;display:flex;justify-content:center;align-items:stretch;overflow:visible;border-bottom:1px solid #222;background:#151515;z-index:100}
-.nav>a,.nav-more>summary{display:flex;align-items:center;padding:12px 18px;font-size:13px;font-weight:700;color:#777;white-space:nowrap;text-decoration:none;border:0;border-bottom:2px solid transparent;cursor:pointer;list-style:none;transition:color .2s,border-color .2s,background .2s}
-.nav-more>summary::-webkit-details-marker{display:none}
-.nav>a:hover,.nav-more>summary:hover{color:#ccc}
-.nav>a.active,.nav-more.active>summary{color:#F07040;border-bottom-color:#F07040}
-/* 데스크톱/모바일 갈래. 이 두 규칙이 없어서 스쿨·광고 문의가 바와 더보기에
-   이중으로 렌더됐고, 가로 스크롤 위치에 따라 보이는 항목이 달라졌다. */
-.nav-mobile-only{display:none}
-.nav-more{position:relative;flex-shrink:0}
-.nav-more[open]>summary{color:#fff;background:#202020}
-.nav-menu{position:absolute;top:100%;right:0;z-index:1001;display:grid;min-width:190px;padding:8px;background:#1b1b1b;border:1px solid #333;border-radius:0 0 8px 8px;box-shadow:0 12px 26px rgba(0,0,0,.28)}
-.nav-menu a{display:block;padding:10px 12px;border-radius:5px;color:#aaa;text-decoration:none;font-size:13px;font-weight:700;white-space:nowrap}
-.nav-menu a:hover,.nav-menu a.active{color:#fff;background:#282828}
-.nav-menu a.active{color:#F07040}
-.nav-menu a.biz{color:#777;border-top:1px solid #303030;margin-top:4px;padding-top:12px}
-@media(max-width:560px){
-.nav>a.nav-desktop-link{display:none}
-.nav-menu a.nav-mobile-only{display:block}
-  /* 코어 4개 + 더보기 = 5칸. 4칸으로 두면 다섯 번째가 다음 줄로 넘어간다. */
-  .nav{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));width:100%}
-  .nav>a,.nav-more>summary{justify-content:center;padding:11px 2px;font-size:11.5px;
-  letter-spacing:-.4px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-  .nav-more{position:static;min-width:0}
-  .nav-menu{left:10px;right:10px;top:100%;grid-template-columns:repeat(2,minmax(0,1fr));min-width:0;padding:8px}
-  .nav-menu a{text-align:center;padding:11px 6px}
-  .nav-menu a.biz{border-top:0;margin-top:0;padding-top:11px}
-}
-@media(max-width:360px){
-  .nav>a,.nav-more>summary{font-size:10.5px;letter-spacing:-.5px;padding:11px 1px}
-}
-</style>
-<style id="soonsal-nav-visibility-v3">
-.nav-menu a.nav-mobile-only{display:none}
-.nav>a.nav-desktop-link.biz{color:#F07040}
-.nav>a.nav-desktop-link.biz:hover{color:#ff8a52}
-.nav-menu a.biz{color:#F07040}
-@media(max-width:560px){
-  .nav>a.nav-desktop-link{display:none}
-  .nav-menu a.nav-mobile-only{display:block}
-  .nav-more.mobile-active>summary{color:#F07040;border-bottom-color:#F07040}
-  /* 코어 4개 + 더보기 = 5칸. 예전 CSS가 4칸이라 다섯 번째가 다음 줄로 넘어갔다.
-     이 블록은 페이지마다 나중에 주입되므로 안에 박힌 옛 규칙을 덮는다. */
-  .nav{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));width:100%}
-  .nav>a,.nav-more>summary{justify-content:center;padding:11px 2px;font-size:11.5px;
-    letter-spacing:-.4px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-}
-@media(max-width:360px){
-  .nav>a,.nav-more>summary{font-size:10.5px;letter-spacing:-.5px;padding:11px 1px}
-}
-</style>
 </head>
 <body data-ss-issue="m20260812">
 <header class="site-header"><a class="logo-link" href="/"><img src="/favicon.svg" alt="" onerror="this.style.display='none'"><span class="logo-text">순살브리핑 Soonsal</span></a><a href="https://subscribe.soonsal.com/subscribe" target="_blank" rel="noopener" class="sub-btn-header">구독하기</a></header>
@@ -92,58 +46,93 @@
   <div class="story-label">01 · Macro · Rates</div>
   <h2 class="story-title">CPI 숫자보다 무서운 건 한쪽으로 몰린 채권 포지션</h2>
   <p class="opening bullet">미국 7월 CPI를 앞두고 글로벌 국채 숏이 커졌음. 숫자가 어느 쪽으로 빗나가든 금리 움직임이 평소보다 증폭될 수 있는 자리임</p>
-  <figure><img src="/morning/assets/20260812/cpi-bond-shorts-diagram.svg?v=f8d0f0bc6fbb" alt="같은 CPI 숫자도 포지션이 충격을 키우는 경로" loading="lazy"></figure>
+  <figure class="diagram-frame"><div class="diagram-live" role="img" aria-label="같은 CPI 숫자도 포지션이 충격을 키우는 경로" data-diagram-src="/morning/assets/20260812/cpi-bond-shorts-diagram.svg?v=84177eca7f16" data-diagram-orientation="TB"><img class="diagram-poster" src="/morning/assets/20260812/cpi-bond-shorts-diagram.svg?v=84177eca7f16" alt="" aria-hidden="true" loading="lazy"></div></figure>
   <div class="soonsal-point"><strong>순살 포인트</strong><p>장기채뿐 아니라 성장주, 원화와 외국인 수급까지 한 번에 흔들릴 수 있는 당일 최우선 변수임</p></div>
 </article><article class="story morning-topic" id="hormuz-oil" data-ss-story="m20260812-hormuz-oil" data-ss-issue="m20260812">
   <div class="story-label">02 · Energy · Macro</div>
   <h2 class="story-title">호르무즈 충격이 하루짜리 뉴스에서 2027년 변수로 바뀜</h2>
   <p class="opening bullet">미 행정부는 이란 전쟁발 원유 공급 차질이 2027년 말까지 하루 약 60만 배럴 이어질 것으로 봤음. 시장이 공급 충격을 장기 변수로 다시 분류하는 중임</p>
-  <figure><img src="/morning/assets/20260812/hormuz-oil-diagram.svg?v=c5eb8dbf6fdc" alt="해협 통과량 감소가 물가로 번지는 경로" loading="lazy"></figure>
+  <figure class="diagram-frame"><div class="diagram-live" role="img" aria-label="해협 통과량 감소가 물가로 번지는 경로" data-diagram-src="/morning/assets/20260812/hormuz-oil-diagram.svg?v=94f0b9ffef43" data-diagram-orientation="TB"><img class="diagram-poster" src="/morning/assets/20260812/hormuz-oil-diagram.svg?v=94f0b9ffef43" alt="" aria-hidden="true" loading="lazy"></div></figure>
   <div class="soonsal-point"><strong>순살 포인트</strong><p>유가 급등 하루를 맞히는 문제가 아니라 에너지 비용이 물가와 금리의 하단을 얼마나 오래 받칠지 봐야 함</p></div>
 </article><article class="story morning-topic" id="nvidia-financing" data-ss-story="m20260812-nvidia-financing" data-ss-issue="m20260812">
   <div class="story-label">03 · AI · Private Markets</div>
   <h2 class="story-title">Nvidia가 칩 판매자에서 AI 금융의 보증인으로 이동함</h2>
   <p class="opening bullet">Nvidia와 대형 자산운용사들이 AI 인프라용 자금 5,000억 달러 조달 계획을 내놨음. 고객의 자금 조달까지 낮춰 칩 수요를 만드는 벤더 파이낸싱에 가까움</p>
-  <figure><img src="/morning/assets/20260812/nvidia-financing-diagram.svg?v=4344696a7eca" alt="Nvidia 신용이 고객의 AI 투자로 들어가는 구조" loading="lazy"></figure>
+  <figure class="diagram-frame"><div class="diagram-live" role="img" aria-label="Nvidia 신용이 고객의 AI 투자로 들어가는 구조" data-diagram-src="/morning/assets/20260812/nvidia-financing-diagram.svg?v=41697ed25d41" data-diagram-orientation="TB"><img class="diagram-poster" src="/morning/assets/20260812/nvidia-financing-diagram.svg?v=41697ed25d41" alt="" aria-hidden="true" loading="lazy"></div></figure>
   <div class="soonsal-point"><strong>순살 포인트</strong><p>AI 투자가 둔화될 때 칩 판매량뿐 아니라 Nvidia가 지원한 자산의 잔존가치까지 함께 봐야 하는 새 위험 경로임</p></div>
 </article><article class="story morning-topic" id="ai-physical-bottleneck" data-ss-story="m20260812-ai-physical-bottleneck" data-ss-issue="m20260812">
   <div class="story-label">04 · AI · Semiconductors</div>
   <h2 class="story-title">AI에 돈은 넘치는데 전력과 변압기는 찍어낼 수 없음</h2>
   <p class="opening bullet">AI 빌드아웃의 병목은 금융보다 칩 생산, 부지, 전력, 변압기와 인허가에 있음. 5,000억 달러 금융 패키지도 물리적 공급을 바로 늘리지는 못함</p>
-  <figure><img src="/morning/assets/20260812/ai-physical-bottleneck-diagram.svg?v=345d1744da76" alt="돈이 들어와도 실제 AI 용량이 바로 늘지 않는 이유" loading="lazy"></figure>
+  <figure class="diagram-frame"><div class="diagram-live" role="img" aria-label="돈이 들어와도 실제 AI 용량이 바로 늘지 않는 이유" data-diagram-src="/morning/assets/20260812/ai-physical-bottleneck-diagram.svg?v=5a603fe4d77d" data-diagram-orientation="TB"><img class="diagram-poster" src="/morning/assets/20260812/ai-physical-bottleneck-diagram.svg?v=5a603fe4d77d" alt="" aria-hidden="true" loading="lazy"></div></figure>
   <div class="soonsal-point"><strong>순살 포인트</strong><p>한국 메모리와 파운드리는 당장 공급 부족의 수혜를 받더라도 다운스트림 ROI가 확인되지 않으면 밸류에이션 부담이 커짐</p></div>
 </article><article class="story morning-topic" id="yen-160" data-ss-story="m20260812-yen-160" data-ss-issue="m20260812">
   <div class="story-label">05 · FX · Asia</div>
   <h2 class="story-title">엔화 160선은 일본만의 문제가 아니라 원화 방어선임</h2>
   <p class="opening bullet">엔화가 달러당 160엔에 다시 가까워졌음. 미일 공조 개입 뒤 얻은 상승분의 절반가량을 반납하면서 개입의 지속력을 다시 시험하는 자리임</p>
-  <figure><img src="/morning/assets/20260812/yen-160-diagram.svg?v=bb143fee8a20" alt="엔화 약세가 원화 방어 부담으로 넘어오는 경로" loading="lazy"></figure>
+  <figure class="diagram-frame"><div class="diagram-live" role="img" aria-label="엔화 약세가 원화 방어 부담으로 넘어오는 경로" data-diagram-src="/morning/assets/20260812/yen-160-diagram.svg?v=cc36b63a309e" data-diagram-orientation="TB"><img class="diagram-poster" src="/morning/assets/20260812/yen-160-diagram.svg?v=cc36b63a309e" alt="" aria-hidden="true" loading="lazy"></div></figure>
   <div class="soonsal-point"><strong>순살 포인트</strong><p>원화와 외국인 수급을 볼 때 미국 CPI만큼 엔화의 속도와 일본 당국 반응을 함께 봐야 하는 날임</p></div>
 </article><article class="story morning-topic" id="apple-memory" data-ss-story="m20260812-apple-memory" data-ss-issue="m20260812">
   <div class="story-label">06 · Technology · Memory</div>
   <h2 class="story-title">Apple의 마진이 메모리 업체 쪽으로 이동하는 중</h2>
   <p class="opening bullet">TrendForce 기준 256GB 아이폰 18 Pro 제조원가가 직전 모델보다 38% 높아졌음. 저장용량 마크업으로 마진을 키우던 Apple의 공식이 흔들리는 중임</p>
-  <figure><img src="/morning/assets/20260812/apple-memory-diagram.svg?v=dc2ee2c627cf" alt="메모리 가격이 Apple과 한국 업체의 마진을 가르는 경로" loading="lazy"></figure>
+  <figure class="diagram-frame"><div class="diagram-live" role="img" aria-label="메모리 가격이 Apple과 한국 업체의 마진을 가르는 경로" data-diagram-src="/morning/assets/20260812/apple-memory-diagram.svg?v=7ae06b8abc2c" data-diagram-orientation="TB"><img class="diagram-poster" src="/morning/assets/20260812/apple-memory-diagram.svg?v=7ae06b8abc2c" alt="" aria-hidden="true" loading="lazy"></div></figure>
   <div class="soonsal-point"><strong>순살 포인트</strong><p>스마트폰 수요보다 부품 가격과 정책 제약이 세트업체에서 한국 메모리 업체로 마진을 옮기는 구조를 보여줌</p></div>
 </article><article class="story morning-topic" id="hybrid-asia" data-ss-story="m20260812-hybrid-asia" data-ss-issue="m20260812">
   <div class="story-label">07 · Autos · Batteries</div>
   <h2 class="story-title">아시아 자동차 시장이 EV 직행 대신 하이브리드를 택함</h2>
   <p class="opening bullet">일본은 인도 대수의 절반 이상이 이미 하이브리드임. 인도와 동남아가 2035년까지 가장 빠른 성장 시장으로 꼽히면서 아시아 자동차 믹스가 달라지는 중임</p>
-  <figure><img src="/morning/assets/20260812/hybrid-asia-diagram.svg?v=b31885eea0a6" alt="하이브리드 확산이 한국 배터리 수요로 이어지는 경로" loading="lazy"></figure>
+  <figure class="diagram-frame"><div class="diagram-live" role="img" aria-label="하이브리드 확산이 한국 배터리 수요로 이어지는 경로" data-diagram-src="/morning/assets/20260812/hybrid-asia-diagram.svg?v=cd59e179fc37" data-diagram-orientation="TB"><img class="diagram-poster" src="/morning/assets/20260812/hybrid-asia-diagram.svg?v=cd59e179fc37" alt="" aria-hidden="true" loading="lazy"></div></figure>
   <div class="soonsal-point"><strong>순살 포인트</strong><p>전기차 판매량만 보면 놓치는 배터리 탑재량 변화가 한국 이차전지 실적에 직접 연결됨</p></div>
 </article><article class="story morning-topic" id="bitcoin-custody" data-ss-story="m20260812-bitcoin-custody" data-ss-issue="m20260812">
   <div class="story-label">08 · Crypto · Tokenization</div>
   <h2 class="story-title">비트코인 자금이 셀프커스터디에서 ETF로 되돌아감</h2>
   <p class="opening bullet">Coldcard 지갑 해킹 뒤 미국 비트코인 현물 ETF에 4월 이후 최대 주간 순유입이 들어왔음. 자가수탁 위험이 커지자 규제된 래퍼를 택한 흐름임</p>
-  <figure><img src="/morning/assets/20260812/bitcoin-custody-diagram.svg?v=7efc33f9fa9f" alt="자가수탁 위험이 규제된 래퍼 수요를 키우는 구조" loading="lazy"></figure>
+  <figure class="diagram-frame"><div class="diagram-live" role="img" aria-label="자가수탁 위험이 규제된 래퍼 수요를 키우는 구조" data-diagram-src="/morning/assets/20260812/bitcoin-custody-diagram.svg?v=f9549261dc3b" data-diagram-orientation="TB"><img class="diagram-poster" src="/morning/assets/20260812/bitcoin-custody-diagram.svg?v=f9549261dc3b" alt="" aria-hidden="true" loading="lazy"></div></figure>
   <div class="soonsal-point"><strong>순살 포인트</strong><p>크립토 확산의 승부처가 탈중앙화 자체보다 누가 보관하고 어떤 래퍼로 유통하느냐로 이동하고 있음</p></div>
 </article><article class="story morning-topic" id="korea-market" data-ss-story="m20260812-korea-market" data-ss-issue="m20260812">
   <div class="story-label">09 · Korea · Semiconductors</div>
   <h2 class="story-title">한국 시장은 메모리 호재와 AI 밸류에이션 부담이 동시에 들어옴</h2>
   <p class="opening bullet">8월 초 반도체 수출 호조로 삼성전자와 SK하이닉스가 반등했고 외국인도 순매수로 돌아섰음. 하지만 해외 입력은 같은 반도체 안에서도 반대 방향을 가리킴</p>
-  <figure><img src="/morning/assets/20260812/korea-market-diagram.svg?v=b90193093831" alt="한국 반도체에 들어오는 세 가지 서로 다른 신호" loading="lazy"></figure>
+  <figure class="diagram-frame"><div class="diagram-live" role="img" aria-label="한국 반도체에 들어오는 세 가지 서로 다른 신호" data-diagram-src="/morning/assets/20260812/korea-market-diagram.svg?v=33b33315ce9b" data-diagram-orientation="TB"><img class="diagram-poster" src="/morning/assets/20260812/korea-market-diagram.svg?v=33b33315ce9b" alt="" aria-hidden="true" loading="lazy"></div></figure>
   <div class="soonsal-point"><strong>순살 포인트</strong><p>반도체를 한 묶음으로 보지 말고 메모리 가격 결정권, AI 투자 지속성, 환율과 외국인 수급을 분리해서 봐야 함</p></div>
 </article></main>
 <footer class="memo-footer"><nav class="page-nav" aria-label="모닝순살 둘러보기"><a href="/">← 순살 홈</a><a class="primary" href="/morning/">날짜별 목록 →</a></nav></footer></div>
+<script>
+(()=>{
+  const diagrams=[...document.querySelectorAll('.diagram-live[data-diagram-src]')];
+  if(!diagrams.length||matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+  const load=async(host)=>{
+    if(host.dataset.motionState)return;
+    host.dataset.motionState='loading';
+    try{
+      const response=await fetch(host.dataset.diagramSrc,{credentials:'same-origin'});
+      if(!response.ok)throw new Error('diagram '+response.status);
+      const documentSvg=new DOMParser().parseFromString(await response.text(),'image/svg+xml');
+      const svg=documentSvg.documentElement;
+      if(svg.localName!=='svg'||documentSvg.querySelector('parsererror'))throw new Error('invalid svg');
+      svg.removeAttribute('width');svg.removeAttribute('height');svg.setAttribute('aria-hidden','true');svg.setAttribute('focusable','false');
+      host.classList.add('is-prepared');
+      host.querySelector('.diagram-poster')?.replaceWith(document.importNode(svg,true));
+      host.dataset.motionState='ready';
+      requestAnimationFrame(()=>requestAnimationFrame(()=>{
+        host.classList.add('is-running');
+        if(host.dataset.motionVisible!=='true')host.classList.add('is-paused');
+        host.dataset.motionState='played';
+      }));
+    }catch(error){host.dataset.motionState='fallback'}
+  };
+  if(!('IntersectionObserver'in window)){diagrams.forEach(load);return}
+  const observer=new IntersectionObserver(entries=>entries.forEach(entry=>{
+    const host=entry.target;
+    const visible=entry.isIntersecting&&entry.intersectionRatio>=.3;
+    host.dataset.motionVisible=visible?'true':'false';
+    if(visible){host.classList.remove('is-paused');load(host)}
+    else host.classList.add('is-paused');
+  }),{threshold:[0,.3],rootMargin:'0px 0px -6% 0px'});
+  diagrams.forEach(diagram=>observer.observe(diagram));
+})();
+</script>
 <script src="/ss-config.js"></script><script src="/soonsal.js" defer></script>
 </body>
 </html>
