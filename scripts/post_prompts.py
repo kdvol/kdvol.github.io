@@ -28,12 +28,21 @@ ROOT = Path(__file__).resolve().parent.parent
 PROMPTS = ROOT / "content/talk_prompts.json"
 STATE = ROOT / "content/talk_prompts_done.json"
 WORKER = os.environ.get("SOONSAL_WORKER", "https://soonsal-react.kd-d0a.workers.dev")
-NICK = "순살 에디터"
-VID = "soonsal-editor-01"          # 팀 계정. 고정이라 알림·중복 판정이 일관된다
+# 두 발신자를 쓴다. 어느 쪽이든 화면에 정체를 밝힌다 — 사람인 척하는 계정은 없다.
+#   순살 에디터 : 사람이 쓰는 글 (op=1, '순살 팀' 배지)
+#   순살 질문봇 : 자동으로 올라오는 질문 (op=2, '🤖 봇' 배지)
+SENDERS = {
+    "team": {"nick": "순살 에디터", "vid": "soonsal-editor-01", "as": None},
+    "bot": {"nick": "순살 질문봇", "vid": "soonsal-askbot-01", "as": "bot"},
+}
 
 
-def _post(admin, story, body):
-    data = json.dumps({"story": story, "v": VID, "nick": NICK, "body": body}).encode()
+def _post(admin, story, body, who="bot"):
+    s = SENDERS[who]
+    payload = {"story": story, "v": s["vid"], "nick": s["nick"], "body": body}
+    if s["as"]:
+        payload["as"] = s["as"]
+    data = json.dumps(payload).encode()
     req = urllib.request.Request(
         WORKER.rstrip("/") + "/comment", data=data,
         headers={"content-type": "application/json", "x-admin-key": admin,
@@ -64,7 +73,7 @@ def main():
             print(f"  [미리보기] {x['story']}: {x['body']}")
             continue
         try:
-            res = _post(admin, x["story"], x["body"])
+            res = _post(admin, x["story"], x["body"], x.get("who", "bot"))
         except urllib.error.HTTPError as e:
             print(f"  ⚠️ {x['story']} 실패 {e.code} {e.read()[:80].decode(errors='replace')}")
             continue
@@ -81,7 +90,7 @@ def main():
     if n and not dry:
         STATE.write_text(json.dumps(sorted(done), ensure_ascii=False, indent=1),
                          encoding="utf-8")
-    print(f"💬 순살 팀 질문 {n}개 게시 · 남은 {len(todo) - n}개")
+    print(f"💬 질문 {n}개 게시 · 남은 {len(todo) - n}개")
     return n
 
 

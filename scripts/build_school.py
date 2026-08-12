@@ -103,10 +103,17 @@ background:linear-gradient(180deg,transparent 55%,rgba(20,20,20,.92) 100%)}
 .cb{padding:18px 21px 0}
 .tag{display:inline-block;font-size:.68rem;font-weight:700;letter-spacing:.02em;
 border-radius:5px;padding:3px 9px;margin-bottom:11px;background:rgba(240,112,64,.13);color:#F5A481}
-/* 제목이 카드에서 가장 먼저 읽혀야 한다. 메타·불릿과 크기 차이를 벌린다. */
-.card h3{font-size:1.42rem;font-weight:800;letter-spacing:-.03em;line-height:1.32;
-margin:0 0 7px;color:#f7f4ee}
-.card.best h3{font-size:1.62rem}
+/* 제목이 카드에서 가장 먼저 읽혀야 한다. 메타·불릿과 크기 차이를 확실히 벌린다. */
+.card h3{font-size:1.66rem;font-weight:800;letter-spacing:-.035em;line-height:1.26;
+margin:0 0 8px;color:#fbf9f5}
+.card.best h3{font-size:1.94rem}
+/* 7장이 다 같아 보이면 고르지 못한다. 강의마다 색과 단계를 준다. */
+.card{border-top:3px solid var(--ac,#333)}
+.lv{display:inline-flex;align-items:center;gap:6px;font-size:.7rem;font-weight:800;
+letter-spacing:.04em;color:var(--ac,#8b8578);margin-bottom:10px}
+.lv:before{content:"";width:16px;height:2px;background:var(--ac,#333);border-radius:2px}
+.card:hover{border-color:#333;border-top-color:var(--ac,#333)}
+.card.best:hover{border-color:#6b3f24;border-top-color:var(--ac,#F07040)}
 .card .sb{color:#8b8578;font-size:.92rem;margin:0 0 16px;line-height:1.55}
 .meta{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:16px}
 .meta span{font-size:.72rem;color:#8b8578;border:1px solid #262626;border-radius:6px;padding:3px 9px}
@@ -153,7 +160,7 @@ padding-top:24px;border-top:1px solid #1c1c1c;text-align:center}
 @media(max-width:600px){
  .sc{padding:26px 15px 70px}
  .ph h1{font-size:1.6rem}
- .card h3{font-size:1.24rem}.card.best h3{font-size:1.36rem}
+ .card h3{font-size:1.38rem}.card.best h3{font-size:1.56rem}
  .cb{padding:18px 17px 0}
  .tz{margin:0 17px 15px}
  .cv{height:158px}.card.best .cv{height:196px}
@@ -195,9 +202,12 @@ def card_html(c):
     cover = (f'<span class="cv"><img src="{c["img"]}" alt="{H.escape(c["t"])}"'
              f' loading="lazy" decoding="async" width="880" height="495"/></span>') if c.get("img") else ""
 
-    return f"""<div class="card{' best' if c.get('best') else ''}">
+    lv = (f'<div class="lv">{H.escape(c["level"])}</div>') if c.get("level") else ""
+    ac = f' style="--ac:{c["accent"]}"' if c.get("accent") else ""
+
+    return f"""<div class="card{' best' if c.get('best') else ''}"{ac}>
 <a href="{BASE}{c['id']}" target="_blank" rel="noopener">{cover}<div class="cb">
-{'<span class="tag">3종 통합 · 개별 구매 대비 20% 할인</span>' if c.get('best') else ''}
+{'<span class="tag">3종 통합 · 개별 구매 대비 20% 할인</span>' if c.get('best') else lv}
 <h3>{H.escape(c['t'])}</h3>
 <p class="sb">{H.escape(c['sub'])}</p>
 <div class="meta">{''.join(meta)}</div>

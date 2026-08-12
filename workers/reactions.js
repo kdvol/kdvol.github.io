@@ -55,7 +55,7 @@ function json(data, origin, status = 200, extra = {}) {
 }
 
 // ── 트래킹 상수 ──────────────────────────────────────────────
-const KIND = ['read', 'react', 'share', 'telegram', 'instagram', 'comment', 'school'];
+const KIND = ['read', 'react', 'share', 'telegram', 'instagram', 'comment', 'school', 'talk'];
 const TOPIC_KIND = ['impression', 'view', 'dwell', 'share'];
 const SRC = ['direct', 'telegram', 'instagram', 'search', 'mail', 'other'];
 // 하이픈 허용 — 'agent-...' 형태를 정상적인 ID로 받기 위해서다. 형식 검증에
@@ -314,7 +314,9 @@ export default {
 
         // 순살 팀이 쓰는 글은 팀 글이라고 화면에 밝힌다. 독자인 척하지 않는다.
         // 관리자 키가 맞을 때만 붙고, 키가 없으면 그냥 일반 코멘트다.
-        const isOp = adminOk(request, env) ? 1 : 0;
+        // 1 = 순살 팀(사람), 2 = 순살 봇(자동). 둘 다 화면에 밝힌다 —
+        // 봇을 사람처럼 보이게 두면 그게 속이는 것이다.
+        const isOp = adminOk(request, env) ? (b && b.as === 'bot' ? 2 : 1) : 0;
 
         const state = hold ? 0 : 1;
 
@@ -419,7 +421,7 @@ export default {
              order by last_ts desc limit ?1
            )
            select l.id, l.story, l.issue, l.nick, l.body, l.ts, l.tag, l.co,
-                  l.parent_id, l.root_id, r.last_ts,
+                  l.parent_id, l.root_id, l.op, r.last_ts,
                   (select count(*) from comment_likes k where k.cid = l.id) as likes
            from live l join recent r on r.root_id = l.root_id
            order by r.last_ts desc, l.root_id desc, l.id`

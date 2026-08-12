@@ -45,6 +45,7 @@ justify-content:center;font-size:.78rem;font-weight:800;color:#111;letter-spacin
 .tx{color:#ccc6bb;font-size:.93rem;line-height:1.62;margin-top:3px;word-break:break-word}
 .c.op .nm .k{color:#F5A481}
 .ob{font-size:.62rem;font-weight:700;color:#fff;background:#E55A00;border-radius:4px;padding:1px 6px}
+.ob.bot{background:#5a6b7a}
 
 /* 액션 — 아이콘 + 숫자, 탭 영역을 넉넉히 */
 .act{display:flex;gap:4px;margin:5px 0 0 -8px}
@@ -169,7 +170,7 @@ var AVC = ['#F0A070','#8FB0A0','#A09CD8','#D89AA8','#C8B060','#7FA8C8','#B8A090'
 function avatar(nick, isOp) {
   var h = 0, s = String(nick || '?');
   for (var i = 0; i < s.length; i++) h = (h * 31 + s.charCodeAt(i)) >>> 0;
-  var bg = isOp ? '#E55A00' : AVC[h % AVC.length];
+  var bg = isOp === 2 ? '#5a6b7a' : isOp ? '#E55A00' : AVC[h % AVC.length];
   var ch = s.replace(/[^가-힣A-Za-z0-9]/g, '').charAt(0) || '?';
   return '<span class="av" style="background:' + bg + (isOp ? ';color:#fff' : '') + '">' +
     esc(ch) + '</span>';
@@ -233,7 +234,8 @@ function one(c, isRep) {
     avatar(c.nick, c.op) +
     '<div class="bd">' +
       '<div class="nm"><span class="k">' + esc(c.nick) + '</span>' +
-        (c.op ? '<span class="ob">순살 팀</span>' : '') +
+        (c.op ? '<span class="ob' + (c.op === 2 ? ' bot' : '') + '">' +
+          (c.op === 2 ? '🤖 봇' : '순살 팀') + '</span>' : '') +
         (tag ? '<span class="g">' + esc(tag) + '</span>' : '') +
         '<span class="t">' + ago(c.ts) + '</span></div>' +
       '<div class="tx">' + esc(c.body) + '</div>' +

@@ -18,7 +18,9 @@
   ],
   "cap": "ibd",
   "best": true,
-  "img": "/assets/school/42917.jpg"
+  "img": "/assets/school/42917.jpg",
+  "accent": "#F07040",
+  "level": "통합"
  },
  {
   "id": "38648",
@@ -37,7 +39,9 @@
    "실전 인터뷰 가이드와 자격 조건"
   ],
   "cap": "ibd",
-  "img": "/assets/school/38648.jpg"
+  "img": "/assets/school/38648.jpg",
+  "accent": "#E8B04B",
+  "level": "입문"
  },
  {
   "id": "42392",
@@ -56,7 +60,9 @@
    "유상증자·블록딜·CB 등 자본시장 업무"
   ],
   "cap": "ibd",
-  "img": "/assets/school/42392.jpg"
+  "img": "/assets/school/42392.jpg",
+  "accent": "#6FA8DC",
+  "level": "입문"
  },
  {
   "id": "42832",
@@ -76,7 +82,9 @@
    "딜 프로세스와 실사(Due Diligence) 주의사항"
   ],
   "cap": "ibd",
-  "img": "/assets/school/42832.jpg"
+  "img": "/assets/school/42832.jpg",
+  "accent": "#7FBF8F",
+  "level": "심화"
  },
  {
   "id": "10659",
@@ -96,7 +104,9 @@
   "cap": "jack",
   "rating": "5.0",
   "teaser": "RHqjigulW20",
-  "img": "/assets/school/10659.jpg"
+  "img": "/assets/school/10659.jpg",
+  "accent": "#D98FA8",
+  "level": "실전"
  },
  {
   "id": "10965",
@@ -115,7 +125,9 @@
   ],
   "cap": "quant",
   "teaser": "PdnyMyFOwl8",
-  "img": "/assets/school/10965.jpg"
+  "img": "/assets/school/10965.jpg",
+  "accent": "#9C8FD8",
+  "level": "심화"
  },
  {
   "id": "10662",
@@ -133,6 +145,8 @@
    "주주서한을 함께 읽으며 행간 읽기"
   ],
   "cap": "jack",
-  "img": "/assets/school/10662.jpg"
+  "img": "/assets/school/10662.jpg",
+  "accent": "#5FB8B0",
+  "level": "케이스"
  }
 ]

@@ -6,7 +6,7 @@
   window.__ssWidgets = 1;
 
   var CSS =
-    '.ss-fab{position:fixed;right:16px;bottom:16px;z-index:9999;width:54px;height:54px;' +
+    '.ss-fab{position:fixed;right:16px;bottom:16px;z-index:9999;width:54px;height:54px;overflow:visible;' +
     'border-radius:50%;background:#F07040;box-shadow:0 4px 14px rgba(0,0,0,.35);display:flex;' +
     'align-items:center;justify-content:center;text-decoration:none;font-size:26px;line-height:1;' +
     'transition:transform .15s}.ss-fab:hover,.ss-fab:active{transform:scale(1.08)}' +
@@ -132,6 +132,7 @@
     '.ss-cop .ss-cnm b{color:#E55A00}' +
     '.ss-cob{font-size:9px;font-weight:700;color:#fff;background:#E55A00;border-radius:4px;' +
     'padding:1px 6px}' +
+    '.ss-cob.bot{background:#5a6b7a}' +
     // 액션 — 탭 영역을 넉넉히. 모바일에서 작은 글씨는 누르기 어렵다.
     '.ss-cact{display:flex;gap:2px;margin:3px 0 0 -8px}' +
     '.ss-cact button{display:flex;align-items:center;gap:4px;background:none;border:none;' +
@@ -154,6 +155,9 @@
     'cursor:pointer;font-family:inherit;padding:2px 4px}' +
     // 쓰는 자리 — 버튼이 아니라 '입력칸'처럼 보이게 한다
     // 순살 팀이 쓴 글은 팀 글이라고 밝힌다 — 독자 글과 섞이면 안 된다
+    '.ss-fabn{position:absolute;top:-3px;right:-3px;min-width:19px;height:19px;' +
+    'padding:0 5px;border-radius:10px;background:#E55A00;color:#fff;font-size:10px;' +
+    'font-weight:800;line-height:19px;text-align:center;box-shadow:0 0 0 2px #faf8f3}' +
     '.ss-cop{background:#fdf8f4;border-left:2px solid #F07040;padding-left:9px;' +
     'margin-left:-2px;border-radius:0 6px 6px 0}' +
     '.ss-cob{font-size:9px;font-weight:700;color:#fff;background:#E55A00;' +
@@ -404,16 +408,16 @@
     st.textContent = CSS;
     document.head.appendChild(st);
 
+    // 이제 사이트 안에 대화가 있다. 텔레그램으로 내보내는 대신 순살톡으로 보낸다.
+    // 새 글 수를 배지로 띄워서 '뭔가 올라왔다'가 보이게 한다.
     var fab = document.createElement('a');
     fab.className = 'ss-fab';
-    fab.href = 'https://t.me/soonsal';
-    fab.target = '_blank';
-    fab.rel = 'noopener';
-    fab.setAttribute('aria-label', '텔레그램 실시간 대화방');
-    fab.title = '텔레그램 대화방';
-    fab.textContent = '💬';
-    fab.addEventListener('click', function () { track('telegram'); });
-    document.body.appendChild(fab);
+    fab.href = '/talk/';
+    fab.setAttribute('aria-label', '순살톡 — 독자 한마디');
+    fab.title = '순살톡';
+    fab.innerHTML = '💬<b class="ss-fabn" hidden></b>';
+    fab.addEventListener('click', function () { track('talk'); markTalkSeen(); });
+    if (location.pathname.indexOf('/talk/') !== 0) document.body.appendChild(fab);
 
     var sb = document.createElement('button');
     sb.className = 'ss-pageshare';
@@ -687,7 +691,8 @@
       avatar(c.k, c.o) +
       '<div class="ss-cbd">' +
         '<div class="ss-cnm"><b>' + esc(c.k) + '</b>' +
-          (c.o ? '<span class="ss-cob">순살 팀</span>' : '') +
+          (c.o ? '<span class="ss-cob' + (c.o === 2 ? ' bot' : '') + '">' +
+            (c.o === 2 ? '🤖 봇' : '순살 팀') + '</span>' : '') +
           (c.g ? '<span class="ss-cg">' + esc(c.g) + '</span>' : '') +
           '<span class="ss-ct">' + cAgo(c.t) + '</span></div>' +
         '<div class="ss-cbx">' + esc(c.b) +
@@ -772,6 +777,43 @@
 
   // ── 알림 ─────────────────────────────────────────────
   // 이메일도 계정도 없으니 익명 번호로 받아 사이트 안에서 보여준다.
+  // (1단계) 순살톡에 새로 올라온 글 수를 배지로. 사람이 적을 땐 '누가 말을
+  // 걸었다'는 신호 자체가 들어오게 만드는 게 먼저다.
+  // (2단계) 사람이 늘면 '내 글에 달린 답글'만 골라 알리는 쪽으로 옮긴다 —
+  // 그 준비는 /notices 에 이미 돼 있다.
+  function talkSeen() {
+    try { return parseInt(localStorage.getItem('ss_talk_seen') || '0', 10) || 0; }
+    catch (e) { return 0; }
+  }
+  function markTalkSeen() {
+    try {
+      if (window._ssTalkMax) localStorage.setItem('ss_talk_seen', String(window._ssTalkMax));
+    } catch (e) {}
+  }
+
+  function loadTalkBadge() {
+    var f = document.querySelector('.ss-fab');
+    if (!API || !f) return;
+    tfetch(API.replace(/[/]$/, '') + '/recent?n=40', null, 8000)
+      .then(function (r) { return r.json(); })
+      .then(function (d) {
+        var items = (d && d.items) || [];
+        if (!items.length) return;
+        var max = 0, n = 0, seen = talkSeen();
+        items.forEach(function (c) {
+          if (c.id > max) max = c.id;
+          if (c.id > seen) n++;
+        });
+        window._ssTalkMax = max;
+        if (!seen) {            // 처음 온 사람에겐 전체 개수가 곧 '있다'는 신호다
+          n = items.length;
+        }
+        var b = f.querySelector('.ss-fabn');
+        if (n > 0) { b.textContent = n > 99 ? '99+' : n; b.hidden = false; }
+      })
+      .catch(function () {});
+  }
+
   function loadNotices() {
     var v = vid();
     if (!API || !v) return;
@@ -1175,6 +1217,7 @@
     init();
     // 알림은 화면이 자리잡은 뒤에 — 첫 렌더를 늦추지 않는다
     setTimeout(loadNotices, 1500);
+    setTimeout(loadTalkBadge, 1200);
     setTimeout(mountSchool, 900);
   }
 
