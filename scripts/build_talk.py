@@ -99,15 +99,13 @@ font-family:inherit;padding:8px 4px}
 text-decoration:none;font-weight:700;font-size:.87rem;border-radius:22px;padding:13px 24px}
 .empty .ecta:hover{background:#F07040}
 
-/* 하단 고정 입력 유도 — 모바일에서 항상 손 닿는 자리 */
-.fab{position:fixed;left:0;right:0;bottom:0;z-index:50;padding:10px 14px
-calc(10px + env(safe-area-inset-bottom));background:linear-gradient(180deg,rgba(17,17,17,0),#111 38%)}
-.fab a{display:flex;align-items:center;gap:9px;max-width:560px;margin:0 auto;
-background:#1a1a1a;border:1px solid #2c2c2c;border-radius:24px;padding:12px 16px;
-color:#8b8578;font-size:.86rem;text-decoration:none}
-.fab a:hover{border-color:#F07040;color:#c9c4ba}
-.fab .go{margin-left:auto;background:#E55A00;color:#fff;border-radius:16px;
-padding:6px 13px;font-size:.76rem;font-weight:700}
+/* 브리핑으로 돌아가는 길만 작게 남긴다. 내용보다 커 보이지 않게 함 */
+.fab{position:fixed;right:18px;bottom:calc(18px + env(safe-area-inset-bottom));z-index:50}
+.fab a{display:inline-flex;align-items:center;gap:8px;background:#211d1a;border:0;
+border-radius:999px;padding:10px 14px;color:#b7afa5;font-size:.8rem;font-weight:700;
+text-decoration:none;box-shadow:0 10px 28px rgba(0,0,0,.28)}
+.fab a:hover{background:#29231f;color:#f4eee7}
+.fab .arrow{color:#F07040;font-size:1rem;line-height:1}
 @media(min-width:620px){.wrap{padding-bottom:80px}}
 """
 
@@ -397,8 +395,8 @@ def build(atoms=None):
 </div>
 <div id="app"><div class="empty">불러오는 중…</div></div>
 </div>
-<div class="fab"><a href="/"><span>💬</span>
-<span>오늘 브리핑 읽고 한마디 남기기</span><span class="go">가기</span></a></div>
+<div class="fab"><a href="/"><span aria-hidden="true">💬</span>
+<span>브리핑에 한마디 남기기</span><span class="arrow" aria-hidden="true">→</span></a></div>
 <script src="/soonsal.js" defer></script>
 <script>
 var SMAP = {json.dumps(smap, ensure_ascii=False)};
