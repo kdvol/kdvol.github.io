@@ -229,8 +229,10 @@ def _issue_body(page: Path):
                 body = body[:h.start()] + body[p2 + x.end():]
                 break
 
-    # 남은 base64(푸터 로고)는 파일 경로로 바꾼다 — 홈이 무거워질 이유가 없다
-    body = re.sub(r'src="data:image/[^"]+"', 'src="/favicon.svg"', body)
+    # 남은 base64(푸터 로고)는 파일 경로로 바꾼다 — 홈이 무거워질 이유가 없다.
+    # favicon.svg를 쓰면 안 된다. 그건 어두운 앱 아이콘이라 푸터에 들어가면
+    # 생김새가 달라진다 — 뉴스레터에 박혀 있던 그 로고를 뽑아 둔 파일을 쓴다.
+    body = re.sub(r'src="data:image/[^"]+"', 'src="/assets/soonsal-logo.png"', body)
     return css, body
 
 
