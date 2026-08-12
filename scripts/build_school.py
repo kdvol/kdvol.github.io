@@ -91,9 +91,10 @@ overflow:hidden;transition:border-color .18s}
 .card.best:hover{border-color:#6b3f24}
 .card>a{display:block;color:inherit}
 /* 커버 — 글만 있는 카드는 안 팔린다. liveklass 상세페이지의 실제 커버를 쓴다. */
-.cv{display:block;position:relative;overflow:hidden;background:#0d0d0d;height:230px}
-/* 통합본만 크게 — 나머지까지 16:9로 두면 카드 7장에 스크롤이 3400px가 넘는다 */
-.card.best .cv{height:300px}
+/* 높이를 고정한다. 원본 비율이 제각각이라(16:9, 배너형) 그대로 두면 카드마다
+   높이가 튄다. object-position:center로 가운데를 살린다. */
+.cv{display:block;position:relative;overflow:hidden;background:#0d0d0d;height:216px}
+.card.best .cv{height:286px}
 .cv img{width:100%;height:100%;object-fit:cover;object-position:center;display:block;
 transition:transform .4s ease}
 .card:hover .cv img{transform:scale(1.025)}
@@ -152,7 +153,7 @@ padding-top:24px;border-top:1px solid #1c1c1c;text-align:center}
  .ph h1{font-size:1.6rem}
  .cb{padding:18px 17px 0}
  .tz{margin:0 17px 15px}
- .cv{height:180px}.card.best .cv{height:210px}
+ .cv{height:158px}.card.best .cv{height:196px}
  .card a.buy{padding:16px 17px;gap:11px}
  .go{margin-left:0;width:100%;text-align:center;padding:14px;margin-top:3px}
 }
