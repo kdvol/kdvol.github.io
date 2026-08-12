@@ -12,10 +12,12 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 
+# 주제별은 탭에서 뺐다. 검색과 하는 일이 같은데(찾기) 탭 한 칸을 차지했고,
+# /search/ 안에 이미 주제 입구가 18개 있다. 돋보기 하나로 합친다.
 CORE_ITEMS = [("/newsletters/", "뉴스레터"), ("/morning/", "순살차트"),
-              ("/talk/", "순살톡"), ("/topics/", "주제별")]
+              ("/talk/", "순살톡")]
 DESKTOP_ITEMS = [("/school/", "스쿨"), ("/collab/", "협업 문의")]
-MENU_ITEMS = [("/saved/", "내가 모은 글"), ("/cardnews/", "카드뉴스"),
+MENU_ITEMS = [("/topics/", "주제별"), ("/saved/", "내가 모은 글"), ("/cardnews/", "카드뉴스"),
               ("/youtube/", "YouTube")]
 MORE_ITEMS = MENU_ITEMS + DESKTOP_ITEMS
 BIZ = {"/collab/"}
@@ -75,6 +77,10 @@ def _active_for(path: Path):
 
 # ── 생성 페이지(주제별·검색·엔티티)용 공용 헤더 — 본 사이트와 동일 스타일 ──
 NAV_CSS = """
+.search-btn-header{position:absolute;left:max(16px,calc(50% - 400px));top:50%;transform:translateY(-50%);
+display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:8px;
+color:#8a857c;text-decoration:none}
+.search-btn-header:hover{color:#fff;background:#1e1e1e}
 .nav{position:relative;display:flex;justify-content:center;align-items:stretch;overflow:visible;border-bottom:1px solid #222;background:#151515;z-index:100}
 .nav>a,.nav-more>summary{display:flex;align-items:center;padding:12px 18px;font-size:13px;font-weight:700;color:#777;white-space:nowrap;text-decoration:none;border:0;border-bottom:2px solid transparent;cursor:pointer;list-style:none;transition:color .2s,border-color .2s,background .2s}
 .nav-more>summary::-webkit-details-marker{display:none}
@@ -178,10 +184,35 @@ FONT_LINK = ('<link rel="preconnect" href="https://fonts.googleapis.com"/>'
              '<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700;800&display=swap" rel="stylesheet"/>')
 
 
+SEARCH_BTN = (
+    '<a href="/search/" class="search-btn-header" aria-label="검색">'
+    '<svg viewBox="0 0 24 24" width="19" height="19" fill="none" '
+    'stroke="currentColor" stroke-width="2.1" stroke-linecap="round" aria-hidden="true">'
+    '<circle cx="11" cy="11" r="7"/><path d="M20 20l-3.6-3.6"/></svg></a>')
+
+# 홈·뉴스레터는 자기 헤더를 갖고 있다(생성 페이지가 아니다). 여는 태그 바로
+# 뒤에 버튼을 넣는다. position:absolute라 헤더에 position이 있어야 한다.
+HEADER_OPEN_RE = re.compile(r'<(div|header)([^>]*)class="site-header"([^>]*)>')
+
+
+def _with_search(html: str) -> str:
+    if 'class="search-btn-header"' in html:
+        return html
+    m = HEADER_OPEN_RE.search(html)
+    if not m:
+        return html
+    tag = m.group(0)
+    if 'position:relative' not in tag:
+        tag = tag[:-1] + ' style="position:relative">' if 'style="' not in tag \
+              else tag.replace('style="', 'style="position:relative;', 1)
+    return html[:m.start()] + tag + SEARCH_BTN + html[m.end():]
+
+
 def header_html(active="/topics/"):
     """로고 + 구독하기 + nav 탭(본 사이트 헤더와 동일 구성)."""
     return (
-        '<header class="site-header"><a class="logo-link" href="/">'
+        '<header class="site-header">' + SEARCH_BTN +
+        '<a class="logo-link" href="/">'
         '<img src="/favicon.svg" alt="" onerror="this.style.display=\'none\'">'
         '<span class="logo-text">순살브리핑 Soonsal</span></a>'
         '<a href="https://subscribe.soonsal.com/subscribe" target="_blank" rel="noopener" '
@@ -209,6 +240,7 @@ def main():
             new = NAV_ENHANCEMENT_RE.sub(enhancement, new, count=1)
         elif "</head>" in new:
             new = new.replace("</head>", enhancement + "\n</head>", 1)
+        new = _with_search(new)
         if new != t:
             p.write_text(new, encoding="utf-8")
             n += 1
