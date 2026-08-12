@@ -26,7 +26,7 @@
 <rect class="motion-node-shape" x="94.0" y="70.0" width="430.0" height="118" rx="22" fill="#FFFFFF" stroke="#E0DDD5" stroke-width="3" filter="url(#shadow)"/>
 <text x="309.0" y="129.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="700" fill="#222222">성인 61% 필수품만 지출</text>
 </g>
-<g class="motion-step motion-node" data-motion-step="0" style="--motion-delay:0ms;--motion-accent-delay:660ms">
+<g class="motion-step motion-node" data-motion-step="0" style="--motion-delay:190ms;--motion-accent-delay:850ms">
 <rect class="motion-node-shape" x="556.0" y="70.0" width="430.0" height="118" rx="22" fill="#FFFFFF" stroke="#E0DDD5" stroke-width="3" filter="url(#shadow)"/>
 <text x="771.0" y="129.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="700" fill="#222222">온 홀딩, 할인 거부</text>
 </g>
