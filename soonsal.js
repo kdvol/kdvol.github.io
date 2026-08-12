@@ -751,8 +751,8 @@
             '<button type="button" class="ss-clike' + (liked[c.i] ? ' on' : '') +
               '" data-i="' + c.i + '">' + (liked[c.i] ? '♥' : '♡') +
               '<span>' + (n || '') + '</span></button>' +
-            (isReply ? '' : '<button type="button" class="ss-crep-b" data-i="' + c.i +
-                            '" data-k="' + esc(c.k) + '">↩ <span>답글</span></button>') +
+            '<button type="button" class="ss-crep-b" data-i="' + c.i +
+              '" data-k="' + esc(c.k) + '">↩ <span>답글</span></button>' +
           '</div>') +
       '</div></div>';
   }
@@ -761,15 +761,27 @@
     var list = w.querySelector('.ss-clist');
     var items = CMTS[key] || [], liked = likedSet();
 
-    // 1단계 스레드로 묶는다 — 원글 아래에 그 답글들을 시간순으로
-    var roots = [], kids = {};
+    // 뿌리를 기준으로 묶는다. 부모만 보고 묶으면 '답글의 답글'은 부모가 답글이라
+    // 어느 원글에도 안 걸려 화면에서 사라진다. 서버가 root(r)를 주지만, 예전
+    // 응답에는 없을 수 있어 부모를 거슬러 올라가는 길도 남겨 둔다.
+    var byId = {};
+    items.forEach(function (c) { byId[c.i] = c; });
+    function rootOf(c) {
+      if (c.r) return c.r;
+      var seen = {}, cur = c;
+      while (cur && cur.p && byId[cur.p] && !seen[cur.p]) { seen[cur.p] = 1; cur = byId[cur.p]; }
+      return cur ? cur.i : c.i;
+    }
+    var order = [], groups = {};
     items.forEach(function (c) {
-      if (c.p) (kids[c.p] = kids[c.p] || []).push(c);
-      else roots.push(c);
+      var rid = rootOf(c);
+      if (!groups[rid]) { groups[rid] = []; order.push(rid); }
+      groups[rid].push(c);
     });
-    list.innerHTML = roots.map(function (c) {
-      return ciHTML(c, liked, false) +
-        (kids[c.i] || []).map(function (r) { return ciHTML(r, liked, true); }).join('');
+    // 스레드 안에서는 쓴 순서대로 — 깊이를 더 파지 않고 대화가 이어지게 한다
+    list.innerHTML = order.map(function (rid) {
+      var g = groups[rid].slice().sort(function (a, b) { return a.i - b.i; });
+      return g.map(function (c, i) { return ciHTML(c, liked, i > 0); }).join('');
     }).join('');
 
     list.querySelectorAll('.ss-clike').forEach(function (b) {
