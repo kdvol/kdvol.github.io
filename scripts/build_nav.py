@@ -193,7 +193,9 @@ NAV_ENHANCEMENT_CSS = _fill_cols(NAV_ENHANCEMENT_CSS)
 HEADER_CSS = """
 .site-header{padding:26px 20px 18px;border-bottom:1px solid #222;display:flex;justify-content:center;position:relative;background:#111}
 .logo-link{display:flex;align-items:center;gap:10px;text-decoration:none;color:#fff}
-.logo-link img{height:26px;width:auto}
+/* 로고 마크 크기는 여기 한 곳에서만 정한다. 26px는 파비콘처럼 묻히고
+   36px는 22px 워드마크를 눌러 헤더가 위로 무거워진다. 32px가 그 사이다. */
+.logo-link img,.logo-icon{height:32px;width:auto}
 .logo-text{font-size:22px;font-weight:800;letter-spacing:-0.5px;font-family:'DM Sans','Apple SD Gothic Neo',sans-serif}
 .sub-btn-header{position:absolute;right:max(16px,calc(50% - 400px));top:50%;transform:translateY(-50%);
 background:#E55A00;color:#fff;padding:8px 18px;border-radius:6px;font-size:13px;font-weight:700;text-decoration:none;white-space:nowrap}
@@ -225,6 +227,22 @@ NAV_COLS_RE = re.compile(
 
 def _fix_nav_cols(html: str) -> str:
     return NAV_COLS_RE.sub(rf'\g<1>{len(CORE_ITEMS) + 1}\g<2>', html)
+
+
+LOGO_SIZE = 32
+# 손으로 만든 헤더에 박힌 값은 여기서 다시 맞춘다. 그러지 않으면
+# 페이지마다 로고가 다른 크기로 보인다 — 실제로 26px와 36px가 섞여 있었다.
+# width:auto가 붙은 규칙만 건드린다. 카드뉴스 본문 안의 .logo-icon은
+# 22px 정사각(width도 고정)이고 헤더 로고가 아니다.
+LOGO_H_RE = re.compile(
+    r'(\.logo-(?:link img|icon)[^{}]*{[^}]*?height:\s*)\d+(px)(?=[^}]*width:\s*auto)'
+    r'|(\.logo-(?:link img|icon)[^{}]*{[^}]*?width:\s*auto[^}]*?height:\s*)\d+(px)', re.I)
+
+
+def _fix_logo_size(html: str) -> str:
+    return LOGO_H_RE.sub(
+        lambda m: f"{m.group(1) or m.group(3)}{LOGO_SIZE}{m.group(2) or m.group(4)}",
+        html)
 
 
 TICKER_FILE = Path(__file__).resolve().parent / "_ticker.html"
@@ -314,6 +332,7 @@ def main():
         new = _with_subscribe(new)
         new = _with_ticker(new)
         new = _fix_nav_cols(new)
+        new = _fix_logo_size(new)
         if new != t:
             p.write_text(new, encoding="utf-8")
             n += 1
