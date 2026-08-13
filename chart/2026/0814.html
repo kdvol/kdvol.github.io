@@ -1,0 +1,303 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>순살차트 2026-08-14 · 순살브리핑</title>
+  <meta name="description" content="밤새 쌓인 뉴스에서 돈이 어디로 움직이고 어디서 위험이 커지는지만 도식으로 짚은 순살차트">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root{--bg:#111;--surface:#191817;--surface-raised:#201e1c;--paper:#faf8f4;--ink:#f4f0ea;--muted:#a39c94;--orange:#F07040;--orange-deep:#E55A00;--line:#302d2a}
+    *{box-sizing:border-box}html{background:var(--bg)}body{margin:0;min-height:100vh;background:radial-gradient(circle at 50% 180px,#29211c 0,#171513 380px,#111 900px) fixed;color:var(--ink);font-family:'DM Sans','Apple SD Gothic Neo','Noto Sans KR','Malgun Gothic',sans-serif;font-size:15px;line-height:1.75;-webkit-font-smoothing:antialiased}
+    .site-header{padding:26px 20px 18px;border-bottom:1px solid #222;display:flex;justify-content:center;position:relative;background:#111}
+    .logo-link{display:flex;align-items:center;gap:10px;text-decoration:none;color:#fff}.logo-link img{height:32px;width:auto}.logo-text{font-family:'DM Sans',sans-serif;font-size:22px;font-weight:800;letter-spacing:-.5px;line-height:normal}
+    .sub-btn-header{position:absolute;right:max(16px,calc(50% - 400px));top:50%;transform:translateY(-50%);background:#E55A00;color:#fff;padding:8px 18px;border-radius:6px;font-size:13px;font-weight:700;text-decoration:none;white-space:nowrap}
+
+    .nav{position:relative;display:flex;justify-content:center;align-items:stretch;overflow:visible;border-bottom:1px solid #222;background:#151515;z-index:100}
+    .nav>a,.nav-more>summary{display:flex;align-items:center;padding:12px 18px;font-size:13px;font-weight:700;color:#777;white-space:nowrap;text-decoration:none;border:0;border-bottom:2px solid transparent;cursor:pointer;list-style:none;transition:color .2s,border-color .2s,background .2s}
+    .nav-more>summary::-webkit-details-marker{display:none}.nav>a:hover,.nav-more>summary:hover{color:#ccc}.nav>a.active,.nav-more.active>summary{color:#F07040;border-bottom-color:#F07040}
+    .nav-mobile-only{display:none}.nav>a.nav-desktop-link.biz,.nav-menu a.biz{color:#F07040}
+    .nav-more{position:relative;flex-shrink:0}.nav-more[open]>summary{color:#fff;background:#202020}
+    .nav-menu{position:absolute;top:100%;right:0;z-index:1001;display:grid;min-width:190px;padding:8px;background:#1b1b1b;border:1px solid #333;border-radius:0 0 8px 8px;box-shadow:0 12px 26px rgba(0,0,0,.28)}
+    .nav-menu a{display:block;padding:10px 12px;border-radius:5px;color:#aaa;text-decoration:none;font-size:13px;font-weight:700;white-space:nowrap}.nav-menu a:hover,.nav-menu a.active{color:#fff;background:#282828}.nav-menu a.active{color:#F07040}.nav-menu a.biz{color:#777;border-top:1px solid #303030;margin-top:4px;padding-top:12px}
+    @media(max-width:560px){.nav>a.nav-desktop-link{display:none}.nav-menu a.nav-mobile-only{display:block}.nav-more.mobile-active>summary{color:#F07040;border-bottom-color:#F07040}.nav{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));width:100%}.nav>a,.nav-more>summary{justify-content:center;padding:11px 2px;font-size:11.5px;letter-spacing:-.4px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.nav-more{position:static;min-width:0}.nav-menu{left:10px;right:10px;top:100%;grid-template-columns:repeat(2,minmax(0,1fr));min-width:0;padding:8px}.nav-menu a{text-align:center;padding:11px 6px}.nav-menu a.biz{border-top:0;margin-top:0;padding-top:11px}}
+    @media(max-width:360px){.nav>a,.nav-more>summary{font-size:10.5px;letter-spacing:-.5px;padding:11px 1px}}
+
+    .memo-shell{max-width:760px;margin:28px auto 68px;padding:0 22px;background:transparent}
+    .memo-head{position:relative;padding:12px 4px 22px;border:0;border-radius:0;background:transparent;box-shadow:none}.memo-kicker{display:flex;align-items:center;gap:9px;font-size:10px;font-weight:800;letter-spacing:.1em;color:#f49a74}.memo-kicker:before{content:"";width:22px;height:2px;background:var(--orange);border-radius:2px}
+    h1{font-size:clamp(34px,5vw,43px);line-height:1;margin:10px 0 11px;color:#fff;letter-spacing:-.055em}.deck{max-width:570px;font-size:14px;line-height:1.65;color:#b6afa7;margin:0;word-break:keep-all}.issue-meta-line{display:flex;align-items:center;gap:8px;margin-top:14px;color:#817a73;font-size:11px;font-weight:700;font-variant-numeric:tabular-nums;letter-spacing:.02em}.issue-meta-line span{display:flex;align-items:center;gap:8px}.issue-meta-line span:before{content:"";width:3px;height:3px;border-radius:50%;background:#5f5953}
+    .content{padding:4px 0 0;background:transparent}.story{position:relative;isolation:isolate;margin:0 0 18px;padding:32px 26px 27px;overflow:hidden;border:0;border-radius:14px;background:radial-gradient(circle at 100% 0,color-mix(in srgb,var(--topic-accent) 13%,transparent) 0,transparent 225px),linear-gradient(145deg,#201f1d 0,#181817 66%,#151515 100%);box-shadow:none}.story:last-child{margin-bottom:0}.story:before{content:"";position:absolute;z-index:1;top:0;left:0;width:100%;height:3px;background:linear-gradient(90deg,var(--topic-accent),color-mix(in srgb,var(--topic-accent) 18%,transparent) 68%,transparent)}.story-index{position:absolute;z-index:-1;top:9px;right:18px;color:color-mix(in srgb,var(--topic-accent) 15%,transparent);font-size:82px;font-weight:900;line-height:1;letter-spacing:-7px;user-select:none}
+    .story-label{display:inline-block;font-size:10px;font-weight:800;letter-spacing:1.1px;text-transform:uppercase;color:color-mix(in srgb,var(--topic-accent) 42%,#fff);background:color-mix(in srgb,var(--topic-accent) 18%,#1d1d1c);border:1px solid color-mix(in srgb,var(--topic-accent) 32%,transparent);padding:4px 10px;border-radius:999px;margin-bottom:13px}
+    .story-title{max-width:580px;font-size:25px;font-weight:900;line-height:1.32;margin:0 0 14px;color:#f5f2ed;letter-spacing:-.045em;word-break:keep-all}
+    .opening{max-width:600px;font-size:16px;font-weight:600;line-height:1.75;color:#beb8b0;margin:0 0 22px;word-break:keep-all}
+    figure{margin:23px 0}.diagram-live{position:relative;overflow:hidden;aspect-ratio:1080/860;border:1px solid color-mix(in srgb,var(--topic-accent) 20%,#d8d2c8);border-radius:13px;background:var(--paper);box-shadow:0 12px 30px rgba(0,0,0,.22);contain:layout paint}.diagram-poster,.diagram-live img,.diagram-live svg{display:block;width:100%;height:auto}.diagram-live svg{position:absolute;inset:0}.diagram-frame{display:flex;flex-direction:column}.diagram-tip{margin:7px 1px 0 auto;color:#8b8378;font-size:11.5px;font-weight:600}@media(prefers-reduced-motion:reduce){.diagram-tip{display:none}}.diagram-replay{display:flex;align-items:center;gap:7px;margin:12px 1px 0 auto;padding:9px 14px;border:1px solid color-mix(in srgb,var(--topic-accent) 55%,#F07040);border-radius:999px;background:color-mix(in srgb,var(--topic-accent) 17%,#24201d);color:#ffd6c4;box-shadow:0 7px 20px rgba(0,0,0,.18);font:inherit;font-size:12.5px;font-weight:900;cursor:pointer;transition:transform .18s ease,border-color .18s ease,background .18s ease}.diagram-replay span{display:grid;place-items:center;width:19px;height:19px;border-radius:50%;background:#F07040;color:#171311;font-size:14px}.diagram-replay:hover{transform:translateY(-1px);border-color:#F07040;background:#30241f}.diagram-replay:focus-visible{outline:2px solid var(--topic-accent);outline-offset:2px}
+    .diagram-live.is-prepared .motion-node{cursor:pointer}.diagram-live .motion-node:hover .motion-node-shape{stroke:#F07040;stroke-width:4.5}.diagram-live.is-prepared .motion-step{opacity:0;transform-box:fill-box;transform-origin:center}.diagram-live.is-running .motion-node{animation:morning-node-in 620ms cubic-bezier(.16,1,.3,1) var(--motion-delay) forwards}.diagram-live.is-running .motion-edge{animation:morning-edge-in 600ms cubic-bezier(.16,1,.3,1) var(--motion-delay) forwards}.diagram-live.is-running .motion-risk .motion-node-shape{animation:morning-risk-pulse 810ms cubic-bezier(.16,1,.3,1) var(--motion-accent-delay) both}.diagram-live.is-paused .motion-step,.diagram-live.is-paused .motion-node-shape{animation-play-state:paused!important}
+    @keyframes morning-node-in{0%{opacity:0;transform:translateY(18px) scale(.97)}100%{opacity:1;transform:none}}@keyframes morning-edge-in{0%{opacity:0;clip-path:inset(0 0 100% 0)}12%{opacity:1}100%{opacity:1;clip-path:inset(0)}}@keyframes morning-risk-pulse{0%,100%{filter:url(#shadow)}55%{filter:url(#shadow) drop-shadow(0 0 13px rgba(240,112,64,.42))}}
+    @media(prefers-reduced-motion:reduce){.diagram-live .motion-step{opacity:1!important;transform:none!important;clip-path:none!important;animation:none!important}.diagram-replay{display:none}}
+    .soonsal-point{margin-top:19px;padding:14px 0 14px 16px;background:linear-gradient(90deg,color-mix(in srgb,var(--topic-accent) 10%,#211f1d),transparent);border:0;border-left:3px solid color-mix(in srgb,var(--topic-accent) 70%,#5d514a);border-radius:0}.soonsal-point strong{display:block;color:#f18a5d;font-size:11px;font-weight:900;letter-spacing:.5px;margin-bottom:3px}.soonsal-point p{font-size:14px;line-height:1.7;color:#d0cac2;margin:0;word-break:keep-all}
+    .morning-topic .ss-react{gap:4px!important;margin:12px 0 0!important}.morning-topic .ss-rg{gap:2px!important}.morning-topic .ss-rb{border:0!important;background:transparent!important;padding:7px 9px!important;color:#979087!important}.morning-topic .ss-rb:hover{background:color-mix(in srgb,var(--topic-accent) 9%,transparent)!important;color:#d9d2ca!important}.morning-topic .ss-rb.on{background:color-mix(in srgb,var(--topic-accent) 14%,transparent)!important;color:#ff9a70!important}.morning-topic .ss-sh{margin-left:auto!important}
+    .morning-topic .ss-cbar{width:auto!important;margin:2px 0 0!important;padding:8px 9px!important;background:transparent!important;border:0!important;border-radius:8px!important;color:#a9a198!important;box-shadow:none!important}.morning-topic .ss-cbar:hover{background:color-mix(in srgb,var(--topic-accent) 9%,transparent)!important;color:#d8d1c9!important;box-shadow:none!important}.morning-topic .ss-cbar .tx.ph{color:#aaa29a!important}.morning-topic .ss-cbar .cta{padding:0!important;background:transparent!important;color:#ff9a70!important}.morning-topic .ss-cwrap{background:#1d1b19!important;border:0!important;border-left:3px solid color-mix(in srgb,var(--topic-accent) 55%,#3a3531)!important;border-radius:0 10px 10px 0!important;box-shadow:none!important;color:#d8d1ca!important}.morning-topic .ss-chd{color:#aaa29a!important}.morning-topic .ss-cin,.morning-topic .ss-cpl input,.morning-topic .ss-cpl select{background:#272421!important;border-color:#403a35!important;color:#f4f0ea!important}.morning-topic .ss-cin::placeholder{color:#8c857d!important}.morning-topic .ss-cpf{background:#25211e!important}.morning-topic .ss-cprof .nm,.morning-topic .ss-cnm b,.morning-topic .ss-cbx{color:#e5dfd8!important}.morning-topic .ss-cprof i,.morning-topic .ss-ct,.morning-topic .ss-cnote{color:#918981!important}.morning-topic .ss-call{color:#ff9a70!important}
+    .memo-footer{padding:15px 2px 0}.page-nav{display:flex;justify-content:flex-end}.page-nav a{display:inline-flex;align-items:center;padding:8px 0;color:#a79f96;text-decoration:none;font-size:13px;font-weight:800}.page-nav a:hover{color:#F07040}
+    @media(max-width:720px){body{background:linear-gradient(180deg,#181512 0,#111 620px) fixed}.sub-btn-header{display:none}.memo-shell{margin:0 auto 54px;padding:0 10px}.memo-head{padding:21px 10px 18px}h1{font-size:36px}.deck{font-size:13.5px;line-height:1.6}.issue-meta-line{margin-top:11px}.content{padding:3px 0 0}.story{margin-bottom:12px;padding:27px 15px 22px;border-radius:12px}.story-index{top:9px;right:12px;font-size:64px}.story-title{font-size:22px}.opening{font-size:15px}.diagram-live{aspect-ratio:720/860;border-radius:11px}.diagram-replay{padding:10px 15px;font-size:13px}.memo-footer{padding-top:2px}}
+  </style>
+  <style id="soonsal-nav-visibility-v3">
+.nav-menu a.nav-mobile-only{display:none}
+.nav>a.nav-desktop-link.biz{color:#F07040}
+.nav>a.nav-desktop-link.biz:hover{color:#ff8a52}
+.nav-menu a.biz{color:#F07040}
+@media(max-width:560px){
+  .nav>a.nav-desktop-link{display:none}
+  .nav-menu a.nav-mobile-only{display:block}
+  .nav-more.mobile-active>summary{color:#F07040;border-bottom-color:#F07040}
+  /* 코어 4개 + 더보기 = 5칸. 예전 CSS가 4칸이라 다섯 번째가 다음 줄로 넘어갔다.
+     이 블록은 페이지마다 나중에 주입되므로 안에 박힌 옛 규칙을 덮는다. */
+  .nav{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));width:100%}
+  .nav>a,.nav-more>summary{justify-content:center;padding:11px 2px;font-size:11.5px;
+    letter-spacing:-.4px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+}
+@media(max-width:360px){
+  .nav>a,.nav-more>summary{font-size:10.5px;letter-spacing:-.5px;padding:11px 1px}
+}
+/* ── 눌러보고 싶게 ──────────────────────────────────────
+   탭은 '지금 어디' 말고는 아무것도 알려주지 않는다. 더보기는 특히 그렇다 —
+   안에 뭐가 있는지 모르면 누를 이유가 없다. 세 가지를 바꾼다:
+   (1) 밑줄이 자라며 눌리는 느낌, (2) 화살표가 열림에 반응, (3) 메뉴 안에
+   아이콘을 붙여 목록이 아니라 '갈 곳'으로 보이게. */
+.nav>a,.nav-more>summary{position:relative;transition:color .18s}
+.nav>a:after,.nav-more>summary:after{content:"";position:absolute;left:50%;right:50%;
+bottom:-1px;height:2px;background:#F07040;border-radius:2px;
+transition:left .22s cubic-bezier(.4,0,.2,1),right .22s cubic-bezier(.4,0,.2,1)}
+.nav>a:hover:after,.nav-more>summary:hover:after{left:18%;right:18%}
+.nav>a.active:after,.nav-more.active>summary:after{left:0;right:0}
+
+.nav-more>summary span[aria-hidden]{display:inline-block;transition:transform .22s ease;
+margin-left:2px}
+.nav-more[open]>summary span[aria-hidden]{transform:rotate(180deg)}
+.nav-more[open]>summary{color:#F07040}
+
+.nav-menu{animation:navdrop .18s cubic-bezier(.2,.8,.2,1)}
+@keyframes navdrop{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
+.nav-menu a{transition:background .15s,color .15s,padding-left .15s}
+.nav-menu a:before{margin-right:7px;opacity:.9}
+.nav-menu a[href="/cardnews/"]:before{content:"🎴"}
+.nav-menu a[href="/youtube/"]:before{content:"▶"}
+.nav-menu a[href="/school/"]:before{content:"🎓"}
+.nav-menu a[href="/collab/"]:before{content:"✉"}
+.nav-menu a[href="/talk/"]:before{content:"💬"}
+
+/* 더보기 안에 뭐가 있는지 한 줄로 알려준다 — 열기 전에 궁금해지는 건 이 지점이다 */
+.nav-more>summary:before{content:"";position:absolute;top:9px;right:6px;width:5px;height:5px;
+border-radius:50%;background:#F07040;opacity:0;transition:opacity .2s}
+.nav-more:not([open])>summary:hover:before{opacity:.85}
+@media(max-width:560px){
+  .nav-menu a{text-align:left;padding-left:14px}
+  .nav-more>summary:before{right:3px;top:7px}
+}
+</style>
+  <!-- soonsal:seo -->
+<link rel="canonical" href="https://soonsal.com/chart/2026/0814.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="순살차트 2026-08-14 · 순살브리핑">
+<meta property="og:description" content="밤새 쌓인 뉴스에서 돈이 어디로 움직이고 어디서 위험이 커지는지만 도식으로 짚은 순살차트">
+<meta property="og:url" content="https://soonsal.com/chart/2026/0814.html">
+<meta property="og:site_name" content="순살브리핑">
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:image" content="https://soonsal.com/chart/assets/20260814/record-vs-longend.png">
+<meta property="og:image:width" content="1080">
+<meta property="og:image:height" content="1350">
+<meta name="twitter:image" content="https://soonsal.com/chart/assets/20260814/record-vs-longend.png">
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "NewsArticle", "headline": "순살차트 2026-08-14 · 순살브리핑", "description": "밤새 쌓인 뉴스에서 돈이 어디로 움직이고 어디서 위험이 커지는지만 도식으로 짚은 순살차트", "url": "https://soonsal.com/chart/2026/0814.html", "mainEntityOfPage": "https://soonsal.com/chart/2026/0814.html", "inLanguage": "ko", "publisher": {"@type": "Organization", "name": "순살브리핑", "url": "https://soonsal.com/", "logo": {"@type": "ImageObject", "url": "https://soonsal.com/apple-touch-icon.png"}}, "isAccessibleForFree": true, "articleSection": "순살차트", "datePublished": "2026-08-14", "dateModified": "2026-08-14"}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "순살브리핑", "item": "https://soonsal.com/"}, {"@type": "ListItem", "position": 2, "name": "순살차트", "item": "https://soonsal.com/chart/"}, {"@type": "ListItem", "position": 3, "name": "순살차트 2026-08-14 · 순살브리핑", "item": "https://soonsal.com/chart/2026/0814.html"}]}]}</script>
+<style id="soonsal-search-v1">
+.sub-btn-header{position:absolute;right:max(16px,calc(50% - 400px));top:50%;transform:translateY(-50%);
+background:#E55A00;color:#fff;padding:8px 18px;border-radius:6px;font-size:13px;font-weight:700;
+text-decoration:none;white-space:nowrap}
+@media(max-width:560px){.sub-btn-header{display:none}}
+.search-btn-header{position:absolute;right:max(16px,calc(50% - 400px));top:50%;transform:translateY(-50%);
+display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:8px;
+color:#8a857c;text-decoration:none}
+.search-btn-header:hover{color:#fff;background:#1e1e1e}
+/* 구독하기가 있는 페이지에서는 그 왼쪽으로 비켜 앉는다 */
+.site-header:has(.sub-btn-header) .search-btn-header{right:calc(max(16px,50% - 400px) + 96px)}
+@media(max-width:560px){
+  .site-header:has(.sub-btn-header) .search-btn-header{right:16px}
+}
+</style>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml"/><link rel="icon" href="/favicon.ico" sizes="any"/><link rel="apple-touch-icon" href="/apple-touch-icon.png"/></head>
+<body data-ss-issue="m20260814">
+<div id="soonsal-live-ticker" style="display:none;"></div>
+<style>
+#soonsal-live-ticker{position:fixed;top:0;left:0;right:0;width:100%;background:#0a0a0a;border-bottom:1px solid #1a1a1a;overflow:hidden;z-index:99999;user-select:none;-webkit-user-select:none}
+#soonsal-live-ticker::before,#soonsal-live-ticker::after{content:'';position:absolute;top:0;bottom:0;width:48px;z-index:2;pointer-events:none}
+#soonsal-live-ticker::before{left:0;background:linear-gradient(to right,#0a0a0a,transparent)}
+#soonsal-live-ticker::after{right:0;background:linear-gradient(to left,#0a0a0a,transparent)}
+#soonsal-live-ticker .stk-track{display:flex;width:max-content;animation:stk-scroll 90s linear infinite;padding:8px 0}
+#soonsal-live-ticker .stk-track:hover{animation-play-state:paused}
+@keyframes stk-scroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+#soonsal-live-ticker .stk-item{display:inline-flex;align-items:center;gap:7px;padding:0 16px;border-right:1px solid #1a1a1a;white-space:nowrap;flex-shrink:0}
+#soonsal-live-ticker .stk-lbl{font-family:'DM Sans',-apple-system,sans-serif;font-size:11px;font-weight:600;color:#555;letter-spacing:0.3px;text-transform:uppercase}
+#soonsal-live-ticker .stk-lbl.crypto{color:#F07040}
+#soonsal-live-ticker .stk-prc{font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:500;color:#e0ddd8;letter-spacing:-0.3px}
+#soonsal-live-ticker .stk-chg{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:500;display:inline-flex;align-items:center;gap:3px;padding:1px 5px;border-radius:3px}
+#soonsal-live-ticker .stk-chg.up{color:#4ade80;background:rgba(74,222,128,0.08)}
+#soonsal-live-ticker .stk-chg.down{color:#f87171;background:rgba(248,113,113,0.08)}
+#soonsal-live-ticker .stk-chg.zero{color:#777}
+#soonsal-live-ticker .au{display:inline-block;width:0;height:0;border-style:solid;border-width:0 3px 5px;border-color:transparent transparent #4ade80}
+#soonsal-live-ticker .ad{display:inline-block;width:0;height:0;border-style:solid;border-width:5px 3px 0;border-color:#f87171 transparent transparent}
+#soonsal-live-ticker .stk-div{display:inline-flex;align-items:center;padding:0 12px;flex-shrink:0}
+#soonsal-live-ticker .stk-div span{width:3px;height:3px;border-radius:50%;background:#F07040}
+#soonsal-live-ticker .stk-ts{display:inline-flex;align-items:center;gap:5px;padding:0 16px;flex-shrink:0}
+#soonsal-live-ticker .stk-dot{width:5px;height:5px;border-radius:50%;background:#4ade80;animation:stk-pulse 2s ease-in-out infinite}
+@keyframes stk-pulse{0%,100%{opacity:1}50%{opacity:0.3}}
+#soonsal-live-ticker .stk-time{font-family:'JetBrains Mono',monospace;font-size:10px;color:#555;letter-spacing:0.5px}
+#soonsal-live-ticker .stk-loading{display:flex;align-items:center;justify-content:center;padding:10px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#555;gap:8px}
+#soonsal-live-ticker .stk-spin{width:10px;height:10px;border:2px solid #222;border-top-color:#F07040;border-radius:50%;animation:stk-sp 0.8s linear infinite}
+@keyframes stk-sp{to{transform:rotate(360deg)}}
+.site-header{margin-top:34px}
+@media(max-width:768px){#soonsal-live-ticker .stk-item{padding:0 12px}#soonsal-live-ticker .stk-lbl{font-size:10px}#soonsal-live-ticker .stk-prc{font-size:11px}#soonsal-live-ticker .stk-chg{font-size:10px}.site-header{margin-top:30px}}
+
+  @media (max-width:768px) {
+    .nav a { padding:12px 14px; font-size:12px; }
+    .sub-btn-header { font-size:11px !important; padding:6px 12px !important; }
+  }
+  @media (max-width:480px) {
+    .sub-btn-header { font-size:10px !important; padding:5px 10px !important; right:10px !important; }
+  }
+</style>
+<script>
+(function(){'use strict';var WORKER_URL='https://soonsal-data.kd-d0a.workers.dev/';var COINGECKO_URL='https://api.coingecko.com/api/v3';var TRADFI_ORDER=['S&P 500','NASDAQ','Dow Jones','KOSPI','US 10Y','WTI Oil','Gold','DXY','EUR/USD','USD/JPY','USD/KRW'];var CRYPTO_ORDER=['Bitcoin','Ethereum','Solana','XRP','BNB','Crypto Total'];var CRYPTO_IDS={'Bitcoin':'bitcoin','Ethereum':'ethereum','Solana':'solana','XRP':'ripple','BNB':'binancecoin'};var REFRESH=60000;var container,timer,lastTradfi,lastCrypto;function init(){container=document.getElementById('soonsal-live-ticker');if(!container)return;container.style.display='block';container.innerHTML='<div class="stk-loading"><div class="stk-spin"></div>Loading market data...</div>';fetchAll();timer=setInterval(fetchAll,REFRESH)}function fetchAll(){var p1=fetchTradFi();var p2=fetchCrypto();Promise.allSettled?Promise.allSettled([p1,p2]).then(render):Promise.all([p1.catch(function(){return null}),p2.catch(function(){return null})]).then(render)}function fetchTradFi(){return fetch(WORKER_URL).then(function(r){return r.json()}).then(function(data){if(data.tradfi)lastTradfi=data;return data}).catch(function(e){console.warn('[Ticker] TradFi error:',e.message);return null})}function fetchCrypto(){var ids=Object.values(CRYPTO_IDS).join(',');var url=COINGECKO_URL+'/simple/price?ids='+ids+'&vs_currencies=usd&include_24hr_change=true&include_market_cap=true';var globalUrl=COINGECKO_URL+'/global';return Promise.all([fetch(url).then(function(r){return r.json()}),fetch(globalUrl).then(function(r){return r.json()}).catch(function(){return null})]).then(function(results){var prices=results[0];var global=results[1];var crypto={};for(var name in CRYPTO_IDS){var id=CRYPTO_IDS[name];var d=prices[id];if(!d)continue;var p=d.usd;var ch=d.usd_24h_change||0;crypto[name]={price:'$'+formatNum(p),change:(ch>=0?'+':'')+ch.toFixed(2)+'%',direction:ch>0.01?'up':ch<-0.01?'down':'zero'}}if(global&&global.data){var mc=global.data.total_market_cap&&global.data.total_market_cap.usd;var mch=global.data.market_cap_change_percentage_24h_usd;if(mc){crypto['Crypto Total']={price:'$'+(mc/1e12).toFixed(2)+'T',change:(mch>=0?'+':'')+(mch||0).toFixed(2)+'%',direction:mch>0?'up':mch<0?'down':'zero'}}}lastCrypto=crypto;return crypto}).catch(function(e){console.warn('[Ticker] Crypto error:',e.message);return null})}function render(){var tradfi=lastTradfi?lastTradfi.tradfi:{};var crypto=lastCrypto||{};var kst=lastTradfi?lastTradfi.kst:new Date().toLocaleString('ko-KR',{timeZone:'Asia/Seoul'});var html=[];html.push('<div class="stk-ts"><span class="stk-dot"></span><span class="stk-time">'+esc(kst)+' KST</span></div>');for(var i=0;i<TRADFI_ORDER.length;i++){var name=TRADFI_ORDER[i];var d=tradfi[name];if(d)html.push(makeItem(name,d,false))}html.push('<div class="stk-div"><span></span></div>');for(var j=0;j<CRYPTO_ORDER.length;j++){var cname=CRYPTO_ORDER[j];var cd=crypto[cname];if(cd)html.push(makeItem(cname,cd,true))}var track=html.join('');container.innerHTML='<div class="stk-track">'+track+track+'</div>'}function makeItem(name,d,isCrypto){var dir=d.direction||'zero';var arrow=dir==='up'?'<span class="au"></span>':dir==='down'?'<span class="ad"></span>':'';return'<div class="stk-item"><span class="stk-lbl'+(isCrypto?' crypto':'')+'">'+esc(name)+'</span><span class="stk-prc">'+esc(d.price)+'</span><span class="stk-chg '+dir+'">'+arrow+' '+esc(d.change)+'</span></div>'}function formatNum(n){if(n>=10000)return n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});if(n>=100)return n.toFixed(2);if(n>=1)return n.toFixed(2);return n.toFixed(4)}function esc(s){if(!s)return'';var d=document.createElement('span');d.textContent=String(s);return d.innerHTML}if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',init)}else{init()}})();
+</script>
+<header class="site-header" style="position:relative"><a href="/search/" class="search-btn-header" aria-label="검색"><svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.6-3.6"/></svg></a><a class="logo-link" href="/"><img src="/assets/soonsal-logo-white.png" alt="" onerror="this.style.display='none'"><span class="logo-text">순살브리핑 Soonsal</span></a><a href="https://subscribe.soonsal.com/subscribe" target="_blank" rel="noopener" class="sub-btn-header">구독하기</a></header>
+<nav class="nav" aria-label="주요 메뉴"><a href="/newsletters/">뉴스레터</a><a href="/chart/" class="active">순살차트</a><a href="/talk/">순살톡</a><a href="/school/" class="nav-desktop-link">스쿨</a><a href="/collab/" class="nav-desktop-link biz">협업 문의</a><details class="nav-more"><summary>더보기 <span aria-hidden="true">⌄</span></summary><section class="nav-menu" aria-label="추가 메뉴"><a href="/topics/">주제별</a><a href="/saved/">내가 모은 글</a><a href="/cardnews/">카드뉴스</a><a href="/youtube/">YouTube</a><a href="/school/" class="nav-mobile-only">스쿨</a><a href="/collab/" class="nav-mobile-only biz">협업 문의</a></section></details></nav>
+<div class="memo-shell"><section class="memo-head"><div class="memo-kicker">돈이 움직인 구조만</div><h1>순살차트</h1><p class="deck">밤새 쌓인 뉴스에서 돈이 어디로 움직이고, 어디서 위험이 커지는지만 도식으로 짚었음</p><div class="issue-meta-line"><time datetime="2026-08-14">2026-08-14</time><span>8개 흐름</span></div></section>
+<main class="content"><article class="story morning-topic topic-markets" id="pixel-memory" data-topic-theme="markets" data-ss-story="m20260814-pixel-memory" data-ss-issue="m20260814" style="--topic-accent:#8A4B42;--topic-wash:#F7F3EE;--topic-soft:#EAE1D8">
+  <span class="story-index" aria-hidden="true">01</span>
+  <div class="story-label">01 · 반도체 · 소비</div>
+  <h2 class="story-title">새 폰값이 100달러 오른 이유가, 메모리 부족임</h2>
+  <p class="opening bullet">구글이 새 픽셀을 내놓으면서 전 기종 값을 100달러 올렸음. 회사가 든 이유는 이어지는 메모리 공급 부족임</p>
+  <figure class="diagram-frame"><div class="diagram-live" role="img" aria-label="메모리 부족이 소비자 가격에 닿은 경로" data-diagram-src="/chart/assets/20260814/pixel-memory-diagram.svg?v=57ebdc0c0dd8" data-diagram-mobile-src="/chart/assets/20260814/pixel-memory-diagram-mobile.svg?v=6e73fe0741e6" data-diagram-orientation="TB"><picture class="diagram-poster"><source media="(max-width:720px)" srcset="/chart/assets/20260814/pixel-memory-diagram-mobile.svg?v=6e73fe0741e6"><img src="/chart/assets/20260814/pixel-memory-diagram.svg?v=57ebdc0c0dd8" alt="" aria-hidden="true" loading="lazy"></picture></div><button class="diagram-replay" type="button" aria-label="메모리 부족이 소비자 가격에 닿은 경로 애니메이션 다시 보기"><span aria-hidden="true">↻</span> 흐름 한 번 더</button><p class="diagram-tip">박스를 누르면 그 단계부터 다시 흐릅니다</p></figure>
+  <div class="soonsal-point"><strong>순살 포인트</strong><p>부품값이 오르는 국면과 완성품값이 오르는 국면은 투자자에게 다른 뜻임. 뒤쪽은 수요가 값을 견딜 수 있는지가 다음 질문이 됨</p></div>
+</article><article class="story morning-topic topic-fx" id="yen-trap" data-topic-theme="fx" data-ss-story="m20260814-yen-trap" data-ss-issue="m20260814" style="--topic-accent:#3E6A65;--topic-wash:#EDF5F2;--topic-soft:#D9EAE5">
+  <span class="story-index" aria-hidden="true">02</span>
+  <div class="story-label">02 · 환율 · 통화정책</div>
+  <h2 class="story-title">엔화를 지키면 성장이 죽고, 성장을 지키면 엔화가 죽음</h2>
+  <p class="opening bullet">일본 정부가 이례적으로 중앙은행의 조기 금리 인상을 지지하고 나섰음. 엔화는 달러당 159.50 부근으로 40년 만의 최저 수준임</p>
+  <figure class="diagram-frame"><div class="diagram-live" role="img" aria-label="엔화와 성장이 맞바꿔지는 자리" data-diagram-src="/chart/assets/20260814/yen-trap-diagram.svg?v=9f1239c2f2af" data-diagram-mobile-src="/chart/assets/20260814/yen-trap-diagram-mobile.svg?v=b085a6d30759" data-diagram-orientation="TB"><picture class="diagram-poster"><source media="(max-width:720px)" srcset="/chart/assets/20260814/yen-trap-diagram-mobile.svg?v=b085a6d30759"><img src="/chart/assets/20260814/yen-trap-diagram.svg?v=9f1239c2f2af" alt="" aria-hidden="true" loading="lazy"></picture></div><button class="diagram-replay" type="button" aria-label="엔화와 성장이 맞바꿔지는 자리 애니메이션 다시 보기"><span aria-hidden="true">↻</span> 흐름 한 번 더</button><p class="diagram-tip">박스를 누르면 그 단계부터 다시 흐릅니다</p></figure>
+  <div class="soonsal-point"><strong>순살 포인트</strong><p>160 부근은 아시아 통화 전체가 같이 흔들리는 자리라 원화도 무관하지 않음. 일본이 어느 쪽을 고르든 한국 수출기업의 가격 경쟁 조건이 따라 움직임</p></div>
+</article><article class="story morning-topic topic-markets" id="pokemon-index" data-topic-theme="markets" data-ss-story="m20260814-pokemon-index" data-ss-issue="m20260814" style="--topic-accent:#8A4B42;--topic-wash:#F7F3EE;--topic-soft:#EAE1D8">
+  <span class="story-index" aria-hidden="true">03</span>
+  <div class="story-label">03 · 가상자산 · 투자심리</div>
+  <h2 class="story-title">포켓몬 카드가 비트코인도 지수도 이겼음</h2>
+  <p class="opening bullet">지난 석 달 포켓몬 카드 지수가 약 29.4% 올랐음. 같은 기간 미국 대표 지수는 약 5%, 비트코인은 약 20% 내렸음</p>
+  <figure class="diagram-frame"><div class="diagram-live" role="img" aria-label="돈이 코인에서 카드로 옮겨 앉은 자리" data-diagram-src="/chart/assets/20260814/pokemon-index-diagram.svg?v=3bb5dcfc0a63" data-diagram-mobile-src="/chart/assets/20260814/pokemon-index-diagram-mobile.svg?v=4b99195b345e" data-diagram-orientation="TB"><picture class="diagram-poster"><source media="(max-width:720px)" srcset="/chart/assets/20260814/pokemon-index-diagram-mobile.svg?v=4b99195b345e"><img src="/chart/assets/20260814/pokemon-index-diagram.svg?v=3bb5dcfc0a63" alt="" aria-hidden="true" loading="lazy"></picture></div><button class="diagram-replay" type="button" aria-label="돈이 코인에서 카드로 옮겨 앉은 자리 애니메이션 다시 보기"><span aria-hidden="true">↻</span> 흐름 한 번 더</button><p class="diagram-tip">박스를 누르면 그 단계부터 다시 흐릅니다</p></figure>
+  <div class="soonsal-point"><strong>순살 포인트</strong><p>값이 오르는 곳이 반드시 그 자산이 좋아졌다는 뜻은 아님. 어디서 돈이 빠져나와 어디로 갔는지가 더 자주 답임</p></div>
+</article><article class="story morning-topic topic-markets" id="record-vs-longend" data-topic-theme="markets" data-ss-story="m20260814-record-vs-longend" data-ss-issue="m20260814" style="--topic-accent:#8A4B42;--topic-wash:#F7F3EE;--topic-soft:#EAE1D8">
+  <span class="story-index" aria-hidden="true">04</span>
+  <div class="story-label">04 · 금리 · 거시경제</div>
+  <h2 class="story-title">주가는 사상 최고인데, 30년 국채 금리도 25년 만에 최고임</h2>
+  <p class="opening bullet">미국 대표 지수가 7,798.99로 사상 최고를 새로 썼음. 같은 국면에 30년 국채는 5.216%에 팔렸고, 이는 2001년 이후 가장 높은 조달 금리임</p>
+  <figure class="diagram-frame"><div class="diagram-live" role="img" aria-label="지수와 장기 금리가 갈라선 자리" data-diagram-src="/chart/assets/20260814/record-vs-longend-diagram.svg?v=213023f7ac20" data-diagram-mobile-src="/chart/assets/20260814/record-vs-longend-diagram-mobile.svg?v=c284f99a470c" data-diagram-orientation="TB"><picture class="diagram-poster"><source media="(max-width:720px)" srcset="/chart/assets/20260814/record-vs-longend-diagram-mobile.svg?v=c284f99a470c"><img src="/chart/assets/20260814/record-vs-longend-diagram.svg?v=213023f7ac20" alt="" aria-hidden="true" loading="lazy"></picture></div><button class="diagram-replay" type="button" aria-label="지수와 장기 금리가 갈라선 자리 애니메이션 다시 보기"><span aria-hidden="true">↻</span> 흐름 한 번 더</button><p class="diagram-tip">박스를 누르면 그 단계부터 다시 흐릅니다</p></figure>
+  <div class="soonsal-point"><strong>순살 포인트</strong><p>지수가 오른 이유와 금리가 오른 이유가 다르면, 둘 중 하나는 곧 조정됨. 한국 증시는 미국 장기 금리에 붙어 있어 이 간극이 그대로 넘어옴</p></div>
+</article><article class="story morning-topic topic-ai" id="lease-shadow" data-topic-theme="ai" data-ss-story="m20260814-lease-shadow" data-ss-issue="m20260814" style="--topic-accent:#4D6F8A;--topic-wash:#EEF4F7;--topic-soft:#DDE9EF">
+  <span class="story-index" aria-hidden="true">05</span>
+  <div class="story-label">05 · AI · 신용</div>
+  <h2 class="story-title">데이터센터 임차 약정 대부분이, 장부 밖에 있음</h2>
+  <p class="opening bullet">대형 클라우드 사업자의 데이터센터 임차 약정 가운데 장부에 잡힌 몫은 일부뿐임. 아직 시작되지 않아 주석에만 적힌 약정이 그 다섯 배 규모임</p>
+  <figure class="diagram-frame"><div class="diagram-live" role="img" aria-label="장부 밖에 쌓이는 AI 설비 약정" data-diagram-src="/chart/assets/20260814/lease-shadow-diagram.svg?v=178e62c99695" data-diagram-mobile-src="/chart/assets/20260814/lease-shadow-diagram-mobile.svg?v=bddd99a9b171" data-diagram-orientation="TB"><picture class="diagram-poster"><source media="(max-width:720px)" srcset="/chart/assets/20260814/lease-shadow-diagram-mobile.svg?v=bddd99a9b171"><img src="/chart/assets/20260814/lease-shadow-diagram.svg?v=178e62c99695" alt="" aria-hidden="true" loading="lazy"></picture></div><button class="diagram-replay" type="button" aria-label="장부 밖에 쌓이는 AI 설비 약정 애니메이션 다시 보기"><span aria-hidden="true">↻</span> 흐름 한 번 더</button><p class="diagram-tip">박스를 누르면 그 단계부터 다시 흐릅니다</p></figure>
+  <div class="soonsal-point"><strong>순살 포인트</strong><p>AI 투자 규모를 장부만 보고 재면 실제보다 작게 잡힘. 설비·기자재 발주 전망도 같은 눈으로 걸러야 함</p></div>
+</article><article class="story morning-topic topic-markets" id="kospi-rebound" data-topic-theme="markets" data-ss-story="m20260814-kospi-rebound" data-ss-issue="m20260814" style="--topic-accent:#8A4B42;--topic-wash:#F7F3EE;--topic-soft:#EAE1D8">
+  <span class="story-index" aria-hidden="true">06</span>
+  <div class="story-label">06 · 한국 시장 · 반도체</div>
+  <h2 class="story-title">코스피가 열흘에 22% 올랐는데, 고점까지는 아직 25% 남았음</h2>
+  <p class="opening bullet">코스피가 6,813.34로 3.56% 올라 15거래일 만에 6,800선을 되찾았음. 지난달 말 바닥 이후 열 거래일 동안 약 22% 오른 자리임</p>
+  <figure class="diagram-frame"><div class="diagram-live" role="img" aria-label="가격은 돌아왔지만 국면은 아직인 자리" data-diagram-src="/chart/assets/20260814/kospi-rebound-diagram.svg?v=a9633766babb" data-diagram-mobile-src="/chart/assets/20260814/kospi-rebound-diagram-mobile.svg?v=3306a92747e8" data-diagram-orientation="TB"><picture class="diagram-poster"><source media="(max-width:720px)" srcset="/chart/assets/20260814/kospi-rebound-diagram-mobile.svg?v=3306a92747e8"><img src="/chart/assets/20260814/kospi-rebound-diagram.svg?v=a9633766babb" alt="" aria-hidden="true" loading="lazy"></picture></div><button class="diagram-replay" type="button" aria-label="가격은 돌아왔지만 국면은 아직인 자리 애니메이션 다시 보기"><span aria-hidden="true">↻</span> 흐름 한 번 더</button><p class="diagram-tip">박스를 누르면 그 단계부터 다시 흐릅니다</p></figure>
+  <div class="soonsal-point"><strong>순살 포인트</strong><p>반등의 성격이 수급인지 실적인지에 따라 다음 구간이 갈림. 외국인이 계속 사는지, 미국 장기 금리가 버텨주는지 두 가지를 같이 봐야 함</p></div>
+</article><article class="story morning-topic topic-markets" id="leverage-curb" data-topic-theme="markets" data-ss-story="m20260814-leverage-curb" data-ss-issue="m20260814" style="--topic-accent:#8A4B42;--topic-wash:#F7F3EE;--topic-soft:#EAE1D8">
+  <span class="story-index" aria-hidden="true">07</span>
+  <div class="story-label">07 · 한국 시장 · 규제</div>
+  <h2 class="story-title">레버리지 상품 거래가 급감했고, 새로 들어오려면 모의투자 5일을 해야 함</h2>
+  <p class="opening bullet">현금 증거금 요건을 올린 뒤 레버리지 상장지수상품 거래가 크게 줄었음. 개별 종목 레버리지 상품에 새로 들어오는 투자자는 최소 닷새의 모의거래를 마쳐야 함</p>
+  <figure class="diagram-frame"><div class="diagram-live" role="img" aria-label="규제가 진폭을 걷어낸 자리" data-diagram-src="/chart/assets/20260814/leverage-curb-diagram.svg?v=d643c44f5ad5" data-diagram-mobile-src="/chart/assets/20260814/leverage-curb-diagram-mobile.svg?v=65620d228ae7" data-diagram-orientation="TB"><picture class="diagram-poster"><source media="(max-width:720px)" srcset="/chart/assets/20260814/leverage-curb-diagram-mobile.svg?v=65620d228ae7"><img src="/chart/assets/20260814/leverage-curb-diagram.svg?v=d643c44f5ad5" alt="" aria-hidden="true" loading="lazy"></picture></div><button class="diagram-replay" type="button" aria-label="규제가 진폭을 걷어낸 자리 애니메이션 다시 보기"><span aria-hidden="true">↻</span> 흐름 한 번 더</button><p class="diagram-tip">박스를 누르면 그 단계부터 다시 흐릅니다</p></figure>
+  <div class="soonsal-point"><strong>순살 포인트</strong><p>규제가 시장을 죽였는지 살렸는지는 방향이 아니라 진폭으로 봐야 함. 개인 자금이 어디로 옮겨 가는지가 다음 관전 지점임</p></div>
+</article><article class="story morning-topic topic-markets" id="grocery-creep" data-topic-theme="markets" data-ss-story="m20260814-grocery-creep" data-ss-issue="m20260814" style="--topic-accent:#8A4B42;--topic-wash:#F7F3EE;--topic-soft:#EAE1D8">
+  <span class="story-index" aria-hidden="true">08</span>
+  <div class="story-label">08 · 물가 · 소비</div>
+  <h2 class="story-title">식품값은 한 번 오르면, 충격이 지나가도 안 내려옴</h2>
+  <p class="opening bullet">지난 반년 동안 토마토·상추에 이어 사과까지 값이 뛰었음. 앞서 커피와 소고기, 달걀이 같은 길을 지나갔음</p>
+  <figure class="diagram-frame"><div class="diagram-live" role="img" aria-label="지표는 내려가는데 장바구니는 안 내려가는 자리" data-diagram-src="/chart/assets/20260814/grocery-creep-diagram.svg?v=e73092e2a9ef" data-diagram-mobile-src="/chart/assets/20260814/grocery-creep-diagram-mobile.svg?v=622eda15770d" data-diagram-orientation="TB"><picture class="diagram-poster"><source media="(max-width:720px)" srcset="/chart/assets/20260814/grocery-creep-diagram-mobile.svg?v=622eda15770d"><img src="/chart/assets/20260814/grocery-creep-diagram.svg?v=e73092e2a9ef" alt="" aria-hidden="true" loading="lazy"></picture></div><button class="diagram-replay" type="button" aria-label="지표는 내려가는데 장바구니는 안 내려가는 자리 애니메이션 다시 보기"><span aria-hidden="true">↻</span> 흐름 한 번 더</button><p class="diagram-tip">박스를 누르면 그 단계부터 다시 흐릅니다</p></figure>
+  <div class="soonsal-point"><strong>순살 포인트</strong><p>물가 지표가 좋아졌다는 말과 장바구니가 가벼워졌다는 말은 다름. 이 간극이 길어지면 정책보다 정치가 먼저 움직임</p></div>
+</article></main>
+<footer class="memo-footer"><nav class="page-nav" aria-label="순살차트 둘러보기"><a href="/chart/">지난 순살차트 보기 →</a></nav></footer></div>
+<script>
+(()=>{
+  const diagrams=[...document.querySelectorAll('.diagram-live[data-diagram-src]')];
+  if(!diagrams.length||matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+  const load=async(host)=>{
+    if(host.dataset.motionState)return;
+    host.dataset.motionState='loading';
+    try{
+      const source=matchMedia('(max-width:720px)').matches&&host.dataset.diagramMobileSrc?host.dataset.diagramMobileSrc:host.dataset.diagramSrc;
+      const response=await fetch(source,{credentials:'same-origin'});
+      if(!response.ok)throw new Error('diagram '+response.status);
+      const documentSvg=new DOMParser().parseFromString(await response.text(),'image/svg+xml');
+      const svg=documentSvg.documentElement;
+      if(svg.localName!=='svg'||documentSvg.querySelector('parsererror'))throw new Error('invalid svg');
+      svg.removeAttribute('width');svg.removeAttribute('height');svg.setAttribute('aria-hidden','true');svg.setAttribute('focusable','false');
+      host.classList.add('is-prepared');
+      host.querySelector('.diagram-poster')?.replaceWith(document.importNode(svg,true));
+      host.dataset.motionState='ready';
+      requestAnimationFrame(()=>requestAnimationFrame(()=>{
+        host.classList.add('is-running');
+        if(host.dataset.motionVisible!=='true')host.classList.add('is-paused');
+        host.dataset.motionState='played';
+      }));
+    }catch(error){host.dataset.motionState='fallback'}
+  };
+  const replay=host=>{
+    if(host.dataset.motionState!=='played'||!host.querySelector('svg')){load(host);return}
+    host.classList.remove('is-paused','is-running');
+    host.dataset.motionState='ready';
+    void host.offsetWidth;
+    requestAnimationFrame(()=>requestAnimationFrame(()=>{host.classList.add('is-running');host.dataset.motionState='played'}));
+  };
+  // 박스를 누르면 그 박스가 서기 직전으로 시간을 되감고 거기서부터 재생한다.
+  // 지연이 이미 --motion-delay 로 박혀 있어 타임라인 위치만 옮기면 된다.
+  const seek=(host,ms)=>{
+    host.classList.remove('is-paused');
+    if(!host.classList.contains('is-running')){host.classList.add('is-running');host.dataset.motionState='played'}
+    if(!host.getAnimations)return;
+    host.getAnimations({subtree:true}).forEach(animation=>{
+      // play()를 나중에 부르면 이미 끝난 애니메이션이 0으로 되감긴다.
+      // 먼저 재생 상태로 돌린 뒤 시간을 꽂아야 전부 같은 지점에 선다.
+      try{animation.play();animation.currentTime=ms}catch(error){}
+    });
+  };
+  const stepDelay=group=>{
+    const raw=(group.style.getPropertyValue('--motion-delay')||'').trim();
+    const ms=parseFloat(raw);
+    return Number.isFinite(ms)?ms:null;
+  };
+  diagrams.forEach(host=>host.addEventListener('click',event=>{
+    const group=event.target.closest?.('.motion-node');
+    if(!group||!host.contains(group))return;
+    const ms=stepDelay(group);
+    if(ms!==null)seek(host,ms);
+  }));
+  if(!('IntersectionObserver'in window)){diagrams.forEach(load);return}
+  const observer=new IntersectionObserver(entries=>entries.forEach(entry=>{
+    const host=entry.target;
+    const visible=entry.isIntersecting&&entry.intersectionRatio>=.3;
+    host.dataset.motionVisible=visible?'true':'false';
+    if(visible){host.classList.remove('is-paused');load(host)}
+    else host.classList.add('is-paused');
+  }),{threshold:[0,.3],rootMargin:'0px 0px -6% 0px'});
+  diagrams.forEach(diagram=>observer.observe(diagram));
+  document.querySelectorAll('.diagram-replay').forEach(button=>button.addEventListener('click',()=>{
+    const host=button.closest('.diagram-frame')?.querySelector('.diagram-live');
+    if(host)replay(host);
+  }));
+})();
+</script>
+<script src="/ss-config.js"></script><script src="/soonsal.js" defer></script>
+</body>
+</html>

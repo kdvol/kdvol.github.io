@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="860" viewBox="0 0 1080 860" class="morning-diagram" data-motion-orientation="TB" data-motion-steps="5">
+<defs><filter id="shadow" x="-20%" y="-20%" width="140%" height="160%"><feDropShadow dx="0" dy="6" stdDeviation="8" flood-color="#111111" flood-opacity=".09"/></filter>
+<marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#F07040"/></marker></defs>
+<rect width="1080" height="860" fill="#FAFAF7"/>
+<g class="motion-step motion-edge" data-motion-step="1" style="--motion-delay:1360ms">
+<path d="M 309.0 188.0 C 309.0 284.0, 309.0 284.0, 309.0 372.0" fill="none" stroke="#F07040" stroke-width="4" marker-end="url(#arrow)"/>
+<rect x="237.0" y="254.0" width="144" height="36" rx="18" fill="#FAFAF7"/>
+<text x="309.0" y="281.0" text-anchor="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="18" fill="#8B4B2C">위험 해소로 읽힘</text>
+</g>
+<g class="motion-step motion-edge" data-motion-step="1" style="--motion-delay:2040ms">
+<path d="M 309.0 188.0 C 309.0 284.0, 771.0 284.0, 771.0 372.0" fill="none" stroke="#F07040" stroke-width="4" marker-end="url(#arrow)"/>
+<rect x="468.0" y="254.0" width="144" height="36" rx="18" fill="#FAFAF7"/>
+<text x="540.0" y="281.0" text-anchor="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="18" fill="#8B4B2C">기다릴 명분</text>
+</g>
+<g class="motion-step motion-edge" data-motion-step="3" style="--motion-delay:4760ms">
+<path d="M 771.0 188.0 C 771.0 439.0, 540.0 439.0, 540.0 682.0" fill="none" stroke="#F07040" stroke-width="4" stroke-dasharray="12 10" marker-end="url(#arrow)"/>
+<rect x="583.5" y="409.0" width="144" height="36" rx="18" fill="#FAFAF7"/>
+<text x="655.5" y="436.0" text-anchor="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="18" fill="#8B4B2C">조달 비용 상승</text>
+</g>
+<g class="motion-step motion-edge" data-motion-step="3" style="--motion-delay:4080ms">
+<path d="M 309.0 498.0 C 309.0 594.0, 540.0 594.0, 540.0 682.0" fill="none" stroke="#F07040" stroke-width="4" stroke-dasharray="12 10" marker-end="url(#arrow)"/>
+<rect x="352.5" y="564.0" width="144" height="36" rx="18" fill="#FAFAF7"/>
+<text x="424.5" y="591.0" text-anchor="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="18" fill="#8B4B2C">간극이 남음</text>
+</g>
+<g class="motion-step motion-node" data-motion-step="0" style="--motion-delay:0ms;--motion-accent-delay:640ms">
+<rect class="motion-node-shape" x="94.0" y="70.0" width="430.0" height="118" rx="22" fill="#FFFFFF" stroke="#E0DDD5" stroke-width="3" filter="url(#shadow)"/>
+<text x="309.0" y="129.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="700" fill="#222222">물가가 예상에 맞게 나옴</text>
+</g>
+<g class="motion-step motion-node" data-motion-step="0" style="--motion-delay:680ms;--motion-accent-delay:1320ms">
+<rect class="motion-node-shape" x="556.0" y="70.0" width="430.0" height="118" rx="22" fill="#FFFFFF" stroke="#E0DDD5" stroke-width="3" filter="url(#shadow)"/>
+<text x="771.0" y="111.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="700" fill="#222222">30년물 5.216%,</text>
+<text x="771.0" y="147.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="700" fill="#222222">2001년 이후 최고</text>
+</g>
+<g class="motion-step motion-node" data-motion-step="2" style="--motion-delay:2720ms;--motion-accent-delay:3360ms">
+<rect class="motion-node-shape" x="94.0" y="380.0" width="430.0" height="118" rx="22" fill="#FFFFFF" stroke="#E0DDD5" stroke-width="3" filter="url(#shadow)"/>
+<text x="309.0" y="421.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="700" fill="#222222">지수 7,798.99 사상</text>
+<text x="309.0" y="457.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="700" fill="#222222">최고</text>
+</g>
+<g class="motion-step motion-node" data-motion-step="2" style="--motion-delay:3400ms;--motion-accent-delay:4040ms">
+<rect class="motion-node-shape" x="556.0" y="380.0" width="430.0" height="118" rx="22" fill="#FFFFFF" stroke="#E0DDD5" stroke-width="3" filter="url(#shadow)"/>
+<text x="771.0" y="439.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="700" fill="#222222">동결 확률 60%</text>
+</g>
+<g class="motion-step motion-node motion-risk" data-motion-step="4" style="--motion-delay:5440ms;--motion-accent-delay:6080ms">
+<rect class="motion-node-shape" x="160.0" y="690.0" width="760.0" height="118" rx="22" fill="#FFF4EF" stroke="#F07040" stroke-width="3" filter="url(#shadow)"/>
+<text x="540.0" y="749.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="700" fill="#222222">빚으로 짓는 설비가 압박받음</text>
+</g>
+<line x1="72" y1="812" x2="1008" y2="812" stroke="#E8E8E0" stroke-width="2"/>
+<text x="72" y="842" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="17" fill="#888888">실선 = 확인된 연결 · 점선 = 해석/영향 경로</text>
+</svg>
