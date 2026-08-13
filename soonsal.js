@@ -521,19 +521,36 @@
     last.parentNode.insertBefore(mark, last.nextSibling);
 
     var opened = Date.now();
-    var fired = false;
+    var fired = false, queued = false;
 
-    var io = new IntersectionObserver(function (es) {
-      if (fired || !es[0].isIntersecting) return;
-      // 훑어내린 것과 읽은 것은 다르다. 20초는 못 넘기면 읽었다고 보기 어렵다.
+    // 교차 감시만으로는 부족하다. 뉴스레터는 마지막 스토리 뒤에 순살톡·푸터가
+    // 3,000px 더 붙어서, 맨 아래로 한 번에 내리면 감시점을 지나쳐 버린다.
+    // '보였나'가 아니라 '여기까지 왔나'를 본다 — 지나친 것도 온 것이다.
+    function check() {
+      queued = false;
+      if (fired) return;
+      var top = mark.getBoundingClientRect().top;
+      if (top > (window.innerHeight || 0)) return;      // 아직 도달 전
+      // 훑어내린 것과 읽은 것은 다르다. 20초를 못 넘기면 읽었다고 보기 어렵다.
       if (Date.now() - opened < 20000) return;
-      fired = true; io.disconnect();
+      fired = true;
+      window.removeEventListener('scroll', onScroll);
       log[page] = ymd(new Date());
       try { localStorage.setItem('ss_done', JSON.stringify(log)); } catch (e) {}
       showFinish(streakOf(log));
       track('finish');
-    }, { threshold: 1 });
-    io.observe(mark);
+    }
+    function onScroll() {
+      if (queued) return;
+      queued = true;
+      requestAnimationFrame(check);
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    // 끝까지 읽고 20초를 채우는 중일 수 있다. 그 사이에도 한 번씩 본다.
+    var tick = setInterval(function () {
+      if (fired) { clearInterval(tick); return; }
+      check();
+    }, 4000);
   }
 
   function showFinish(streak) {
