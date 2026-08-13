@@ -6,8 +6,8 @@
 <rect width="1080" height="1350" fill="#F5F5F0"/>
 <text x="72" y="78" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="28" font-weight="800" fill="#F07040">순살차트 · SOONSAL</text>
 <text x="1008" y="78" text-anchor="end" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="23" fill="#888888">2026-08-13</text>
-<text x="72" y="160" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="50" font-weight="800" fill="#111111">미국 물가가 예상에 딱 맞으면서, 9월</text>
-<text x="72" y="222" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="50" font-weight="800" fill="#111111">인상 베팅이 풀림</text>
+<text x="72" y="160" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="50" font-weight="800" fill="#111111">미국은 인상 명분이 옅어졌는데,</text>
+<text x="72" y="222" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="50" font-weight="800" fill="#111111">한국은행은 더 올리겠다고 함</text>
 <text x="72" y="310" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="25" fill="#666666">예상에 맞은 숫자가 인상 베팅을 풀어낸 경로</text>
 <path d="M 229.3 508.0 C 229.3 611.5, 540.0 611.5, 540.0 707.0" fill="none" stroke="#F07040" stroke-width="4" marker-end="url(#arrow)"/>
 <rect x="312.7" y="581.5" width="144" height="36" rx="18" fill="#F5F5F0"/>
