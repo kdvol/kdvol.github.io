@@ -203,6 +203,12 @@ background:#E55A00;color:#fff;padding:8px 18px;border-radius:6px;font-size:13px;
 .crumb{color:#F07040;font-size:.88rem;display:inline-block;margin-bottom:14px;text-decoration:none}
 """ + SEARCH_CSS + NAV_CSS
 
+# 아이콘 선언이 아예 없어서 브라우저가 관례로 /favicon.ico 만 집어갔다.
+# SVG 를 선언해야 또렷하게 나오고, 그 안에서 다크모드 전환도 된다.
+ICON_LINKS = ('<link rel="icon" href="/favicon.svg" type="image/svg+xml"/>'
+              '<link rel="icon" href="/favicon.ico" sizes="any"/>'
+              '<link rel="apple-touch-icon" href="/apple-touch-icon.png"/>')
+
 FONT_LINK = ('<link rel="preconnect" href="https://fonts.googleapis.com"/>'
              '<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700;800&display=swap" rel="stylesheet"/>')
 
@@ -245,6 +251,22 @@ LOGO_SRC_RE = re.compile(
 LOGO_H_RE = re.compile(
     r'(\.logo-(?:link img|icon)[^{}]*{[^}]*?height:\s*)\d+(px)(?=[^}]*width:\s*auto)'
     r'|(\.logo-(?:link img|icon)[^{}]*{[^}]*?width:\s*auto[^}]*?height:\s*)\d+(px)', re.I)
+
+
+ICON_RE = re.compile(r'<link[^>]+rel="(?:icon|apple-touch-icon)"[^>]*>')
+
+
+def _with_icons(html: str) -> str:
+    """탭 아이콘을 선언한다.
+
+    선언이 없으면 브라우저가 관례로 /favicon.ico 만 집어간다. SVG 를 선언해야
+    또렷하게 나오고, 그 SVG 안의 media query 로 다크모드 전환도 된다.
+    """
+    if "</head>" not in html:
+        return html
+    stripped = ICON_RE.sub("", html)
+    i = stripped.index("</head>")
+    return stripped[:i] + ICON_LINKS + stripped[i:]
 
 
 def _fix_logo_src(html: str) -> str:
@@ -346,6 +368,7 @@ def main():
         new = _fix_nav_cols(new)
         new = _fix_logo_size(new)
         new = _fix_logo_src(new)
+        new = _with_icons(new)
         if new != t:
             p.write_text(new, encoding="utf-8")
             n += 1
