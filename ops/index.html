@@ -162,6 +162,16 @@ a{color:var(--or);text-decoration:none}
     border-radius:999px;opacity:0;transition:opacity .18s;pointer-events:none;
     max-width:88vw;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 #toast.on{opacity:1}
+.mx th.s{cursor:pointer;user-select:none}
+.mx th.s:hover{color:var(--tx2)}
+.mx th .ar{color:var(--or);margin-left:3px}
+.mx td.tt2{font-family:var(--f);font-size:12.5px;color:var(--tx2);text-align:left;
+    max-width:230px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.lr{border-left:3px solid var(--line2);padding-left:11px;margin-bottom:9px}
+.lr.alive{border-left-color:var(--grn)} .lr.dead{border-left-color:var(--red)}
+.lr .kd{color:var(--tx);font-size:13.5px;line-height:1.5;word-break:keep-all}
+.lr .rl{color:var(--tx3);font-size:12px;line-height:1.55;margin-top:5px;word-break:keep-all}
+.lr .mt{color:var(--tx3);font-size:10.5px;font-family:var(--m);margin-top:6px}
 .filt{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 10px}
 .filt button{padding:5px 11px;border-radius:999px;border:1px solid var(--line);
     background:transparent;color:var(--tx3);font-size:12px;font-weight:700;font-family:var(--f)}
@@ -234,7 +244,7 @@ function when(ep){ if(!ep) return ''; const d=new Date(ep*1000);
 function tabs(){
   const a=DATA.alerts.length, s=DATA.meta.counts;
   const defs=[['알람',a],['예약',s.scheduled||0],['제작',(s.in_production||0)+(s.review_ready||0)+(s.review_stale||0)],
-              ['발행',s.published||0],['성과',null],['인프라',null]];
+              ['발행',(DATA.posts||[]).length],['성과',null],['배움',(DATA.learn?.rules||[]).length],['인프라',null]];
   $('#tabs').innerHTML=defs.map(([n,c])=>
     `<button class="${n===TAB?'on':''}" onclick="TAB='${n}';render()">${n}${c!=null?`<span class="n">${c}</span>`:''}</button>`).join('');
 }
@@ -278,8 +288,29 @@ function fallback(text,done){
 
 const CHORDER=[['ig_carousel','캐'],['ig_reel','릴'],['yt_shorts','YT'],['web','웹']];
 let FILT='all';
+// ★ 정렬 (KD 2026-08-13 "컬럼 sorting 기능 필요"). 표는 정렬이 되어야 표다 —
+//   「도달 높은 순」·「예정 빠른 순」을 못 보면 100건짜리 표는 그냥 목록이다.
+let SORT={key:null, dir:-1};
+function sortBy(k){ SORT = SORT.key===k ? {key:k, dir:-SORT.dir} : {key:k, dir:-1}; render(); }
+function applySort(rows, get){
+  if(!SORT.key) return rows;
+  return [...rows].sort((a,b)=>{
+    const x=get(a,SORT.key), y=get(b,SORT.key);
+    const nx=(x===null||x===undefined||x===''), ny=(y===null||y===undefined||y==='');
+    if(nx&&ny) return 0; if(nx) return 1; if(ny) return -1;   // 빈 값은 늘 뒤로
+    if(typeof x==='number'&&typeof y==='number') return (x-y)*SORT.dir;
+    return String(x).localeCompare(String(y),'ko')*SORT.dir;
+  });
+}
+const arrow=(k)=> SORT.key===k ? `<span class="ar">${SORT.dir>0?'▲':'▼'}</span>` : '';
 
 function matrix(items){
+  const get=(it,k)=>({slug:it.slug, title:it.title||'', status:STATUS[it.status]||it.status,
+    kind:it.kind, when:it.target_epoch||it.date||'', review:(it.review||{}).verdict||'',
+    gate:(it.gate||{}).preflight?((it.gate||{}).digest_ok===false?1:2):0,
+    reach:(it.perf||{}).reach, saved:(it.perf||{}).saved,
+    shares:(it.perf||{}).shares, views:(it.perf||{}).views}[k]);
+  const rows=applySort(items,get);
   const row=(it)=>{
     const p=it.perf||{}, g=it.gate||{}, rv=it.review;
     const ch=CHORDER.map(([k,lab])=>
@@ -296,29 +327,57 @@ function matrix(items){
       : '<span class="mid">폴더 미상</span>';
     return `<tr>
       <td class="name" title="${esc(it.slug)}">${esc(it.slug)}</td>
+      <td class="tt2" title="${esc(it.title||'')}">${esc(it.title||'—')}</td>
       <td class="l"><span class="st ${it.status}">${STATUS[it.status]||it.status}</span></td>
       <td class="l dim">${it.kind==='cardnews'?'카드뉴스':it.kind==='single_video'?'영상':esc(it.kind)}</td>
       <td class="l">${ch}</td>
       <td>${esc(when)}${late}</td>
       <td class="l">${review}</td>
       <td class="l">${gate}</td>
-      <td>${num(p.reach)}</td>
-      <td>${num(p.saved)}</td>
-      <td>${num(p.shares)}</td>
-      <td>${num(p.views)}</td>
+      <td>${num(p.reach)}</td><td>${num(p.saved)}</td>
+      <td>${num(p.shares)}</td><td>${num(p.views)}</td>
       <td class="l" style="white-space:nowrap">${dir}</td>
     </tr>`;
   };
+  const H=(k,label,left)=>`<th class="s" ${left?'style="text-align:left"':''} onclick="sortBy('${k}')">${label}${arrow(k)}</th>`;
   return `<div class="mx"><table>
     <thead><tr>
-      <th>슬러그</th><th style="text-align:left">상태</th><th style="text-align:left">종류</th>
-      <th style="text-align:left">캐·릴·YT·웹</th><th>일정</th>
-      <th style="text-align:left">검수</th><th style="text-align:left">관문</th>
-      <th>도달</th><th>저장</th><th>공유</th><th>조회</th>
+      ${H('slug','슬러그',1)}${H('title','제목',1)}${H('status','상태',1)}${H('kind','종류',1)}
+      <th style="text-align:left">캐·릴·YT·웹</th>${H('when','일정')}
+      ${H('review','검수',1)}${H('gate','관문',1)}
+      ${H('reach','도달')}${H('saved','저장')}${H('shares','공유')}${H('views','조회')}
       <th style="text-align:left">폴더 (탭 = 복사)</th>
     </tr></thead>
-    <tbody>${items.map(row).join('')}</tbody></table></div>`;
+    <tbody>${rows.map(row).join('')}</tbody></table></div>`;
 }
+
+// ★ 발행분은 **아이템 × 채널**이 한 행이다 (KD 2026-08-13 "분류체계 잘 고민해야 할듯").
+//   지표가 채널마다 뜻이 달라 한 행에 다 넣으면 절반이 빈 칸이 된다.
+function postMatrix(rows){
+  const get=(r,k)=>({slug:r.slug, title:r.title||'', channel:r.channelLabel, kind:r.kind,
+    date:r.date, ...r.metrics}[k]);
+  const list=applySort(rows,get);
+  const H=(k,label,left)=>`<th class="s" ${left?'style="text-align:left"':''} onclick="sortBy('${k}')">${label}${arrow(k)}</th>`;
+  return `<div class="mx"><table>
+    <thead><tr>
+      ${H('slug','슬러그',1)}${H('title','제목',1)}${H('channel','채널',1)}${H('date','발행일')}
+      ${H('노출','노출')}${H('저장','저장')}${H('공유','공유')}${H('좋아요','좋아요')}${H('댓글','댓글')}
+      <th style="text-align:left">폴더 (탭 = 복사)</th>
+    </tr></thead>
+    <tbody>${list.map(r=>`<tr>
+      <td class="name" title="${esc(r.slug)}">${esc(r.slug)}</td>
+      <td class="tt2" title="${esc(r.title||'')}">${esc(r.title||'—')}</td>
+      <td class="l"><span class="st ${r.channel.startsWith('YT')?'review_ready':'published'}">${esc(r.channel)}</span></td>
+      <td>${esc(r.date||'')}</td>
+      <td>${num(r.metrics['노출'])}</td><td>${num(r.metrics['저장'])}</td>
+      <td>${num(r.metrics['공유'])}</td><td>${num(r.metrics['좋아요'])}</td>
+      <td>${num(r.metrics['댓글'])}</td>
+      <td class="l" style="white-space:nowrap">${r.dir
+        ? `<span class="cp" onclick="copyPath(this,'${esc(r.dir)}')">${esc(r.dir)}</span>`
+        : '<span class="mid">폴더 미상</span>'}</td>
+    </tr>`).join('')}</tbody></table></div>`;
+}
+
 function whenStr(ep){ const d=new Date(ep*1000);
   return `${String(d.getMonth()+1).padStart(2,'0')}/${String(d.getDate()).padStart(2,'0')} `
     +`${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}`; }
@@ -380,6 +439,45 @@ function render(){
     <h2>상태별 건수</h2><div class="card"><table>
     ${Object.entries(D.meta.counts).map(([k,v2])=>`<tr><td>${STATUS[k]||k}</td><td>${v2}</td></tr>`).join('')}
     </table></div>`;
+  }
+  else if(TAB==='발행'){
+    let rows=D.posts||[];
+    if(FILT!=='all') rows=rows.filter(r=>r.kind===FILT);
+    const kinds=[['all','전체'],['cardnews','카드뉴스'],['single_video','영상']];
+    const measured=rows.filter(r=>r.measured).length;
+    v.innerHTML=`<div class="filt">${kinds.map(([k,l])=>
+        `<button class="${FILT===k?'on':''}" onclick="FILT='${k}';render()">${l}</button>`).join('')}
+        <span style="margin-left:auto;color:var(--tx3);font-size:12px;align-self:center">
+        ${rows.length}건 · 지표 있음 ${measured}</span></div>`
+      + `<div class="note">한 채널에 나간 것이 한 행입니다 — 지표가 채널마다 뜻이 달라
+         (IG 도달·저장·공유 / YT 조회·좋아요·댓글) 한 행에 합치면 비교가 안 됩니다.</div>`
+      + (rows.length?postMatrix(rows):'<div class="empty">해당 없음</div>');
+  }
+  else if(TAB==='배움'){
+    const L=D.learn||{rules:[],reviews:[]};
+    const dead=L.rules.filter(r=>!r.alive);
+    v.innerHTML=`<div class="kpis" style="margin-top:12px">
+        <div class="kpi"><div class="v">${L.rules.length}</div><div class="l">규칙</div></div>
+        <div class="kpi ${dead.length?'crit':''}"><div class="v">${dead.length}</div><div class="l">경로에서 빠짐</div></div>
+        <div class="kpi"><div class="v">${L.reviews.length}</div><div class="l">검수 기록</div></div>
+      </div>
+      <div class="note" style="margin-top:12px">KD 가 한 말 → 그걸로 만든 규칙 → <b>그 규칙이 지금도
+        실행 경로에 살아 있는가</b>. 셋이 한 화면에 있어야 「고쳤다」가 「고쳐진 채로 있다」인지 보입니다.</div>
+      <h2>최근 검수 판정</h2>`
+      + (L.reviews.slice(0,8).map(r=>`<div class="card" style="padding:12px 14px">
+          <div class="row"><span class="b ${r.verdict==='approve'?'g':r.verdict==='hold'?'a':'r'}">${
+            r.verdict==='approve'?'승인':r.verdict==='hold'?'보류':'반려'}</span>
+            <span class="grow tt">${esc(r.slug)}</span>
+            <span class="mono dim">${esc((r.at||'').slice(5,16))}</span></div>
+          <div class="sub" style="white-space:normal;margin-top:6px">「${esc(r.verbatim||'')}」</div>
+        </div>`).join('') || '<div class="empty">기록 없음</div>')
+      + `<h2>규칙 원장 <span class="mono">${L.rules.length}</span></h2>`
+      + L.rules.slice().reverse().map(r=>`<div class="card lr ${r.alive?'alive':'dead'}">
+          <div class="kd">「${esc(r.verbatim||'').slice(0,150)}」</div>
+          <div class="rl">${esc(r.rule||'').slice(0,260)}</div>
+          <div class="mt">${esc(r.date)} · ${esc(r.id)} · ${r.alive?'실행 경로에 살아 있음':'⚠️ 빠졌다'}
+            ${r.where&&r.where.length?' · '+esc(r.where.slice(0,2).join(' · ')):''}</div>
+        </div>`).join('');
   }
   else{
     const want=TAB==='예약'?['scheduled']:TAB==='발행'?['published']
