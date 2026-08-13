@@ -132,7 +132,7 @@ def build_robots():
         # /partners=거래처별 제안서(단가 포함), /stats=운영자 대시보드.
         # 크롤러를 막는 건 최소 조치일 뿐 접근 통제가 아니다 — 실제 보호는 암호화다.
         f"Disallow: /_queue/\nDisallow: /_publish/\nDisallow: /node_modules/\n"
-        f"Disallow: /stats/\nDisallow: /partners/\n"
+        f"Disallow: /stats/\nDisallow: /partners/\nDisallow: /ops/\n"
         f"\nSitemap: {BASE}/sitemap.xml\n",
         encoding="utf-8")
 
