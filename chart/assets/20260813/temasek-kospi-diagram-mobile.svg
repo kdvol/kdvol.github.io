@@ -2,45 +2,45 @@
 <defs><filter id="shadow" x="-20%" y="-20%" width="140%" height="160%"><feDropShadow dx="0" dy="6" stdDeviation="8" flood-color="#111111" flood-opacity=".09"/></filter>
 <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#F07040"/></marker></defs>
 <rect width="720" height="860" fill="#FAFAF7"/>
-<g class="motion-step motion-edge" data-motion-step="1" data-from="A" data-to="B" style="--motion-delay:415ms">
+<g class="motion-step motion-edge" data-motion-step="1" data-from="A" data-to="B" style="--motion-delay:680ms">
 <path d="M 360.0 130.0 C 360.0 162.8, 360.0 162.8, 360.0 187.5" fill="none" stroke="#F07040" stroke-width="4.5" marker-end="url(#arrow)"/>
 <rect x="257.0" y="143.8" width="206" height="34" rx="17" fill="#FAFAF7"/>
 <text x="360.0" y="166.8" text-anchor="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="22" font-weight="800" fill="#8B4B2C">메모리 두 종목</text>
 </g>
-<g class="motion-step motion-edge" data-motion-step="3" data-from="B" data-to="C" style="--motion-delay:1245ms">
+<g class="motion-step motion-edge" data-motion-step="3" data-from="B" data-to="C" style="--motion-delay:2040ms">
 <path d="M 360.0 281.5 C 360.0 314.2, 360.0 314.2, 360.0 339.0" fill="none" stroke="#F07040" stroke-width="4.5" marker-end="url(#arrow)"/>
 <rect x="257.0" y="295.2" width="206" height="34" rx="17" fill="#FAFAF7"/>
 <text x="360.0" y="318.2" text-anchor="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="22" font-weight="800" fill="#8B4B2C">AI 산업 전반</text>
 </g>
-<g class="motion-step motion-edge" data-motion-step="5" data-from="C" data-to="D" style="--motion-delay:2075ms">
+<g class="motion-step motion-edge" data-motion-step="5" data-from="C" data-to="D" style="--motion-delay:3400ms">
 <path d="M 360.0 433.0 C 360.0 465.8, 360.0 465.8, 360.0 490.5" fill="none" stroke="#F07040" stroke-width="4.5" marker-end="url(#arrow)"/>
 <rect x="278.0" y="446.8" width="164" height="34" rx="17" fill="#FAFAF7"/>
 <text x="360.0" y="469.8" text-anchor="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="22" font-weight="800" fill="#8B4B2C">지수로 반영</text>
 </g>
-<g class="motion-step motion-edge" data-motion-step="7" data-from="D" data-to="E" style="--motion-delay:2905ms">
+<g class="motion-step motion-edge" data-motion-step="7" data-from="D" data-to="E" style="--motion-delay:4760ms">
 <path d="M 360.0 584.5 C 360.0 617.2, 360.0 617.2, 360.0 642.0" fill="none" stroke="#F07040" stroke-width="4.5" stroke-dasharray="12 10" marker-end="url(#arrow)"/>
 <rect x="278.0" y="598.2" width="164" height="34" rx="17" fill="#FAFAF7"/>
 <text x="360.0" y="621.2" text-anchor="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="22" font-weight="800" fill="#8B4B2C">낮은 기준선</text>
 </g>
-<g class="motion-step motion-node" data-motion-step="0" style="--motion-delay:0ms;--motion-accent-delay:660ms">
+<g class="motion-step motion-node" data-motion-step="0" style="--motion-delay:0ms;--motion-accent-delay:640ms">
 <rect class="motion-node-shape" x="60.0" y="44.0" width="600.0" height="86" rx="20" fill="#FFFFFF" stroke="#DCD8CF" stroke-width="3" filter="url(#shadow)"/>
 <text x="360.0" y="87.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="800" fill="#222222">테마섹 직접 투자 검토 보도</text>
 </g>
-<g class="motion-step motion-node" data-motion-step="2" style="--motion-delay:830ms;--motion-accent-delay:1490ms">
+<g class="motion-step motion-node" data-motion-step="2" style="--motion-delay:1360ms;--motion-accent-delay:2000ms">
 <rect class="motion-node-shape" x="60.0" y="195.5" width="600.0" height="86" rx="20" fill="#FFFFFF" stroke="#DCD8CF" stroke-width="3" filter="url(#shadow)"/>
 <text x="360.0" y="225.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="800" fill="#222222">삼성전자 6.68% · SK하이닉스</text>
 <text x="360.0" y="252.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="800" fill="#222222">5.54%</text>
 </g>
-<g class="motion-step motion-node" data-motion-step="4" style="--motion-delay:1660ms;--motion-accent-delay:2320ms">
+<g class="motion-step motion-node" data-motion-step="4" style="--motion-delay:2720ms;--motion-accent-delay:3360ms">
 <rect class="motion-node-shape" x="60.0" y="347.0" width="600.0" height="86" rx="20" fill="#FFFFFF" stroke="#DCD8CF" stroke-width="3" filter="url(#shadow)"/>
 <text x="360.0" y="376.5" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="800" fill="#222222">SK스퀘어·한화에어로·두산에너빌리티로</text>
 <text x="360.0" y="403.5" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="800" fill="#222222">확산</text>
 </g>
-<g class="motion-step motion-node" data-motion-step="6" style="--motion-delay:2490ms;--motion-accent-delay:3150ms">
+<g class="motion-step motion-node" data-motion-step="6" style="--motion-delay:4080ms;--motion-accent-delay:4720ms">
 <rect class="motion-node-shape" x="60.0" y="498.5" width="600.0" height="86" rx="20" fill="#FFFFFF" stroke="#DCD8CF" stroke-width="3" filter="url(#shadow)"/>
 <text x="360.0" y="541.5" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="800" fill="#222222">코스피 3.7% 상승 마감</text>
 </g>
-<g class="motion-step motion-node motion-risk" data-motion-step="8" style="--motion-delay:3320ms;--motion-accent-delay:3980ms">
+<g class="motion-step motion-node motion-risk" data-motion-step="8" style="--motion-delay:5440ms;--motion-accent-delay:6080ms">
 <rect class="motion-node-shape" x="60.0" y="650.0" width="600.0" height="86" rx="20" fill="#FFF4EF" stroke="#F07040" stroke-width="3" filter="url(#shadow)"/>
 <text x="360.0" y="693.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="800" fill="#222222">대만 대비 저평가 해소는 미확인</text>
 </g>
