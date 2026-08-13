@@ -59,6 +59,17 @@
     '100%{transform:translate(calc(-50% + var(--x)),calc(-50% + var(--y) + 26px)) ' +
     'scale(1) rotate(var(--r));opacity:0}}' +
     '@media(prefers-reduced-motion:reduce){.ss-rb.pop{animation:none}.ss-burst{display:none}}' +
+    /* 완주 — 끝까지 읽은 사람에게만 보이는 자리 */
+    '.ss-fin{margin:26px 0 8px;padding:17px 19px;border-radius:13px;text-align:center;' +
+    'background:linear-gradient(135deg,#F0704016,#F0704006);border:1px solid #F0704040;' +
+    'opacity:0;transform:translateY(10px);transition:opacity .5s ease,transform .5s cubic-bezier(.2,.9,.3,1)}' +
+    '.ss-fin.in{opacity:1;transform:none}' +
+    '.ss-fin b{display:block;font-size:15px;font-weight:800;color:#E55A00;letter-spacing:-.02em}' +
+    '.ss-fin span{display:block;margin-top:4px;font-size:12px;color:#8a8578}' +
+    '.ss-fin a{display:inline-block;margin-top:11px;font-size:12px;font-weight:700;' +
+    'color:#F07040;text-decoration:none}' +
+    '.ss-fin a:hover{text-decoration:underline}' +
+    '@media(prefers-reduced-motion:reduce){.ss-fin{opacity:1;transform:none;transition:none}}' +
     /* 좁은 화면(375px 기준)에선 4개가 한 줄에 안 들어가 공유는 아이콘만 */
     /* 좁은 화면(375px 가용폭 311px)에 반응3+코멘트+공유 5개를 한 줄에 넣는다.
        아이콘만 남기고, 코멘트 pill은 카운트가 없을 때 예약 폭도 뺀다.
@@ -474,10 +485,78 @@
     (f || document.body).appendChild(d);
   }
 
+  // ── 완주 ─────────────────────────────────────────────────
+  // 폭죽만 터뜨리면 그 순간뿐이다. 쌓이는 게 있어야 내일 또 온다.
+  // 서버는 안 쓴다 — 읽었다는 사실은 이 기기의 일이고, 그걸 서버에 보내려면
+  // 사람을 식별해야 한다. 그럴 만큼 중요한 값이 아니다.
+  function doneLog() {
+    try { return JSON.parse(localStorage.getItem('ss_done') || '{}'); } catch (e) { return {}; }
+  }
+  function ymd(d) {
+    return d.getFullYear() + '-' + ('0' + (d.getMonth() + 1)).slice(-2) + '-' + ('0' + d.getDate()).slice(-2);
+  }
+  function streakOf(log) {
+    var days = {}, k;
+    for (k in log) if (log[k]) days[log[k]] = 1;
+    var n = 0, d = new Date();
+    if (!days[ymd(d)]) return 0;
+    while (days[ymd(d)]) { n++; d.setDate(d.getDate() - 1); }
+    return n;
+  }
+
+  function mountFinish() {
+    var stories = document.querySelectorAll('.story');
+    if (!stories.length || !('IntersectionObserver' in window)) return;
+    var page = issueKey() || location.pathname;
+    var log = doneLog();
+    if (log[page]) return;                       // 한 회차는 한 번만
+
+    // 마지막 스토리를 통째로 감시하면 안 된다. 스토리가 화면보다 크면
+    // (실측 1036px vs 800px) 교차 비율이 영영 문턱을 못 넘는다.
+    // 끝자락에 납작한 감시점을 두고 그게 보이는지만 본다.
+    var last = stories[stories.length - 1];
+    var mark = document.createElement('div');
+    mark.setAttribute('aria-hidden', 'true');
+    mark.style.cssText = 'height:1px;margin:0;padding:0';
+    last.parentNode.insertBefore(mark, last.nextSibling);
+
+    var opened = Date.now();
+    var fired = false;
+
+    var io = new IntersectionObserver(function (es) {
+      if (fired || !es[0].isIntersecting) return;
+      // 훑어내린 것과 읽은 것은 다르다. 20초는 못 넘기면 읽었다고 보기 어렵다.
+      if (Date.now() - opened < 20000) return;
+      fired = true; io.disconnect();
+      log[page] = ymd(new Date());
+      try { localStorage.setItem('ss_done', JSON.stringify(log)); } catch (e) {}
+      showFinish(streakOf(log));
+      track('finish');
+    }, { threshold: 1 });
+    io.observe(mark);
+  }
+
+  function showFinish(streak) {
+    var box = document.createElement('div');
+    box.className = 'ss-fin';
+    var line = streak > 1 ? streak + '일 연속 완주' : '오늘 순살 완주';
+    box.innerHTML = '<b>' + line + '</b>'
+      + '<span>' + (streak > 1 ? '내일도 오면 ' + (streak + 1) + '일' : '끝까지 읽었음 🐟') + '</span>'
+      + '<a href="/chart/">지난 순살차트 →</a>';
+    var anchor = document.querySelector('.memo-footer') || document.querySelector('footer');
+    if (anchor && anchor.parentNode) anchor.parentNode.insertBefore(box, anchor);
+    else document.body.appendChild(box);
+    requestAnimationFrame(function () {
+      box.classList.add('in');
+      burst(box.querySelector('b'), '🎊');
+    });
+  }
+
   function init() {
     var st = document.createElement('style');
     st.textContent = CSS;
     document.head.appendChild(st);
+    mountFinish();
 
     // 이제 사이트 안에 대화가 있다. 텔레그램으로 내보내는 대신 순살톡으로 보낸다.
     // 새 글 수를 배지로 띄워서 '뭔가 올라왔다'가 보이게 한다.
@@ -1054,6 +1133,9 @@
       if (!mine.held) paintPill(key);
       renderC(key, w);
       track('comment');
+      // 한 줄 쓰는 건 반응 누르는 것보다 품이 든다. 보류돼도 축하한다 —
+      // 쓴 사람 입장에서는 이미 다 한 일이다.
+      burst(go, mine.held ? '🐟' : '💬');
       toast(mine.held ? '확인 후 보여드릴게요 🐟' : '남겼음 🐟');
     }).catch(function (e) {
       // 중간에 끊긴 것과 거절당한 것은 다르다. 끊긴 거라면 서버엔 들어갔을 수
