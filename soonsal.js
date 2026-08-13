@@ -45,6 +45,20 @@
     '.ss-rb.on{border-color:#F07040;background:#F0704014;color:#F07040}' +
     /* 숫자 자리를 미리 비워둔다 — 눌러서 카운트가 생겨도 버튼 폭이 안 변함 */
     '.ss-rb b{font-weight:700;margin-left:3px;display:inline-block;min-width:8px;text-align:left}' +
+    /* 누른 순간 — 버튼이 한 번 튀고 조각이 흩어진다 */
+    '.ss-rb.pop{animation:ss-pop 420ms cubic-bezier(.34,1.56,.64,1)}' +
+    '@keyframes ss-pop{0%{transform:scale(1)}38%{transform:scale(1.22)}100%{transform:scale(1)}}' +
+    '.ss-burst{position:fixed;z-index:2147483000;pointer-events:none;width:0;height:0}' +
+    '.ss-burst span{position:absolute;left:0;top:0;font-size:19px;line-height:1;' +
+    'will-change:transform,opacity;animation:ss-fly 900ms cubic-bezier(.15,.7,.3,1) forwards}' +
+    '.ss-burst span.d{width:9px;height:9px;border-radius:50%;background:#F07040}' +
+    '.ss-burst span.d:nth-child(6n){background:#E55A00}' +
+    '.ss-burst span.d:nth-child(9n){background:#F5A481}' +
+    '@keyframes ss-fly{0%{transform:translate(-50%,-50%) scale(.4);opacity:0}' +
+    '18%{opacity:1}' +
+    '100%{transform:translate(calc(-50% + var(--x)),calc(-50% + var(--y) + 26px)) ' +
+    'scale(1) rotate(var(--r));opacity:0}}' +
+    '@media(prefers-reduced-motion:reduce){.ss-rb.pop{animation:none}.ss-burst{display:none}}' +
     /* 좁은 화면(375px 기준)에선 4개가 한 줄에 안 들어가 공유는 아이콘만 */
     /* 좁은 화면(375px 가용폭 311px)에 반응3+코멘트+공유 5개를 한 줄에 넣는다.
        아이콘만 남기고, 코멘트 pill은 카운트가 없을 때 예약 폭도 뺀다.
@@ -1095,7 +1109,7 @@
           b.type = 'button';
           b.className = 'ss-rb';
           b.innerHTML = r[0] + ' ' + r[1] + '<b class="n"></b>';
-          b.addEventListener('click', function () { vote(key, r[0], wrap); });
+          b.addEventListener('click', function () { vote(key, r[0], wrap, b); });
           rg.appendChild(b);
         });
         wrap.appendChild(rg);
@@ -1142,7 +1156,40 @@
       }).catch(function () {});
   }
 
-  function vote(key, emoji, wrap) {
+  // 누르면 터진다. 반응은 순살에서 유일하게 독자가 뭔가 '하는' 지점인데
+  // 지금은 숫자만 1 오르고 끝이라 누른 보람이 없다.
+  // 라이브러리는 안 쓴다 — 한 번 쓰자고 번들을 늘릴 이유가 없다.
+  function burst(btn, emoji) {
+    if (!btn || !btn.getBoundingClientRect) return;
+    if (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    var r = btn.getBoundingClientRect();
+    var host = document.createElement('div');
+    host.className = 'ss-burst';
+    host.style.left = (r.left + r.width / 2) + 'px';
+    host.style.top = (r.top + r.height / 2) + 'px';
+    var bits = ['🎉', '✨', emoji, '🐟'];
+    for (var i = 0; i < 22; i++) {
+      var s = document.createElement('span');
+      var dot = i % 3 === 0;
+      if (dot) { s.className = 'd'; }
+      else { s.textContent = bits[i % bits.length]; }
+      // 위쪽으로 넓게 퍼지되 방향은 매번 다르게
+      var ang = (-175 + Math.random() * 170) * Math.PI / 180;
+      var dist = 52 + Math.random() * 76;
+      s.style.setProperty('--x', Math.cos(ang) * dist + 'px');
+      s.style.setProperty('--y', Math.sin(ang) * dist + 'px');
+      s.style.setProperty('--r', (Math.random() * 540 - 270) + 'deg');
+      s.style.animationDelay = (Math.random() * 70) + 'ms';
+      host.appendChild(s);
+    }
+    document.body.appendChild(host);
+    btn.classList.remove('pop');
+    void btn.offsetWidth;                    // 연타해도 매번 다시 튀게
+    btn.classList.add('pop');
+    setTimeout(function () { host.remove(); }, 1100);
+  }
+
+  function vote(key, emoji, wrap, btn) {
     if (localVotes()[key] !== emoji) track('react');   // 취소 클릭은 세지 않는다
     var v = localVotes(), was = v[key];
     if (was === emoji) { delete v[key]; } else { v[key] = emoji; }
@@ -1153,7 +1200,7 @@
       if (v[key]) s[emoji] = (s[emoji] || 0) + 1;
     }
     render(wrap, key);
-    if (v[key]) toast('접수했음 🐟');
+    if (v[key]) { burst(btn, emoji); toast('접수했음 🐟'); }
     if (was && was !== emoji) push(key, was, -1, wrap);
     push(key, emoji, v[key] ? 1 : -1, wrap);
   }
