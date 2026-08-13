@@ -311,7 +311,26 @@ def get_first_today_date(content):
 # ═══════════════════════════════════════════
 
 def update_main_index(items, date_fmt, has_briefing, yyyy, mmdd):
-    """Update the main index.html."""
+    """Update the main index.html.
+
+    2026-08-13부터 홈은 scripts/build_home.py가 매일 새로 만든다. 옛 히어로
+    (Latest — YYYY.MM.DD)와 today-grid는 더 이상 없어서, 문자열을 찾아
+    갈아 끼우던 이 함수는 조용히 아무 일도 안 하게 됐다. 그래서 빌더를
+    부르는 쪽으로 바꾼다 — 최신 회차·순살차트·지난 목록을 알아서 다시 만든다.
+    """
+    import subprocess
+    for script in ("scripts/build_home.py", "scripts/build_nav.py"):
+        r = subprocess.run(["python3", script], cwd=str(REPO),
+                           capture_output=True, text=True)
+        if r.returncode != 0:
+            print(f"  ⚠️  {script} 실패: {r.stderr.strip().splitlines()[-1:] or r.stdout}")
+            return
+        print("  ✅ " + (r.stdout.strip().splitlines() or [script])[-1])
+    return
+
+
+def _legacy_update_main_index(items, date_fmt, has_briefing, yyyy, mmdd):
+    """옛 홈 구조용. 되돌릴 일이 있을 때를 위해 남겨 둔다."""
     path = REPO / "index.html"
     with open(path, "r") as f:
         c = f.read()
@@ -979,6 +998,40 @@ def upload_to_r2(png_paths, r2_prefix):
         return urls
 
 
+def verify_publish(yyyy, mmdd):
+    """발행 결과를 파일로 직접 확인한다. 스크립트가 성공을 찍는 것과
+    사이트에 실제로 반영된 것은 다른 일이다."""
+    import json
+    date = f"{yyyy}-{mmdd[:2]}-{mmdd[2:]}"
+    page = REPO / "newsletters" / yyyy / f"{mmdd}.html"
+    rows = []
+
+    def chk(name, ok):
+        rows.append((name, bool(ok)))
+
+    chk("발행본", page.exists())
+    if page.exists():
+        html = page.read_text(encoding="utf-8", errors="replace")
+        chk("상단 시황 띠", "soonsal-live-ticker" in html)
+        chk("soonsal.js", "/soonsal.js" in html)
+    try:
+        atoms = json.loads((REPO / "content" / "story_atoms.json").read_text(encoding="utf-8"))
+        chk("스토리 아톰", any(a.get("date") == date for a in atoms))
+    except OSError:
+        chk("스토리 아톰", False)
+    for name, rel in (("sitemap", "sitemap.xml"), ("검색 색인", "search/index.json"),
+                      ("홈", "index.html"), ("아카이브", "newsletters/index.html")):
+        f = REPO / rel
+        chk(name, f.exists() and mmdd in f.read_text(encoding="utf-8", errors="replace"))
+
+    bad = [n for n, ok in rows if not ok]
+    for n, ok in rows:
+        print(f"  {'✅' if ok else '❌'} {n}")
+    if bad:
+        print(f"  ⚠️  반영 안 된 항목: {', '.join(bad)} — 커밋 전에 확인할 것")
+    return not bad
+
+
 def git_sync_push(commit_msg, tries=6):
     """동시 push 안전 커밋+푸시. 다른 작업이 origin을 진행시켜도 실패하지 않도록
     add -A → commit → (pull --rebase, 충돌 시 merge -X ours) → push 를 백오프 재시도.
@@ -1291,6 +1344,10 @@ def main():
         print("\n🚀 Committing...")
         # sitemap/rss/robots 갱신 (실패해도 배포는 계속)
         subprocess.run([sys.executable, str(Path(__file__).parent / "scripts" / "generate_seo.py")], check=False)
+
+        # 스크립트가 성공을 찍는 것과 실제 반영은 다른 일이다 — 파일을 직접 연다
+        print("\n🔎 발행 결과 점검")
+        verify_publish(site_items[0]["yyyy"], site_items[0]["mmdd"])
 
         names = [LABELS.get(i["type"]) or i["keywords"][:30] for i in site_items]
         mmdd = site_items[0]["mmdd"]
