@@ -4,7 +4,7 @@
   "name": "vaporwatts",
   "post_txt": "_publish/vaporwatts.POST.txt",
   "target_epoch": 1786928400,
-  "dry_run": true,
+  "dry_run": false,
   "reviewed": {
     "by": "KD",
     "at": "2026-08-13T21:33:55",
