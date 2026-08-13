@@ -131,7 +131,16 @@ a{color:var(--or);text-decoration:none}
 .mx tr:hover td:first-child{background:#1C1815}
 .mx td.name{font-family:var(--f);font-size:13px;font-weight:800;color:var(--tx);
     max-width:190px;overflow:hidden;text-overflow:ellipsis}
-.mx td.l{text-align:left;font-family:var(--f);color:var(--tx2);white-space:normal}
+/* ★ 여기서 줄바꿈을 허용했더니 폰에서 「발행됨」이 세 줄로 쪼개지고 행이 세 배로 커졌다.
+   표는 옆으로 밀어 보는 것이지 세로로 부풀리는 게 아니다 — 전부 한 줄로 묶는다. */
+.mx td.l{text-align:left;font-family:var(--f);color:var(--tx2);white-space:nowrap}
+.st{white-space:nowrap}
+.mx td.name{max-width:150px}
+@media(max-width:520px){
+  .mx table{min-width:900px}
+  .mx td.name{max-width:118px;font-size:12.5px}
+  .mx td,.mx th{padding:7px 7px}
+}
 .st{display:inline-block;padding:2px 7px;border-radius:5px;font-size:10.5px;font-weight:800;
     font-family:var(--f)}
 .st.published{background:rgba(47,169,107,.16);color:var(--grn)}
@@ -142,8 +151,10 @@ a{color:var(--or);text-decoration:none}
 .ch{display:inline-block;width:22px;text-align:center;font-weight:800}
 .ch.on{color:var(--or)} .ch.off{color:#3A3430}
 .ok{color:var(--grn)} .no{color:var(--red)} .mid{color:var(--amb)} .dim{color:var(--tx3)}
+/* 폴더 칸은 **한 줄로 묶는다** — 줄바꿈되면 행 높이가 들쭉날쭉해 표가 안 훑어진다 */
 .cp{cursor:pointer;color:var(--tx3);font-family:var(--m);font-size:11px;
-    max-width:230px;overflow:hidden;text-overflow:ellipsis;display:inline-block;
+    max-width:250px;overflow:hidden;text-overflow:ellipsis;display:inline-block;
+    white-space:nowrap;direction:rtl;text-align:left;
     vertical-align:bottom;border-bottom:1px dashed var(--line2)}
 .cp:active{color:var(--or)}
 #toast{position:fixed;left:50%;bottom:26px;translate:-50% 0;z-index:99;
@@ -248,6 +259,70 @@ function itemCard(it){
   </div>`;
 }
 
+// ★ 폴더는 **탭하면 경로가 복사된다** (KD 2026-08-13 "폴더 링크는 복사 방식으로").
+//   브라우저는 https 페이지에서 file:// 로 못 넘어간다(보안 차단이라 우회 불가).
+//   그래서 여는 대신 **붙여넣을 수 있게** 준다 — 터미널이든 Finder 든 바로 간다.
+function copyPath(el, path){
+  const full = '~/' + path;
+  const done = () => { const t=$('#toast'); t.textContent='복사됨 · '+full;
+    t.classList.add('on'); clearTimeout(window._tt);
+    window._tt=setTimeout(()=>t.classList.remove('on'),1600); };
+  if(navigator.clipboard?.writeText){ navigator.clipboard.writeText(full).then(done,()=>fallback(full,done)); }
+  else fallback(full,done);
+}
+function fallback(text,done){
+  const a=document.createElement('textarea'); a.value=text; a.style.position='fixed';
+  a.style.opacity='0'; document.body.appendChild(a); a.select();
+  try{ document.execCommand('copy'); done(); }finally{ a.remove(); }
+}
+
+const CHORDER=[['ig_carousel','캐'],['ig_reel','릴'],['yt_shorts','YT'],['web','웹']];
+let FILT='all';
+
+function matrix(items){
+  const row=(it)=>{
+    const p=it.perf||{}, g=it.gate||{}, rv=it.review;
+    const ch=CHORDER.map(([k,lab])=>
+      `<span class="ch ${it.channels&&it.channels[k]?'on':'off'}" title="${lab}">${it.channels&&it.channels[k]?'●':'·'}</span>`).join('');
+    const review = rv ? (rv.verdict==='approve'?'<span class="ok">승인</span>'
+      : rv.verdict==='hold'?'<span class="mid">보류</span>':'<span class="no">반려</span>')
+      : '<span class="dim">—</span>';
+    const gate = g.preflight ? (g.digest_ok===false?'<span class="mid">무효</span>':'<span class="ok">통과</span>')
+      : (g.gate?'<span class="dim">착수만</span>':'<span class="dim">—</span>');
+    const when = it.target_epoch ? whenStr(it.target_epoch) : (it.date||'');
+    const late = it.late_h>0.5 ? ` <span class="mid">+${it.late_h.toFixed(0)}h</span>` : '';
+    const dir = it.dir
+      ? `<span class="cp" onclick="copyPath(this,'${esc(it.dir)}')" title="탭하면 경로 복사">${esc(it.dir)}</span>`
+      : '<span class="mid">폴더 미상</span>';
+    return `<tr>
+      <td class="name" title="${esc(it.slug)}">${esc(it.slug)}</td>
+      <td class="l"><span class="st ${it.status}">${STATUS[it.status]||it.status}</span></td>
+      <td class="l dim">${it.kind==='cardnews'?'카드뉴스':it.kind==='single_video'?'영상':esc(it.kind)}</td>
+      <td class="l">${ch}</td>
+      <td>${esc(when)}${late}</td>
+      <td class="l">${review}</td>
+      <td class="l">${gate}</td>
+      <td>${num(p.reach)}</td>
+      <td>${num(p.saved)}</td>
+      <td>${num(p.shares)}</td>
+      <td>${num(p.views)}</td>
+      <td class="l" style="white-space:nowrap">${dir}</td>
+    </tr>`;
+  };
+  return `<div class="mx"><table>
+    <thead><tr>
+      <th>슬러그</th><th style="text-align:left">상태</th><th style="text-align:left">종류</th>
+      <th style="text-align:left">캐·릴·YT·웹</th><th>일정</th>
+      <th style="text-align:left">검수</th><th style="text-align:left">관문</th>
+      <th>도달</th><th>저장</th><th>공유</th><th>조회</th>
+      <th style="text-align:left">폴더 (탭 = 복사)</th>
+    </tr></thead>
+    <tbody>${items.map(row).join('')}</tbody></table></div>`;
+}
+function whenStr(ep){ const d=new Date(ep*1000);
+  return `${String(d.getMonth()+1).padStart(2,'0')}/${String(d.getDate()).padStart(2,'0')} `
+    +`${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}`; }
+
 function render(){
   tabs();
   const v=$('#view'); const D=DATA;
@@ -308,17 +383,17 @@ function render(){
   }
   else{
     const want=TAB==='예약'?['scheduled']:TAB==='발행'?['published']
-      :['in_production','review_ready','review_stale','gated','ambiguous'];
+      :['in_production','review_ready','review_stale','gated','ambiguous','planning'];
     let its=D.items.filter(i=>want.includes(i.status));
+    if(FILT!=='all') its=its.filter(i=>i.kind===FILT);
     if(TAB==='예약') its.sort((a,b)=>(a.target_epoch||0)-(b.target_epoch||0));
     else its.sort((a,b)=>String(b.date||'').localeCompare(String(a.date||'')));
-    const groups={};
-    its.forEach(i=>{(groups[i.status]=groups[i.status]||[]).push(i)});
-    v.innerHTML=Object.entries(groups).map(([s,arr])=>
-      `<h2>${STATUS[s]||s} <span class="mono">${arr.length}</span></h2>`+
-      arr.slice(0,60).map(itemCard).join('')+
-      (arr.length>60?`<div class="note">외 ${arr.length-60}건</div>`:'')
-    ).join('')||'<div class="empty">해당 없음</div>';
+    const kinds=[['all','전체'],['cardnews','카드뉴스'],['single_video','영상']];
+    v.innerHTML=`<div class="filt">${kinds.map(([k,l])=>
+        `<button class="${FILT===k?'on':''}" onclick="FILT='${k}';render()">${l}</button>`).join('')}
+        <span style="margin-left:auto;color:var(--tx3);font-size:12px;align-self:center">
+        ${its.length}건</span></div>`
+      + (its.length?matrix(its):'<div class="empty">해당 없음</div>');
   }
 }
 
