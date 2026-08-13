@@ -60,6 +60,21 @@
     'scale(1) rotate(var(--r));opacity:0}}' +
     '@media(prefers-reduced-motion:reduce){.ss-rb.pop{animation:none}.ss-burst{display:none}}' +
     /* 완주 — 끝까지 읽은 사람에게만 보이는 자리 */
+    '.ss-conf{position:fixed;inset:0;z-index:2147483000;pointer-events:none;overflow:hidden}' +
+    '.ss-conf span{position:absolute;top:-8vh;font-size:22px;line-height:1;' +
+    'will-change:transform,opacity;' +
+    'animation:ss-fall var(--dur) cubic-bezier(.35,.1,.5,1) forwards}' +
+    '.ss-conf span.d{width:11px;height:11px;border-radius:2px;background:#F07040}' +
+    '.ss-conf span.d:nth-child(5n){background:#E55A00}' +
+    '.ss-conf span.d:nth-child(7n){background:#F5A481}' +
+    '@keyframes ss-fall{0%{transform:translate(0,0) rotate(0);opacity:0}' +
+    '8%{opacity:1}85%{opacity:1}' +
+    '100%{transform:translate(var(--sway),112vh) rotate(var(--r));opacity:0}}' +
+    '@media(prefers-reduced-motion:reduce){.ss-conf{display:none}}' +
+    '.ss-home{display:inline-block;cursor:pointer;border-radius:8px;' +
+    'transition:opacity .18s ease,transform .18s ease}' +
+    '.ss-home:hover{opacity:.72;transform:translateY(-1px)}' +
+    '.ss-home:focus-visible{outline:2px solid #F07040;outline-offset:3px}' +
     '.ss-fin{margin:26px 0 8px;padding:17px 19px;border-radius:13px;text-align:center;' +
     'background:linear-gradient(135deg,#F0704016,#F0704006);border:1px solid #F0704040;' +
     'opacity:0;transform:translateY(10px);transition:opacity .5s ease,transform .5s cubic-bezier(.2,.9,.3,1)}' +
@@ -553,6 +568,30 @@
     }, 4000);
   }
 
+  // 완주는 반응 하나 누른 것과 무게가 다르다. 버튼 옆에서 조각 몇 개가
+  // 튀는 걸로는 부족해서, 화면 위에서 쏟아진다.
+  function confetti() {
+    if (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    var host = document.createElement('div');
+    host.className = 'ss-conf';
+    var bits = ['🎉', '🎊', '✨', '🐟', '🥳'];
+    for (var i = 0; i < 70; i++) {
+      var s = document.createElement('span');
+      var dot = i % 4 === 0;
+      if (dot) s.className = 'd';
+      else s.textContent = bits[i % bits.length];
+      s.style.left = (Math.random() * 100) + 'vw';
+      // 떨어지는 시간과 시작 시점을 흩어 놓아야 '쏟아진다'로 보인다
+      s.style.setProperty('--dur', (2100 + Math.random() * 1700) + 'ms');
+      s.style.setProperty('--sway', (Math.random() * 160 - 80) + 'px');
+      s.style.setProperty('--r', (Math.random() * 1080 - 540) + 'deg');
+      s.style.animationDelay = (Math.random() * 900) + 'ms';
+      host.appendChild(s);
+    }
+    document.body.appendChild(host);
+    setTimeout(function () { host.remove(); }, 5200);
+  }
+
   function showFinish(streak) {
     var box = document.createElement('div');
     box.className = 'ss-fin';
@@ -565,8 +604,25 @@
     else document.body.appendChild(box);
     requestAnimationFrame(function () {
       box.classList.add('in');
-      burst(box.querySelector('b'), '🎊');
+      confetti();
     });
+  }
+
+  // 뉴스레터는 메일 원본 그대로라 사이트 헤더가 없다. 그래서 읽다가
+  // 순살로 돌아갈 길이 끊긴다. 새 UI를 얹는 대신 이미 맨 위에 있는 로고를
+  // 링크로 만든다 — 로고를 누르면 홈이라는 건 설명이 필요 없다.
+  function mountHomeMark() {
+    if (document.querySelector('.nav') || document.querySelector('.logo-link')) return;
+    var img = document.querySelector('img[alt="순살브리핑"], img[alt="순살"]');
+    if (!img || img.closest('a')) return;
+    var a = document.createElement('a');
+    a.href = '/';
+    a.className = 'ss-home';
+    a.title = '순살 홈으로';
+    a.setAttribute('aria-label', '순살브리핑 홈으로');
+    a.addEventListener('click', function () { track('home'); });
+    img.parentNode.insertBefore(a, img);
+    a.appendChild(img);
   }
 
   function init() {
@@ -574,6 +630,7 @@
     st.textContent = CSS;
     document.head.appendChild(st);
     mountFinish();
+    mountHomeMark();
 
     // 이제 사이트 안에 대화가 있다. 텔레그램으로 내보내는 대신 순살톡으로 보낸다.
     // 새 글 수를 배지로 띄워서 '뭔가 올라왔다'가 보이게 한다.
