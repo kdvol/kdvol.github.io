@@ -1,0 +1,20 @@
+{
+ "type": "single_video",
+ "video": "_publish/sv/chartig20260812/reel.mp4",
+ "caption_txt": "_publish/sv/chartig20260812/POST.txt",
+ "post_txt": "_publish/sv/chartig20260812/POST.txt",
+ "prefix": "sv/2026/0813_chartig20260812",
+ "instagram": true,
+ "youtube": false,
+ "youtube_title": "",
+ "name": "chartig20260812",
+ "date": "20260813",
+ "target_epoch": 1786614000,
+ "dry_run": false,
+ "reviewed": {
+  "by": "KD",
+  "at": "2026-08-13T18:27:19",
+  "verbatim": "bgm 깔고 바로 올려줘 릴스"
+ },
+ "ig_media_id": "17897112024572147"
+}
