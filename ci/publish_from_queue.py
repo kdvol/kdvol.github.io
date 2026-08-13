@@ -56,6 +56,19 @@ def due_items(only=None):
         #    체크아웃하면 **큐에도 있고 done 에도 있는** 상태가 보인다. 그때 발행하면 두 번 나간다.
         #    (근본 원인은 워크플로의 Sync 스텝에서 막지만, 여기서도 한 번 더 본다 —
         #     같은 영상이 두 번 올라가는 사고는 되돌릴 수가 없다.)
+        # ── ★ 사람이 봤다는 기록이 매니페스트에 있나 (KD 2026-08-13 「검수 관문 필요해」)
+        #    예약 스크립트의 관문은 **새 예약만** 막는다. 이미 큐에 앉은 것은 그대로 나간다.
+        #    실제로 승인 기록 없는 카드뉴스 3건(agegap·bucees·flock)이 큐에 있었다 —
+        #    릴스에는 그 관문이 있었는데 카드뉴스 경로에만 없었다.
+        #    `review_log.jsonl` 은 빌드 레포에만 있어 러너가 못 읽으므로,
+        #    예약 시점에 매니페스트에 새겨 두고 여기서 그걸 확인한다.
+        #    ★ --only 로도 못 뚫는다. 우회로를 하나 남기면 반드시 거기로 샌다.
+        if not (d.get("reviewed") or {}).get("by"):
+            log(f"⛔ {mf.stem}: 검수 기록이 매니페스트에 없다 — **발행하지 않는다.**\n"
+                f"   빌드 레포에서: python3 scripts/review_log.py approve {mf.stem} --verbatim \"...\"\n"
+                f"   그 뒤 재예약하거나 scripts/stamp_reviewed.py 로 새길 것")
+            continue
+
         if (DONE / mf.name).exists():
             log(f"⛔ {mf.stem}: done/ 에 이미 있다 — **발행하지 않는다**(중복 방어). "
                 f"큐 파일을 지우고 원인을 확인할 것")
