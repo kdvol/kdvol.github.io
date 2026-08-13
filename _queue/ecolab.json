@@ -1,14 +1,19 @@
 {
-  "type": "single_video",
-  "video": "_publish/sv/ecolab/reel.mp4",
-  "caption_txt": "_publish/sv/ecolab/POST.txt",
-  "post_txt": "_publish/sv/ecolab/POST.txt",
-  "prefix": "sv/2026/0826_ecolab",
-  "instagram": true,
-  "youtube": false,
-  "youtube_title": "",
-  "name": "ecolab",
-  "date": "20260824",
-  "target_epoch": 1787568000,
-  "dry_run": false
+ "type": "single_video",
+ "video": "_publish/sv/ecolab/reel.mp4",
+ "caption_txt": "_publish/sv/ecolab/POST.txt",
+ "post_txt": "_publish/sv/ecolab/POST.txt",
+ "prefix": "sv/2026/0826_ecolab",
+ "instagram": true,
+ "youtube": false,
+ "youtube_title": "",
+ "name": "ecolab",
+ "date": "20260824",
+ "target_epoch": 1787568000,
+ "dry_run": false,
+ "reviewed": {
+  "by": "KD",
+  "at": "2026-08-12T20:11:59",
+  "verbatim": "IG는 버핏, 글리프, 레버리지, 아지노모토, 보스, 에코랩 발행 가능"
+ }
 }
