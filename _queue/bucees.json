@@ -1,8 +1,13 @@
 {
-  "html": "_publish/순살카드뉴스_20260815.html",
-  "date": "20260815",
-  "name": "bucees",
-  "post_txt": "_publish/bucees.POST.txt",
-  "target_epoch": 1786755600,
-  "dry_run": false
+ "html": "_publish/순살카드뉴스_20260815.html",
+ "date": "20260815",
+ "name": "bucees",
+ "post_txt": "_publish/bucees.POST.txt",
+ "target_epoch": 1786755600,
+ "dry_run": false,
+ "reviewed": {
+  "by": "KD",
+  "at": "2026-08-13T18:18:39",
+  "verbatim": "8/16 까지 카드뉴스는 발행 예약 - 검수 끝났음"
+ }
 }

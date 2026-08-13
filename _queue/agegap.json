@@ -1,8 +1,13 @@
 {
-  "html": "_publish/순살카드뉴스_20260814.html",
-  "date": "20260814",
-  "name": "agegap",
-  "post_txt": "_publish/agegap.POST.txt",
-  "target_epoch": 1786669200,
-  "dry_run": false
+ "html": "_publish/순살카드뉴스_20260814.html",
+ "date": "20260814",
+ "name": "agegap",
+ "post_txt": "_publish/agegap.POST.txt",
+ "target_epoch": 1786669200,
+ "dry_run": false,
+ "reviewed": {
+  "by": "KD",
+  "at": "2026-08-13T18:18:39",
+  "verbatim": "8/16 까지 카드뉴스는 발행 예약 - 검수 끝났음"
+ }
 }
