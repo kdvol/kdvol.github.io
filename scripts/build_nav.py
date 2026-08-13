@@ -232,9 +232,12 @@ def _fix_nav_cols(html: str) -> str:
 LOGO_SIZE = 32
 # favicon.svg는 라운드 사각 타일에 여백이 든 앱 아이콘이라 헤더에 넣으면
 # 같은 px에서도 마크가 작아 보인다. 헤더에는 여백 없는 순수 마크를 쓴다.
-LOGO_SRC = "/assets/soonsal-logo.png"
+# soonsal-logo.png는 검은 마크(밝은 배경용)다. 헤더는 #111이라 거기 넣으면
+# 로고가 통째로 묻힌다. 헤더에는 흰 마크를 쓴다.
+LOGO_SRC = "/assets/soonsal-logo-white.png"
 LOGO_SRC_RE = re.compile(
-    r'(<img\s+src=")(?:/favicon\.svg|data:image/[^"]+)("[^>]*\bclass="logo-icon"|"[^>]*>(?=<span class="logo-text"))')
+    r'(<img\s+src=")(?:/favicon\.svg|/assets/soonsal-logo\.png|data:image/[^"]+)'
+    r'("[^>]*\bclass="logo-icon"|"[^>]*>(?=<span class="logo-text"))')
 # 손으로 만든 헤더에 박힌 값은 여기서 다시 맞춘다. 그러지 않으면
 # 페이지마다 로고가 다른 크기로 보인다 — 실제로 26px와 36px가 섞여 있었다.
 # width:auto가 붙은 규칙만 건드린다. 카드뉴스 본문 안의 .logo-icon은
