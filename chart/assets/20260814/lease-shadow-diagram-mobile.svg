@@ -15,7 +15,7 @@
 <g class="motion-step motion-edge" data-motion-step="5" data-from="D" data-to="E" style="--motion-delay:4760ms">
 <path d="M 360.0 534.0 C 360.0 592.0, 360.0 592.0, 360.0 642.0" fill="none" stroke="#F07040" stroke-width="4.5" stroke-dasharray="12 10" marker-end="url(#arrow)"/>
 <rect x="257.0" y="573.0" width="206" height="34" rx="17" fill="#FAFAF7"/>
-<text x="360.0" y="596.0" text-anchor="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="22" font-weight="800" fill="#8B4B2C">비용 구조 고정</text>
+<text x="360.0" y="596.0" text-anchor="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="22" font-weight="800" fill="#8B4B2C">조달 비용 상승</text>
 </g>
 <g class="motion-step motion-edge" data-motion-step="1" data-from="A" data-to="B" style="--motion-delay:1360ms">
 <path d="M 198.0 130.0 C 198.0 188.0, 360.0 188.0, 360.0 238.0" fill="none" stroke="#F07040" stroke-width="4.5" marker-end="url(#arrow)"/>
@@ -28,8 +28,8 @@
 </g>
 <g class="motion-step motion-node" data-motion-step="0" style="--motion-delay:680ms;--motion-accent-delay:1320ms">
 <rect class="motion-node-shape" x="372.0" y="44.0" width="300.0" height="86" rx="20" fill="#FFFFFF" stroke="#DCD8CF" stroke-width="3" filter="url(#shadow)"/>
-<text x="522.0" y="73.5" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="800" fill="#222222">한 달 전보다 크게</text>
-<text x="522.0" y="100.5" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="800" fill="#222222">증가</text>
+<text x="522.0" y="69.5" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="26" font-weight="800" fill="#222222">한 달 전보다 크게</text>
+<text x="522.0" y="104.5" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="26" font-weight="800" fill="#222222">증가</text>
 </g>
 <g class="motion-step motion-node" data-motion-step="2" style="--motion-delay:2720ms;--motion-accent-delay:3360ms">
 <rect class="motion-node-shape" x="60.0" y="246.0" width="600.0" height="86" rx="20" fill="#FFFFFF" stroke="#DCD8CF" stroke-width="3" filter="url(#shadow)"/>
@@ -41,7 +41,7 @@
 </g>
 <g class="motion-step motion-node motion-risk" data-motion-step="6" style="--motion-delay:5440ms;--motion-accent-delay:6080ms">
 <rect class="motion-node-shape" x="60.0" y="650.0" width="600.0" height="86" rx="20" fill="#FFF4EF" stroke="#F07040" stroke-width="3" filter="url(#shadow)"/>
-<text x="360.0" y="693.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="800" fill="#222222">지자체는 세수 보장을 요구</text>
+<text x="360.0" y="693.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="800" fill="#222222">빚으로 고정비를 떠안는 구조</text>
 </g>
 <line x1="40" y1="812" x2="680" y2="812" stroke="#E8E8E0" stroke-width="2"/>
 <text x="40" y="844" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="20" fill="#888888">실선 = 확인된 연결 · 점선 = 해석/영향 경로</text>

@@ -7,7 +7,7 @@
 <text x="72" y="78" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="28" font-weight="800" fill="#F07040">순살차트 · SOONSAL</text>
 <text x="1008" y="78" text-anchor="end" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="23" fill="#888888">2026-08-14</text>
 <text x="72" y="160" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="50" font-weight="800" fill="#111111">레버리지 상품 거래가 급감했고, 새로</text>
-<text x="72" y="222" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="50" font-weight="800" fill="#111111">들어오려면 모의투자 5일을 해야 함</text>
+<text x="72" y="222" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="50" font-weight="800" fill="#111111">들어오려면 모의거래 5일을 해야 함</text>
 <text x="72" y="310" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="25" fill="#666666">규제가 진폭을 걷어낸 자리</text>
 <path d="M 540.0 508.0 C 540.0 611.5, 309.0 611.5, 309.0 707.0" fill="none" stroke="#F07040" stroke-width="4" marker-end="url(#arrow)"/>
 <rect x="352.5" y="581.5" width="144" height="36" rx="18" fill="#F5F5F0"/>
@@ -26,7 +26,7 @@
 <rect x="94.0" y="715.0" width="430.0" height="118" rx="24" fill="#FFFFFF" stroke="#E0DDD5" stroke-width="3" filter="url(#shadow)"/>
 <text x="309.0" y="774.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="700" fill="#222222">레버리지 거래 급감</text>
 <rect x="556.0" y="715.0" width="430.0" height="118" rx="24" fill="#FFFFFF" stroke="#E0DDD5" stroke-width="3" filter="url(#shadow)"/>
-<text x="771.0" y="774.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="700" fill="#222222">신규 진입 시 모의거래 닷새</text>
+<text x="771.0" y="774.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="700" fill="#222222">신규 진입 시 모의거래 5일</text>
 <rect x="94.0" y="1040.0" width="430.0" height="118" rx="24" fill="#FFFFFF" stroke="#E0DDD5" stroke-width="3" filter="url(#shadow)"/>
 <text x="309.0" y="1081.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="700" fill="#222222">변동성 80대에서</text>
 <text x="309.0" y="1117.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="700" fill="#222222">55.28로</text>
