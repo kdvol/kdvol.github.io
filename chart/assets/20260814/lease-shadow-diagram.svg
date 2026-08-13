@@ -15,7 +15,7 @@
 <g class="motion-step motion-edge" data-motion-step="5" style="--motion-delay:4760ms">
 <path d="M 540.0 601.3 C 540.0 645.7, 540.0 645.7, 540.0 682.0" fill="none" stroke="#F07040" stroke-width="4" stroke-dasharray="12 10" marker-end="url(#arrow)"/>
 <rect x="468.0" y="615.7" width="144" height="36" rx="18" fill="#FAFAF7"/>
-<text x="540.0" y="642.7" text-anchor="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="18" fill="#8B4B2C">비용 구조 고정</text>
+<text x="540.0" y="642.7" text-anchor="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="18" fill="#8B4B2C">조달 비용 상승</text>
 </g>
 <g class="motion-step motion-edge" data-motion-step="1" style="--motion-delay:1360ms">
 <path d="M 309.0 188.0 C 309.0 232.3, 540.0 232.3, 540.0 268.7" fill="none" stroke="#F07040" stroke-width="4" marker-end="url(#arrow)"/>
@@ -40,7 +40,7 @@
 </g>
 <g class="motion-step motion-node motion-risk" data-motion-step="6" style="--motion-delay:5440ms;--motion-accent-delay:6080ms">
 <rect class="motion-node-shape" x="160.0" y="690.0" width="760.0" height="118" rx="22" fill="#FFF4EF" stroke="#F07040" stroke-width="3" filter="url(#shadow)"/>
-<text x="540.0" y="749.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="700" fill="#222222">지자체는 세수 보장을 요구</text>
+<text x="540.0" y="749.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="700" fill="#222222">빚으로 고정비를 떠안는 구조</text>
 </g>
 <line x1="72" y1="812" x2="1008" y2="812" stroke="#E8E8E0" stroke-width="2"/>
 <text x="72" y="842" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="17" fill="#888888">실선 = 확인된 연결 · 점선 = 해석/영향 경로</text>

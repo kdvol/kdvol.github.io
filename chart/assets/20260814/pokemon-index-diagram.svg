@@ -24,7 +24,7 @@
 </g>
 <g class="motion-step motion-node" data-motion-step="2" style="--motion-delay:2040ms;--motion-accent-delay:2680ms">
 <rect class="motion-node-shape" x="160.0" y="276.7" width="760.0" height="118" rx="22" fill="#FFFFFF" stroke="#E0DDD5" stroke-width="3" filter="url(#shadow)"/>
-<text x="540.0" y="335.7" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="700" fill="#222222">포켓몬 카드 석 달 29.4%</text>
+<text x="540.0" y="335.7" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="700" fill="#222222">포켓몬 카드 3개월 29.4%</text>
 </g>
 <g class="motion-step motion-node" data-motion-step="0" style="--motion-delay:0ms;--motion-accent-delay:640ms">
 <rect class="motion-node-shape" x="94.0" y="70.0" width="430.0" height="118" rx="22" fill="#FFFFFF" stroke="#E0DDD5" stroke-width="3" filter="url(#shadow)"/>
@@ -36,7 +36,7 @@
 </g>
 <g class="motion-step motion-node" data-motion-step="4" style="--motion-delay:3400ms;--motion-accent-delay:4040ms">
 <rect class="motion-node-shape" x="160.0" y="483.3" width="760.0" height="118" rx="22" fill="#FFFFFF" stroke="#E0DDD5" stroke-width="3" filter="url(#shadow)"/>
-<text x="540.0" y="542.3" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="700" fill="#222222">카드 거래 사상 최대</text>
+<text x="540.0" y="542.3" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="700" fill="#222222">되팔기 거래 사상 최대</text>
 </g>
 <g class="motion-step motion-node motion-risk" data-motion-step="6" style="--motion-delay:5440ms;--motion-accent-delay:6080ms">
 <rect class="motion-node-shape" x="160.0" y="690.0" width="760.0" height="118" rx="22" fill="#FFF4EF" stroke="#F07040" stroke-width="3" filter="url(#shadow)"/>

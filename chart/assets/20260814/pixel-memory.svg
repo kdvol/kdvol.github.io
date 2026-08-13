@@ -6,16 +6,16 @@
 <rect width="1080" height="1350" fill="#F5F5F0"/>
 <text x="72" y="78" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="28" font-weight="800" fill="#F07040">순살차트 · SOONSAL</text>
 <text x="1008" y="78" text-anchor="end" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="23" fill="#888888">2026-08-14</text>
-<text x="72" y="160" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="50" font-weight="800" fill="#111111">새 폰값이 100달러 오른 이유가,</text>
-<text x="72" y="222" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="50" font-weight="800" fill="#111111">메모리 부족임</text>
+<text x="72" y="160" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="50" font-weight="800" fill="#111111">새 폰값 100달러 인상, 메모리 부족</text>
+<text x="72" y="222" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="50" font-weight="800" fill="#111111">탓이라고 함</text>
 <text x="72" y="310" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="25" fill="#666666">메모리 부족이 소비자 가격에 닿은 경로</text>
-<path d="M 540.0 508.0 C 540.0 611.5, 229.3 611.5, 229.3 707.0" fill="none" stroke="#F07040" stroke-width="4" marker-end="url(#arrow)"/>
+<path d="M 540.0 508.0 C 540.0 611.5, 229.3 611.5, 229.3 707.0" fill="none" stroke="#F07040" stroke-width="4" stroke-dasharray="12 10" marker-end="url(#arrow)"/>
 <rect x="312.7" y="581.5" width="144" height="36" rx="18" fill="#F5F5F0"/>
-<text x="384.7" y="608.5" text-anchor="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="18" fill="#8B4B2C">완성품에 전가</text>
-<path d="M 540.0 508.0 C 540.0 611.5, 540.0 611.5, 540.0 707.0" fill="none" stroke="#F07040" stroke-width="4" marker-end="url(#arrow)"/>
+<text x="384.7" y="608.5" text-anchor="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="18" fill="#8B4B2C">인상 사유로 알려짐</text>
+<path d="M 540.0 508.0 C 540.0 611.5, 540.0 611.5, 540.0 707.0" fill="none" stroke="#F07040" stroke-width="4" stroke-dasharray="12 10" marker-end="url(#arrow)"/>
 <rect x="468.0" y="581.5" width="144" height="36" rx="18" fill="#F5F5F0"/>
-<text x="540.0" y="608.5" text-anchor="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="18" fill="#8B4B2C">공급자 재평가</text>
-<path d="M 540.0 508.0 C 540.0 611.5, 850.7 611.5, 850.7 707.0" fill="none" stroke="#F07040" stroke-width="4" marker-end="url(#arrow)"/>
+<text x="540.0" y="608.5" text-anchor="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="18" fill="#8B4B2C">같은 국면</text>
+<path d="M 540.0 508.0 C 540.0 611.5, 850.7 611.5, 850.7 707.0" fill="none" stroke="#F07040" stroke-width="4" stroke-dasharray="12 10" marker-end="url(#arrow)"/>
 <rect x="623.3" y="581.5" width="144" height="36" rx="18" fill="#F5F5F0"/>
 <text x="695.3" y="608.5" text-anchor="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="18" fill="#8B4B2C">같은 방향</text>
 <path d="M 229.3 833.0 C 229.3 936.5, 540.0 936.5, 540.0 1032.0" fill="none" stroke="#F07040" stroke-width="4" stroke-dasharray="12 10" marker-end="url(#arrow)"/>
