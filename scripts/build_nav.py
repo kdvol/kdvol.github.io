@@ -230,6 +230,11 @@ def _fix_nav_cols(html: str) -> str:
 
 
 LOGO_SIZE = 32
+# favicon.svg는 라운드 사각 타일에 여백이 든 앱 아이콘이라 헤더에 넣으면
+# 같은 px에서도 마크가 작아 보인다. 헤더에는 여백 없는 순수 마크를 쓴다.
+LOGO_SRC = "/assets/soonsal-logo.png"
+LOGO_SRC_RE = re.compile(
+    r'(<img\s+src=")(?:/favicon\.svg|data:image/[^"]+)("[^>]*\bclass="logo-icon"|"[^>]*>(?=<span class="logo-text"))')
 # 손으로 만든 헤더에 박힌 값은 여기서 다시 맞춘다. 그러지 않으면
 # 페이지마다 로고가 다른 크기로 보인다 — 실제로 26px와 36px가 섞여 있었다.
 # width:auto가 붙은 규칙만 건드린다. 카드뉴스 본문 안의 .logo-icon은
@@ -237,6 +242,10 @@ LOGO_SIZE = 32
 LOGO_H_RE = re.compile(
     r'(\.logo-(?:link img|icon)[^{}]*{[^}]*?height:\s*)\d+(px)(?=[^}]*width:\s*auto)'
     r'|(\.logo-(?:link img|icon)[^{}]*{[^}]*?width:\s*auto[^}]*?height:\s*)\d+(px)', re.I)
+
+
+def _fix_logo_src(html: str) -> str:
+    return LOGO_SRC_RE.sub(rf'\g<1>{LOGO_SRC}\g<2>', html)
 
 
 def _fix_logo_size(html: str) -> str:
@@ -297,7 +306,7 @@ def header_html(active="/topics/"):
     return (
         '<header class="site-header">' + SEARCH_BTN +
         '<a class="logo-link" href="/">'
-        '<img src="/favicon.svg" alt="" onerror="this.style.display=\'none\'">'
+        f'<img src="{LOGO_SRC}" alt="" onerror="this.style.display=\'none\'">'
         '<span class="logo-text">순살브리핑 Soonsal</span></a>'
         '<a href="https://subscribe.soonsal.com/subscribe" target="_blank" rel="noopener" '
         'class="sub-btn-header">구독하기</a></header>'
@@ -333,6 +342,7 @@ def main():
         new = _with_ticker(new)
         new = _fix_nav_cols(new)
         new = _fix_logo_size(new)
+        new = _fix_logo_src(new)
         if new != t:
             p.write_text(new, encoding="utf-8")
             n += 1
