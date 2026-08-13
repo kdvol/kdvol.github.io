@@ -29,9 +29,13 @@ BASE = "https://soonsal.liveklass.com/classes/"
 CAPTAINS = {
     "ibd": {
         "n": "IBD 캡틴",
-        "b": ["전 Deutsche Bank 기업금융부(IBD) 등 글로벌 기업금융 10년+",
-              "현 국내 유니콘 기업 Head of Corporate Development",
-              "대규모 투자유치·전략투자 집행 총괄"],
+        # 현직이 맨 위. 유니콘 Head of Corp Dev와 투자유치 총괄은 이제 전 직장이다.
+        "b": ["현 국내 대형 PE 투자운용역",
+              "전 국내 유니콘 기업 Head of Corporate Development — 대규모 투자유치·전략투자 집행 총괄",
+              "전 Deutsche Bank 기업금융부(IBD) 등 글로벌 기업금융 10년+"],
+        # 구조화 데이터에는 현직과 가장 강한 이력을 한 줄로 붙인다.
+        # b[0]만 쓰면 Deutsche Bank가 검색 결과에서 통째로 빠진다.
+        "seo": "현 국내 대형 PE 투자운용역 · 전 Deutsche Bank 기업금융부(IBD) 등 글로벌 기업금융 10년+",
     },
     "jack": {
         "n": "캡틴 Jack",
@@ -251,7 +255,7 @@ def course_ld(courses):
                 "courseMode": "online",
                 "courseWorkload": _iso_dur(c["time"]),
                 "instructor": {"@type": "Person", "name": cap["n"],
-                               "description": cap["b"][0]},
+                               "description": cap.get("seo") or cap["b"][0]},
             },
         }
         if c.get("img"):
