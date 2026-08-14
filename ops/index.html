@@ -301,6 +301,8 @@ function setFmt(f){ FMT=f; render(); }
 let CHF='전체';
 function setCh(c){ CHF=c; render(); }
 const CHNAME={ig_carousel:'IG 캐러셀', ig_reel:'IG 릴스', yt_shorts:'YT 숏츠', threads:'쓰레드', web:'웹'};
+// 요약표는 좁은 화면에서 숫자가 먼저 보여야 한다 — 머리글을 짧게 쓴다
+const CHSHORT={ig_carousel:'캐러셀', ig_reel:'릴스', yt_shorts:'숏츠', threads:'쓰레드', web:'웹'};
 
 function chBar(rows){
   const n={}; rows.forEach(r=>{ n[r.channel]=(n[r.channel]||0)+1; });
@@ -317,10 +319,11 @@ function postGrid(rows){
   if(!fs.length||!cs.length) return '';
   const cnt=(f,c)=>rows.filter(r=>(r.format||'cardnews')===f && r.channel===c).length;
   return `<div class="mx grid"><table>
-    <thead><tr><th style="text-align:left">형태</th>${cs.map(c=>`<th>${CHNAME[c]}</th>`).join('')}<th>합</th></tr></thead>
+    <thead><tr><th style="text-align:left">형태</th><th>합</th>${cs.map(c=>`<th>${CHSHORT[c]||c}</th>`).join('')}</tr></thead>
     <tbody>${fs.map(f=>`<tr><td class="l"><b>${FMTLABEL[f]||f}</b></td>
+      <td><b>${rows.filter(r=>(r.format||'cardnews')===f).length}</b></td>
       ${cs.map(c=>{const k=cnt(f,c);return `<td>${k?k:'<span class="dim">·</span>'}</td>`;}).join('')}
-      <td><b>${rows.filter(r=>(r.format||'cardnews')===f).length}</b></td></tr>`).join('')}</tbody></table></div>`;
+      </tr>`).join('')}</tbody></table></div>`;
 }
 
 function fmtBar(items){
@@ -342,7 +345,7 @@ function gridSummary(){
   return `<div class="mx grid"><table>
     <thead><tr><th style="text-align:left">형태</th><th>전체</th>
       ${ST.map(k=>`<th>${STATUS[k]||k}</th>`).join('')}
-      ${order.map(c=>`<th>${CHN[c]||c}</th>`).join('')}</tr></thead>
+      ${order.map(c=>`<th>${(CHSHORT[c]||CHN[c]||c)}</th>`).join('')}</tr></thead>
     <tbody>${keys.map(k=>{
       const v=g[k];
       return `<tr><td class="l"><b>${v.label}</b></td><td><b>${v.total}</b></td>
@@ -575,7 +578,7 @@ function render(){
 <style>
 /* ★ 형태 필터·파일 칩 — **스타일시트 맨 뒤**에 둔다.
    앞에 두었더니 본문 규칙이 덮어 「전체」 칩이 투명해졌다(2026-08-14 실측). */
-#app .fmt{display:flex;gap:6px;flex-wrap:nowrap;overflow-x:auto;margin:10px 0 6px;
+#app .fmt{display:flex;width:100%;flex:0 0 auto;gap:6px;flex-wrap:nowrap;overflow-x:auto;margin:10px 0 6px;
   padding-bottom:2px;-webkit-overflow-scrolling:touch}
 #app .fmt::-webkit-scrollbar{display:none}
 #app .fmt button{flex:0 0 auto;background:var(--card2);border:1px solid var(--line);color:var(--tx2);
