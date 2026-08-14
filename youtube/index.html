@@ -23,10 +23,11 @@ a{color:#eee;text-decoration:none}
 
 /* 페이지 머리 — nav와 붙지 않게 여백을 두고, 배경은 사이트와 같은 #111 */
 .ph{margin-bottom:30px}
-.ph .ey{font-size:.72rem;font-weight:700;letter-spacing:.09em;color:#F07040;
-text-transform:uppercase;margin-bottom:9px}
-.ph h1{font-size:1.72rem;font-weight:800;letter-spacing:-.03em;margin:0 0 9px;
+.ph .ey{display:flex;align-items:center;gap:9px;font-size:11px;font-weight:800;letter-spacing:.08em;color:#F59B75;margin-bottom:12px}
+.ph .ey::before{content:"";width:22px;height:2px;background:#F07040;border-radius:2px;flex:0 0 auto}
+.ph h1{font-size:1.62rem;font-weight:800;letter-spacing:-.03em;margin:0 0 9px;
 line-height:1.28;color:#f0ede6}
+@media(max-width:560px){.ph h1{font-size:1.42rem}}
 .ph p{margin:0;color:#8b8578;font-size:.93rem;line-height:1.7;max-width:52ch}
 .ph .go{display:inline-block;margin-top:15px;border:1px solid #333;border-radius:12px;
 padding:9px 16px;font-size:.84rem;font-weight:700;color:#eee;transition:.15s}
@@ -201,7 +202,8 @@ border-radius:50%;background:#F07040;opacity:0;transition:opacity .2s}
 .logo-link img,.logo-icon{height:32px;width:auto}
 .logo-text{font-size:22px;font-weight:800;letter-spacing:-0.5px;font-family:'DM Sans','Apple SD Gothic Neo',sans-serif}
 .sub-btn-header{position:absolute;right:max(16px,calc(50% - 400px));top:50%;transform:translateY(-50%);
-background:#E55A00;color:#fff;padding:8px 18px;border-radius:6px;font-size:13px;font-weight:700;text-decoration:none;white-space:nowrap}
+background:#C24A00;color:#fff;padding:9px 18px;border-radius:999px;font-size:13px;font-weight:800;text-decoration:none;white-space:nowrap;transition:background .18s ease}
+.sub-btn-header:hover{background:#A83F00}
 @media(max-width:560px){.sub-btn-header{display:none}}
 .crumb{color:#F07040;font-size:.88rem;display:inline-block;margin-bottom:14px;text-decoration:none}
 
@@ -251,11 +253,20 @@ color:#8a857c;text-decoration:none}
   .nav>a,.nav-more>summary{font-size:10.5px;letter-spacing:-.5px;padding:11px 1px}
 }
 
+
+.sec-head{margin:0 0 26px}
+.sec-kicker{display:flex;align-items:center;gap:9px;margin:0 0 12px;color:#F59B75;
+font-size:11px;font-weight:800;letter-spacing:.08em}
+.sec-kicker::before{content:"";width:22px;height:2px;background:#F07040;border-radius:2px;flex:0 0 auto}
+.sec-head h1{margin:0;font-size:1.62rem;font-weight:800;letter-spacing:-.03em;
+line-height:1.25;color:#fff;word-break:keep-all}
+.sec-head .deck{margin:10px 0 0;color:#8b8578;font-size:.92rem;line-height:1.65;word-break:keep-all}
+@media(max-width:560px){.sec-head h1{font-size:1.42rem}}
 </style><header class="site-header"><a href="/search/" class="search-btn-header" aria-label="검색"><svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.6-3.6"/></svg></a><a class="logo-link" href="/"><img src="/assets/soonsal-logo-white.png" alt="" onerror="this.style.display='none'"><span class="logo-text">순살브리핑 Soonsal</span></a><a href="https://subscribe.soonsal.com/subscribe" target="_blank" rel="noopener" class="sub-btn-header">구독하기</a></header><nav class="nav" aria-label="주요 메뉴"><a href="/newsletters/">뉴스레터</a><a href="/chart/">순살차트</a><a href="/talk/">순살톡</a><a href="/school/" class="nav-desktop-link">스쿨</a><a href="/collab/" class="nav-desktop-link biz">협업 문의</a><details class="nav-more active"><summary>더보기 <span aria-hidden="true">⌄</span></summary><section class="nav-menu" aria-label="추가 메뉴"><a href="/topics/">주제별</a><a href="/saved/">내가 모은 글</a><a href="/cardnews/">카드뉴스</a><a href="/youtube/" class="active">YouTube</a><a href="/school/" class="nav-mobile-only">스쿨</a><a href="/collab/" class="nav-mobile-only biz">협업 문의</a></section></details></nav>
 <div class="yt"><div class="ph">
-<div class="ey">순살 YouTube</div>
+<div class="ey">순살 유튜브</div>
 <h1>보면서 이해하는<br>글로벌 금융</h1>
-<p>매일 1분 숏츠로 오늘의 시장을, 긴 영상으로는 커리어와 산업의 맥락을 다룹니다.</p>
+<p>매일 1분 숏츠로 오늘의 시장을, 긴 영상으로는 커리어와 산업의 맥락을 다룸</p>
 <a class="go" href="https://www.youtube.com/@soonsal?sub_confirmation=1"
  target="_blank" rel="noopener">채널 구독하기</a>
 </div><h2>커리어 이야기</h2><p class="lead">금융권에서 일한다는 게 실제로 어떤 것인지.</p><div class="hero">
@@ -285,15 +296,15 @@ color:#8a857c;text-decoration:none}
 <span class="th"><img src="https://i.ytimg.com/vi/hgCnhJoQWI4/hqdefault.jpg"
  alt="엔화를 지키면 소비가 죽는다" loading="lazy" width="270" height="480"/></span>
 <span class="tt">엔화를 지키면 소비가 죽는다</span>
-<span class="dd">08.14 · 2,037</span></a><a class="sc" href="https://www.youtube.com/shorts/bQJZBzkRRvk" target="_blank" rel="noopener">
+<span class="dd">08.14 · 2,036</span></a><a class="sc" href="https://www.youtube.com/shorts/bQJZBzkRRvk" target="_blank" rel="noopener">
 <span class="th"><img src="https://i.ytimg.com/vi/bQJZBzkRRvk/hqdefault.jpg"
  alt="칩 만드는 회사가, 그 칩 살 돈까지 보증합니다" loading="lazy" width="270" height="480"/></span>
 <span class="tt">칩 만드는 회사가, 그 칩 살 돈까지 보증합니다</span>
-<span class="dd">08.14 · 1,241</span></a><a class="sc" href="https://www.youtube.com/shorts/uoCEc2IzYDk" target="_blank" rel="noopener">
+<span class="dd">08.14 · 1,292</span></a><a class="sc" href="https://www.youtube.com/shorts/uoCEc2IzYDk" target="_blank" rel="noopener">
 <span class="th"><img src="https://i.ytimg.com/vi/uoCEc2IzYDk/hqdefault.jpg"
  alt="데이터센터가 신청한 전력, 3분의 2는 안 들어옵니다" loading="lazy" width="270" height="480"/></span>
 <span class="tt">데이터센터가 신청한 전력, 3분의 2는 안 들어옵니다</span>
-<span class="dd">08.13 · 1,868</span></a><a class="sc" href="https://www.youtube.com/shorts/U57JD6J21fg" target="_blank" rel="noopener">
+<span class="dd">08.13 · 1,867</span></a><a class="sc" href="https://www.youtube.com/shorts/U57JD6J21fg" target="_blank" rel="noopener">
 <span class="th"><img src="https://i.ytimg.com/vi/U57JD6J21fg/hqdefault.jpg"
  alt="돈은 넘치는데 변압기를 못 찍어냄" loading="lazy" width="270" height="480"/></span>
 <span class="tt">돈은 넘치는데 변압기를 못 찍어냄</span>
@@ -348,4 +359,4 @@ document.querySelectorAll('.hv[data-v]').forEach(function (b) {
   });
 });
 </script>
-<script src="/ss-config.js"></script><script src="/soonsal.js" defer></script></body></html>
+</body></html>
