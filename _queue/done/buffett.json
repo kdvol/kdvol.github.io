@@ -1,0 +1,21 @@
+{
+ "type": "single_video",
+ "video": "_publish/sv/buffett/reel.mp4",
+ "caption_txt": "_publish/sv/buffett/POST.txt",
+ "post_txt": "_publish/sv/buffett/POST.txt",
+ "prefix": "sv/2026/0901_buffett",
+ "instagram": true,
+ "youtube": false,
+ "youtube_title": "워렌 버핏, 90년 인생을 갈아넣은 필승 전략",
+ "name": "buffett",
+ "date": "20260814",
+ "target_epoch": 1786690800,
+ "dry_run": false,
+ "thumb_offset_ms": 1453,
+ "reviewed": {
+  "by": "KD",
+  "at": "2026-08-12T20:11:59",
+  "verbatim": "IG는 버핏, 글리프, 레버리지, 아지노모토, 보스, 에코랩 발행 가능"
+ },
+ "ig_media_id": "18212344303352682"
+}
