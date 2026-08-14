@@ -1,0 +1,21 @@
+{
+  "type": "single_video",
+  "video": "_publish/sv/chart20260814e/reel.mp4",
+  "source": "/Users/soonsal/soonsal-reels/output/chart_20260814e/reel.mp4",
+  "source_sha256": "2d7e0a3360bd4f9f8a10e4980ad0aa2f48235fd977996ca4bad17723f0c9ee2f",
+  "caption_txt": "_publish/sv/chart20260814e/POST.txt",
+  "post_txt": "_publish/sv/chart20260814e/POST.txt",
+  "prefix": "sv/2026/0816_chart20260814e",
+  "instagram": true,
+  "youtube": true,
+  "youtube_title": "",
+  "name": "chart20260814e",
+  "date": "20260816",
+  "target_epoch": 1786863600,
+  "dry_run": false,
+  "reviewed": {
+    "by": "KD",
+    "at": "2026-08-14T18:31:22",
+    "verbatim": "레이커스, 염소는 각각 16, 17에 예약"
+  }
+}
