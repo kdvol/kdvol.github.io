@@ -84,12 +84,12 @@ font-family:'DM Sans',-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo',san
 .bk:hover{{color:#E55A00}}
 .dt{{color:#a8a294;font-size:.78rem;margin:0 0 6px}}
 h1{{font-size:1.32rem;font-weight:800;line-height:1.42;margin:0 0 18px;letter-spacing:-.02em}}
-.cv{{width:100%;border-radius:14px;display:block;background:#eee}}
-.cta{{margin-top:20px;background:#fff;border:1px solid #ece8de;border-radius:14px;padding:18px 17px}}
+.cv{{width:100%;border-radius:12px;display:block;background:#eee}}
+.cta{{margin-top:20px;background:#fff;border:1px solid #ece8de;border-radius:12px;padding:18px 17px}}
 .cta p{{margin:0 0 13px;font-size:.9rem;line-height:1.65;color:#5f5a50}}
 .cta b{{color:#2b2b2b}}
 .go{{display:block;text-align:center;background:linear-gradient(93deg,#F07040,#E55A00);
-color:#fff;text-decoration:none;font-weight:700;font-size:.95rem;border-radius:11px;padding:14px}}
+color:#fff;text-decoration:none;font-weight:700;font-size:.95rem;border-radius:12px;padding:14px}}
 .go:hover{{filter:brightness(1.05)}}
 .sub{{display:block;text-align:center;color:#8a8578;text-decoration:none;font-size:.82rem;margin-top:12px}}
 .sub:hover{{color:#E55A00}}

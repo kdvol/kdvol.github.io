@@ -36,7 +36,7 @@ h1{font-size:1.6rem;margin-bottom:4px}
 .sec{margin:22px 0}
 .sec h2{font-size:1.05rem;margin-bottom:10px;color:#ddd}
 .chips{display:flex;flex-wrap:wrap;gap:8px}
-.chip{border:1px solid #333;border-radius:16px;padding:5px 13px;font-size:.86rem;transition:.15s}
+.chip{border:1px solid #333;border-radius:999px;padding:6px 13px;font-size:.86rem;transition:.15s}
 .chip:hover{border-color:#F07040;color:#F07040}
 .chip b{color:#888;font-weight:400;margin-left:5px;font-size:.8rem}
 .tp{background:#1a2030;border-color:#2a3550}

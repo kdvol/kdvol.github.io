@@ -74,7 +74,7 @@ text-transform:uppercase;margin-bottom:9px}
 .ph h1{font-size:1.72rem;font-weight:800;letter-spacing:-.03em;margin:0 0 9px;
 line-height:1.28;color:#f0ede6}
 .ph p{margin:0;color:#8b8578;font-size:.93rem;line-height:1.7;max-width:52ch}
-.ph .go{display:inline-block;margin-top:15px;border:1px solid #333;border-radius:9px;
+.ph .go{display:inline-block;margin-top:15px;border:1px solid #333;border-radius:12px;
 padding:9px 16px;font-size:.84rem;font-weight:700;color:#eee;transition:.15s}
 .ph .go:hover{border-color:#F07040;color:#F07040}
 
@@ -101,7 +101,7 @@ justify-content:center;font-size:19px;padding-left:4px;backdrop-filter:blur(3px)
 
 /* 위클리 — 가로 카드 */
 .wk{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:15px}
-.wc{display:block;border:1px solid #232323;border-radius:13px;overflow:hidden;
+.wc{display:block;border:1px solid #232323;border-radius:12px;overflow:hidden;
 background:#161616;transition:border-color .15s}
 .wc:hover{border-color:#3a3a3a}
 .wc .th{position:relative;aspect-ratio:16/9;background:#000}
@@ -116,7 +116,7 @@ display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hi
 /* 숏츠 — 작게, 많이 */
 .sh{display:grid;grid-template-columns:repeat(auto-fill,minmax(124px,1fr));gap:12px}
 .sc{display:block}
-.sc .th{position:relative;border-radius:10px;overflow:hidden;background:#000;aspect-ratio:9/16}
+.sc .th{position:relative;border-radius:12px;overflow:hidden;background:#000;aspect-ratio:9/16}
 .sc .th img{width:100%;height:100%;object-fit:cover;display:block;opacity:.85;transition:.25s}
 .sc:hover .th img{opacity:1;transform:scale(1.03)}
 .sc .tt{margin-top:7px;font-size:.76rem;font-weight:600;line-height:1.45;color:#c9c4ba;
@@ -130,12 +130,12 @@ background:linear-gradient(160deg,#17181a,#141414)}
 text-transform:uppercase;margin-bottom:8px}
 .bridge h3{font-size:1.14rem;font-weight:800;letter-spacing:-.02em;margin:0 0 8px;color:#f0ede6}
 .bridge p{margin:0 0 15px;color:#8b8578;font-size:.88rem;line-height:1.7}
-.bridge a.b{display:inline-block;background:#E55A00;color:#fff;border-radius:9px;
+.bridge a.b{display:inline-block;background:#E55A00;color:#fff;border-radius:12px;
 padding:11px 19px;font-size:.86rem;font-weight:700}
 .bridge a.b:hover{background:#F07040}
 
 .more{display:block;text-align:center;margin-top:26px;color:#7a756c;
-font-size:.85rem;border:1px solid #262626;border-radius:11px;padding:13px;transition:.15s}
+font-size:.85rem;border:1px solid #262626;border-radius:12px;padding:13px;transition:.15s}
 .more:hover{color:#F07040;border-color:#F07040}
 @media(max-width:560px){
  .yt{padding:24px 15px 60px}

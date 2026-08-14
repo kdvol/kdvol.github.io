@@ -32,7 +32,7 @@ font-family:'JetBrains Mono',monospace;font-size:.82rem;color:#F0a070}
 pre{background:#0d0d0d;border:1px solid #222;border-radius:8px;padding:14px;overflow-x:auto;
 font-size:.78rem;line-height:1.6;color:#bbb;margin:10px 0}
 .sum{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:18px}
-.kpi{background:#161616;border:1px solid #232323;border-radius:10px;padding:12px 16px;min-width:104px}
+.kpi{background:#161616;border:1px solid #232323;border-radius:12px;padding:12px 16px;min-width:104px}
 .kpi .v{font-size:1.5rem;font-weight:800;color:#F07040;line-height:1.2}
 .kpi .l{font-size:.75rem;color:#888;margin-top:2px}
 .row{display:flex;gap:12px;align-items:baseline;padding:12px 4px;border-bottom:1px solid #1c1c1c}
@@ -42,7 +42,7 @@ font-size:.78rem;line-height:1.6;color:#bbb;margin:10px 0}
 .cnt{display:flex;gap:9px;white-space:nowrap;font-size:.85rem;color:#aaa;font-variant-numeric:tabular-nums}
 .cnt span.z{color:#3a3a3a}
 .when{color:#5c5c5c;font-size:.74rem;white-space:nowrap;padding-top:3px}
-.spark{background:#161616;border:1px solid #232323;border-radius:10px;padding:12px 16px 10px;margin-bottom:6px}
+.spark{background:#161616;border:1px solid #232323;border-radius:12px;padding:12px 16px 10px;margin-bottom:6px}
 .spark .sl{font-size:.75rem;color:#888;margin-bottom:9px}
 .spark .bars{display:flex;align-items:flex-end;gap:3px;height:36px}
 .spark .bars i{flex:1;background:#F07040;border-radius:2px 2px 0 0;opacity:.85;min-height:2px}
@@ -52,7 +52,7 @@ h2{font-size:.95rem;color:#ddd;margin:30px 0 10px;letter-spacing:-.01em}
 h2 small{color:#666;font-weight:400;font-size:.78rem;margin-left:7px}
 .kpi.hero .v{font-size:1.9rem}
 .kpi .d{font-size:.7rem;color:#5f5f5f;margin-top:3px}
-.card{background:#161616;border:1px solid #232323;border-radius:10px;padding:14px 16px;margin-bottom:10px}
+.card{background:#161616;border:1px solid #232323;border-radius:12px;padding:14px 16px;margin-bottom:10px}
 .trend{display:flex;align-items:flex-end;gap:2px;height:64px;margin-top:4px;justify-content:flex-start}
 .trend i{flex:1 1 0;max-width:28px;background:#F07040;border-radius:2px 2px 0 0;min-height:2px;opacity:.85;position:relative}
 .trend i.u{background:#3f6fd8}

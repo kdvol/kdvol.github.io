@@ -46,7 +46,7 @@ font-size:.84rem;font-weight:700;color:#6b665e;cursor:pointer;font-family:inheri
 .it{display:flex;gap:13px;background:#fff;border:1px solid #ece8e0;border-radius:12px;
 padding:14px 16px;margin-bottom:9px;text-decoration:none;color:inherit}
 .it:hover{border-color:#d8d3ca}
-.it .mk{flex:0 0 auto;width:34px;height:34px;border-radius:9px;background:#f6f4ef;
+.it .mk{flex:0 0 auto;width:34px;height:34px;border-radius:12px;background:#f6f4ef;
 border:1px solid #ece8e0;display:flex;align-items:center;justify-content:center;font-size:1rem}
 .it .bd{min-width:0;flex:1}
 .it .bd>span{display:block}

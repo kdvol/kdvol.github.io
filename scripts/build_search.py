@@ -35,12 +35,12 @@ body{background:#111;color:#eee;font-family:'DM Sans','Apple SD Gothic Neo',sans
 a{color:#eee;text-decoration:none}
 .home{color:#F07040;font-size:.88rem;display:inline-block;margin-bottom:14px}
 h1{font-size:1.4rem;margin-bottom:10px;letter-spacing:-.02em}
-#q{width:100%;background:#1a1a1a;border:1px solid #2c2c2c;border-radius:10px;padding:13px 15px;
+#q{width:100%;background:#1a1a1a;border:1px solid #2c2c2c;border-radius:12px;padding:13px 15px;
   color:#eee;font-size:1rem;outline:none}
 #q:focus{border-color:#F07040}
 .hint{color:#666;font-size:.82rem;margin:10px 0 4px}
 .chips{display:flex;gap:7px;flex-wrap:wrap;margin:12px 0}
-.chip{border:1px solid #2c2c2c;border-radius:16px;padding:5px 12px;font-size:.82rem;cursor:pointer;color:#bbb}
+.chip{border:1px solid #2c2c2c;border-radius:999px;padding:6px 12px;font-size:.82rem;cursor:pointer;color:#bbb}
 .chip:hover{border-color:#F07040;color:#F07040}
 .chip.go{border-color:#3a2a22;background:#1b1512;color:#F07040;font-weight:600;text-decoration:none}
 .count{color:#666;font-size:.8rem;margin:16px 0 4px}

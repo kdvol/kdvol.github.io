@@ -27,7 +27,7 @@ h2:first-of-type{margin-top:6px}
 p,li{font-size:.93rem;line-height:1.85;color:#3a3a3a}
 ul{margin:0 0 0 18px}
 li{margin-bottom:3px}
-.box{border:1px solid #e8e8e0;background:#fafaf7;border-radius:10px;padding:16px 18px;margin:12px 0}
+.box{border:1px solid #e8e8e0;background:#fafaf7;border-radius:12px;padding:16px 18px;margin:12px 0}
 .box.no{border-color:#e8e0d8}
 .hl{color:#E55A00;font-weight:700}
 .upd{color:#a5a099;font-size:.8rem;margin-top:30px}

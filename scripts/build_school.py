@@ -88,7 +88,7 @@ display:flex;align-items:center;gap:7px}
 
 /* 카드 — 통합본은 전체 폭, 나머지는 2열. 한 줄로 늘어놓으면 훑을 수 없다. */
 .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px}
-.card{border:1px solid #212121;border-top:3px solid var(--ac,#2a2a2a);border-radius:14px;
+.card{border:1px solid #212121;border-top:3px solid var(--ac,#2a2a2a);border-radius:12px;
 background:#141414;overflow:hidden;display:flex;flex-direction:column;
 transition:border-color .18s,transform .18s}
 .card:hover{border-color:#2f2f2f;border-top-color:var(--ac,#2a2a2a);transform:translateY(-2px)}
@@ -136,7 +136,7 @@ background:none;border:1px solid #4d5546}
 
 /* 맛보기 */
 .tz{display:block;position:relative;cursor:pointer;background:#000;aspect-ratio:16/9;
-margin:0 18px 14px;border-radius:9px;overflow:hidden;border:1px solid #242424}
+margin:0 18px 14px;border-radius:12px;overflow:hidden;border:1px solid #242424}
 .tz img{width:100%;height:100%;object-fit:cover;display:block;opacity:.78;transition:opacity .25s}
 .tz:hover img{opacity:1}
 .tz iframe{width:100%;height:100%;border:0;display:block}

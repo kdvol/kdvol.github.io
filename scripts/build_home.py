@@ -51,7 +51,7 @@ border:1px solid #232323;border-radius:12px}
 background:linear-gradient(180deg,rgba(255,255,255,0),#fff)}
 .nlwrap.open .fade{display:none}
 .expand{display:block;width:100%;margin-top:10px;padding:12px;background:#1a1a1a;
-border:1px solid #2c2c2c;border-radius:9px;color:#e8e3da;font-family:inherit;
+border:1px solid #2c2c2c;border-radius:12px;color:#e8e3da;font-family:inherit;
 font-size:.88rem;font-weight:700;cursor:pointer}
 .expand:hover{background:#222;border-color:#3a3a3a}
 /* 구역 설명 한 줄. 제목만 있으면 무슨 구역인지 안 잡힌다. */
@@ -69,7 +69,7 @@ color:#F07040;font-size:.83rem;font-weight:700}
 .more{display:inline-block;margin-top:16px;color:#F07040;font-size:.86rem;
 font-weight:700;text-decoration:none}
 .more:hover{text-decoration:underline}
-.arch{display:grid;gap:1px;background:#1c1c1c;border:1px solid #1c1c1c;border-radius:10px;
+.arch{display:grid;gap:1px;background:#1c1c1c;border:1px solid #1c1c1c;border-radius:12px;
 overflow:hidden}
 .arch a{display:flex;gap:12px;align-items:baseline;background:#141414;padding:12px 14px;
 text-decoration:none;color:#b8b2a8;font-size:.87rem}
@@ -77,7 +77,7 @@ text-decoration:none;color:#b8b2a8;font-size:.87rem}
 .arch .d{flex:0 0 auto;color:#6f6a60;font-size:.76rem;font-variant-numeric:tabular-nums}
 .arch .t{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .ch{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
-.ch a{background:#151515;border:1px solid #232323;border-radius:10px;padding:14px 15px;
+.ch a{background:#151515;border:1px solid #232323;border-radius:12px;padding:14px 15px;
 text-decoration:none;color:#e8e3da}
 .ch a:hover{border-color:#3a3a3a}
 .ch b{display:block;font-size:.92rem;font-weight:700;letter-spacing:-.02em}
