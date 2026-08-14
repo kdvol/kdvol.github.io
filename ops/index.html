@@ -333,6 +333,51 @@ let FILT='all';
 // ★ 정렬 (KD 2026-08-13 "컬럼 sorting 기능 필요"). 표는 정렬이 되어야 표다 —
 //   「도달 높은 순」·「예정 빠른 순」을 못 보면 100건짜리 표는 그냥 목록이다.
 let SORT={key:null, dir:-1};
+// ★ **형태로 먼저 가른다** (KD 2026-08-14 "콘텐츠 형태별/채널별로 나눠서 분류/관리").
+//   127건을 한 표에 쏟으면 한눈에 안 들어온다. 형태를 고르면 그 형태만 남는다.
+let FMT='전체';
+const FMTLABEL={chart:'순살브리핑 영상', reel:'순살릴스', carousel:'영상 캐러셀', cardnews:'카드뉴스'};
+function setFmt(f){ FMT=f; render(); }
+
+function fmtBar(items){
+  const n={}; items.forEach(it=>{ const f=it.format||'cardnews'; n[f]=(n[f]||0)+1; });
+  const chips=[['전체',items.length]].concat(Object.keys(FMTLABEL).filter(f=>n[f])
+      .map(f=>[f,n[f]]));
+  return `<div class="fmt">${chips.map(([f,c])=>
+    `<button class="${FMT===f?'on':''}" onclick="setFmt('${f}')">${f==='전체'?'전체':FMTLABEL[f]}<span class="n">${c}</span></button>`
+  ).join('')}</div>`;
+}
+
+// 형태 × 채널 — 숫자를 화면에서 세지 않게 미리 센 것을 그대로 편다
+function gridSummary(){
+  const g=DATA.meta.grid||{}, order=DATA.meta.chOrder||[];
+  const CHN={ig_carousel:'IG 캐러셀', ig_reel:'IG 릴스', yt_shorts:'YT 숏츠', threads:'쓰레드', web:'웹'};
+  const ST=['scheduled','review_ready','in_production','published'];
+  const keys=Object.keys(g);
+  if(!keys.length) return '';
+  return `<div class="mx grid"><table>
+    <thead><tr><th style="text-align:left">형태</th><th>전체</th>
+      ${ST.map(k=>`<th>${STATUS[k]||k}</th>`).join('')}
+      ${order.map(c=>`<th>${CHN[c]||c}</th>`).join('')}</tr></thead>
+    <tbody>${keys.map(k=>{
+      const v=g[k];
+      return `<tr><td class="l"><b>${v.label}</b></td><td><b>${v.total}</b></td>
+        ${ST.map(x=>`<td>${v.status[x]?v.status[x]:'<span class="dim">·</span>'}</td>`).join('')}
+        ${order.map(c=>`<td>${v.channel[c]?v.channel[c]:'<span class="dim">·</span>'}</td>`).join('')}</tr>`;
+    }).join('')}</tbody></table></div>`;
+}
+
+// 폴더 안 산출물 — **있는 것만** 적는다. 탭하면 절대경로가 복사된다.
+function fileCell(it){
+  const fs=it.files||[];
+  if(!fs.length) return it.dir
+      ? `<span class="cp" onclick="copyPath(this,'${esc(it.dirAbs||it.dir)}')">${esc(it.dir)}</span>`
+      : '<span class="mid">폴더 미상</span>';
+  return `<div class="fl">${fs.map(f=>
+    `<span class="cp f" onclick="copyPath(this,'${esc(f.path)}')" title="${esc(f.path)} · ${f.kb}KB · ${f.at}">${f.label}</span>`
+  ).join('')}<span class="cp d" onclick="copyPath(this,'${esc(it.dirAbs||it.dir)}')" title="${esc(it.dirAbs||it.dir)}">폴더</span></div>`;
+}
+
 function sortBy(k){ SORT = SORT.key===k ? {key:k, dir:-SORT.dir} : {key:k, dir:-1}; render(); }
 function applySort(rows, get){
   if(!SORT.key) return rows;
@@ -348,7 +393,7 @@ const arrow=(k)=> SORT.key===k ? `<span class="ar">${SORT.dir>0?'▲':'▼'}</sp
 
 function matrix(items){
   const get=(it,k)=>({slug:it.slug, title:it.title||'', status:STATUS[it.status]||it.status,
-    kind:it.kind, when:it.target_epoch||it.date||'', review:(it.review||{}).verdict||'',
+    kind:it.kind, format:FMTLABEL[it.format]||'', when:it.target_epoch||it.date||'', review:(it.review||{}).verdict||'',
     gate:(it.gate||{}).preflight?((it.gate||{}).digest_ok===false?1:2):0,
     reach:(it.perf||{}).reach, saved:(it.perf||{}).saved,
     shares:(it.perf||{}).shares, views:(it.perf||{}).views}[k]);
@@ -364,14 +409,12 @@ function matrix(items){
       : (g.gate?'<span class="dim">착수만</span>':'<span class="dim">—</span>');
     const when = it.target_epoch ? whenStr(it.target_epoch) : (it.date||'');
     const late = it.late_h>0.5 ? ` <span class="mid">+${it.late_h.toFixed(0)}h</span>` : '';
-    const dir = it.dir
-      ? `<span class="cp" onclick="copyPath(this,'${esc(it.dir)}')" title="탭하면 경로 복사">${esc(it.dir)}</span>`
-      : '<span class="mid">폴더 미상</span>';
+    const dir = fileCell(it);
     return `<tr>
       <td class="name" title="${esc(it.slug)}">${esc(it.slug)}</td>
       <td class="tt2" title="${esc(it.title||'')}">${esc(it.title||'—')}</td>
       <td class="l"><span class="st ${it.status}">${STATUS[it.status]||it.status}</span></td>
-      <td class="l dim">${it.kind==='cardnews'?'카드뉴스':it.kind==='single_video'?'영상':esc(it.kind)}</td>
+      <td class="l dim">${esc(FMTLABEL[it.format]||it.kind||'')}</td>
       <td class="l">${ch}</td>
       <td>${esc(when)}${late}</td>
       <td class="l">${review}</td>
@@ -384,11 +427,11 @@ function matrix(items){
   const H=(k,label,left)=>`<th class="s" ${left?'style="text-align:left"':''} onclick="sortBy('${k}')">${label}${arrow(k)}</th>`;
   return `<div class="mx"><table>
     <thead><tr>
-      ${H('slug','슬러그',1)}${H('title','제목',1)}${H('status','상태',1)}${H('kind','종류',1)}
+      ${H('slug','슬러그',1)}${H('title','제목',1)}${H('status','상태',1)}${H('format','형태',1)}
       <th style="text-align:left">캐·릴·YT·웹</th>${H('when','일정')}
       ${H('review','검수',1)}${H('gate','관문',1)}
       ${H('reach','도달')}${H('saved','저장')}${H('shares','공유')}${H('views','조회')}
-      <th style="text-align:left">폴더 (탭 = 복사)</th>
+      <th style="text-align:left">파일 (탭 = 경로 복사)</th>
     </tr></thead>
     <tbody>${rows.map(row).join('')}</tbody></table></div>`;
 }
@@ -404,7 +447,7 @@ function postMatrix(rows){
     <thead><tr>
       ${H('slug','슬러그',1)}${H('title','제목',1)}${H('channel','채널',1)}${H('date','발행일')}
       ${H('노출','노출')}${H('저장','저장')}${H('공유','공유')}${H('좋아요','좋아요')}${H('댓글','댓글')}
-      <th style="text-align:left">폴더 (탭 = 복사)</th>
+      <th style="text-align:left">파일 (탭 = 경로 복사)</th>
     </tr></thead>
     <tbody>${list.map(r=>`<tr>
       <td class="name" title="${esc(r.slug)}">${esc(r.slug)}</td>
@@ -483,6 +526,7 @@ function render(){
     </table></div>`;
   }
   else if(TAB==='발행'){
+    // 형태 필터는 발행 탭에도 건다 — 채널별 지표를 형태 안에서 견줘야 뜻이 있다
     let rows=D.posts||[];
     if(FILT!=='all') rows=rows.filter(r=>r.kind===FILT);
     const kinds=[['all','전체'],['cardnews','카드뉴스'],['single_video','영상']];
@@ -524,15 +568,16 @@ function render(){
   else{
     const want=TAB==='예약'?['scheduled']:TAB==='발행'?['published']
       :['in_production','review_ready','review_stale','gated','ambiguous','planning'];
-    let its=D.items.filter(i=>want.includes(i.status));
-    if(FILT!=='all') its=its.filter(i=>i.kind===FILT);
+    let pool=D.items.filter(i=>want.includes(i.status));
+    let its = FMT==='전체' ? pool : pool.filter(i=>(i.format||'cardnews')===FMT);
     if(TAB==='예약') its.sort((a,b)=>(a.target_epoch||0)-(b.target_epoch||0));
     else its.sort((a,b)=>String(b.date||'').localeCompare(String(a.date||'')));
-    const kinds=[['all','전체'],['cardnews','카드뉴스'],['single_video','영상']];
-    v.innerHTML=`<div class="filt">${kinds.map(([k,l])=>
-        `<button class="${FILT===k?'on':''}" onclick="FILT='${k}';render()">${l}</button>`).join('')}
-        <span style="margin-left:auto;color:var(--tx3);font-size:12px;align-self:center">
-        ${its.length}건</span></div>`
+    const linked=its.filter(i=>(i.files||[]).length).length;
+    v.innerHTML = (TAB==='예약'?gridSummary():'')
+      + fmtBar(pool)
+      + `<div class="sub" style="margin:2px 2px 8px">${its.length}건 · 파일 연결 ${linked}건`
+      + (its.length-linked ? ` · <span style="color:var(--amb)">폴더 미상 ${its.length-linked}건</span>` : '')
+      + `</div>`
       + (its.length?matrix(its):'<div class="empty">해당 없음</div>');
   }
 }
@@ -540,5 +585,24 @@ function render(){
 (async()=>{ const s=localStorage.getItem(KEY);
   if(s){ try{ await boot(s); }catch(e){ localStorage.removeItem(KEY); } } })();
 </script>
+<style>
+/* ★ 형태 필터·파일 칩 — **스타일시트 맨 뒤**에 둔다.
+   앞에 두었더니 본문 규칙이 덮어 「전체」 칩이 투명해졌다(2026-08-14 실측). */
+#app .fmt{display:flex;gap:6px;flex-wrap:nowrap;overflow-x:auto;margin:10px 0 6px;
+  padding-bottom:2px;-webkit-overflow-scrolling:touch}
+#app .fmt::-webkit-scrollbar{display:none}
+#app .fmt button{flex:0 0 auto;background:var(--card2);border:1px solid var(--line);color:var(--tx2);
+  border-radius:999px;padding:6px 12px;font-size:12.5px;font-weight:700;cursor:pointer}
+#app .fmt button.on{background:var(--or);border-color:var(--or);color:#120d0a}
+#app .fmt .n{margin-left:6px;opacity:.7;font-variant-numeric:tabular-nums}
+#app .mx.grid table{font-size:12px}
+#app .mx.grid td,#app .mx.grid th{text-align:center;padding:7px 9px;white-space:nowrap}
+#app .mx.grid td:first-child,#app .mx.grid th:first-child{text-align:left}
+/* 파일 칩은 **한 줄로 유지**한다. 줄바꿈하면 행이 70px 로 부풀어 표가 안 읽힌다. */
+#app .fl{display:flex;gap:4px;flex-wrap:nowrap;white-space:nowrap}
+#app .fl .cp{font-size:11px;padding:2px 7px;border-radius:5px;background:var(--card2);
+  border:1px solid var(--line);white-space:nowrap}
+#app .fl .cp.d{opacity:.6}
+</style>
 </body>
 </html>

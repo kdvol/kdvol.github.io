@@ -12,12 +12,12 @@
 <rect x="352.5" y="564.0" width="144" height="36" rx="18" fill="#FAFAF7"/>
 <text x="424.5" y="591.0" text-anchor="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="18" fill="#8B4B2C">누적된 체감</text>
 </g>
-<g class="motion-step motion-edge" data-motion-step="3" style="--motion-delay:4080ms">
+<g class="motion-step motion-edge" data-motion-step="3" style="--motion-delay:5440ms">
 <path d="M 771.0 188.0 C 771.0 439.0, 771.0 439.0, 771.0 682.0" fill="none" stroke="#F07040" stroke-width="4" marker-end="url(#arrow)"/>
 <rect x="699.0" y="409.0" width="144" height="36" rx="18" fill="#FAFAF7"/>
 <text x="771.0" y="436.0" text-anchor="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="18" fill="#8B4B2C">지표는 진정</text>
 </g>
-<g class="motion-step motion-edge" data-motion-step="3" style="--motion-delay:3400ms">
+<g class="motion-step motion-edge" data-motion-step="3" style="--motion-delay:4080ms">
 <path d="M 540.0 498.0 C 540.0 594.0, 771.0 594.0, 771.0 682.0" fill="none" stroke="#F07040" stroke-width="4" stroke-dasharray="12 10" marker-end="url(#arrow)"/>
 <rect x="583.5" y="564.0" width="144" height="36" rx="18" fill="#FAFAF7"/>
 <text x="655.5" y="591.0" text-anchor="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="18" fill="#8B4B2C">체감은 그대로</text>
@@ -36,11 +36,11 @@
 <rect class="motion-node-shape" x="160.0" y="380.0" width="760.0" height="118" rx="22" fill="#FFFFFF" stroke="#E0DDD5" stroke-width="3" filter="url(#shadow)"/>
 <text x="540.0" y="439.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="700" fill="#222222">충격이 지나도 값은 안 내림</text>
 </g>
-<g class="motion-step motion-node" data-motion-step="4" style="--motion-delay:4760ms;--motion-accent-delay:5400ms">
+<g class="motion-step motion-node" data-motion-step="4" style="--motion-delay:3400ms;--motion-accent-delay:4040ms">
 <rect class="motion-node-shape" x="94.0" y="690.0" width="430.0" height="118" rx="22" fill="#FFFFFF" stroke="#E0DDD5" stroke-width="3" filter="url(#shadow)"/>
 <text x="309.0" y="749.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="700" fill="#222222">생활비가 최대 정치 쟁점</text>
 </g>
-<g class="motion-step motion-node motion-risk" data-motion-step="4" style="--motion-delay:5440ms;--motion-accent-delay:6080ms">
+<g class="motion-step motion-node motion-risk" data-motion-step="4" style="--motion-delay:4760ms;--motion-accent-delay:5400ms">
 <rect class="motion-node-shape" x="556.0" y="690.0" width="430.0" height="118" rx="22" fill="#FFF4EF" stroke="#F07040" stroke-width="3" filter="url(#shadow)"/>
 <text x="771.0" y="749.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="700" fill="#222222">지표와 체감이 갈라짐</text>
 </g>
