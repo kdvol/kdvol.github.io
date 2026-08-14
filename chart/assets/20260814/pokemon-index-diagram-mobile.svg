@@ -17,7 +17,7 @@
 <rect x="267.5" y="573.0" width="185" height="34" rx="17" fill="#FAFAF7"/>
 <text x="360.0" y="596.0" text-anchor="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="22" font-weight="800" fill="#8B4B2C">개인 쪽 흐름</text>
 </g>
-<g class="motion-step motion-edge" data-motion-step="5" data-from="D" data-to="E" style="--motion-delay:4760ms">
+<g class="motion-step motion-edge" data-motion-step="5" data-from="D" data-to="E" style="--motion-delay:5440ms">
 <path d="M 522.0 130.0 C 676.0 200.7, 676.0 579.3, 360.0 642.0" fill="none" stroke="#F07040" stroke-width="4.5" marker-end="url(#arrow)"/>
 <rect x="511.0" y="573.0" width="185" height="34" rx="17" fill="#FAFAF7"/>
 <text x="603.5" y="596.0" text-anchor="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="22" font-weight="800" fill="#8B4B2C">기관 쪽 흐름</text>
@@ -40,7 +40,7 @@
 <rect class="motion-node-shape" x="60.0" y="448.0" width="600.0" height="86" rx="20" fill="#FFFFFF" stroke="#DCD8CF" stroke-width="3" filter="url(#shadow)"/>
 <text x="360.0" y="491.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="800" fill="#222222">되팔기 거래 사상 최대</text>
 </g>
-<g class="motion-step motion-node motion-risk" data-motion-step="6" style="--motion-delay:5440ms;--motion-accent-delay:6080ms">
+<g class="motion-step motion-node motion-risk" data-motion-step="6" style="--motion-delay:4760ms;--motion-accent-delay:5400ms">
 <rect class="motion-node-shape" x="60.0" y="650.0" width="600.0" height="86" rx="20" fill="#FFF4EF" stroke="#F07040" stroke-width="3" filter="url(#shadow)"/>
 <text x="360.0" y="693.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="800" fill="#222222">개인은 나가고 기관은 들어옴</text>
 </g>
