@@ -1,6 +1,8 @@
 {
   "type": "single_video",
   "video": "_publish/sv/chart20260814/reel.mp4",
+  "source": "/Users/soonsal/soonsal-reels/output/chart_20260814/reel.mp4",
+  "source_sha256": "26138329a89584b2a7f7e94ebd8dedb64ef586d230c29ed43e1da1a71af468b0",
   "caption_txt": "_publish/sv/chart20260814/POST.txt",
   "post_txt": "_publish/sv/chart20260814/POST.txt",
   "prefix": "sv/2026/0815_chart20260814",
