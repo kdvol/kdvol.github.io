@@ -185,8 +185,7 @@ def build():
 {build_nav.FONT_LINK}
 <style>{CSS}{build_nav.HEADER_CSS}</style></head><body>
 {build_nav.header_html("/saved/")}<div class="wrap">
-<h1>내가 모은 스토리</h1>
-<p class="sub">반응을 남기거나 한마디를 쓴 스토리가 여기 쌓입니다.</p>
+{build_nav.section_head("/saved/")}
 <div class="bar" id="bar"></div>
 <div id="app"><div class="empty">불러오는 중…</div></div>
 <p class="fine">로그인이 없어서 <b>이 브라우저에만</b> 저장됩니다.

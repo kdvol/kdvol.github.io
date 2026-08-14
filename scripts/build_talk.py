@@ -515,8 +515,7 @@ def build(atoms=None):
 {nav}
 <div class="wrap">
 <div class="hd">
-<h1>순살톡<span class="live"><b></b>실시간</span></h1>
-<p class="sub">브리핑을 읽다 남긴 한 줄이 회차 상관없이 여기 모입니다.</p>
+{build_nav.section_head("/talk/", extra='<span class="live"><b></b>실시간</span>')}
 </div>
 <div id="app"><div class="empty">불러오는 중…</div></div>
 </div>

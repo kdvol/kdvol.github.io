@@ -191,6 +191,50 @@ def _fill_cols(css):
 NAV_CSS = _fill_cols(NAV_CSS)
 NAV_ENHANCEMENT_CSS = _fill_cols(NAV_ENHANCEMENT_CSS)
 
+
+# ── 섹션 머리 ────────────────────────────────────────────────
+# 섹션마다 제목 구성이 달랐다. 킥커가 있는 곳과 없는 곳이 섞였고,
+# 말투도 "여기 모입니다"(합쇼체)와 "바로 봄"(음슴체)이 같이 있었다.
+# 제목은 nav 라벨을 그대로 쓴다 — /saved/ 는 nav 가 "내가 모은 글"인데
+# 페이지만 "내가 모은 스토리"였다.
+#
+# 두 종류를 구분한다:
+#   아카이브·도구 — 킥커 + 짧은 이름 + 한 줄
+#   랜딩(스쿨·유튜브·협업) — 킥커에 섹션명, 제목은 문장형
+# 설명은 전부 음슴체로 맞춘다. 본문이 음슴체인데 섹션 설명만 합쇼체면
+# 같은 사이트로 안 읽힌다.
+SECTION_HEAD = {
+    "/chart/":      ("날짜별 시장 정리", "순살차트", "날짜를 고르고, 궁금한 주제부터 바로 봄"),
+    "/talk/":       ("독자들이 남긴 한 줄", "순살톡", "브리핑을 읽다 남긴 한마디가 회차 상관없이 여기 모임"),
+    "/saved/":      ("이 브라우저에만 저장됨", "내가 모은 글", "반응을 남기거나 한마디를 쓴 스토리가 여기 쌓임"),
+    "/search/":     ("전체에서 찾기", "검색", "제목·주제·등장 대상으로 브리핑을 찾음"),
+    "/topics/":     ("주제로 모아보기", "주제별", "스토리를 주제·기업·인물로 묶어 둠"),
+    "/newsletters/":("매일 아침 배달", "뉴스레터", "밤새 시장에서 일어난 일을 아침에 한 번에 봄"),
+}
+
+SECTION_CSS = """
+.sec-head{margin:0 0 26px}
+.sec-kicker{display:flex;align-items:center;gap:9px;margin:0 0 12px;color:#F59B75;
+font-size:11px;font-weight:800;letter-spacing:.08em}
+.sec-kicker::before{content:"";width:22px;height:2px;background:#F07040;border-radius:2px;flex:0 0 auto}
+.sec-head h1{margin:0;font-size:1.62rem;font-weight:800;letter-spacing:-.03em;
+line-height:1.25;color:#fff;word-break:keep-all}
+.sec-head .deck{margin:10px 0 0;color:#8b8578;font-size:.92rem;line-height:1.65;word-break:keep-all}
+@media(max-width:560px){.sec-head h1{font-size:1.42rem}}
+"""
+
+
+def section_head(path: str, deck: str | None = None, extra: str = "") -> str:
+    """섹션 머리를 한 모양으로 낸다. 없는 경로면 빈 문자열."""
+    item = SECTION_HEAD.get(path)
+    if not item:
+        return ""
+    kicker, title, default_deck = item
+    text = deck or default_deck
+    return (f'<div class="sec-head"><div class="sec-kicker">{kicker}</div>'
+            f'<h1>{title}{extra}</h1><p class="deck">{text}</p></div>')
+
+
 HEADER_CSS = """
 .site-header{padding:26px 20px 18px;border-bottom:1px solid #222;display:flex;justify-content:center;position:relative;background:#111}
 .logo-link{display:flex;align-items:center;gap:10px;text-decoration:none;color:#fff}
@@ -199,10 +243,11 @@ HEADER_CSS = """
 .logo-link img,.logo-icon{height:32px;width:auto}
 .logo-text{font-size:22px;font-weight:800;letter-spacing:-0.5px;font-family:'DM Sans','Apple SD Gothic Neo',sans-serif}
 .sub-btn-header{position:absolute;right:max(16px,calc(50% - 400px));top:50%;transform:translateY(-50%);
-background:#E55A00;color:#fff;padding:8px 18px;border-radius:6px;font-size:13px;font-weight:700;text-decoration:none;white-space:nowrap}
+background:#C24A00;color:#fff;padding:9px 18px;border-radius:999px;font-size:13px;font-weight:800;text-decoration:none;white-space:nowrap;transition:background .18s ease}
+.sub-btn-header:hover{background:#A83F00}
 @media(max-width:560px){.sub-btn-header{display:none}}
 .crumb{color:#F07040;font-size:.88rem;display:inline-block;margin-bottom:14px;text-decoration:none}
-""" + SEARCH_CSS + NAV_CSS
+""" + SEARCH_CSS + NAV_CSS + SECTION_CSS
 
 # 아이콘 선언이 아예 없어서 브라우저가 관례로 /favicon.ico 만 집어갔다.
 # SVG 를 선언해야 또렷하게 나오고, 그 안에서 다크모드 전환도 된다.

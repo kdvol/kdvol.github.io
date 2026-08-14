@@ -63,9 +63,9 @@ CSS = """
 
 /* 머리 */
 .ph{margin-bottom:30px;padding-bottom:26px;border-bottom:1px solid #1e1e1e}
-.ph .ey{font-size:.7rem;font-weight:800;letter-spacing:.12em;color:#F07040;
-text-transform:uppercase;margin-bottom:12px}
-.ph h1{font-size:2.1rem;font-weight:800;letter-spacing:-.04em;line-height:1.22;
+.ph .ey{display:flex;align-items:center;gap:9px;font-size:11px;font-weight:800;letter-spacing:.08em;color:#F59B75;margin-bottom:12px}
+.ph .ey::before{content:"";width:22px;height:2px;background:#F07040;border-radius:2px;flex:0 0 auto}
+.ph h1{font-size:1.62rem;font-weight:800;letter-spacing:-.04em;line-height:1.22;
 margin:0 0 12px;color:#f5f2ea}
 .ph p{margin:0;color:#8b8578;font-size:.93rem;line-height:1.75;max-width:50ch}
 
@@ -163,7 +163,7 @@ font-size:.82rem;font-weight:800;white-space:nowrap;transition:background .15s;f
 padding-top:26px;border-top:1px solid #1a1a1a;text-align:center}
 @media(max-width:640px){
  .sc{padding:26px 15px 74px}
- .ph h1{font-size:1.62rem}
+ .ph h1{font-size:1.42rem}
  .grid{grid-template-columns:1fr;gap:14px}
  .card.hero h3{font-size:1.42rem}
  .card h3{font-size:1.18rem}
@@ -290,10 +290,10 @@ def build(courses=None):
         for v in CAPTAINS.values())
 
     body = f"""<div class="ph">
-<div class="ey">Soonsal School</div>
+<div class="ey">순살 스쿨</div>
 <h1>현업에 있는 사람에게<br>직접 듣는 금융 커리어</h1>
 <p>홍콩·한국의 투자은행과 헤지펀드에서 지금도 일하고 있는 캡틴들이,
-검색으로는 나오지 않는 것만 골라 알려드립니다.</p>
+검색으로는 안 나오는 것만 골라 알려줌</p>
 </div>
 <div class="caps">{caps}</div>"""
 

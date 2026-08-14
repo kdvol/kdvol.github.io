@@ -59,7 +59,7 @@ __HEADER__<div class="wrap">
 <script>(function(){var b=document.getElementById('ssback');
 if(document.referrer.indexOf(location.origin)===0&&history.length>1){
 b.addEventListener('click',function(e){e.preventDefault();history.back();});}})();</script>
-<h1>검색</h1>
+__SECTION_HEAD__
 <input id="q" type="search" placeholder="주제·기업·인물·키워드 (예: 엔비디아, 커버드콜, 파월)" autofocus autocomplete="off">
 <div class="hint">브리핑 <span id="total">0</span>건을 제목·주제·등장 대상으로 검색합니다.</div>
 <div class="chips" id="suggest"></div>
@@ -145,6 +145,7 @@ def build(atoms=None):
     html = (PAGE.replace("__BASE__", BASE)
             .replace("__FONTS__", build_nav.FONT_LINK)
             .replace("__HEADER_CSS__", build_nav.HEADER_CSS)
+            .replace("__SECTION_HEAD__", build_nav.section_head("/search/"))
             .replace("__HEADER__", build_nav.header_html(None))
             .replace("__SUG__", json.dumps(sug, ensure_ascii=False))
             .replace("__QUICK__", json.dumps(quick, ensure_ascii=False, separators=(",", ":"))))

@@ -69,10 +69,11 @@ CSS = """
 
 /* 페이지 머리 — nav와 붙지 않게 여백을 두고, 배경은 사이트와 같은 #111 */
 .ph{margin-bottom:30px}
-.ph .ey{font-size:.72rem;font-weight:700;letter-spacing:.09em;color:#F07040;
-text-transform:uppercase;margin-bottom:9px}
-.ph h1{font-size:1.72rem;font-weight:800;letter-spacing:-.03em;margin:0 0 9px;
+.ph .ey{display:flex;align-items:center;gap:9px;font-size:11px;font-weight:800;letter-spacing:.08em;color:#F59B75;margin-bottom:12px}
+.ph .ey::before{content:"";width:22px;height:2px;background:#F07040;border-radius:2px;flex:0 0 auto}
+.ph h1{font-size:1.62rem;font-weight:800;letter-spacing:-.03em;margin:0 0 9px;
 line-height:1.28;color:#f0ede6}
+@media(max-width:560px){.ph h1{font-size:1.42rem}}
 .ph p{margin:0;color:#8b8578;font-size:.93rem;line-height:1.7;max-width:52ch}
 .ph .go{display:inline-block;margin-top:15px;border:1px solid #333;border-radius:12px;
 padding:9px 16px;font-size:.84rem;font-weight:700;color:#eee;transition:.15s}
@@ -232,9 +233,9 @@ def build(nav_html=None):
     OUT.mkdir(exist_ok=True)
 
     body = """<div class="ph">
-<div class="ey">순살 YouTube</div>
+<div class="ey">순살 유튜브</div>
 <h1>보면서 이해하는<br>글로벌 금융</h1>
-<p>매일 1분 숏츠로 오늘의 시장을, 긴 영상으로는 커리어와 산업의 맥락을 다룹니다.</p>
+<p>매일 1분 숏츠로 오늘의 시장을, 긴 영상으로는 커리어와 산업의 맥락을 다룸</p>
 <a class="go" href="https://www.youtube.com/@soonsal?sub_confirmation=1"
  target="_blank" rel="noopener">채널 구독하기</a>
 </div>"""

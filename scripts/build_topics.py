@@ -212,8 +212,8 @@ def main(atoms=None):
     hub = (head("주제별 브리핑 — 순살브리핑",
                 "크립토·AI·반도체·연준 등 주제로, 그리고 엔비디아·비트코인·연준 등 기업·인물·자산으로 "
                 "모아 보는 순살브리핑. 뉴스레터를 스토리 단위로 분류.", canonical, ld)
-           + f'<h1>주제별 브리핑</h1><p class="sub">스토리 {len(atoms)}건 · '
-             f'{len(built)}개 주제 · {n_ents}개 대상</p>'
+           + __import__('build_nav').section_head('/topics/',
+               f'스토리 {len(atoms)}건을 {len(built)}개 주제와 {n_ents}개 대상으로 묶어 둠')
            + f'<a class="searchbar" href="/search/" style="color:#666">🔍 주제·기업·인물·키워드 검색…</a>'
            + '<div class="lbl">🔥 지금 뜨는 <span class="lbl-s">최근 2주 기준, 매일 갱신</span></div>'
            + f'<div class="tags">{trend_html}</div>'
