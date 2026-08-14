@@ -1,47 +1,47 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1080" height="860" viewBox="0 0 1080 860" class="morning-diagram" data-motion-orientation="TB" data-motion-steps="5">
 <defs><filter id="shadow" x="-20%" y="-20%" width="140%" height="160%"><feDropShadow dx="0" dy="6" stdDeviation="8" flood-color="#111111" flood-opacity=".09"/></filter>
 <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#F07040"/></marker></defs>
-<rect width="1080" height="860" fill="#141210"/>
+<rect width="1080" height="860" fill="#0B0A09"/>
 <g class="motion-step motion-edge" data-motion-step="1" style="--motion-delay:680ms">
 <path d="M 540.0 188.0 C 540.0 284.0, 309.0 284.0, 309.0 372.0" fill="none" stroke="#F07040" stroke-width="4" marker-end="url(#arrow)"/>
-<rect x="352.5" y="254.0" width="144" height="36" rx="18" fill="#141210"/>
+<rect x="352.5" y="254.0" width="144" height="36" rx="18" fill="#0B0A09"/>
 <text x="424.5" y="281.0" text-anchor="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="18" fill="#F5A481">비용 상승</text>
 </g>
 <g class="motion-step motion-edge" data-motion-step="1" style="--motion-delay:2040ms">
 <path d="M 540.0 188.0 C 540.0 284.0, 771.0 284.0, 771.0 372.0" fill="none" stroke="#F07040" stroke-width="4" marker-end="url(#arrow)"/>
-<rect x="583.5" y="254.0" width="144" height="36" rx="18" fill="#141210"/>
+<rect x="583.5" y="254.0" width="144" height="36" rx="18" fill="#0B0A09"/>
 <text x="655.5" y="281.0" text-anchor="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="18" fill="#F5A481">진입 문턱</text>
 </g>
 <g class="motion-step motion-edge" data-motion-step="3" style="--motion-delay:3400ms">
 <path d="M 309.0 498.0 C 309.0 594.0, 309.0 594.0, 309.0 682.0" fill="none" stroke="#F07040" stroke-width="4" stroke-dasharray="12 10" marker-end="url(#arrow)"/>
-<rect x="237.0" y="564.0" width="144" height="36" rx="18" fill="#141210"/>
+<rect x="237.0" y="564.0" width="144" height="36" rx="18" fill="#0B0A09"/>
 <text x="309.0" y="591.0" text-anchor="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="18" fill="#F5A481">쏠림 제거</text>
 </g>
 <g class="motion-step motion-edge" data-motion-step="3" style="--motion-delay:4760ms">
 <path d="M 309.0 498.0 C 309.0 594.0, 771.0 594.0, 771.0 682.0" fill="none" stroke="#F07040" stroke-width="4" stroke-dasharray="12 10" marker-end="url(#arrow)"/>
-<rect x="468.0" y="564.0" width="144" height="36" rx="18" fill="#141210"/>
+<rect x="468.0" y="564.0" width="144" height="36" rx="18" fill="#0B0A09"/>
 <text x="540.0" y="591.0" text-anchor="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="18" fill="#F5A481">남는 질문</text>
 </g>
 <g class="motion-step motion-node" data-motion-step="0" style="--motion-delay:0ms;--motion-accent-delay:640ms">
-<rect class="motion-node-shape" x="160.0" y="70.0" width="760.0" height="118" rx="22" fill="#1C1917" stroke="#332E29" stroke-width="3" filter="url(#shadow)"/>
+<rect class="motion-node-shape" x="160.0" y="70.0" width="760.0" height="118" rx="22" fill="#332E26" stroke="#6B6156" stroke-width="3" filter="url(#shadow)"/>
 <text x="540.0" y="129.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="700" fill="#F5F2EC">현금 증거금 요건 인상</text>
 </g>
 <g class="motion-step motion-node" data-motion-step="2" style="--motion-delay:1360ms;--motion-accent-delay:2000ms">
-<rect class="motion-node-shape" x="94.0" y="380.0" width="430.0" height="118" rx="22" fill="#1C1917" stroke="#332E29" stroke-width="3" filter="url(#shadow)"/>
+<rect class="motion-node-shape" x="94.0" y="380.0" width="430.0" height="118" rx="22" fill="#332E26" stroke="#6B6156" stroke-width="3" filter="url(#shadow)"/>
 <text x="309.0" y="439.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="700" fill="#F5F2EC">레버리지 거래 급감</text>
 </g>
 <g class="motion-step motion-node" data-motion-step="2" style="--motion-delay:2720ms;--motion-accent-delay:3360ms">
-<rect class="motion-node-shape" x="556.0" y="380.0" width="430.0" height="118" rx="22" fill="#1C1917" stroke="#332E29" stroke-width="3" filter="url(#shadow)"/>
+<rect class="motion-node-shape" x="556.0" y="380.0" width="430.0" height="118" rx="22" fill="#332E26" stroke="#6B6156" stroke-width="3" filter="url(#shadow)"/>
 <text x="771.0" y="421.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="700" fill="#F5F2EC">신규 진입 시 모의거래</text>
 <text x="771.0" y="457.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="700" fill="#F5F2EC">5일</text>
 </g>
 <g class="motion-step motion-node" data-motion-step="4" style="--motion-delay:4080ms;--motion-accent-delay:4720ms">
-<rect class="motion-node-shape" x="94.0" y="690.0" width="430.0" height="118" rx="22" fill="#1C1917" stroke="#332E29" stroke-width="3" filter="url(#shadow)"/>
+<rect class="motion-node-shape" x="94.0" y="690.0" width="430.0" height="118" rx="22" fill="#332E26" stroke="#6B6156" stroke-width="3" filter="url(#shadow)"/>
 <text x="309.0" y="731.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="700" fill="#F5F2EC">변동성 80대에서</text>
 <text x="309.0" y="767.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="700" fill="#F5F2EC">55.28로</text>
 </g>
 <g class="motion-step motion-node motion-risk" data-motion-step="4" style="--motion-delay:5440ms;--motion-accent-delay:6080ms">
-<rect class="motion-node-shape" x="556.0" y="690.0" width="430.0" height="118" rx="22" fill="#2A1C15" stroke="#F07040" stroke-width="3" filter="url(#shadow)"/>
+<rect class="motion-node-shape" x="556.0" y="690.0" width="430.0" height="118" rx="22" fill="#4A2C1A" stroke="#F07040" stroke-width="3" filter="url(#shadow)"/>
 <text x="771.0" y="731.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="700" fill="#F5F2EC">개인 자금의 행선지는</text>
 <text x="771.0" y="767.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="700" fill="#F5F2EC">미확인</text>
 </g>
