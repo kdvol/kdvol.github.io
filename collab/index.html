@@ -30,13 +30,13 @@ position:relative;transition:border-color .18s}
 .scope .rng{font-size:.75rem;color:#c9c4ba;background:#1e1e1e;border:1px solid #2a2a2a;
 border-radius:6px;padding:6px 10px;display:inline-block}
 .more{color:#8b8578;font-size:.86rem;line-height:1.75;margin:14px 0 0;padding:13px 15px;
-background:#161616;border:1px solid #222;border-radius:10px}
+background:#161616;border:1px solid #222;border-radius:12px}
 /* 함께한 브랜드 — 8곳이 한 판에 고르게 놓이도록 격자로. 폭이 제각각인 칩을
    흘려두면 줄 끝이 들쭉날쭉해 정돈돼 보이지 않는다. */
 .brands{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:0 0 28px}
 .brands span{display:flex;align-items:center;justify-content:center;min-height:86px;
 padding:12px 14px;text-align:center;font-size:.86rem;font-weight:700;letter-spacing:-.02em;
-color:#3a3632;background:#f7f5f0;border:1px solid #e6e1d8;border-radius:11px;line-height:1.3}
+color:#3a3632;background:#f7f5f0;border:1px solid #e6e1d8;border-radius:12px;line-height:1.3}
 /* 폭은 로고마다 계산해 style로 박는다(logo_width). 여기서는 판을 넘지 않게만 막는다 */
 .brands span.lg{padding:12px 7px}
 .brands span.lg img{max-width:97%;height:auto;display:block}
@@ -47,7 +47,7 @@ color:#3a3632;background:#f7f5f0;border:1px solid #e6e1d8;border-radius:11px;lin
 .cases{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
 .case{display:flex;gap:14px;background:#161616;border:1px solid #232323;border-radius:12px;
 padding:15px 16px}
-.case .th{flex:0 0 auto;width:62px;height:62px;border-radius:9px;object-fit:cover;
+.case .th{flex:0 0 auto;width:62px;height:62px;border-radius:12px;object-fit:cover;
 background:#f7f5f0;border:1px solid #242424;padding:0}
 .case img.th[src*="/logo-"]{object-fit:contain;padding:9px;background:#f7f5f0}
 /* 로고 파일이 없는 곳은 글자로 채운다. 자리를 비우면 행 높이가 어긋나고,
@@ -68,7 +68,7 @@ h1{font-size:1.8rem;letter-spacing:-.03em;margin-bottom:12px;line-height:1.35}
 .kicker{color:#F07040;font-size:.78rem;font-weight:700;letter-spacing:.12em;margin-bottom:10px}
 h2{font-size:1.06rem;margin:0 0 12px;letter-spacing:-.01em}
 section{margin:38px 0}
-.card{background:#161616;border:1px solid #232323;border-radius:13px;padding:20px 22px}
+.card{background:#161616;border:1px solid #232323;border-radius:12px;padding:20px 22px}
 .card+.card{margin-top:10px}
 ul{list-style:none;margin:0}
 li{position:relative;padding-left:17px;margin:9px 0;color:#bbb;font-size:.93rem;line-height:1.7}
@@ -87,18 +87,18 @@ justify-content:center;top:.2em;border:1px solid #F0704055}
 /* 소개 안내. CTA만큼 세게 잡으면 본 문의를 흐린다 — 한 단 낮춘 톤으로 그 위에 둔다 */
 .ref{background:#151413;border:1px solid #2a2724;border-radius:12px;padding:18px 20px;margin-top:30px;
 display:flex;gap:14px;align-items:flex-start}
-.ref .ic{flex:0 0 auto;width:34px;height:34px;border-radius:9px;background:#F0704018;
+.ref .ic{flex:0 0 auto;width:34px;height:34px;border-radius:12px;background:#F0704018;
 border:1px solid #F0704040;display:flex;align-items:center;justify-content:center;font-size:1rem}
 .ref h3{font-size:.95rem;margin:1px 0 6px;color:#e8e3da}
 .ref p{color:#8f8981;font-size:.87rem;line-height:1.7;margin:0}
 .ref a{color:#F07040;font-weight:700;text-decoration:none}
 .ref a:hover{text-decoration:underline}
-.cta{background:linear-gradient(180deg,#1c1a17,#161514);border:1px solid #3a2b20;border-radius:14px;
+.cta{background:linear-gradient(180deg,#1c1a17,#161514);border:1px solid #3a2b20;border-radius:12px;
 padding:26px 22px;text-align:center;margin-top:36px}
 .cta h2{font-size:1.15rem;margin-bottom:8px}
 .cta p{color:#aaa;font-size:.92rem;margin-bottom:18px}
 .btn{display:inline-block;background:#E55A00;color:#fff;font-weight:700;padding:14px 30px;
-border-radius:9px;font-size:1rem;letter-spacing:-.01em}
+border-radius:12px;font-size:1rem;letter-spacing:-.01em}
 .btn:hover{background:#cc4e00}
 .mail{display:block;margin-top:12px;color:#F07040;font-size:.9rem}
 .tagline{color:#666;font-size:.82rem;margin-top:28px;text-align:center;line-height:1.8}
@@ -110,12 +110,12 @@ border-radius:9px;font-size:1rem;letter-spacing:-.01em}
 .logo-link img,.logo-icon{height:32px;width:auto}
 .logo-text{font-size:22px;font-weight:800;letter-spacing:-0.5px;font-family:'DM Sans','Apple SD Gothic Neo',sans-serif}
 .sub-btn-header{position:absolute;right:max(16px,calc(50% - 400px));top:50%;transform:translateY(-50%);
-background:#E55A00;color:#fff;padding:8px 18px;border-radius:6px;font-size:13px;font-weight:700;text-decoration:none;white-space:nowrap}
+background:#C24A00;color:#fff;padding:9px 18px;border-radius:999px;font-size:13px;font-weight:800;text-decoration:none;white-space:nowrap}
 @media(max-width:560px){.sub-btn-header{display:none}}
 .crumb{color:#F07040;font-size:.88rem;display:inline-block;margin-bottom:14px;text-decoration:none}
 
 .sub-btn-header{position:absolute;right:max(16px,calc(50% - 400px));top:50%;transform:translateY(-50%);
-background:#E55A00;color:#fff;padding:8px 18px;border-radius:6px;font-size:13px;font-weight:700;
+background:#C24A00;color:#fff;padding:9px 18px;border-radius:999px;font-size:13px;font-weight:800;
 text-decoration:none;white-space:nowrap}
 @media(max-width:560px){.sub-btn-header{display:none}}
 .search-btn-header{position:absolute;right:max(16px,calc(50% - 400px));top:50%;transform:translateY(-50%);
