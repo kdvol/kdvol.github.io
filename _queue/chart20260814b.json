@@ -1,0 +1,19 @@
+{
+  "type": "single_video",
+  "video": "_publish/sv/chart20260814b/reel.mp4",
+  "caption_txt": "_publish/sv/chart20260814b/POST.txt",
+  "post_txt": "_publish/sv/chart20260814b/POST.txt",
+  "prefix": "sv/2026/0814_chart20260814b",
+  "instagram": true,
+  "youtube": true,
+  "youtube_title": "",
+  "name": "chart20260814b",
+  "date": "20260814",
+  "target_epoch": 1786711500,
+  "dry_run": false,
+  "reviewed": {
+    "by": "KD",
+    "at": "2026-08-14T14:02:23",
+    "verbatim": "엔화 14일 (하루 3개 올리는거니, 식품값 시간도 조절 필요할듯 대략 균등 배분하게), 포켓몬 15일로 예약"
+  }
+}
