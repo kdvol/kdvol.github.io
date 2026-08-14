@@ -6,7 +6,7 @@
   "caption_txt": "_publish/sv/chart20260814e/POST.txt",
   "post_txt": "_publish/sv/chart20260814e/POST.txt",
   "prefix": "sv/2026/0816_chart20260814e",
-  "instagram": true,
+  "instagram": false,
   "youtube": true,
   "youtube_title": "",
   "name": "chart20260814e",
@@ -17,5 +17,6 @@
     "by": "KD",
     "at": "2026-08-14T18:31:22",
     "verbatim": "레이커스, 염소는 각각 16, 17에 예약"
-  }
+  },
+  "_ig_off_why": "KD 2026-08-14 「1번으로 가자 - IG 빼고 유튜브만」 — 릴스 계정이 정해지기 전까지 IG 발행을 끈다. 지금 켜면 전부 soonsal.brief 로 간다."
 }
