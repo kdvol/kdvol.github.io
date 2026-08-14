@@ -45,6 +45,6 @@
 <rect class="motion-node-shape" x="60.0" y="650.0" width="600.0" height="86" rx="20" fill="#2A1C15" stroke="#F07040" stroke-width="3" filter="url(#shadow)"/>
 <text x="360.0" y="693.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="800" fill="#F5F2EC">6월 말 고점 대비 약 25% 아래</text>
 </g>
-<line x1="40" y1="812" x2="680" y2="812" stroke="{DIA["rule"]}" stroke-width="2"/>
-<text x="40" y="844" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="20" fill="{DIA["muted"]}">실선 = 확인된 연결 · 점선 = 해석/영향 경로</text>
+<line x1="40" y1="812" x2="680" y2="812" stroke="#2A2724" stroke-width="2"/>
+<text x="40" y="844" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="20" fill="#7C756C">실선 = 확인된 연결 · 점선 = 해석/영향 경로</text>
 </svg>
