@@ -1,20 +1,22 @@
 {
- "type": "single_video",
- "video": "_publish/sv/boss/reel.mp4",
- "caption_txt": "_publish/sv/boss/POST.txt",
- "post_txt": "_publish/sv/boss/POST.txt",
- "prefix": "sv/2026/0828_boss",
- "instagram": true,
- "youtube": false,
- "youtube_title": "",
- "name": "boss",
- "date": "20260822",
- "target_epoch": 1787395200,
- "dry_run": false,
- "thumb_offset_ms": 1048,
- "reviewed": {
-  "by": "KD",
-  "at": "2026-08-12T20:11:59",
-  "verbatim": "IG는 버핏, 글리프, 레버리지, 아지노모토, 보스, 에코랩 발행 가능"
- }
+  "type": "single_video",
+  "video": "_publish/sv/boss/reel.mp4",
+  "source": "/Users/soonsal/soonsal-build/output/reels_batch4/boss/10호_bgm.mp4",
+  "source_sha256": "6fdd840eca8a49f1fa0a2c34c1ebd39547d7ea0cceeee689ba1a92eb81df95ae",
+  "caption_txt": "_publish/sv/boss/POST.txt",
+  "post_txt": "_publish/sv/boss/POST.txt",
+  "prefix": "sv/2026/0822_boss",
+  "instagram": true,
+  "youtube": false,
+  "youtube_title": "",
+  "name": "boss",
+  "date": "20260822",
+  "target_epoch": 1787395200,
+  "dry_run": false,
+  "reviewed": {
+    "by": "KD",
+    "at": "2026-08-12T20:11:59",
+    "verbatim": "IG는 버핏, 글리프, 레버리지, 아지노모토, 보스, 에코랩 발행 가능"
+  },
+  "thumb_offset_ms": 1048
 }
