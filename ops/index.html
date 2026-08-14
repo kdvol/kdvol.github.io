@@ -297,6 +297,32 @@ let FMT='전체';
 const FMTLABEL={chart:'순살브리핑 영상', reel:'순살릴스', carousel:'영상 캐러셀', cardnews:'카드뉴스'};
 function setFmt(f){ FMT=f; render(); }
 
+// 발행 탭은 **형태 + 채널** 둘로 거른다 — 지표는 채널 안에서만 견줄 수 있다.
+let CHF='전체';
+function setCh(c){ CHF=c; render(); }
+const CHNAME={ig_carousel:'IG 캐러셀', ig_reel:'IG 릴스', yt_shorts:'YT 숏츠', threads:'쓰레드', web:'웹'};
+
+function chBar(rows){
+  const n={}; rows.forEach(r=>{ n[r.channel]=(n[r.channel]||0)+1; });
+  const chips=[['전체',rows.length]].concat(Object.keys(CHNAME).filter(c=>n[c]).map(c=>[c,n[c]]));
+  return `<div class="fmt ch">${chips.map(([c,k])=>
+    `<button class="${CHF===c?'on':''}" onclick="setCh('${c}')">${c==='전체'?'전 채널':CHNAME[c]}<span class="n">${k}</span></button>`
+  ).join('')}</div>`;
+}
+
+// 발행분 형태 × 채널 — 어느 형태가 어느 채널에 몇 편 나갔나
+function postGrid(rows){
+  const fs=[...new Set(rows.map(r=>r.format||'cardnews'))];
+  const cs=Object.keys(CHNAME).filter(c=>rows.some(r=>r.channel===c));
+  if(!fs.length||!cs.length) return '';
+  const cnt=(f,c)=>rows.filter(r=>(r.format||'cardnews')===f && r.channel===c).length;
+  return `<div class="mx grid"><table>
+    <thead><tr><th style="text-align:left">형태</th>${cs.map(c=>`<th>${CHNAME[c]}</th>`).join('')}<th>합</th></tr></thead>
+    <tbody>${fs.map(f=>`<tr><td class="l"><b>${FMTLABEL[f]||f}</b></td>
+      ${cs.map(c=>{const k=cnt(f,c);return `<td>${k?k:'<span class="dim">·</span>'}</td>`;}).join('')}
+      <td><b>${rows.filter(r=>(r.format||'cardnews')===f).length}</b></td></tr>`).join('')}</tbody></table></div>`;
+}
+
 function fmtBar(items){
   const n={}; items.forEach(it=>{ const f=it.format||'cardnews'; n[f]=(n[f]||0)+1; });
   const chips=[['전체',items.length]].concat(Object.keys(FMTLABEL).filter(f=>n[f])
@@ -485,14 +511,17 @@ function render(){
   }
   else if(TAB==='발행'){
     // 형태 필터는 발행 탭에도 건다 — 채널별 지표를 형태 안에서 견줘야 뜻이 있다
-    let rows=D.posts||[];
-    if(FILT!=='all') rows=rows.filter(r=>r.kind===FILT);
-    const kinds=[['all','전체'],['cardnews','카드뉴스'],['single_video','영상']];
+    const all=D.posts||[];
+    let rows = FMT==='전체' ? all : all.filter(r=>(r.format||'cardnews')===FMT);
+    const byFmt = rows;                                  // 채널 칩 개수는 형태를 좁힌 뒤에 센다
+    if(CHF!=='전체') rows = rows.filter(r=>r.channel===CHF);
     const measured=rows.filter(r=>r.measured).length;
-    v.innerHTML=`<div class="filt">${kinds.map(([k,l])=>
-        `<button class="${FILT===k?'on':''}" onclick="FILT='${k}';render()">${l}</button>`).join('')}
-        <span style="margin-left:auto;color:var(--tx3);font-size:12px;align-self:center">
-        ${rows.length}건 · 지표 있음 ${measured}</span></div>`
+    v.innerHTML = postGrid(all)
+      + fmtBar(all)
+      + chBar(byFmt)
+      + `<div class="sub" style="margin:2px 2px 8px">${rows.length}건 · 지표 있음 ${measured}`
+      + (rows.length-measured ? ` · <span style="color:var(--tx3)">미측정 ${rows.length-measured}</span>` : '')
+      + `</div>`
       + `<div class="note">한 채널에 나간 것이 한 행입니다 — 지표가 채널마다 뜻이 달라
          (IG 도달·저장·공유 / YT 조회·좋아요·댓글) 한 행에 합치면 비교가 안 됩니다.</div>`
       + (rows.length?postMatrix(rows):'<div class="empty">해당 없음</div>');
@@ -552,6 +581,9 @@ function render(){
 #app .fmt button{flex:0 0 auto;background:var(--card2);border:1px solid var(--line);color:var(--tx2);
   border-radius:999px;padding:6px 12px;font-size:12.5px;font-weight:700;cursor:pointer}
 #app .fmt button.on{background:var(--or);border-color:var(--or);color:#120d0a}
+/* 채널 칩은 **다른 색**이다. 두 축(형태·채널)을 같은 색으로 두면 뭘 고른 건지 헷갈린다. */
+#app .fmt.ch button.on{background:var(--blu);border-color:var(--blu);color:#0b1020}
+#app .fmt.ch{margin-top:0}
 #app .fmt .n{margin-left:6px;opacity:.7;font-variant-numeric:tabular-nums}
 #app .mx.grid table{font-size:12px}
 #app .mx.grid td,#app .mx.grid th{text-align:center;padding:7px 9px;white-space:nowrap}
