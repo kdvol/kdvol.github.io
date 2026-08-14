@@ -1,14 +1,16 @@
 {
   "type": "single_video",
   "video": "_publish/sv/chart20260814c/reel.mp4",
+  "source": "/Users/soonsal/soonsal-reels/output/chart_20260814c/reel.mp4",
+  "source_sha256": "44ae31886e957efe5dcf9af7ccf0ce51f7485d3b26cab089f75a12b42ff13933",
   "caption_txt": "_publish/sv/chart20260814c/POST.txt",
   "post_txt": "_publish/sv/chart20260814c/POST.txt",
-  "prefix": "sv/2026/0814_chart20260814c",
+  "prefix": "sv/2026/0816_chart20260814c",
   "instagram": true,
   "youtube": true,
   "youtube_title": "",
   "name": "chart20260814c",
-  "date": "20260814",
+  "date": "20260816",
   "target_epoch": 1786874400,
   "dry_run": false,
   "reviewed": {
