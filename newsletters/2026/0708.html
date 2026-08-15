@@ -399,6 +399,17 @@
 <meta name="twitter:title" content="🐟 이럴려고 만들었나 자괴감이 듦 — 순살브리핑 2026.07.08"/>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "NewsArticle", "headline": "이럴려고 만들었나 자괴감이 듦 — 순살브리핑 2026.07.08", "datePublished": "2026-07-08T09:00:00+09:00", "dateModified": "2026-07-08T09:00:00+09:00", "inLanguage": "ko", "mainEntityOfPage": "https://soonsal.com/newsletters/2026/0708.html", "author": {"@type": "Organization", "name": "순살브리핑", "url": "https://soonsal.com/"}, "publisher": {"@type": "Organization", "name": "순살브리핑", "logo": {"@type": "ImageObject", "url": "https://soonsal.com/apple-touch-icon.png"}}, "keywords": "코스피서킷브레이커삼성전자잠정실적, 호르무즈이란카타르탱커공격유가급등, SpaceX나스닥100밀레니엄37억불, Anthropic알리바바AI디스틸레이션, GrabAGun총기택배트럼프주니어", "image": ["https://soonsal.com/cardnews/2026/0708_png/card_01.png"]}</script>
 <!-- soonsal:bc --><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "순살브리핑", "item": "https://soonsal.com/"}, {"@type": "ListItem", "position": 2, "name": "브리핑", "item": "https://soonsal.com/newsletters/"}, {"@type": "ListItem", "position": 3, "name": "🐟 이럴려고 만들었나 자괴감이 듦 — 순살브리핑 2026.07.08", "item": "https://soonsal.com/newsletters/2026/0708.html"}]}</script>
+
+<style id="soonsal-story-links">
+/* 스토리 끝 — 다 읽은 사람만 본다. 본문 흐름을 끊지 않는다 */
+.story-links{margin:14px 0 0;padding:11px 0 0;border-top:1px solid #ece8e0;
+font-size:11.5px;line-height:1.8;color:#9a958a;word-break:keep-all}
+.story-links .k{color:#b5b0a4;margin-right:5px}
+.story-links a{color:#8a857c;text-decoration:none;border-bottom:1px solid #e6e1d8}
+.story-links a:hover{color:#C24A00;border-bottom-color:#C24A00}
+.story-links .sep{opacity:.4;margin:0 4px}
+.story-links .row + .row{margin-top:3px}
+</style>
 </head>
 <body>
 <div id="soonsal-live-ticker" style="display:none;"></div>
@@ -442,6 +453,8 @@
 <script>
 (function(){'use strict';var WORKER_URL='https://soonsal-data.kd-d0a.workers.dev/';var COINGECKO_URL='https://api.coingecko.com/api/v3';var TRADFI_ORDER=['S&P 500','NASDAQ','Dow Jones','KOSPI','US 10Y','WTI Oil','Gold','DXY','EUR/USD','USD/JPY','USD/KRW'];var CRYPTO_ORDER=['Bitcoin','Ethereum','Solana','XRP','BNB','Crypto Total'];var CRYPTO_IDS={'Bitcoin':'bitcoin','Ethereum':'ethereum','Solana':'solana','XRP':'ripple','BNB':'binancecoin'};var REFRESH=60000;var container,timer,lastTradfi,lastCrypto;function init(){container=document.getElementById('soonsal-live-ticker');if(!container)return;container.style.display='block';container.innerHTML='<div class="stk-loading"><div class="stk-spin"></div>Loading market data...</div>';fetchAll();timer=setInterval(fetchAll,REFRESH)}function fetchAll(){var p1=fetchTradFi();var p2=fetchCrypto();Promise.allSettled?Promise.allSettled([p1,p2]).then(render):Promise.all([p1.catch(function(){return null}),p2.catch(function(){return null})]).then(render)}function fetchTradFi(){return fetch(WORKER_URL).then(function(r){return r.json()}).then(function(data){if(data.tradfi)lastTradfi=data;return data}).catch(function(e){console.warn('[Ticker] TradFi error:',e.message);return null})}function fetchCrypto(){var ids=Object.values(CRYPTO_IDS).join(',');var url=COINGECKO_URL+'/simple/price?ids='+ids+'&vs_currencies=usd&include_24hr_change=true&include_market_cap=true';var globalUrl=COINGECKO_URL+'/global';return Promise.all([fetch(url).then(function(r){return r.json()}),fetch(globalUrl).then(function(r){return r.json()}).catch(function(){return null})]).then(function(results){var prices=results[0];var global=results[1];var crypto={};for(var name in CRYPTO_IDS){var id=CRYPTO_IDS[name];var d=prices[id];if(!d)continue;var p=d.usd;var ch=d.usd_24h_change||0;crypto[name]={price:'$'+formatNum(p),change:(ch>=0?'+':'')+ch.toFixed(2)+'%',direction:ch>0.01?'up':ch<-0.01?'down':'zero'}}if(global&&global.data){var mc=global.data.total_market_cap&&global.data.total_market_cap.usd;var mch=global.data.market_cap_change_percentage_24h_usd;if(mc){crypto['Crypto Total']={price:'$'+(mc/1e12).toFixed(2)+'T',change:(mch>=0?'+':'')+(mch||0).toFixed(2)+'%',direction:mch>0?'up':mch<0?'down':'zero'}}}lastCrypto=crypto;return crypto}).catch(function(e){console.warn('[Ticker] Crypto error:',e.message);return null})}function render(){var tradfi=lastTradfi?lastTradfi.tradfi:{};var crypto=lastCrypto||{};var kst=lastTradfi?lastTradfi.kst:new Date().toLocaleString('ko-KR',{timeZone:'Asia/Seoul'});var html=[];html.push('<div class="stk-ts"><span class="stk-dot"></span><span class="stk-time">'+esc(kst)+' KST</span></div>');for(var i=0;i<TRADFI_ORDER.length;i++){var name=TRADFI_ORDER[i];var d=tradfi[name];if(d)html.push(makeItem(name,d,false))}html.push('<div class="stk-div"><span></span></div>');for(var j=0;j<CRYPTO_ORDER.length;j++){var cname=CRYPTO_ORDER[j];var cd=crypto[cname];if(cd)html.push(makeItem(cname,cd,true))}var track=html.join('');container.innerHTML='<div class="stk-track">'+track+track+'</div>'}function makeItem(name,d,isCrypto){var dir=d.direction||'zero';var arrow=dir==='up'?'<span class="au"></span>':dir==='down'?'<span class="ad"></span>':'';return'<div class="stk-item"><span class="stk-lbl'+(isCrypto?' crypto':'')+'">'+esc(name)+'</span><span class="stk-prc">'+esc(d.price)+'</span><span class="stk-chg '+dir+'">'+arrow+' '+esc(d.change)+'</span></div>'}function formatNum(n){if(n>=10000)return n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});if(n>=100)return n.toFixed(2);if(n>=1)return n.toFixed(2);return n.toFixed(4)}function esc(s){if(!s)return'';var d=document.createElement('span');d.textContent=String(s);return d.innerHTML}if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',init)}else{init()}})();
 </script>
+
+
 
 
 
@@ -629,7 +642,7 @@
         <div class="bullet"><span class="dot">◾</span><span>6월에 인덱스 리밸런싱 이벤트가 5개나 겹치면서 이 전략에 역대급 기회가 몰림 — S&P 500 분기 재조정, 나스닥-100 분기 변경, 러셀 연간 재구성, SpaceX 패스트트랙 편입, 분기말 자산 배분 조정. 뉴욕과 두바이에 기반을 둔 밀레니엄 산하 2개 트레이딩 팀이 초고레버리지로 편입·편출 종목에 베팅. 6월 밀레니엄 전체 수익률은 +4.1%, 연초 이후 누적 +10.5%</span></div>
         <div class="bullet"><span class="dot">◾</span><span>SpaceX 유통 주식 비율은 3~5%뿐이라 수급 왜곡이 심함 <span class="sub">(조금만 던져도 출렁)</span>. 8/6 첫 실적 발표 이후 인사이더 보유분 20%가 매각 가능해지고, 12월까지 단계별로 추가 물량이 풀림. IPO로 만들어진 백만장자 직원만 4,400명 이상이라 매도 대기 물량이 상당. <strong>"인덱스에 들어가면 오른다"는 상식이 깨지는 시대 — 진짜 돈은 그 상식을 이용하는 쪽이 벌고 있음</strong></span></div>
       </div>
-      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
+      <div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/spacex.html">스페이스X</a><span class="sep">·</span><a href="/wiki/nasdaq.html">나스닥</a><span class="sep">·</span><a href="/wiki/musk.html">일론 머스크</a><span class="sep">·</span><a href="/wiki/sp500.html">S&amp;P 500</a><span class="sep">·</span><a href="/wiki/palantir.html">팔란티어</a></div><div class="row"><span class="k">같은 흐름</span><a href="/newsletters/2026/0629.html#story-3">06-29 SpaceX, 블랙홀이었나</a><span class="sep">·</span><a href="/newsletters/2026/0511.html#story-4">05-11 헤지펀드 부활, 쏠림 덕분?</a></div></div><p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
     </div>
 
     <!-- STORY 2 -->
@@ -643,7 +656,7 @@
         <div class="bullet"><span class="dot">◾</span><span>알리바바는 직원 전원에게 Claude 관련 제품 삭제를 지시, 자체 AI 코딩 도구 Qoder로 대체. 직접적 계기는 Claude Code에 중국 사용자를 식별하는 코드가 숨겨져 있었다는 보안 우려. 중국 기업들은 동시에 우회로를 뚫는 중 — 앤트 그룹은 싱가포르 법인 인트라넷 경유로 Claude 접근권을 줬고, 바이트댄스는 엔지니어들의 VPN 경유 개인 구독 비용을 경비 처리</span></div>
         <div class="bullet"><span class="dot">◾</span><span><strong>AI 냉전의 전선이 "칩 수출 통제"에서 "모델 출력물 통제"로 확장되는 중</strong>. 칩을 못 사도 API로 답변만 대량 수집하면 비슷한 모델을 만들 수 있다는 게 증명되면서, 미국 AI 업체들의 해자 <span class="sub">(moat)</span>가 생각보다 얇을 수 있다는 우려가 커지는 구조. 상원에서는 디스틸레이션에 가담한 중국 기업에 제재를 부과하는 국방수권법 수정안도 추진되는 중 <span class="note">(싸워)</span></span></div>
       </div>
-      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
+      <div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/anthropic.html">앤스로픽</a><span class="sep">·</span><a href="/wiki/alibaba.html">알리바바</a></div><div class="row"><span class="k">같은 흐름</span><a href="/newsletters/2026/0410.html#story-5">04-10 AI, AI, AI — Meta와 Anthrop</a><span class="sep">·</span><a href="/newsletters/2026/0228-crypto.html#story-1">02-28 Anthropic 퇴출, OpenAI 수주 — </a></div></div><p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
     </div>
 
     <!-- STORY 3 -->
@@ -657,7 +670,7 @@
         <div class="bullet"><span class="dot">◾</span><span>대통령 아들 회사가, 아버지 행정부 규칙으로 이득보는 구조. GrabAGun CEO는 "트럼프 주니어도, 본인도, 규칙 변경을 몰랐다"고 해명. ATF 수석 법률고문도 "로이터가 물어보기 전까지는 트럼프 주니어와 GrabAGun의 관계를 몰랐다"고 답변 <span class="note">(..)</span>. But, 1789 Capital 자체가 "보수 정치 성향 투자"를 전면에 내세우는 펀드라, 의심을 피하기 어려운 구조</span></div>
         <div class="bullet"><span class="dot">◾</span><span>새 규칙은 8월 초까지 공개 코멘트 기간을 거치고, 최종 확정은 올해 말~내년 초 예상. <strong>ATF 추산으로는 연간 총기 구매자의 절반인 약 330만명이 택배 수령을 선택할 것</strong>으로 보고, 업계는 그 이상을 예상. 우체국 <span class="sub">(USPS)</span>도 99년간 금지됐던 권총 우편 배송을 별도로 추진하는 중이라, 총기 유통 판 자체가 뒤집히는 흐름 <span class="note">(동네 총기상 입장에선, 당근마켓에 밀린 셈)</span></span></div>
       </div>
-      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
+      <div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/trump.html">트럼프</a><span class="sep">·</span><a href="/wiki/amazon.html">아마존</a></div></div><p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
     </div>
 
     <!-- STORY 4 -->
@@ -671,7 +684,7 @@
         <div class="bullet"><span class="dot">◾</span><span>Modular 창업자는 LLVM <span class="sub">(소프트웨어 개발의 뼈대)</span>과 Apple의 Swift <span class="sub">(프로그래밍 언어)</span>를 만든 크리스 래트너. 개발자 생태계를 두 번 깔아본 사람이 구글에서 AI 인프라 기술까지 설계한 뒤, 2022년에 Modular를 세움. 오라클·아마존·엔비디아·AMD가 이미 고객인 상태에서 9개월 전 기업가치 16억불이었는데 이번에 39억불, 단기간에 2배 넘게 불린 후 매각된 셈</span></div>
         <div class="bullet"><span class="dot">◾</span><span>퀄컴은 같은 날 스마트폰 제외한 매출 목표만 400억불 <span class="sub">(기존 대비 2배)</span>로 올려잡음. 그 중 데이터센터만 150억불 이상. 메타와 CPU 장기 공급 계약도 따냄. 칩 + 소프트웨어를 세트로 들고 나가는 그림인데, 재밌는 건 Modular의 핵심 가치가 "특정 칩 회사에 안 묶인다"는 중립성이라는 점. 칩 회사 품에 안기는 순간 그 중립성이 살아남을 수 있느냐가 시장이 째려보는 포인트 <span class="note">(CUDA 생태계 깨려면 신뢰가 먼저)</span></span></div>
       </div>
-      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
+      <div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/qualcomm.html">퀄컴</a><span class="sep">·</span><a href="/wiki/nvidia.html">엔비디아</a><span class="sep">·</span><a href="/wiki/apple.html">애플</a><span class="sep">·</span><a href="/wiki/amd.html">AMD</a><span class="sep">·</span><a href="/wiki/swift.html">SWIFT(국제결제망)</a></div><div class="row"><span class="k">같은 흐름</span><a href="/newsletters/2026/0709.html#story-3">07-09 엔비디아, 무거운 왕관</a><span class="sep">·</span><a href="/newsletters/2026/0521.html#story-1">05-21 엔비디아, 이겼는데 졌음</a></div></div><p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
     </div>
 
     <!-- STORY 5 -->

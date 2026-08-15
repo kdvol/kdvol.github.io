@@ -399,6 +399,17 @@
 <meta name="twitter:title" content="🐟위절제급 다이어트약 — 순살브리핑 2026.05.22"/>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "NewsArticle", "headline": "🐟위절제급 다이어트약 — 순살브리핑 2026.05.22", "datePublished": "2026-05-22T09:00:00+09:00", "dateModified": "2026-05-22T09:00:00+09:00", "inLanguage": "ko", "mainEntityOfPage": "https://soonsal.com/newsletters/2026/0522.html", "author": {"@type": "Organization", "name": "순살브리핑", "url": "https://soonsal.com/"}, "publisher": {"@type": "Organization", "name": "순살브리핑", "logo": {"@type": "ImageObject", "url": "https://soonsal.com/apple-touch-icon.png"}}, "keywords": "AI인플레이션 PCE 골드만삭스,  터키 리라 CHP 야당축출 60억불,  릴리 레타트루타이드 비만약 위절제,  골드만CEO 머스크DM SpaceX IPO,  게임스탑 이베이 적대적인수 6.6%"}</script>
 <!-- soonsal:bc --><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "순살브리핑", "item": "https://soonsal.com/"}, {"@type": "ListItem", "position": 2, "name": "브리핑", "item": "https://soonsal.com/newsletters/"}, {"@type": "ListItem", "position": 3, "name": "🐟위절제급 다이어트약 — 순살브리핑 2026.05.22", "item": "https://soonsal.com/newsletters/2026/0522.html"}]}</script>
+
+<style id="soonsal-story-links">
+/* 스토리 끝 — 다 읽은 사람만 본다. 본문 흐름을 끊지 않는다 */
+.story-links{margin:14px 0 0;padding:11px 0 0;border-top:1px solid #ece8e0;
+font-size:11.5px;line-height:1.8;color:#9a958a;word-break:keep-all}
+.story-links .k{color:#b5b0a4;margin-right:5px}
+.story-links a{color:#8a857c;text-decoration:none;border-bottom:1px solid #e6e1d8}
+.story-links a:hover{color:#C24A00;border-bottom-color:#C24A00}
+.story-links .sep{opacity:.4;margin:0 4px}
+.story-links .row + .row{margin-top:3px}
+</style>
 </head>
 <body>
 <div id="soonsal-live-ticker" style="display:none;"></div>
@@ -442,6 +453,8 @@
 <script>
 (function(){'use strict';var WORKER_URL='https://soonsal-data.kd-d0a.workers.dev/';var COINGECKO_URL='https://api.coingecko.com/api/v3';var TRADFI_ORDER=['S&P 500','NASDAQ','Dow Jones','KOSPI','US 10Y','WTI Oil','Gold','DXY','EUR/USD','USD/JPY','USD/KRW'];var CRYPTO_ORDER=['Bitcoin','Ethereum','Solana','XRP','BNB','Crypto Total'];var CRYPTO_IDS={'Bitcoin':'bitcoin','Ethereum':'ethereum','Solana':'solana','XRP':'ripple','BNB':'binancecoin'};var REFRESH=60000;var container,timer,lastTradfi,lastCrypto;function init(){container=document.getElementById('soonsal-live-ticker');if(!container)return;container.style.display='block';container.innerHTML='<div class="stk-loading"><div class="stk-spin"></div>Loading market data...</div>';fetchAll();timer=setInterval(fetchAll,REFRESH)}function fetchAll(){var p1=fetchTradFi();var p2=fetchCrypto();Promise.allSettled?Promise.allSettled([p1,p2]).then(render):Promise.all([p1.catch(function(){return null}),p2.catch(function(){return null})]).then(render)}function fetchTradFi(){return fetch(WORKER_URL).then(function(r){return r.json()}).then(function(data){if(data.tradfi)lastTradfi=data;return data}).catch(function(e){console.warn('[Ticker] TradFi error:',e.message);return null})}function fetchCrypto(){var ids=Object.values(CRYPTO_IDS).join(',');var url=COINGECKO_URL+'/simple/price?ids='+ids+'&vs_currencies=usd&include_24hr_change=true&include_market_cap=true';var globalUrl=COINGECKO_URL+'/global';return Promise.all([fetch(url).then(function(r){return r.json()}),fetch(globalUrl).then(function(r){return r.json()}).catch(function(){return null})]).then(function(results){var prices=results[0];var global=results[1];var crypto={};for(var name in CRYPTO_IDS){var id=CRYPTO_IDS[name];var d=prices[id];if(!d)continue;var p=d.usd;var ch=d.usd_24h_change||0;crypto[name]={price:'$'+formatNum(p),change:(ch>=0?'+':'')+ch.toFixed(2)+'%',direction:ch>0.01?'up':ch<-0.01?'down':'zero'}}if(global&&global.data){var mc=global.data.total_market_cap&&global.data.total_market_cap.usd;var mch=global.data.market_cap_change_percentage_24h_usd;if(mc){crypto['Crypto Total']={price:'$'+(mc/1e12).toFixed(2)+'T',change:(mch>=0?'+':'')+(mch||0).toFixed(2)+'%',direction:mch>0?'up':mch<0?'down':'zero'}}}lastCrypto=crypto;return crypto}).catch(function(e){console.warn('[Ticker] Crypto error:',e.message);return null})}function render(){var tradfi=lastTradfi?lastTradfi.tradfi:{};var crypto=lastCrypto||{};var kst=lastTradfi?lastTradfi.kst:new Date().toLocaleString('ko-KR',{timeZone:'Asia/Seoul'});var html=[];html.push('<div class="stk-ts"><span class="stk-dot"></span><span class="stk-time">'+esc(kst)+' KST</span></div>');for(var i=0;i<TRADFI_ORDER.length;i++){var name=TRADFI_ORDER[i];var d=tradfi[name];if(d)html.push(makeItem(name,d,false))}html.push('<div class="stk-div"><span></span></div>');for(var j=0;j<CRYPTO_ORDER.length;j++){var cname=CRYPTO_ORDER[j];var cd=crypto[cname];if(cd)html.push(makeItem(cname,cd,true))}var track=html.join('');container.innerHTML='<div class="stk-track">'+track+track+'</div>'}function makeItem(name,d,isCrypto){var dir=d.direction||'zero';var arrow=dir==='up'?'<span class="au"></span>':dir==='down'?'<span class="ad"></span>':'';return'<div class="stk-item"><span class="stk-lbl'+(isCrypto?' crypto':'')+'">'+esc(name)+'</span><span class="stk-prc">'+esc(d.price)+'</span><span class="stk-chg '+dir+'">'+arrow+' '+esc(d.change)+'</span></div>'}function formatNum(n){if(n>=10000)return n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});if(n>=100)return n.toFixed(2);if(n>=1)return n.toFixed(2);return n.toFixed(4)}function esc(s){if(!s)return'';var d=document.createElement('span');d.textContent=String(s);return d.innerHTML}if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',init)}else{init()}})();
 </script>
+
+
 
 
 
@@ -681,7 +694,7 @@
         <div class="bullet"><span class="dot">◾</span><span>릴리는 젭바운드 다음 타자로 레타트루타이드에 올인하는 중. 올해 안에 7건의 추가 3상 결과가 나올 예정이고, 관절통·수면무호흡·제2형 당뇨 등 비만 합병증 치료까지 적응증을 넓히는 전략. 이미 당뇨 환자 대상 3상에서도 유의미한 혈당 감소 + 체중 감량을 확인한 상태라 FDA 승인 가능성에 무게가 실리는 중</span></div>
         <div class="bullet"><span class="dot">◾</span><span>경쟁자 노보 노디스크 <span class="sub">(오젬픽·위고비 만드는 곳)</span>도 차세대 약 CagriSema로 FDA 승인 신청을 넣은 상태. But, CagriSema의 3상 결과는 체중 감량 ~23%로 젭바운드에도 못 미치는 수준이라 시장 반응이 차가움. 레타트루타이드 28.3%와 비교하면 격차가 더 벌어진 셈. 비만 치료 시장이 연간 1,000억불을 향해 가는 만큼, 이 경쟁은 시작에 불과</span></div>
       </div>
-      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
+      <div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/eli-lilly.html">일라이릴리</a></div><div class="row"><span class="k">같은 흐름</span><a href="/newsletters/2026/0504.html#story-2">05-04 릴리, 다이어트 약으로 매출 2배</a></div></div><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/oil.html">원유</a><span class="sep">·</span><a href="/wiki/eli-lilly.html">일라이릴리</a></div></div><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/goldman.html">골드만삭스</a><span class="sep">·</span><a href="/wiki/microsoft.html">마이크로소프트</a><span class="sep">·</span><a href="/wiki/apple.html">애플</a><span class="sep">·</span><a href="/wiki/meta.html">메타</a><span class="sep">·</span><a href="/wiki/google.html">구글</a></div></div><p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
     </div>
 
     <!-- Story 4 -->
@@ -695,7 +708,7 @@
         <div class="bullet"><span class="dot">◾</span><span>머스크의 요구는 여기서 안 끝남. IPO에 참여하려는 은행·로펌·감사법인 전부에게 자사 AI 챗봇 Grok 구독을 요구한 상황. 일부 은행은 연간 수천만불 규모로 구독 계약을 체결하고 내부 시스템에 Grok을 통합하기 시작. xAI가 SpaceX 자회사가 된 이상, Grok 구독료가 SpaceX 엔터프라이즈 매출로 잡히는 구조 — 역대 최대 IPO에 끼려면 "통행료"를 내야 하는 판</span></div>
         <div class="bullet"><span class="dot">◾</span><span>테슬라 IPO 때도 골드만이 대표 주관사였으니 16년 만의 재회인 셈. 이번 IPO는 750억불을 모집해서 사우디 아람코 <span class="sub">(294억불)</span> 기록의 2.5배를 노리는 규모이고, 개인 투자자에게 물량의 30%를 배정한다는 계획까지 나옴 — 통상 대형 IPO의 5~10%와 비교하면 3배 수준. 6월 12일 나스닥 상장이 예정된 가운데 수수료 경쟁도 역대급</span></div>
       </div>
-      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
+      <div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/goldman.html">골드만삭스</a><span class="sep">·</span><a href="/wiki/musk.html">일론 머스크</a><span class="sep">·</span><a href="/wiki/spacex.html">스페이스X</a><span class="sep">·</span><a href="/wiki/twitter-x.html">트위터(X)</a><span class="sep">·</span><a href="/wiki/morgan-stanley.html">모건스탠리</a></div></div><p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
     </div>
 
     <!-- Story 5 -->
@@ -709,7 +722,7 @@
         <div class="bullet"><span class="dot">◾</span><span>거절당한 뒤 오히려 지분을 늘리는 건 전형적인 적대적 인수 전략의 초기 단계. 지분을 쌓아서 이사회에 압력을 넣거나, 주주들에게 직접 호소하는 위임장 대결 <span class="sub">(proxy fight)</span>로 넘어가는 수순. 게임스탑 CEO는 이미 언론 인터뷰에서 "이사회가 안 들으면 주주한테 직접 가겠다"고 밝힌 상태. 10%를 넘기면 규제 공시 요건이 강화되면서 싸움이 본격화되는 구간</span></div>
         <div class="bullet"><span class="dot">◾</span><span>인수가 성사될 가능성은 낮지만, 이베이 입장에서도 무시만 하고 있기 어려운 게 — 주주들 사이에서 "555억불짜리 프리미엄을 왜 거절하냐"는 압박이 생기는 구조. 현 경영진이 이 프리미엄 이상의 가치를 만들어낼 수 있다는 걸 증명해야 하는 부담이 이베이 쪽으로 넘어가는 중. 시장에서는 게임스탑의 지분율이 어디까지 올라가는지를 지켜보는 중</span></div>
       </div>
-      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
+      <div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/gamestop.html">게임스탑</a><span class="sep">·</span><a href="/wiki/ebay.html">이베이</a></div><div class="row"><span class="k">같은 흐름</span><a href="/newsletters/2026/0506.html#story-2">05-06 게임스탑이 이베이 사겠다는 사연</a></div></div><p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
     </div>
 
 

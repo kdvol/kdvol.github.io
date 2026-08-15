@@ -415,6 +415,17 @@
 <meta name="twitter:title" content="🦫 비버를 판매하는 주유소"/>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "NewsArticle", "headline": "비버를 판매하는 주유소", "datePublished": "2026-08-11T09:00:00+09:00", "dateModified": "2026-08-11T09:00:00+09:00", "inLanguage": "ko", "mainEntityOfPage": "https://soonsal.com/newsletters/2026/0811.html", "author": {"@type": "Organization", "name": "순살브리핑", "url": "https://soonsal.com/"}, "publisher": {"@type": "Organization", "name": "순살브리핑", "logo": {"@type": "ImageObject", "url": "https://soonsal.com/apple-touch-icon.png"}}, "keywords": "엔비디아 월가 5000억불 AI, 인텔 150억불 증자, 버크셔 에이벌 현금, 벅키스 상표 소송, 아셴브레너 헤지펀드"}</script>
 <!-- soonsal:bc --><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "순살브리핑", "item": "https://soonsal.com/"}, {"@type": "ListItem", "position": 2, "name": "브리핑", "item": "https://soonsal.com/newsletters/"}, {"@type": "ListItem", "position": 3, "name": "🦫 비버를 판매하는 주유소", "item": "https://soonsal.com/newsletters/2026/0811.html"}]}</script>
+
+<style id="soonsal-story-links">
+/* 스토리 끝 — 다 읽은 사람만 본다. 본문 흐름을 끊지 않는다 */
+.story-links{margin:14px 0 0;padding:11px 0 0;border-top:1px solid #ece8e0;
+font-size:11.5px;line-height:1.8;color:#9a958a;word-break:keep-all}
+.story-links .k{color:#b5b0a4;margin-right:5px}
+.story-links a{color:#8a857c;text-decoration:none;border-bottom:1px solid #e6e1d8}
+.story-links a:hover{color:#C24A00;border-bottom-color:#C24A00}
+.story-links .sep{opacity:.4;margin:0 4px}
+.story-links .row + .row{margin-top:3px}
+</style>
 </head>
 <body>
 <div id="soonsal-live-ticker" style="display:none;"></div>
@@ -458,6 +469,8 @@
 <script>
 (function(){'use strict';var WORKER_URL='https://soonsal-data.kd-d0a.workers.dev/';var COINGECKO_URL='https://api.coingecko.com/api/v3';var TRADFI_ORDER=['S&P 500','NASDAQ','Dow Jones','KOSPI','US 10Y','WTI Oil','Gold','DXY','EUR/USD','USD/JPY','USD/KRW'];var CRYPTO_ORDER=['Bitcoin','Ethereum','Solana','XRP','BNB','Crypto Total'];var CRYPTO_IDS={'Bitcoin':'bitcoin','Ethereum':'ethereum','Solana':'solana','XRP':'ripple','BNB':'binancecoin'};var REFRESH=60000;var container,timer,lastTradfi,lastCrypto;function init(){container=document.getElementById('soonsal-live-ticker');if(!container)return;container.style.display='block';container.innerHTML='<div class="stk-loading"><div class="stk-spin"></div>Loading market data...</div>';fetchAll();timer=setInterval(fetchAll,REFRESH)}function fetchAll(){var p1=fetchTradFi();var p2=fetchCrypto();Promise.allSettled?Promise.allSettled([p1,p2]).then(render):Promise.all([p1.catch(function(){return null}),p2.catch(function(){return null})]).then(render)}function fetchTradFi(){return fetch(WORKER_URL).then(function(r){return r.json()}).then(function(data){if(data.tradfi)lastTradfi=data;return data}).catch(function(e){console.warn('[Ticker] TradFi error:',e.message);return null})}function fetchCrypto(){var ids=Object.values(CRYPTO_IDS).join(',');var url=COINGECKO_URL+'/simple/price?ids='+ids+'&vs_currencies=usd&include_24hr_change=true&include_market_cap=true';var globalUrl=COINGECKO_URL+'/global';return Promise.all([fetch(url).then(function(r){return r.json()}),fetch(globalUrl).then(function(r){return r.json()}).catch(function(){return null})]).then(function(results){var prices=results[0];var global=results[1];var crypto={};for(var name in CRYPTO_IDS){var id=CRYPTO_IDS[name];var d=prices[id];if(!d)continue;var p=d.usd;var ch=d.usd_24h_change||0;crypto[name]={price:'$'+formatNum(p),change:(ch>=0?'+':'')+ch.toFixed(2)+'%',direction:ch>0.01?'up':ch<-0.01?'down':'zero'}}if(global&&global.data){var mc=global.data.total_market_cap&&global.data.total_market_cap.usd;var mch=global.data.market_cap_change_percentage_24h_usd;if(mc){crypto['Crypto Total']={price:'$'+(mc/1e12).toFixed(2)+'T',change:(mch>=0?'+':'')+(mch||0).toFixed(2)+'%',direction:mch>0?'up':mch<0?'down':'zero'}}}lastCrypto=crypto;return crypto}).catch(function(e){console.warn('[Ticker] Crypto error:',e.message);return null})}function render(){var tradfi=lastTradfi?lastTradfi.tradfi:{};var crypto=lastCrypto||{};var kst=lastTradfi?lastTradfi.kst:new Date().toLocaleString('ko-KR',{timeZone:'Asia/Seoul'});var html=[];html.push('<div class="stk-ts"><span class="stk-dot"></span><span class="stk-time">'+esc(kst)+' KST</span></div>');for(var i=0;i<TRADFI_ORDER.length;i++){var name=TRADFI_ORDER[i];var d=tradfi[name];if(d)html.push(makeItem(name,d,false))}html.push('<div class="stk-div"><span></span></div>');for(var j=0;j<CRYPTO_ORDER.length;j++){var cname=CRYPTO_ORDER[j];var cd=crypto[cname];if(cd)html.push(makeItem(cname,cd,true))}var track=html.join('');container.innerHTML='<div class="stk-track">'+track+track+'</div>'}function makeItem(name,d,isCrypto){var dir=d.direction||'zero';var arrow=dir==='up'?'<span class="au"></span>':dir==='down'?'<span class="ad"></span>':'';return'<div class="stk-item"><span class="stk-lbl'+(isCrypto?' crypto':'')+'">'+esc(name)+'</span><span class="stk-prc">'+esc(d.price)+'</span><span class="stk-chg '+dir+'">'+arrow+' '+esc(d.change)+'</span></div>'}function formatNum(n){if(n>=10000)return n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});if(n>=100)return n.toFixed(2);if(n>=1)return n.toFixed(2);return n.toFixed(4)}function esc(s){if(!s)return'';var d=document.createElement('span');d.textContent=String(s);return d.innerHTML}if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',init)}else{init()}})();
 </script>
+
+
 
 
 
@@ -623,7 +636,7 @@
         <div class="bullet"><span class="dot">◾</span><span>돈이 들어오니 시장이 빠른 속도로 커지는 중. 데이터센터를 담보로 찍은 채권 잔액은 2020년 40억불에서 지금 610억불. 월가에선 2028년 말 1,800억불까지 봄. 돈은 완공 이후 나오는 장기 임대료로 갚는 구조. 그래서 임차인이 AI 회사 몇 곳에 몰려 있으면, 임차인이 흔들릴 때 상환 재원이 같이 흔들림. 국채나 우량 회사채와 달리 사고팔 시장이 얇아서, 값이 한 번 흔들리면 팔고 나오기도 어려운 자리</span></div>
         <div class="bullet"><span class="dot">◾</span><span>정작 발표 당일 엔비디아 주가는 2.86% 빠졌음. 칩 파는 회사가 고객 자금까지 대주면, 대동강물 팔아서 매출 끌어올리는거 아니냐는 지적이 계속 나오는 중. 회사는 칩이 고객을 바꿔가며 돌려 쓸 수 있어 투자 대상이 된다는 논리고, 실제로 참여사들은 이미 데이터센터에 수백억불씩 넣어온 곳들. 다만 어떤 프로젝트에 얼마가, 대출인지 지분인지조차 아직 정해진 게 없는 상태. 일단 올해만 해도 AI 공급망 곳곳에 수천억불짜리 약정을 깔아둔 상태</span></div>
       </div>
-      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
+      <div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/nvidia.html">엔비디아</a><span class="sep">·</span><a href="/wiki/apollo.html">아폴로글로벌</a><span class="sep">·</span><a href="/wiki/blackrock.html">블랙록</a><span class="sep">·</span><a href="/wiki/blackstone.html">블랙스톤</a><span class="sep">·</span><a href="/wiki/goldman.html">골드만삭스</a></div><div class="row"><span class="k">같은 흐름</span><a href="/newsletters/2026/0521.html#story-1">05-21 엔비디아, 이겼는데 졌음</a><span class="sep">·</span><a href="/newsletters/2026/0709.html#story-3">07-09 엔비디아, 무거운 왕관</a></div></div><p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
     </div>
 
 <!-- STORY 2 -->
@@ -637,7 +650,7 @@
         <div class="bullet"><span class="dot">◾</span><span>인텔은 올해 설비투자 계획을 200억불로 올렸고 내년엔 더 늘린다고 예고했음. 2분기 데이터센터·AI 매출은 59% 늘었고, 파운드리도 매출이 31% 늘며 영업적자를 줄임. But 데이터센터 성장을 끌어온 건 AI 가속기가 아니라 서버 CPU 수요라, 성장 축이 CPU와 위탁생산에 쏠려 있음. 위탁생산 매출에서 외부 고객 몫은 아직 5% 수준이라, 흑자로 돌리려면 남의 칩을 찍는 물량이 훨씬 더 필요함</span></div>
         <div class="bullet"><span class="dot">◾</span><span>정작 회사가 입을 안 연 대목은 14A <span class="sub">(차세대 공정)</span> 대형 고객의 공식 확인. 4월에 테슬라가 자사 칩을 14A로 만들겠다고 먼저 밝혔는데, 인텔은 고객이 원하기 전엔 이름을 안 밝힌다는 입장을 지켜왔음. 립부 탄 취임 뒤 인텔이 직접 공개한 파운드리 고객은 보안장비 업체 포티넷이고, 그마저 구형 공정이었음. 조달 목적에 외부 웨이퍼가 들어간 걸 두고 시장은 큰 고객이 붙었다는 신호로 읽는 중. 14A가 뚫려야 위탁생산이 규모의 경제로 넘어감. 양산 목표는 2028년</span></div>
       </div>
-      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
+      <div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/intel.html">인텔</a><span class="sep">·</span><a href="/wiki/tesla.html">테슬라</a></div></div><p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
     </div>
 
 <!-- STORY 3 -->
@@ -651,7 +664,7 @@
         <div class="bullet"><span class="dot">◾</span><span>버크셔 현금은 6월 말 3,650억불 안팎으로, 3월 말 사상 최대치에서 내려왔음. 분기 기준으로 줄어든 건 약 4년 만인데, 여전히 웬만한 나라 1년 예산을 통째로 넘는 규모. 7월에도 자사주를 33억불어치 넘게 더 사들였고, 주택건설사 테일러모리슨 인수도 68억불에 마무리했음. 이 돈은 대부분 만기 1년 안쪽 미국 국채에 넣어두는데, 언제든 빼 쓸 수 있는 대신 수익률은 금리를 그대로 따라감</span></div>
         <div class="bullet"><span class="dot">◾</span><span>본업 <span class="sub">(투자 외의 실제 사업 운영)</span>도 나쁘지 않았음. 2분기 영업이익은 16% 늘었음 <span class="sub">(제조·유통 +24%, 에너지 +27%, 철도 +6%)</span>. 특히 에너지·철도는 미국 실물 경기를 그대로 타는 사업. But 보험은 인수 이익이 -13%, 투자 수익이 -9%로 유일하게 뒷걸음. 순이익이 2배 넘게 뛴 건 대부분 보유 주식 평가이익, 본업과는 따로 봐야 하는 숫자. 보험은 버크셔가 투자 재원을 만들어내는 사실상의 본진이라, 절대 밀리면 안 되는 분야</span></div>
       </div>
-      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
+      <div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/berkshire.html">버크셔</a><span class="sep">·</span><a href="/wiki/buffett.html">워런 버핏</a><span class="sep">·</span><a href="/wiki/apple.html">애플</a><span class="sep">·</span><a href="/wiki/amex.html">아메리칸익스프레스</a><span class="sep">·</span><a href="/wiki/cocacola.html">코카콜라</a></div></div><p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
     </div>
 
 <!-- STORY 4 -->
@@ -678,7 +691,7 @@
         <div class="bullet"><span class="dot">◾</span><span>실리콘밸리에선 이런 부활이 처음도 아님. Zenefits <span class="sub">(인사·보험 관리 스타트업)</span>를 45억불까지 키웠다가 규제 사고로 물러난 Parker Conrad, 곧 Rippling <span class="sub">(급여·인사·IT 관리 소프트웨어)</span> 재창업. 몸값 168억불. WeWork에서 밀려난 Adam Neumann도 Flow <span class="sub">(임대주택 운영 플랫폼)</span>로 돌아오자 a16z가 재투자. 실패 이력이 다음 라운드에선 경력으로 재포장되는 동네</span></div>
         <div class="bullet"><span class="dot">◾</span><span>정작 아셴브레너의 AI 베팅은 사고 뒤에도 계속됨. 상장주 레버리지는 일단 없앴지만, 반도체 장비 스타트업 Source Foundry에 4억불을 추가로 넣어 누적 투자액을 5억불로 키움. 제품·매출도 없는 초기 스타트업부터 상장주식까지 같이 사는 특이한 구조도 그대로 유지. 위험관리 방식은 뜯어고쳤지만 투자 테마까지 접은 건 아니고, 새 쩐주들은 들어오겠다고 하는데 펀드는 신규 자금에 문을 닫아둔 상태</span></div>
       </div>
-      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
+      <div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/citadel.html">시타델</a><span class="sep">·</span><a href="/wiki/openai.html">오픈AI</a><span class="sep">·</span><a href="/wiki/stripe.html">스트라이프</a></div></div><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/citadel.html">시타델</a><span class="sep">·</span><a href="/wiki/openai.html">오픈AI</a><span class="sep">·</span><a href="/wiki/stripe.html">스트라이프</a></div></div><p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
     </div>
 
   </div><!-- /content -->

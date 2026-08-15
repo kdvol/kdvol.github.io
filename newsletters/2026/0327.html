@@ -398,6 +398,17 @@
 <meta name="twitter:title" content="🐟 인스타가 담배 취급 받기 시작 — 순살브리핑 2026.03.27"/>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "NewsArticle", "headline": "인스타가 담배 취급 받기 시작 — 순살브리핑 2026.03.27", "datePublished": "2026-03-27T09:00:00+09:00", "dateModified": "2026-03-27T09:00:00+09:00", "inLanguage": "ko", "mainEntityOfPage": "https://soonsal.com/newsletters/2026/0327.html", "author": {"@type": "Organization", "name": "순살브리핑", "url": "https://soonsal.com/"}, "publisher": {"@type": "Organization", "name": "순살브리핑", "logo": {"@type": "ImageObject", "url": "https://soonsal.com/apple-touch-icon.png"}}, "keywords": "Meta유튜브중독재판패소 BigTobacco,  S&P500 9월이후최저 OECD인플레4%,  사모대출46억불동결 BDC도미노,  Google압축알고리즘 삼성SK하이닉스,  트럼프AI어벤져스 빅테크자문위", "image": ["https://soonsal.com/cardnews/2026/0327_png/card_01.png"]}</script>
 <!-- soonsal:bc --><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "순살브리핑", "item": "https://soonsal.com/"}, {"@type": "ListItem", "position": 2, "name": "브리핑", "item": "https://soonsal.com/newsletters/"}, {"@type": "ListItem", "position": 3, "name": "🐟 인스타가 담배 취급 받기 시작 — 순살브리핑 2026.03.27", "item": "https://soonsal.com/newsletters/2026/0327.html"}]}</script>
+
+<style id="soonsal-story-links">
+/* 스토리 끝 — 다 읽은 사람만 본다. 본문 흐름을 끊지 않는다 */
+.story-links{margin:14px 0 0;padding:11px 0 0;border-top:1px solid #ece8e0;
+font-size:11.5px;line-height:1.8;color:#9a958a;word-break:keep-all}
+.story-links .k{color:#b5b0a4;margin-right:5px}
+.story-links a{color:#8a857c;text-decoration:none;border-bottom:1px solid #e6e1d8}
+.story-links a:hover{color:#C24A00;border-bottom-color:#C24A00}
+.story-links .sep{opacity:.4;margin:0 4px}
+.story-links .row + .row{margin-top:3px}
+</style>
 </head>
 <body>
 <div id="soonsal-live-ticker" style="display:none;"></div>
@@ -441,6 +452,8 @@
 <script>
 (function(){'use strict';var WORKER_URL='https://soonsal-data.kd-d0a.workers.dev/';var COINGECKO_URL='https://api.coingecko.com/api/v3';var TRADFI_ORDER=['S&P 500','NASDAQ','Dow Jones','KOSPI','US 10Y','WTI Oil','Gold','DXY','EUR/USD','USD/JPY','USD/KRW'];var CRYPTO_ORDER=['Bitcoin','Ethereum','Solana','XRP','BNB','Crypto Total'];var CRYPTO_IDS={'Bitcoin':'bitcoin','Ethereum':'ethereum','Solana':'solana','XRP':'ripple','BNB':'binancecoin'};var REFRESH=60000;var container,timer,lastTradfi,lastCrypto;function init(){container=document.getElementById('soonsal-live-ticker');if(!container)return;container.style.display='block';container.innerHTML='<div class="stk-loading"><div class="stk-spin"></div>Loading market data...</div>';fetchAll();timer=setInterval(fetchAll,REFRESH)}function fetchAll(){var p1=fetchTradFi();var p2=fetchCrypto();Promise.allSettled?Promise.allSettled([p1,p2]).then(render):Promise.all([p1.catch(function(){return null}),p2.catch(function(){return null})]).then(render)}function fetchTradFi(){return fetch(WORKER_URL).then(function(r){return r.json()}).then(function(data){if(data.tradfi)lastTradfi=data;return data}).catch(function(e){console.warn('[Ticker] TradFi error:',e.message);return null})}function fetchCrypto(){var ids=Object.values(CRYPTO_IDS).join(',');var url=COINGECKO_URL+'/simple/price?ids='+ids+'&vs_currencies=usd&include_24hr_change=true&include_market_cap=true';var globalUrl=COINGECKO_URL+'/global';return Promise.all([fetch(url).then(function(r){return r.json()}),fetch(globalUrl).then(function(r){return r.json()}).catch(function(){return null})]).then(function(results){var prices=results[0];var global=results[1];var crypto={};for(var name in CRYPTO_IDS){var id=CRYPTO_IDS[name];var d=prices[id];if(!d)continue;var p=d.usd;var ch=d.usd_24h_change||0;crypto[name]={price:'$'+formatNum(p),change:(ch>=0?'+':'')+ch.toFixed(2)+'%',direction:ch>0.01?'up':ch<-0.01?'down':'zero'}}if(global&&global.data){var mc=global.data.total_market_cap&&global.data.total_market_cap.usd;var mch=global.data.market_cap_change_percentage_24h_usd;if(mc){crypto['Crypto Total']={price:'$'+(mc/1e12).toFixed(2)+'T',change:(mch>=0?'+':'')+(mch||0).toFixed(2)+'%',direction:mch>0?'up':mch<0?'down':'zero'}}}lastCrypto=crypto;return crypto}).catch(function(e){console.warn('[Ticker] Crypto error:',e.message);return null})}function render(){var tradfi=lastTradfi?lastTradfi.tradfi:{};var crypto=lastCrypto||{};var kst=lastTradfi?lastTradfi.kst:new Date().toLocaleString('ko-KR',{timeZone:'Asia/Seoul'});var html=[];html.push('<div class="stk-ts"><span class="stk-dot"></span><span class="stk-time">'+esc(kst)+' KST</span></div>');for(var i=0;i<TRADFI_ORDER.length;i++){var name=TRADFI_ORDER[i];var d=tradfi[name];if(d)html.push(makeItem(name,d,false))}html.push('<div class="stk-div"><span></span></div>');for(var j=0;j<CRYPTO_ORDER.length;j++){var cname=CRYPTO_ORDER[j];var cd=crypto[cname];if(cd)html.push(makeItem(cname,cd,true))}var track=html.join('');container.innerHTML='<div class="stk-track">'+track+track+'</div>'}function makeItem(name,d,isCrypto){var dir=d.direction||'zero';var arrow=dir==='up'?'<span class="au"></span>':dir==='down'?'<span class="ad"></span>':'';return'<div class="stk-item"><span class="stk-lbl'+(isCrypto?' crypto':'')+'">'+esc(name)+'</span><span class="stk-prc">'+esc(d.price)+'</span><span class="stk-chg '+dir+'">'+arrow+' '+esc(d.change)+'</span></div>'}function formatNum(n){if(n>=10000)return n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});if(n>=100)return n.toFixed(2);if(n>=1)return n.toFixed(2);return n.toFixed(4)}function esc(s){if(!s)return'';var d=document.createElement('span');d.textContent=String(s);return d.innerHTML}if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',init)}else{init()}})();
 </script>
+
+
 
 
 
@@ -649,7 +662,7 @@
     <div class="bullet"><span class="dot">◾</span><span>삼성·하이닉스가 KOSPI 시가총액의 ~40%를 차지하고, 올해 상승분의 대부분이 이 두 종목에서 나왔음. 메모리 슈퍼사이클 → KOSPI 6,347 → 이란 전쟁 + Google 압축 기술 → 5,460. 한 달 만에 -14% 넘게 빠진 셈. 외국인은 원달러 1,500원 돌파 후 대규모 순매도를 이어가는 중</span></div>
     <div class="bullet"><span class="dot">◾</span><span>낙관론도 남아 있음. 압축 기술이 메모리 수요를 줄인다기보다, AI 워크로드 자체를 더 많이 돌릴 수 있게 해서 결국 총 메모리 수요는 늘어난다는 반론. GPU 효율이 좋아질수록 더 많은 AI 작업이 투입된 역사가 있음. But 단기적으로는 공급 과잉 우려가 가격에 먼저 반영되는 중 — 기술주 특유의 "일단 팔고 보자" 심리</span></div>
   </div>
-  <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
+  <div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/sk-hynix.html">SK하이닉스</a><span class="sep">·</span><a href="/wiki/samsung.html">삼성전자</a><span class="sep">·</span><a href="/wiki/micron.html">마이크론</a><span class="sep">·</span><a href="/wiki/kospi.html">코스피</a><span class="sep">·</span><a href="/wiki/google.html">구글</a></div><div class="row"><span class="k">같은 흐름</span><a href="/newsletters/2026/0710.html#story-1">07-10 하이닉스, 나스닥 왔쩜</a></div></div><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/meta.html">메타</a><span class="sep">·</span><a href="/wiki/sk-hynix.html">SK하이닉스</a><span class="sep">·</span><a href="/wiki/samsung.html">삼성전자</a><span class="sep">·</span><a href="/wiki/micron.html">마이크론</a><span class="sep">·</span><a href="/wiki/kospi.html">코스피</a></div></div><p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
 </div>
 
 <!-- STORY 3 -->
@@ -664,7 +677,7 @@
     <div class="bullet"><span class="dot">◾</span><span>숫자가 파격적. 2025년 매출 약 40억불이었던 Arm이 2031년까지 총매출 250억불 <span class="sub">(IP 100억 + 칩 판매 150억)</span>을 찍겠다는 목표. 칩 사업 마진은 약 50%로, 기존 IP 사업 <span class="sub">(98%, <span style="color:#999">실화냐</span>)</span>보다 확 낮지만 절대 이익 규모가 비교할 수 없을 정도로 큼. 칩 1개당 약 500불 수익 vs 로열티로 받던 1,000불짜리 칩의 5% <span class="sub">(50불)</span> — 단위당 수익이 10배. 시장에서는 "회사 역사상 가장 중대한 전환"이라는 평가</span></div>
     <div class="bullet"><span class="dot">◾</span><span>리스크는 명확함 — 고객이 곧 경쟁자가 되는 구조. 애플·엔비디아·아마존 전부 Arm 설계도로 자체 칩을 만드는 회사들인데, 이제 Arm이 같은 시장에서 완성품을 팔겠다는 것. But, 아마존·엔비디아·구글·마이크로소프트 등 50개 이상 기업이 지지를 표명했고, 젠슨 황도 "20년 파트너십"을 강조하며 우호적 반응. 주가 +16% 급등, 모회사 소프트뱅크도 도쿄에서 +7.9% 상승. 시장의 판단은 분명 — 중립 프리미엄보다 1조불 시장 직접 참전의 업사이드가 더 크다는 쪽</span></div>
   </div>
-  <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
+  <div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/meta.html">메타</a><span class="sep">·</span><a href="/wiki/tsmc.html">TSMC</a><span class="sep">·</span><a href="/wiki/openai.html">오픈AI</a><span class="sep">·</span><a href="/wiki/apple.html">애플</a><span class="sep">·</span><a href="/wiki/nvidia.html">엔비디아</a></div></div><p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
 </div>
 
 <!-- STORY 4 -->
@@ -679,7 +692,7 @@
     <div class="bullet"><span class="dot">◾</span><span>실제로 현금화 행렬이 역대급. 매크로 헤지펀드들은 상부로부터 "리스크 회피" 지시를 받았고, 최근 한 달간 주식·채권·금 가릴 것 없이 현금 전환이 급증. 펀드매니저들 현금 비중은 4.3%로 2020년 3월 <span class="sub">(코로나 폭락 직전)</span> 이후 최대 점프. 유럽 크레딧 쪽 대형 운용사 Algebris도 펀드 현금을 역대 최고로 끌어올린 상태</span></div>
     <div class="bullet"><span class="dot">◾</span><span>근데 여기서 역설은, 이 겁먹은 현금이 결국 반등의 로켓 연료가 된다는 것. 사이드라인에 쌓인 현금이 클수록 방아쇠 한 번 <span class="sub">(휴전 합의든, 해협 재개통이든)</span>에 쏟아질 매수 화력도 커지는 구조. 2020년 3월에도 현금 비중이 정점을 찍은 직후 역대급 랠리가 터졌음. 바클레이즈가 "증시는 불안의 벽을 타고 오른다"는 제목의 리서치를 낸 것도 이 맥락 — 겁쟁이들이 많을수록 스프링은 세게 튀는 법 <span class="note">(내 얘긴 줄)</span></span></div>
   </div>
-  <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
+  <div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/sp500.html">S&amp;P 500</a><span class="sep">·</span><a href="/wiki/blackrock.html">블랙록</a><span class="sep">·</span><a href="/wiki/oil.html">원유</a><span class="sep">·</span><a href="/wiki/trump.html">트럼프</a></div></div><p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
 </div>
 
 <!-- STORY 5 -->

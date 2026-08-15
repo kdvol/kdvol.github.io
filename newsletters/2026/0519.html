@@ -399,6 +399,17 @@
 <meta name="twitter:title" content="🐟 대통령도 주식 함, 3700번의 거래 — 순살브리핑 2026.05.19"/>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "NewsArticle", "headline": "대통령도 주식 함, 3700번의 거래 — 순살브리핑 2026.05.19", "datePublished": "2026-05-19T09:00:00+09:00", "dateModified": "2026-05-19T09:00:00+09:00", "inLanguage": "ko", "mainEntityOfPage": "https://soonsal.com/newsletters/2026/0519.html", "author": {"@type": "Organization", "name": "순살브리핑", "url": "https://soonsal.com/"}, "publisher": {"@type": "Organization", "name": "순살브리핑", "logo": {"@type": "ImageObject", "url": "https://soonsal.com/apple-touch-icon.png"}}, "keywords": "넥스트에라 도미니언 에너지 합병 670억불 AI 데이터센터 전력,  머스크 OpenAI 소송 패소 배심원 90분,  블랙록 사모크레딧 TCP 캐피탈 검찰 수사,  AI 졸업식 야유 에릭 슈미트,  트럼프 3700건 주식 거래"}</script>
 <!-- soonsal:bc --><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "순살브리핑", "item": "https://soonsal.com/"}, {"@type": "ListItem", "position": 2, "name": "브리핑", "item": "https://soonsal.com/newsletters/"}, {"@type": "ListItem", "position": 3, "name": "🐟 대통령도 주식 함, 3700번의 거래 — 순살브리핑 2026.05.19", "item": "https://soonsal.com/newsletters/2026/0519.html"}]}</script>
+
+<style id="soonsal-story-links">
+/* 스토리 끝 — 다 읽은 사람만 본다. 본문 흐름을 끊지 않는다 */
+.story-links{margin:14px 0 0;padding:11px 0 0;border-top:1px solid #ece8e0;
+font-size:11.5px;line-height:1.8;color:#9a958a;word-break:keep-all}
+.story-links .k{color:#b5b0a4;margin-right:5px}
+.story-links a{color:#8a857c;text-decoration:none;border-bottom:1px solid #e6e1d8}
+.story-links a:hover{color:#C24A00;border-bottom-color:#C24A00}
+.story-links .sep{opacity:.4;margin:0 4px}
+.story-links .row + .row{margin-top:3px}
+</style>
 </head>
 <body>
 <div id="soonsal-live-ticker" style="display:none;"></div>
@@ -442,6 +453,8 @@
 <script>
 (function(){'use strict';var WORKER_URL='https://soonsal-data.kd-d0a.workers.dev/';var COINGECKO_URL='https://api.coingecko.com/api/v3';var TRADFI_ORDER=['S&P 500','NASDAQ','Dow Jones','KOSPI','US 10Y','WTI Oil','Gold','DXY','EUR/USD','USD/JPY','USD/KRW'];var CRYPTO_ORDER=['Bitcoin','Ethereum','Solana','XRP','BNB','Crypto Total'];var CRYPTO_IDS={'Bitcoin':'bitcoin','Ethereum':'ethereum','Solana':'solana','XRP':'ripple','BNB':'binancecoin'};var REFRESH=60000;var container,timer,lastTradfi,lastCrypto;function init(){container=document.getElementById('soonsal-live-ticker');if(!container)return;container.style.display='block';container.innerHTML='<div class="stk-loading"><div class="stk-spin"></div>Loading market data...</div>';fetchAll();timer=setInterval(fetchAll,REFRESH)}function fetchAll(){var p1=fetchTradFi();var p2=fetchCrypto();Promise.allSettled?Promise.allSettled([p1,p2]).then(render):Promise.all([p1.catch(function(){return null}),p2.catch(function(){return null})]).then(render)}function fetchTradFi(){return fetch(WORKER_URL).then(function(r){return r.json()}).then(function(data){if(data.tradfi)lastTradfi=data;return data}).catch(function(e){console.warn('[Ticker] TradFi error:',e.message);return null})}function fetchCrypto(){var ids=Object.values(CRYPTO_IDS).join(',');var url=COINGECKO_URL+'/simple/price?ids='+ids+'&vs_currencies=usd&include_24hr_change=true&include_market_cap=true';var globalUrl=COINGECKO_URL+'/global';return Promise.all([fetch(url).then(function(r){return r.json()}),fetch(globalUrl).then(function(r){return r.json()}).catch(function(){return null})]).then(function(results){var prices=results[0];var global=results[1];var crypto={};for(var name in CRYPTO_IDS){var id=CRYPTO_IDS[name];var d=prices[id];if(!d)continue;var p=d.usd;var ch=d.usd_24h_change||0;crypto[name]={price:'$'+formatNum(p),change:(ch>=0?'+':'')+ch.toFixed(2)+'%',direction:ch>0.01?'up':ch<-0.01?'down':'zero'}}if(global&&global.data){var mc=global.data.total_market_cap&&global.data.total_market_cap.usd;var mch=global.data.market_cap_change_percentage_24h_usd;if(mc){crypto['Crypto Total']={price:'$'+(mc/1e12).toFixed(2)+'T',change:(mch>=0?'+':'')+(mch||0).toFixed(2)+'%',direction:mch>0?'up':mch<0?'down':'zero'}}}lastCrypto=crypto;return crypto}).catch(function(e){console.warn('[Ticker] Crypto error:',e.message);return null})}function render(){var tradfi=lastTradfi?lastTradfi.tradfi:{};var crypto=lastCrypto||{};var kst=lastTradfi?lastTradfi.kst:new Date().toLocaleString('ko-KR',{timeZone:'Asia/Seoul'});var html=[];html.push('<div class="stk-ts"><span class="stk-dot"></span><span class="stk-time">'+esc(kst)+' KST</span></div>');for(var i=0;i<TRADFI_ORDER.length;i++){var name=TRADFI_ORDER[i];var d=tradfi[name];if(d)html.push(makeItem(name,d,false))}html.push('<div class="stk-div"><span></span></div>');for(var j=0;j<CRYPTO_ORDER.length;j++){var cname=CRYPTO_ORDER[j];var cd=crypto[cname];if(cd)html.push(makeItem(cname,cd,true))}var track=html.join('');container.innerHTML='<div class="stk-track">'+track+track+'</div>'}function makeItem(name,d,isCrypto){var dir=d.direction||'zero';var arrow=dir==='up'?'<span class="au"></span>':dir==='down'?'<span class="ad"></span>':'';return'<div class="stk-item"><span class="stk-lbl'+(isCrypto?' crypto':'')+'">'+esc(name)+'</span><span class="stk-prc">'+esc(d.price)+'</span><span class="stk-chg '+dir+'">'+arrow+' '+esc(d.change)+'</span></div>'}function formatNum(n){if(n>=10000)return n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});if(n>=100)return n.toFixed(2);if(n>=1)return n.toFixed(2);return n.toFixed(4)}function esc(s){if(!s)return'';var d=document.createElement('span');d.textContent=String(s);return d.innerHTML}if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',init)}else{init()}})();
 </script>
+
+
 
 
 
@@ -622,7 +635,7 @@
         <div class="bullet"><span class="dot">◾</span><span>올해만 데이터센터 관련 대형 인수가 줄을 잇는 중 — 블랙록 컨소시엄의 AES 인수 <span class="sub">(107억불)</span>, 지난해 컨스텔레이션의 칼파인 인수 <span class="sub">(290억불)</span>, 이번 넥스트에라·도미니언까지. 20년 만에 미국 전력 수요가 다시 늘어나기 시작하면서, "규모 없으면 AI 시대 전력을 못 댄다"는 논리가 유틸리티 합종연횡을 밀어붙이는 중 <span class="note">(뭉쳐야 산다)</span></span></div>
         <div class="bullet"><span class="dot">◾</span><span>문제는 소비자 반발. 넥스트에라의 플로리다 자회사 FPL은 작년 11월 70억불 규모 전기료 인상을 승인받아서 고객 불만이 이미 높은 상태. 도미니언 쪽도 버지니아 주지사가 데이터센터에 더 비싼 전기료를 매기겠다고 공약. 합병이 승인되면 데이터센터가 빨아들이는 전력 비용이 일반 가정에 전가되는 구조가 굳어질 수 있다는 경고가 나오는 상황</span></div>
       </div>
-      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
+      <div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/exxon.html">엑슨모빌</a><span class="sep">·</span><a href="/wiki/blackrock.html">블랙록</a></div></div><p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
     </div>
 
     <!-- STORY 2: 머스크 vs OpenAI 패소 -->
@@ -636,7 +649,7 @@
         <div class="bullet"><span class="dot">◾</span><span>이 판결로 OpenAI의 비영리→영리 전환은 법적 도전에서 벗어남. 실체 판단 없이 공소시효 도과로 끝난 것이라 "잘못이 없었다"는 판결은 아니지만, 사실상 같은 근거로 다시 소송걸기 어려운 구조. 마이크로소프트에 대한 "공모" 주장도 같은 이유로 함께 기각. OpenAI는 IPO를 향해 한 걸음 더 나아간 셈</span></div>
         <div class="bullet"><span class="dot">◾</span><span>머스크는 판결 직후 X에서 판사를 공격 — "자선단체를 조용히 털어간 담에 몇 년만 버티면 된다고 면허 내준거 아니냐"고 작성. 이번 재판은 AI 산업의 비영리→영리 구조 전환에 대한 첫 법적 시험대였던 만큼, 판결이 확정되면 선례로 남게 되는 구조 <span class="note">(0.38억불 넣고 1,300억불+ 청구서를 보냈던 재판)</span></span></div>
       </div>
-      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
+      <div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/musk.html">일론 머스크</a><span class="sep">·</span><a href="/wiki/openai.html">오픈AI</a><span class="sep">·</span><a href="/wiki/microsoft.html">마이크로소프트</a></div><div class="row"><span class="k">같은 흐름</span><a href="/newsletters/2026/0326.html#story-3">03-26 OpenAI, 영상 gg친 이유</a><span class="sep">·</span><a href="/newsletters/2026/0629.html#story-2">06-29 OpenAI, 1조 아니면 껃영</a></div></div><p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
     </div>
 
     <!-- STORY 3: 사모크레딧 검찰 수사 -->
@@ -650,7 +663,7 @@
         <div class="bullet"><span class="dot">◾</span><span>블랙록은 세계 최대 자산운용사 <span class="sub">(운용자산 11.6조불)</span>. 1분기 실적은 두 자릿수 성장으로 양호했는데, TCP 캐피탈 건은 사모 크레딧 사업의 리스크 관리 능력에 의문을 던지는 사건 <span class="sub">(블랙록은 사모보다는 공모가 주력이긴 함)</span>. SDNY를 이끄는 제이 클레이튼은 지난해 "기업들이 비상장 자산 가격을 어떻게 매기는지 규제당국과 검찰이 주시하고 있다"고 공개 경고한 바 있음</span></div>
         <div class="bullet"><span class="dot">◾</span><span>지난 2년간 "사모 크레딧이 은행을 대체한다"는 내러티브로 개인 투자자 돈이 몰렸음. 은행 대출 규제가 빡세지면서 그 틈을 파고들었던 시장. 이번 수사가 밸류에이션 방법론 전체에 규제 변화를 가져오면, BDC뿐 아니라 비상장 사모 크레딧 펀드 전반이 영향을 받을 수 있는 상황. "가격을 누가 매기느냐"가 이 시장의 핵심 리스크라는 걸 보여주는 사례 <span class="note">(영원한 숙제)</span></span></div>
       </div>
-      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
+      <div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/blackrock.html">블랙록</a><span class="sep">·</span><a href="/wiki/oil.html">원유</a></div><div class="row"><span class="k">같은 흐름</span><a href="/newsletters/2026/0304-crypto.html#story-3">03-04 Blackstone BCRED에서 $3.8B 빠</a><span class="sep">·</span><a href="/newsletters/2026/0304.html#story-4">03-04 Blackstone에서 $3.8B가 빠져나감 —</a></div></div><p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
     </div>
 
     <!-- STORY 4: AI 졸업식 야유 -->

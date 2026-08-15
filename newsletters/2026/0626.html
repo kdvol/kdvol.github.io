@@ -399,6 +399,17 @@
 <meta name="twitter:title" content="🐟 후계자 전쟁 — 순살브리핑 2026.06.26"/>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "NewsArticle", "headline": "후계자 전쟁 — 순살브리핑 2026.06.26", "datePublished": "2026-06-26T09:00:00+09:00", "dateModified": "2026-06-26T09:00:00+09:00", "inLanguage": "ko", "mainEntityOfPage": "https://soonsal.com/newsletters/2026/0626.html", "author": {"@type": "Organization", "name": "순살브리핑", "url": "https://soonsal.com/"}, "publisher": {"@type": "Organization", "name": "순살브리핑", "logo": {"@type": "ImageObject", "url": "https://soonsal.com/apple-touch-icon.png"}}, "keywords": "호르무즈해협공격유가급등, PCE4.1%3년최고연준금리인상, 애플전제품가격인상AI메모리부족, JPMorgan후계자대반전레이크퇴장, 사모신용BigShort2.0", "image": ["https://soonsal.com/cardnews/2026/0626_png/card_01.png"]}</script>
 <!-- soonsal:bc --><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "순살브리핑", "item": "https://soonsal.com/"}, {"@type": "ListItem", "position": 2, "name": "브리핑", "item": "https://soonsal.com/newsletters/"}, {"@type": "ListItem", "position": 3, "name": "🐟 후계자 전쟁 — 순살브리핑 2026.06.26", "item": "https://soonsal.com/newsletters/2026/0626.html"}]}</script>
+
+<style id="soonsal-story-links">
+/* 스토리 끝 — 다 읽은 사람만 본다. 본문 흐름을 끊지 않는다 */
+.story-links{margin:14px 0 0;padding:11px 0 0;border-top:1px solid #ece8e0;
+font-size:11.5px;line-height:1.8;color:#9a958a;word-break:keep-all}
+.story-links .k{color:#b5b0a4;margin-right:5px}
+.story-links a{color:#8a857c;text-decoration:none;border-bottom:1px solid #e6e1d8}
+.story-links a:hover{color:#C24A00;border-bottom-color:#C24A00}
+.story-links .sep{opacity:.4;margin:0 4px}
+.story-links .row + .row{margin-top:3px}
+</style>
 </head>
 <body>
 <div id="soonsal-live-ticker" style="display:none;"></div>
@@ -442,6 +453,8 @@
 <script>
 (function(){'use strict';var WORKER_URL='https://soonsal-data.kd-d0a.workers.dev/';var COINGECKO_URL='https://api.coingecko.com/api/v3';var TRADFI_ORDER=['S&P 500','NASDAQ','Dow Jones','KOSPI','US 10Y','WTI Oil','Gold','DXY','EUR/USD','USD/JPY','USD/KRW'];var CRYPTO_ORDER=['Bitcoin','Ethereum','Solana','XRP','BNB','Crypto Total'];var CRYPTO_IDS={'Bitcoin':'bitcoin','Ethereum':'ethereum','Solana':'solana','XRP':'ripple','BNB':'binancecoin'};var REFRESH=60000;var container,timer,lastTradfi,lastCrypto;function init(){container=document.getElementById('soonsal-live-ticker');if(!container)return;container.style.display='block';container.innerHTML='<div class="stk-loading"><div class="stk-spin"></div>Loading market data...</div>';fetchAll();timer=setInterval(fetchAll,REFRESH)}function fetchAll(){var p1=fetchTradFi();var p2=fetchCrypto();Promise.allSettled?Promise.allSettled([p1,p2]).then(render):Promise.all([p1.catch(function(){return null}),p2.catch(function(){return null})]).then(render)}function fetchTradFi(){return fetch(WORKER_URL).then(function(r){return r.json()}).then(function(data){if(data.tradfi)lastTradfi=data;return data}).catch(function(e){console.warn('[Ticker] TradFi error:',e.message);return null})}function fetchCrypto(){var ids=Object.values(CRYPTO_IDS).join(',');var url=COINGECKO_URL+'/simple/price?ids='+ids+'&vs_currencies=usd&include_24hr_change=true&include_market_cap=true';var globalUrl=COINGECKO_URL+'/global';return Promise.all([fetch(url).then(function(r){return r.json()}),fetch(globalUrl).then(function(r){return r.json()}).catch(function(){return null})]).then(function(results){var prices=results[0];var global=results[1];var crypto={};for(var name in CRYPTO_IDS){var id=CRYPTO_IDS[name];var d=prices[id];if(!d)continue;var p=d.usd;var ch=d.usd_24h_change||0;crypto[name]={price:'$'+formatNum(p),change:(ch>=0?'+':'')+ch.toFixed(2)+'%',direction:ch>0.01?'up':ch<-0.01?'down':'zero'}}if(global&&global.data){var mc=global.data.total_market_cap&&global.data.total_market_cap.usd;var mch=global.data.market_cap_change_percentage_24h_usd;if(mc){crypto['Crypto Total']={price:'$'+(mc/1e12).toFixed(2)+'T',change:(mch>=0?'+':'')+(mch||0).toFixed(2)+'%',direction:mch>0?'up':mch<0?'down':'zero'}}}lastCrypto=crypto;return crypto}).catch(function(e){console.warn('[Ticker] Crypto error:',e.message);return null})}function render(){var tradfi=lastTradfi?lastTradfi.tradfi:{};var crypto=lastCrypto||{};var kst=lastTradfi?lastTradfi.kst:new Date().toLocaleString('ko-KR',{timeZone:'Asia/Seoul'});var html=[];html.push('<div class="stk-ts"><span class="stk-dot"></span><span class="stk-time">'+esc(kst)+' KST</span></div>');for(var i=0;i<TRADFI_ORDER.length;i++){var name=TRADFI_ORDER[i];var d=tradfi[name];if(d)html.push(makeItem(name,d,false))}html.push('<div class="stk-div"><span></span></div>');for(var j=0;j<CRYPTO_ORDER.length;j++){var cname=CRYPTO_ORDER[j];var cd=crypto[cname];if(cd)html.push(makeItem(cname,cd,true))}var track=html.join('');container.innerHTML='<div class="stk-track">'+track+track+'</div>'}function makeItem(name,d,isCrypto){var dir=d.direction||'zero';var arrow=dir==='up'?'<span class="au"></span>':dir==='down'?'<span class="ad"></span>':'';return'<div class="stk-item"><span class="stk-lbl'+(isCrypto?' crypto':'')+'">'+esc(name)+'</span><span class="stk-prc">'+esc(d.price)+'</span><span class="stk-chg '+dir+'">'+arrow+' '+esc(d.change)+'</span></div>'}function formatNum(n){if(n>=10000)return n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});if(n>=100)return n.toFixed(2);if(n>=1)return n.toFixed(2);return n.toFixed(4)}function esc(s){if(!s)return'';var d=document.createElement('span');d.textContent=String(s);return d.innerHTML}if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',init)}else{init()}})();
 </script>
+
+
 
 
 
@@ -644,7 +657,7 @@
         <div class="bullet"><span class="dot">◾</span><p>애플만의 문제가 아님. 마이크로소프트는 같은 날 Xbox 가격을 13개월 만에 세 번째 인상 발표, 역시 메모리·스토리지 비용 급등을 이유로 들었음. "부품 가격이 2.5배 올랐고, 2027년 가을까지 한 번 더 2배 올릴 것"이라며 2TB 모델은 아예 단종. 소니도 플레이스테이션 가격을 이미 여러 차례 올렸고, 닌텐도 스위치2도 출시가 500불로 올라가는 상황</p></div>
         <div class="bullet"><span class="dot">◾</span><p>소비자 입장에선 이중고. 휘발유값은 전쟁 때문에 오르고, 전자제품은 AI 때문에 오르는 중. 같은 날 발표된 5월 PCE 4.1%라는 숫자 안에 이 두 가지가 동시에 들어 있는 것. 팀 쿡도 지난주 인터뷰에서 "이런 규모의 부품 가격 상승은 처음"이라고 인정. 올 하반기에 아이폰 가격까지 올리면 "AI 인플레"가 본격적으로 체감되는 시점 <span class="note">(뭐가 됐건 빨리 사는 사람이 위너)</span></p></div>
       </div>
-      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
+      <div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/apple.html">애플</a><span class="sep">·</span><a href="/wiki/micron.html">마이크론</a><span class="sep">·</span><a href="/wiki/microsoft.html">마이크로소프트</a><span class="sep">·</span><a href="/wiki/tim-cook.html">팀 쿡</a></div></div><p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
     </div>
 
     <!-- STORY 2 -->
@@ -671,7 +684,7 @@
         <div class="bullet"><span class="dot">◾</span><p>이번 주 대법원이 연달아 기업 편을 든 게 패턴. 화요일에 엑슨모빌 <span class="sub">(쿠바 자산 몰수 관련, 6대 3)</span>과 시스코 <span class="sub">(중국 감시 시스템 인권 소송 관련, 6대 3)</span>도 기업 쪽 손을 들어줌. 소토마요르 대법관은 "법을 자기 입맛대로 다시 쓰고 있다"고 직격. 보수 다수 6대 3 구성 하에서 기업 친화적 판결이 이어지는 트렌드이고, 규제 당국의 권한은 축소되고 소비자·인권 소송의 문턱은 높아지는 구조적 변화</p></div>
         <div class="bullet"><span class="dot">◾</span><p>바이엘에겐 턴어라운드의 시작점이 될 수 있음. 라운드업 소송 리스크가 주가를 10년 가까이 짓눌렀는데, 이 판결로 미래 소송 비용 전망이 크게 줄어듦. 다만 이미 진행 중인 기존 소송에는 직접 영향이 없고, 바이엘은 72.5억불 규모의 집단소송 합의안도 따로 추진 중. 완전한 해방까진 아직 남았지만, 투자자들은 그간 이어져 온 '인수 실패' 서사의 전환점으로 보는 중 <span class="note">(돈으로 못 풀었는데 판사가 풀어줌)</span></p></div>
       </div>
-      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
+      <div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/exxon.html">엑슨모빌</a><span class="sep">·</span><a href="/wiki/cisco.html">시스코</a><span class="sep">·</span><a href="/wiki/bok.html">한국은행</a></div></div><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/jpmorgan.html">JP모건</a><span class="sep">·</span><a href="/wiki/dimon.html">제이미 다이먼</a><span class="sep">·</span><a href="/wiki/morgan-stanley.html">모건스탠리</a><span class="sep">·</span><a href="/wiki/goldman.html">골드만삭스</a><span class="sep">·</span><a href="/wiki/exxon.html">엑슨모빌</a></div><div class="row"><span class="k">같은 흐름</span><a href="/newsletters/2026/0410-crypto.html#story-2">04-10 JPMorgan: Strategy가 크립토 시장</a><span class="sep">·</span><a href="/newsletters/2026/0413-crypto.html#story-4">04-13 Strategy가 시장을 떠받치고 있다 — JP</a></div></div><p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
     </div>
 
     <!-- STORY 4 -->

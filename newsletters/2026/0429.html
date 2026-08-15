@@ -399,6 +399,17 @@
 <meta name="twitter:title" content="🐟 60년 묵은 카르텔, 드디어 깨짐 — 순살브리핑 2026.04.29"/>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "NewsArticle", "headline": "60년 묵은 카르텔, 드디어 깨짐 — 순살브리핑 2026.04.29", "datePublished": "2026-04-29T09:00:00+09:00", "dateModified": "2026-04-29T09:00:00+09:00", "inLanguage": "ko", "mainEntityOfPage": "https://soonsal.com/newsletters/2026/0429.html", "author": {"@type": "Organization", "name": "순살브리핑", "url": "https://soonsal.com/"}, "publisher": {"@type": "Organization", "name": "순살브리핑", "logo": {"@type": "ImageObject", "url": "https://soonsal.com/apple-touch-icon.png"}}, "keywords": "UAEOPEC탈퇴60년동맹전쟁,  오픈AI매출목표미달IPO위기,  Bayer라운드업대법원농업,  IAC리브랜딩People배리딜러,  BYD실적55급락가격전쟁"}</script>
 <!-- soonsal:bc --><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "순살브리핑", "item": "https://soonsal.com/"}, {"@type": "ListItem", "position": 2, "name": "브리핑", "item": "https://soonsal.com/newsletters/"}, {"@type": "ListItem", "position": 3, "name": "🐟 60년 묵은 카르텔, 드디어 깨짐 — 순살브리핑 2026.04.29", "item": "https://soonsal.com/newsletters/2026/0429.html"}]}</script>
+
+<style id="soonsal-story-links">
+/* 스토리 끝 — 다 읽은 사람만 본다. 본문 흐름을 끊지 않는다 */
+.story-links{margin:14px 0 0;padding:11px 0 0;border-top:1px solid #ece8e0;
+font-size:11.5px;line-height:1.8;color:#9a958a;word-break:keep-all}
+.story-links .k{color:#b5b0a4;margin-right:5px}
+.story-links a{color:#8a857c;text-decoration:none;border-bottom:1px solid #e6e1d8}
+.story-links a:hover{color:#C24A00;border-bottom-color:#C24A00}
+.story-links .sep{opacity:.4;margin:0 4px}
+.story-links .row + .row{margin-top:3px}
+</style>
 </head>
 <body>
 <div id="soonsal-live-ticker" style="display:none;"></div>
@@ -442,6 +453,8 @@
 <script>
 (function(){'use strict';var WORKER_URL='https://soonsal-data.kd-d0a.workers.dev/';var COINGECKO_URL='https://api.coingecko.com/api/v3';var TRADFI_ORDER=['S&P 500','NASDAQ','Dow Jones','KOSPI','US 10Y','WTI Oil','Gold','DXY','EUR/USD','USD/JPY','USD/KRW'];var CRYPTO_ORDER=['Bitcoin','Ethereum','Solana','XRP','BNB','Crypto Total'];var CRYPTO_IDS={'Bitcoin':'bitcoin','Ethereum':'ethereum','Solana':'solana','XRP':'ripple','BNB':'binancecoin'};var REFRESH=60000;var container,timer,lastTradfi,lastCrypto;function init(){container=document.getElementById('soonsal-live-ticker');if(!container)return;container.style.display='block';container.innerHTML='<div class="stk-loading"><div class="stk-spin"></div>Loading market data...</div>';fetchAll();timer=setInterval(fetchAll,REFRESH)}function fetchAll(){var p1=fetchTradFi();var p2=fetchCrypto();Promise.allSettled?Promise.allSettled([p1,p2]).then(render):Promise.all([p1.catch(function(){return null}),p2.catch(function(){return null})]).then(render)}function fetchTradFi(){return fetch(WORKER_URL).then(function(r){return r.json()}).then(function(data){if(data.tradfi)lastTradfi=data;return data}).catch(function(e){console.warn('[Ticker] TradFi error:',e.message);return null})}function fetchCrypto(){var ids=Object.values(CRYPTO_IDS).join(',');var url=COINGECKO_URL+'/simple/price?ids='+ids+'&vs_currencies=usd&include_24hr_change=true&include_market_cap=true';var globalUrl=COINGECKO_URL+'/global';return Promise.all([fetch(url).then(function(r){return r.json()}),fetch(globalUrl).then(function(r){return r.json()}).catch(function(){return null})]).then(function(results){var prices=results[0];var global=results[1];var crypto={};for(var name in CRYPTO_IDS){var id=CRYPTO_IDS[name];var d=prices[id];if(!d)continue;var p=d.usd;var ch=d.usd_24h_change||0;crypto[name]={price:'$'+formatNum(p),change:(ch>=0?'+':'')+ch.toFixed(2)+'%',direction:ch>0.01?'up':ch<-0.01?'down':'zero'}}if(global&&global.data){var mc=global.data.total_market_cap&&global.data.total_market_cap.usd;var mch=global.data.market_cap_change_percentage_24h_usd;if(mc){crypto['Crypto Total']={price:'$'+(mc/1e12).toFixed(2)+'T',change:(mch>=0?'+':'')+(mch||0).toFixed(2)+'%',direction:mch>0?'up':mch<0?'down':'zero'}}}lastCrypto=crypto;return crypto}).catch(function(e){console.warn('[Ticker] Crypto error:',e.message);return null})}function render(){var tradfi=lastTradfi?lastTradfi.tradfi:{};var crypto=lastCrypto||{};var kst=lastTradfi?lastTradfi.kst:new Date().toLocaleString('ko-KR',{timeZone:'Asia/Seoul'});var html=[];html.push('<div class="stk-ts"><span class="stk-dot"></span><span class="stk-time">'+esc(kst)+' KST</span></div>');for(var i=0;i<TRADFI_ORDER.length;i++){var name=TRADFI_ORDER[i];var d=tradfi[name];if(d)html.push(makeItem(name,d,false))}html.push('<div class="stk-div"><span></span></div>');for(var j=0;j<CRYPTO_ORDER.length;j++){var cname=CRYPTO_ORDER[j];var cd=crypto[cname];if(cd)html.push(makeItem(cname,cd,true))}var track=html.join('');container.innerHTML='<div class="stk-track">'+track+track+'</div>'}function makeItem(name,d,isCrypto){var dir=d.direction||'zero';var arrow=dir==='up'?'<span class="au"></span>':dir==='down'?'<span class="ad"></span>':'';return'<div class="stk-item"><span class="stk-lbl'+(isCrypto?' crypto':'')+'">'+esc(name)+'</span><span class="stk-prc">'+esc(d.price)+'</span><span class="stk-chg '+dir+'">'+arrow+' '+esc(d.change)+'</span></div>'}function formatNum(n){if(n>=10000)return n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});if(n>=100)return n.toFixed(2);if(n>=1)return n.toFixed(2);return n.toFixed(4)}function esc(s){if(!s)return'';var d=document.createElement('span');d.textContent=String(s);return d.innerHTML}if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',init)}else{init()}})();
 </script>
+
+
 
 
 
@@ -649,7 +662,7 @@
         <div class="bullet"><span class="dot">◾</span><span><strong>시장에서는 장기적으로 유가 하방 압력 요인이라는 평가.</strong> 하루 485만 배럴짜리 멤버가 빠지면 OPEC이 감산으로 가격을 떠받치는 힘 자체가 약해짐. UAE가 비OPEC 산유국처럼 뽑을 수 있는 만큼 뽑는 전략으로 가면, 유가가 올라도 예전만큼 못 올라가는 구조. 다만 호르무즈 정상화 전까진 실질 공급 변화는 제한적</span></div>
         <div class="bullet"><span class="dot">◾</span><span>진짜 무서운 건 도미노 효과. 최근에도 인도네시아 <span class="sub">(2016년)</span>, 카타르 <span class="sub">(2019년)</span>, 에콰도르 <span class="sub">(2020년)</span>, 앙골라 <span class="sub">(2023년)</span>가 줄줄이 탈퇴. 이러다간 사우디+이라크 만 남을 기세. 미국 셰일 혁명으로 이미 시장 지배력이 약해진 상황에서 내부 이탈까지 겹치면, "산유국 담합"이라는 기존 헤게모니 자체가 흔들리는 국면. 탈퇴자들+비OPEC끼리 똘똘 뭉쳐 새로운 카르텔을 만들 가능성도 있음</span></div>
       </div>
-      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
+      <div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/opec.html">OPEC</a><span class="sep">·</span><a href="/wiki/oil.html">원유</a></div><div class="row"><span class="k">같은 흐름</span><a href="/newsletters/2026/0317.html#story-2">03-17 전쟁이 깨버린 60/40의 신화</a></div></div><p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
     </div>
 
     <!-- STORY 2 -->
@@ -663,7 +676,7 @@
         <div class="bullet"><span class="dot">◾</span><span>이 와중에 바로 어제 미국 법원에서 머스크 vs 알트만 재판이 시작됨. 머스크 측은 "비영리기관인 척 하면서 회사 훔쳐갔다"며 1,300억불 손해배상 + 비영리 원상복귀를 요구하는 중이고, 오픈AI 변호사는 "머스크가 떠난 뒤 질투심에 소송을 건 것"이라 맞받아침. 상장 전에 터진 재판이라 투자자 입장에선 거버넌스 리스크가 한 겹 더 쌓이는 구조</span></div>
         <div class="bullet"><span class="dot">◾</span><span>다만 오픈AI의 상황은 매번 이런 식. 점유율이 빠지면 "끝났다" 하다가도 매출은 연 250억불 넘게 찍고, 기업가치 8,520억불에 역대급 펀딩을 따내고, 다시 "새버전 신기능 쩌네"의 반복. 이번에도 성장 둔화 보도 + 머스크 재판 + Q4 상장 일정이 한꺼번에 겹치면서, "AI 인프라에 쏟은 돈 대비 남는 게 있냐"는 질문이 시장 한가운데로 올라온 상황</span></div>
       </div>
-      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
+      <div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/openai.html">오픈AI</a><span class="sep">·</span><a href="/wiki/google.html">구글</a><span class="sep">·</span><a href="/wiki/anthropic.html">앤스로픽</a><span class="sep">·</span><a href="/wiki/amazon.html">아마존</a><span class="sep">·</span><a href="/wiki/oil.html">원유</a></div><div class="row"><span class="k">같은 흐름</span><a href="/newsletters/2026/0428.html#story-1">04-28 오픈AI, MS 품에서 탈출?</a></div></div><p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
     </div>
 
     <!-- STORY 3 -->
@@ -677,7 +690,7 @@
         <div class="bullet"><span class="dot">◾</span><span>이 판결은 라운드업을 넘어서 산업 전체의 규칙을 바꿀 수 있음. <strong>"연방 기관이 안전하다고 한 제품에 주 정부가 추가 경고를 붙일 수 있는가"라는 선례가 되기 때문.</strong> 바이엘 쪽은 이걸 허용하면 50개 주마다 다른 경고 라벨을 붙여야 한다고 주장 중. 제초제뿐 아니라 약, 식품첨가물, 화학물질까지 파급. 연방 우선이면 기업한테는 좋음. But 소비자 입장에서는 연방 기관이 놓친 위험을 주 법원에서도 못 잡게 되는 양날의 검</span></div>
         <div class="bullet"><span class="dot">◾</span><span>시작은 2018년. 바이엘이 라운드업 만들던 몬산토 <span class="sub">(Monsanto)</span>를 630억불에 인수하면서 소송 리스크까지 통째로 가져옴. 인수 몇 주 만에 첫 재판에서 졌고, 주가는 이후 60% 넘게 빠짐. 한때 시가총액이 인수가 수준까지 떨어져서 바이엘 본업 가치가 통째로 증발한 셈. AOL-타임워너와 함께 역대 최악의 인수합병으로 꼽히는 중. CEO는 글리포세이트 사업 자체를 접을지까지 검토 중인데, 이번 대법원 결과에 따라 평가가 완전히 뒤집힐 수도 있는 상황. 판결은 6월 말까지 예상</span></div>
       </div>
-      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
+      <div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/trump.html">트럼프</a></div></div><p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
     </div>
 
     <!-- STORY 4 -->
@@ -705,7 +718,7 @@
         <div class="bullet"><span class="dot">◾</span><span>중국 가격전쟁은 지금 저세상 텐션. 전기차 업체 100곳 넘게 경쟁하면서 거의 매달 할인 프로모션이 쏟아짐. 테슬라 차이나도 모델 Y 가격을 수차례 내리면서 참전한 상태. BYD조차 마진을 못 지키는 환경이면 중소 업체들은 사실상 생존 불가능 — 왕촨푸 <span class="sub">(BYD 회장)</span>도 직접 "녹아웃 스테이지에 들어섰다"고 표현한 수준</span></div>
         <div class="bullet"><span class="dot">◾</span><span>BYD의 55% 이익 감소는 한 회사 문제가 아니라 전기차 산업 전체의 수익성 경고등. 중국 가격전쟁이 안 끝나면 원가 경쟁력이 약한 글로벌 완성차 업체들 <span class="sub">(GM, 현대차 등)</span>도 마진 압박을 피할 수 없음. 볼륨이 아니라 마진을 기준으로 봐야 하는 시점이 온 것. 테슬라도 가격 인하 이후 자동차 마진이 4분기 연속 빠지고 있는데, 1위도 2위도 못 피하는 싸움이라는 뜻</span></div>
       </div>
-      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
+      <div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/byd.html">BYD</a><span class="sep">·</span><a href="/wiki/tesla.html">테슬라</a><span class="sep">·</span><a href="/wiki/hyundai.html">현대차</a></div></div><p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
     </div>
 
   </div><!-- /content -->

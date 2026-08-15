@@ -399,6 +399,17 @@
 <meta name="twitter:title" content="🐟 파멸적 부활 — 순살브리핑 2026.06.19"/>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "NewsArticle", "headline": "파멸적 부활 — 순살브리핑 2026.06.19", "datePublished": "2026-06-19T09:00:00+09:00", "dateModified": "2026-06-19T09:00:00+09:00", "inLanguage": "ko", "mainEntityOfPage": "https://soonsal.com/newsletters/2026/0619.html", "author": {"@type": "Organization", "name": "순살브리핑", "url": "https://soonsal.com/"}, "publisher": {"@type": "Organization", "name": "순살브리핑", "logo": {"@type": "ImageObject", "url": "https://soonsal.com/apple-touch-icon.png"}}, "keywords": "이란평화협정발효호르무즈, 인텔파운드리18AP228%, 인도네시아MSCI프론티어강등위기, SpaceX200억불채권, 러시아전쟁GDP15%이자", "image": ["https://soonsal.com/cardnews/2026/0619_png/card_01.png"]}</script>
 <!-- soonsal:bc --><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "순살브리핑", "item": "https://soonsal.com/"}, {"@type": "ListItem", "position": 2, "name": "브리핑", "item": "https://soonsal.com/newsletters/"}, {"@type": "ListItem", "position": 3, "name": "🐟 파멸적 부활 — 순살브리핑 2026.06.19", "item": "https://soonsal.com/newsletters/2026/0619.html"}]}</script>
+
+<style id="soonsal-story-links">
+/* 스토리 끝 — 다 읽은 사람만 본다. 본문 흐름을 끊지 않는다 */
+.story-links{margin:14px 0 0;padding:11px 0 0;border-top:1px solid #ece8e0;
+font-size:11.5px;line-height:1.8;color:#9a958a;word-break:keep-all}
+.story-links .k{color:#b5b0a4;margin-right:5px}
+.story-links a{color:#8a857c;text-decoration:none;border-bottom:1px solid #e6e1d8}
+.story-links a:hover{color:#C24A00;border-bottom-color:#C24A00}
+.story-links .sep{opacity:.4;margin:0 4px}
+.story-links .row + .row{margin-top:3px}
+</style>
 </head>
 <body>
 <div id="soonsal-live-ticker" style="display:none;"></div>
@@ -442,6 +453,8 @@
 <script>
 (function(){'use strict';var WORKER_URL='https://soonsal-data.kd-d0a.workers.dev/';var COINGECKO_URL='https://api.coingecko.com/api/v3';var TRADFI_ORDER=['S&P 500','NASDAQ','Dow Jones','KOSPI','US 10Y','WTI Oil','Gold','DXY','EUR/USD','USD/JPY','USD/KRW'];var CRYPTO_ORDER=['Bitcoin','Ethereum','Solana','XRP','BNB','Crypto Total'];var CRYPTO_IDS={'Bitcoin':'bitcoin','Ethereum':'ethereum','Solana':'solana','XRP':'ripple','BNB':'binancecoin'};var REFRESH=60000;var container,timer,lastTradfi,lastCrypto;function init(){container=document.getElementById('soonsal-live-ticker');if(!container)return;container.style.display='block';container.innerHTML='<div class="stk-loading"><div class="stk-spin"></div>Loading market data...</div>';fetchAll();timer=setInterval(fetchAll,REFRESH)}function fetchAll(){var p1=fetchTradFi();var p2=fetchCrypto();Promise.allSettled?Promise.allSettled([p1,p2]).then(render):Promise.all([p1.catch(function(){return null}),p2.catch(function(){return null})]).then(render)}function fetchTradFi(){return fetch(WORKER_URL).then(function(r){return r.json()}).then(function(data){if(data.tradfi)lastTradfi=data;return data}).catch(function(e){console.warn('[Ticker] TradFi error:',e.message);return null})}function fetchCrypto(){var ids=Object.values(CRYPTO_IDS).join(',');var url=COINGECKO_URL+'/simple/price?ids='+ids+'&vs_currencies=usd&include_24hr_change=true&include_market_cap=true';var globalUrl=COINGECKO_URL+'/global';return Promise.all([fetch(url).then(function(r){return r.json()}),fetch(globalUrl).then(function(r){return r.json()}).catch(function(){return null})]).then(function(results){var prices=results[0];var global=results[1];var crypto={};for(var name in CRYPTO_IDS){var id=CRYPTO_IDS[name];var d=prices[id];if(!d)continue;var p=d.usd;var ch=d.usd_24h_change||0;crypto[name]={price:'$'+formatNum(p),change:(ch>=0?'+':'')+ch.toFixed(2)+'%',direction:ch>0.01?'up':ch<-0.01?'down':'zero'}}if(global&&global.data){var mc=global.data.total_market_cap&&global.data.total_market_cap.usd;var mch=global.data.market_cap_change_percentage_24h_usd;if(mc){crypto['Crypto Total']={price:'$'+(mc/1e12).toFixed(2)+'T',change:(mch>=0?'+':'')+(mch||0).toFixed(2)+'%',direction:mch>0?'up':mch<0?'down':'zero'}}}lastCrypto=crypto;return crypto}).catch(function(e){console.warn('[Ticker] Crypto error:',e.message);return null})}function render(){var tradfi=lastTradfi?lastTradfi.tradfi:{};var crypto=lastCrypto||{};var kst=lastTradfi?lastTradfi.kst:new Date().toLocaleString('ko-KR',{timeZone:'Asia/Seoul'});var html=[];html.push('<div class="stk-ts"><span class="stk-dot"></span><span class="stk-time">'+esc(kst)+' KST</span></div>');for(var i=0;i<TRADFI_ORDER.length;i++){var name=TRADFI_ORDER[i];var d=tradfi[name];if(d)html.push(makeItem(name,d,false))}html.push('<div class="stk-div"><span></span></div>');for(var j=0;j<CRYPTO_ORDER.length;j++){var cname=CRYPTO_ORDER[j];var cd=crypto[cname];if(cd)html.push(makeItem(cname,cd,true))}var track=html.join('');container.innerHTML='<div class="stk-track">'+track+track+'</div>'}function makeItem(name,d,isCrypto){var dir=d.direction||'zero';var arrow=dir==='up'?'<span class="au"></span>':dir==='down'?'<span class="ad"></span>':'';return'<div class="stk-item"><span class="stk-lbl'+(isCrypto?' crypto':'')+'">'+esc(name)+'</span><span class="stk-prc">'+esc(d.price)+'</span><span class="stk-chg '+dir+'">'+arrow+' '+esc(d.change)+'</span></div>'}function formatNum(n){if(n>=10000)return n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});if(n>=100)return n.toFixed(2);if(n>=1)return n.toFixed(2);return n.toFixed(4)}function esc(s){if(!s)return'';var d=document.createElement('span');d.textContent=String(s);return d.innerHTML}if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',init)}else{init()}})();
 </script>
+
+
 
 
 
@@ -639,7 +652,7 @@
         <div class="bullet"><span class="dot">◾</span><p>엔비디아 쏠림에서 벗어나려고 빅테크가 죄다 자체 AI칩 설계에 뛰어든 상황. 근데 구글 TPU·아마존 Trainium 같은 맞춤형 칩도 결국 다 TSMC가 만듦 <span class="sub">(어제 아마존은 이 칩을 외부 판매까지 추진)</span>. 그 바람에 TSMC 최첨단 생산 용량은 2028년까지 한도초과, 심지어 아직 첫 삽도 안 뜬 TSMC 애리조나 공장 <span class="sub">(2030년 목표)</span>도 풀 부킹. <strong>여기서 넘치는 수요를 인텔과 삼성이 나눠 먹는 구조</strong>. 삼성의 경우에도 AMD·구글·테슬라·BYD가 생산 타진 중</p></div>
         <div class="bullet"><span class="dot">◾</span><p>다만 아직 숙제가 산더미. 수율이 아직 TSMC 수준엔 못 미치고 <span class="sub">(인텔 60%대 vs 흑자 기준 70~80%)</span>, x86 말고 ARM 진영 고객까지 끌어오는 건 여전히 숙제. 게다가 회사는 아직 적자고 <span class="sub">(1분기 순손실 37억불)</span>, 구글·엔비디아 물량도 공식 계약서로 확정된 건 아님. 선행 PER이 세 자릿수인데 월가 평균 목표가는 현재가보다 낮을 정도 <span class="sub">(-22%)</span>라, 로드맵대로 실행 못 하면 지금이 천장이 될 수도 있는 상황</p></div>
       </div>
-      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
+      <div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/intel.html">인텔</a><span class="sep">·</span><a href="/wiki/trump.html">트럼프</a><span class="sep">·</span><a href="/wiki/nvidia.html">엔비디아</a><span class="sep">·</span><a href="/wiki/apple.html">애플</a><span class="sep">·</span><a href="/wiki/tesla.html">테슬라</a></div></div><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/fed.html">미국 연준</a><span class="sep">·</span><a href="/wiki/oil.html">원유</a><span class="sep">·</span><a href="/wiki/nasdaq.html">나스닥</a><span class="sep">·</span><a href="/wiki/trump.html">트럼프</a><span class="sep">·</span><a href="/wiki/dollar.html">달러(환율)</a></div></div><p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
     </div>
 
     <!-- STORY 3 -->
@@ -653,7 +666,7 @@
         <div class="bullet"><span class="dot">◾</span><p>칩은 자체 설계, 전력은 자가발전, 이제 인력까지 직접 양성. <strong>데이터센터에 필요한 모든 걸 직접 만드는 단계까지 온 것</strong>. 메타만 움직이는 게 아님. 마이크로소프트도 지역 전문대 연계 Datacenter Academy를 여러 곳에서 이미 돌리는 중이고, AWS도 유사 프로그램 운영 중. 인력 파이프라인을 먼저 까는 쪽이 AI 인프라 경쟁에서 유리한 구도</p></div>
         <div class="bullet"><span class="dot">◾</span><p>다만 이 일자리가 오래가는지는 다른 문제. 데이터센터 건설은 피크 때 수천 명이 투입되지만, 완공되면 상주 인력이 100~500명으로 확 줄어드는 패턴. 메타 텍사스 데이터센터도 건설 피크 1,800명 vs 운영 후 ~100명. 모듈러 건설 <span class="sub">(공장에서 조립해 현장 설치)</span>도 확산 중이라 현장 인력 수요가 줄 여지도 있음. AI가 사람 일자리를 대체한다지만, AI 인프라 짓는 건 아직 사람 손이 필요한 상황</p></div>
       </div>
-      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
+      <div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/meta.html">메타</a><span class="sep">·</span><a href="/wiki/microsoft.html">마이크로소프트</a></div></div><p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
     </div>
 
     <!-- STORY 4 -->
@@ -667,7 +680,7 @@
         <div class="bullet"><span class="dot">◾</span><p>IPO 과열의 부작용도 드러남. ETF는 큰손이 드나들 때 현금 대신 주식 바스켓을 통째로 주고받는데 <span class="sub">(in-kind)</span>, 기관들이 이 통로로 ARKK에 돈을 넣어 ARKK가 받은 SpaceX 물량에 올라탄 뒤 곧바로 빠져나감. 실제로 ARKK는 하루 46억불 유입 다음 날 62억불 유출 <span class="sub">(둘 다 사상 최대)</span>. 일부 ETF는 아예 신규 자금 유입을 막아 방어했지만 ARKK는 안 막아, 단기 차익에 장기 보유자만 희석됨</p></div>
         <div class="bullet"><span class="dot">◾</span><p>2년 전만 해도 비상장 로켓 회사였는데 이제 투자등급 채권을 발행한다는 것 자체가 급이 달라졌다는 신호. xAI를 품으며 Grok과 Colossus 슈퍼컴퓨터까지 손에 넣었고, Cursor로 코딩 AI 시장에도 발을 들임. 우주 회사가 Anthropic·OpenAI와 정면으로 붙는 AI 복합체로 빠르게 변신하는 중. 다음 주 발행 조건 <span class="sub">(금리)</span>이 정해지면 채권에 돈이 얼마나 몰리는지가 시장의 SpaceX 신뢰도를 보여주는 첫 시험대</p></div>
       </div>
-      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
+      <div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/spacex.html">스페이스X</a><span class="sep">·</span><a href="/wiki/google.html">구글</a><span class="sep">·</span><a href="/wiki/anthropic.html">앤스로픽</a><span class="sep">·</span><a href="/wiki/goldman.html">골드만삭스</a><span class="sep">·</span><a href="/wiki/nasdaq.html">나스닥</a></div><div class="row"><span class="k">같은 흐름</span><a href="/newsletters/2026/0629.html#story-3">06-29 SpaceX, 블랙홀이었나</a><span class="sep">·</span><a href="/newsletters/2026/0618.html#story-1">06-18 SpaceX, IPO 나흘 만에 600억불 쇼핑</a></div></div><p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
     </div>
 
     <!-- STORY 5 -->
