@@ -950,6 +950,11 @@
       "example": "⚽ 팔지 말라는 걸 팔겠다는 FIFA",
       "ko": false
     },
+    "USD": {
+      "count": 10,
+      "example": "📈 거래소 거래량, 5개월 만에 반등 — RWA 선물 $311B 신기록",
+      "ko": false
+    },
     "BofA": {
       "count": 10,
       "example": "🏦 골드만 역대 최고 분기, 은행들 싹 다 기대 초과",
@@ -970,11 +975,6 @@
       "example": "📈 거래소 거래량, 5개월 만에 반등 — RWA 선물 $311B 신기록",
       "ko": false
     },
-    "USD": {
-      "count": 9,
-      "example": "📈 거래소 거래량, 5개월 만에 반등 — RWA 선물 $311B 신기록",
-      "ko": false
-    },
     "VIX": {
       "count": 9,
       "example": "📊 Markets — 전 종목 -3%, ETF는 돌아왔는데",
@@ -988,6 +988,16 @@
     "STRC": {
       "count": 9,
       "example": "💧 스테이블코인 $77억 증발, 테라 이후 최대",
+      "ko": false
+    },
+    "Apollo": {
+      "count": 9,
+      "example": "📣 순살이 광고주를 모집하는 방법",
+      "ko": false
+    },
+    "IREN": {
+      "count": 9,
+      "example": "⛏️ BTC 채굴사가 $19B AI 계약을 따냈다",
       "ko": false
     },
     "Block": {
@@ -1020,6 +1030,11 @@
       "example": "📊 Markets — CPI 빠졌는데 ETF는 도망치는 중",
       "ko": false
     },
+    "서클": {
+      "count": 8,
+      "example": "🏛️ 스테이블코인 회사, 은행이 되다",
+      "ko": true
+    },
     "TRUMP": {
       "count": 8,
       "example": "🏛️ Clarity Act, \"거의 다 왔다\"는데 진짜 올까",
@@ -1030,19 +1045,9 @@
       "example": "📉 엔비디아, 무거운 왕관",
       "ko": false
     },
-    "Apollo": {
-      "count": 8,
-      "example": "📣 순살이 광고주를 모집하는 방법",
-      "ko": false
-    },
     "Sachs": {
       "count": 8,
       "example": "📣 순살이 광고주를 모집하는 방법",
-      "ko": false
-    },
-    "IREN": {
-      "count": 8,
-      "example": "⛏️ BTC 채굴사가 $19B AI 계약을 따냈다",
       "ko": false
     },
     "Chainlink": {
@@ -1065,6 +1070,11 @@
       "example": "🏛 트럼프, CBDC 금지법 서명식 취소",
       "ko": false
     },
+    "Warsh": {
+      "count": 8,
+      "example": "📉 BTC $63K — dot plot이 쏘아올린 공",
+      "ko": false
+    },
     "SNS": {
       "count": 8,
       "example": "🇬🇧 영국, 16세 미만 SNS 전면 금지",
@@ -1078,11 +1088,6 @@
     "채권": {
       "count": 5,
       "example": "🃏 월가 돈 제일 잘 버는 회사, 정크 딱지 한 장 뗌",
-      "ko": true
-    },
-    "서클": {
-      "count": 5,
-      "example": "🏛️ 스테이블코인 회사, 은행이 되다",
       "ko": true
     },
     "머니마켓펀드": {
