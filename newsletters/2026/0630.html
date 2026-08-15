@@ -399,27 +399,6 @@
 <meta name="twitter:title" content="📺 15년 키운 자식 내보냄 — 순살브리핑 2026.06.30"/>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "NewsArticle", "headline": "15년 키운 자식 내보냄 — 순살브리핑 2026.06.30", "datePublished": "2026-06-30T09:00:00+09:00", "dateModified": "2026-06-30T09:00:00+09:00", "inLanguage": "ko", "mainEntityOfPage": "https://soonsal.com/newsletters/2026/0630.html", "author": {"@type": "Organization", "name": "순살브리핑", "url": "https://soonsal.com/"}, "publisher": {"@type": "Organization", "name": "순살브리핑", "logo": {"@type": "ImageObject", "url": "https://soonsal.com/apple-touch-icon.png"}}, "keywords": "컴캐스트NBCUniversal분리스핀오프, 중국AI-GLM5.2-Mythos, 메디케어GLP-1다이어트약50불, 조코비치GeneralAtlantic사모펀드, JPMorgan선수자산관리AthleteCouncil", "image": ["https://soonsal.com/cardnews/2026/0630_png/card_01.png"]}</script>
 <!-- soonsal:bc --><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "순살브리핑", "item": "https://soonsal.com/"}, {"@type": "ListItem", "position": 2, "name": "브리핑", "item": "https://soonsal.com/newsletters/"}, {"@type": "ListItem", "position": 3, "name": "📺 15년 키운 자식 내보냄 — 순살브리핑 2026.06.30", "item": "https://soonsal.com/newsletters/2026/0630.html"}]}</script>
-
-
-
-
-<style id="soonsal-story-links">
-/* 스토리 끝 — 다 읽은 사람만 본다. 본문 흐름을 끊지 않는다 */
-.story-links{margin:14px 0 0;padding:11px 0 0;border-top:1px solid #ece8e0;
-font-size:11.5px;line-height:1.8;color:#9a958a;word-break:keep-all}
-.story-links .k{color:#b5b0a4;margin-right:5px}
-.story-links a{color:#8a857c;text-decoration:none;border-bottom:1px solid #e6e1d8}
-.story-links a:hover{color:#C24A00;border-bottom-color:#C24A00}
-.story-links .sep{opacity:.4;margin:0 4px}
-.story-links .row + .row{margin-top:4px}
-/* 「같은 흐름」은 제목이 길어 한 줄에 하나씩 세운다. 라벨은 왼쪽에 고정 */
-.story-links .flows{display:flex;align-items:flex-start}
-.story-links .flow-list{display:flex;flex-direction:column;gap:2px;min-width:0}
-.story-links .flow{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.story-links .flow b{font-weight:600;color:#b5b0a4;margin-right:3px}
-@media(max-width:560px){.story-links .flows{display:block}
-  .story-links .flow-list{margin-top:2px;padding-left:1px}}
-</style>
 </head>
 <body>
 <div id="soonsal-live-ticker" style="display:none;"></div>
@@ -463,10 +442,6 @@ font-size:11.5px;line-height:1.8;color:#9a958a;word-break:keep-all}
 <script>
 (function(){'use strict';var WORKER_URL='https://soonsal-data.kd-d0a.workers.dev/';var COINGECKO_URL='https://api.coingecko.com/api/v3';var TRADFI_ORDER=['S&P 500','NASDAQ','Dow Jones','KOSPI','US 10Y','WTI Oil','Gold','DXY','EUR/USD','USD/JPY','USD/KRW'];var CRYPTO_ORDER=['Bitcoin','Ethereum','Solana','XRP','BNB','Crypto Total'];var CRYPTO_IDS={'Bitcoin':'bitcoin','Ethereum':'ethereum','Solana':'solana','XRP':'ripple','BNB':'binancecoin'};var REFRESH=60000;var container,timer,lastTradfi,lastCrypto;function init(){container=document.getElementById('soonsal-live-ticker');if(!container)return;container.style.display='block';container.innerHTML='<div class="stk-loading"><div class="stk-spin"></div>Loading market data...</div>';fetchAll();timer=setInterval(fetchAll,REFRESH)}function fetchAll(){var p1=fetchTradFi();var p2=fetchCrypto();Promise.allSettled?Promise.allSettled([p1,p2]).then(render):Promise.all([p1.catch(function(){return null}),p2.catch(function(){return null})]).then(render)}function fetchTradFi(){return fetch(WORKER_URL).then(function(r){return r.json()}).then(function(data){if(data.tradfi)lastTradfi=data;return data}).catch(function(e){console.warn('[Ticker] TradFi error:',e.message);return null})}function fetchCrypto(){var ids=Object.values(CRYPTO_IDS).join(',');var url=COINGECKO_URL+'/simple/price?ids='+ids+'&vs_currencies=usd&include_24hr_change=true&include_market_cap=true';var globalUrl=COINGECKO_URL+'/global';return Promise.all([fetch(url).then(function(r){return r.json()}),fetch(globalUrl).then(function(r){return r.json()}).catch(function(){return null})]).then(function(results){var prices=results[0];var global=results[1];var crypto={};for(var name in CRYPTO_IDS){var id=CRYPTO_IDS[name];var d=prices[id];if(!d)continue;var p=d.usd;var ch=d.usd_24h_change||0;crypto[name]={price:'$'+formatNum(p),change:(ch>=0?'+':'')+ch.toFixed(2)+'%',direction:ch>0.01?'up':ch<-0.01?'down':'zero'}}if(global&&global.data){var mc=global.data.total_market_cap&&global.data.total_market_cap.usd;var mch=global.data.market_cap_change_percentage_24h_usd;if(mc){crypto['Crypto Total']={price:'$'+(mc/1e12).toFixed(2)+'T',change:(mch>=0?'+':'')+(mch||0).toFixed(2)+'%',direction:mch>0?'up':mch<0?'down':'zero'}}}lastCrypto=crypto;return crypto}).catch(function(e){console.warn('[Ticker] Crypto error:',e.message);return null})}function render(){var tradfi=lastTradfi?lastTradfi.tradfi:{};var crypto=lastCrypto||{};var kst=lastTradfi?lastTradfi.kst:new Date().toLocaleString('ko-KR',{timeZone:'Asia/Seoul'});var html=[];html.push('<div class="stk-ts"><span class="stk-dot"></span><span class="stk-time">'+esc(kst)+' KST</span></div>');for(var i=0;i<TRADFI_ORDER.length;i++){var name=TRADFI_ORDER[i];var d=tradfi[name];if(d)html.push(makeItem(name,d,false))}html.push('<div class="stk-div"><span></span></div>');for(var j=0;j<CRYPTO_ORDER.length;j++){var cname=CRYPTO_ORDER[j];var cd=crypto[cname];if(cd)html.push(makeItem(cname,cd,true))}var track=html.join('');container.innerHTML='<div class="stk-track">'+track+track+'</div>'}function makeItem(name,d,isCrypto){var dir=d.direction||'zero';var arrow=dir==='up'?'<span class="au"></span>':dir==='down'?'<span class="ad"></span>':'';return'<div class="stk-item"><span class="stk-lbl'+(isCrypto?' crypto':'')+'">'+esc(name)+'</span><span class="stk-prc">'+esc(d.price)+'</span><span class="stk-chg '+dir+'">'+arrow+' '+esc(d.change)+'</span></div>'}function formatNum(n){if(n>=10000)return n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});if(n>=100)return n.toFixed(2);if(n>=1)return n.toFixed(2);return n.toFixed(4)}function esc(s){if(!s)return'';var d=document.createElement('span');d.textContent=String(s);return d.innerHTML}if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',init)}else{init()}})();
 </script>
-
-
-
-
 
 
 
@@ -648,7 +623,7 @@ font-size:11.5px;line-height:1.8;color:#9a958a;word-break:keep-all}
         <div class="bullet"><span class="dot">◾</span><p>본진인 컴캐스트 쪽도 변수 많음. Xfinity 브로드밴드 + 무선이 핵심 사업인데, T-모바일·버라이즌의 5G 홈인터넷과 광섬유 경쟁사에 밀리면서 고객이 빠지는 추세. Charter Communications <span class="sub">(미국 2위 케이블; Cox를 345억불에 인수 중)</span>과 합치면 미국 최대 브로드밴드 괴물이 되지만, 반독점 심사 + 트럼프와 컴캐스트 창업자 집안의 불편한 관계 <span class="sub">(민주당 편향 & 정치적 공격 받았다는 트럼프의 불만)</span>가 걸림돌</p></div>
         <div class="bullet"><span class="dot">◾</span><p>이번 결정의 주인공은 창업주 집안 3세 브라이언 로버츠. 2011년 NBCU 인수로 미디어 제국을 꿈꿨지만, 코드커팅과 스트리밍 전쟁에 밀리며 "콘텐츠 + 유통채널 시너지"라는 10년짜리 전략이 사실상 사망 선고를 받은 셈. AT&T도 DirecTV·워너미디어를 사들였다 결국 다 토해낸 전례가 있음. 전통 미디어의 해체와 재편이 동시에 벌어지는 중</p></div>
       </div>
-      </div></div></div><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/comcast.html">컴캐스트</a><span class="sep">·</span><a href="/wiki/netflix.html">넷플릭스</a><span class="sep">·</span><a href="/wiki/amazon.html">아마존</a><span class="sep">·</span><a href="/wiki/warner.html">워너브라더스디스커버리</a><span class="sep">·</span><a href="/wiki/paramount.html">파라마운트</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0421.html#story-1"><b>04-21</b> 애플, 15년 만에 왕좌 교체</a></span></span></div></div><p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
+      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
     </div>
 
     <!-- STORY 2 -->
@@ -662,7 +637,7 @@ font-size:11.5px;line-height:1.8;color:#9a958a;word-break:keep-all}
         <div class="bullet"><span class="dot">◾</span><p>미국 정부도 문제를 인식. 지난 금요일 상무부가 앤스로픽에 Mythos를 "신뢰할 수 있는 파트너" 약 100곳에 한해 다시 쓸 수 있도록 허가. 같은 날 오픈AI도 GPT-5.6을 소수에게 제한 공개. 심지어 오스트리아 정부는 앤스로픽에 아예 EU로 오라고 러브콜. 디지털 담당 차관이 EU 기술 담당 부위원장에게 "법적 확실성, 시장 접근, 자본, 가치관 — 전부 퍼드릴테니 와 주셈"이라는 서한을 보냄</p></div>
         <div class="bullet"><span class="dot">◾</span><p>현재 미국 AI모델은 중국보다 6~9개월 앞선 수준이라는 평가. 반면 "벤치마크 따라잡기 ≠ 진짜 경쟁력"이라는 반론도 강함. 모델을 더 잘 돌리기 위한 컴퓨팅 인프라+데이터 품질 격차는 아직 크다는 것. 다만 미국이 칩 수출을 막으니 중국은 오히려 효율에 올인, 적은 연산으로 비슷한 성능을 내는 하드웨어를 만들어냈던 이력. 미국이 자국 모델을 규제하는 동안 중국이 MIT 라이선스로 소프트웨어를 무료 배포하는 구도는, AI 패권 경쟁의 판 자체를 바꾸는 중</p></div>
       </div>
-      </div></div></div><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/anthropic.html">앤스로픽</a><span class="sep">·</span><a href="/wiki/openai.html">오픈AI</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0528.html#story-2"><b>05-28</b> 중국, AI 인재들 못 나감</a></span><span class="flow"><a href="/newsletters/2026/0623.html#story-2"><b>06-23</b> 중국 AI, 기승전 가성비?</a></span></span></div></div><p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
+      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
     </div>
 
     <!-- STORY 3 -->
@@ -676,7 +651,7 @@ font-size:11.5px;line-height:1.8;color:#9a958a;word-break:keep-all}
         <div class="bullet"><span class="dot">◾</span><p>제약사들은 볼륨으로 승부하겠다는 전략. 약값을 깎아주더라도, 기존에 너무 비싸서 안 썼던 수백만 명이 쓰기 시작하면 매출이 폭발. 릴리 <span class="sub">(젭바운드·파운다요)</span>와 노보노디스크 <span class="sub">(위고비)</span>가 트럼프 행정부와 약가 인하 합의를 한 게 이 프로그램의 배경. 메디케어 운영기관 <span class="sub">(CMS)</span> 국장이 TV 닥터 출신 메멧 오즈라는 것도 상징적. 비만 치료를 국가 의제로 밀어붙이겠다는 시그널</p></div>
         <div class="bullet"><span class="dot">◾</span><p>한국에서도 눈여겨볼 대목. GLP-1 시장은 글로벌 300억불 규모에서 2030년 1,000억불 이상으로 커질 전망이고, 삼성바이오로직스·셀트리온 등 한국 바이오 기업들이 바이오시밀러 <span class="sub">(싼 복제약)</span> 진출을 준비 중. 메디케어 커버리지가 시작되면 수요가 구조적으로 늘어나는 것이라, 한국 바이오의 미국 시장 진입 타이밍과도 맞물리는 상황</p></div>
       </div>
-      </div></div></div><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/trump.html">트럼프</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0504.html#story-2"><b>05-04</b> 릴리, 다이어트 약으로 매출 2배</a></span></span></div></div><p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
+      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
     </div>
 
     <!-- STORY 4 -->
@@ -690,7 +665,7 @@ font-size:11.5px;line-height:1.8;color:#9a958a;word-break:keep-all}
         <div class="bullet"><span class="dot">◾</span><p>조코비치도 투자에선 풋내기가 아님. Waterdrop <span class="sub">(수분보충 브랜드)</span> 지분을 넣은 뒤 자체 보충제 라인 SILA를 론칭했던 이력. 덴마크 바이오텍 QuantBioRes 지분 80%를 사들이기도 했었음. 프랑스 축구 클럽 Le Mans에도 투자한 상태. 개인 순자산은 약 2.5억불로 추정되는데, 이번 GA 합류는 개인 단위 투자에서 기관급 자본 배분으로 올라타겠다는 의미</p></div>
         <div class="bullet"><span class="dot">◾</span><p>사모펀드 자본이 테니스판으로 몰려드는 상황. 사모펀드 CVC는 WTA <span class="sub">(여자테니스협회)</span>에 1.5억불, Blue Owl은 2026 그랜드슬램 4대 대회 선수 스폰서, 사우디 국부펀드 PIF까지 테니스 산업에 10억불 이상 투입. 조코비치 본인도 "페더러·나달과 함께 투자할 기회가 오면 좋겠다"고 발언. 코트 위 라이벌이 코트 밖 공동투자자로 재회할 가능성을 시장이 지켜보는 중</p></div>
       </div>
-      </div></div></div><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/meta.html">메타</a><span class="sep">·</span><a href="/wiki/uber.html">우버</a></div></div><p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
+      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
     </div>
 
     <!-- STORY 5 -->
@@ -704,7 +679,7 @@ font-size:11.5px;line-height:1.8;color:#9a958a;word-break:keep-all}
         <div class="bullet"><span class="dot">◾</span><p>선수들이 고객을 넘어 직접 투자자로 진화하는 중. 세레나 윌리엄스는 85개+ 스타트업에 투자해 14곳 이상이 유니콘. 케빈 듀란트는 Robinhood·SeatGeek 초기에 올라탐. 영국에선 The Players Fund가 2023년 출범, 현재 850명+ 선수 네트워크로 확대. 로저 페더러는 On에 5,000만불 넣은 3% 지분이 상장 후 10배 이상으로 불어나며 포브스 억만장자 등극 — 커리어 상금 1.3억불과는 차원이 다른 소득</p></div>
         <div class="bullet"><span class="dot">◾</span><p>은행 입장에서 선수를 잡으면 따라오는 게 많음. 선수 본인 자산 + NIL <span class="sub">(대학 선수 초상권 수익)</span> 시대가 열리면서 대학 때부터 돈이 들어오는 젊은 선수들 + 프로 커리어 자산 관리 + 은퇴 후 사업·투자 자문까지, 한 명만 잡으면 수십 년짜리 고객이 되는 구조. 진짜 노리는 건 선수 뒤에 붙는 에이전트·매니지먼트사·구단주·브랜드 파트너십까지 한꺼번에 끌어오는 것 — Goldman이 에이전시를 통째로 인수한 것도 이 생태계를 잡으려는 계산</p></div>
       </div>
-      </div></div></div><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/jpmorgan.html">JP모건</a><span class="sep">·</span><a href="/wiki/morgan-stanley.html">모건스탠리</a><span class="sep">·</span><a href="/wiki/goldman.html">골드만삭스</a><span class="sep">·</span><a href="/wiki/robinhood.html">로빈후드</a></div></div><p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
+      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
     </div>
 </div><!-- /content -->
 

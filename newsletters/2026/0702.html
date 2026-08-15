@@ -399,27 +399,6 @@
 <meta name="twitter:title" content="🐟 대통령의 크립토 통장 — 순살브리핑 2026.07.02"/>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "NewsArticle", "headline": "대통령의 크립토 통장 — 순살브리핑 2026.07.02", "datePublished": "2026-07-02T09:00:00+09:00", "dateModified": "2026-07-02T09:00:00+09:00", "inLanguage": "ko", "mainEntityOfPage": "https://soonsal.com/newsletters/2026/0702.html", "author": {"@type": "Organization", "name": "순살브리핑", "url": "https://soonsal.com/"}, "publisher": {"@type": "Organization", "name": "순살브리핑", "logo": {"@type": "ImageObject", "url": "https://soonsal.com/apple-touch-icon.png"}}, "keywords": "트럼프크립토14억불수입공개, H1-2026주식역대급크립토장례식, BYD테슬라글로벌EV1위, MetaCompute클라우드진출, 로터스비스코프590%성장", "image": ["https://soonsal.com/cardnews/2026/0702_png/card_01.png"]}</script>
 <!-- soonsal:bc --><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "순살브리핑", "item": "https://soonsal.com/"}, {"@type": "ListItem", "position": 2, "name": "브리핑", "item": "https://soonsal.com/newsletters/"}, {"@type": "ListItem", "position": 3, "name": "🐟 대통령의 크립토 통장 — 순살브리핑 2026.07.02", "item": "https://soonsal.com/newsletters/2026/0702.html"}]}</script>
-
-
-
-
-<style id="soonsal-story-links">
-/* 스토리 끝 — 다 읽은 사람만 본다. 본문 흐름을 끊지 않는다 */
-.story-links{margin:14px 0 0;padding:11px 0 0;border-top:1px solid #ece8e0;
-font-size:11.5px;line-height:1.8;color:#9a958a;word-break:keep-all}
-.story-links .k{color:#b5b0a4;margin-right:5px}
-.story-links a{color:#8a857c;text-decoration:none;border-bottom:1px solid #e6e1d8}
-.story-links a:hover{color:#C24A00;border-bottom-color:#C24A00}
-.story-links .sep{opacity:.4;margin:0 4px}
-.story-links .row + .row{margin-top:4px}
-/* 「같은 흐름」은 제목이 길어 한 줄에 하나씩 세운다. 라벨은 왼쪽에 고정 */
-.story-links .flows{display:flex;align-items:flex-start}
-.story-links .flow-list{display:flex;flex-direction:column;gap:2px;min-width:0}
-.story-links .flow{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.story-links .flow b{font-weight:600;color:#b5b0a4;margin-right:3px}
-@media(max-width:560px){.story-links .flows{display:block}
-  .story-links .flow-list{margin-top:2px;padding-left:1px}}
-</style>
 </head>
 <body>
 <div id="soonsal-live-ticker" style="display:none;"></div>
@@ -463,10 +442,6 @@ font-size:11.5px;line-height:1.8;color:#9a958a;word-break:keep-all}
 <script>
 (function(){'use strict';var WORKER_URL='https://soonsal-data.kd-d0a.workers.dev/';var COINGECKO_URL='https://api.coingecko.com/api/v3';var TRADFI_ORDER=['S&P 500','NASDAQ','Dow Jones','KOSPI','US 10Y','WTI Oil','Gold','DXY','EUR/USD','USD/JPY','USD/KRW'];var CRYPTO_ORDER=['Bitcoin','Ethereum','Solana','XRP','BNB','Crypto Total'];var CRYPTO_IDS={'Bitcoin':'bitcoin','Ethereum':'ethereum','Solana':'solana','XRP':'ripple','BNB':'binancecoin'};var REFRESH=60000;var container,timer,lastTradfi,lastCrypto;function init(){container=document.getElementById('soonsal-live-ticker');if(!container)return;container.style.display='block';container.innerHTML='<div class="stk-loading"><div class="stk-spin"></div>Loading market data...</div>';fetchAll();timer=setInterval(fetchAll,REFRESH)}function fetchAll(){var p1=fetchTradFi();var p2=fetchCrypto();Promise.allSettled?Promise.allSettled([p1,p2]).then(render):Promise.all([p1.catch(function(){return null}),p2.catch(function(){return null})]).then(render)}function fetchTradFi(){return fetch(WORKER_URL).then(function(r){return r.json()}).then(function(data){if(data.tradfi)lastTradfi=data;return data}).catch(function(e){console.warn('[Ticker] TradFi error:',e.message);return null})}function fetchCrypto(){var ids=Object.values(CRYPTO_IDS).join(',');var url=COINGECKO_URL+'/simple/price?ids='+ids+'&vs_currencies=usd&include_24hr_change=true&include_market_cap=true';var globalUrl=COINGECKO_URL+'/global';return Promise.all([fetch(url).then(function(r){return r.json()}),fetch(globalUrl).then(function(r){return r.json()}).catch(function(){return null})]).then(function(results){var prices=results[0];var global=results[1];var crypto={};for(var name in CRYPTO_IDS){var id=CRYPTO_IDS[name];var d=prices[id];if(!d)continue;var p=d.usd;var ch=d.usd_24h_change||0;crypto[name]={price:'$'+formatNum(p),change:(ch>=0?'+':'')+ch.toFixed(2)+'%',direction:ch>0.01?'up':ch<-0.01?'down':'zero'}}if(global&&global.data){var mc=global.data.total_market_cap&&global.data.total_market_cap.usd;var mch=global.data.market_cap_change_percentage_24h_usd;if(mc){crypto['Crypto Total']={price:'$'+(mc/1e12).toFixed(2)+'T',change:(mch>=0?'+':'')+(mch||0).toFixed(2)+'%',direction:mch>0?'up':mch<0?'down':'zero'}}}lastCrypto=crypto;return crypto}).catch(function(e){console.warn('[Ticker] Crypto error:',e.message);return null})}function render(){var tradfi=lastTradfi?lastTradfi.tradfi:{};var crypto=lastCrypto||{};var kst=lastTradfi?lastTradfi.kst:new Date().toLocaleString('ko-KR',{timeZone:'Asia/Seoul'});var html=[];html.push('<div class="stk-ts"><span class="stk-dot"></span><span class="stk-time">'+esc(kst)+' KST</span></div>');for(var i=0;i<TRADFI_ORDER.length;i++){var name=TRADFI_ORDER[i];var d=tradfi[name];if(d)html.push(makeItem(name,d,false))}html.push('<div class="stk-div"><span></span></div>');for(var j=0;j<CRYPTO_ORDER.length;j++){var cname=CRYPTO_ORDER[j];var cd=crypto[cname];if(cd)html.push(makeItem(cname,cd,true))}var track=html.join('');container.innerHTML='<div class="stk-track">'+track+track+'</div>'}function makeItem(name,d,isCrypto){var dir=d.direction||'zero';var arrow=dir==='up'?'<span class="au"></span>':dir==='down'?'<span class="ad"></span>':'';return'<div class="stk-item"><span class="stk-lbl'+(isCrypto?' crypto':'')+'">'+esc(name)+'</span><span class="stk-prc">'+esc(d.price)+'</span><span class="stk-chg '+dir+'">'+arrow+' '+esc(d.change)+'</span></div>'}function formatNum(n){if(n>=10000)return n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});if(n>=100)return n.toFixed(2);if(n>=1)return n.toFixed(2);return n.toFixed(4)}function esc(s){if(!s)return'';var d=document.createElement('span');d.textContent=String(s);return d.innerHTML}if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',init)}else{init()}})();
 </script>
-
-
-
-
 
 
 
@@ -634,7 +609,7 @@ font-size:11.5px;line-height:1.8;color:#9a958a;word-break:keep-all}
         <div class="bullet"><span class="dot">◾</span><span>타이밍도 절묘. 재산공개가 나온 같은 날, 바이낸스 창업자 자오창펑 <span class="sub">(CZ)</span>이 영국 투자자 1,700명에게 1.5억파운드 <span class="sub">(약 2억불)</span> 소송을 당함. FCA <span class="sub">(영국 금융감독청)</span>도 크립토 업계 최초의 종합 규제 체계를 확정, 2027년 10월부터 시행 예정. 글로벌 크립토 규제가 빠르게 체계화되는 와중에, 미국만 "대통령이 크립토로 돈 벌면서 크립토 규제를 풀어주는" 구조가 진행 중</span></div>
         <div class="bullet"><span class="dot">◾</span><span>크립토 업계는 2026 중간선거에 1.89억불을 쏟아부으며 정치적 입지를 굳히는 중. 전체 기업 정치자금의 3분의 1 이상이 크립토에서 나오는 구조. 2024년 선거 때 투입한 1.7억불도 이미 넘어섬. 대표 슈퍼PAC인 Fairshake만 0.82억불을 들고 있음. BTC가 21개월 최저인 58K불대로 밀려도 정치적 투자 수익은 충분히 나오고 있는 셈 <span class="note">(이해관계자가 산더미라, 시장이 빠져도 로비는 안 멈춤)</span></span></div>
       </div>
-      </div></div></div><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/trump.html">트럼프</a><span class="sep">·</span><a href="/wiki/world-liberty.html">월드리버티(WLFI)</a><span class="sep">·</span><a href="/wiki/sec.html">미국 SEC</a><span class="sep">·</span><a href="/wiki/bitcoin.html">비트코인</a><span class="sep">·</span><a href="/wiki/nvidia.html">엔비디아</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0702-crypto.html#story-1"><b>07-02</b> 대통령의 크립토 통장, $14억 이상</a></span></span></div></div><p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
+      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
     </div>
 
     <!-- STORY 2 -->
@@ -648,7 +623,7 @@ font-size:11.5px;line-height:1.8;color:#9a958a;word-break:keep-all}
         <div class="bullet"><span class="dot">◾</span><span>금도 2분기에 큰 폭 하락, 1월 고점 대비 큰 폭 후퇴. 보통 경제 불확실성 = 금값 상승인데, 이번엔 달러 강세 + 연준 금리인상 기대가 금값을 눌러버림. 안전자산마저 달러한테 밀린 분기. 2분기 실적 시즌이 진짜 테스트인데, S&P 500 2분기 이익 성장률 전망치가 23.1%로 분기 초 18.8%보다 올라간 상태. 다만 AI 반도체가 실적으로 뒷받침을 못 하면 밸류에이션 부담이 한꺼번에 터질 수 있는 구간</span></div>
         <div class="bullet"><span class="dot">◾</span><span>하반기 변수들로는, 일단 오늘 고용보고서가 나옴. 연준의장 워시는 ECB 포럼에서 "물가가 아직 너무 높다"고 못 박았고, 6월 점도표에서는 거의 모든 위원이 올해 금리를 유지하거나 인상하겠다는 전망. 금리 인하 기대는 사실상 사라진 상태. 인상이 현실화되면 주식 랠리도 둔화될 수 있고, 반대로 동결이 이어지면 크립토 반등 트리거가 될 수 있는 분기점 <span class="note">(다들 화이팅!)</span></span></div>
       </div>
-      </div></div></div><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/sp500.html">S&amp;P 500</a><span class="sep">·</span><a href="/wiki/nasdaq.html">나스닥</a><span class="sep">·</span><a href="/wiki/oil.html">원유</a><span class="sep">·</span><a href="/wiki/dollar.html">달러(환율)</a><span class="sep">·</span><a href="/wiki/fed.html">미국 연준</a></div></div><p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
+      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
     </div>
 
     <!-- STORY 3 -->
@@ -662,7 +637,7 @@ font-size:11.5px;line-height:1.8;color:#9a958a;word-break:keep-all}
         <div class="bullet"><span class="dot">◾</span><span>한국 자동차·배터리 산업에도 직접 영향. 현대·기아가 EV 전환 속도를 올리고 있지만, 가격대가 BYD와 정면 경쟁하기엔 아직 격차가 큼. BYD의 전기차 평균 판매가격이 현대의 절반 수준. 한국 배터리 3사 <span class="sub">(LG에너지솔루션·삼성SDI·SK온)</span>는 블레이드 배터리와의 기술·가격 경쟁이 격화되는 상황. BYD가 외부 배터리 공급까지 늘리면 한국 배터리 업체와 직접 고객사 경쟁할 수 있는 구조</span></div>
         <div class="bullet"><span class="dot">◾</span><span>테슬라 입장에서도 위기. Q2 인도 실적이 기대에 못 미쳤고, Q1에도 5만대 넘게 재고가 쌓임. 중국 시장에서 BYD에 밀리는 추세가 확정적. 머스크는 FSD <span class="sub">(Full Self-Driving)</span>와 로보택시를 밀고 있지만, 정작 돈을 버는 건 양산 EV 판매. 양산에서 중국에 밀리면 "차는 못 파는데 자율주행만 남은 회사"가 되는 건데, 지금 주가는 자율주행 성공을 이미 반영한 가격이라 시장이 신경 쓰는 중</span></div>
       </div>
-      </div></div></div><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/byd.html">BYD</a><span class="sep">·</span><a href="/wiki/tesla.html">테슬라</a><span class="sep">·</span><a href="/wiki/ford.html">포드</a><span class="sep">·</span><a href="/wiki/lg-energy.html">LG에너지솔루션</a><span class="sep">·</span><a href="/wiki/musk.html">일론 머스크</a></div></div><p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
+      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
     </div>
 
     <!-- STORY 4 -->
@@ -676,7 +651,7 @@ font-size:11.5px;line-height:1.8;color:#9a958a;word-break:keep-all}
         <div class="bullet"><span class="dot">◾</span><span>다만 시장에선 아직 의심하며 지켜보는 중. 메타의 클라우드 경험이 제로에 가깝고, 엔터프라이즈 영업 조직도 없음. 광고주를 상대하는 건 잘하지만, 고객사 CTO들에게 인프라를 파는 건 전혀 다른 영업. 아마존이 이커머스에서 AWS를 만드는 데 10년 이상 걸린 걸 생각하면, 메타가 단기간에 경쟁력을 갖출 수 있을지는 미지수. 아직 공식 출시 일정이나 가격도 안 나온 상태라 "계획 단계"에 가까움</span></div>
         <div class="bullet"><span class="dot">◾</span><span>그래도 광고 매출 의존도를 낮추겠다는 방향 자체는 월가가 오래 요구해온 것. 광고 사이클에 매출이 좌우되는 구조 → AI 인프라 매출이 추가되면 밸류에이션 리레이팅 가능성. 구글이 클라우드 사업 별도 공시 후 밸류 재평가를 받은 전례가 있음. 문제는 실행인데, 저커버그의 메타버스 피벗이 수백억불 태우고도 아직 결실을 못 낸 전과가 있어서 시장에선 조심히 지켜보는 중</span></div>
       </div>
-      </div></div></div><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/meta.html">메타</a><span class="sep">·</span><a href="/wiki/amazon.html">아마존</a><span class="sep">·</span><a href="/wiki/google.html">구글</a><span class="sep">·</span><a href="/wiki/coreweave.html">코어위브</a><span class="sep">·</span><a href="/wiki/spacex.html">스페이스X</a></div></div><p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
+      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
     </div>
 
     <!-- STORY 5 -->

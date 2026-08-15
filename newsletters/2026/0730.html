@@ -398,27 +398,6 @@
 <meta name="twitter:title" content="🍎 사지 마세요, 시총에 양보하세요 — 순살브리핑 2026.07.30"/>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "NewsArticle", "headline": "사지 마세요, 시총에 양보하세요 — 순살브리핑 2026.07.30", "datePublished": "2026-07-30T09:00:00+09:00", "dateModified": "2026-07-30T09:00:00+09:00", "inLanguage": "ko", "mainEntityOfPage": "https://soonsal.com/newsletters/2026/0730.html", "author": {"@type": "Organization", "name": "순살브리핑", "url": "https://soonsal.com/"}, "publisher": {"@type": "Organization", "name": "순살브리핑", "logo": {"@type": "ImageObject", "url": "https://soonsal.com/apple-touch-icon.png"}}, "keywords": "연준 9대3 동결 인상 반대표 3장 30년물 5.2% 2007년 최고, 애플 시총 5조불 자본지출 43억불 엔비디아 추월 팀쿡, FIFA 포워드 엔터프라이즈 20% 42억불 쿠슈너 UEFA 보이콧, 왁텔 립튼 소송 파트너 6명 깁슨던 이탈 커클랜드 8000만불, FCC 외국산 휴머노이드 로봇개 인버터 커버드리스트"}</script>
 <!-- soonsal:bc --><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "순살브리핑", "item": "https://soonsal.com/"}, {"@type": "ListItem", "position": 2, "name": "브리핑", "item": "https://soonsal.com/newsletters/"}, {"@type": "ListItem", "position": 3, "name": "🍎 사지 마세요, 시총에 양보하세요 — 순살브리핑 2026.07.30", "item": "https://soonsal.com/newsletters/2026/0730.html"}]}</script>
-
-
-
-
-<style id="soonsal-story-links">
-/* 스토리 끝 — 다 읽은 사람만 본다. 본문 흐름을 끊지 않는다 */
-.story-links{margin:14px 0 0;padding:11px 0 0;border-top:1px solid #ece8e0;
-font-size:11.5px;line-height:1.8;color:#9a958a;word-break:keep-all}
-.story-links .k{color:#b5b0a4;margin-right:5px}
-.story-links a{color:#8a857c;text-decoration:none;border-bottom:1px solid #e6e1d8}
-.story-links a:hover{color:#C24A00;border-bottom-color:#C24A00}
-.story-links .sep{opacity:.4;margin:0 4px}
-.story-links .row + .row{margin-top:4px}
-/* 「같은 흐름」은 제목이 길어 한 줄에 하나씩 세운다. 라벨은 왼쪽에 고정 */
-.story-links .flows{display:flex;align-items:flex-start}
-.story-links .flow-list{display:flex;flex-direction:column;gap:2px;min-width:0}
-.story-links .flow{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.story-links .flow b{font-weight:600;color:#b5b0a4;margin-right:3px}
-@media(max-width:560px){.story-links .flows{display:block}
-  .story-links .flow-list{margin-top:2px;padding-left:1px}}
-</style>
 </head>
 <body>
 <div id="soonsal-live-ticker" style="display:none;"></div>
@@ -462,10 +441,6 @@ font-size:11.5px;line-height:1.8;color:#9a958a;word-break:keep-all}
 <script>
 (function(){'use strict';var WORKER_URL='https://soonsal-data.kd-d0a.workers.dev/';var COINGECKO_URL='https://api.coingecko.com/api/v3';var TRADFI_ORDER=['S&P 500','NASDAQ','Dow Jones','KOSPI','US 10Y','WTI Oil','Gold','DXY','EUR/USD','USD/JPY','USD/KRW'];var CRYPTO_ORDER=['Bitcoin','Ethereum','Solana','XRP','BNB','Crypto Total'];var CRYPTO_IDS={'Bitcoin':'bitcoin','Ethereum':'ethereum','Solana':'solana','XRP':'ripple','BNB':'binancecoin'};var REFRESH=60000;var container,timer,lastTradfi,lastCrypto;function init(){container=document.getElementById('soonsal-live-ticker');if(!container)return;container.style.display='block';container.innerHTML='<div class="stk-loading"><div class="stk-spin"></div>Loading market data...</div>';fetchAll();timer=setInterval(fetchAll,REFRESH)}function fetchAll(){var p1=fetchTradFi();var p2=fetchCrypto();Promise.allSettled?Promise.allSettled([p1,p2]).then(render):Promise.all([p1.catch(function(){return null}),p2.catch(function(){return null})]).then(render)}function fetchTradFi(){return fetch(WORKER_URL).then(function(r){return r.json()}).then(function(data){if(data.tradfi)lastTradfi=data;return data}).catch(function(e){console.warn('[Ticker] TradFi error:',e.message);return null})}function fetchCrypto(){var ids=Object.values(CRYPTO_IDS).join(',');var url=COINGECKO_URL+'/simple/price?ids='+ids+'&vs_currencies=usd&include_24hr_change=true&include_market_cap=true';var globalUrl=COINGECKO_URL+'/global';return Promise.all([fetch(url).then(function(r){return r.json()}),fetch(globalUrl).then(function(r){return r.json()}).catch(function(){return null})]).then(function(results){var prices=results[0];var global=results[1];var crypto={};for(var name in CRYPTO_IDS){var id=CRYPTO_IDS[name];var d=prices[id];if(!d)continue;var p=d.usd;var ch=d.usd_24h_change||0;crypto[name]={price:'$'+formatNum(p),change:(ch>=0?'+':'')+ch.toFixed(2)+'%',direction:ch>0.01?'up':ch<-0.01?'down':'zero'}}if(global&&global.data){var mc=global.data.total_market_cap&&global.data.total_market_cap.usd;var mch=global.data.market_cap_change_percentage_24h_usd;if(mc){crypto['Crypto Total']={price:'$'+(mc/1e12).toFixed(2)+'T',change:(mch>=0?'+':'')+(mch||0).toFixed(2)+'%',direction:mch>0?'up':mch<0?'down':'zero'}}}lastCrypto=crypto;return crypto}).catch(function(e){console.warn('[Ticker] Crypto error:',e.message);return null})}function render(){var tradfi=lastTradfi?lastTradfi.tradfi:{};var crypto=lastCrypto||{};var kst=lastTradfi?lastTradfi.kst:new Date().toLocaleString('ko-KR',{timeZone:'Asia/Seoul'});var html=[];html.push('<div class="stk-ts"><span class="stk-dot"></span><span class="stk-time">'+esc(kst)+' KST</span></div>');for(var i=0;i<TRADFI_ORDER.length;i++){var name=TRADFI_ORDER[i];var d=tradfi[name];if(d)html.push(makeItem(name,d,false))}html.push('<div class="stk-div"><span></span></div>');for(var j=0;j<CRYPTO_ORDER.length;j++){var cname=CRYPTO_ORDER[j];var cd=crypto[cname];if(cd)html.push(makeItem(cname,cd,true))}var track=html.join('');container.innerHTML='<div class="stk-track">'+track+track+'</div>'}function makeItem(name,d,isCrypto){var dir=d.direction||'zero';var arrow=dir==='up'?'<span class="au"></span>':dir==='down'?'<span class="ad"></span>':'';return'<div class="stk-item"><span class="stk-lbl'+(isCrypto?' crypto':'')+'">'+esc(name)+'</span><span class="stk-prc">'+esc(d.price)+'</span><span class="stk-chg '+dir+'">'+arrow+' '+esc(d.change)+'</span></div>'}function formatNum(n){if(n>=10000)return n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});if(n>=100)return n.toFixed(2);if(n>=1)return n.toFixed(2);return n.toFixed(4)}function esc(s){if(!s)return'';var d=document.createElement('span');d.textContent=String(s);return d.innerHTML}if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',init)}else{init()}})();
 </script>
-
-
-
-
 
 
 
@@ -638,7 +613,7 @@ font-size:11.5px;line-height:1.8;color:#9a958a;word-break:keep-all}
         <div class="bullet"><span class="dot">◾</span><span>그렇다고 비용 압박이 사라진 건 아님. 메모리 품귀 탓에 맥·아이패드 값을 올렸고, 아이폰은 클라르나 <span class="sub">(Klarna, 스웨덴 후불결제 회사)</span> 통해서 월 17.99불부터 빌려 쓰는 프로그램 시행. 값을 깎은 게 아니라 납부만 월 단위로 바꾼 구조. 램값을 밀어올린 게 결국 AI 데이터센터의 메모리 싹쓸이라, 안 지른 돈이 부품값으로 돌아오는 중. 애플이 피한 건 데이터센터 투자지, AI가 만든 비용은 아니었던 셈 <span class="note">(어차피 소비자에게 전가)</span></span></div>
         <div class="bullet"><span class="dot">◾</span><span>31일 새벽 실적 발표가 팀 쿡의 마지막 콘퍼런스콜. 9월 1일 CEO 자리를 하드웨어 총괄 존 터너스에게 넘기고 의장 <span class="sub">(executive chairman)</span>으로 옮긴다고 진작에 공식 발표. 2011년부터 15년간 애플을 시총 1위 자리에 몇 번씩 올려놨던 사람의 마지막 답변은, 애플 인텔리전스를 기기 전반으로 넓히면서 자본지출을 안 늘릴 수 있을지 여부. 이번 분기 매출은 15%대 성장이 컨센서스, 시장은 매출보다 메모리값에 마진이 버티는지를 보는 중</span></div>
       </div>
-      </div></div></div></div><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/apple.html">애플</a><span class="sep">·</span><a href="/wiki/nvidia.html">엔비디아</a><span class="sep">·</span><a href="/wiki/microsoft.html">마이크로소프트</a><span class="sep">·</span><a href="/wiki/amazon.html">아마존</a><span class="sep">·</span><a href="/wiki/meta.html">메타</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0601.html#story-1"><b>06-01</b> 델, AI 서버로 역대급</a></span></span></div></div><p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
+      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
     </div>
 
 <!-- STORY 3 -->
@@ -678,7 +653,7 @@ font-size:11.5px;line-height:1.8;color:#9a958a;word-break:keep-all}
         <div class="bullet"><span class="dot">◾</span><span>인버터가 같이 걸린 게 전력망 쪽 핵심. 로봇과는 별도의 안보 판정을 받아 목록에 올랐음. 태양광·배터리·데이터센터를 전력망에 붙일 때 직류를 교류로 바꿔주는 장치. 제조사 서버와 계속 통신하며 출력을 원격 조절하고 펌웨어를 갱신하는 구조라, 바깥에서 껐다 켜거나 데이터를 빼낼 수 있다는 게 미국 정부 판단. 재생에너지와 데이터센터 설비가 늘수록 작은 장치 하나가 전력망 전체의 접점으로 커지는 문제</span></div>
         <div class="bullet"><span class="dot">◾</span><span>엔비디아도 공급망 경계에 걸쳐 있음. 6월에 공개한 휴머노이드 표준 설계가 유니트리 H2 플러스 몸체 + 블랙웰 기반 젯슨 토르를 얹은 조합. 스탠퍼드·취리히연방공대 등의 연구기관이 쓰기로 한 물건. 엔비디아는 데이터가 미국에 남고 유니트리의 미국 고객은 대학·연구기관뿐이라고 설명하는 중인데, 일단 유니트리는 펜타곤의 중국 군사연계 기업 명단에도 올라 있는 곳. 9월엔 트럼프·시진핑 회담이 예정돼 있음</span></div>
       </div>
-      </div></div></div></div></div><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/tesla.html">테슬라</a><span class="sep">·</span><a href="/wiki/nvidia.html">엔비디아</a><span class="sep">·</span><a href="/wiki/trump.html">트럼프</a><span class="sep">·</span><a href="/wiki/xi-jinping.html">시진핑</a></div></div><p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
+      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
     </div>
 
   </div><!-- /content -->

@@ -399,27 +399,6 @@
 <meta name="twitter:title" content="🐟엔비디아 숏 친 이유 — 순살브리핑 2026.05.20"/>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "NewsArticle", "headline": "🐟엔비디아 숏 친 이유 — 순살브리핑 2026.05.20", "datePublished": "2026-05-20T09:00:00+09:00", "dateModified": "2026-05-20T09:00:00+09:00", "inLanguage": "ko", "mainEntityOfPage": "https://soonsal.com/newsletters/2026/0520.html", "author": {"@type": "Organization", "name": "순살브리핑", "url": "https://soonsal.com/"}, "publisher": {"@type": "Organization", "name": "순살브리핑", "logo": {"@type": "ImageObject", "url": "https://soonsal.com/apple-touch-icon.png"}}, "keywords": "구글 블랙스톤 AI 클라우드 TPU 합작,  Polymarket 비상장 주식 베팅 예측시장,  AI 데이터센터 회사채 정크본드 집중,  Situational Awareness 엔비디아 숏 아셴브레너,  Anthropic Mythos 사이버보안 은행"}</script>
 <!-- soonsal:bc --><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "순살브리핑", "item": "https://soonsal.com/"}, {"@type": "ListItem", "position": 2, "name": "브리핑", "item": "https://soonsal.com/newsletters/"}, {"@type": "ListItem", "position": 3, "name": "🐟엔비디아 숏 친 이유 — 순살브리핑 2026.05.20", "item": "https://soonsal.com/newsletters/2026/0520.html"}]}</script>
-
-
-
-
-<style id="soonsal-story-links">
-/* 스토리 끝 — 다 읽은 사람만 본다. 본문 흐름을 끊지 않는다 */
-.story-links{margin:14px 0 0;padding:11px 0 0;border-top:1px solid #ece8e0;
-font-size:11.5px;line-height:1.8;color:#9a958a;word-break:keep-all}
-.story-links .k{color:#b5b0a4;margin-right:5px}
-.story-links a{color:#8a857c;text-decoration:none;border-bottom:1px solid #e6e1d8}
-.story-links a:hover{color:#C24A00;border-bottom-color:#C24A00}
-.story-links .sep{opacity:.4;margin:0 4px}
-.story-links .row + .row{margin-top:4px}
-/* 「같은 흐름」은 제목이 길어 한 줄에 하나씩 세운다. 라벨은 왼쪽에 고정 */
-.story-links .flows{display:flex;align-items:flex-start}
-.story-links .flow-list{display:flex;flex-direction:column;gap:2px;min-width:0}
-.story-links .flow{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.story-links .flow b{font-weight:600;color:#b5b0a4;margin-right:3px}
-@media(max-width:560px){.story-links .flows{display:block}
-  .story-links .flow-list{margin-top:2px;padding-left:1px}}
-</style>
 </head>
 <body>
 <div id="soonsal-live-ticker" style="display:none;"></div>
@@ -463,10 +442,6 @@ font-size:11.5px;line-height:1.8;color:#9a958a;word-break:keep-all}
 <script>
 (function(){'use strict';var WORKER_URL='https://soonsal-data.kd-d0a.workers.dev/';var COINGECKO_URL='https://api.coingecko.com/api/v3';var TRADFI_ORDER=['S&P 500','NASDAQ','Dow Jones','KOSPI','US 10Y','WTI Oil','Gold','DXY','EUR/USD','USD/JPY','USD/KRW'];var CRYPTO_ORDER=['Bitcoin','Ethereum','Solana','XRP','BNB','Crypto Total'];var CRYPTO_IDS={'Bitcoin':'bitcoin','Ethereum':'ethereum','Solana':'solana','XRP':'ripple','BNB':'binancecoin'};var REFRESH=60000;var container,timer,lastTradfi,lastCrypto;function init(){container=document.getElementById('soonsal-live-ticker');if(!container)return;container.style.display='block';container.innerHTML='<div class="stk-loading"><div class="stk-spin"></div>Loading market data...</div>';fetchAll();timer=setInterval(fetchAll,REFRESH)}function fetchAll(){var p1=fetchTradFi();var p2=fetchCrypto();Promise.allSettled?Promise.allSettled([p1,p2]).then(render):Promise.all([p1.catch(function(){return null}),p2.catch(function(){return null})]).then(render)}function fetchTradFi(){return fetch(WORKER_URL).then(function(r){return r.json()}).then(function(data){if(data.tradfi)lastTradfi=data;return data}).catch(function(e){console.warn('[Ticker] TradFi error:',e.message);return null})}function fetchCrypto(){var ids=Object.values(CRYPTO_IDS).join(',');var url=COINGECKO_URL+'/simple/price?ids='+ids+'&vs_currencies=usd&include_24hr_change=true&include_market_cap=true';var globalUrl=COINGECKO_URL+'/global';return Promise.all([fetch(url).then(function(r){return r.json()}),fetch(globalUrl).then(function(r){return r.json()}).catch(function(){return null})]).then(function(results){var prices=results[0];var global=results[1];var crypto={};for(var name in CRYPTO_IDS){var id=CRYPTO_IDS[name];var d=prices[id];if(!d)continue;var p=d.usd;var ch=d.usd_24h_change||0;crypto[name]={price:'$'+formatNum(p),change:(ch>=0?'+':'')+ch.toFixed(2)+'%',direction:ch>0.01?'up':ch<-0.01?'down':'zero'}}if(global&&global.data){var mc=global.data.total_market_cap&&global.data.total_market_cap.usd;var mch=global.data.market_cap_change_percentage_24h_usd;if(mc){crypto['Crypto Total']={price:'$'+(mc/1e12).toFixed(2)+'T',change:(mch>=0?'+':'')+(mch||0).toFixed(2)+'%',direction:mch>0?'up':mch<0?'down':'zero'}}}lastCrypto=crypto;return crypto}).catch(function(e){console.warn('[Ticker] Crypto error:',e.message);return null})}function render(){var tradfi=lastTradfi?lastTradfi.tradfi:{};var crypto=lastCrypto||{};var kst=lastTradfi?lastTradfi.kst:new Date().toLocaleString('ko-KR',{timeZone:'Asia/Seoul'});var html=[];html.push('<div class="stk-ts"><span class="stk-dot"></span><span class="stk-time">'+esc(kst)+' KST</span></div>');for(var i=0;i<TRADFI_ORDER.length;i++){var name=TRADFI_ORDER[i];var d=tradfi[name];if(d)html.push(makeItem(name,d,false))}html.push('<div class="stk-div"><span></span></div>');for(var j=0;j<CRYPTO_ORDER.length;j++){var cname=CRYPTO_ORDER[j];var cd=crypto[cname];if(cd)html.push(makeItem(cname,cd,true))}var track=html.join('');container.innerHTML='<div class="stk-track">'+track+track+'</div>'}function makeItem(name,d,isCrypto){var dir=d.direction||'zero';var arrow=dir==='up'?'<span class="au"></span>':dir==='down'?'<span class="ad"></span>':'';return'<div class="stk-item"><span class="stk-lbl'+(isCrypto?' crypto':'')+'">'+esc(name)+'</span><span class="stk-prc">'+esc(d.price)+'</span><span class="stk-chg '+dir+'">'+arrow+' '+esc(d.change)+'</span></div>'}function formatNum(n){if(n>=10000)return n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});if(n>=100)return n.toFixed(2);if(n>=1)return n.toFixed(2);return n.toFixed(4)}function esc(s){if(!s)return'';var d=document.createElement('span');d.textContent=String(s);return d.innerHTML}if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',init)}else{init()}})();
 </script>
-
-
-
-
 
 
 
@@ -633,7 +608,7 @@ font-size:11.5px;line-height:1.8;color:#9a958a;word-break:keep-all}
         <div class="bullet"><span class="dot">◾</span><span>블랙스톤은 이미 AI 전담 투자 부문 <span class="sub">(Blackstone N1)</span>을 꾸렸고, 첫 딜이 15억불 규모 Anthropic 파트너십. 디지털 인프라·전력에 수십조원을 쏟아붓는 중. 블랙스톤 사장 표현으로는 "세대적 기회" — 모건스탠리 추산으로 하이퍼스케일러 5곳 <span class="sub">(아마존·구글·메타·MS·오라클)</span>이 2026년에만 설비투자 8,050억불, 2027년에는 1.1조불을 쓸 전망. 이 돈이 결국 데이터센터와 전력으로 가니깐 PE가 끼어들 자리가 계속 생기는 것</span></div>
         <div class="bullet"><span class="dot">◾</span><span><strong>엔비디아 GPU 독점에 대한 피로감이 대체 칩 생태계를 만들어가는 형국.</strong> 구글 TPU, 아마존 Trainium, 여기에 AI 칩 스타트업 Tenstorrent까지 인텔·퀄컴이 인수를 타진 중 <span class="sub">(기업가치 50억불+)</span>. 엔비디아 실적 발표를 하루 앞두고 나온 타이밍도 의미심장 — 무기를 직접 만들면 무기상에 안 끌려다녀도 된다는 판단</span></div>
       </div>
-      </div></div></div><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/blackstone.html">블랙스톤</a><span class="sep">·</span><a href="/wiki/nvidia.html">엔비디아</a><span class="sep">·</span><a href="/wiki/google.html">구글</a><span class="sep">·</span><a href="/wiki/coreweave.html">코어위브</a><span class="sep">·</span><a href="/wiki/anthropic.html">앤스로픽</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0709.html#story-3"><b>07-09</b> 엔비디아, 무거운 왕관</a></span><span class="flow"><a href="/newsletters/2026/0521.html#story-1"><b>05-21</b> 엔비디아, 이겼는데 졌음</a></span></span></div></div><p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
+      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
     </div>
 
     <!-- STORY 2: 비상장 주식 예측 시장 -->
@@ -647,7 +622,7 @@ font-size:11.5px;line-height:1.8;color:#9a958a;word-break:keep-all}
         <div class="bullet"><span class="dot">◾</span><span>이 문제점을 2026년에 예측 시장이 파고든 것. <strong>주식을 직접 사는 게 아니라 밸류 도달 여부에 돈을 거는 구조.</strong> 경제적 효과는 주식 사는 거랑 비슷한데, 법적으로는 "투자"가 아니라 "예측"이라는 포장. Polymarket은 "금융의 민주화"라고 하는데, 뒤집으면 공시 없이 주식에 노출되는 것과 다를 게 없음. 더 정확히는 그냥 비상장 주식 옵션거래 시장이 열린 것 <span class="note">(이름만 바꿨는데 규제가 사라짐)</span></span></div>
         <div class="bullet"><span class="dot">◾</span><span>일단 나스닥이 이 구조에 데이터 제공자로 참여 — 미국 최대 거래소 중 하나가 "개미도 비상장 베팅 괜찮다"고 사실상 보증한 셈. 규제 당국도 큰 그림에선 같은 방향인데, SEC는 분기보고를 선택제로 바꾸는 규칙을 제안하면서 위원장이 이걸 "Make IPOs Great Again"이라 부르는 중. 90년간 유지된 "공시하고 공모" 체제가 "공시 없이 베팅으로" 체제로 조용히 바뀌고 있음</span></div>
       </div>
-      </div></div></div><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/polymarket.html">폴리마켓</a><span class="sep">·</span><a href="/wiki/openai.html">오픈AI</a><span class="sep">·</span><a href="/wiki/anthropic.html">앤스로픽</a><span class="sep">·</span><a href="/wiki/nasdaq.html">나스닥</a><span class="sep">·</span><a href="/wiki/blackrock.html">블랙록</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0513.html#story-4"><b>05-13</b> 비상장 주식, 분명히 샀는데 내꺼 아니라 함</a></span><span class="flow"><a href="/newsletters/2026/0515-crypto.html#story-5"><b>05-15</b> 토큰화 비상장 주식, 회사가 직접 차단함</a></span></span></div></div><p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
+      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
     </div>
 
     <!-- STORY 3: AI 회사채 집중 리스크 -->
@@ -661,7 +636,7 @@ font-size:11.5px;line-height:1.8;color:#9a958a;word-break:keep-all}
         <div class="bullet"><span class="dot">◾</span><span>오라클은 특히 눈에 띄는 사례. 부채비율이 500%로 클라우드 경쟁사 대비 압도적으로 높은데, 매출 규모는 아마존·MS의 1/3 수준. 하이퍼스케일러처럼 빌리면서 하이퍼스케일러 체급이 아닌 셈. 바클레이즈가 투자등급 하한 경고를 내렸고, CDS 스프레드 <span class="sub">(부도 위험 지표)</span>는 2009년 금융위기 이후 최고 수준 — 투자등급을 달고 있지만 사실상 정크처럼 거래되는 중</span></div>
         <div class="bullet"><span class="dot">◾</span><span>채권시장 전체로 보면 구조적 변화. 2015년만 해도 하이퍼스케일러가 미국 투자등급 회사채 지수에서 차지하는 비중이 1% 미만이었는데 지금은 4%에 육박, S&P 500에서 빅테크가 43%를 차지하는 것과 비슷한 쏠림이 채권시장에서도 벌어지는 것. 금리·은행 실적이랑 같이 움직이던 채권이 이제 빅테크 AI 투자 사이클에 묶이면서, 한쪽이 무너지면 다 같이 흔들리는 집중 리스크가 형성된 상태 <span class="note">(실리콘 후광을 쓴 정크?)</span></span></div>
       </div>
-      </div></div></div><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/morgan-stanley.html">모건스탠리</a><span class="sep">·</span><a href="/wiki/meta.html">메타</a><span class="sep">·</span><a href="/wiki/google.html">구글</a><span class="sep">·</span><a href="/wiki/coreweave.html">코어위브</a><span class="sep">·</span><a href="/wiki/oracle.html">오라클</a></div></div><p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
+      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
     </div>
 
     <!-- STORY 4: Situational Awareness 엔비디아 숏 -->
@@ -675,7 +650,7 @@ font-size:11.5px;line-height:1.8;color:#9a958a;word-break:keep-all}
         <div class="bullet"><span class="dot">◾</span><span><strong>베팅 논리는 단순. 엔비디아가 GPU를 팔 때마다 그 GPU를 돌리려면 대량의 전력이 필요함.</strong> 칩 레이어가 과열되면 조정이 오겠지만, 전력·인프라 레이어는 물리적 병목이라 수요가 줄어들 수 없다는 판단. 칩 숏 + 전력 롱 = 같은 테마의 양면 베팅. 13F는 3월 31일 기준 스냅샷이라 이후 포지션 변동은 알 수 없다는 점은 감안해야 함</span></div>
         <div class="bullet"><span class="dot">◾</span><span>타이밍이 절묘. 엔비디아 실적 발표를 하루 앞두고 13F 공시. 폴리마켓에서 "AI 버블 2026년 내 붕괴" 확률은 23%, 엔비디아가 연말 시총 1위로 끝날 확률은 65% — 시장은 아직 낙관 쪽에 서 있음. 일단 AI를 가장 깊이 이해한다는 사람 중 하나가 반대편에 베팅한다는 사실 자체에, 시장은 주목하는 중 <span class="note">(AGI를 2027년이라 보는 사람이 GPU를 숏 치는 이유)</span></span></div>
       </div>
-      </div></div></div><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/nvidia.html">엔비디아</a><span class="sep">·</span><a href="/wiki/openai.html">오픈AI</a><span class="sep">·</span><a href="/wiki/oracle.html">오라클</a><span class="sep">·</span><a href="/wiki/broadcom.html">브로드컴</a><span class="sep">·</span><a href="/wiki/amd.html">AMD</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0709.html#story-3"><b>07-09</b> 엔비디아, 무거운 왕관</a></span><span class="flow"><a href="/newsletters/2026/0410.html#story-3"><b>04-10</b> 아마존 CEO, 엔비디아에 선전 포고</a></span></span></div></div><p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
+      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
     </div>
 
     <!-- STORY 5: Anthropic Mythos 사이버보안 -->
@@ -689,7 +664,7 @@ font-size:11.5px;line-height:1.8;color:#9a958a;word-break:keep-all}
         <div class="bullet"><span class="dot">◾</span><span>Anthropic이 최근 Glasswing 참여 기관들에 "발견 사항·방어 코드·모범 사례를 외부에 공유해도 된다"고 통보, 기존 기밀유지 조항을 완화. 은행들 간 전통적인 사이버보안 정보 공유 관행이 다시 가능해짐. Mythos 비용 자체도 장벽 — 인풋 토큰 25불, 아웃풋 125불로 일반 모델의 5배 수준이라 중소 은행은 직접 접근이 현실적으로 어려운 구조</span></div>
         <div class="bullet"><span class="dot">◾</span><span>OpenAI도 맞대응에 나섰고, 프랑스 Mistral은 유럽 은행들에 자체 사이버보안 모델을 제안하는 중 — Mistral CEO는 "프랑스 군 소스코드를 Mythos에 맡길 수는 없다"고 기술 주권 논리까지 꺼냄. AI 공격 능력이 방어 능력보다 빨리 진화하는 상황에서 AI 모델 접근권 자체가 국가 안보 이슈로 격상되는 중 <span class="note">(방패를 사려면 먼저 칼을 가져야 하는 아이러니)</span></span></div>
       </div>
-      </div></div></div><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/anthropic.html">앤스로픽</a><span class="sep">·</span><a href="/wiki/amazon.html">아마존</a><span class="sep">·</span><a href="/wiki/apple.html">애플</a><span class="sep">·</span><a href="/wiki/jpmorgan.html">JP모건</a><span class="sep">·</span><a href="/wiki/morgan-stanley.html">모건스탠리</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0413-crypto.html#story-2"><b>04-13</b> AI가 은행을 겁먹게 했는데, DeFi는 더 위험하다</a></span><span class="flow"><a href="/newsletters/2026/0615-crypto.html#story-3"><b>06-15</b> AI 모델 통제, 다음은 크립토 프로토콜?</a></span></span></div></div><p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
+      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
     </div>
 
   </div><!-- /content -->

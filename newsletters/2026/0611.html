@@ -399,25 +399,6 @@
 <meta name="twitter:title" content="🐟 노인 리스크 — 순살브리핑 2026.06.11"/>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "NewsArticle", "headline": "노인 리스크 — 순살브리핑 2026.06.11", "datePublished": "2026-06-11T09:00:00+09:00", "dateModified": "2026-06-11T09:00:00+09:00", "inLanguage": "ko", "mainEntityOfPage": "https://soonsal.com/newsletters/2026/0611.html", "author": {"@type": "Organization", "name": "순살브리핑", "url": "https://soonsal.com/"}, "publisher": {"@type": "Organization", "name": "순살브리핑", "logo": {"@type": "ImageObject", "url": "https://soonsal.com/apple-touch-icon.png"}}, "keywords": "미국CPI4.2%3년래최고에너지인플레,  BOJ우에다입원30년래금리인상,  비자OpenAI에이전트커머스결제,  오라클실적FCF마이너스237억불,  마그네타헤지펀드AI봇애널리스트대체"}</script>
 <!-- soonsal:bc --><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "순살브리핑", "item": "https://soonsal.com/"}, {"@type": "ListItem", "position": 2, "name": "브리핑", "item": "https://soonsal.com/newsletters/"}, {"@type": "ListItem", "position": 3, "name": "🐟 노인 리스크 — 순살브리핑 2026.06.11", "item": "https://soonsal.com/newsletters/2026/0611.html"}]}</script>
-
-
-<style id="soonsal-story-links">
-/* 스토리 끝 — 다 읽은 사람만 본다. 본문 흐름을 끊지 않는다 */
-.story-links{margin:14px 0 0;padding:11px 0 0;border-top:1px solid #ece8e0;
-font-size:11.5px;line-height:1.8;color:#9a958a;word-break:keep-all}
-.story-links .k{color:#b5b0a4;margin-right:5px}
-.story-links a{color:#8a857c;text-decoration:none;border-bottom:1px solid #e6e1d8}
-.story-links a:hover{color:#C24A00;border-bottom-color:#C24A00}
-.story-links .sep{opacity:.4;margin:0 4px}
-.story-links .row + .row{margin-top:4px}
-/* 「같은 흐름」은 제목이 길어 한 줄에 하나씩 세운다. 라벨은 왼쪽에 고정 */
-.story-links .flows{display:flex;align-items:flex-start}
-.story-links .flow-list{display:flex;flex-direction:column;gap:2px;min-width:0}
-.story-links .flow{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.story-links .flow b{font-weight:600;color:#b5b0a4;margin-right:3px}
-@media(max-width:560px){.story-links .flows{display:block}
-  .story-links .flow-list{margin-top:2px;padding-left:1px}}
-</style>
 </head>
 
 <body>
@@ -462,10 +443,6 @@ font-size:11.5px;line-height:1.8;color:#9a958a;word-break:keep-all}
 <script>
 (function(){'use strict';var WORKER_URL='https://soonsal-data.kd-d0a.workers.dev/';var COINGECKO_URL='https://api.coingecko.com/api/v3';var TRADFI_ORDER=['S&P 500','NASDAQ','Dow Jones','KOSPI','US 10Y','WTI Oil','Gold','DXY','EUR/USD','USD/JPY','USD/KRW'];var CRYPTO_ORDER=['Bitcoin','Ethereum','Solana','XRP','BNB','Crypto Total'];var CRYPTO_IDS={'Bitcoin':'bitcoin','Ethereum':'ethereum','Solana':'solana','XRP':'ripple','BNB':'binancecoin'};var REFRESH=60000;var container,timer,lastTradfi,lastCrypto;function init(){container=document.getElementById('soonsal-live-ticker');if(!container)return;container.style.display='block';container.innerHTML='<div class="stk-loading"><div class="stk-spin"></div>Loading market data...</div>';fetchAll();timer=setInterval(fetchAll,REFRESH)}function fetchAll(){var p1=fetchTradFi();var p2=fetchCrypto();Promise.allSettled?Promise.allSettled([p1,p2]).then(render):Promise.all([p1.catch(function(){return null}),p2.catch(function(){return null})]).then(render)}function fetchTradFi(){return fetch(WORKER_URL).then(function(r){return r.json()}).then(function(data){if(data.tradfi)lastTradfi=data;return data}).catch(function(e){console.warn('[Ticker] TradFi error:',e.message);return null})}function fetchCrypto(){var ids=Object.values(CRYPTO_IDS).join(',');var url=COINGECKO_URL+'/simple/price?ids='+ids+'&vs_currencies=usd&include_24hr_change=true&include_market_cap=true';var globalUrl=COINGECKO_URL+'/global';return Promise.all([fetch(url).then(function(r){return r.json()}),fetch(globalUrl).then(function(r){return r.json()}).catch(function(){return null})]).then(function(results){var prices=results[0];var global=results[1];var crypto={};for(var name in CRYPTO_IDS){var id=CRYPTO_IDS[name];var d=prices[id];if(!d)continue;var p=d.usd;var ch=d.usd_24h_change||0;crypto[name]={price:'$'+formatNum(p),change:(ch>=0?'+':'')+ch.toFixed(2)+'%',direction:ch>0.01?'up':ch<-0.01?'down':'zero'}}if(global&&global.data){var mc=global.data.total_market_cap&&global.data.total_market_cap.usd;var mch=global.data.market_cap_change_percentage_24h_usd;if(mc){crypto['Crypto Total']={price:'$'+(mc/1e12).toFixed(2)+'T',change:(mch>=0?'+':'')+(mch||0).toFixed(2)+'%',direction:mch>0?'up':mch<0?'down':'zero'}}}lastCrypto=crypto;return crypto}).catch(function(e){console.warn('[Ticker] Crypto error:',e.message);return null})}function render(){var tradfi=lastTradfi?lastTradfi.tradfi:{};var crypto=lastCrypto||{};var kst=lastTradfi?lastTradfi.kst:new Date().toLocaleString('ko-KR',{timeZone:'Asia/Seoul'});var html=[];html.push('<div class="stk-ts"><span class="stk-dot"></span><span class="stk-time">'+esc(kst)+' KST</span></div>');for(var i=0;i<TRADFI_ORDER.length;i++){var name=TRADFI_ORDER[i];var d=tradfi[name];if(d)html.push(makeItem(name,d,false))}html.push('<div class="stk-div"><span></span></div>');for(var j=0;j<CRYPTO_ORDER.length;j++){var cname=CRYPTO_ORDER[j];var cd=crypto[cname];if(cd)html.push(makeItem(cname,cd,true))}var track=html.join('');container.innerHTML='<div class="stk-track">'+track+track+'</div>'}function makeItem(name,d,isCrypto){var dir=d.direction||'zero';var arrow=dir==='up'?'<span class="au"></span>':dir==='down'?'<span class="ad"></span>':'';return'<div class="stk-item"><span class="stk-lbl'+(isCrypto?' crypto':'')+'">'+esc(name)+'</span><span class="stk-prc">'+esc(d.price)+'</span><span class="stk-chg '+dir+'">'+arrow+' '+esc(d.change)+'</span></div>'}function formatNum(n){if(n>=10000)return n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});if(n>=100)return n.toFixed(2);if(n>=1)return n.toFixed(2);return n.toFixed(4)}function esc(s){if(!s)return'';var d=document.createElement('span');d.textContent=String(s);return d.innerHTML}if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',init)}else{init()}})();
 </script>
-
-
-
-
 
 
 
@@ -666,7 +643,7 @@ font-size:11.5px;line-height:1.8;color:#9a958a;word-break:keep-all}
     <div class="bullet"><span class="dot">◾</span><span>경쟁사 마스터카드도 이미 비슷한 길을 가는 중이라, 결제망 양대 산맥이 동시에 '에이전트 커머스' 판을 깔고 있음. 여기에 구글까지 자체 결제 프로토콜로 마스터카드·아멕스 등 60곳 넘는 파트너를 끌어모은 상황. 결국 결제망을 쥔 쪽이 시장을 쥐는 구조라, 비자·마스터카드·구글이 다들 자리부터 맡아두는 중</span></div>
     <div class="bullet"><span class="dot">◾</span><span>다만 은행·가맹점 쪽 걱정도 큼. 유저가 한도·승인 조건을 미리 거는 안전장치는 있지만, 정작 에이전트가 의도와 다른 물건을 샀을 때 누가 책임지냐는 규칙이 없음. 비자조차 '사람 실수와 자동화 사이 회색지대'라며, 분쟁 처리 가이드를 아직 못 내놓은 상태. 기술은 깔리는데 규칙은 아직 백지 상태. AI한테 카드 쥐여주고 '알아서 사' 라고 하는 셈 <span class="note">(지름신 오면 어쩔)</span></span></div>
     <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">* 매수매도 추천 아님, 순살도 주주 아님</p>
-  <div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/openai.html">오픈AI</a><span class="sep">·</span><a href="/wiki/visa.html">비자(Visa)</a><span class="sep">·</span><a href="/wiki/mastercard.html">마스터카드</a><span class="sep">·</span><a href="/wiki/google.html">구글</a><span class="sep">·</span><a href="/wiki/amex.html">아메리칸익스프레스</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0228.html#story-1"><b>02-28</b> Anthropic vs 펜타곤, 그리고 어부지리 Ope</a></span><span class="flow"><a href="/newsletters/2026/0325.html#story-2"><b>03-25</b> OpenAI가 PE한테 17.5% 보장하는 이유</a></span></span></div></div></div></div>
+  </div>
 </div>
 
 <!-- STORY 4 -->
@@ -680,7 +657,7 @@ font-size:11.5px;line-height:1.8;color:#9a958a;word-break:keep-all}
     <div class="bullet"><span class="dot">◾</span><span>AI 인프라에 돈 쏟아붓는 속도는 아마존급인데, 정작 오라클의 자체 현금 창출력은 그에 못 미침. 그나마 고객이 GPU값을 미리 내거나 직접 사서 넘긴 물량이 750억불어치라 자본 부담을 덜어주긴 함. 그래도 빚으로 메우는 그림이 커지면서, 신용등급 강등 리스크가 본격 거론되는 상황. 현재 투자등급 마지노선 근처 <span class="sub">(BBB; 2단계 더 내려가면 투기)</span>인데, 부정적 전망이 깔려있음</span></div>
     <div class="bullet"><span class="dot">◾</span><span>그럼에도 내년 <span class="sub">(FY2027)</span> 매출은 34% 더 키우겠다는 목표는 그대로임. 이번 분기에만 1기가와트 컴퓨팅을 새로 켜는데, 작년 한 해 깐 양과 맞먹는 규모. OCI를 키워 CEO까지 오른 인물이 키를 잡은 만큼 AI 올인은 우연이 아닌데, 질문은 이제 '수요가 진짜냐'에서 '이 속도로 돈 써도 되냐'로 옮겨가는 중 <span class="note">(돈 벌기 전에 돈 쓰기 대회)</span></span></div>
     <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">* 매수매도 추천 아님, 순살도 주주 아님</p>
-  <div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/oracle.html">오라클</a><span class="sep">·</span><a href="/wiki/openai.html">오픈AI</a><span class="sep">·</span><a href="/wiki/amazon.html">아마존</a></div></div></div></div>
+  </div>
 </div>
 
 <!-- STORY 5 -->

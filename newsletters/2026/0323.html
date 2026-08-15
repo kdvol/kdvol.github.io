@@ -398,27 +398,6 @@
 <meta name="twitter:title" content="🐟 죽었다던 쇼핑몰이 부활하는 이유 — 순살브리핑 2026.03.23"/>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "NewsArticle", "headline": "죽었다던 쇼핑몰이 부활하는 이유 — 순살브리핑 2026.03.23", "datePublished": "2026-03-23T09:00:00+09:00", "dateModified": "2026-03-23T09:00:00+09:00", "inLanguage": "ko", "mainEntityOfPage": "https://soonsal.com/newsletters/2026/0323.html", "author": {"@type": "Organization", "name": "순살브리핑", "url": "https://soonsal.com/"}, "publisher": {"@type": "Organization", "name": "순살브리핑", "logo": {"@type": "ImageObject", "url": "https://soonsal.com/apple-touch-icon.png"}}, "keywords": "트럼프 이란 호르무즈 48시간최후통첩 유가급등,  베조스 1000억불 AI제조업펀드,  Amazon Perplexity AI쇼핑봇 소송 Comet,  미국쇼핑몰 K자양극화 SimonProperty,  WarnerMount Paramount WBD 1100억불합병", "image": ["https://soonsal.com/cardnews/2026/0323_png/card_01.png"]}</script>
 <!-- soonsal:bc --><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "순살브리핑", "item": "https://soonsal.com/"}, {"@type": "ListItem", "position": 2, "name": "브리핑", "item": "https://soonsal.com/newsletters/"}, {"@type": "ListItem", "position": 3, "name": "🐟 죽었다던 쇼핑몰이 부활하는 이유 — 순살브리핑 2026.03.23", "item": "https://soonsal.com/newsletters/2026/0323.html"}]}</script>
-
-
-
-
-<style id="soonsal-story-links">
-/* 스토리 끝 — 다 읽은 사람만 본다. 본문 흐름을 끊지 않는다 */
-.story-links{margin:14px 0 0;padding:11px 0 0;border-top:1px solid #ece8e0;
-font-size:11.5px;line-height:1.8;color:#9a958a;word-break:keep-all}
-.story-links .k{color:#b5b0a4;margin-right:5px}
-.story-links a{color:#8a857c;text-decoration:none;border-bottom:1px solid #e6e1d8}
-.story-links a:hover{color:#C24A00;border-bottom-color:#C24A00}
-.story-links .sep{opacity:.4;margin:0 4px}
-.story-links .row + .row{margin-top:4px}
-/* 「같은 흐름」은 제목이 길어 한 줄에 하나씩 세운다. 라벨은 왼쪽에 고정 */
-.story-links .flows{display:flex;align-items:flex-start}
-.story-links .flow-list{display:flex;flex-direction:column;gap:2px;min-width:0}
-.story-links .flow{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.story-links .flow b{font-weight:600;color:#b5b0a4;margin-right:3px}
-@media(max-width:560px){.story-links .flows{display:block}
-  .story-links .flow-list{margin-top:2px;padding-left:1px}}
-</style>
 </head>
 <body>
 <div id="soonsal-live-ticker" style="display:none;"></div>
@@ -462,10 +441,6 @@ font-size:11.5px;line-height:1.8;color:#9a958a;word-break:keep-all}
 <script>
 (function(){'use strict';var WORKER_URL='https://soonsal-data.kd-d0a.workers.dev/';var COINGECKO_URL='https://api.coingecko.com/api/v3';var TRADFI_ORDER=['S&P 500','NASDAQ','Dow Jones','KOSPI','US 10Y','WTI Oil','Gold','DXY','EUR/USD','USD/JPY','USD/KRW'];var CRYPTO_ORDER=['Bitcoin','Ethereum','Solana','XRP','BNB','Crypto Total'];var CRYPTO_IDS={'Bitcoin':'bitcoin','Ethereum':'ethereum','Solana':'solana','XRP':'ripple','BNB':'binancecoin'};var REFRESH=60000;var container,timer,lastTradfi,lastCrypto;function init(){container=document.getElementById('soonsal-live-ticker');if(!container)return;container.style.display='block';container.innerHTML='<div class="stk-loading"><div class="stk-spin"></div>Loading market data...</div>';fetchAll();timer=setInterval(fetchAll,REFRESH)}function fetchAll(){var p1=fetchTradFi();var p2=fetchCrypto();Promise.allSettled?Promise.allSettled([p1,p2]).then(render):Promise.all([p1.catch(function(){return null}),p2.catch(function(){return null})]).then(render)}function fetchTradFi(){return fetch(WORKER_URL).then(function(r){return r.json()}).then(function(data){if(data.tradfi)lastTradfi=data;return data}).catch(function(e){console.warn('[Ticker] TradFi error:',e.message);return null})}function fetchCrypto(){var ids=Object.values(CRYPTO_IDS).join(',');var url=COINGECKO_URL+'/simple/price?ids='+ids+'&vs_currencies=usd&include_24hr_change=true&include_market_cap=true';var globalUrl=COINGECKO_URL+'/global';return Promise.all([fetch(url).then(function(r){return r.json()}),fetch(globalUrl).then(function(r){return r.json()}).catch(function(){return null})]).then(function(results){var prices=results[0];var global=results[1];var crypto={};for(var name in CRYPTO_IDS){var id=CRYPTO_IDS[name];var d=prices[id];if(!d)continue;var p=d.usd;var ch=d.usd_24h_change||0;crypto[name]={price:'$'+formatNum(p),change:(ch>=0?'+':'')+ch.toFixed(2)+'%',direction:ch>0.01?'up':ch<-0.01?'down':'zero'}}if(global&&global.data){var mc=global.data.total_market_cap&&global.data.total_market_cap.usd;var mch=global.data.market_cap_change_percentage_24h_usd;if(mc){crypto['Crypto Total']={price:'$'+(mc/1e12).toFixed(2)+'T',change:(mch>=0?'+':'')+(mch||0).toFixed(2)+'%',direction:mch>0?'up':mch<0?'down':'zero'}}}lastCrypto=crypto;return crypto}).catch(function(e){console.warn('[Ticker] Crypto error:',e.message);return null})}function render(){var tradfi=lastTradfi?lastTradfi.tradfi:{};var crypto=lastCrypto||{};var kst=lastTradfi?lastTradfi.kst:new Date().toLocaleString('ko-KR',{timeZone:'Asia/Seoul'});var html=[];html.push('<div class="stk-ts"><span class="stk-dot"></span><span class="stk-time">'+esc(kst)+' KST</span></div>');for(var i=0;i<TRADFI_ORDER.length;i++){var name=TRADFI_ORDER[i];var d=tradfi[name];if(d)html.push(makeItem(name,d,false))}html.push('<div class="stk-div"><span></span></div>');for(var j=0;j<CRYPTO_ORDER.length;j++){var cname=CRYPTO_ORDER[j];var cd=crypto[cname];if(cd)html.push(makeItem(cname,cd,true))}var track=html.join('');container.innerHTML='<div class="stk-track">'+track+track+'</div>'}function makeItem(name,d,isCrypto){var dir=d.direction||'zero';var arrow=dir==='up'?'<span class="au"></span>':dir==='down'?'<span class="ad"></span>':'';return'<div class="stk-item"><span class="stk-lbl'+(isCrypto?' crypto':'')+'">'+esc(name)+'</span><span class="stk-prc">'+esc(d.price)+'</span><span class="stk-chg '+dir+'">'+arrow+' '+esc(d.change)+'</span></div>'}function formatNum(n){if(n>=10000)return n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});if(n>=100)return n.toFixed(2);if(n>=1)return n.toFixed(2);return n.toFixed(4)}function esc(s){if(!s)return'';var d=document.createElement('span');d.textContent=String(s);return d.innerHTML}if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',init)}else{init()}})();
 </script>
-
-
-
-
 
 
 
@@ -594,7 +569,7 @@ font-size:11.5px;line-height:1.8;color:#9a958a;word-break:keep-all}
     <div class="bullet"><span class="dot">◾</span><span>한국 제조업 입장에서 주목할 건, 베조스 펀드가 타깃으로 삼을 "박한 마진의 전통 제조업"이 글로벌 공급망에서 한국 협력사·경쟁사와 겹치는 영역이 많다는 점. AI가 미국 공장의 생산성을 극적으로 끌어올리면, 한국 제조업이 경쟁력을 유지하려면 같은 속도로 AI를 도입해야 하는 압력이 커짐. "AI 제조업 전환"이 선택이 아닌 생존의 문제로 바뀌는 시점이 빨라질 수 있음</span></div>
     <div class="bullet"><span class="dot">◾</span><span>베조스의 행보는 AI 산업의 축이 "소프트웨어 → 물리적 세계"로 이동하고 있다는 신호이기도 함. 챗봇·코딩 도구를 넘어서, 공장·물류·에너지 같은 물리적 인프라를 AI로 재편하는 게 다음 전쟁터. 프로젝트 프로메테우스가 정확히 이 영역 — "물리적 세계의 AI"에 초점을 맞추고 있다는 건, 엔비디아 칩 위에서 돌아가는 소프트웨어 AI와는 다른 차원의 사업이 열리고 있다는 의미</span></div>
   </div>
-  </div></div></div></div><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/bezos.html">제프 베조스</a><span class="sep">·</span><a href="/wiki/amazon.html">아마존</a><span class="sep">·</span><a href="/wiki/trump.html">트럼프</a><span class="sep">·</span><a href="/wiki/nvidia.html">엔비디아</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0416.html#story-2"><b>04-16</b> 구글이 숨겨둔 1,000억불짜리 로켓</a></span><span class="flow"><a href="/newsletters/2026/0529.html#story-3"><b>05-29</b> 파라마운트+WBD, 1,100억불짜리 미디어 도박</a></span></span></div></div><p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
+  <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
 </div>
 
 <div class="story" id="story-3">
@@ -607,7 +582,7 @@ font-size:11.5px;line-height:1.8;color:#9a958a;word-break:keep-all}
     <div class="bullet"><span class="dot">◾</span><span>But Perplexity가 반격에 나섰음. 3/16에 항소법원 <span class="sub">(9th Circuit)</span>이 가처분을 일시 정지시켜, 항소 진행 중에도 Comet을 계속 쓸 수 있게 된 상태. 한편 Google은 정반대 접근 — Shopify·Walmart·Target 등 20개 넘는 유통사와 UCP <span class="sub">(Universal Commerce Protocol; AI 에이전트용 공용 쇼핑 표준)</span>를 발표. 이 연합에서 Amazon만 빠져 있다는 게 포인트</span></div>
     <div class="bullet"><span class="dot">◾</span><span>AI 전문 변호사들 사이에서는 이 사건을 음악 산업의 "냅스터 순간"에 비유하는 목소리도 — 대법원까지 갈 수도, 라이선싱 합의로 끝날 수도 있는 상황. 결과가 나오기 전까지는 7,000억불 규모의 디지털 광고 시장과 AI 에이전트의 관계가 어떻게 정리될지 아무도 모르는 상태 <span class="note">(냅스터는 졌지만 결국 스트리밍이 이겼듯)</span></span></div>
   </div>
-  </div></div></div><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/amazon.html">아마존</a><span class="sep">·</span><a href="/wiki/shopify.html">쇼피파이</a><span class="sep">·</span><a href="/wiki/walmart.html">월마트</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0422.html#story-3"><b>04-22</b> 아마존, 나 말고 니 AI</a></span></span></div></div><p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
+  <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
 </div>
 
 <div class="story" id="story-4">
@@ -620,7 +595,7 @@ font-size:11.5px;line-height:1.8;color:#9a958a;word-break:keep-all}
     <div class="bullet"><span class="dot">◾</span><span>Gen Z가 오프라인 쇼핑을 다시 찾는 것도 한몫. 팬데믹 이후 "경험형 소비"가 트렌드인데, 상위 몰 운영사들은 하나의 앵커 테넌트에 의존하던 90년대 모델에서 벗어나 리테일·체험·F&B를 큐레이션하는 복합 문화 공간으로 전환. 과거엔 JC Penney 하나가 빠지면 몰 전체가 무너졌는데, 지금 상위 몰은 한 브랜드 이탈로 흔들리지 않는 포트폴리오 구조</span></div>
     <div class="bullet"><span class="dot">◾</span><span>한국의 백화점 양극화와 상당히 비슷한 구조. 서울 주요 백화점은 명품관 줄을 서는데 지방 백화점은 문을 닫는 — 그 미국판이 쇼핑몰에서 벌어지는 것. 부유층이 지출을 늘리고, 중산층이 줄이는 K자 경제가 부동산 자산의 가치까지 양극화시키는 사례. 상위 몰의 CMBS <span class="sub">(상업용 부동산담보증권)</span> 발행이 24년 40억불→25년 80억불로 2배 뛴 것도, 자본시장이 이 양극화를 구조적 트렌드로 인정하기 시작했다는 뜻 <span class="note">(잘 되는 집에 돈 몰아서 쏴주기)</span></span></div>
   </div>
-  </div></div></div><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/disney.html">디즈니</a></div></div><p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
+  <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
 </div>
 
 <div class="story" id="story-5">
