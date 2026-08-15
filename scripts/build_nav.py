@@ -77,21 +77,46 @@ def _active_for(path: Path):
 
 # ── 생성 페이지(주제별·검색·엔티티)용 공용 헤더 — 본 사이트와 동일 스타일 ──
 SEARCH_CSS = """
-.sub-btn-header{position:absolute;right:max(16px,calc(50% - 400px));top:50%;transform:translateY(-50%);
-background:#C24A00;color:#fff;padding:9px 18px;border-radius:999px;font-size:13px;font-weight:800;
+/* 헤더 — 한 축에 셋. 세로 중심이 하나여야 어긋나지 않는다 */
+.site-header{position:relative;display:grid;grid-template-columns:1fr auto 1fr;
+align-items:center;column-gap:12px;padding:20px max(16px, calc(50% - 400px));
+border-bottom:1px solid #222;background:#111}
+/* 칸을 못 박아 마크업 순서와 무관하게 만든다 */
+.site-header>.search-btn-header{grid-area:1/1;justify-self:start}
+.site-header>.logo-link{grid-area:1/2;justify-self:center}
+.site-header>.sub-btn-header{grid-area:1/3;justify-self:end}
+.site-header>.logo-link{display:flex;align-items:center;gap:10px;
+text-decoration:none;color:#fff}
+.logo-text{font-size:22px;font-weight:800;letter-spacing:-.5px;line-height:1.1}
+
+/* 구독 — 이 사이트의 유일한 전환점. 좁은 화면에서도 남는다 */
+.sub-btn-header{position:static;transform:none;display:inline-flex;
+align-items:center;background:#E55A00;color:#fff;padding:9px 18px;
+border-radius:999px;font-size:13px;font-weight:800;line-height:1;
 text-decoration:none;white-space:nowrap;transition:background .18s ease}
-.sub-btn-header:hover{background:#A83F00}
-@media(max-width:560px){.sub-btn-header{padding:7px 12px;font-size:11.5px;right:14px;letter-spacing:-.3px}}
-.search-btn-header{position:absolute;right:max(16px,calc(50% - 400px));top:50%;transform:translateY(-50%);
-display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:999px;
-color:#8a857c;text-decoration:none}
+.sub-btn-header:hover{background:#CC4F00}
+
+.search-btn-header{position:static;transform:none;display:flex;
+align-items:center;justify-content:center;width:36px;height:36px;
+border-radius:999px;color:#8a857c;text-decoration:none;
+transition:color .18s ease,background .18s ease}
 .search-btn-header:hover{color:#fff;background:#1e1e1e}
-/* 구독하기가 있는 페이지에서는 그 왼쪽으로 비켜 앉는다 */
-.site-header:has(.sub-btn-header) .search-btn-header{right:calc(max(16px,50% - 400px) + 96px)}
+
 @media(max-width:560px){
-  .site-header:has(.sub-btn-header) .search-btn-header{right:auto;left:10px;
-    width:32px;height:32px}
+  .site-header{padding:14px 12px;column-gap:8px}
+  .site-header .logo-text{font-size:18px}
+  .site-header .logo-link img,.site-header .logo-icon{height:26px}
+  .sub-btn-header{padding:7px 13px;font-size:11.5px;letter-spacing:-.3px}
+  .search-btn-header{width:32px;height:32px}
 }
+
+
+
+
+
+/* 구독하기가 있는 페이지에서는 그 왼쪽으로 비켜 앉는다 */
+
+
 """
 SEARCH_STYLE_RE = re.compile(r'<style id="soonsal-search-v1">.*?</style>', re.S)
 
@@ -238,16 +263,15 @@ def section_head(path: str, deck: str | None = None, extra: str = "") -> str:
 
 
 HEADER_CSS = """
-.site-header{padding:26px 20px 18px;border-bottom:1px solid #222;display:flex;justify-content:center;position:relative;background:#111}
+
 .logo-link{display:flex;align-items:center;gap:10px;text-decoration:none;color:#fff}
 /* 로고 마크 크기는 여기 한 곳에서만 정한다. 26px는 파비콘처럼 묻히고
    36px는 22px 워드마크를 눌러 헤더가 위로 무거워진다. 32px가 그 사이다. */
 .logo-link img,.logo-icon{height:32px;width:auto}
 .logo-text{font-size:22px;font-weight:800;letter-spacing:-0.5px;font-family:'DM Sans','Apple SD Gothic Neo',sans-serif}
-.sub-btn-header{position:absolute;right:max(16px,calc(50% - 400px));top:50%;transform:translateY(-50%);
-background:#C24A00;color:#fff;padding:9px 18px;border-radius:999px;font-size:13px;font-weight:800;text-decoration:none;white-space:nowrap;transition:background .18s ease}
-.sub-btn-header:hover{background:#A83F00}
-@media(max-width:560px){.sub-btn-header{padding:7px 12px;font-size:11.5px;right:14px;letter-spacing:-.3px}}
+
+
+
 .crumb{color:#F07040;font-size:.88rem;display:inline-block;margin-bottom:14px;text-decoration:none}
 """ + SEARCH_CSS + NAV_CSS + SECTION_CSS
 

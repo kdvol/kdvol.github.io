@@ -139,8 +139,15 @@ def block(ents: list[tuple[int, dict]], rel: list[dict]) -> str:
 
 def process(page: Path, ents: list[dict], all_stories: list[dict], dry: bool) -> int:
     src = page.read_text(encoding="utf-8", errors="ignore")
-    src = re.sub(r'<div class="story-links">.*?</div>\s*</div>',
-                 "</div>", src, flags=re.S)
+    # ★ 걷어낼 때 남의 </div> 를 먹지 않는다.
+    #   예전 정규식은 `...</div>\s*</div>` 를 지우고 `</div>` 하나를 도로 넣었다.
+    #   블록 자체가 `<div class="story-links">…</div>` 로 이미 닫혀 있어서,
+    #   그 뒤 스토리의 닫는 태그까지 먹고 하나만 돌려준 셈이다. 재실행할 때마다
+    #   `</div>` 가 하나씩 늘어, 0814 는 20개가 남아 2번 스토리부터 컨테이너
+    #   밖으로 튀어나왔다. 블록 구조를 그대로 적어 정확히 그것만 지운다.
+    src = re.sub(r'<div class="story-links">'
+                 r'(?:<div class="row[^"]*">[\s\S]*?</div>)+'
+                 r'</div>', "", src)
     src = re.sub(r'<style id="soonsal-story-links">.*?</style>\s*', "", src, flags=re.S)
     issue = f"/{page.parent.name}/{page.stem}."
     mine = [s for s in all_stories if issue in s.get("u", "")]
