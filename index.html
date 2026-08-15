@@ -617,10 +617,6 @@ border-radius:50%;background:#F07040;opacity:0;transition:opacity .2s}
 (function(){'use strict';var WORKER_URL='https://soonsal-data.kd-d0a.workers.dev/';var COINGECKO_URL='https://api.coingecko.com/api/v3';var TRADFI_ORDER=['S&P 500','NASDAQ','Dow Jones','KOSPI','US 10Y','WTI Oil','Gold','DXY','EUR/USD','USD/JPY','USD/KRW'];var CRYPTO_ORDER=['Bitcoin','Ethereum','Solana','XRP','BNB','Crypto Total'];var CRYPTO_IDS={'Bitcoin':'bitcoin','Ethereum':'ethereum','Solana':'solana','XRP':'ripple','BNB':'binancecoin'};var REFRESH=60000;var container,timer,lastTradfi,lastCrypto;function init(){container=document.getElementById('soonsal-live-ticker');if(!container)return;container.style.display='block';container.innerHTML='<div class="stk-loading"><div class="stk-spin"></div>Loading market data...</div>';fetchAll();timer=setInterval(fetchAll,REFRESH)}function fetchAll(){var p1=fetchTradFi();var p2=fetchCrypto();Promise.allSettled?Promise.allSettled([p1,p2]).then(render):Promise.all([p1.catch(function(){return null}),p2.catch(function(){return null})]).then(render)}function fetchTradFi(){return fetch(WORKER_URL).then(function(r){return r.json()}).then(function(data){if(data.tradfi)lastTradfi=data;return data}).catch(function(e){console.warn('[Ticker] TradFi error:',e.message);return null})}function fetchCrypto(){var ids=Object.values(CRYPTO_IDS).join(',');var url=COINGECKO_URL+'/simple/price?ids='+ids+'&vs_currencies=usd&include_24hr_change=true&include_market_cap=true';var globalUrl=COINGECKO_URL+'/global';return Promise.all([fetch(url).then(function(r){return r.json()}),fetch(globalUrl).then(function(r){return r.json()}).catch(function(){return null})]).then(function(results){var prices=results[0];var global=results[1];var crypto={};for(var name in CRYPTO_IDS){var id=CRYPTO_IDS[name];var d=prices[id];if(!d)continue;var p=d.usd;var ch=d.usd_24h_change||0;crypto[name]={price:'$'+formatNum(p),change:(ch>=0?'+':'')+ch.toFixed(2)+'%',direction:ch>0.01?'up':ch<-0.01?'down':'zero'}}if(global&&global.data){var mc=global.data.total_market_cap&&global.data.total_market_cap.usd;var mch=global.data.market_cap_change_percentage_24h_usd;if(mc){crypto['Crypto Total']={price:'$'+(mc/1e12).toFixed(2)+'T',change:(mch>=0?'+':'')+(mch||0).toFixed(2)+'%',direction:mch>0?'up':mch<0?'down':'zero'}}}lastCrypto=crypto;return crypto}).catch(function(e){console.warn('[Ticker] Crypto error:',e.message);return null})}function render(){var tradfi=lastTradfi?lastTradfi.tradfi:{};var crypto=lastCrypto||{};var kst=lastTradfi?lastTradfi.kst:new Date().toLocaleString('ko-KR',{timeZone:'Asia/Seoul'});var html=[];html.push('<div class="stk-ts"><span class="stk-dot"></span><span class="stk-time">'+esc(kst)+' KST</span></div>');for(var i=0;i<TRADFI_ORDER.length;i++){var name=TRADFI_ORDER[i];var d=tradfi[name];if(d)html.push(makeItem(name,d,false))}html.push('<div class="stk-div"><span></span></div>');for(var j=0;j<CRYPTO_ORDER.length;j++){var cname=CRYPTO_ORDER[j];var cd=crypto[cname];if(cd)html.push(makeItem(cname,cd,true))}var track=html.join('');container.innerHTML='<div class="stk-track">'+track+track+'</div>'}function makeItem(name,d,isCrypto){var dir=d.direction||'zero';var arrow=dir==='up'?'<span class="au"></span>':dir==='down'?'<span class="ad"></span>':'';return'<div class="stk-item"><span class="stk-lbl'+(isCrypto?' crypto':'')+'">'+esc(name)+'</span><span class="stk-prc">'+esc(d.price)+'</span><span class="stk-chg '+dir+'">'+arrow+' '+esc(d.change)+'</span></div>'}function formatNum(n){if(n>=10000)return n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});if(n>=100)return n.toFixed(2);if(n>=1)return n.toFixed(2);return n.toFixed(4)}function esc(s){if(!s)return'';var d=document.createElement('span');d.textContent=String(s);return d.innerHTML}if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',init)}else{init()}})();
 </script>
 
-
-
-
-
 <header class="site-header"><a href="/search/" class="search-btn-header" aria-label="검색"><svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.6-3.6"/></svg></a><a class="logo-link" href="/"><img src="/assets/soonsal-logo-white.png" alt="" onerror="this.style.display='none'"><span class="logo-text">순살브리핑 Soonsal</span></a><a href="https://subscribe.soonsal.com/subscribe" target="_blank" rel="noopener" class="sub-btn-header">구독하기</a></header><nav class="nav" aria-label="주요 메뉴"><a href="/newsletters/">뉴스레터</a><a href="/chart/">순살차트</a><a href="/talk/">순살톡</a><a href="/school/" class="nav-desktop-link">스쿨</a><a href="/collab/" class="nav-desktop-link biz">협업 문의</a><details class="nav-more"><summary>더보기 <span aria-hidden="true">⌄</span></summary><section class="nav-menu" aria-label="추가 메뉴"><a href="/topics/">주제별</a><a href="/saved/">내가 모은 글</a><a href="/cardnews/">카드뉴스</a><a href="/youtube/">YouTube</a><a href="/school/" class="nav-mobile-only">스쿨</a><a href="/collab/" class="nav-mobile-only biz">협업 문의</a></section></details></nav><div class="wrap">
 
 
@@ -727,7 +723,7 @@ border-radius:50%;background:#F07040;opacity:0;transition:opacity .2s}
         <div class="bullet"><span class="dot">◾</span><span>메타 쪽 방어 논리는, 소셜미디어 중독이 공식 정신과 진단명이 아니라는 것. 없는 병을 두고 소비자를 속였다고 할 수는 없다는 주장. 원고 측 증거가 부족하다는 말도 붙였음. But 올해 이미 배심원 앞에서 두 번 졌음. 로스앤젤레스에선 제품을 중독되게 설계한 것 자체가 과실로 인정됐고, 뉴멕시코에선 소비자를 오도했다는 평결. 다만 이번 배심원단은 판사가 참고만 하는 자문 배심이라, 최종 판단은 판사 몫</span></div>
         <div class="bullet"><span class="dot">◾</span><span>2023년 소송을 걸 때 콜로라도 법무장관은 메타를 대놓고 담배회사에 빗댔음. 여러 주가 똘똘 뭉쳐, 부작용 알고도 숨겼다는 책임을 소셜미디어 산업에 물었음. 돈·영업 방식 변경을 같이 요구하는 모양새. 담배 합의도 돈만 받은 게 아니라 옥외광고·청소년 타겟 마케팅 금지까지 묶었음. 저커버그·아담 모세리 <span class="sub">(인스타그램 대표)</span>도 증인석에 설 예정. 같은 판사 앞에만 3,000건 넘는 소송이 쌓여 있어서, 이번 재판이 첫 시험대</span></div>
       </div>
-      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
+      </div><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/meta.html">메타</a><span class="sep">·</span><a href="/wiki/zuckerberg.html">저커버그</a></div></div><p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
     </div>
 
 <!-- STORY 2 -->
@@ -741,139 +737,8 @@ border-radius:50%;background:#F07040;opacity:0;transition:opacity .2s}
         <div class="bullet"><span class="dot">◾</span><span>돈이 몰리는 게 레이커스만은 아님. 쿠슈너가 만든 스라이브 이터널은 야구팀 샌프란시스코 자이언츠 지분을 갖고 있고, 7월말엔 월드컵 상업권을 굴릴 회사 지분까지 노렸다가 유럽축구연맹 55개 회원국의 보이콧 예고로 판이 접혔음. 리버풀 대주주도 30% 매각 협상 중인데 상대 그룹에 제프 베조스가 참여 중. NBA는 펀드에 경영권을 굉장히 제한적으로만 열어줌 <span class="sub">(KKR 산하 Arctos가 대표적 펀드)</span>. 새 주인은 기존 구단주들 표결을 통과해야 들어올 수 있음</span></div>
         <div class="bullet"><span class="dot">◾</span><span>1979년 제리 버스 <span class="sub">(LA 레이커스 옛 구단주)</span>가 하키팀 킹스+포럼 경기장+목장까지 묶어서 산 값이 6,750만불. LA 레이커스 구단 가치는 47년 만에 185배. 코트 옆에 할리우드 스타를 앉히고 경기를 쇼로 승화시킨 시초격 인물. 버스 가문은 15%를 그대로 들고 감. 구단 대표를 맡으려면 15%는 있어야 한다는 규정 때문. 거래는 NBA 이사회 승인과 인수 측 실사만 남음. 매도자 쪽은 레이커스 팔아서 보험사 대출부터 일부라도 갚아야 함</span></div>
       </div>
-      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
+      </div><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/disney.html">디즈니</a><span class="sep">·</span><a href="/wiki/trump.html">트럼프</a><span class="sep">·</span><a href="/wiki/cisco.html">시스코</a><span class="sep">·</span><a href="/wiki/bezos.html">제프 베조스</a><span class="sep">·</span><a href="/wiki/kkr.html">KKR</a></div></div><p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
     </div>
-
-<!-- STORY 3 -->
-    <div class="story" id="story-3">
-      <span class="story-label">MARKETS · HEDGING</span>
-      <div class="story-title">🐐 염소 목장이 산불 보험 드는 방식</div>
-      <div class="story-body">
-        <div class="bullet"><span class="dot">◾</span><span>산불 예방을 사람 대신 염소가 하는 사업이 있음. 불도저나 제초제로 밀어내는 대신, 사람이 못 올라가는 비탈에 염소 떼를 풀어 불쏘시개가 될 마른 풀과 덤불을 뜯어먹게 하는 방식. 캘리포니아에서 이걸 하는 업체가 웨스턴 그레이저스, 직원 <span class="note">(?)</span>은 염소 4,000마리, 목동 8명. 그런데 목동 임금 예외 규정이 6월 30일자로 만료됐음. 1인당 연 7만불 넘게 들던 인건비가 24만불까지 뛴 것. 주의회가 예외를 되살려주지 않으면, 산불철에 염소 팔고 사업 접어야 함</span></div>
-        <div class="bullet"><span class="dot">◾</span><span>그래서 고른 게 예측시장. 캐슬 테크놀로지스라는 신생 업체가 계약 조건을 짜고, 서스쿼해나가 값을 매기고 유동성을 대고, 칼시가 상장했음. 목장은 5만불을 내고 최대 50만불을 받는 구조라 보험료가 10%인 셈. 캐슬은 올해 스탠퍼드 출신 4명이 세운 곳이고 리빗캐피탈이 쩐주로 참여. 농부가 밀 값을 헤지하듯, 목장도 법안을 헤지할 수 있어야 한다는 게 창업 이유. 정작 목장 주인은 이 계약 전까지 칼시가 뭔지도 몰랐음</span></div>
-        <div class="bullet"><span class="dot">◾</span><span>목장이 산 건 보험이 아니라 파생상품. 이런 맞춤 계약은 법적으로 스왑이라, 은행과 일대일로 맺으려면 법이 정한 문턱 <span class="sub">(자산 1,000만불)</span>을 넘어야 함. 못 넘기는 쪽은 거래소에 올라온 상품으로만 살 수 있고, 그래서 칼시가 필요했음. 보험은 사고가 날 확률을 재서 값을 매기는데, 법안이 통과되느냐는 그 확률을 뽑을 방법이 없음. <strong>보험사가 아예 안 파는 위험일수록 B2C로 넘어옴</strong>. 이번엔 예측시장이 빈 자리를 메운 셈</span></div>
-        <div class="bullet"><span class="dot">◾</span><span>목장이 50만불을 받는 조건은 날짜로 못 박혀 있음. 10월 1일 전까지 캘리포니아가 대체 임금을 인정하거나 or 목동 임금·초과근무 부담을 덜어주면 지급은 없음. 문제는 결정권을 쥔 주 하원 회기가 8월 31일에 끝난다는 것. 같은 취지 법안은 이미 심의도 못 받고 죽은 적이 있음. 남은 시간은 3주 남짓. 목장 입장에선 법이 고쳐지면 5만불을 날려도 인건비를 지킴. 어느 쪽으로 가든 최대 5만불 비용으로 버티는 구조</span></div>
-        <div class="bullet"><span class="dot">◾</span><span>예측시장은 도박 여부로 논란이 있기도 하지만, 일단 위험관리 쪽으로도 발을 넓히는 중 <span class="note">(본질적으로 옵션임)</span>. 칼시는 2월에 프로 구단 성과급을 헷지해주는 중개사와 손을 잡았음. 우승 보너스를 지급해야 하는 위험 <span class="note">(?)</span>을 미리 덮는 식인데, 그동안은 로이즈 같은 재보험 쪽에서 알음알음 거래되던 영역. 일단 미국에선 아직 논쟁-ing, 뉴욕주는 7월 31일 칼시 영업을 멈추라는 소송을 냈고, 뉴욕시의회도 광고 방식을 조사 중</span></div>
-      </div>
-      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
-    </div>
-
-<!-- STORY 4 -->
-    <div class="story" id="story-4">
-      <span class="story-label">FX · JAPAN</span>
-      <div class="story-title">🍛 카레 한 그릇이 알려준 엔화의 진짜 가격</div>
-      <div class="story-body">
-        <div class="bullet"><span class="dot">◾</span><span>엔화 환율, 미국까지 끌어들인 개입도 오래 못 갔음. 달러당 엔화는 다시 159선으로 밀림, 7월말 미·일이 함께 엔화를 사들여 만든 반등폭의 절반을 이미 반납. 40년 만의 최저치 164 찍으며 개입이 시작됐었음. 원래 개입은 방향을 바꾸는 도구가 아니라 속도를 늦추는 도구, 정책이 따라붙지 않으면 이렇게 되돌아옴. 일본 입장에선 엔화가 싸질수록 수출은 편해지지만 수입 물가는 그대로 가계로 넘어옴. 다음 분기점은 160선</span></div>
-        <div class="bullet"><span class="dot">◾</span><span>이 시점에 나온 게 돈가스카레 지수. 똑같은 돈가스카레 한 접시를 일본에선 얼마, 미국에선 얼마에 파는지 맞대보면 두 나라 돈의 실제 교환비가 나온다는 발상. BNY 멜론 전략가 제프 유가 점포 1,500개짜리 코코이찌방야 메뉴 값으로 계산했더니 달러당 62엔이 나왔음. 같은 방식으로 햄버거를 쓰는 빅맥 지수는 80엔. 시장에서 실제로 붙은 값은 159엔이니, <strong>카레로 재면 엔화가 제값의 40% 언저리에 팔리는 셈</strong></span></div>
-        <div class="bullet"><span class="dot">◾</span><span>햄버거 대신 카레를 고른 이유는, 일본 사람들의 실제 먹고사니즘에 직결되기 때문. 빅맥 지수는 1986년부터 쓰인 지표지만 일본에선 햄버거가 일상식이 아니라 체감을 못 잡는다는 것. 스타벅스 커피로 만든 라떼 <span class="sub">(톨 사이즈)</span> 지수, 아프리카용 KFC 지수도 같은 이유로 나왔음. 카레 한 그릇, 라멘 한 그릇이 부담스러워지는 순간 정책을 바꾸라는 목소리가 커질 전망. 다만 이런 지수는 환율 예측 도구가 아니라 물가 비교용 지표</span></div>
-        <div class="bullet"><span class="dot">◾</span><span>정부도 방향을 틀었음. 확장 재정을 밀던 다카이치 총리 쪽이 일본은행의 9월 or 10월 인상을 지지하는 쪽으로 돌아섰음. 다만 시점은 일본은행이 정할 일이라고 선을 그었음. 7월 회의 의견 요약에서도 더 빨리 올려야 한다는 위원이 늘었음. 문제는 가계 소비가 6월까지 7개월 연속 줄었다는 점. 실질임금은 6개월째 오르는데도 소비자들 지갑이 닫히는 중이라, 금리 세게 올리긴 어려운 상황. 다음 회의는 9월 17~18일</span></div>
-        <div class="bullet"><span class="dot">◾</span><span>한국 입장에서도 남 얘기가 아닌 게, 7월말 한국도 같은 날 달러를 팔며 원화 방어에 들어갔음. 엔화가 밀리면 원화도 같이 밀리는 구조. 일본과 겹치는 수출품은 값 경쟁에서 불리해지고, 엔저를 노린 일본 여행 수요는 계속 커짐. 미·일 공동 개입이 엔화 가치를 5% 끌어올렸었고, 그 힘을 이어받은 게 일본은행 조기 인상 베팅. 160선이 뚫리면 당국이 다시 들어온다는 쪽 vs. 두 번째 개입은 효과가 더 짧다는 쪽으로 갈려 있음</span></div>
-      </div>
-      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
-    </div>
-
-<!-- STORY 5 -->
-    <div class="story" id="story-5">
-      <span class="story-label">US · RETIREMENT</span>
-      <div class="story-title">🥕 퇴직연금의 아버지, 이번엔 회사가 직접 쏨</div>
-      <div class="story-body">
-        <div class="bullet"><span class="dot">◾</span><span>월급에서 돈 떼어 저축하기가 어려운 근로자를 겨냥한 저축제도 "래디시" <span class="sub">(Radish, 무)</span>가 등장. 트럭 회사 200명 규모 파일럿을 준비 중인데, 판을 짠 사람이 401k <span class="sub">(미국 직장인 퇴직연금 제도)</span>를 세상에 퍼뜨린 테드 베나 <span class="sub">(84세)</span>. 뿌리를 빨리 내리고 빨리 자란다는 이유로 무를 이름으로 골랐고, 본인이 만든 제도가 정작 돈 없는 사람들한테는 잘 안 통했다는 후회에서 꺼내든 새 프로젝트</span></div>
-        <div class="bullet"><span class="dot">◾</span><span>401k는 월급에서 떼서 넣는 구조라, 그 여유가 없으면 제도가 있어도 그림의 떡. 미국 임금 하위 25% 근로자도 절반 가까이는 확정기여형 제도에 가입할 수 있는데, <strong>실제로 돈이 들어가는 계좌는 22%뿐</strong> <span class="sub">(상위 25%는 64%)</span>. 그 사이 401k는 가입자 7,000만명에 적립금 10조불, 원화로 1경원이 넘는 덩치가 됐고 401k류 제도가 2023년 만들어낸 매출만 390억불</span></div>
-        <div class="bullet"><span class="dot">◾</span><span>출발은 1978년 세법에 붙은 조항 하나. 의사·변호사 세금 줄여주는 일로 먹고살던 베나가 토요일 오후 사무실에서 기도하다 이 조항을 일반 직원 급여에도 쓸 수 있겠다는 걸 떠올림. 1981년 자기 회사 직원 50명한테 깔아본 첫 플랜은 투자 선택지 2개에 수수료도 거의 없는 물건. 회사가 평생 책임지는 연금을 대신할 생각은 없었는데, 90년대 말 확정기여형 가입자가 연금 가입자를 넘어섬</span></div>
-        <div class="bullet"><span class="dot">◾</span><span>그래서 이번에 들고 나온건 직원 월급에서 떼는 돈이 아니라 회사가 직접 넣어주는 돈. 1950년대부터 있던 401(a)를 연봉 16만불 미만 직원용으로 손본 물건인데, 가령 안전운전·정시배송 목표를 채우면 하루 5불씩, 1년을 채우면 근속 보너스 1,000불씩 계좌에 쌓임. 이렇게 들어온 돈을 앱에서 무 개수로 세어 보여주고, 연말까지 무가 몇 개로 불어나는지도 미리 띄워줌 <span class="note">(농사 게임과 크게 다르지 않음)</span></span></div>
-        <div class="bullet"><span class="dot">◾</span><span>회사가 넣어주는 돈이라는 점에선 한국 퇴직연금과 닮은 그림인데, 미국에선 이게 논쟁거리. 은퇴 연구자들 사이에선 이 보상이 임금 인상 자리를 대신하는 것 아니냐는 지적이 나오고, 무 계좌에 쌓인 돈은 현금 보상이 아니라서 소셜 시큐리티 <span class="sub">(미국 공적연금)</span> 급여를 매길 때 소득으로도 안 잡힘. 대형 고객은 아직 한 곳도 없고, 베나 본인은 "이게 뜰 때쯤이면 나는 없을 것"이라며 웃는 중</span></div>
-      </div>
-      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
-    </div>
-
-<!-- /content -->
-  </div>
-
-<!-- DEAL -->
-<div class="deal-section">
-  <div class="section-title">🤝 Deal, Deal, Deal</div>
-  <div class="deal-body">
-    <div class="bullet"><span class="dot">◾</span><span><strong>골드만삭스</strong>, 옵션형 인컴 ETF 운용사 <strong>NEOS</strong>를 최대 22.5억불에 인수 — 현금+주식이고 성과 조건이 붙었음. 2022년에 생긴 회사가 ETF 19개로 300억불을 모았고, 골드만 자산운용은 이걸 붙여 액티브 ETF 8위로 올라섬 <a href="https://www.bloomberg.com/news/articles/2026-08-12/goldman-sachs-to-acquire-etf-provider-neos-in-2-3-billion-deal" style="color:#888; font-size:12px;"><span class="sub">(Bloomberg)</span></a></span></div>
-    <div class="bullet"><span class="dot">◾</span><span><strong>앤스로픽</strong>, 이스라엘 AI 스타트업 <strong>디카트</strong>를 60억불에 사는 협상 중 — 성사되면 회사 역사상 최대 인수. 칩을 더 효율적으로 굴려 학습·추론 비용을 낮추는 소프트웨어가 목적이고, 5월 라운드에서 매긴 40억불보다 50% 높은 값 <a href="https://www.bloomberg.com/news/articles/2026-08-13/anthropic-said-in-talks-to-buy-ai-startup-decart-for-6-billion" style="color:#888; font-size:12px;"><span class="sub">(Bloomberg)</span></a></span></div>
-    <div class="bullet"><span class="dot">◾</span><span><strong>제인스트리트</strong>, 담보부 채권 146억불을 찍었음 — 2031·2033·2036년 만기로 쪼갰고 최장물 금리가 8.088%. 기존 텀론 55억불과 채권 57억불을 갚는 데 쓰고, 남는 돈은 기술 인프라와 트레이딩 확장으로 <a href="https://www.bloomberg.com/news/articles/2026-08-12/jane-street-repaying-5-5-billion-loan-in-overhaul-of-debt-load" style="color:#888; font-size:12px;"><span class="sub">(Bloomberg)</span></a></span></div>
-    <div class="bullet"><span class="dot">◾</span><span><strong>폼에너지</strong>, 7.5억불 시리즈G — T. Rowe Price가 주도했고 세쿼이아·프랭클린템플턴이 새로 들어왔음. 100시간을 내리 방전하는 철-공기 전지를 만드는 곳이고, 수주 잔고가 80GWh. 누적 조달은 20억불을 넘겼음 <a href="https://techcrunch.com/2026/08/12/form-energy-raises-750m-to-build-more-100-hour-batteries-for-the-grid/" style="color:#888; font-size:12px;"><span class="sub">(TechCrunch)</span></a></span></div>
-    <div class="bullet"><span class="dot">◾</span><span>AI 모델 성적을 매기는 <strong>Vals AI</strong>, 4,000만불을 받으며 몸값 4억불 — a16z가 주도. 오픈AI·앤스로픽·구글이 자기 모델을 채점받으려고 돈을 내는 구조이고, 매출은 작년 한 해치의 8배가 됐음 <a href="https://cryptobriefing.com/vals-ai-40m-series-a-a16z/" style="color:#888; font-size:12px;"><span class="sub">(Crypto Briefing)</span></a></span></div>
-  </div>
-</div>
-
-<!-- HEADLINE ROUNDUP -->
-<div class="headline-section">
-  <div class="section-title">📋 헤드라인 라운드업</div>
-  <div class="headline-item"><span class="headline-dot">·</span><span><a href="https://www.bloomberg.com/news/articles/2026-08-13/deepseek-increases-prices-for-ai-services-by-multiple-times">싸게 팔아 판을 흔들던 딥시크, 16일부터 주력 모델 값을 4배 넘게 올림 — 상장 준비에 들어간 뒤의 첫 가격표</a> — Bloomberg</span></div>
-  <div class="headline-item"><span class="headline-dot">·</span><span><a href="https://www.bloomberg.com/news/articles/2026-08-13/cxmt-overtakes-tencent-to-become-most-valuable-chinese-company">메모리 만드는 CXMT, 텐센트를 제치고 중국에서 가장 비싼 회사가 됐음 — 삼성전자·SK하이닉스엔 남 일이 아닌 신호</a> — Bloomberg</span></div>
-  <div class="headline-item"><span class="headline-dot">·</span><span><a href="https://news.bloombergtax.com/daily-tax-report-international/big-wall-street-firms-put-blockchain-experiment-to-a-bigger-test">JP모건·골드만·시타델증권 등 40곳 가까이가 7월에 블록체인망에서 주식·국채를 실제로 사고판 결과가 공개됐음 — 10월엔 상시 서비스로</a> — Bloomberg</span></div>
-  <div class="headline-item"><span class="headline-dot">·</span><span><a href="https://www.bloomberg.com/news/features/2026-08-13/trump-401-k-proposal-shows-signs-of-phony-supportive-comments">퇴직연금에 사모자산을 담게 하는 규정에 찬성 의견서 1.2만건이 들어왔는데 조작 정황 — 이미 세상을 떠난 사람 이름으로 낸 것까지 있었음</a> — Bloomberg</span></div>
-  <div class="headline-item"><span class="headline-dot">·</span><span><a href="https://www.bloomberg.com/news/newsletters/2026-08-13/prime-minister-mark-carney-braces-for-canadian-separatist-threats">캐나다 카니 총리, 퀘벡과 앨버타에서 분리 투표를 동시에 맞게 됐음 — 미국과의 관세 협상 카드가 국내 정치에 묶이는 중</a> — Bloomberg</span></div>
-</div>
-
-<!-- WORD SECTION -->
-<div class="word-section">
-  <h3 class="word-section-title" style="font-size:15px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; color:#888">📚 오늘의 금융 영어</h3>
-  <div class="word-item">
-    <div class="word-en">Term premium</div>
-    <div class="word-ko">돈을 오래 빌려주는 대가로 더 얹어 달라고 요구하는 웃돈. 금리 인하 기대와는 별개로 움직여서, 물가가 식어도 이 웃돈이 커지면 장기 금리는 안 내려옴. 나랏빚이 늘거나 앞이 안 보일수록 커짐</div>
-    <div class="word-example">장기물에 붙는 기간 웃돈<br><br><em>"Term premium, not policy, is driving the long end."</em></div>
-  </div>
-  <div class="word-item">
-    <div class="word-en">Injunctive relief</div>
-    <div class="word-ko">돈을 물어내라는 대신 무엇을 하라 또는 하지 말라고 명령하는 구제 방식. 배상금은 한 번 내면 끝나지만 이건 제품과 영업 방식에 계속 남기 때문에, 기업이 실제로 더 무서워하는 쪽</div>
-    <div class="word-example">행위를 강제하는 법원 명령<br><br><em>"The states are also seeking injunctive relief."</em></div>
-  </div>
-  <div class="word-item">
-    <div class="word-en">Covered call</div>
-    <div class="word-ko">이미 갖고 있는 주식에 콜옵션을 팔아 프리미엄을 챙기는 전략. 매달 현금은 들어오지만 값이 크게 뛸 때의 이익은 옵션 산 쪽에 넘어감. 인컴형 ETF가 이 구조로 분배금을 만들어냄</div>
-    <div class="word-example">보유 주식에 콜옵션 팔기<br><br><em>"The fund sells covered calls for monthly income."</em></div>
-  </div>
-
-  <h3 class="word-section-title" style="margin-top:32px; font-size:15px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; color:#888">💬 오늘의 원어민 표현</h3>
-  <div class="word-item">
-    <div class="word-en">"Hedge a bill"</div>
-    <div class="word-ko">법안 하나가 통과되느냐에 돈을 걸어 위험을 덮는다는 뜻. 원래 농부가 밀값을 헤지하듯, 이제는 규제 변화도 같은 방식으로 덮을 수 있게 됐다는 맥락에서 나옴</div>
-    <div class="word-example">법안 통과 여부를 헤지하기<br><br><em>"A rancher should be able to hedge a bill."</em></div>
-  </div>
-  <div class="word-item">
-    <div class="word-en">"Flip"</div>
-    <div class="word-ko">사자마자 손보고 금방 되팔아 차익을 남기는 것. 원래는 집을 고쳐 되파는 부동산 용어인데, 요즘은 구단이나 회사를 1~2년 만에 넘기는 거래에도 그대로 쓰임</div>
-    <div class="word-example">단기 되팔기<br><br><em>"He flipped the team faster than a renovated house."</em></div>
-  </div>
-</div>
-
-<div class="quote-section">
-  <div class="quote-text">"Businesses face risks that traditional insurance often can't cover."</div>
-  <div class="quote-attr">— <strong>Lucas Cavalieri</strong> <em><span class="sub">(CEO, Castle)</span></em></div>
-</div>
-
-
-<div class="footer">
-    <div class="footer-inner">
-      <div class="footer-brand">
-        <img src="/assets/soonsal-logo.png" alt="순살" style="height:24px;"/>
-        <span>Soonsal</span>
-      </div>
-      <div class="footer-copy">© 2026 순살브리핑. All rights reserved.</div>
-      <div class="footer-links">
-        <a href="https://soonsal.com">soonsal.com</a> · <a href="https://subscribe.soonsal.com/subscribe">구독하기</a> · <a href="https://soonsal.com/talk/">💬 순살톡</a>
-      </div>
-      <div class="social-row">
-        <a href="https://t.me/soonsal" class="social-icon" title="Telegram">
-          <svg viewBox="0 0 24 24"><path d="M9.78 18.65l.28-4.23 7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.3 3.64 12c-.88-.25-.89-.86.2-1.3l15.97-6.16c.73-.33 1.43.18 1.15 1.3l-2.72 12.81c-.19.91-.74 1.13-1.5.71L12.6 16.3l-1.99 1.93c-.23.23-.42.42-.83.42z"/></svg>
-        </a>
-        <a href="https://instagram.com/soonsal.brief" class="social-icon" title="Instagram">
-          <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
-        </a>
-        <a href="https://youtube.com/@soonsal" class="social-icon" title="YouTube">
-          <svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
-        </a>
-      </div>
-    </div>
-  </div>
-
-</div>
   <div class="fade"></div>
 </div>
 <button type="button" class="expand" id="expand">전체 보기 ↓</button>
