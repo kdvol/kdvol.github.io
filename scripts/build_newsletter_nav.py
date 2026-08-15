@@ -35,19 +35,21 @@ MAX = 5
 
 CSS = """
 <style id="soonsal-issue-stories">
-/* 회차 아래 스토리 — 훑을 땐 안 보이고, 보려 하면 보이는 층.
-   부모가 grid 라 그냥 넣으면 제목마다 카드가 하나씩 생긴다(=글 폭탄).
-   한 칸을 통째로 차지하고, 안쪽 링크는 그리드에서 빼 글줄로 흐르게 한다. */
-.issue-stories{grid-column:1/-1;margin:2px 0 0;padding:0;
-font-size:11px;line-height:1.75;color:#6b665e;letter-spacing:-.1px;
-word-break:keep-all;background:none;border:0}
+/* 회차 아래 스토리 — 목록으로 읽히게 한 줄에 하나씩.
+   가운뎃점으로 이어 붙이면 줄바꿈이 아무 데서나 일어나 덩어리로 보인다.
+   부모가 grid 라 한 칸을 통째로 차지하고, 안쪽은 직접 흐름을 만든다. */
+.issue-stories{grid-column:1/-1;margin:7px 0 1px;padding:0;background:none;border:0}
+.issue-stories li{list-style:none;margin:0;padding:1px 0 1px 11px;position:relative;
+font-size:11.5px;line-height:1.55;color:#6b665e;letter-spacing:-.1px;
+white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.issue-stories li::before{content:"";position:absolute;left:2px;top:9px;
+width:3px;height:3px;border-radius:50%;background:currentColor;opacity:.35}
 .issue-stories a{display:inline!important;background:none!important;border:0!important;
 padding:0!important;margin:0!important;box-shadow:none!important;
 color:inherit;text-decoration:none;font-size:inherit;font-weight:400}
 .issue-stories a:hover{color:#F07040}
-.issue-stories .sep{opacity:.4;margin:0 5px}
-.issue-stories .more{opacity:.55}
-@media(max-width:560px){.issue-stories{font-size:10.5px;line-height:1.7}}
+.issue-stories .more{opacity:.5;padding-left:11px;font-size:11px;color:#6b665e}
+@media(max-width:560px){.issue-stories li{font-size:11px}}
 </style>
 """
 
@@ -68,16 +70,19 @@ def stories_by_issue() -> dict[str, list[dict]]:
 
 
 def block(rows: list[dict]) -> str:
+    """한 줄에 하나씩. 가운뎃점으로 이어 붙이면 덩어리로 읽힌다.
+
+    KD 2026-08-15: "줄별로 잘 정돈되게 보여줘. 그냥 나열하지 말고."
+    가운뎃점 방식은 줄바꿈이 아무 데서나 일어나 문단처럼 보였다.
+    """
     if not rows:
         return ""
-    parts = []
-    for s in rows[:MAX]:
-        parts.append(f'<a href="{html.escape(s["u"])}">{html.escape(s["t"])}</a>')
+    items = "".join(
+        f'<li><a href="{html.escape(s["u"])}">{html.escape(s["t"])}</a></li>'
+        for s in rows[:MAX])
     more = len(rows) - MAX
-    body = '<span class="sep">·</span>'.join(parts)
-    if more > 0:
-        body += f'<span class="sep">·</span><span class="more">+{more}</span>'
-    return f'<div class="issue-stories">{body}</div>'
+    tail = f'<li class="more">외 {more}편</li>' if more > 0 else ""
+    return f'<ul class="issue-stories">{items}{tail}</ul>'
 
 
 def main() -> int:
@@ -96,6 +101,7 @@ def main() -> int:
     src = INDEX.read_text(encoding="utf-8")
     # 이미 붙어 있으면 통째로 걷어내고 다시 붙인다(회차가 늘어나므로)
     src = re.sub(r'<div class="issue-stories">.*?</div>', "", src, flags=re.S)
+    src = re.sub(r'<ul class="issue-stories">.*?</ul>', "", src, flags=re.S)
     src = re.sub(r'<style id="soonsal-issue-stories">.*?</style>\s*', "", src, flags=re.S)
 
     added = 0

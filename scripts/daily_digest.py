@@ -15,6 +15,7 @@ import urllib.request
 
 WORKER = os.environ.get("SOONSAL_WORKER", "https://soonsal-react.kd-d0a.workers.dev")
 TG_API = "https://api.telegram.org"
+DAYS = 7          # 집계 창. 하루 수치와 섞이지 않게 표기에 기간을 밝힌다
 
 
 def _get(path, admin=None, timeout=30):
@@ -51,7 +52,7 @@ def main():
 
     try:
         # /insights는 관리자 키가 필요하다 — 없으면 401로 요약이 통째로 실패한다
-        ins = _get("/insights?days=7", admin=os.environ.get("SOONSAL_ADMIN_KEY"))
+        ins = _get(f"/insights?days={DAYS}", admin=os.environ.get("SOONSAL_ADMIN_KEY"))
     except Exception as e:
         print(f"⚠️ digest: 집계 조회 실패 {type(e).__name__}")
         return 0
@@ -63,16 +64,31 @@ def main():
     for e in ins.get("engage", []):
         eng[e["kind"]] = eng.get(e["kind"], 0) + e["n"]
 
+    # ★ **하루 요약은 하루치만 쓴다** (KD 2026-08-15)
+    #   /insights?days=7 은 창(窓) 합계를 준다. 그걸 그대로 쓰면 하루 요약에
+    #   7일 합계가 섞인다 — 실제로 "방문 17명 · 34뷰" 옆에 "유입 직접 4683"이
+    #   찍혔다. 방문은 하루, 유입은 7일 합계였다. 같은 블록에 다른 기간을
+    #   섞으면 어느 쪽도 못 믿는다.
+    #   그래서 일자별 배열은 **마지막 날만** 꺼내고, 창 전체 합계인 refs 는
+    #   기간을 명시해 따로 적는다.
+    day = today.get("day") or ""
+
+    def _one_day(rows, *keys):
+        """일자별 배열에서 마지막 날 것만. 그 날 기록이 없으면 0."""
+        if not rows:
+            return [0] * len(keys)
+        last = rows[-1]
+        if day and last.get("day") and last["day"] != day:
+            return [0] * len(keys)
+        return [last.get(k, 0) for k in keys]
+
     people = vis.get("today") or 0
     cd = ins.get("commentsDaily") or []
-    comments = sum(r.get("n", 0) for r in cd)
-    readers = sum(r.get("readers", 0) for r in cd)          # 순살 팀·봇을 뺀 수
+    comments, readers = _one_day(cd, "n", "readers")
     if not cd:                                              # 예전 워커면 이벤트로
-        comments = eng.get("comment", 0)
-        readers = 0
+        comments, readers = eng.get("comment", 0), 0
     rd = ins.get("reactsDaily") or []
-    reacts = sum(r.get("up", 0) for r in rd)
-    undo = sum(r.get("undo", 0) for r in rd)
+    reacts, undo = _one_day(rd, "up", "undo")
     if not rd:
         reacts, undo = eng.get("react", 0), 0
 
@@ -101,10 +117,11 @@ def main():
         lines.append(f"재방문율 {rate}%  <i>(누적 {vis['total']}명 중 {vis.get('repeat_v', 0)}명)</i>")
     refs = ins.get("refs", [])
     if refs:
+        # refs 는 창 전체 합계다. 하루 수치 옆에 그냥 두면 같은 기간으로 읽힌다.
         ko = {"direct": "직접", "telegram": "텔레그램", "instagram": "인스타",
               "search": "검색", "mail": "뉴스레터", "other": "기타"}
         top = ", ".join(f"{ko.get(r['src'], r['src'])} {r['n']}" for r in refs[:3])
-        lines.append(f"유입 {top}")
+        lines.append(f"<i>최근 {DAYS}일 유입</i> {top}")
     if held:
         lines.append(f"\n⏳ 검토 중 댓글 {held}건 — 다음 자동 판정에서 처리됩니다")
     lines.append('\n<a href="https://soonsal.com/stats/">자세히 보기</a>')

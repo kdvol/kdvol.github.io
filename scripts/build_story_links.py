@@ -46,7 +46,14 @@ font-size:11.5px;line-height:1.8;color:#9a958a;word-break:keep-all}
 .story-links a{color:#8a857c;text-decoration:none;border-bottom:1px solid #e6e1d8}
 .story-links a:hover{color:#C24A00;border-bottom-color:#C24A00}
 .story-links .sep{opacity:.4;margin:0 4px}
-.story-links .row + .row{margin-top:3px}
+.story-links .row + .row{margin-top:4px}
+/* 「같은 흐름」은 제목이 길어 한 줄에 하나씩 세운다. 라벨은 왼쪽에 고정 */
+.story-links .flows{display:flex;align-items:flex-start}
+.story-links .flow-list{display:flex;flex-direction:column;gap:2px;min-width:0}
+.story-links .flow{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.story-links .flow b{font-weight:600;color:#b5b0a4;margin-right:3px}
+@media(max-width:560px){.story-links .flows{display:block}
+  .story-links .flow-list{margin-top:2px;padding-left:1px}}
 </style>
 """
 
@@ -119,10 +126,14 @@ def block(ents: list[tuple[int, dict]], rel: list[dict]) -> str:
             for _, e in ents)
         rows.append(f'<div class="row"><span class="k">이 이야기에 나온 것</span>{links}</div>')
     if rel:
-        links = '<span class="sep">·</span>'.join(
-            f'<a href="{html.escape(s["u"])}">{html.escape(s.get("d","")[5:])} '
-            f'{html.escape(s.get("t",""))[:26]}</a>' for s in rel)
-        rows.append(f'<div class="row"><span class="k">같은 흐름</span>{links}</div>')
+        # 회차 제목은 길다. 가운뎃점으로 이으면 아무 데서나 접혀 덩어리가 된다.
+        # 한 줄에 하나씩 세운다 (KD 2026-08-15: 줄별로 정돈).
+        links = "".join(
+            f'<span class="flow"><a href="{html.escape(s["u"])}">'
+            f'<b>{html.escape(s.get("d","")[5:])}</b> '
+            f'{html.escape(s.get("t",""))[:30]}</a></span>' for s in rel)
+        rows.append(f'<div class="row flows"><span class="k">같은 흐름</span>'
+                    f'<span class="flow-list">{links}</span></div>')
     return f'<div class="story-links">{"".join(rows)}</div>' if rows else ""
 
 
@@ -142,11 +153,17 @@ def process(page: Path, ents: list[dict], all_stories: list[dict], dry: bool) ->
         anchor = re.search(r"#(story-\d+)", s.get("u", ""))
         if not anchor:
             continue
-        # 그 스토리 블록의 면책 문구 바로 앞에 끼운다 — 본문이 끝나는 자리다
-        pat = re.compile(
-            r'(id="' + anchor.group(1) + r'".*?)'
-            r'(<p style="font-size:11px[^>]*>매수매도 추천 아님[^<]*</p>)', re.S)
-        m = pat.search(out)
+        # 본문이 끝나는 자리에 끼운다 — 면책 문구 바로 앞, 없으면 마지막 문단 뒤.
+        # 스토리 경계를 넘지 않는다. `.*?` 만 쓰면 면책이 없는 스토리에서 다음
+        # 스토리의 면책까지 훑어가, 한 자리에 블록이 두 개 붙었다(0317).
+        inner = r'(?:(?!id="story-)[\s\S])*?'
+        m = re.search(r'(id="' + anchor.group(1) + r'"' + inner + r')'
+                      r'(<p style="font-size:11px[^>]*>매수매도 추천 아님[^<]*</p>)', out)
+        if not m:
+            # 면책이 없는 스토리 — 스토리 다음 문단이 끝나는 자리를 쓴다.
+            # 89개 스토리가 여기 해당한다. 그냥 건너뛰면 링크가 통째로 빠진다.
+            m = re.search(r'(id="' + anchor.group(1) + r'"' + inner + r'</p>\s*)'
+                          r'(</div>\s*</div>)', out)
         if not m:
             continue
         body = re.sub(r"<[^>]+>", " ", m.group(1))
