@@ -452,7 +452,31 @@ transition:color .18s ease,background .18s ease}
   .sub-btn-header{padding:7px 13px;font-size:11.5px;letter-spacing:-.3px}
   .search-btn-header{width:32px;height:32px}
 }
-</style></head>
+</style>
+
+
+<style id="soonsal-story-links">
+/* 스토리 끝 — 다 읽은 사람만 본다. 본문 흐름을 끊지 않는다 */
+.story-links{margin:14px 0 0;padding:11px 0 0;border-top:1px solid #ece8e0;
+font-size:11.5px;line-height:1.8;color:#9a958a;word-break:keep-all}
+.story-links .k{color:#b5b0a4;margin-right:5px}
+.story-links a{color:#8a857c;text-decoration:none;border-bottom:1px solid #e6e1d8}
+.story-links a:hover{color:#C24A00;border-bottom-color:#C24A00}
+.story-links .sep{opacity:.4;margin:0 4px}
+/* 주제는 개별 이름이 아니라 묶음이다 — 테두리로 구분한다 */
+.story-links a.topic{border-bottom:0;padding:1px 7px;border-radius:999px;
+background:#f3efe8;color:#8a857c}
+.story-links a.topic:hover{background:#C24A00;color:#fff}
+.story-links .row + .row{margin-top:4px}
+/* 「같은 흐름」은 제목이 길어 한 줄에 하나씩 세운다. 라벨은 왼쪽에 고정 */
+.story-links .flows{display:flex;align-items:flex-start}
+.story-links .flow-list{display:flex;flex-direction:column;gap:2px;min-width:0}
+.story-links .flow{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.story-links .flow b{font-weight:600;color:#b5b0a4;margin-right:3px}
+@media(max-width:560px){.story-links .flows{display:block}
+  .story-links .flow-list{margin-top:2px;padding-left:1px}}
+</style>
+</head>
 <body>
 <div id="soonsal-live-ticker" style="display:none;"></div>
 <style>
@@ -721,7 +745,7 @@ transition:color .18s ease,background .18s ease}
     <div style="background:#f5f5f0; border-radius:8px; padding:14px 16px; margin-top:16px;">
       <p style="font-size:12px; font-weight:700; color:#888; margin:0 0 6px;">🏛 전통 금융 대비 현재 위치</p>
       <p style="font-size:13px; color:#444; margin:0; line-height:1.65;">전통 금융에서 수탁 은행 <span class="sub">(trust bank)</span>은 BNY멜론·스테이트스트리트 같은 곳이 대표적. 고객 자산을 보관·관리하는 역할인데 예금·대출은 안 함. Circle이 받은 건 이 구조와 동일. 차이점은 "보관 대상"이 달러 지급준비금 + 디지털 자산이라는 것. 전통 수탁 은행이 OCC 감독 하에 수십 년간 쌓아온 신뢰를 Circle은 이제 막 시작 — 하지만 그 시작 자체가 크립토 업계에서는 전례 없는 일</p>
-    </div>
+    <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/circle.html">서클(Circle)</a><span class="sep">·</span><a href="/wiki/occ.html">미국 OCC</a><span class="sep">·</span><a href="/wiki/jpmorgan.html">JP모건</a><span class="sep">·</span><a href="/wiki/sony.html">소니</a><span class="sep">·</span><a href="/wiki/tether.html">테더(USDT)</a><span class="sep">·</span><a class="topic" href="/topics/banks-wallst.html">월가·은행</a><span class="sep">·</span><a class="topic" href="/topics/crypto.html">크립토</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0714.html#story-4"><b>07-14</b> 스테이블코인 회사, 은행이 되다</a></span><span class="flow"><a href="/newsletters/2026/0326-crypto.html#story-2"><b>03-26</b> Circle -20%, 스테이블코인 이자 전쟁</a></span></span></div></div></div>
 </div>
 
 
@@ -740,7 +764,7 @@ transition:color .18s ease,background .18s ease}
     <div style="background:#f5f5f0; border-radius:8px; padding:14px 16px; margin-top:16px;">
       <p style="font-size:12px; font-weight:700; color:#888; margin:0 0 6px;">🏛 전통 금융 대비 현재 위치</p>
       <p style="font-size:13px; color:#444; margin:0; line-height:1.65;">전통 금융에서 알고리즘 트레이딩은 이미 주식 거래량의 ~70%를 차지하지만, 이건 기관 전용. 리테일 투자자가 AI에게 "이 조건으로 사줘"라고 말하면 AI가 실행하는 구조는 아직 전통 금융에 없음. 크립토 거래소가 이걸 먼저 상용화하면 "리테일 알고리즘 트레이딩"의 첫 번째 대규모 실험이 됨. 규제가 느슨한 크립토가 먼저 실험하고 전통 금융이 결과를 보고 따라오는 — 크립토의 전형적인 역할</p>
-    </div>
+    <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/kraken.html">크라켄</a><span class="sep">·</span><a href="/wiki/robinhood.html">로빈후드</a><span class="sep">·</span><a href="/wiki/goldman.html">골드만삭스</a><span class="sep">·</span><a href="/wiki/morgan-stanley.html">모건스탠리</a><span class="sep">·</span><a class="topic" href="/topics/ai.html">AI</a><span class="sep">·</span><a class="topic" href="/topics/consumer-retail.html">소비·리테일</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0709-crypto.html#story-5"><b>07-09</b> Kraken, 유럽에서 은행이 되려 한다</a></span></span></div></div></div>
 </div>
 
 
@@ -759,7 +783,7 @@ transition:color .18s ease,background .18s ease}
     <div style="background:#f5f5f0; border-radius:8px; padding:14px 16px; margin-top:16px;">
       <p style="font-size:12px; font-weight:700; color:#888; margin:0 0 6px;">🏛 전통 금융 대비 현재 위치</p>
       <p style="font-size:13px; color:#444; margin:0; line-height:1.65;">전통 금융에서 마진 거래는 증권사의 핵심 수익원이자 시장 유동성의 엔진. 주식 마진은 Reg T <span class="sub">(초기 증거금 50%)</span>, 선물은 거래소별 증거금률로 규제됨. Polymarket이 마진을 도입하면 예측시장이 선물시장과 구조적으로 동일해짐 — "이벤트의 가격을 레버리지로 거래하는 것"은 사실상 이벤트 선물. 차이점은 기초자산이 주식이나 원자재가 아니라 "사건의 발생 확률"이라는 것</p>
-    </div>
+    <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/polymarket.html">폴리마켓</a><span class="sep">·</span><a href="/wiki/nyse.html">뉴욕증권거래소</a><span class="sep">·</span><a href="/wiki/cftc.html">미국 CFTC</a><span class="sep">·</span><a href="/wiki/bitcoin.html">비트코인</a><span class="sep">·</span><a href="/wiki/kalshi.html">칼시(Kalshi)</a><span class="sep">·</span><a class="topic" href="/topics/prediction-markets.html">예측시장</a><span class="sep">·</span><a class="topic" href="/topics/banks-wallst.html">월가·은행</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0623-crypto.html#story-4"><b>06-23</b> Polymarket, 가짜 트레이더 논란</a></span><span class="flow"><a href="/newsletters/2026/0312-crypto.html#story-1"><b>03-12</b> Polymarket × Palantir — 예측 시장에</a></span></span></div></div></div>
 </div>
 
 
@@ -779,7 +803,7 @@ transition:color .18s ease,background .18s ease}
       <p style="font-size:12px; font-weight:700; color:#888; margin:0 0 6px;">🏛 전통 금융 대비 현재 위치</p>
       <p style="font-size:13px; color:#444; margin:0; line-height:1.65;">전통 금융에서 ETF 유출입은 가장 직접적인 기관 수요 지표. 시티 리서치 기준으로 $100M ETF 유입당 BTC에 ~53bp 영향, 10일 누적으로 ~96bp까지. 올해 -$5.4B 순유출은 이 메커니즘이 역으로 작동해서 시스템적 매도 압력을 만들어왔다는 뜻. 주간 +$197M은 고작 -$5.4B의 3.6% 회복 — 전통 금융 ETF에서도 유출입 반전 후 3주 연속 유입이 확인돼야 "추세 전환"으로 봄</p>
     </div>
-  <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
+  <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/bitcoin.html">비트코인</a><span class="sep">·</span><a href="/wiki/oil.html">원유</a><span class="sep">·</span><a href="/wiki/kospi.html">코스피</a><span class="sep">·</span><a href="/wiki/blackrock.html">블랙록</a><span class="sep">·</span><a href="/wiki/fidelity.html">피델리티</a><span class="sep">·</span><a class="topic" href="/topics/etf-funds.html">ETF·펀드</a><span class="sep">·</span><a class="topic" href="/topics/fed-rates.html">연준·금리</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0715-crypto.html#story-1"><b>07-15</b> Markets — CPI 빠졌는데 ETF는 도망치는 중</a></span><span class="flow"><a href="/newsletters/2026/0716-crypto.html#story-1"><b>07-16</b> Markets — ETF 유입 반전, But BTC는 </a></span></span></div></div>
 </div>
 
 

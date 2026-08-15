@@ -432,7 +432,32 @@ transition:color .18s ease,background .18s ease}
   .sub-btn-header{padding:7px 13px;font-size:11.5px;letter-spacing:-.3px}
   .search-btn-header{width:32px;height:32px}
 }
-</style></head>
+</style>
+
+
+
+<style id="soonsal-story-links">
+/* 스토리 끝 — 다 읽은 사람만 본다. 본문 흐름을 끊지 않는다 */
+.story-links{margin:14px 0 0;padding:11px 0 0;border-top:1px solid #ece8e0;
+font-size:11.5px;line-height:1.8;color:#9a958a;word-break:keep-all}
+.story-links .k{color:#b5b0a4;margin-right:5px}
+.story-links a{color:#8a857c;text-decoration:none;border-bottom:1px solid #e6e1d8}
+.story-links a:hover{color:#C24A00;border-bottom-color:#C24A00}
+.story-links .sep{opacity:.4;margin:0 4px}
+/* 주제는 개별 이름이 아니라 묶음이다 — 테두리로 구분한다 */
+.story-links a.topic{border-bottom:0;padding:1px 7px;border-radius:999px;
+background:#f3efe8;color:#8a857c}
+.story-links a.topic:hover{background:#C24A00;color:#fff}
+.story-links .row + .row{margin-top:4px}
+/* 「같은 흐름」은 제목이 길어 한 줄에 하나씩 세운다. 라벨은 왼쪽에 고정 */
+.story-links .flows{display:flex;align-items:flex-start}
+.story-links .flow-list{display:flex;flex-direction:column;gap:2px;min-width:0}
+.story-links .flow{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.story-links .flow b{font-weight:600;color:#b5b0a4;margin-right:3px}
+@media(max-width:560px){.story-links .flows{display:block}
+  .story-links .flow-list{margin-top:2px;padding-left:1px}}
+</style>
+</head>
 <body>
 <div id="soonsal-live-ticker" style="display:none;"></div>
 <style>
@@ -649,7 +674,7 @@ transition:color .18s ease,background .18s ease}
       <div class="bullet"><span class="dot">◾</span><span>
         최악 시나리오: 배럴당 $164 전망까지 등장. RBC 캐피털의 원자재 전략 헤드는 "시장이 이걸 단기 이벤트가 아닌 장기 차질로 인식하기 시작하는 시점이 진짜 변곡점"이라 분석. 골드만삭스는 다음 금리 인하 시점을 6월 → 9월로 후퇴 — 유가 급등이 인플레를 재점화시키면 연준의 손도 묶이는 구조
       </span></div>
-    </div>
+    <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/oil.html">원유</a><span class="sep">·</span><a href="/wiki/trump.html">트럼프</a><span class="sep">·</span><a href="/wiki/goldman.html">골드만삭스</a><span class="sep">·</span><a href="/wiki/fed.html">미국 연준</a><span class="sep">·</span><a class="topic" href="/topics/energy.html">에너지·원자재</a><span class="sep">·</span><a class="topic" href="/topics/fed-rates.html">연준·금리</a></div></div></div>
   </div>
 
   <!-- STORY 2 -->
@@ -672,7 +697,7 @@ transition:color .18s ease,background .18s ease}
       <div class="bullet"><span class="dot">◾</span><span>
         Vista 창업자는 지난달 투자자 서한에서 "대다수 포트폴리오가 AI 경쟁에 시달리지 않고 있다"며 진화. But, JPMorgan이 소프트웨어 기업 프라이빗 크레딧 대출 가치를 선제 하향 조정한 것은 전통 금융이 이 리스크를 실제로 가격에 반영하기 시작했다는 신호. Apollo는 월간·일간 NAV <span class="sub">(순자산가치)</span> 공시를 준비하고, 모건스탠리/Cliffwater는 환매를 제한 — 행동 패턴이 2008년과 닮아가고 있다는 지적도 나옴
       </span></div>
-    </div>
+    <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/anthropic.html">앤스로픽</a><span class="sep">·</span><a href="/wiki/jpmorgan.html">JP모건</a><span class="sep">·</span><a href="/wiki/morgan-stanley.html">모건스탠리</a><span class="sep">·</span><a class="topic" href="/topics/ai.html">AI</a><span class="sep">·</span><a class="topic" href="/topics/banks-wallst.html">월가·은행</a></div></div></div>
   </div>
 
   <!-- STORY 3 -->
@@ -692,7 +717,7 @@ transition:color .18s ease,background .18s ease}
       <div class="bullet"><span class="dot">◾</span><span>
         플로리다의 핵심 매력: 소득세 0%, 상속세 0%. 슐츠의 새 이웃에는 이반카 트럼프도 포함. 이 "부의 지리적 재편"은 세수가 빠져나가는 주에겐 재앙이지만, 플로리다 입장에서는 소비·부동산·고용 효과를 세금 없이 가져가는 구조. 양쪽 모두에게 정치적 결과가 뒤따를 전망 — 세금을 올린 주는 세수가 줄고, 0% 주는 인프라 부담이 커지는 딜레마
       </span></div>
-    </div>
+    <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/starbucks.html">스타벅스</a><span class="sep">·</span><a href="/wiki/amazon.html">아마존</a><span class="sep">·</span><a href="/wiki/meta.html">메타</a><span class="sep">·</span><a href="/wiki/zuckerberg.html">저커버그</a><span class="sep">·</span><a href="/wiki/google.html">구글</a><span class="sep">·</span><a class="topic" href="/topics/bigtech.html">빅테크</a><span class="sep">·</span><a class="topic" href="/topics/real-estate.html">부동산</a></div></div></div>
   </div>
 
   <!-- STORY 4 -->
@@ -712,7 +737,7 @@ transition:color .18s ease,background .18s ease}
       <div class="bullet"><span class="dot">◾</span><span>
         금융과 국방의 경계가 양방향에서 허물어지는 중. 블랙록은 인프라 투자 확대를 위해 건설 기능인 훈련에 $1억 기부. 정부 보험사 Chubb는 호르무즈 통과 선박 보험의 대표 인수사로 선정 — 미 개발금융공사 <span class="sub">(DFC)</span>와 협력하는 $200억 규모 선박 보험 프로그램의 일환. 전쟁이 만드는 새로운 수익 기회에 월가가 줄을 서는 구도 — JPMorgan은 호르무즈 안전 확보 전까지 에너지 롱 포지션을 권고
       </span></div>
-    </div>
+    <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/goldman.html">골드만삭스</a><span class="sep">·</span><a href="/wiki/jpmorgan.html">JP모건</a><span class="sep">·</span><a href="/wiki/oil.html">원유</a><span class="sep">·</span><a href="/wiki/blackrock.html">블랙록</a><span class="sep">·</span><a class="topic" href="/topics/banks-wallst.html">월가·은행</a><span class="sep">·</span><a class="topic" href="/topics/energy.html">에너지·원자재</a></div></div></div>
   </div>
 
   <!-- STORY 5 -->
@@ -735,7 +760,7 @@ transition:color .18s ease,background .18s ease}
       <div class="bullet"><span class="dot">◾</span><span>
         OpenAI CEO는 블랙록 컨퍼런스에서 "AI가 미국에서 별로 인기가 없다"고 인정. NBC 여론조사에서 미국인 57%가 AI의 리스크가 이점보다 크다고 응답 — 전기료 상승과 AI 기인 해고가 체감되면서 여론이 돌아선 것. 기업들의 대응은 제각각: Character.AI는 "대화는 허구"라는 면책 조항을 내세웠고, Meta·Google·OpenAI는 개선된 모델을 출시했다고 발표. But, 이번 테스트는 최신 모델 대상이었음
       </span></div>
-    </div>
+    <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/anthropic.html">앤스로픽</a><span class="sep">·</span><a href="/wiki/openai.html">오픈AI</a><span class="sep">·</span><a href="/wiki/google.html">구글</a><span class="sep">·</span><a href="/wiki/trump.html">트럼프</a><span class="sep">·</span><a href="/wiki/blackrock.html">블랙록</a><span class="sep">·</span><a class="topic" href="/topics/ai.html">AI</a><span class="sep">·</span><a class="topic" href="/topics/bigtech.html">빅테크</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0515.html#story-1"><b>05-15</b> 이젠 점유율도 Claude가 1등</a></span></span></div></div></div>
   </div>
 
   </div><!-- /content -->

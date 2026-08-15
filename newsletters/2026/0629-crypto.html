@@ -453,7 +453,31 @@ transition:color .18s ease,background .18s ease}
   .sub-btn-header{padding:7px 13px;font-size:11.5px;letter-spacing:-.3px}
   .search-btn-header{width:32px;height:32px}
 }
-</style></head>
+</style>
+
+
+<style id="soonsal-story-links">
+/* 스토리 끝 — 다 읽은 사람만 본다. 본문 흐름을 끊지 않는다 */
+.story-links{margin:14px 0 0;padding:11px 0 0;border-top:1px solid #ece8e0;
+font-size:11.5px;line-height:1.8;color:#9a958a;word-break:keep-all}
+.story-links .k{color:#b5b0a4;margin-right:5px}
+.story-links a{color:#8a857c;text-decoration:none;border-bottom:1px solid #e6e1d8}
+.story-links a:hover{color:#C24A00;border-bottom-color:#C24A00}
+.story-links .sep{opacity:.4;margin:0 4px}
+/* 주제는 개별 이름이 아니라 묶음이다 — 테두리로 구분한다 */
+.story-links a.topic{border-bottom:0;padding:1px 7px;border-radius:999px;
+background:#f3efe8;color:#8a857c}
+.story-links a.topic:hover{background:#C24A00;color:#fff}
+.story-links .row + .row{margin-top:4px}
+/* 「같은 흐름」은 제목이 길어 한 줄에 하나씩 세운다. 라벨은 왼쪽에 고정 */
+.story-links .flows{display:flex;align-items:flex-start}
+.story-links .flow-list{display:flex;flex-direction:column;gap:2px;min-width:0}
+.story-links .flow{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.story-links .flow b{font-weight:600;color:#b5b0a4;margin-right:3px}
+@media(max-width:560px){.story-links .flows{display:block}
+  .story-links .flow-list{margin-top:2px;padding-left:1px}}
+</style>
+</head>
 
 <body>
 <div id="soonsal-live-ticker" style="display:none;"></div>
@@ -661,7 +685,7 @@ transition:color .18s ease,background .18s ease}
     <div style="background:#f5f5f0; border-radius:8px; padding:14px 16px; margin-top:16px;">
       <p style="font-size:12px; font-weight:700; color:#888; margin:0 0 6px;">🏛 전통 금융 대비 현재 위치</p>
       <p style="font-size:13px; color:#444; margin:0; line-height:1.65;">전통 금융에서 MMF는 $5.5조 규모 시장이고, 준비금 운용은 커스토디언·뱅크 트러스트가 독점해온 영역. 스테이블코인 준비금은 이 시장의 블록체인 버전 — 같은 자산 <span class="sub">(국채+현금)</span>, 같은 규제 <span class="sub">(Rule 2a-7)</span>, 같은 플레이어가 같은 일을 온체인으로 하는 것. 차이는 "고객이 은행이 아니라 Tether·Circle"이라는 점뿐</p>
-    </div>
+    <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/ethereum.html">이더리움</a><span class="sep">·</span><a href="/wiki/blackrock.html">블랙록</a><span class="sep">·</span><a href="/wiki/morgan-stanley.html">모건스탠리</a><span class="sep">·</span><a href="/wiki/goldman.html">골드만삭스</a><span class="sep">·</span><a href="/wiki/tether.html">테더(USDT)</a><span class="sep">·</span><a class="topic" href="/topics/etf-funds.html">ETF·펀드</a><span class="sep">·</span><a class="topic" href="/topics/crypto.html">크립토</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0714.html#story-4"><b>07-14</b> 스테이블코인 회사, 은행이 되다</a></span><span class="flow"><a href="/newsletters/2026/0306-crypto.html#story-4"><b>03-06</b> Eric Trump &quot;은행들은 반미적&quot</a></span></span></div></div></div>
 </div>
 
 <!-- STORY 2 -->
@@ -678,7 +702,7 @@ transition:color .18s ease,background .18s ease}
     <div style="background:#f5f5f0; border-radius:8px; padding:14px 16px; margin-top:16px;">
       <p style="font-size:12px; font-weight:700; color:#888; margin:0 0 6px;">🏛 전통 금융 대비 현재 위치</p>
       <p style="font-size:13px; color:#444; margin:0; line-height:1.65;">전통 금융에서 거래소가 대출 기관을 인수하는 건 흔한 일 — NYSE가 ICE를 통해 모기지 플랫폼을 보유하고, CME가 청산소를 소유하는 것처럼. 차이는 Aave의 매출이 "회사"가 아니라 "토큰 홀더"에게 간다는 것. 전통 M&A에서는 있을 수 없는 구조이고, 크라켄이 실질적으로 뭘 사는 건지가 불명확한 이유</p>
-    </div>
+    <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/kraken.html">크라켄</a><span class="sep">·</span><a href="/wiki/oil.html">원유</a><span class="sep">·</span><a class="topic" href="/topics/crypto.html">크립토</a><span class="sep">·</span><a class="topic" href="/topics/deals.html">딜·M&amp;A</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0709-crypto.html#story-5"><b>07-09</b> Kraken, 유럽에서 은행이 되려 한다</a></span></span></div></div></div>
 </div>
 
 <!-- STORY 3 -->
@@ -696,7 +720,7 @@ transition:color .18s ease,background .18s ease}
       <p style="font-size:12px; font-weight:700; color:#888; margin:0 0 6px;">🏛 전통 금융 대비 현재 위치</p>
       <p style="font-size:13px; color:#444; margin:0; line-height:1.65;">전통 금융에서 SPY <span class="sub">(S&P 500 ETF)</span>가 주간 $17.87억 유출되면 뉴스거리도 안 됨 — 일일 거래량이 $300억이 넘으니까. But BTC ETF 전체 AUM 대비 $17.87억은 약 3% 수준이라서, 같은 숫자라도 체감 충격이 다름. ETF가 "변동성 증폭기"로 작동하는 이유</p>
     </div>
-  <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
+  <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/bitcoin.html">비트코인</a><span class="sep">·</span><a href="/wiki/blackrock.html">블랙록</a><span class="sep">·</span><a href="/wiki/fidelity.html">피델리티</a><span class="sep">·</span><a href="/wiki/binance.html">바이낸스</a><span class="sep">·</span><a href="/wiki/fed.html">미국 연준</a><span class="sep">·</span><a class="topic" href="/topics/crypto.html">크립토</a><span class="sep">·</span><a class="topic" href="/topics/etf-funds.html">ETF·펀드</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0428-crypto.html#story-2"><b>04-28</b> BTC ETF, 기관은 안 떠남</a></span><span class="flow"><a href="/newsletters/2026/0521-crypto.html#story-1"><b>05-21</b> BTC ETF, 기관이 빠져나간다</a></span></span></div></div>
 </div>
 
 <!-- STORY 4 -->
@@ -713,7 +737,7 @@ transition:color .18s ease,background .18s ease}
     <div style="background:#f5f5f0; border-radius:8px; padding:14px 16px; margin-top:16px;">
       <p style="font-size:12px; font-weight:700; color:#888; margin:0 0 6px;">🏛 전통 금융 대비 현재 위치</p>
       <p style="font-size:13px; color:#444; margin:0; line-height:1.65;">전통 금융에서 대형 증권사가 거래소를 인수하는 건 규제 승인이 까다로움 — 이해충돌과 시장 독점 이슈 때문. 크립토에서는 아직 이런 제약이 약해서, SBI 같은 종합 금융그룹이 거래소를 직접 소유하는 구조가 가능. 미국에서는 Goldman이 Coinbase를 인수하는 건 상상하기 어렵지만, 일본에서는 이미 현실</p>
-    </div>
+    <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/bitcoin.html">비트코인</a><span class="sep">·</span><a href="/wiki/oil.html">원유</a><span class="sep">·</span><a href="/wiki/sec.html">미국 SEC</a><span class="sep">·</span><a href="/wiki/circle.html">서클(Circle)</a><span class="sep">·</span><a href="/wiki/goldman.html">골드만삭스</a><span class="sep">·</span><a class="topic" href="/topics/japan.html">일본</a><span class="sep">·</span><a class="topic" href="/topics/deals.html">딜·M&amp;A</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0330.html#story-5"><b>03-30</b> 일본을 통째로 사는 남자</a></span></span></div></div></div>
 </div>
 
 <!-- STORY 5 -->
@@ -730,7 +754,7 @@ transition:color .18s ease,background .18s ease}
     <div style="background:#f5f5f0; border-radius:8px; padding:14px 16px; margin-top:16px;">
       <p style="font-size:12px; font-weight:700; color:#888; margin:0 0 6px;">🏛 전통 금융 대비 현재 위치</p>
       <p style="font-size:13px; color:#444; margin:0; line-height:1.65;">MiCA는 크립토판 MiFID <span class="sub">(EU 금융상품시장지침)</span>. MiFID가 2007년 시행됐을 때도 소규모 증권사들이 대거 퇴출됐지만, 결과적으로 유럽 자본시장의 투명성과 기관 참여를 끌어올림. MiCA가 같은 경로를 밟으면, 2~3년 후 EU에서 규제 준수 크립토 서비스가 주류 은행을 통해 제공되는 구조가 만들어질 가능성</p>
-    </div>
+    <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/binance.html">바이낸스</a><span class="sep">·</span><a href="/wiki/nvidia.html">엔비디아</a><span class="sep">·</span><a href="/wiki/openai.html">오픈AI</a><span class="sep">·</span><a href="/wiki/anthropic.html">앤스로픽</a><span class="sep">·</span><a href="/wiki/spacex.html">스페이스X</a><span class="sep">·</span><a class="topic" href="/topics/crypto.html">크립토</a><span class="sep">·</span><a class="topic" href="/topics/ai.html">AI</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0421-crypto.html#story-1"><b>04-21</b> 바이낸스, 이란 문제 또 터짐</a></span></span></div></div></div>
 </div>
 
 

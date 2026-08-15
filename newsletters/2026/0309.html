@@ -434,7 +434,32 @@ transition:color .18s ease,background .18s ease}
   .sub-btn-header{padding:7px 13px;font-size:11.5px;letter-spacing:-.3px}
   .search-btn-header{width:32px;height:32px}
 }
-</style></head>
+</style>
+
+
+
+<style id="soonsal-story-links">
+/* 스토리 끝 — 다 읽은 사람만 본다. 본문 흐름을 끊지 않는다 */
+.story-links{margin:14px 0 0;padding:11px 0 0;border-top:1px solid #ece8e0;
+font-size:11.5px;line-height:1.8;color:#9a958a;word-break:keep-all}
+.story-links .k{color:#b5b0a4;margin-right:5px}
+.story-links a{color:#8a857c;text-decoration:none;border-bottom:1px solid #e6e1d8}
+.story-links a:hover{color:#C24A00;border-bottom-color:#C24A00}
+.story-links .sep{opacity:.4;margin:0 4px}
+/* 주제는 개별 이름이 아니라 묶음이다 — 테두리로 구분한다 */
+.story-links a.topic{border-bottom:0;padding:1px 7px;border-radius:999px;
+background:#f3efe8;color:#8a857c}
+.story-links a.topic:hover{background:#C24A00;color:#fff}
+.story-links .row + .row{margin-top:4px}
+/* 「같은 흐름」은 제목이 길어 한 줄에 하나씩 세운다. 라벨은 왼쪽에 고정 */
+.story-links .flows{display:flex;align-items:flex-start}
+.story-links .flow-list{display:flex;flex-direction:column;gap:2px;min-width:0}
+.story-links .flow{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.story-links .flow b{font-weight:600;color:#b5b0a4;margin-right:3px}
+@media(max-width:560px){.story-links .flows{display:block}
+  .story-links .flow-list{margin-top:2px;padding-left:1px}}
+</style>
+</head>
 <body>
 <div id="soonsal-live-ticker" style="display:none;"></div>
 <style>
@@ -655,7 +680,7 @@ transition:color .18s ease,background .18s ease}
         <div class="bullet"><span class="dot">◾</span><span>공급 차질이 이미 현실화. 이라크가 일산 150만 배럴 감산을 단행. 쿠웨이트도 저장 공간 부족으로 생산·정유 시설 동시 감축에 돌입. JP모건은 "시장이 순수 지정학 리스크 프리미엄에서 실질적 운영 차질 반영 단계로 전환 중"이라고 분석하며, 다음 주까지 감산 규모가 일산 600만 배럴에 이를 수 있다고 경고 — UAE마저 공급 제약에 직면할 전망</span></div>
         <div class="bullet"><span class="dot">◾</span><span>트럼프 행정부는 인도의 러시아산 원유 구매 면제, 페르시아만 유조선 $200억 보험 프로그램 등을 가동. But, 시장 진정에는 역부족. 미국 방산업체들에는 "최고급 <span class="sub">(Exquisite Class)</span> 무기 생산 4배 확대"를 합의 — 단기 종전보다 장기전 준비에 무게를 두는 행보</span></div>
         <div class="bullet"><span class="dot">◾</span><span>미국 휘발유 평균 가격이 한 주 만에 갤런당 27센트 급등해 $3.25를 기록, 2024년 9월 이래 최고치. 트럼프는 "전쟁이 끝나면 휘발유 가격은 빠르게 떨어질 것"이라고 했지만, "낮은 연료비"를 공약으로 당선된 만큼 정치적 부담이 커지는 구조. 물가 상승 → 소비 위축 → 401(k) 축소 → 소비 심리 악화의 악순환 고리가 형성 중</span></div>
-      </div>
+      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/oil.html">원유</a><span class="sep">·</span><a href="/wiki/trump.html">트럼프</a><span class="sep">·</span><a href="/wiki/jpmorgan.html">JP모건</a><span class="sep">·</span><a class="topic" href="/topics/energy.html">에너지·원자재</a><span class="sep">·</span><a class="topic" href="/topics/trump-politics.html">트럼프·정책</a></div></div></div>
     </div>
 
     <!-- ===== STORY 2 ===== -->
@@ -668,7 +693,7 @@ transition:color .18s ease,background .18s ease}
         <div class="bullet"><span class="dot">◾</span><span>핵심은 <strong>이 고용 데이터가 이란 전쟁 이전의 경제를 반영한다는 것.</strong> 2월 28일 미·이스라엘의 이란 공습 이전에 이미 경제가 흔들리고 있었는데, 여기에 전쟁으로 에너지 가격까지 급등하면서 "스태그플레이션" 공포가 본격 부상. 성장은 멈추는데 물가는 오르는 1970년대식 악몽이 현실로 <span class="note">(70년대 코스프레 시작?)</span></span></div>
         <div class="bullet"><span class="dot">◾</span><span>연준의 딜레마가 극대화된 구도. 고용 약화 → 금리 인하 근거. But, 유가 급등 → 인플레 재점화 리스크. 인플레를 잡으려면 동결, 고용을 살리려면 인하 — 양날의 검. 투자자들은 3월 FOMC에서 동결을 예상하되, 7월 인하 확률을 48%로 올림. 9월 25bp 인하는 이미 시장에 완전 반영. 연준 내부에서도 "인하 촉발에는 더 큰 경고등이 필요"라는 입장이 우세, 당분간 관망 모드가 유력</span></div>
         <div class="bullet"><span class="dot">◾</span><span>AI가 원인이냐는 질문에는 분석이 엇갈림. 많은 기업이 "AI가 인력 수요를 줄인다"고 말함. But, 팬데믹 시기 과잉 채용의 후유증이 더 크다는 분석도. 여기에 이민 감소로 가용 노동력 풀 자체가 줄어든 점도 복합적으로 작용. 의료 외에 구인건수가 전반적으로 급감하고, 헬스케어를 제외하면 거의 모든 섹터에서 고용이 정체 — 필립스 커브가 건재하다는 해석도 나옴</span></div>
-      </div>
+      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/fed.html">미국 연준</a><span class="sep">·</span><a href="/wiki/oil.html">원유</a><span class="sep">·</span><a class="topic" href="/topics/fed-rates.html">연준·금리</a><span class="sep">·</span><a class="topic" href="/topics/labor-jobs.html">노동·고용</a></div></div></div>
     </div>
 
     <!-- ===== STORY 3 ===== -->
@@ -680,7 +705,7 @@ transition:color .18s ease,background .18s ease}
         <div class="bullet"><span class="dot">◾</span><span>Target Hospitality, Civeo 같은 이동식 숙소 전문 기업들이 대박. Target Hospitality는 향후 2년간 데이터센터 건설 숙소에서만 $3.31억 매출을 전망. 현재 개발 단계에 있는 이동형 숙소 프로젝트 규모가 무려 $7,000억. 참고로 Target Hospitality는 이민 수용소도 짓는 회사. 수요가 있는 곳이면 어디든 달려가는 비즈니스 모델 <span class="note">(수용소에서 데이터센터로 피봇)</span></span></div>
         <div class="bullet"><span class="dot">◾</span><span>전기 기사 <span class="sub">(electrician)</span> 시급이 $130에 달하는 <strong>"전기 골드러시".</strong> 일반 전기 기사 평균 시급 $30의 4배가 넘는 금액. 향후 10년간 데이터센터 건설을 완료하려면 30만 명 이상의 신규 전기 기사가 필요하다는 전망인데, 어떤 직종보다 데이터센터 전기 기사가 중요한 상황. AI 인프라 붐이 화이트칼라만이 아니라 블루칼라 임금 구조까지 뒤흔드는 장면</span></div>
         <div class="bullet"><span class="dot">◾</span><span>"맨캠프"라는 이름이지만 여성도 환영하고, 특히 부부 팀이 선호 대상. 수백 명의 노동자를 수개월간 수용한 뒤 공사가 끝나면 짐을 싸서 다음 현장으로 이동하는 구조. Nvidia CEO가 "역사상 가장 큰 금광"이라 불렀던 AI 인프라 투자의 물리적 현실. 코드가 아니라 콘크리트와 구리선이 AI 시대의 진짜 병목</span></div>
-      </div>
+      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/nvidia.html">엔비디아</a><span class="sep">·</span><a class="topic" href="/topics/ai.html">AI</a><span class="sep">·</span><a class="topic" href="/topics/energy.html">에너지·원자재</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0422.html#story-4"><b>04-22</b> 데이터센터 물 좀 그만 써라</a></span><span class="flow"><a href="/newsletters/2026/0424.html#story-2"><b>04-24</b> AI 데이터센터가 빚 내는 방법</a></span></span></div></div></div>
     </div>
 
     <!-- ===== STORY 4 ===== -->
@@ -692,7 +717,7 @@ transition:color .18s ease,background .18s ease}
         <div class="bullet"><span class="dot">◾</span><span>데이터센터만 위험한 게 아님. 호르무즈 해협과 홍해 해저에 깔린 광섬유 케이블이 새로운 취약점으로 부상. 세계에서 가장 밀집된 디지털 통로인 이 케이블은 유럽-아시아 인터넷 연결의 핵심인데, 2024년 후티 반군의 선박 공격으로 홍해 케이블 4개가 손상되며 유럽-아시아 데이터 트래픽의 25%가 차단된 전례가 있음 — 복구에 수개월 걸림. 이번엔 사이버 공격이 아니라 미사일과 드론이 직접 인프라를 때리는 상황이라, 위협의 차원 자체가 달라진 셈</span></div>
         <div class="bullet"><span class="dot">◾</span><span><strong>수조 달러 규모의 AI 인프라 투자가 근본부터 흔들림.</strong> Stargate UAE <span class="sub">(OpenAI·Oracle 운영, Nvidia 칩 탑재)</span>는 미국 밖 세계 최대 데이터센터로 건설 중이었고, 12월엔 이스라엘·UAE·카타르 포함 11개국이 AI 인프라 공동 개발을 약속하는 "Pax Silica" 선언까지 나왔음. 풍부한 토지, 저렴한 전기, 아시아·유럽·아프리카의 교차점이라는 지리적 이점 — 걸프는 데이터센터에 이상적인 조건을 갖추고 있었지만, 이제 사이버 방어가 아니라 미사일 방어를 고민해야 하는 세계가 됨</span></div>
         <div class="bullet"><span class="dot">◾</span><span>일부 걸프 국가들이 전쟁 충격으로 해외 투자 축소를 검토 중이라는 보도까지. 걸프의 꿈은 "초연결 허브"였는데, 그 꿈의 전제가 안정과 분쟁 부재였다는 게 적나라하게 드러남. 아이러니한 건, 2023년 두바이 헤지펀드 미팅에서 "이란 핵시설 폭격이 온다"고 경고한 애널리스트가 있었지만, 당시 투자자들은 "듣고 싶지 않은 얘기"로 일축했다는 것 <span class="note">(카산드라의 저주)</span></span></div>
-      </div>
+      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/amazon.html">아마존</a><span class="sep">·</span><a href="/wiki/trump.html">트럼프</a><span class="sep">·</span><a href="/wiki/openai.html">오픈AI</a><span class="sep">·</span><a href="/wiki/oracle.html">오라클</a><span class="sep">·</span><a href="/wiki/nvidia.html">엔비디아</a><span class="sep">·</span><a class="topic" href="/topics/ai.html">AI</a><span class="sep">·</span><a class="topic" href="/topics/defense.html">방산·안보</a></div></div></div>
     </div>
 
     <!-- ===== STORY 5 ===== -->
@@ -705,7 +730,7 @@ transition:color .18s ease,background .18s ease}
         <div class="bullet"><span class="dot">◾</span><span>SEC도 경계 모드에 돌입. 일부 운용사가 기초자산 대비 일일 수익률 3~5배를 추구하는 공격적 레버리지 ETF를 출시하려다 SEC에 사실상 막힘. 유동성 제약, 투명성 부족, 개인투자자의 리스크 오해 가능성 — "과도한 레버리지 제품은 안 된다"는 입장. ETF로 대체자산 접근이 쉬워진 건 혁신. But, 접근성이 리스크 인식을 희석시키는 부작용도</span></div>
         <div class="bullet"><span class="dot">◾</span><span>구조적 문제의 핵심: <strong>사모 크레딧은 "돈이 들어올 때는 문을 활짝 열고, 나갈 때는 잠그는" 비대칭 유동성 구조.</strong> 상장 채권처럼 매일 거래할 수 없고, 기초 대출이 만기까지 묶여 있음. 대량 환매가 몰리면 현금이 부족해지는 구조. 업계 1위가 환매를 막는다는 건, 시스템 전체가 스트레스를 받고 있다는 뜻</span></div>
         <div class="bullet"><span class="dot">◾</span><span>향후 토큰화 <span class="sub">(tokenized)</span> 투자 상품이 차세대 대체투자 접근 방식으로 부상할 전망. But, 기존 사모 크레딧의 유동성 문제가 해결되지 않는 한 "새 병에 든 헌 술"이 될 위험도. 접근성과 투명성은 동시에 가야 함. 현재 사모 크레딧은 접근성만 폭발적으로 늘어난 상태 <span class="note">(EXIT 사인)</span></span></div>
-      </div>
+      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/blackrock.html">블랙록</a><span class="sep">·</span><a class="topic" href="/topics/etf-funds.html">ETF·펀드</a><span class="sep">·</span><a class="topic" href="/topics/real-estate.html">부동산</a></div></div></div>
     </div>
 
   </div><!-- /content -->

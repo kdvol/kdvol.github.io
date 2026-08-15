@@ -453,7 +453,31 @@ transition:color .18s ease,background .18s ease}
   .sub-btn-header{padding:7px 13px;font-size:11.5px;letter-spacing:-.3px}
   .search-btn-header{width:32px;height:32px}
 }
-</style></head>
+</style>
+
+
+<style id="soonsal-story-links">
+/* 스토리 끝 — 다 읽은 사람만 본다. 본문 흐름을 끊지 않는다 */
+.story-links{margin:14px 0 0;padding:11px 0 0;border-top:1px solid #ece8e0;
+font-size:11.5px;line-height:1.8;color:#9a958a;word-break:keep-all}
+.story-links .k{color:#b5b0a4;margin-right:5px}
+.story-links a{color:#8a857c;text-decoration:none;border-bottom:1px solid #e6e1d8}
+.story-links a:hover{color:#C24A00;border-bottom-color:#C24A00}
+.story-links .sep{opacity:.4;margin:0 4px}
+/* 주제는 개별 이름이 아니라 묶음이다 — 테두리로 구분한다 */
+.story-links a.topic{border-bottom:0;padding:1px 7px;border-radius:999px;
+background:#f3efe8;color:#8a857c}
+.story-links a.topic:hover{background:#C24A00;color:#fff}
+.story-links .row + .row{margin-top:4px}
+/* 「같은 흐름」은 제목이 길어 한 줄에 하나씩 세운다. 라벨은 왼쪽에 고정 */
+.story-links .flows{display:flex;align-items:flex-start}
+.story-links .flow-list{display:flex;flex-direction:column;gap:2px;min-width:0}
+.story-links .flow{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.story-links .flow b{font-weight:600;color:#b5b0a4;margin-right:3px}
+@media(max-width:560px){.story-links .flows{display:block}
+  .story-links .flow-list{margin-top:2px;padding-left:1px}}
+</style>
+</head>
 <body>
 <div id="soonsal-live-ticker" style="display:none;"></div>
 <style>
@@ -655,7 +679,7 @@ transition:color .18s ease,background .18s ease}
         <div class="tradfi-label" style="font-size:12px;color:#888;font-weight:700;margin-bottom:4px;">🏛 전통 금융 대비 현재 위치</div>
         전통 금융에서 1933년 글래스-스티걸 법, 1999년 그램-리치-블라일리 법이 은행·증권·보험의 경계를 정의했던 것처럼, CLARITY Act는 21세기 디지털 자산의 첫 연방 시장구조 법안. 통과 시 대형 자산운용사·은행이 크립토를 정식 자산군으로 편입 가능 — 시장에서는 연내 통과 확률 50~75% 사이로 평가
       </div>
-      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
+      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/fed.html">미국 연준</a><span class="sep">·</span><a href="/wiki/cftc.html">미국 CFTC</a><span class="sep">·</span><a href="/wiki/sec.html">미국 SEC</a><span class="sep">·</span><a href="/wiki/jpmorgan.html">JP모건</a><span class="sep">·</span><a href="/wiki/dimon.html">제이미 다이먼</a><span class="sep">·</span><a class="topic" href="/topics/banks-wallst.html">월가·은행</a><span class="sep">·</span><a class="topic" href="/topics/trump-politics.html">트럼프·정책</a></div></div>
     </div>
 
     <div class="story" id="story-2">
@@ -672,7 +696,7 @@ transition:color .18s ease,background .18s ease}
         <div class="tradfi-label" style="font-size:12px;color:#888;font-weight:700;margin-bottom:4px;">🏛 전통 금융 대비 현재 위치</div>
         전통 금융에서 비상장사의 회색시장 거래는 SEC Rule 144A로 규제. 인증된 기관 투자자만 거래 가능. 크립토 토큰화가 "144A의 디지털 확장"으로 일반 투자자에게 비상장주 노출을 제공하려 했는데, 발행사 동의 없이는 작동 안 한다는 게 명백해진 사건 — 토큰화 시장의 첫 번째 큰 시험대
       </div>
-      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
+      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/anthropic.html">앤스로픽</a><span class="sep">·</span><a href="/wiki/openai.html">오픈AI</a><span class="sep">·</span><a href="/wiki/solana.html">솔라나</a><span class="sep">·</span><a href="/wiki/spacex.html">스페이스X</a><span class="sep">·</span><a href="/wiki/stripe.html">스트라이프</a><span class="sep">·</span><a class="topic" href="/topics/ipo.html">IPO·상장</a><span class="sep">·</span><a class="topic" href="/topics/ai.html">AI</a></div></div>
     </div>
 
     <div class="story" id="story-3">
@@ -689,7 +713,7 @@ transition:color .18s ease,background .18s ease}
         <div class="tradfi-label" style="font-size:12px;color:#888;font-weight:700;margin-bottom:4px;">🏛 전통 금융 대비 현재 위치</div>
         전통 금융에서 ETF·신탁이 자산 처분 시 항상 명시적 트리거를 공개. 스트레티지는 BTC 보유 4년간 의도적으로 "절대 안 판다"는 비대칭 약속으로 NAV 프리미엄을 만들어왔음. 매각 조건 공개로 이 프리미엄 구조가 시험대 — Capital B, 메타플래닛 등 후발 BTC 트레저리 회사 20+ 곳에도 즉시 파급
       </div>
-      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
+      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/michael-saylor.html">마이클 세일러</a><span class="sep">·</span><a href="/wiki/bitcoin.html">비트코인</a><span class="sep">·</span><a href="/wiki/microstrategy.html">마이크로스트래티지</a><span class="sep">·</span><a href="/wiki/meta.html">메타</a><span class="sep">·</span><a class="topic" href="/topics/deals.html">딜·M&amp;A</a><span class="sep">·</span><a class="topic" href="/topics/crypto.html">크립토</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0428-crypto.html#story-4"><b>04-28</b> 세일러의 선언, &quot;비트코인 겨울 끝났다&quo</a></span><span class="flow"><a href="/newsletters/2026/0813.html#story-3"><b>08-13</b> 비트코인을 이긴 포켓몬</a></span></span></div></div>
     </div>
 
     <div class="story" id="story-4">
@@ -706,7 +730,7 @@ transition:color .18s ease,background .18s ease}
         <div class="tradfi-label" style="font-size:12px;color:#888;font-weight:700;margin-bottom:4px;">🏛 전통 금융 대비 현재 위치</div>
         전통 금융에서 비자·마스터카드가 결제 인프라를 통제하면서 발행 은행을 뛰어넘는 수익을 만든 패턴. 서클은 USDC라는 "결제 카드"를 만들었지만 인프라는 이더리움·솔라나에 의존해왔음. Arc 출시는 발행사이자 결제망이자 토큰화 인프라까지 통합한 "디지털 비자" 구도 — 5/14 CLARITY Act 통과 시 법적 정통성까지 확보
       </div>
-      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
+      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/circle.html">서클(Circle)</a><span class="sep">·</span><a href="/wiki/ethereum.html">이더리움</a><span class="sep">·</span><a href="/wiki/solana.html">솔라나</a><span class="sep">·</span><a href="/wiki/tether.html">테더(USDT)</a><span class="sep">·</span><a href="/wiki/xrp.html">리플(XRP)</a><span class="sep">·</span><a class="topic" href="/topics/crypto.html">크립토</a><span class="sep">·</span><a class="topic" href="/topics/ipo.html">IPO·상장</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0317-crypto.html#story-1"><b>03-17</b> USDC가 USDT를 넘은 날</a></span></span></div></div>
     </div>
 
     <div class="story" id="story-5">
@@ -723,7 +747,7 @@ transition:color .18s ease,background .18s ease}
         <div class="tradfi-label" style="font-size:12px;color:#888;font-weight:700;margin-bottom:4px;">🏛 전통 금융 대비 현재 위치</div>
         전통 금융에서 비자·마스터카드가 결제망 표준을 만들면 그 위에 발행 은행들이 카드를 발행하는 구조. 크립토에서는 Layer-1 <span class="sub">(수이·솔라나·이더리움)</span>이 결제망 표준이고 그 위에 스테이블코인 발행사들이 USDC·USDT·USDsui를 발행. 스트라이프 같은 전통 결제 강자가 크립토 결제 인프라를 직접 통제하기 시작한 게 핵심 — 결제 산업의 미래
       </div>
-      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
+      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/stripe.html">스트라이프</a><span class="sep">·</span><a href="/wiki/meta.html">메타</a><span class="sep">·</span><a href="/wiki/ethereum.html">이더리움</a><span class="sep">·</span><a href="/wiki/solana.html">솔라나</a><span class="sep">·</span><a href="/wiki/paypal.html">페이팔</a><span class="sep">·</span><a class="topic" href="/topics/crypto.html">크립토</a><span class="sep">·</span><a class="topic" href="/topics/deals.html">딜·M&amp;A</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0410-crypto.html#story-3"><b>04-10</b> 스테이블코인, 이자 줘도 된다는 신호</a></span><span class="flow"><a href="/newsletters/2026/0424-crypto.html#story-5"><b>04-24</b> 홍콩, 스테이블코인 라이선스 첫 발급</a></span></span></div></div>
     </div>
 
   </div><!-- /content -->

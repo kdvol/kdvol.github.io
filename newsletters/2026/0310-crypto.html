@@ -455,7 +455,31 @@ transition:color .18s ease,background .18s ease}
   .sub-btn-header{padding:7px 13px;font-size:11.5px;letter-spacing:-.3px}
   .search-btn-header{width:32px;height:32px}
 }
-</style></head>
+</style>
+
+
+<style id="soonsal-story-links">
+/* 스토리 끝 — 다 읽은 사람만 본다. 본문 흐름을 끊지 않는다 */
+.story-links{margin:14px 0 0;padding:11px 0 0;border-top:1px solid #ece8e0;
+font-size:11.5px;line-height:1.8;color:#9a958a;word-break:keep-all}
+.story-links .k{color:#b5b0a4;margin-right:5px}
+.story-links a{color:#8a857c;text-decoration:none;border-bottom:1px solid #e6e1d8}
+.story-links a:hover{color:#C24A00;border-bottom-color:#C24A00}
+.story-links .sep{opacity:.4;margin:0 4px}
+/* 주제는 개별 이름이 아니라 묶음이다 — 테두리로 구분한다 */
+.story-links a.topic{border-bottom:0;padding:1px 7px;border-radius:999px;
+background:#f3efe8;color:#8a857c}
+.story-links a.topic:hover{background:#C24A00;color:#fff}
+.story-links .row + .row{margin-top:4px}
+/* 「같은 흐름」은 제목이 길어 한 줄에 하나씩 세운다. 라벨은 왼쪽에 고정 */
+.story-links .flows{display:flex;align-items:flex-start}
+.story-links .flow-list{display:flex;flex-direction:column;gap:2px;min-width:0}
+.story-links .flow{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.story-links .flow b{font-weight:600;color:#b5b0a4;margin-right:3px}
+@media(max-width:560px){.story-links .flows{display:block}
+  .story-links .flow-list{margin-top:2px;padding-left:1px}}
+</style>
+</head>
 <body>
 <div id="soonsal-live-ticker" style="display:none;"></div>
 <style>
@@ -673,7 +697,7 @@ BTC $66K — 유가 쇼크에 주식-크립토 상관관계 급등, 공포지수
       <div class="bullet"><span class="dot">◾</span><span>온체인 데이터가 더 걱정스러운 신호를 보냄. 바이낸스 리테일 유입이 2/6~3/2 사이 약 $50억 순유출. ETF 기관 자금은 들어오지만 개인 투자자는 빠지는 "디커플링" 현상. 리테일의 심리는 아직 강세 <span class="sub">(61%가 올해 투자 확대 계획)</span>지만, 실제 행동은 반대</span></div>
       <div class="bullet"><span class="dot">◾</span><span>CoinDesk 칼럼니스트의 분석: "소셜미디어에서 알트시즌 언급이 2년래 최저. 이건 역발상 신호 — 과거 이런 침묵이 반등 직전에 나타났다." 아직 강세론이 완전히 사라지진 않은 셈</span></div>
       <div class="bullet"><span class="dot">◾</span><span>이번 주 핵심 변수는 수요일 CPI와 금요일 PCE. 유가 급등이 인플레 수치에 반영되면 연준 금리 인하 기대가 더 후퇴. 크립토 포함 리스크 자산 전반에 부정적</span></div>
-    </div>
+    <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/bitcoin.html">비트코인</a><span class="sep">·</span><a href="/wiki/oil.html">원유</a><span class="sep">·</span><a href="/wiki/fidelity.html">피델리티</a><span class="sep">·</span><a href="/wiki/sp500.html">S&amp;P 500</a><span class="sep">·</span><a href="/wiki/binance.html">바이낸스</a><span class="sep">·</span><a class="topic" href="/topics/crypto.html">크립토</a><span class="sep">·</span><a class="topic" href="/topics/etf-funds.html">ETF·펀드</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0303-crypto.html#story-1"><b>03-03</b> 이란 전쟁 48시간 — BTC $68K 찍고 $63K </a></span><span class="flow"><a href="/newsletters/2026/0304-crypto.html#story-1"><b>03-04</b> 진짜 전쟁이 터지니까 — BTC가 &quot;디지털 금</a></span></span></div></div></div>
   </div>
 
   <!-- STORY 2 -->
@@ -686,7 +710,7 @@ BTC $66K — 유가 쇼크에 주식-크립토 상관관계 급등, 공포지수
       <div class="bullet"><span class="dot">◾</span><span>규제 리스크 부상. 민주당 의원들이 이란 관련 예측시장 베팅을 계기로 규제 법안을 준비 중. "전쟁에 돈을 거는 것이 도덕적으로 허용 가능한가"라는 논쟁이 워싱턴에서 가열되는 중</span></div>
       <div class="bullet"><span class="dot">◾</span><span>CoinDesk 분석: 예측시장이 전문 헤지 도구로 전환되는 구조적 변화. 지정학·정책 리스크는 선물이나 옵션으로 정확히 가격 매기기 어려운 영역 — 예측시장이 이 갭을 메우며 "가격을 매길 수 없는 것에 가격을 매기는" 새로운 자산 클래스로 부상</span></div>
       <div class="bullet"><span class="dot">◾</span><span>Polymarket에서 지금 가장 뜨거운 베팅: "스테이블코인 시총이 2027년 전에 $500B를 터치할까?" — 현재 시총 $313B 기준으로 60% 추가 성장이 필요한 베팅인데, 의외로 찬성 쪽 확률이 높은 상태</span></div>
-    </div>
+    <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/kalshi.html">칼시(Kalshi)</a><span class="sep">·</span><a href="/wiki/polymarket.html">폴리마켓</a><span class="sep">·</span><a class="topic" href="/topics/prediction-markets.html">예측시장</a><span class="sep">·</span><a class="topic" href="/topics/crypto.html">크립토</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0623-crypto.html#story-4"><b>06-23</b> Polymarket, 가짜 트레이더 논란</a></span><span class="flow"><a href="/newsletters/2026/0303-crypto.html#story-4"><b>03-03</b> Polymarket 이란 베팅 $5.29억 돌파 — 뉴</a></span></span></div></div></div>
   </div>
 
   <!-- STORY 3 -->
@@ -705,7 +729,7 @@ BTC $66K — 유가 쇼크에 주식-크립토 상관관계 급등, 공포지수
       <div class="bullet"><span class="dot">◾</span><span>플로리다가 미국 최초의 주 단위 스테이블코인 법안을 통과시킴. 연방 차원에서도 초당적 크립토 시장구조 법안 통과가 2026년 내 예상. 규제 명확성이 기관 채택의 가장 큰 촉매</span></div>
       <div class="bullet"><span class="dot">◾</span><span>테더 <span class="sub">(Tether, 세계 최대 스테이블코인 USDT 발행사)</span>의 정치적 행보도 주목. 영국 정당에 $1,600만을 기부하며 친크립토 정책을 로비하는 동시에, 블록체인 스타트업 Utexo에 직접 투자. 미 재무부는 크립토 믹서의 합법적 용도를 처음으로 인정하는 보고서 발표</span></div>
       <div class="bullet"><span class="dot">◾</span><span>라틴아메리카 크립토 사용자 성장률이 미국의 3배. 브라질 Pix 간편결제가 아르헨티나로 확대. 신흥국에서 스테이블코인이 달러 접근 수단으로 기능하며 폭발적 성장 — 이 수요가 $313B를 만든 핵심 동력</span></div>
-    </div>
+    <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/tether.html">테더(USDT)</a><span class="sep">·</span><a class="topic" href="/topics/crypto.html">크립토</a><span class="sep">·</span><a class="topic" href="/topics/ai.html">AI</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0406-crypto.html#story-4"><b>04-06</b> 전쟁 속 유일한 성장 섹터 — 스테이블코인 $317B </a></span><span class="flow"><a href="/newsletters/2026/0714.html#story-4"><b>07-14</b> 스테이블코인 회사, 은행이 되다</a></span></span></div></div></div>
   </div>
 
   <!-- STORY 4 -->
@@ -718,7 +742,7 @@ BTC $66K — 유가 쇼크에 주식-크립토 상관관계 급등, 공포지수
       <div class="bullet"><span class="dot">◾</span><span>Curve Finance가 PancakeSwap의 코드 표절을 공식 항의하는 사건도 발생. 오픈소스 문화에서 "참조"와 "복사"의 경계가 모호한 DeFi 세계의 고질적 문제</span></div>
       <div class="bullet"><span class="dot">◾</span><span>한편 엘리자베스 워런 상원의원이 SEC의 저스틴 선 <span class="sub">(Justin Sun, 트론 창업자)</span> 사건 처리를 비판하며 "크립토 법안은 트럼프의 크립토 이해충돌을 반드시 다뤄야 한다"고 주장. Trump World Liberty Financial 프로젝트가 투자자들을 곤란하게 만들고 있다는 보도도</span></div>
       <div class="bullet"><span class="dot">◾</span><span>두바이가 KuCoin에 서비스 중단 명령을 내리고, Binance 테러자금 소송은 기각됐으나 재소 가능 판결. 글로벌 규제 환경이 "단속"과 "제도화" 사이에서 줄타기 중</span></div>
-    </div>
+    <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/tron.html">트론(TRX)</a><span class="sep">·</span><a href="/wiki/trump.html">트럼프</a><span class="sep">·</span><a href="/wiki/world-liberty.html">월드리버티(WLFI)</a><span class="sep">·</span><a href="/wiki/binance.html">바이낸스</a><span class="sep">·</span><a class="topic" href="/topics/crypto.html">크립토</a><span class="sep">·</span><a class="topic" href="/topics/trump-politics.html">트럼프·정책</a></div></div></div>
   </div>
 
   <!-- STORY 5 -->
@@ -737,7 +761,7 @@ BTC $66K — 유가 쇼크에 주식-크립토 상관관계 급등, 공포지수
       <div class="bullet"><span class="dot">◾</span><span>Strike가 뉴욕 BitLicense를 취득해 뉴요커들에게 비트코인 서비스 제공 가능. 규제 벽이 가장 높은 뉴욕에서 라이선스를 받았다는 건 규제 환경이 실질적으로 완화되고 있다는 신호</span></div>
       <div class="bullet"><span class="dot">◾</span><span>미국 내 OKX가 소셜 플랫폼 출시 — 거래와 소셜미디어를 결합. NYSE 모회사 ICE로부터 전략적 투자를 받으며 $250억 밸류에이션 달성. 전통 거래소가 크립토 거래소에 투자하는 시대</span></div>
       <div class="bullet"><span class="dot">◾</span><span>마이닝 업계 동향: CleanSpark·Cango·BitFuFu가 2월에 합산 1,250 BTC 생산. AI 인프라 사업으로의 다각화가 가속. 채굴기업이 "비트코인 생산기업"에서 "GPU 인프라 기업"으로 정체성을 전환하는 추세</span></div>
-    </div>
+    <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/bitcoin.html">비트코인</a><span class="sep">·</span><a href="/wiki/trump.html">트럼프</a><span class="sep">·</span><a href="/wiki/coinbase.html">코인베이스</a><span class="sep">·</span><a href="/wiki/nyse.html">뉴욕증권거래소</a><span class="sep">·</span><a class="topic" href="/topics/banks-wallst.html">월가·은행</a><span class="sep">·</span><a class="topic" href="/topics/crypto.html">크립토</a></div></div></div>
   </div>
 
   </div><!-- /content -->

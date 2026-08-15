@@ -452,7 +452,31 @@ transition:color .18s ease,background .18s ease}
   .sub-btn-header{padding:7px 13px;font-size:11.5px;letter-spacing:-.3px}
   .search-btn-header{width:32px;height:32px}
 }
-</style></head>
+</style>
+
+
+<style id="soonsal-story-links">
+/* 스토리 끝 — 다 읽은 사람만 본다. 본문 흐름을 끊지 않는다 */
+.story-links{margin:14px 0 0;padding:11px 0 0;border-top:1px solid #ece8e0;
+font-size:11.5px;line-height:1.8;color:#9a958a;word-break:keep-all}
+.story-links .k{color:#b5b0a4;margin-right:5px}
+.story-links a{color:#8a857c;text-decoration:none;border-bottom:1px solid #e6e1d8}
+.story-links a:hover{color:#C24A00;border-bottom-color:#C24A00}
+.story-links .sep{opacity:.4;margin:0 4px}
+/* 주제는 개별 이름이 아니라 묶음이다 — 테두리로 구분한다 */
+.story-links a.topic{border-bottom:0;padding:1px 7px;border-radius:999px;
+background:#f3efe8;color:#8a857c}
+.story-links a.topic:hover{background:#C24A00;color:#fff}
+.story-links .row + .row{margin-top:4px}
+/* 「같은 흐름」은 제목이 길어 한 줄에 하나씩 세운다. 라벨은 왼쪽에 고정 */
+.story-links .flows{display:flex;align-items:flex-start}
+.story-links .flow-list{display:flex;flex-direction:column;gap:2px;min-width:0}
+.story-links .flow{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.story-links .flow b{font-weight:600;color:#b5b0a4;margin-right:3px}
+@media(max-width:560px){.story-links .flows{display:block}
+  .story-links .flow-list{margin-top:2px;padding-left:1px}}
+</style>
+</head>
 <body>
 <div id="soonsal-live-ticker" style="display:none;"></div>
 <style>
@@ -606,7 +630,7 @@ transition:color .18s ease,background .18s ease}
       <div class="tradfi-label">🏦 전통 금융 대비 현재 위치</div>
       전통 금융에서 증권법이 체계화되기까지 1930년대 대공황 이후 수십 년이 걸렸음. 크립토는 비트코인 탄생 17년 만에 포괄적 법적 프레임워크를 도입하려는 시도. GENIUS Act <span class="sub">(스테이블코인법)</span>에 이어 CLARITY Act까지 통과되면, 규제 인프라가 한 세대 분량을 2년 만에 압축 도입하는 셈
     </div>
-  </div>
+  <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/xrp.html">리플(XRP)</a><span class="sep">·</span><a href="/wiki/solana.html">솔라나</a><span class="sep">·</span><a href="/wiki/robinhood.html">로빈후드</a><span class="sep">·</span><a href="/wiki/goldman.html">골드만삭스</a><span class="sep">·</span><a href="/wiki/bitcoin.html">비트코인</a><span class="sep">·</span><a class="topic" href="/topics/crypto.html">크립토</a><span class="sep">·</span><a class="topic" href="/topics/banks-wallst.html">월가·은행</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0414-crypto.html#story-1"><b>04-14</b> CLARITY Act, 드디어 돌파구?</a></span><span class="flow"><a href="/newsletters/2026/0619-crypto.html#story-3"><b>06-19</b> CLARITY Act — 크립토 규제의 분수령</a></span></span></div></div></div>
 </div>
 
 <div class="story" id="story-2">
@@ -621,7 +645,7 @@ transition:color .18s ease,background .18s ease}
       <div class="tradfi-label">🏦 전통 금융 대비 현재 위치</div>
       BTC는 나스닥과의 90일 상관계수가 0.7 이상으로 역사적 고점 수준. "디지털 골드" 내러티브보다 "고베타 테크주" 성격이 더 강한 상태. 전통 금융에서 금은 올해 3월 한 주간 -7%로 2008년 이후 최대 낙폭 — 금과 BTC 모두 금리 급등에 취약한 것은 같지만, BTC는 추가로 유동성 리스크까지 안고 있는 구조
     </div>
-  </div>
+  <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/bitcoin.html">비트코인</a><span class="sep">·</span><a href="/wiki/fed.html">미국 연준</a><span class="sep">·</span><a href="/wiki/oil.html">원유</a><span class="sep">·</span><a href="/wiki/gold.html">금</a><span class="sep">·</span><a href="/wiki/nasdaq.html">나스닥</a><span class="sep">·</span><a class="topic" href="/topics/crypto.html">크립토</a><span class="sep">·</span><a class="topic" href="/topics/energy.html">에너지·원자재</a></div></div></div>
 </div>
 
 <div class="story" id="story-3">
@@ -636,7 +660,7 @@ transition:color .18s ease,background .18s ease}
       <div class="tradfi-label">🏦 전통 금융 대비 현재 위치</div>
       전통 금융에서 배당 ETF는 전체 ETF 시장의 약 15%를 차지하는 핵심 카테고리. 스테이킹 ETF는 크립토판 배당 ETF에 해당 — "이자 나오는 ETH"가 정식으로 자리잡으면, 기관들이 포트폴리오에서 "대안 수익" 칸에 ETH를 넣기 시작하는 구조적 변화가 가능
     </div>
-  </div>
+  <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/ethereum.html">이더리움</a><span class="sep">·</span><a href="/wiki/blackrock.html">블랙록</a><span class="sep">·</span><a href="/wiki/bitcoin.html">비트코인</a><span class="sep">·</span><a class="topic" href="/topics/crypto.html">크립토</a><span class="sep">·</span><a class="topic" href="/topics/etf-funds.html">ETF·펀드</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0619-crypto.html#story-2"><b>06-19</b> BlackRock, BTC 3위 고래 됐다</a></span><span class="flow"><a href="/newsletters/2026/0512-crypto.html#story-1"><b>05-12</b> BlackRock, 토큰화 MMF 2종 출시</a></span></span></div></div></div>
 </div>
 
 <div class="story" id="story-4">
@@ -664,7 +688,7 @@ transition:color .18s ease,background .18s ease}
     <div class="bullet"><span class="dot">◾</span><span><strong>GSR</strong> <span class="sub">(크립토 캐피탈마켓)</span>, Autonomous와 Architech를 5,700만불에 인수 — 크립토 캐피탈마켓+트레저리 통합 플랫폼 구축 (<a href="https://www.coindesk.com/business/2026/03/17/crypto-trading-firm-gsr-expands-token-advisory-with-usd57-million-in-acquisitions" style="color:#888;font-size:12px;">CoinDesk</a>)</span></div>
     <div class="bullet"><span class="dot">◾</span><span><strong>Moody's</strong>, 크레딧 분석 온체인 엔진 런칭 — 전통 금융 신용평가를 블록체인에 도입하는 첫 사례</span></div>
     <div class="bullet"><span class="dot">◾</span><span><strong>Algorand Foundation</strong>, 직원 25% 감축 — 크립토 업계 해고 물결 지속</span></div>
-  </div>
+  <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/ftx.html">FTX</a><span class="sep">·</span><a href="/wiki/sbf.html">샘 뱅크먼-프리드(SBF)</a><span class="sep">·</span><a href="/wiki/trump.html">트럼프</a><span class="sep">·</span><a href="/wiki/bitcoin.html">비트코인</a><span class="sep">·</span><a class="topic" href="/topics/trump-politics.html">트럼프·정책</a><span class="sep">·</span><a class="topic" href="/topics/crypto.html">크립토</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0528.html#story-3"><b>05-28</b> 트럼프, 예측시장에 러브콜</a></span></span></div></div></div>
 </div>
 
 <!-- HEADLINE ROUNDUP -->

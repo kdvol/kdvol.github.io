@@ -453,7 +453,31 @@ transition:color .18s ease,background .18s ease}
   .sub-btn-header{padding:7px 13px;font-size:11.5px;letter-spacing:-.3px}
   .search-btn-header{width:32px;height:32px}
 }
-</style></head>
+</style>
+
+
+<style id="soonsal-story-links">
+/* 스토리 끝 — 다 읽은 사람만 본다. 본문 흐름을 끊지 않는다 */
+.story-links{margin:14px 0 0;padding:11px 0 0;border-top:1px solid #ece8e0;
+font-size:11.5px;line-height:1.8;color:#9a958a;word-break:keep-all}
+.story-links .k{color:#b5b0a4;margin-right:5px}
+.story-links a{color:#8a857c;text-decoration:none;border-bottom:1px solid #e6e1d8}
+.story-links a:hover{color:#C24A00;border-bottom-color:#C24A00}
+.story-links .sep{opacity:.4;margin:0 4px}
+/* 주제는 개별 이름이 아니라 묶음이다 — 테두리로 구분한다 */
+.story-links a.topic{border-bottom:0;padding:1px 7px;border-radius:999px;
+background:#f3efe8;color:#8a857c}
+.story-links a.topic:hover{background:#C24A00;color:#fff}
+.story-links .row + .row{margin-top:4px}
+/* 「같은 흐름」은 제목이 길어 한 줄에 하나씩 세운다. 라벨은 왼쪽에 고정 */
+.story-links .flows{display:flex;align-items:flex-start}
+.story-links .flow-list{display:flex;flex-direction:column;gap:2px;min-width:0}
+.story-links .flow{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.story-links .flow b{font-weight:600;color:#b5b0a4;margin-right:3px}
+@media(max-width:560px){.story-links .flows{display:block}
+  .story-links .flow-list{margin-top:2px;padding-left:1px}}
+</style>
+</head>
 
 <body>
 <div id="soonsal-live-ticker" style="display:none;"></div>
@@ -665,7 +689,7 @@ transition:color .18s ease,background .18s ease}
       <p style="font-size:12px; font-weight:700; color:#888; margin:0 0 6px;">🏛 전통 금융 대비 현재 위치</p>
       <p style="font-size:13px; color:#444; margin:0; line-height:1.65;">S&P 500은 전고점 대비 약 -5%인데 BTC는 -53%. 금리 인상기에 현금흐름이 없는 자산은 할인율이 치솟으며 가장 먼저 팔리는 순서 — 크립토가 그 최전선. 전통 시장의 VIX <span class="sub">(공포지수)</span>는 25 수준인데, 크립토 Fear & Greed는 20 — 크립토의 공포가 전통 시장보다 훨씬 깊음</p>
     </div>
-  <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
+  <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/bitcoin.html">비트코인</a><span class="sep">·</span><a href="/wiki/nasdaq.html">나스닥</a><span class="sep">·</span><a href="/wiki/kospi.html">코스피</a><span class="sep">·</span><a href="/wiki/sk-hynix.html">SK하이닉스</a><span class="sep">·</span><a href="/wiki/binance.html">바이낸스</a><span class="sep">·</span><a class="topic" href="/topics/fed-rates.html">연준·금리</a><span class="sep">·</span><a class="topic" href="/topics/crypto.html">크립토</a></div></div>
 </div>
 
 <!-- STORY 2 -->
@@ -683,7 +707,7 @@ transition:color .18s ease,background .18s ease}
       <p style="font-size:12px; font-weight:700; color:#888; margin:0 0 6px;">🏛 전통 금융 대비 현재 위치</p>
       <p style="font-size:13px; color:#444; margin:0; line-height:1.65;">전통 금융에서 비영리 재단이 프로토콜을 관리하는 구조는 없음. 가장 가까운 비유는 리눅스 재단 같은 오픈소스 거버넌스인데, 리눅스 재단은 회원사 회비로 운영되니 자산 가격에 의존하지 않음. 이더리움 재단의 딜레마는 '운영비를 자기가 관리하는 자산을 팔아서 충당해야 하는 구조' 자체에 있음</p>
     </div>
-  <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
+  <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/ethereum.html">이더리움</a><span class="sep">·</span><a href="/wiki/vitalik.html">비탈릭 부테린</a><span class="sep">·</span><a href="/wiki/solana.html">솔라나</a><span class="sep">·</span><a href="/wiki/bitcoin.html">비트코인</a><span class="sep">·</span><a class="topic" href="/topics/crypto.html">크립토</a><span class="sep">·</span><a class="topic" href="/topics/labor-jobs.html">노동·고용</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0630-crypto.html#story-4"><b>06-30</b> 이더리움 재단, 역사상 최대 구조조정</a></span><span class="flow"><a href="/newsletters/2026/0406-crypto.html#story-2"><b>04-06</b> 이더리움 Glamsterdam — 가스비 78% 절감,</a></span></span></div></div>
 </div>
 
 <!-- STORY 3 -->
@@ -700,7 +724,7 @@ transition:color .18s ease,background .18s ease}
     <div style="background:#f5f5f0; border-radius:8px; padding:14px 16px; margin-top:16px;">
       <p style="font-size:12px; font-weight:700; color:#888; margin:0 0 6px;">🏛 전통 금융 대비 현재 위치</p>
       <p style="font-size:13px; color:#444; margin:0; line-height:1.65;">전통 금융에서 예측시장은 CME의 이벤트 계약 <span class="sub">(경제지표·선거 결과 베팅)</span>이 가장 가깝지만, 일반인 접근성은 낮음. Polymarket·Kalshi가 '크립토 네이티브 예측시장'을 만들었는데, 메타가 끼면 30억 유저에게 예측시장이 열리는 것 — 규모 자체가 다른 차원</p>
-    </div>
+    <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/meta.html">메타</a><span class="sep">·</span><a href="/wiki/polymarket.html">폴리마켓</a><span class="sep">·</span><a href="/wiki/kalshi.html">칼시(Kalshi)</a><span class="sep">·</span><a href="/wiki/zuckerberg.html">저커버그</a><span class="sep">·</span><a href="/wiki/circle.html">서클(Circle)</a><span class="sep">·</span><a class="topic" href="/topics/prediction-markets.html">예측시장</a><span class="sep">·</span><a class="topic" href="/topics/bigtech.html">빅테크</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0625.html#story-3"><b>06-25</b> 메타, 예측시장도 카피 선언</a></span><span class="flow"><a href="/newsletters/2026/0521-crypto.html#story-2"><b>05-21</b> 미네소타, 예측시장을 범죄로 규정</a></span></span></div></div></div>
 </div>
 
 <!-- STORY 4 -->
@@ -718,7 +742,7 @@ transition:color .18s ease,background .18s ease}
       <p style="font-size:12px; font-weight:700; color:#888; margin:0 0 6px;">🏛 전통 금융 대비 현재 위치</p>
       <p style="font-size:13px; color:#444; margin:0; line-height:1.65;">국제 송금은 현재 Swift가 지배. 하루 $5T 이상이 Swift를 통해 이동하는데, 정산에 2~5영업일이 걸림. Chainlink가 노리는 건 이 파이프라인의 '속도 업그레이드' — Swift를 대체하는 게 아니라 Swift 위에 블록체인 레이어를 얹어 정산 시간을 줄이는 접근</p>
     </div>
-  <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
+  <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/oracle.html">오라클</a><span class="sep">·</span><a href="/wiki/swift.html">SWIFT(국제결제망)</a><span class="sep">·</span><a href="/wiki/solana.html">솔라나</a><span class="sep">·</span><a href="/wiki/yen.html">엔화</a><span class="sep">·</span><a class="topic" href="/topics/banks-wallst.html">월가·은행</a><span class="sep">·</span><a class="topic" href="/topics/crypto.html">크립토</a></div></div>
 </div>
 
 <!-- STORY 5 -->
@@ -736,7 +760,7 @@ transition:color .18s ease,background .18s ease}
       <p style="font-size:12px; font-weight:700; color:#888; margin:0 0 6px;">🏛 전통 금융 대비 현재 위치</p>
       <p style="font-size:13px; color:#444; margin:0; line-height:1.65;">전통 자산도 금리에 민감하지만, 주식은 실적·배당이라는 현금흐름이 있어 버팀목이 됨. 크립토는 현금흐름이 0이라 금리 변동에 가장 극단적으로 반응하는 자산군 — 금리가 오르면 '할인율'이 치솟아 미래 가치가 급격히 깎이는 구조</p>
     </div>
-  <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
+  <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/fed.html">미국 연준</a><span class="sep">·</span><a href="/wiki/oil.html">원유</a><span class="sep">·</span><a href="/wiki/bitcoin.html">비트코인</a><span class="sep">·</span><a href="/wiki/ethereum.html">이더리움</a><span class="sep">·</span><a href="/wiki/trump.html">트럼프</a><span class="sep">·</span><a class="topic" href="/topics/fed-rates.html">연준·금리</a><span class="sep">·</span><a class="topic" href="/topics/energy.html">에너지·원자재</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0521.html#story-5"><b>05-21</b> 연준, &quot;금리 인상&quot;을 입에 올림</a></span></span></div></div>
 </div>
 
 </div><!-- /content -->

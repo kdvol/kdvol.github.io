@@ -453,7 +453,31 @@ transition:color .18s ease,background .18s ease}
   .sub-btn-header{padding:7px 13px;font-size:11.5px;letter-spacing:-.3px}
   .search-btn-header{width:32px;height:32px}
 }
-</style></head>
+</style>
+
+
+<style id="soonsal-story-links">
+/* 스토리 끝 — 다 읽은 사람만 본다. 본문 흐름을 끊지 않는다 */
+.story-links{margin:14px 0 0;padding:11px 0 0;border-top:1px solid #ece8e0;
+font-size:11.5px;line-height:1.8;color:#9a958a;word-break:keep-all}
+.story-links .k{color:#b5b0a4;margin-right:5px}
+.story-links a{color:#8a857c;text-decoration:none;border-bottom:1px solid #e6e1d8}
+.story-links a:hover{color:#C24A00;border-bottom-color:#C24A00}
+.story-links .sep{opacity:.4;margin:0 4px}
+/* 주제는 개별 이름이 아니라 묶음이다 — 테두리로 구분한다 */
+.story-links a.topic{border-bottom:0;padding:1px 7px;border-radius:999px;
+background:#f3efe8;color:#8a857c}
+.story-links a.topic:hover{background:#C24A00;color:#fff}
+.story-links .row + .row{margin-top:4px}
+/* 「같은 흐름」은 제목이 길어 한 줄에 하나씩 세운다. 라벨은 왼쪽에 고정 */
+.story-links .flows{display:flex;align-items:flex-start}
+.story-links .flow-list{display:flex;flex-direction:column;gap:2px;min-width:0}
+.story-links .flow{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.story-links .flow b{font-weight:600;color:#b5b0a4;margin-right:3px}
+@media(max-width:560px){.story-links .flows{display:block}
+  .story-links .flow-list{margin-top:2px;padding-left:1px}}
+</style>
+</head>
 
 <body>
 <div id="soonsal-live-ticker" style="display:none;"></div>
@@ -707,7 +731,7 @@ transition:color .18s ease,background .18s ease}
           <div style="font-size:13px; color:#444; line-height:1.6;">주식시장은 AI 슈퍼사이클로 역대급 랠리 중인 반면, 크립토는 극한 공포. 전통 위험자산과 디지털 위험자산이 같이 움직이던 상관관계가 깨진 드문 구간. 원인은 AI 인프라 투자라는 '실물 내러티브'가 주식에만 작동하고, 크립토에는 아직 동급의 촉매가 없기 때문</div>
         </div>
       </div>
-      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
+      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/bitcoin.html">비트코인</a><span class="sep">·</span><a href="/wiki/nasdaq.html">나스닥</a><span class="sep">·</span><a href="/wiki/kospi.html">코스피</a><span class="sep">·</span><a href="/wiki/spacex.html">스페이스X</a><span class="sep">·</span><a href="/wiki/intel.html">인텔</a><span class="sep">·</span><a class="topic" href="/topics/crypto.html">크립토</a><span class="sep">·</span><a class="topic" href="/topics/ai.html">AI</a></div></div>
     </div>
 
     <!-- STORY 2 -->
@@ -725,7 +749,7 @@ transition:color .18s ease,background .18s ease}
           <div style="font-size:13px; color:#444; line-height:1.6;">전통 금융에서 금리 인상 사이클은 주식에도 역풍이지만, 실적이 받쳐주면 버틸 수 있음 <span class='sub'>(지금 나스닥이 그 케이스)</span>. 크립토는 실적이라는 방어막이 없어서 유동성 축소에 더 직접 노출. 2022년 연준 인상기에 BTC가 -77% 빠진 전례가 있는 이유</div>
         </div>
       </div>
-      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
+      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/fed.html">미국 연준</a><span class="sep">·</span><a href="/wiki/dollar.html">달러(환율)</a><span class="sep">·</span><a href="/wiki/trump.html">트럼프</a><span class="sep">·</span><a href="/wiki/bitcoin.html">비트코인</a><span class="sep">·</span><a href="/wiki/powell.html">제롬 파월</a><span class="sep">·</span><a class="topic" href="/topics/fed-rates.html">연준·금리</a><span class="sep">·</span><a class="topic" href="/topics/fx.html">환율·달러</a></div></div>
     </div>
 
     <!-- STORY 3 -->
@@ -743,7 +767,7 @@ transition:color .18s ease,background .18s ease}
           <div style="font-size:13px; color:#444; line-height:1.6;">전통 금융에서 기업이 금을 재무자산으로 보유하는 건 드문 일이 아님 <span class='sub'>(중앙은행은 물론, 애플·버크셔도 금 관련 포지션 보유 이력)</span>. BTC를 금 대신 재무자산으로 가져가는 '디지털 금 전략'이 마이크로스트래티지에서 시작해 SpaceX까지 번진 것. 다만 금은 5,000년 역사, BTC는 16년 — 변동성 차이가 핵심 리스크</div>
         </div>
       </div>
-      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
+      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/bitcoin.html">비트코인</a><span class="sep">·</span><a href="/wiki/spacex.html">스페이스X</a><span class="sep">·</span><a href="/wiki/microstrategy.html">마이크로스트래티지</a><span class="sep">·</span><a href="/wiki/tesla.html">테슬라</a><span class="sep">·</span><a href="/wiki/musk.html">일론 머스크</a><span class="sep">·</span><a class="topic" href="/topics/crypto.html">크립토</a><span class="sep">·</span><a class="topic" href="/topics/ipo.html">IPO·상장</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0629.html#story-3"><b>06-29</b> SpaceX, 블랙홀이었나</a></span><span class="flow"><a href="/newsletters/2026/0526.html#story-4"><b>05-26</b> SpaceX S-1, 숫자가 말하는 것들</a></span></span></div></div>
     </div>
 
     <!-- STORY 4 -->
@@ -761,7 +785,7 @@ transition:color .18s ease,background .18s ease}
           <div style="font-size:13px; color:#444; line-height:1.6;">전통 금융의 ETF 생태계에서 자산 분류별 자금 흐름은 매우 정교. 미국 주식도 대형·중소형·섹터별로 각각 다른 ETF로 분산 투자하듯, 크립토도 BTC·ETH·SOL 각각에 전용 ETF가 생기면서 같은 구조가 형성되는 초기 단계. 전통 자산운용사의 '분산 투자 문법'이 크립토에 이식되는 과정</div>
         </div>
       </div>
-      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
+      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/ethereum.html">이더리움</a><span class="sep">·</span><a href="/wiki/solana.html">솔라나</a><span class="sep">·</span><a href="/wiki/bitcoin.html">비트코인</a><span class="sep">·</span><a href="/wiki/xrp.html">리플(XRP)</a><span class="sep">·</span><a href="/wiki/hyperliquid.html">하이퍼리퀴드</a><span class="sep">·</span><a class="topic" href="/topics/crypto.html">크립토</a><span class="sep">·</span><a class="topic" href="/topics/etf-funds.html">ETF·펀드</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0428-crypto.html#story-2"><b>04-28</b> BTC ETF, 기관은 안 떠남</a></span><span class="flow"><a href="/newsletters/2026/0521-crypto.html#story-1"><b>05-21</b> BTC ETF, 기관이 빠져나간다</a></span></span></div></div>
     </div>
 
     <!-- STORY 5 -->
@@ -779,7 +803,7 @@ transition:color .18s ease,background .18s ease}
           <div style="font-size:13px; color:#444; line-height:1.6;">전통 금융 인프라 <span class='sub'>(증권거래소, 결제 네트워크)</span>는 자체 데이터센터를 운영하지만, 메모리·전력 비용이 올라도 수수료를 올려 전가할 수 있음. 크립토 밸리데이터는 블록 보상 + 수수료가 고정적이라 비용 상승분을 전가할 수단이 제한적. 인프라 비용 상승이 탈중앙화 노드를 줄이고 대형 운영자 중심으로 집중시킬 위험</div>
         </div>
       </div>
-      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
+      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/bitcoin.html">비트코인</a><span class="sep">·</span><a href="/wiki/ethereum.html">이더리움</a><span class="sep">·</span><a href="/wiki/solana.html">솔라나</a><span class="sep">·</span><a href="/wiki/nvidia.html">엔비디아</a><span class="sep">·</span><a href="/wiki/micron.html">마이크론</a><span class="sep">·</span><a class="topic" href="/topics/crypto.html">크립토</a><span class="sep">·</span><a class="topic" href="/topics/ai.html">AI</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0625.html#story-1"><b>06-25</b> 마이크론, 역시 메모리야!</a></span></span></div></div>
     </div>
 
   

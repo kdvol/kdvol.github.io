@@ -432,7 +432,32 @@ transition:color .18s ease,background .18s ease}
   .sub-btn-header{padding:7px 13px;font-size:11.5px;letter-spacing:-.3px}
   .search-btn-header{width:32px;height:32px}
 }
-</style></head>
+</style>
+
+
+
+<style id="soonsal-story-links">
+/* 스토리 끝 — 다 읽은 사람만 본다. 본문 흐름을 끊지 않는다 */
+.story-links{margin:14px 0 0;padding:11px 0 0;border-top:1px solid #ece8e0;
+font-size:11.5px;line-height:1.8;color:#9a958a;word-break:keep-all}
+.story-links .k{color:#b5b0a4;margin-right:5px}
+.story-links a{color:#8a857c;text-decoration:none;border-bottom:1px solid #e6e1d8}
+.story-links a:hover{color:#C24A00;border-bottom-color:#C24A00}
+.story-links .sep{opacity:.4;margin:0 4px}
+/* 주제는 개별 이름이 아니라 묶음이다 — 테두리로 구분한다 */
+.story-links a.topic{border-bottom:0;padding:1px 7px;border-radius:999px;
+background:#f3efe8;color:#8a857c}
+.story-links a.topic:hover{background:#C24A00;color:#fff}
+.story-links .row + .row{margin-top:4px}
+/* 「같은 흐름」은 제목이 길어 한 줄에 하나씩 세운다. 라벨은 왼쪽에 고정 */
+.story-links .flows{display:flex;align-items:flex-start}
+.story-links .flow-list{display:flex;flex-direction:column;gap:2px;min-width:0}
+.story-links .flow{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.story-links .flow b{font-weight:600;color:#b5b0a4;margin-right:3px}
+@media(max-width:560px){.story-links .flows{display:block}
+  .story-links .flow-list{margin-top:2px;padding-left:1px}}
+</style>
+</head>
 <body>
 <div id="soonsal-live-ticker" style="display:none;"></div>
 <style>
@@ -651,7 +676,7 @@ transition:color .18s ease,background .18s ease}
       <div class="bullet"><span class="dot">◾</span><span><strong>진짜 전장은 캘리포니아 안이 아니라 전국으로 번지는 중.</strong> 워싱턴주가 이번 주 밀리어네어 택스를 통과시켰고, NYC 신임 시장 Zohran Mamdani가 주의회에 유사 법안을 로비 중. 로드아일랜드 주지사도 예산 구멍을 메우려고 부유층 증세 제안 — 2017년 이후 초부유층 자산이 2배 넘게 폭등하면서 "세금을 더 내야 한다" vs "혁신가를 쫓아낸다" 프레임이 전국 단위로 충돌</span></div>
       <div class="bullet"><span class="dot">◾</span><span>캘리포니아 뉴섬 주지사는 같은 민주당인데도 반대 입장. "이 부자들이 캘리포니아 부를 만든 장본인"이라는 논리인데, 같은 당 Ro Khanna 하원의원은 핵심 찬성파. 미국 전체 약 1,000명 억만장자 중 200명이 캘리포니아 거주. 이들이 실제로 빠져나가면 세수가 줄어서 부유세 취지 자체가 무너지는 역설 <span class="note">(민주당끼리 팀킬에도 이유가 있음)</span></span></div>
       <div class="bullet"><span class="dot">◾</span><span>찬성 측 논리는 명확 — "이 사람들은 합법적으로 세금을 극도로 줄이는 전문가들이라, 일반 소득세로는 절대 못 잡는다"는 것. 제대로 걷히면 캘리포니아 한 주에서만 수조원 규모 세수가 나올 것으로 추산. But, 프랑스는 2012년에 75% 부유세를 도입했다가 자산가 이탈 폭증으로 2년 만에 폐지, 스웨덴도 비슷한 경험을 겪음 — 부유세는 아이디어로는 매력적인데, 부자들이 가만히 앉아 퍼줄리가 없다는 건 유럽의 교훈</span></div>
-    </div>
+    <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/google.html">구글</a><span class="sep">·</span><a href="/wiki/oil.html">원유</a><span class="sep">·</span><a class="topic" href="/topics/labor-jobs.html">노동·고용</a><span class="sep">·</span><a class="topic" href="/topics/bigtech.html">빅테크</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0629.html#story-4"><b>06-29</b> 억만장자세, 캘리포니아 버전</a></span></span></div></div></div>
   </div>
 
   <!-- STORY 2 -->
@@ -664,7 +689,7 @@ transition:color .18s ease,background .18s ease}
       <div class="bullet"><span class="dot">◾</span><span><strong>연준이 금리를 내리면 인플레를 방치한다는 비판, 안 내리면 트럼프의 정치적 압박이 거세지는 딜레마.</strong> 트럼프는 파월을 향해 "즉시 인하하지 않으면 좋지 않을 것"이라고까지 공개 압박. 내리고 싶어도 내릴 수 없고, 안 내리면 대통령한테 찍히는 구조</span></div>
       <div class="bullet"><span class="dot">◾</span><span>이번 주 수요일 <span class="sub">(3/18)</span> FOMC가 분기별 경제전망 <span class="sub">(SEP)</span>을 공개. 12월에 19명 중 12명이 올해 인하를 예상했는데, 이 숫자가 줄어들면 시장은 "연준도 포기했다"로 해석할 가능성. 노무라증권은 "Warsh가 의장이 되면 트럼프 뜻에 맞춰 인하에 손 들어줄 위원이 늘어날 수 있다"고 분석 — But, 유가 $100 위에서는 명분이 없는 건 마찬가지</span></div>
       <div class="bullet"><span class="dot">◾</span><span>결국 이란 전쟁이 언제 끝나느냐가 금리의 열쇠. 유가가 $100 아래로 내려와야 인플레 우려가 완화되고, 그래야 인하 카드를 꺼낼 명분이 생김. 트럼프는 "수 주 내 종결"을 시사했지만 이란은 "협상을 요청한 적 없다"는 입장 — 백악관과 테헤란의 온도 차가 좁혀지지 않는 한, 금리 인하는 점점 더 먼 이야기 <span class="note">(아직 노답이란 얘기)</span></span></div>
-    </div>
+    <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/fed.html">미국 연준</a><span class="sep">·</span><a href="/wiki/goldman.html">골드만삭스</a><span class="sep">·</span><a href="/wiki/oil.html">원유</a><span class="sep">·</span><a href="/wiki/trump.html">트럼프</a><span class="sep">·</span><a href="/wiki/powell.html">제롬 파월</a><span class="sep">·</span><a class="topic" href="/topics/fed-rates.html">연준·금리</a><span class="sep">·</span><a class="topic" href="/topics/trump-politics.html">트럼프·정책</a></div></div></div>
   </div>
 
   <!-- STORY 3 -->
@@ -677,7 +702,7 @@ transition:color .18s ease,background .18s ease}
       <div class="bullet"><span class="dot">◾</span><span>But, 돈을 아무리 퍼부어도 모델 성능이 안 따라오는 게 문제. 출시 일정은 2025년 말 → 1분기 → 3월 → 5월 이후로 계속 밀려왔고, Wang과 저커버그 사이에 갈등설까지. Wang은 저커버그가 숨막힐 정도로 마이크로매니지먼트 한다고 주변에 토로 <span class="note">(겉으로는 또 친구 모드 사진 공개)</span>. 급기야 최대 라이벌 Google한테 AI 모델을 임시로 빌리는 방안까지 내부 논의 중 <span class="sub">(Apple도 갔던 길이긴 함)</span></span></div>
       <div class="bullet"><span class="dot">◾</span><span>그래서 Meta가 모델 성능 경쟁과 별개로 힘을 싣는 쪽이 AI 커머스와 에이전트. 저커버그가 1월 실적 발표에서 "올해는 에이전트형 쇼핑 도구를 내놓겠다"고 직접 언급, 작년 12월에는 범용 AI 에이전트 회사 Manus를 인수. 3월부터 미국 일부 사용자 대상으로 Meta AI 챗봇 안에서 상품 추천·비교 기능을 조용히 테스트하는 중. <strong>30억 사용자 + 쇼핑 데이터 + 광고 인프라를 가진 건 Meta뿐이니, "대화형 커머스" 입구로 쓰면 다른 게임이 된다는 계산</strong></span></div>
       <div class="bullet"><span class="dot">◾</span><span>다음 모델 코드네임은 이미 Watermelon으로 정해놨고, "올해 안에 꾸준히 최전선을 밀어올리겠다"고 하지만 — 모델 경쟁에서 뒤처진 걸 커머스·에이전트로 만회하겠다는 전략이 통할지는 미지수. 메타버스에 수백억불 태운 전적이 있는 회사라, 시장의 신뢰를 되찾으려면 결국 뭐든 하나는 제대로 증명하는 수밖에 없는 상황</span></div>
-    </div>
+    <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/meta.html">메타</a><span class="sep">·</span><a href="/wiki/anthropic.html">앤스로픽</a><span class="sep">·</span><a href="/wiki/zuckerberg.html">저커버그</a><span class="sep">·</span><a class="topic" href="/topics/ai.html">AI</a><span class="sep">·</span><a class="topic" href="/topics/deals.html">딜·M&amp;A</a></div></div></div>
   </div>
 
   <!-- STORY 4 -->
@@ -690,7 +715,7 @@ transition:color .18s ease,background .18s ease}
       <div class="bullet"><span class="dot">◾</span><span>아이러니한 건, 승객들은 여전히 보안검색 수수료를 내고 있다는 것. 미국 국내선 편도당 5.60불씩 걷히는 항공보안 수수료가 계속 쌓이는데, 정작 검색하는 요원들한테는 한 푼도 안 가는 구조. 공항들이 견디다 못해 X에 "TSA 직원들에게 기프트카드·식료품을 기부해주세요"라고 공개 호소까지 했는데, 사실 이것도 연방 공무원 선물 수수 규정상 불법 <span class="note">(..그래도 안 하면 사람이 없으니)</span></span></div>
       <div class="bullet"><span class="dot">◾</span><span>셧다운의 원인은 이민 단속 예산 싸움. 민주당은 ICE <span class="sub">(이민세관단속국; 불법체류자 단속·추방 담당)</span>와 국경순찰대가 판사 영장 없이 민간 가택에 진입하는 걸 막으려 하고, 공화당은 절대 양보 못 한다는 입장. DHS만 유일하게 예산이 안 잡힌 마지막 기관인데, TSA뿐 아니라 해안경비대·FEMA <span class="sub">(연방재난관리청; 허리케인 등 재난 대응)</span> 같은 비이민 부서까지 통째로 인질이 된 셈</span></div>
       <div class="bullet"><span class="dot">◾</span><span>한편 샌프란시스코 공항 <span class="sub">(SFO)</span>은 이 난리 속에서도 보안검색이 정상 작동 중. TSA 직원 대신 민간 보안업체가 검색을 맡는 SPP <span class="sub">(민간위탁심사)</span> 프로그램에 20년 전부터 참여하고 있는데, 예산이 연방계약으로 미리 집행돼 있어서 셧다운 영향을 안 받는 구조. 미국 전체 430개 상업공항 중 약 20곳만 참여 중이라 이번 사태로 민영화 확대 논의가 다시 불붙는 중. 노조 측은 "9/11 이후 보안을 연방화한 이유가 있다"며 반대하지만, 1년에 셧다운을 세 번이나 겪는 직원들 입장에선 공무원이 아닌 게 차라리 나을 수도 있다는 게 현실</span></div>
-    </div>
+    <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/cisco.html">시스코</a><span class="sep">·</span><a href="/wiki/oil.html">원유</a><span class="sep">·</span><a class="topic" href="/topics/trump-politics.html">트럼프·정책</a><span class="sep">·</span><a class="topic" href="/topics/labor-jobs.html">노동·고용</a></div></div></div>
   </div>
 
   <!-- STORY 5 -->
@@ -703,7 +728,7 @@ transition:color .18s ease,background .18s ease}
       <div class="bullet"><span class="dot">◾</span><span>중국도 마찬가지. 아시아 국가들이 이란 전쟁으로 미국산 에너지 수입을 확대하기 시작하면서, 중국의 에너지 공급 다변화 전략에도 빨간불. EPA 장관 Lee Zeldin은 "아시아 국가들이 미국을 에너지 공급원으로 점점 더 바라보고 있다"고 공개 발언 — 에너지 안보 측면에서 미국과의 관계 안정화가 중국에도 급한 이슈</span></div>
       <div class="bullet"><span class="dot">◾</span><span>이 타이밍을 놓칠 수 없는 북한, 탄도미사일 10발 이상 동해로 날리며 잔뜩 어그로 끄는 중. 전 세계가 이란에 눈이 팔린 사이 존재감을 과시하는 전형적인 플레이. 일단은 전쟁 억제용이라고는 하지만, 도발하면 대규모 타격하겠다고 동시에 협박하는 전형적인 패턴. Air China가 3월 말 베이징-평양 직항을 재개한다는 소식과 맞물려, 시진핑이 트럼프 방중에 맞춰 북한 카드를 슬쩍 꺼내놓는 게 아니냐는 관측 <span class="note">(킹리적 갓심)</span></span></div>
       <div class="bullet"><span class="dot">◾</span><span>트럼프 방중의 성패가 하반기 글로벌 경제의 방향을 좌우할 가능성. 관세 완화 합의가 나오면 시장에 즉각적 호재. But, 이란에서도 "더 좋은 조건을 원한다"며 협상을 질질 끈 트럼프가 중국한테 쉽게 양보할 리 없음 — 작년 11월 관세 동결이 진짜 화해 무드의 시작이었는지, 아니면 양쪽 다 숨 고르기용이었는지가 이번에 드러남. 이제 베이징 미팅까지 3주 남았는데, 친구 모드로 돌아설지, 또 다른 관세 전쟁이 시작될지는 아무도 모르는 상황</span></div>
-    </div>
+    <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/trump.html">트럼프</a><span class="sep">·</span><a href="/wiki/oil.html">원유</a><span class="sep">·</span><a href="/wiki/xi-jinping.html">시진핑</a><span class="sep">·</span><a class="topic" href="/topics/trump-politics.html">트럼프·정책</a><span class="sep">·</span><a class="topic" href="/topics/china.html">중국</a></div></div></div>
   </div>
 
   </div><!-- /content -->

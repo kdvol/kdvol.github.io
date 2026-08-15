@@ -455,7 +455,31 @@ transition:color .18s ease,background .18s ease}
   .sub-btn-header{padding:7px 13px;font-size:11.5px;letter-spacing:-.3px}
   .search-btn-header{width:32px;height:32px}
 }
-</style></head>
+</style>
+
+
+<style id="soonsal-story-links">
+/* 스토리 끝 — 다 읽은 사람만 본다. 본문 흐름을 끊지 않는다 */
+.story-links{margin:14px 0 0;padding:11px 0 0;border-top:1px solid #ece8e0;
+font-size:11.5px;line-height:1.8;color:#9a958a;word-break:keep-all}
+.story-links .k{color:#b5b0a4;margin-right:5px}
+.story-links a{color:#8a857c;text-decoration:none;border-bottom:1px solid #e6e1d8}
+.story-links a:hover{color:#C24A00;border-bottom-color:#C24A00}
+.story-links .sep{opacity:.4;margin:0 4px}
+/* 주제는 개별 이름이 아니라 묶음이다 — 테두리로 구분한다 */
+.story-links a.topic{border-bottom:0;padding:1px 7px;border-radius:999px;
+background:#f3efe8;color:#8a857c}
+.story-links a.topic:hover{background:#C24A00;color:#fff}
+.story-links .row + .row{margin-top:4px}
+/* 「같은 흐름」은 제목이 길어 한 줄에 하나씩 세운다. 라벨은 왼쪽에 고정 */
+.story-links .flows{display:flex;align-items:flex-start}
+.story-links .flow-list{display:flex;flex-direction:column;gap:2px;min-width:0}
+.story-links .flow{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.story-links .flow b{font-weight:600;color:#b5b0a4;margin-right:3px}
+@media(max-width:560px){.story-links .flows{display:block}
+  .story-links .flow-list{margin-top:2px;padding-left:1px}}
+</style>
+</head>
 <body>
 <div id="soonsal-live-ticker" style="display:none;"></div>
 <style>
@@ -667,7 +691,7 @@ transition:color .18s ease,background .18s ease}
     <div style="background:#f5f5f0; border-radius:8px; padding:14px 16px; margin-top:16px;">
       <div style="font-size:12px; color:#888; font-weight:700;">🏛 전통 금융 대비 현재 위치</div>
       <div style="font-size:13px; color:#444; line-height:1.6;">전통 IPO: 기관 배정 70%, 개인 30%, 주간사 수수료 2~3%, 거래시간 9:30~4PM. 토큰화 IPO: 누구나 접근, 소수점 매매, 수수료 0.1% 미만, 24/7 거래. 다만 규제 불확실성 + 유동성 부족 + 가격 괴리가 남은 과제. 나스닥이 아니라 Bybit에서 스페이스X를 사는 시대가 '정상'이 되려면 아직 먼 길</div>
-    </div>
+    <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/spacex.html">스페이스X</a><span class="sep">·</span><a href="/wiki/solana.html">솔라나</a><span class="sep">·</span><a href="/wiki/nasdaq.html">나스닥</a><span class="sep">·</span><a href="/wiki/coinbase.html">코인베이스</a><span class="sep">·</span><a href="/wiki/cftc.html">미국 CFTC</a><span class="sep">·</span><a class="topic" href="/topics/ipo.html">IPO·상장</a><span class="sep">·</span><a class="topic" href="/topics/space-aero.html">우주·항공</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0615-crypto.html#story-1"><b>06-15</b> 스페이스X 주식, 블록체인에서도 산다</a></span><span class="flow"><a href="/newsletters/2026/0423.html#story-2"><b>04-23</b> 스페이스X, 커서 삼키나?</a></span></span></div></div></div>
   </div>
 </div>
 
@@ -685,7 +709,7 @@ transition:color .18s ease,background .18s ease}
     <div style="background:#f5f5f0; border-radius:8px; padding:14px 16px; margin-top:16px;">
       <div style="font-size:12px; color:#888; font-weight:700;">🏛 전통 금융 대비 현재 위치</div>
       <div style="font-size:13px; color:#444; line-height:1.6;">전통 금융의 증권 예탁결제는 DTCC가 독점하며 일일 수조 달러를 처리. 래핑 BTC는 '크립토판 예탁결제'의 초기 버전 — 원자산 <span class="sub">(BTC)</span>을 다른 체인에서 쓸 수 있게 해주는 인프라. 기관이 DeFi에 발을 담그려면 이 신뢰 레이어가 먼저 깔려야 하고, Circle은 USDC에서 쌓은 신뢰를 BTC로 확장하려는 것</div>
-    </div>
+    <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/circle.html">서클(Circle)</a><span class="sep">·</span><a href="/wiki/bitcoin.html">비트코인</a><span class="sep">·</span><a href="/wiki/ethereum.html">이더리움</a><span class="sep">·</span><a href="/wiki/coinbase.html">코인베이스</a><span class="sep">·</span><a href="/wiki/tron.html">트론(TRX)</a><span class="sep">·</span><a class="topic" href="/topics/crypto.html">크립토</a><span class="sep">·</span><a class="topic" href="/topics/banks-wallst.html">월가·은행</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0326-crypto.html#story-2"><b>03-26</b> Circle -20%, 스테이블코인 이자 전쟁</a></span><span class="flow"><a href="/newsletters/2026/0706-crypto.html#story-5"><b>07-06</b> Open USD 140개사 — Circle 주가 -17</a></span></span></div></div></div>
   </div>
 </div>
 
@@ -703,7 +727,7 @@ transition:color .18s ease,background .18s ease}
     <div style="background:#f5f5f0; border-radius:8px; padding:14px 16px; margin-top:16px;">
       <div style="font-size:12px; color:#888; font-weight:700;">🏛 전통 금융 대비 현재 위치</div>
       <div style="font-size:13px; color:#444; line-height:1.6;">전통 금융에서 자사주 매입은 '경영진이 주가가 저평가됐다고 판단'한다는 시그널. Strategy의 BTC 매입은 이와 비슷한 역할을 해왔는데, 반복되면서 시그널 효과가 약해지는 것도 자사주 매입의 패턴과 같음. 차이점은 Strategy 주가가 BTC 가격에 레버리지로 연동된다는 것 — BTC가 더 빠지면 Strategy도 같이 빠짐</div>
-    </div>
+    <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/microstrategy.html">마이크로스트래티지</a><span class="sep">·</span><a href="/wiki/bitcoin.html">비트코인</a><span class="sep">·</span><a href="/wiki/blackrock.html">블랙록</a><span class="sep">·</span><a href="/wiki/ethereum.html">이더리움</a><span class="sep">·</span><a href="/wiki/fed.html">미국 연준</a><span class="sep">·</span><a class="topic" href="/topics/fed-rates.html">연준·금리</a><span class="sep">·</span><a class="topic" href="/topics/crypto.html">크립토</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0331-crypto.html#story-2"><b>03-31</b> Strategy, 13주 연속 매수 중단 — 숨 고르기</a></span><span class="flow"><a href="/newsletters/2026/0415-crypto.html#story-3"><b>04-15</b> 모건스탠리도 뛰어들고, Strategy는 또 풀매수</a></span></span></div></div></div>
   </div>
 </div>
 
@@ -736,7 +760,7 @@ transition:color .18s ease,background .18s ease}
     <div class="bullet"><span class="dot">◾</span><span><strong>Strategy</strong>, BTC 추가 매입 — 누적 57만+ BTC, 평단 $36K <a href="https://www.cryptotimes.io/2026/06/08/strategy-reaffirms-bitcoin-treasury-with-fresh-1550-btc-acquisition/" style="color:#888; font-size:12px;"><span class="sub">(원문)</span></a></span></div>
     <div class="bullet"><span class="dot">◾</span><span><strong>Bybit</strong>, IPO Express 출시 — 스페이스X 토큰화 주식 공모가 접근 제공 <a href="https://nftplazas.com/bybit-launches-ipo-express-with-tokenized-spacex-ipo-access/" style="color:#888; font-size:12px;"><span class="sub">(원문)</span></a></span></div>
     <div class="bullet"><span class="dot">◾</span><span><strong>코인베이스</strong>, CFTC 승인받아 SOL 무기한 선물 미국 최초 출시 <a href="https://crypto.news/circle-launches-cirbtc-on-ethereum-with-11-bitcoin-backing/" style="color:#888; font-size:12px;"><span class="sub">(원문)</span></a></span></div>
-  </div>
+  <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/jpmorgan.html">JP모건</a><span class="sep">·</span><a href="/wiki/tether.html">테더(USDT)</a><span class="sep">·</span><a href="/wiki/circle.html">서클(Circle)</a><span class="sep">·</span><a href="/wiki/coinbase.html">코인베이스</a><span class="sep">·</span><a href="/wiki/dimon.html">제이미 다이먼</a><span class="sep">·</span><a class="topic" href="/topics/banks-wallst.html">월가·은행</a><span class="sep">·</span><a class="topic" href="/topics/crypto.html">크립토</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0611-crypto.html#story-3"><b>06-11</b> 일본 3대 은행, 스테이블코인 직접 만든다</a></span><span class="flow"><a href="/newsletters/2026/0714.html#story-4"><b>07-14</b> 스테이블코인 회사, 은행이 되다</a></span></span></div></div></div>
 </div>
 
 <!-- HEADLINE ROUNDUP -->

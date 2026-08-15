@@ -451,7 +451,31 @@ transition:color .18s ease,background .18s ease}
   .sub-btn-header{padding:7px 13px;font-size:11.5px;letter-spacing:-.3px}
   .search-btn-header{width:32px;height:32px}
 }
-</style></head>
+</style>
+
+
+<style id="soonsal-story-links">
+/* 스토리 끝 — 다 읽은 사람만 본다. 본문 흐름을 끊지 않는다 */
+.story-links{margin:14px 0 0;padding:11px 0 0;border-top:1px solid #ece8e0;
+font-size:11.5px;line-height:1.8;color:#9a958a;word-break:keep-all}
+.story-links .k{color:#b5b0a4;margin-right:5px}
+.story-links a{color:#8a857c;text-decoration:none;border-bottom:1px solid #e6e1d8}
+.story-links a:hover{color:#C24A00;border-bottom-color:#C24A00}
+.story-links .sep{opacity:.4;margin:0 4px}
+/* 주제는 개별 이름이 아니라 묶음이다 — 테두리로 구분한다 */
+.story-links a.topic{border-bottom:0;padding:1px 7px;border-radius:999px;
+background:#f3efe8;color:#8a857c}
+.story-links a.topic:hover{background:#C24A00;color:#fff}
+.story-links .row + .row{margin-top:4px}
+/* 「같은 흐름」은 제목이 길어 한 줄에 하나씩 세운다. 라벨은 왼쪽에 고정 */
+.story-links .flows{display:flex;align-items:flex-start}
+.story-links .flow-list{display:flex;flex-direction:column;gap:2px;min-width:0}
+.story-links .flow{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.story-links .flow b{font-weight:600;color:#b5b0a4;margin-right:3px}
+@media(max-width:560px){.story-links .flows{display:block}
+  .story-links .flow-list{margin-top:2px;padding-left:1px}}
+</style>
+</head>
 <body>
 <div id="soonsal-live-ticker" style="display:none;"></div>
 <style>
@@ -664,7 +688,7 @@ transition:color .18s ease,background .18s ease}
       <p style="font-size:12px; font-weight:700; color:#888; margin:0 0 6px;">🏛 전통 금융 대비 현재 위치</p>
       <p style="font-size:13px; color:#444; margin:0; line-height:1.65;">전통 금융에서 S&P 500도 같은 발언에 반응했지만, BTC의 24시간 변동폭 <span class="sub">(+5%)</span>이 S&P <span class="sub">(+0.3%)</span>의 15배 이상. 전통 자산은 연준 발언에 0.x% 움직이는 게 일상이지만, 크립토는 수% 단위로 반응 — 레버리지 포지션이 양방향으로 청산되면서 변동성이 증폭되는 구조. "같은 뉴스, 다른 진폭"이 크립토와 전통 금융의 핵심 차이</p>
     </div>
-  <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
+  <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/bitcoin.html">비트코인</a><span class="sep">·</span><a href="/wiki/fed.html">미국 연준</a><span class="sep">·</span><a href="/wiki/ecb.html">유럽중앙은행</a><span class="sep">·</span><a href="/wiki/blackrock.html">블랙록</a><span class="sep">·</span><a href="/wiki/sp500.html">S&amp;P 500</a><span class="sep">·</span><a class="topic" href="/topics/fed-rates.html">연준·금리</a><span class="sep">·</span><a class="topic" href="/topics/crypto.html">크립토</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0518.html#story-3"><b>05-18</b> Warsh 첫날, 불바다</a></span></span></div></div>
 </div>
 
 <!-- STORY 2 -->
@@ -681,7 +705,7 @@ transition:color .18s ease,background .18s ease}
     <div style="background:#f5f5f0; border-radius:8px; padding:14px 16px; margin-top:16px;">
       <p style="font-size:12px; font-weight:700; color:#888; margin:0 0 6px;">🏛 전통 금융 대비 현재 위치</p>
       <p style="font-size:13px; color:#444; margin:0; line-height:1.65;">전통 금융의 증권법은 1933~1934년에 만들어져 90년간 수정·보완을 거쳤음. 크립토는 2009년부터 16년간 존재했는데 연방 차원의 포괄 법률이 단 하나도 없는 상태. Clarity Act가 통과되면 "크립토를 위한 1933 증권법" 역할 — SEC가 일일이 소송으로 규제하던 시대에서 "명문법에 따라 운영하는 시대"로 전환하는 구조적 전환점</p>
-    </div>
+    <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/sec.html">미국 SEC</a><span class="sep">·</span><a href="/wiki/trump.html">트럼프</a><span class="sep">·</span><a href="/wiki/polymarket.html">폴리마켓</a><span class="sep">·</span><a class="topic" href="/topics/trump-politics.html">트럼프·정책</a><span class="sep">·</span><a class="topic" href="/topics/banks-wallst.html">월가·은행</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0518-crypto.html#story-1"><b>05-18</b> Clarity Act, 첫 관문 돌파</a></span><span class="flow"><a href="/newsletters/2026/0710-crypto.html#story-1"><b>07-10</b> Clarity Act, &quot;거의 다 왔다&quo</a></span></span></div></div></div>
 </div>
 
 <!-- STORY 3 -->
@@ -698,7 +722,7 @@ transition:color .18s ease,background .18s ease}
     <div style="background:#f5f5f0; border-radius:8px; padding:14px 16px; margin-top:16px;">
       <p style="font-size:12px; font-weight:700; color:#888; margin:0 0 6px;">🏛 전통 금융 대비 현재 위치</p>
       <p style="font-size:13px; color:#444; margin:0; line-height:1.65;">전통 금융에서 주식 거래 시간은 월~금 9:30~16:00 ET. 이 시간 제약을 깨려는 시도는 계속 있었지만 <span class="sub">(NYSE 24시간 제안 등)</span>, 청산·결제 인프라 때문에 실현이 안 됐음. 블록체인이 이 문제를 우회 — 토큰화 주식은 체인 위에서 T+0 결제가 가능하기 때문. 다만 토큰 보유자는 기초 주식의 "법적 소유권"이 아닌 "경제적 노출"만 갖는 한계가 있음</p>
-    </div>
+    <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/robinhood.html">로빈후드</a><span class="sep">·</span><a href="/wiki/ethereum.html">이더리움</a><span class="sep">·</span><a href="/wiki/oracle.html">오라클</a><span class="sep">·</span><a href="/wiki/binance.html">바이낸스</a><span class="sep">·</span><a href="/wiki/nyse.html">뉴욕증권거래소</a><span class="sep">·</span><a class="topic" href="/topics/crypto.html">크립토</a><span class="sep">·</span><a class="topic" href="/topics/ai.html">AI</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0520-crypto.html#story-2"><b>05-20</b> SEC, 주식을 블록체인에 올린다</a></span></span></div></div></div>
 </div>
 
 <!-- STORY 4 -->
@@ -715,7 +739,7 @@ transition:color .18s ease,background .18s ease}
     <div style="background:#f5f5f0; border-radius:8px; padding:14px 16px; margin-top:16px;">
       <p style="font-size:12px; font-weight:700; color:#888; margin:0 0 6px;">🏛 전통 금융 대비 현재 위치</p>
       <p style="font-size:13px; color:#444; margin:0; line-height:1.65;">전통 금융에서 증권을 담보로 대출받을 때 <span class="sub">(마진 대출)</span>, 담보 가치는 거래소 종가 기반으로 산정되고 중간에 조작이 불가능함. DeFi에서는 담보 가치 산정에 여러 중간 레이어 <span class="sub">(오라클, 래퍼, 볼트)</span>가 끼면서 각각이 공격 가능 지점. "전통 금융의 마진콜"과 "DeFi의 청산"은 같은 기능이지만, 뒤에 깔린 인프라 안전성은 아직 격차가 큼</p>
-    </div>
+    <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/google.html">구글</a><span class="sep">·</span><a href="/wiki/oracle.html">오라클</a><span class="sep">·</span><a href="/wiki/robinhood.html">로빈후드</a><span class="sep">·</span><a class="topic" href="/topics/crypto.html">크립토</a><span class="sep">·</span><a class="topic" href="/topics/bigtech.html">빅테크</a></div></div></div>
 </div>
 
 <!-- STORY 5 -->
@@ -732,7 +756,7 @@ transition:color .18s ease,background .18s ease}
     <div style="background:#f5f5f0; border-radius:8px; padding:14px 16px; margin-top:16px;">
       <p style="font-size:12px; font-weight:700; color:#888; margin:0 0 6px;">🏛 전통 금융 대비 현재 위치</p>
       <p style="font-size:13px; color:#444; margin:0; line-height:1.65;">전통 금융에서 국제 규제 조율은 바젤 위원회·IOSCO 등이 최소 기준을 정하고 각국이 따르는 "탑다운" 구조. 크립토는 반대 — 각국이 경쟁적으로 자기 규제를 만들고, 글로벌 조율은 뒤따르는 "바텀업" 구조. 결과적으로 기업들은 "레귤러토리 아비트라지" <span class="sub">(규제 차익거래)</span>를 하게 됨. 브렉시트 후 런던 금융사들이 프랑크푸르트·더블린으로 이동한 패턴이 크립토에서 전 세계적으로 벌어지는 중</p>
-    </div>
+    <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/robinhood.html">로빈후드</a><span class="sep">·</span><a class="topic" href="/topics/crypto.html">크립토</a><span class="sep">·</span><a class="topic" href="/topics/japan.html">일본</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0320-crypto.html#story-4"><b>03-20</b> 크립토 법안, 4월에 운명이 갈림</a></span></span></div></div></div>
 </div>
 
 

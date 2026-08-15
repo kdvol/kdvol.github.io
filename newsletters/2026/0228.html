@@ -432,7 +432,32 @@ transition:color .18s ease,background .18s ease}
   .sub-btn-header{padding:7px 13px;font-size:11.5px;letter-spacing:-.3px}
   .search-btn-header{width:32px;height:32px}
 }
-</style></head>
+</style>
+
+
+
+<style id="soonsal-story-links">
+/* 스토리 끝 — 다 읽은 사람만 본다. 본문 흐름을 끊지 않는다 */
+.story-links{margin:14px 0 0;padding:11px 0 0;border-top:1px solid #ece8e0;
+font-size:11.5px;line-height:1.8;color:#9a958a;word-break:keep-all}
+.story-links .k{color:#b5b0a4;margin-right:5px}
+.story-links a{color:#8a857c;text-decoration:none;border-bottom:1px solid #e6e1d8}
+.story-links a:hover{color:#C24A00;border-bottom-color:#C24A00}
+.story-links .sep{opacity:.4;margin:0 4px}
+/* 주제는 개별 이름이 아니라 묶음이다 — 테두리로 구분한다 */
+.story-links a.topic{border-bottom:0;padding:1px 7px;border-radius:999px;
+background:#f3efe8;color:#8a857c}
+.story-links a.topic:hover{background:#C24A00;color:#fff}
+.story-links .row + .row{margin-top:4px}
+/* 「같은 흐름」은 제목이 길어 한 줄에 하나씩 세운다. 라벨은 왼쪽에 고정 */
+.story-links .flows{display:flex;align-items:flex-start}
+.story-links .flow-list{display:flex;flex-direction:column;gap:2px;min-width:0}
+.story-links .flow{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.story-links .flow b{font-weight:600;color:#b5b0a4;margin-right:3px}
+@media(max-width:560px){.story-links .flows{display:block}
+  .story-links .flow-list{margin-top:2px;padding-left:1px}}
+</style>
+</head>
 <body>
 <div id="soonsal-live-ticker" style="display:none;"></div>
 <style>
@@ -660,7 +685,7 @@ transition:color .18s ease,background .18s ease}
         <div class="bullet"><span class="dot">◾</span><span>이건 단순 계약 분쟁이 아님. AI가 군사 의사결정에 개입하는 범위를 <strong>누가 정하느냐</strong>의 문제. 전통 군사 기술(GPS, 스텔스)은 군이 개발→군이 통제했지만, AI는 민간 기업이 개발→정부가 구매하는 구조. 기업이 윤리적 가드레일을 걸면 정부가 "그러면 다른 업체 쓰겠다"고 할 수 있는 상황이 현실화된 셈</span></div>
         <div class="bullet"><span class="dot">◾</span><span>Blockworks 칼럼니스트 Byron Gilliam의 비유가 날카로웠음 — 1964년 IBM 메인프레임이 일자리를 위협한다고 대통령 위원회가 꾸려졌고, 1983년 영화 <em>War Games</em>에서 AI가 핵전쟁을 일으킬 뻔했음. 2026년, 그 두 공포가 동시에 현실이 되고 있음 (COBOL 번역으로 IBM −13%, 펜타곤 AI 자율무기 요구)</span></div>
         <div class="bullet"><span class="dot">◾</span><span><strong>핵심 인물 — Dario Amodei (Anthropic CEO)</strong>. 전 OpenAI 연구 VP 출신. "AI 안전"이라는 원칙으로 회사를 세운 사람이 그 원칙 때문에 정부 계약을 잃은 것. 실리콘밸리에서 가장 비싼 도덕적 결정을 한 셈</span></div>
-      </div>
+      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/anthropic.html">앤스로픽</a><span class="sep">·</span><a href="/wiki/openai.html">오픈AI</a><span class="sep">·</span><a href="/wiki/trump.html">트럼프</a><span class="sep">·</span><a href="/wiki/sam-altman.html">샘 알트먼</a><span class="sep">·</span><a href="/wiki/oil.html">원유</a><span class="sep">·</span><a class="topic" href="/topics/ai.html">AI</a><span class="sep">·</span><a class="topic" href="/topics/trump-politics.html">트럼프·정책</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0410.html#story-5"><b>04-10</b> AI, AI, AI — Meta와 Anthropic</a></span><span class="flow"><a href="/newsletters/2026/0306.html#story-3"><b>03-06</b> Anthropic vs 펜타곤, 결국 돈이냐 원칙이냐</a></span></span></div></div></div>
     </div>
 
     <!-- STORY 2 -->
@@ -673,7 +698,7 @@ transition:color .18s ease,background .18s ease}
         <div class="bullet"><span class="dot">◾</span><span>아마존의 $500억은 역대 최대 외부 투자이자, 단서가 붙어 있음 — 전액 집행 조건이 OpenAI의 IPO 완료 또는 AGI(범용인공지능) 달성 선언. AGI 달성 여부를 투자 조건에 넣었다는 것 자체가 이 거래의 성격을 보여줌</span></div>
         <div class="bullet"><span class="dot">◾</span><span>투자자들이 베팅하는 논리: AI가 인터넷 이후 가장 큰 플랫폼 전환이 될 것. 그 논리가 틀리면 이건 역사상 가장 비싼 벤처 실패가 됨. 2월 AI 투자 합계 $1,950억+ — 웬만한 나라 GDP와 맞먹는 규모. 과열인지 선점인지 시장은 아직 합의하지 못한 상태</span></div>
         <div class="bullet"><span class="dot">◾</span><span>(아마존·OpenAI 제휴가 미묘한 이유: OpenAI의 최대 파트너는 Microsoft. 아마존은 Microsoft의 최대 경쟁사. 이번 펀딩으로 MS 독점 의존도를 낮추면서 아마존·엔비디아·소프트뱅크까지 주주로 확보 — 적의 적은 친구인 건가, 아니면 누구에게도 종속되지 않는 포지션을 구축한 건가)</span></div>
-      </div>
+      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/openai.html">오픈AI</a><span class="sep">·</span><a href="/wiki/amazon.html">아마존</a><span class="sep">·</span><a href="/wiki/nvidia.html">엔비디아</a><span class="sep">·</span><a href="/wiki/softbank.html">소프트뱅크</a><span class="sep">·</span><a href="/wiki/samsung.html">삼성전자</a><span class="sep">·</span><a class="topic" href="/topics/ai.html">AI</a><span class="sep">·</span><a class="topic" href="/topics/bigtech.html">빅테크</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0303.html#story-2"><b>03-03</b> OpenAI $1,100억 펀딩 마감 — 기업가치 $7</a></span><span class="flow"><a href="/newsletters/2026/0326.html#story-3"><b>03-26</b> OpenAI, 영상 gg친 이유</a></span></span></div></div></div>
     </div>
 
     <!-- STORY 3 -->
@@ -686,7 +711,7 @@ transition:color .18s ease,background .18s ease}
         <div class="bullet"><span class="dot">◾</span><span>컨텍스트: 1월 미국 기업 해고가 10만 8천 건으로 2009년 이후 최다 (Challenger 데이터). 그런데 <em>The Economist</em>의 데이터는 반대 이야기를 하고 있음 — ChatGPT 출시 이후, AI 대체 위험이 가장 높은 직군의 고용이 오히려 가장 많이 늘었고, 위험이 가장 낮은 직군이 가장 적게 늘었음</span></div>
         <div class="bullet"><span class="dot">◾</span><span>Goldman Sachs 분석: 1940년에 존재하던 일자리의 60%가 현재 존재하지 않음. 기술이 일자리를 파괴하는 게 아니라 변형시킨다는 역사적 패턴은 유효하지만, 변형의 속도가 이번엔 다를 수 있다는 게 핵심 리스크</span></div>
         <div class="bullet"><span class="dot">◾</span><span><strong>내 삶과 어디서 맞닿나</strong> — 오피스 워커라면 누구나 해당되는 이야기. 코딩, 고객 서비스, 문서 작성, 데이터 분석 — 모두 AI 자동화 타깃. "내 회사는 아직"이라고 생각한다면, Dorsey의 "1년" 타임라인을 기억해둘 것</span></div>
-      </div>
+      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/block-inc.html">블록(Block/캐시앱)</a><span class="sep">·</span><a href="/wiki/openai.html">오픈AI</a><span class="sep">·</span><a href="/wiki/goldman.html">골드만삭스</a><span class="sep">·</span><a class="topic" href="/topics/labor-jobs.html">노동·고용</a><span class="sep">·</span><a class="topic" href="/topics/ai.html">AI</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0227.html#story-2"><b>02-27</b> 잭 도시 &quot;AI 때문에 4,000명 자릅니다&</a></span></span></div></div></div>
     </div>
 
     <!-- STORY 4 -->
@@ -699,7 +724,7 @@ transition:color .18s ease,background .18s ease}
         <div class="bullet"><span class="dot">◾</span><span><strong>핵심 인물 — Nelson Peltz</strong>. 행동주의 투자의 전설. Disney, P&G, Unilever 이사회를 뒤흔든 사람. 이번엔 자산운용사를 통째로 사려다 Victory라는 복병을 만난 상황. 행동주의 투자자가 기업 사냥꾼에서 기업 인수자로 역할이 바뀌는 흥미로운 전환점</span></div>
         <div class="bullet"><span class="dot">◾</span><span>Victory Capital의 전략적 의미 — AUM $2,000억대 중견 운용사가 $300억대 JHG를 먹으면 단숨에 $5,000억+ 대형사로 도약. 규모의 경제가 생존과 직결되는 자산운용 업계에서, 이건 마지막 의자 뺏기 게임의 시작일 수 있음</span></div>
         <div class="bullet"><span class="dot">◾</span><span>(패시브 투자의 역설: 모든 사람이 인덱스를 사면, 누가 개별 종목의 가격을 발견하나? 액티브 운용사가 사라질수록 시장 비효율이 커지고, 다시 액티브가 기회를 얻는 순환 구조. 하지만 그 전에 많은 운용사가 합병되거나 사라질 것)</span></div>
-      </div>
+      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/blackrock.html">블랙록</a><span class="sep">·</span><a href="/wiki/disney.html">디즈니</a><span class="sep">·</span><a href="/wiki/pg.html">프록터앤갬블</a><span class="sep">·</span><a class="topic" href="/topics/etf-funds.html">ETF·펀드</a><span class="sep">·</span><a class="topic" href="/topics/deals.html">딜·M&amp;A</a></div></div></div>
     </div>
 
     <!-- STORY 5 -->
@@ -712,7 +737,7 @@ transition:color .18s ease,background .18s ease}
         <div class="bullet"><span class="dot">◾</span><span>트럼프가 JPMorgan/Jamie Dimon을 소송한 것에 대해: "나였다면 디뱅킹하지 않았을 것. 나라의 절반이 그를 지지했는데, 뉴욕 블루 버블에 있다고 결론을 내리면 안 된다." Elon Musk에 대해선: "구글 창업자들은 지하실에서 시작할 수 있었지만, Musk는 공장과 공급망을 직접 지었다. 에디슨도 못한 것"</span></div>
         <div class="bullet"><span class="dot">◾</span><span>Tesla IPO 비하인드: Goldman 내부에서 반대했지만, Blankfein이 직접 오버라이드해서 인수 주간사를 따냄. "수익을 보여야 상장할 수 있다는 건 이제 귀여운(quaint) 관념." 금융위기 때 "신의 일을 하러 간다(doing God's work)"라는 농담 하나로 전 세계적 공분을 산 사람. 본인 말에 의하면 "사람들이 내 유머 감각을 몰랐던 것"</span></div>
         <div class="bullet"><span class="dot">◾</span><span>(Goldman PR 실패에 대해 "Nature abhors a vacuum"이라는 표현을 사용 — 침묵하면 다른 사람이 그 공간을 채운다. 월스트리트 역사상 가장 뻔뻔하고 가장 솔직한 회고록이 될 전망. 사과 따윈 없다는 태도가 일관적)</span></div>
-      </div>
+      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/goldman.html">골드만삭스</a><span class="sep">·</span><a href="/wiki/trump.html">트럼프</a><span class="sep">·</span><a href="/wiki/jpmorgan.html">JP모건</a><span class="sep">·</span><a href="/wiki/dimon.html">제이미 다이먼</a><span class="sep">·</span><a href="/wiki/musk.html">일론 머스크</a><span class="sep">·</span><a class="topic" href="/topics/trump-politics.html">트럼프·정책</a><span class="sep">·</span><a class="topic" href="/topics/ipo.html">IPO·상장</a></div></div></div>
     </div>
 
     <!-- STORY 6 -->
@@ -725,7 +750,7 @@ transition:color .18s ease,background .18s ease}
         <div class="bullet"><span class="dot">◾</span><span>규모감 — 미국 전력회사들이 2025년에 그리드 업그레이드에 약 $2,080억 투자. 2029년까지 누적 $1.1조 이상 전망 (Edison Electric Institute). American Electric Power도 $80억 추가 투자 발표. AI 투자 과열 논란 속에서도 전력 수요 자체는 실물이라는 점이 유틸리티의 매력</span></div>
         <div class="bullet"><span class="dot">◾</span><span><strong>기회는 어디에</strong> — 이런 유틸리티 주식은 배당도 주고 변동성도 낮아서, AI 테마에 투자하되 엔비디아처럼 출렁이는 게 싫은 투자자들에게 인기. 다만 금리 민감도가 높다는 점은 유의 — 연준이 금리를 내릴수록 유틸리티에 유리한 구조</span></div>
         <div class="bullet"><span class="dot">◾</span><span>(삽질하는 사람이 돈을 버는 게 아니라 삽을 파는 사람이 돈을 번다는 골드러시 논리. AI에서는 GPU를 파는 엔비디아가 1차 수혜자였지만, 2차 수혜자인 전력 인프라 기업들이 조용히 따라오는 중)</span></div>
-      </div>
+      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/nvidia.html">엔비디아</a><span class="sep">·</span><a href="/wiki/fed.html">미국 연준</a><span class="sep">·</span><a class="topic" href="/topics/ai.html">AI</a><span class="sep">·</span><a class="topic" href="/topics/semiconductor.html">반도체</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0424.html#story-2"><b>04-24</b> AI 데이터센터가 빚 내는 방법</a></span><span class="flow"><a href="/newsletters/2026/0615.html#story-4"><b>06-15</b> AI 데이터센터, 환영받던 시절 끝</a></span></span></div></div></div>
     </div>
 
     <!-- 오늘의 금융 영어 -->

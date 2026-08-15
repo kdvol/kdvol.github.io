@@ -461,7 +461,31 @@ transition:color .18s ease,background .18s ease}
   .sub-btn-header{padding:7px 13px;font-size:11.5px;letter-spacing:-.3px}
   .search-btn-header{width:32px;height:32px}
 }
-</style></head>
+</style>
+
+
+<style id="soonsal-story-links">
+/* 스토리 끝 — 다 읽은 사람만 본다. 본문 흐름을 끊지 않는다 */
+.story-links{margin:14px 0 0;padding:11px 0 0;border-top:1px solid #ece8e0;
+font-size:11.5px;line-height:1.8;color:#9a958a;word-break:keep-all}
+.story-links .k{color:#b5b0a4;margin-right:5px}
+.story-links a{color:#8a857c;text-decoration:none;border-bottom:1px solid #e6e1d8}
+.story-links a:hover{color:#C24A00;border-bottom-color:#C24A00}
+.story-links .sep{opacity:.4;margin:0 4px}
+/* 주제는 개별 이름이 아니라 묶음이다 — 테두리로 구분한다 */
+.story-links a.topic{border-bottom:0;padding:1px 7px;border-radius:999px;
+background:#f3efe8;color:#8a857c}
+.story-links a.topic:hover{background:#C24A00;color:#fff}
+.story-links .row + .row{margin-top:4px}
+/* 「같은 흐름」은 제목이 길어 한 줄에 하나씩 세운다. 라벨은 왼쪽에 고정 */
+.story-links .flows{display:flex;align-items:flex-start}
+.story-links .flow-list{display:flex;flex-direction:column;gap:2px;min-width:0}
+.story-links .flow{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.story-links .flow b{font-weight:600;color:#b5b0a4;margin-right:3px}
+@media(max-width:560px){.story-links .flows{display:block}
+  .story-links .flow-list{margin-top:2px;padding-left:1px}}
+</style>
+</head>
 <body>
 <div id="soonsal-live-ticker" style="display:none;"></div>
 <style>
@@ -697,7 +721,7 @@ transition:color .18s ease,background .18s ease}
       <div class="tradfi-box">
         <div class="tradfi-label">📐 전통 금융 대비 현재 위치</div>
         <div class="tradfi-content">금은 전쟁에 +2.5%, BTC는 -2.8% — BTC의 "안전자산" 포지셔닝은 기관 포트폴리오에서 아직 검증되지 않았음. 전통 자산배분에서 BTC는 '대안 자산 <span class="sub">(alt)</span>' 버킷에 남아 있고, '안전자산 <span class="sub">(haven)</span>' 버킷에는 금·국채가 차지하는 중</div>
-      </div>
+      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/bitcoin.html">비트코인</a><span class="sep">·</span><a href="/wiki/binance.html">바이낸스</a><span class="sep">·</span><a class="topic" href="/topics/crypto.html">크립토</a><span class="sep">·</span><a class="topic" href="/topics/energy.html">에너지·원자재</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0310-crypto.html#story-1"><b>03-10</b> BTC $66K, 디지털 금은 아직 먼 이야기</a></span><span class="flow"><a href="/newsletters/2026/0302-crypto.html#story-1"><b>03-02</b> 이란 공습과 BTC — &quot;디지털 골드&quot</a></span></span></div></div></div>
     </div>
 
     <!-- STORY 2 -->
@@ -713,7 +737,7 @@ transition:color .18s ease,background .18s ease}
       <div class="tradfi-box">
         <div class="tradfi-label">📐 전통 금융 대비 현재 위치</div>
         <div class="tradfi-content">ETF 유입/유출 패턴은 전통 뮤추얼펀드의 자금 흐름과 동일한 분석 프레임으로 읽을 수 있음. IBIT의 AUM $163.9B은 SPY <span class="sub">($500B+)</span> 다음으로 가장 빠르게 성장한 ETF — 크립토가 '대안 자산'에서 '기관 자산'으로 전환되는 증거</div>
-      </div>
+      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/bitcoin.html">비트코인</a><span class="sep">·</span><a href="/wiki/blackrock.html">블랙록</a><span class="sep">·</span><a href="/wiki/solana.html">솔라나</a><span class="sep">·</span><a href="/wiki/ethereum.html">이더리움</a><span class="sep">·</span><a href="/wiki/xrp.html">리플(XRP)</a><span class="sep">·</span><a class="topic" href="/topics/etf-funds.html">ETF·펀드</a><span class="sep">·</span><a class="topic" href="/topics/crypto.html">크립토</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0428-crypto.html#story-2"><b>04-28</b> BTC ETF, 기관은 안 떠남</a></span><span class="flow"><a href="/newsletters/2026/0528-crypto.html#story-4"><b>05-28</b> BTC·ETH ETF 유출, HYPE ETF만 나홀로</a></span></span></div></div></div>
     </div>
 
     <!-- STORY 3 -->
@@ -729,7 +753,7 @@ transition:color .18s ease,background .18s ease}
       <div class="tradfi-box">
         <div class="tradfi-label">📐 전통 금융 대비 현재 위치</div>
         <div class="tradfi-content">BNY Mellon이 2022년에 크립토 커스터디를 시작했을 때 시장 반응은 미지근했지만, 이후 기관 자금 유입의 터닝포인트가 됐음. 모건스탠리의 은행 차터는 BNY보다 한 단계 위 — 수탁+트레이딩+리서치+ETF를 원스톱으로 제공하겠다는 것</div>
-      </div>
+      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/morgan-stanley.html">모건스탠리</a><span class="sep">·</span><a href="/wiki/bitcoin.html">비트코인</a><span class="sep">·</span><a href="/wiki/solana.html">솔라나</a><span class="sep">·</span><a href="/wiki/occ.html">미국 OCC</a><span class="sep">·</span><a href="/wiki/goldman.html">골드만삭스</a><span class="sep">·</span><a class="topic" href="/topics/banks-wallst.html">월가·은행</a><span class="sep">·</span><a class="topic" href="/topics/crypto.html">크립토</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0227-crypto.html#story-1"><b>02-27</b> 모건스탠리, 드디어 크립토 시장에 전면 진입한다</a></span><span class="flow"><a href="/newsletters/2026/0430-crypto.html#story-1"><b>04-30</b> 파월의 마지막 회의, 크립토는 의외로 차분</a></span></span></div></div></div>
     </div>
 
     <!-- STORY 4 -->
@@ -741,7 +765,7 @@ transition:color .18s ease,background .18s ease}
         <div class="bullet"><span class="dot">◾</span><span>논란: 신규 지갑 <span class="sub">(new wallet)</span> 급증이 포착됨. 단일 주체가 여러 지갑으로 시장을 조작하는 것 아니냐는 의혹 — 하지만 Polymarket은 "유동성이 깊어지면 조작 비용도 비례적으로 올라간다"고 반박. $5억+ 시장에서 의미 있는 조작을 하려면 수천만 달러가 필요</span></div>
         <div class="bullet"><span class="dot">◾</span><span><strong>예측시장의 구조적 부상</strong>: 2024년 미국 대선 때 Polymarket이 전통 여론조사보다 정확했던 경험이 기관의 관심을 끌었음. 이란 전쟁은 그 연장선 — 이제 지정학 리스크도 '베팅'으로 헤지하는 시대. Cboe <span class="sub">(시카고옵션거래소)</span>도 나스닥-100 Yes/No 베팅 상품을 SEC에 신청한 상태 — 예측시장과 전통 파생상품의 경계가 흐려지고 있음</span></div>
         <div class="bullet"><span class="dot">◾</span><span><strong>내 삶과 어디서 맞닿나</strong> — 당신이 보는 뉴스의 "확률"이 이제 예측시장에서 실시간으로 거래되고 있음. "이란 전쟁이 2주 안에 끝날 확률 35%"는 기자의 판단이 아니라 실제 돈이 걸린 집단지성의 결과. 정보 비대칭이 줄어들수록 개인 투자자에게도 유리한 구조</span></div>
-      </div>
+      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/polymarket.html">폴리마켓</a><span class="sep">·</span><a href="/wiki/nasdaq.html">나스닥</a><span class="sep">·</span><a class="topic" href="/topics/prediction-markets.html">예측시장</a><span class="sep">·</span><a class="topic" href="/topics/trump-politics.html">트럼프·정책</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0623-crypto.html#story-4"><b>06-23</b> Polymarket, 가짜 트레이더 논란</a></span><span class="flow"><a href="/newsletters/2026/0310-crypto.html#story-2"><b>03-10</b> Kalshi·Polymarket, $200억짜리 베팅 </a></span></span></div></div></div>
     </div>
 
     <!-- STORY 5 -->
@@ -757,7 +781,7 @@ transition:color .18s ease,background .18s ease}
       <div class="tradfi-box">
         <div class="tradfi-label">📐 전통 금융 대비 현재 위치</div>
         <div class="tradfi-content">ETH의 "기술은 좋은데 가격이 안 오르는" 상황은 Intel의 2010년대와 유사 — 기술력은 업계 최고였지만 TSMC에 파운드리를 빼앗기며 주가가 10년간 횡보. ETH도 Solana에 "속도" 시장을 빼앗기지 않으려면 실행 속도가 관건</div>
-      </div>
+      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/vitalik.html">비탈릭 부테린</a><span class="sep">·</span><a href="/wiki/ethereum.html">이더리움</a><span class="sep">·</span><a href="/wiki/solana.html">솔라나</a><span class="sep">·</span><a class="topic" href="/topics/crypto.html">크립토</a><span class="sep">·</span><a class="topic" href="/topics/banks-wallst.html">월가·은행</a></div></div></div>
     </div>
 
   <!-- 📋 헤드라인 라운드업 -->

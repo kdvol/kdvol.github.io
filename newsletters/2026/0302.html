@@ -439,7 +439,32 @@ transition:color .18s ease,background .18s ease}
   .sub-btn-header{padding:7px 13px;font-size:11.5px;letter-spacing:-.3px}
   .search-btn-header{width:32px;height:32px}
 }
-</style></head><body>
+</style>
+
+
+
+<style id="soonsal-story-links">
+/* 스토리 끝 — 다 읽은 사람만 본다. 본문 흐름을 끊지 않는다 */
+.story-links{margin:14px 0 0;padding:11px 0 0;border-top:1px solid #ece8e0;
+font-size:11.5px;line-height:1.8;color:#9a958a;word-break:keep-all}
+.story-links .k{color:#b5b0a4;margin-right:5px}
+.story-links a{color:#8a857c;text-decoration:none;border-bottom:1px solid #e6e1d8}
+.story-links a:hover{color:#C24A00;border-bottom-color:#C24A00}
+.story-links .sep{opacity:.4;margin:0 4px}
+/* 주제는 개별 이름이 아니라 묶음이다 — 테두리로 구분한다 */
+.story-links a.topic{border-bottom:0;padding:1px 7px;border-radius:999px;
+background:#f3efe8;color:#8a857c}
+.story-links a.topic:hover{background:#C24A00;color:#fff}
+.story-links .row + .row{margin-top:4px}
+/* 「같은 흐름」은 제목이 길어 한 줄에 하나씩 세운다. 라벨은 왼쪽에 고정 */
+.story-links .flows{display:flex;align-items:flex-start}
+.story-links .flow-list{display:flex;flex-direction:column;gap:2px;min-width:0}
+.story-links .flow{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.story-links .flow b{font-weight:600;color:#b5b0a4;margin-right:3px}
+@media(max-width:560px){.story-links .flows{display:block}
+  .story-links .flow-list{margin-top:2px;padding-left:1px}}
+</style>
+</head><body>
 <div id="soonsal-live-ticker" style="display:none;"></div>
 <style>
 #soonsal-live-ticker{position:sticky;top:0;width:100%;height:34px;box-sizing:border-box;background:#0a0a0a;border-bottom:1px solid #1a1a1a;overflow:hidden;z-index:99999;user-select:none;-webkit-user-select:none}
@@ -669,7 +694,7 @@ transition:color .18s ease,background .18s ease}
         <div class="bullet"><span class="dot">◾</span><span><strong>자산시장 반응 — 교과서적 위기 모드</strong>. 금: $2,857→$2,880+로 사상 최고치 경신 (안전자산 수요). 달러: DXY +0.8% (달러 강세). VIX: 19.63으로 +6.60% 급등 (공포지수). 미국 증시: 금요일 S&P -1.59%, 나스닥 -2.78% — 월요일 선물은 추가 하락 시사. BTC: $88K→$80K까지 급락 후 $84K 회복 — 전쟁 초기 크립토는 위험자산으로 분류된다는 패턴 재확인</span></div>
         <div class="bullet"><span class="dot">◾</span><span>JP Morgan의 긴급 분석은 세 가지 시나리오를 제시: (1) <strong>단기 봉쇄 (1~2주)</strong> — 유가 $85~$90, 증시 추가 3~5% 조정 후 반등 (2) <strong>장기 봉쇄 (1개월+)</strong> — 유가 $100+, 글로벌 인플레이션 재점화, 연준 금리인하 연기 (3) <strong>확전 시나리오 (이란 동맹국 개입)</strong> — 유가 $120+, 글로벌 경기침체 위험. 현재 시장은 시나리오 1과 2 사이를 가격에 반영 중 <span class="note">(실상은 셋 다 아닌 제4의 시나리오가 터지는 게 월가의 전통)</span></span></div>
         <div class="bullet"><span class="dot">◾</span><span><strong>왜 중요한가</strong> — 이건 단순한 군사작전이 아님. 호르무즈 봉쇄는 전 세계 에너지 공급망의 핵심 동맥이 막히는 것. 유가가 $100을 넘기면 미국 소비자 물가, 기업 마진, 연준 정책 모두가 재조정되어야 함. 2022년 스태그플레이션 공포가 재현될 수 있는 구조. 이번 주 월요일 개장이 이란 사태 이후 첫 풀 거래일 — 시장의 '진짜 반응'은 여기서 시작</span></div>
-      </div>
+      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/oil.html">원유</a><span class="sep">·</span><a href="/wiki/dollar.html">달러(환율)</a><span class="sep">·</span><a href="/wiki/nasdaq.html">나스닥</a><span class="sep">·</span><a href="/wiki/bitcoin.html">비트코인</a><span class="sep">·</span><a href="/wiki/fed.html">미국 연준</a><span class="sep">·</span><a class="topic" href="/topics/energy.html">에너지·원자재</a><span class="sep">·</span><a class="topic" href="/topics/fed-rates.html">연준·금리</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0713.html#story-1"><b>07-13</b> 호르무즈, 또 닫혔다</a></span><span class="flow"><a href="/newsletters/2026/0417.html#story-5"><b>04-17</b> 호르무즈 다음은 대만해협</a></span></span></div></div></div>
     </div>
 
     <!-- STORY 2 -->
@@ -682,7 +707,7 @@ transition:color .18s ease,background .18s ease}
         <div class="bullet"><span class="dot">◾</span><span><strong>2026년 IPO 트리오</strong>의 가능성이 현실화되고 있음: SpaceX <span class="detail">($1.75조+)</span>, OpenAI <span class="detail">($7,500억~$8,300억 목표)</span>, Anthropic <span class="detail">($3,500억)</span>. 셋이 모두 상장하면 2026년은 1999년 이후 가장 뜨거운 IPO 빈티지가 됨. 공통점: 전통 산업이 아닌 AI·우주 기업이 주도. 차이점: SpaceX는 실제로 돈을 벌고 있음 <span class="detail">(Starlink 매출 $70억+/연)</span></span></div>
         <div class="bullet"><span class="dot">◾</span><span>이란 사태가 SpaceX IPO에 미칠 영향이 주목됨. 한편으로는 지정학 불안정이 IPO 시장 심리를 위축시키지만, 다른 한편으로는 SpaceX의 국방·위성 사업이 오히려 '지정학 수혜주'로 부각될 수 있음. Starlink은 이미 우크라이나 전쟁에서 군사 통신 인프라로 검증됨 — 이란 상황도 같은 내러티브</span></div>
         <div class="bullet"><span class="dot">◾</span><span>Musk의 정치적 포지션이 변수. 현 행정부와 가까운 관계가 IPO 승인 과정에서 유리하게 작용할 수 있지만, 동시에 반대편 정치 리스크도 상존. 어느 쪽이든, $1.75조는 시장이 Elon Musk에게 매기는 '프리미엄'이 얼마나 큰지를 숫자로 보여주는 것 <span class="note">(로켓도 쏘고 AI도 하고 차도 만드는데 할인은 안 해준다는 뜻)</span></span></div>
-      </div>
+      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/spacex.html">스페이스X</a><span class="sep">·</span><a href="/wiki/aramco.html">아람코</a><span class="sep">·</span><a href="/wiki/goldman.html">골드만삭스</a><span class="sep">·</span><a href="/wiki/jpmorgan.html">JP모건</a><span class="sep">·</span><a href="/wiki/morgan-stanley.html">모건스탠리</a><span class="sep">·</span><a class="topic" href="/topics/ipo.html">IPO·상장</a><span class="sep">·</span><a class="topic" href="/topics/ai.html">AI</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0629.html#story-3"><b>06-29</b> SpaceX, 블랙홀이었나</a></span><span class="flow"><a href="/newsletters/2026/0521.html#story-3"><b>05-21</b> OpenAI·SpaceX, 동시 IPO 레이스</a></span></span></div></div></div>
     </div>
 
     <!-- STORY 3 -->
@@ -695,7 +720,7 @@ transition:color .18s ease,background .18s ease}
         <div class="bullet"><span class="dot">◾</span><span>전통적으로 비상장 기업 대출은 만기까지 보유하는 'buy-and-hold' 자산이었음. Apollo는 이 대출을 적극적으로 거래(trade)하며 유동성 프리미엄을 수익화하는 새로운 모델을 만들고 있음 — 사모 대출 시장에 공개 채권 시장의 유동성을 접목한 셈</span></div>
         <div class="bullet"><span class="dot">◾</span><span>Apollo CEO Marc Rowan의 비전은 명확함: Private Credit을 개인 투자자까지 확장. 현재 $1.5조 규모인 Private Credit 시장이 2030년까지 $3조+로 성장할 것이라는 관측이 지배적. Apollo는 이미 보험사<span class="detail">(Athene)</span>를 통해 개인 연금을 Private Credit에 연결하는 구조를 운영 중</span></div>
         <div class="bullet"><span class="dot">◾</span><span><strong>내 삶과 어디서 맞닿나</strong> — 당신의 보험이나 퇴직연금이 Apollo 같은 사모 대출 펀드에 투자되어 있을 가능성이 점점 높아지고 있음. 은행이 하던 대출을 사모펀드가 대체하는 구조 변화 — 수익은 높지만 유동성 리스크도 함께 커지고 있다는 점을 알아둘 것</span></div>
-      </div>
+      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/apollo.html">아폴로글로벌</a><span class="sep">·</span><a href="/wiki/musk.html">일론 머스크</a><span class="sep">·</span><a href="/wiki/spacex.html">스페이스X</a><span class="sep">·</span><a class="topic" href="/topics/deals.html">딜·M&amp;A</a><span class="sep">·</span><a class="topic" href="/topics/etf-funds.html">ETF·펀드</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0302-crypto.html#story-4"><b>03-02</b> Apollo의 xAI 부채 트레이딩 — Private </a></span><span class="flow"><a href="/newsletters/2026/0320.html#story-3"><b>03-20</b> Private Credit, 소비자 대출까지 번진 환매</a></span></span></div></div></div>
     </div>
 
     <!-- STORY 4 -->
@@ -708,7 +733,7 @@ transition:color .18s ease,background .18s ease}
         <div class="bullet"><span class="dot">◾</span><span><strong>언더워터 가구 110만</strong> <span class="detail">(전체 모기지 보유 가구의 2.1%)</span> — 집값이 남은 대출금보다 낮은 상태. 2018년 이후 최고치. 팬데믹 기간 고점에서 산 주택 중 일부가 금리 상승기에 가치가 떨어진 결과. 다만 2009년<span class="detail">(25%+)</span>과 비교하면 아직 관리 가능한 수준</span></div>
         <div class="bullet"><span class="dot">◾</span><span>새로운 트렌드: <strong>공동구매(Co-buying)</strong>. 조사 대상의 15%가 이미 친구·가족과 공동으로 주택을 구매했고, 48%가 고려 중이라고 응답. 결혼한 커플만 집을 사는 시대가 아닌, 경제적 파트너십으로서의 주택 구매가 부상. 법적 구조<span class="detail">(LLC, 공동명의 등)</span>와 관련 핀테크 서비스도 동반 성장 중</span></div>
         <div class="bullet"><span class="dot">◾</span><span>AI도 부동산 시장에 진입: ChatGPT가 매물 검색 기능을 추가했고, AI 기반 가상 스테이징(빈집을 가구로 꾸민 사진을 AI가 생성)이 표준이 되어가고 있음. 실제로 AI 스테이징을 적용한 매물의 열람 수가 평균 30% 높다는 데이터도 나옴. 부동산 중개도 AI가 재편하기 시작한 것</span></div>
-      </div>
+      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/openai.html">오픈AI</a><span class="sep">·</span><a class="topic" href="/topics/real-estate.html">부동산</a><span class="sep">·</span><a class="topic" href="/topics/ai.html">AI</a></div></div></div>
     </div>
 
     <!-- 오늘의 금융 영어 -->

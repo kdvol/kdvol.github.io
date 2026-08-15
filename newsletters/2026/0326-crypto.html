@@ -452,7 +452,31 @@ transition:color .18s ease,background .18s ease}
   .sub-btn-header{padding:7px 13px;font-size:11.5px;letter-spacing:-.3px}
   .search-btn-header{width:32px;height:32px}
 }
-</style></head>
+</style>
+
+
+<style id="soonsal-story-links">
+/* 스토리 끝 — 다 읽은 사람만 본다. 본문 흐름을 끊지 않는다 */
+.story-links{margin:14px 0 0;padding:11px 0 0;border-top:1px solid #ece8e0;
+font-size:11.5px;line-height:1.8;color:#9a958a;word-break:keep-all}
+.story-links .k{color:#b5b0a4;margin-right:5px}
+.story-links a{color:#8a857c;text-decoration:none;border-bottom:1px solid #e6e1d8}
+.story-links a:hover{color:#C24A00;border-bottom-color:#C24A00}
+.story-links .sep{opacity:.4;margin:0 4px}
+/* 주제는 개별 이름이 아니라 묶음이다 — 테두리로 구분한다 */
+.story-links a.topic{border-bottom:0;padding:1px 7px;border-radius:999px;
+background:#f3efe8;color:#8a857c}
+.story-links a.topic:hover{background:#C24A00;color:#fff}
+.story-links .row + .row{margin-top:4px}
+/* 「같은 흐름」은 제목이 길어 한 줄에 하나씩 세운다. 라벨은 왼쪽에 고정 */
+.story-links .flows{display:flex;align-items:flex-start}
+.story-links .flow-list{display:flex;flex-direction:column;gap:2px;min-width:0}
+.story-links .flow{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.story-links .flow b{font-weight:600;color:#b5b0a4;margin-right:3px}
+@media(max-width:560px){.story-links .flows{display:block}
+  .story-links .flow-list{margin-top:2px;padding-left:1px}}
+</style>
+</head>
 <body>
 <div id="soonsal-live-ticker" style="display:none;"></div>
 <style>
@@ -655,7 +679,7 @@ transition:color .18s ease,background .18s ease}
     <div class="bullet"><span class="dot">◾</span><span>이걸 증명한 게 이란·이스라엘 전쟁. CME가 문 닫은 주말에 트레이더들이 Hyperliquid WTI 원유 perp로 몰려들었는데, 주말 원유 거래량만 14억불, 미결제약정 14.3억불로 6개월 전보다 100배 넘게 뜀. 같은 시기 BTC는 횡보에 변동성도 바닥 — 모멘텀 치는 사람 입장에선 원유가 훨씬 재밌는 장</span></div>
     <div class="bullet"><span class="dot">◾</span><span><strong>같은 지갑, 같은 담보, 같은 화면에서 금·원유·주식에 베팅할 수 있으니까, 알트코인 경쟁 상대가 서로가 아니라 매크로 전체로 넓어진 것</strong>. 은 <span class="sub">(銀)</span> 하나가 하루 30억불, 원유가 12억불씩 왔다갔다 하는 판. 전통자산 거래 비중이 30%를 넘기고, 바쁜 날엔 절반 가까이</span></div>
     <div class="bullet"><span class="dot">◾</span><span>대형 트레이더 St. Pump은 원유에 4,000만불을 1분 만에 잡고 12시간 뒤 100만불 먹고 빠짐 — 크립토식 모멘텀 매매를 글로벌 시장에 그대로 옮긴 격. 크립토가 전통금융을 대체하겠다더니, 오히려 전통금융 유통 채널로 쓰이는 중 <span class="note">(알트코인 시대가 남긴 건 자산군이 아니라 인프라)</span></span></div>
-  </div>
+  <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/ftx.html">FTX</a><span class="sep">·</span><a href="/wiki/bitcoin.html">비트코인</a><span class="sep">·</span><a href="/wiki/hyperliquid.html">하이퍼리퀴드</a><span class="sep">·</span><a href="/wiki/sp500.html">S&amp;P 500</a><span class="sep">·</span><a href="/wiki/oil.html">원유</a><span class="sep">·</span><a class="topic" href="/topics/crypto.html">크립토</a><span class="sep">·</span><a class="topic" href="/topics/energy.html">에너지·원자재</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0813.html#story-3"><b>08-13</b> 비트코인을 이긴 포켓몬</a></span></span></div></div></div>
 </div>
 
 <!-- STORY 2 -->
@@ -671,7 +695,7 @@ transition:color .18s ease,background .18s ease}
     <div class="bullet"><span class="dot">◾</span><span>설상가상으로 Tether가 같은 날 Big 4 회계법인 정식 감사를 발표하며 정면 승부 선언. 스테이블코인 1등은 아직 Tether인데, 원래 규제 사각지대에서 영업하던 곳. 덕분에 Circle의 USDC는 "규제 준수" 카드로 전통 금융기관 채택을 늘리며 꿀 빨고 있었는데, Tether가 유일한 차별점을 정조준한 격</span></div>
     <div class="bullet"><span class="dot">◾</span><span>But, 아직 초안이고 최종 모양은 아무도 모름. USDC 순공급은 올해만 45억불 늘었고, 스테이블코인 거래량의 64%를 차지. 활성 지갑 수도 작년 대비 600% 늘어 60만 개 돌파. 제품은 역대 최고인데 주가가 35% 빠진 상황 — 완벽한 미래를 주가에 이미 박아뒀다가, 현실이 자기 속도로 따라오니까 그 차이가 한꺼번에 닫히는 전형적 패턴</span></div>
   </div>
-  <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
+  <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/circle.html">서클(Circle)</a><span class="sep">·</span><a href="/wiki/coinbase.html">코인베이스</a><span class="sep">·</span><a href="/wiki/sec.html">미국 SEC</a><span class="sep">·</span><a href="/wiki/cftc.html">미국 CFTC</a><span class="sep">·</span><a href="/wiki/oil.html">원유</a><span class="sep">·</span><a class="topic" href="/topics/crypto.html">크립토</a><span class="sep">·</span><a class="topic" href="/topics/banks-wallst.html">월가·은행</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0706-crypto.html#story-5"><b>07-06</b> Open USD 140개사 — Circle 주가 -17</a></span><span class="flow"><a href="/newsletters/2026/0714-crypto.html#story-1"><b>07-14</b> Circle, 은행이 되다 — $73B 스테이블코인의 </a></span></span></div></div>
 </div>
 
 <!-- STORY 3 -->
@@ -687,7 +711,7 @@ transition:color .18s ease,background .18s ease}
       <div class="tradfi-label">🏦 전통 금융 대비 현재 위치</div>
       전통 선물 시장 <span class="sub">(CME·ICE)</span>은 거래시간 제한 + 높은 증거금 + KYC 필수. 크립토 무기한 선물 플랫폼은 이 3가지를 다 없앤 대신 규제 밖에서 작동. 전통 금융이 토큰화로 이 간극을 좁히려 하지만, 규제 환경이 따라오는 데 수년이 걸릴 전망
     </div>
-  </div>
+  <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/oil.html">원유</a><span class="sep">·</span><a href="/wiki/hyperliquid.html">하이퍼리퀴드</a><span class="sep">·</span><a href="/wiki/nvidia.html">엔비디아</a><span class="sep">·</span><a href="/wiki/bitcoin.html">비트코인</a><span class="sep">·</span><a href="/wiki/solana.html">솔라나</a><span class="sep">·</span><a class="topic" href="/topics/energy.html">에너지·원자재</a><span class="sep">·</span><a class="topic" href="/topics/crypto.html">크립토</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0325-crypto.html#story-1"><b>03-25</b> 크립토 플랫폼에서 원유가 거래되는 이유</a></span><span class="flow"><a href="/newsletters/2026/0313-crypto.html#story-4"><b>03-13</b> 크립토 거래소, 예측시장으로 뛰어드는 이유</a></span></span></div></div></div>
 </div>
 
 <!-- STORY 4 -->
@@ -704,7 +728,7 @@ transition:color .18s ease,background .18s ease}
       전통 금융에서 한 기업이 자산의 90%+를 단일 상품에 몰빵하는 건 지배구조 리스크로 분류됨. Strategy는 이 구조를 의도적으로 설계한 유일한 상장기업. BTC ETF가 등장하면서 기관 투자자에게 대안이 생겼지만, Strategy의 프리미엄이 유지되는 건 "레버리지 BTC"를 원하는 수요가 있다는 뜻
     </div>
   </div>
-  <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
+  <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/bitcoin.html">비트코인</a><span class="sep">·</span><a href="/wiki/microstrategy.html">마이크로스트래티지</a><span class="sep">·</span><a href="/wiki/michael-saylor.html">마이클 세일러</a><span class="sep">·</span><a class="topic" href="/topics/crypto.html">크립토</a><span class="sep">·</span><a class="topic" href="/topics/ipo.html">IPO·상장</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0325-crypto.html#story-2"><b>03-25</b> Strategy, 440억불어치 BTC를 더 사겠다는 </a></span><span class="flow"><a href="/newsletters/2026/0311-crypto.html#story-3"><b>03-11</b> Strategy, $12.8억으로 BTC 추가 매입</a></span></span></div></div>
 </div>
 
 

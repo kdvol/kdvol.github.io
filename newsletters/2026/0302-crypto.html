@@ -498,7 +498,31 @@ transition:color .18s ease,background .18s ease}
   .sub-btn-header{padding:7px 13px;font-size:11.5px;letter-spacing:-.3px}
   .search-btn-header{width:32px;height:32px}
 }
-</style></head>
+</style>
+
+
+<style id="soonsal-story-links">
+/* 스토리 끝 — 다 읽은 사람만 본다. 본문 흐름을 끊지 않는다 */
+.story-links{margin:14px 0 0;padding:11px 0 0;border-top:1px solid #ece8e0;
+font-size:11.5px;line-height:1.8;color:#9a958a;word-break:keep-all}
+.story-links .k{color:#b5b0a4;margin-right:5px}
+.story-links a{color:#8a857c;text-decoration:none;border-bottom:1px solid #e6e1d8}
+.story-links a:hover{color:#C24A00;border-bottom-color:#C24A00}
+.story-links .sep{opacity:.4;margin:0 4px}
+/* 주제는 개별 이름이 아니라 묶음이다 — 테두리로 구분한다 */
+.story-links a.topic{border-bottom:0;padding:1px 7px;border-radius:999px;
+background:#f3efe8;color:#8a857c}
+.story-links a.topic:hover{background:#C24A00;color:#fff}
+.story-links .row + .row{margin-top:4px}
+/* 「같은 흐름」은 제목이 길어 한 줄에 하나씩 세운다. 라벨은 왼쪽에 고정 */
+.story-links .flows{display:flex;align-items:flex-start}
+.story-links .flow-list{display:flex;flex-direction:column;gap:2px;min-width:0}
+.story-links .flow{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.story-links .flow b{font-weight:600;color:#b5b0a4;margin-right:3px}
+@media(max-width:560px){.story-links .flows{display:block}
+  .story-links .flow-list{margin-top:2px;padding-left:1px}}
+</style>
+</head>
 <body>
 <div id="soonsal-live-ticker" style="display:none;"></div>
 <style>
@@ -725,7 +749,7 @@ transition:color .18s ease,background .18s ease}
         </div>
 
         <div class="bullet"><span class="dot">◾</span><span>이번 주 핵심 관전 포인트: (1) 월요일 미국 증시 개장 후 BTC 상관관계 변화 (2) ETF 유출 지속 여부 (3) 호르무즈 봉쇄 장기화 시 채굴 수익성 압박. "24시간 거래되는 자산"이라는 BTC의 특성이 위기 때는 양날의 검이 된다는 교훈</span></div>
-      </div>
+      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/bitcoin.html">비트코인</a><span class="sep">·</span><a href="/wiki/dollar.html">달러(환율)</a><span class="sep">·</span><a href="/wiki/nasdaq.html">나스닥</a><span class="sep">·</span><a class="topic" href="/topics/crypto.html">크립토</a><span class="sep">·</span><a class="topic" href="/topics/energy.html">에너지·원자재</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0415-crypto.html#story-1"><b>04-15</b> BTC, 전쟁 전 가격으로 복귀</a></span><span class="flow"><a href="/newsletters/2026/0417-crypto.html#story-5"><b>04-17</b> BTC ETF, &quot;디지털 금&quot;에서 &</a></span></span></div></div></div>
     </div>
 
     <!-- STORY 2 -->
@@ -743,7 +767,7 @@ transition:color .18s ease,background .18s ease}
         </div>
 
         <div class="bullet"><span class="dot">◾</span><span>월요일 ETF 유출이 지속될지가 이번 주 최대 변수. 기관들이 주말 동안 이란 상황을 분석한 후 추가 매도에 나설지, 아니면 "공습 후 저점 매수"로 전환할지. 과거 패턴상 지정학 이벤트 후 2~3일 내 ETF 유출이 반전되는 경우가 많았지만, 호르무즈 봉쇄는 전례가 없는 변수 <span class="note">(기관들의 '주말 리스크 회피'가 24/7 시장에서 벌어지는 아이러니)</span></span></div>
-      </div>
+      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/bitcoin.html">비트코인</a><span class="sep">·</span><a href="/wiki/blackrock.html">블랙록</a><span class="sep">·</span><a href="/wiki/fidelity.html">피델리티</a><span class="sep">·</span><a class="topic" href="/topics/etf-funds.html">ETF·펀드</a><span class="sep">·</span><a class="topic" href="/topics/crypto.html">크립토</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0428-crypto.html#story-2"><b>04-28</b> BTC ETF, 기관은 안 떠남</a></span><span class="flow"><a href="/newsletters/2026/0521-crypto.html#story-1"><b>05-21</b> BTC ETF, 기관이 빠져나간다</a></span></span></div></div></div>
     </div>
 
     <!-- STORY 3 -->
@@ -761,7 +785,7 @@ transition:color .18s ease,background .18s ease}
         </div>
 
         <div class="bullet"><span class="dot">◾</span><span>이 사건의 함의: DeFi는 위기 때 "무정부적으로 붕괴"하는 것이 아니라, 코드에 의해 질서 있게 디레버리징됨. 문제는 그 과정에서 피해가 레버리지 유저에게 집중된다는 점. 전통 금융의 마진콜과 원리는 같지만, 속도가 10배 빠름 <span class="note">(코드는 감정이 없으니까)</span></span></div>
-      </div>
+      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/bitcoin.html">비트코인</a><span class="sep">·</span><a href="/wiki/tether.html">테더(USDT)</a><span class="sep">·</span><a href="/wiki/circle.html">서클(Circle)</a><span class="sep">·</span><a href="/wiki/coinbase.html">코인베이스</a><span class="sep">·</span><a class="topic" href="/topics/crypto.html">크립토</a><span class="sep">·</span><a class="topic" href="/topics/etf-funds.html">ETF·펀드</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0714.html#story-4"><b>07-14</b> 스테이블코인 회사, 은행이 되다</a></span><span class="flow"><a href="/newsletters/2026/0410-crypto.html#story-3"><b>04-10</b> 스테이블코인, 이자 줘도 된다는 신호</a></span></span></div></div></div>
     </div>
 
     <!-- STORY 4 -->
@@ -779,7 +803,7 @@ transition:color .18s ease,background .18s ease}
         </div>
 
         <div class="bullet"><span class="dot">◾</span><span>RWA(Real World Asset) 토큰화가 이 수렴의 매개체. BlackRock의 BUIDL 펀드<span class="detail">(토큰화된 미국 국채)</span>가 $10억+ AUM 달성. Ondo Finance, Maple Finance 등이 Private Credit 토큰화를 선도. Apollo xAI 같은 고수익 부채가 토큰화되면, DeFi 유저가 xAI 대출의 이자 수익에 접근할 수 있는 세상이 열림</span></div>
-      </div>
+      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/circle.html">서클(Circle)</a><span class="sep">·</span><a href="/wiki/blackrock.html">블랙록</a><span class="sep">·</span><a class="topic" href="/topics/crypto.html">크립토</a><span class="sep">·</span><a class="topic" href="/topics/ipo.html">IPO·상장</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0302.html#story-3"><b>03-02</b> Apollo, xAI 부채 투자로 $2.5억 수익 — </a></span><span class="flow"><a href="/newsletters/2026/0320.html#story-3"><b>03-20</b> Private Credit, 소비자 대출까지 번진 환매</a></span></span></div></div></div>
     </div>
 
     <!-- STORY 5 -->
@@ -797,7 +821,7 @@ transition:color .18s ease,background .18s ease}
         </div>
 
         <div class="bullet"><span class="dot">◾</span><span>단기적으로는 채굴 수익성 악화가 매도 압력으로 작용할 가능성이 높음. 그러나 장기적으로 에너지 위기는 "비트코인 = 에너지 저장 수단"이라는 내러티브를 강화할 수도 있음. 텍사스와 같은 지역에서 잉여 전력을 BTC 채굴에 사용하는 모델이 에너지 안보 논의에 포함되기 시작</span></div>
-      </div>
+      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/bitcoin.html">비트코인</a><span class="sep">·</span><a href="/wiki/oil.html">원유</a><span class="sep">·</span><a href="/wiki/riot.html">라이엇 플랫폼</a><span class="sep">·</span><a class="topic" href="/topics/crypto.html">크립토</a><span class="sep">·</span><a class="topic" href="/topics/energy.html">에너지·원자재</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0713.html#story-1"><b>07-13</b> 호르무즈, 또 닫혔다</a></span><span class="flow"><a href="/newsletters/2026/0420-crypto.html#story-5"><b>04-20</b> 호르무즈 셧다운, BTC에 무슨 의미?</a></span></span></div></div></div>
     </div>
 
     <!-- 오늘의 크립토 용어 -->
