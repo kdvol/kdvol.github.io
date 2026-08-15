@@ -211,6 +211,24 @@ function renderCommunity() {
   (ins.engage || []).forEach(function (e) { eng[e.kind] = (eng[e.kind] || 0) + e.n; });
   var acts = (eng.react || 0) + (eng.share || 0) + (eng.telegram || 0) + (eng.instagram || 0);
 
+  // 날짜별 실제 방문자 수. 이게 있어야 '사람 대비' 비율을 낼 수 있다.
+  var DAU = {};
+  (ins.dau || []).forEach(function (r) { DAU[r.day] = r.people; });
+  var hasDau = daily.some(function (d) { return DAU[d.day] !== undefined; });
+  // 참여율 분모는 사람이어야 한다. 같은 7일 창으로 분자도 맞춘다.
+  var days7 = last7.map(function (d) { return d.day; });
+  var ppl7 = 0, hasDau7 = false;
+  days7.forEach(function (d) {
+    if (DAU[d] !== undefined) { ppl7 += DAU[d]; hasDau7 = true; }
+  });
+  var pplWin = 0;
+  daily.forEach(function (d) { if (DAU[d.day] !== undefined) pplWin += DAU[d.day]; });
+  var acts7 = 0;
+  (ins.engage || []).forEach(function (e) {
+    if (days7.indexOf(e.day) >= 0 &&
+        ['react', 'share', 'telegram', 'instagram'].indexOf(e.kind) >= 0) acts7 += e.n;
+  });
+
   // views.uniq는 '경로별' 첫 방문이라 한 사람이 3페이지를 보면 3으로 잡힌다.
   // 사람 수는 visitors 테이블에서 온 값(v.today / v.active7)을 쓴다.
   var people0 = (v.today === undefined || v.today === null) ? today.uniq : v.today;
@@ -270,33 +288,51 @@ function renderCommunity() {
         '여러 번 세집니다 — 사람 수로 읽으면 안 됩니다.</p>';
     }
   } else {
+    // 재방문율은 전 기간 값이라 위 '전체 기간' 블록에 이미 있다. 하루·7일 옆에
+    // 또 놓으면 같은 줄에서 기간이 갈린다 — 뺀다.
+    // 참여율 분모는 사람이어야 한다. sumU 는 경로 기준이라 분모가 부풀었다.
     h += '<div class="sum">' +
       kpi(people0, '오늘 방문자', today.hits + '뷰', true) +
       kpi(people7, '7일 방문자', h7 + '뷰 · 중복 제외', true) +
-      kpi(pct(v.repeat_v, v.total) + '%', '재방문율', (v.repeat_v || 0) + '/' + (v.total || 0) + '명', true) +
-      kpi(pct(acts, sumU) + '%', '참여율', acts + '건 / ' + sumU + '순방문', true) +
+      kpi(hasDau7 ? pct(acts7, ppl7) + '%' : '—', '7일 참여율',
+          hasDau7 ? acts7 + '건 / ' + ppl7 + '명' : '사람 수 집계 전', true) +
       '</div>';
   }
 
-  // 일별 추이 — 뷰(주황) 위에 순방문자(파랑)를 겹쳐 보여준다
+  // 일별 추이 — 뷰(주황) 위에 **사람 수**(파랑)를 겹친다.
+  //   전에는 파란 막대가 views.uniq 였다. 그건 (날짜, 경로)별 첫 열람이라
+  //   한 사람이 세 글을 보면 3 이 된다. 「순방문자」라 적어 놓고 사람이 아닌
+  //   값을 그렸다 (KD 2026-08-16). 이제 dau 를 쓰고, 없는 날은 안 그린다.
   var max = 1;
   daily.forEach(function (d) { if (d.hits > max) max = d.hits; });
   h += '<h2>일별 추이 <small>' + (ins.scope || ('최근 ' + ins.days + '일')) + '</small></h2><div class="card"><div class="trend">' +
     daily.map(function (d) {
-      return '<i style="height:' + Math.max(2, d.hits / max * 60) + 'px" title="' + d.day +
-        ' · ' + d.hits + '뷰 / 순방문 ' + d.uniq + '"><i class="u" style="position:absolute;left:0;right:0;bottom:0;height:' +
-        Math.max(1, d.uniq / max * 60) + 'px"></i></i>';
+      var ppl = DAU[d.day];
+      var tip = d.day + ' · ' + d.hits + '뷰';
+      tip += ppl === undefined ? ' / 사람 수 집계 전' : ' / 방문자 ' + ppl + '명';
+      var inner = ppl === undefined ? '' :
+        '<i class="u" style="position:absolute;left:0;right:0;bottom:0;height:' +
+        Math.max(1, ppl / max * 60) + 'px"></i>';
+      return '<i style="height:' + Math.max(2, d.hits / max * 60) + 'px" title="' +
+        tip + '">' + inner + '</i>';
     }).join('') +
     '</div><div class="tl"><span>' + daily[0].day.slice(5) + '</span><span>' +
     daily[daily.length - 1].day.slice(5) + '</span></div>' +
     '<div class="lgd"><span><b style="background:#F07040"></b>페이지뷰</span>' +
-    '<span><b style="background:#3f6fd8"></b>페이지 순방문</span></div></div>';
+    (hasDau ? '<span><b style="background:#3f6fd8"></b>방문자 수</span>' : '') +
+    '</div>' +
+    (hasDau ? '' : '<p class="note">이 기간은 사람 수 집계 전이라 방문자 막대가 없습니다. ' +
+      '주황 막대는 페이지뷰입니다.</p>') + '</div>';
 
   // 커뮤니티 지표 — 온 사람 중 얼마나 남기고 가는가
   h += '<h2>참여 <small>방문자가 실제로 한 행동</small></h2><div class="card">' +
     bars(Object.keys(KIND_KO).map(function (k) { return [KIND_KO[k], eng[k] || 0]; }), '건') +
-    '<p class="note">끝까지 읽음 = 페이지 70%까지 내려갔거나 45초 이상 머문 방문. ' +
-    '읽음률 ' + pct(eng.read || 0, sumU) + '% · 반응률 ' + pct(eng.react || 0, sumU) + '%</p></div>';
+    '<p class="note">끝까지 읽음 = 페이지 70%까지 내려갔거나 45초 이상 머문 방문.' +
+    (hasDau
+      ? ' 방문자 ' + pplWin + '명 기준 · 읽음률 ' + pct(eng.read || 0, pplWin) +
+        '% · 반응률 ' + pct(eng.react || 0, pplWin) + '%'
+      : ' 사람 수 집계 전이라 비율은 내지 않습니다 — 아래 건수만 보세요.') +
+    '</p></div>';
 
   h += '<h2>유입 경로</h2><div class="card">' +
     bars((ins.refs || []).map(function (r) { return [SRC_KO[r.src] || r.src, r.n]; }), '명') + '</div>';
