@@ -414,29 +414,6 @@
 <meta name="twitter:title" content="🐟 돈가스카레 지수 등장 — 순살브리핑 2026.08.14"/>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "NewsArticle", "headline": "돈가스카레 지수 등장 — 순살브리핑 2026.08.14", "datePublished": "2026-08-14T09:00:00+09:00", "dateModified": "2026-08-14T09:00:00+09:00", "inLanguage": "ko", "mainEntityOfPage": "https://soonsal.com/newsletters/2026/0814.html", "author": {"@type": "Organization", "name": "순살브리핑", "url": "https://soonsal.com/"}, "publisher": {"@type": "Organization", "name": "순살브리핑", "logo": {"@type": "ImageObject", "url": "https://soonsal.com/apple-touch-icon.png"}}, "keywords": "메타 아동중독 재판 1.4조불, 레이커스 125억불 매각, 염소목장 칼시 규제 헤지, 돈가스카레 지수 엔화, 테드 베나 래디시 퇴직저축"}</script>
 <!-- soonsal:bc --><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "순살브리핑", "item": "https://soonsal.com/"}, {"@type": "ListItem", "position": 2, "name": "브리핑", "item": "https://soonsal.com/newsletters/"}, {"@type": "ListItem", "position": 3, "name": "🐟 돈가스카레 지수 등장 — 순살브리핑 2026.08.14", "item": "https://soonsal.com/newsletters/2026/0814.html"}]}</script>
-
-
-
-
-
-
-<style id="soonsal-story-links">
-/* 스토리 끝 — 다 읽은 사람만 본다. 본문 흐름을 끊지 않는다 */
-.story-links{margin:14px 0 0;padding:11px 0 0;border-top:1px solid #ece8e0;
-font-size:11.5px;line-height:1.8;color:#9a958a;word-break:keep-all}
-.story-links .k{color:#b5b0a4;margin-right:5px}
-.story-links a{color:#8a857c;text-decoration:none;border-bottom:1px solid #e6e1d8}
-.story-links a:hover{color:#C24A00;border-bottom-color:#C24A00}
-.story-links .sep{opacity:.4;margin:0 4px}
-.story-links .row + .row{margin-top:4px}
-/* 「같은 흐름」은 제목이 길어 한 줄에 하나씩 세운다. 라벨은 왼쪽에 고정 */
-.story-links .flows{display:flex;align-items:flex-start}
-.story-links .flow-list{display:flex;flex-direction:column;gap:2px;min-width:0}
-.story-links .flow{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.story-links .flow b{font-weight:600;color:#b5b0a4;margin-right:3px}
-@media(max-width:560px){.story-links .flows{display:block}
-  .story-links .flow-list{margin-top:2px;padding-left:1px}}
-</style>
 </head>
 <body>
 <div id="soonsal-live-ticker" style="display:none;"></div>
@@ -480,10 +457,6 @@ font-size:11.5px;line-height:1.8;color:#9a958a;word-break:keep-all}
 <script>
 (function(){'use strict';var WORKER_URL='https://soonsal-data.kd-d0a.workers.dev/';var COINGECKO_URL='https://api.coingecko.com/api/v3';var TRADFI_ORDER=['S&P 500','NASDAQ','Dow Jones','KOSPI','US 10Y','WTI Oil','Gold','DXY','EUR/USD','USD/JPY','USD/KRW'];var CRYPTO_ORDER=['Bitcoin','Ethereum','Solana','XRP','BNB','Crypto Total'];var CRYPTO_IDS={'Bitcoin':'bitcoin','Ethereum':'ethereum','Solana':'solana','XRP':'ripple','BNB':'binancecoin'};var REFRESH=60000;var container,timer,lastTradfi,lastCrypto;function init(){container=document.getElementById('soonsal-live-ticker');if(!container)return;container.style.display='block';container.innerHTML='<div class="stk-loading"><div class="stk-spin"></div>Loading market data...</div>';fetchAll();timer=setInterval(fetchAll,REFRESH)}function fetchAll(){var p1=fetchTradFi();var p2=fetchCrypto();Promise.allSettled?Promise.allSettled([p1,p2]).then(render):Promise.all([p1.catch(function(){return null}),p2.catch(function(){return null})]).then(render)}function fetchTradFi(){return fetch(WORKER_URL).then(function(r){return r.json()}).then(function(data){if(data.tradfi)lastTradfi=data;return data}).catch(function(e){console.warn('[Ticker] TradFi error:',e.message);return null})}function fetchCrypto(){var ids=Object.values(CRYPTO_IDS).join(',');var url=COINGECKO_URL+'/simple/price?ids='+ids+'&vs_currencies=usd&include_24hr_change=true&include_market_cap=true';var globalUrl=COINGECKO_URL+'/global';return Promise.all([fetch(url).then(function(r){return r.json()}),fetch(globalUrl).then(function(r){return r.json()}).catch(function(){return null})]).then(function(results){var prices=results[0];var global=results[1];var crypto={};for(var name in CRYPTO_IDS){var id=CRYPTO_IDS[name];var d=prices[id];if(!d)continue;var p=d.usd;var ch=d.usd_24h_change||0;crypto[name]={price:'$'+formatNum(p),change:(ch>=0?'+':'')+ch.toFixed(2)+'%',direction:ch>0.01?'up':ch<-0.01?'down':'zero'}}if(global&&global.data){var mc=global.data.total_market_cap&&global.data.total_market_cap.usd;var mch=global.data.market_cap_change_percentage_24h_usd;if(mc){crypto['Crypto Total']={price:'$'+(mc/1e12).toFixed(2)+'T',change:(mch>=0?'+':'')+(mch||0).toFixed(2)+'%',direction:mch>0?'up':mch<0?'down':'zero'}}}lastCrypto=crypto;return crypto}).catch(function(e){console.warn('[Ticker] Crypto error:',e.message);return null})}function render(){var tradfi=lastTradfi?lastTradfi.tradfi:{};var crypto=lastCrypto||{};var kst=lastTradfi?lastTradfi.kst:new Date().toLocaleString('ko-KR',{timeZone:'Asia/Seoul'});var html=[];html.push('<div class="stk-ts"><span class="stk-dot"></span><span class="stk-time">'+esc(kst)+' KST</span></div>');for(var i=0;i<TRADFI_ORDER.length;i++){var name=TRADFI_ORDER[i];var d=tradfi[name];if(d)html.push(makeItem(name,d,false))}html.push('<div class="stk-div"><span></span></div>');for(var j=0;j<CRYPTO_ORDER.length;j++){var cname=CRYPTO_ORDER[j];var cd=crypto[cname];if(cd)html.push(makeItem(cname,cd,true))}var track=html.join('');container.innerHTML='<div class="stk-track">'+track+track+'</div>'}function makeItem(name,d,isCrypto){var dir=d.direction||'zero';var arrow=dir==='up'?'<span class="au"></span>':dir==='down'?'<span class="ad"></span>':'';return'<div class="stk-item"><span class="stk-lbl'+(isCrypto?' crypto':'')+'">'+esc(name)+'</span><span class="stk-prc">'+esc(d.price)+'</span><span class="stk-chg '+dir+'">'+arrow+' '+esc(d.change)+'</span></div>'}function formatNum(n){if(n>=10000)return n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});if(n>=100)return n.toFixed(2);if(n>=1)return n.toFixed(2);return n.toFixed(4)}function esc(s){if(!s)return'';var d=document.createElement('span');d.textContent=String(s);return d.innerHTML}if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',init)}else{init()}})();
 </script>
-
-
-
-
 
 
 
@@ -659,7 +632,7 @@ font-size:11.5px;line-height:1.8;color:#9a958a;word-break:keep-all}
         <div class="bullet"><span class="dot">◾</span><span>메타 쪽 방어 논리는, 소셜미디어 중독이 공식 정신과 진단명이 아니라는 것. 없는 병을 두고 소비자를 속였다고 할 수는 없다는 주장. 원고 측 증거가 부족하다는 말도 붙였음. But 올해 이미 배심원 앞에서 두 번 졌음. 로스앤젤레스에선 제품을 중독되게 설계한 것 자체가 과실로 인정됐고, 뉴멕시코에선 소비자를 오도했다는 평결. 다만 이번 배심원단은 판사가 참고만 하는 자문 배심이라, 최종 판단은 판사 몫</span></div>
         <div class="bullet"><span class="dot">◾</span><span>2023년 소송을 걸 때 콜로라도 법무장관은 메타를 대놓고 담배회사에 빗댔음. 여러 주가 똘똘 뭉쳐, 부작용 알고도 숨겼다는 책임을 소셜미디어 산업에 물었음. 돈·영업 방식 변경을 같이 요구하는 모양새. 담배 합의도 돈만 받은 게 아니라 옥외광고·청소년 타겟 마케팅 금지까지 묶었음. 저커버그·아담 모세리 <span class="sub">(인스타그램 대표)</span>도 증인석에 설 예정. 같은 판사 앞에만 3,000건 넘는 소송이 쌓여 있어서, 이번 재판이 첫 시험대</span></div>
       </div>
-      </div></div></div></div><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/meta.html">메타</a><span class="sep">·</span><a href="/wiki/zuckerberg.html">저커버그</a></div></div><p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
+      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
     </div>
 
 <!-- STORY 2 -->
@@ -673,7 +646,7 @@ font-size:11.5px;line-height:1.8;color:#9a958a;word-break:keep-all}
         <div class="bullet"><span class="dot">◾</span><span>돈이 몰리는 게 레이커스만은 아님. 쿠슈너가 만든 스라이브 이터널은 야구팀 샌프란시스코 자이언츠 지분을 갖고 있고, 7월말엔 월드컵 상업권을 굴릴 회사 지분까지 노렸다가 유럽축구연맹 55개 회원국의 보이콧 예고로 판이 접혔음. 리버풀 대주주도 30% 매각 협상 중인데 상대 그룹에 제프 베조스가 참여 중. NBA는 펀드에 경영권을 굉장히 제한적으로만 열어줌 <span class="sub">(KKR 산하 Arctos가 대표적 펀드)</span>. 새 주인은 기존 구단주들 표결을 통과해야 들어올 수 있음</span></div>
         <div class="bullet"><span class="dot">◾</span><span>1979년 제리 버스 <span class="sub">(LA 레이커스 옛 구단주)</span>가 하키팀 킹스+포럼 경기장+목장까지 묶어서 산 값이 6,750만불. LA 레이커스 구단 가치는 47년 만에 185배. 코트 옆에 할리우드 스타를 앉히고 경기를 쇼로 승화시킨 시초격 인물. 버스 가문은 15%를 그대로 들고 감. 구단 대표를 맡으려면 15%는 있어야 한다는 규정 때문. 거래는 NBA 이사회 승인과 인수 측 실사만 남음. 매도자 쪽은 레이커스 팔아서 보험사 대출부터 일부라도 갚아야 함</span></div>
       </div>
-      </div></div></div></div><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/disney.html">디즈니</a><span class="sep">·</span><a href="/wiki/trump.html">트럼프</a><span class="sep">·</span><a href="/wiki/cisco.html">시스코</a><span class="sep">·</span><a href="/wiki/bezos.html">제프 베조스</a><span class="sep">·</span><a href="/wiki/kkr.html">KKR</a></div></div><p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
+      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
     </div>
 
 <!-- STORY 3 -->
@@ -687,7 +660,7 @@ font-size:11.5px;line-height:1.8;color:#9a958a;word-break:keep-all}
         <div class="bullet"><span class="dot">◾</span><span>목장이 50만불을 받는 조건은 날짜로 못 박혀 있음. 10월 1일 전까지 캘리포니아가 대체 임금을 인정하거나 or 목동 임금·초과근무 부담을 덜어주면 지급은 없음. 문제는 결정권을 쥔 주 하원 회기가 8월 31일에 끝난다는 것. 같은 취지 법안은 이미 심의도 못 받고 죽은 적이 있음. 남은 시간은 3주 남짓. 목장 입장에선 법이 고쳐지면 5만불을 날려도 인건비를 지킴. 어느 쪽으로 가든 최대 5만불 비용으로 버티는 구조</span></div>
         <div class="bullet"><span class="dot">◾</span><span>예측시장은 도박 여부로 논란이 있기도 하지만, 일단 위험관리 쪽으로도 발을 넓히는 중 <span class="note">(본질적으로 옵션임)</span>. 칼시는 2월에 프로 구단 성과급을 헷지해주는 중개사와 손을 잡았음. 우승 보너스를 지급해야 하는 위험 <span class="note">(?)</span>을 미리 덮는 식인데, 그동안은 로이즈 같은 재보험 쪽에서 알음알음 거래되던 영역. 일단 미국에선 아직 논쟁-ing, 뉴욕주는 7월 31일 칼시 영업을 멈추라는 소송을 냈고, 뉴욕시의회도 광고 방식을 조사 중</span></div>
       </div>
-      </div></div></div></div><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/kalshi.html">칼시(Kalshi)</a></div></div><p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
+      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
     </div>
 
 <!-- STORY 4 -->
@@ -701,7 +674,7 @@ font-size:11.5px;line-height:1.8;color:#9a958a;word-break:keep-all}
         <div class="bullet"><span class="dot">◾</span><span>정부도 방향을 틀었음. 확장 재정을 밀던 다카이치 총리 쪽이 일본은행의 9월 or 10월 인상을 지지하는 쪽으로 돌아섰음. 다만 시점은 일본은행이 정할 일이라고 선을 그었음. 7월 회의 의견 요약에서도 더 빨리 올려야 한다는 위원이 늘었음. 문제는 가계 소비가 6월까지 7개월 연속 줄었다는 점. 실질임금은 6개월째 오르는데도 소비자들 지갑이 닫히는 중이라, 금리 세게 올리긴 어려운 상황. 다음 회의는 9월 17~18일</span></div>
         <div class="bullet"><span class="dot">◾</span><span>한국 입장에서도 남 얘기가 아닌 게, 7월말 한국도 같은 날 달러를 팔며 원화 방어에 들어갔음. 엔화가 밀리면 원화도 같이 밀리는 구조. 일본과 겹치는 수출품은 값 경쟁에서 불리해지고, 엔저를 노린 일본 여행 수요는 계속 커짐. 미·일 공동 개입이 엔화 가치를 5% 끌어올렸었고, 그 힘을 이어받은 게 일본은행 조기 인상 베팅. 160선이 뚫리면 당국이 다시 들어온다는 쪽 vs. 두 번째 개입은 효과가 더 짧다는 쪽으로 갈려 있음</span></div>
       </div>
-      </div></div></div></div><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/yen.html">엔화</a><span class="sep">·</span><a href="/wiki/oil.html">원유</a><span class="sep">·</span><a href="/wiki/starbucks.html">스타벅스</a><span class="sep">·</span><a href="/wiki/boj.html">일본은행</a></div></div><p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
+      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
     </div>
 
 <!-- STORY 5 -->
@@ -715,7 +688,7 @@ font-size:11.5px;line-height:1.8;color:#9a958a;word-break:keep-all}
         <div class="bullet"><span class="dot">◾</span><span>그래서 이번에 들고 나온건 직원 월급에서 떼는 돈이 아니라 회사가 직접 넣어주는 돈. 1950년대부터 있던 401(a)를 연봉 16만불 미만 직원용으로 손본 물건인데, 가령 안전운전·정시배송 목표를 채우면 하루 5불씩, 1년을 채우면 근속 보너스 1,000불씩 계좌에 쌓임. 이렇게 들어온 돈을 앱에서 무 개수로 세어 보여주고, 연말까지 무가 몇 개로 불어나는지도 미리 띄워줌 <span class="note">(농사 게임과 크게 다르지 않음)</span></span></div>
         <div class="bullet"><span class="dot">◾</span><span>회사가 넣어주는 돈이라는 점에선 한국 퇴직연금과 닮은 그림인데, 미국에선 이게 논쟁거리. 은퇴 연구자들 사이에선 이 보상이 임금 인상 자리를 대신하는 것 아니냐는 지적이 나오고, 무 계좌에 쌓인 돈은 현금 보상이 아니라서 소셜 시큐리티 <span class="sub">(미국 공적연금)</span> 급여를 매길 때 소득으로도 안 잡힘. 대형 고객은 아직 한 곳도 없고, 베나 본인은 "이게 뜰 때쯤이면 나는 없을 것"이라며 웃는 중</span></div>
       </div>
-      </div></div></div></div><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/oil.html">원유</a></div></div><p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
+      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
     </div>
 
 <!-- /content -->

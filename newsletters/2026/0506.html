@@ -399,27 +399,6 @@
 <meta name="twitter:title" content="🤖 성공방정식 시즌2 — 순살브리핑 2026.05.06"/>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "NewsArticle", "headline": "성공방정식 시즌2 — 순살브리핑 2026.05.06", "datePublished": "2026-05-06T09:00:00+09:00", "dateModified": "2026-05-06T09:00:00+09:00", "inLanguage": "ko", "mainEntityOfPage": "https://soonsal.com/newsletters/2026/0506.html", "author": {"@type": "Organization", "name": "순살브리핑", "url": "https://soonsal.com/"}, "publisher": {"@type": "Organization", "name": "순살브리핑", "logo": {"@type": "ImageObject", "url": "https://soonsal.com/apple-touch-icon.png"}}, "keywords": "앤트로픽클로드월가AI에이전트팩트셋모닝스타톰슨로이터,  게임스탑이베이56B딜라이언코헨드렉셀,  트럼프AI규제가드레일미토스GPT5.5사이버,  매파RBA한은인플레영국길트,  칼라일85B구조화PE환매스피릿항공"}</script>
 <!-- soonsal:bc --><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "순살브리핑", "item": "https://soonsal.com/"}, {"@type": "ListItem", "position": 2, "name": "브리핑", "item": "https://soonsal.com/newsletters/"}, {"@type": "ListItem", "position": 3, "name": "🤖 성공방정식 시즌2 — 순살브리핑 2026.05.06", "item": "https://soonsal.com/newsletters/2026/0506.html"}]}</script>
-
-
-
-
-<style id="soonsal-story-links">
-/* 스토리 끝 — 다 읽은 사람만 본다. 본문 흐름을 끊지 않는다 */
-.story-links{margin:14px 0 0;padding:11px 0 0;border-top:1px solid #ece8e0;
-font-size:11.5px;line-height:1.8;color:#9a958a;word-break:keep-all}
-.story-links .k{color:#b5b0a4;margin-right:5px}
-.story-links a{color:#8a857c;text-decoration:none;border-bottom:1px solid #e6e1d8}
-.story-links a:hover{color:#C24A00;border-bottom-color:#C24A00}
-.story-links .sep{opacity:.4;margin:0 4px}
-.story-links .row + .row{margin-top:4px}
-/* 「같은 흐름」은 제목이 길어 한 줄에 하나씩 세운다. 라벨은 왼쪽에 고정 */
-.story-links .flows{display:flex;align-items:flex-start}
-.story-links .flow-list{display:flex;flex-direction:column;gap:2px;min-width:0}
-.story-links .flow{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.story-links .flow b{font-weight:600;color:#b5b0a4;margin-right:3px}
-@media(max-width:560px){.story-links .flows{display:block}
-  .story-links .flow-list{margin-top:2px;padding-left:1px}}
-</style>
 </head>
 <body>
 <div id="soonsal-live-ticker" style="display:none;"></div>
@@ -463,10 +442,6 @@ font-size:11.5px;line-height:1.8;color:#9a958a;word-break:keep-all}
 <script>
 (function(){'use strict';var WORKER_URL='https://soonsal-data.kd-d0a.workers.dev/';var COINGECKO_URL='https://api.coingecko.com/api/v3';var TRADFI_ORDER=['S&P 500','NASDAQ','Dow Jones','KOSPI','US 10Y','WTI Oil','Gold','DXY','EUR/USD','USD/JPY','USD/KRW'];var CRYPTO_ORDER=['Bitcoin','Ethereum','Solana','XRP','BNB','Crypto Total'];var CRYPTO_IDS={'Bitcoin':'bitcoin','Ethereum':'ethereum','Solana':'solana','XRP':'ripple','BNB':'binancecoin'};var REFRESH=60000;var container,timer,lastTradfi,lastCrypto;function init(){container=document.getElementById('soonsal-live-ticker');if(!container)return;container.style.display='block';container.innerHTML='<div class="stk-loading"><div class="stk-spin"></div>Loading market data...</div>';fetchAll();timer=setInterval(fetchAll,REFRESH)}function fetchAll(){var p1=fetchTradFi();var p2=fetchCrypto();Promise.allSettled?Promise.allSettled([p1,p2]).then(render):Promise.all([p1.catch(function(){return null}),p2.catch(function(){return null})]).then(render)}function fetchTradFi(){return fetch(WORKER_URL).then(function(r){return r.json()}).then(function(data){if(data.tradfi)lastTradfi=data;return data}).catch(function(e){console.warn('[Ticker] TradFi error:',e.message);return null})}function fetchCrypto(){var ids=Object.values(CRYPTO_IDS).join(',');var url=COINGECKO_URL+'/simple/price?ids='+ids+'&vs_currencies=usd&include_24hr_change=true&include_market_cap=true';var globalUrl=COINGECKO_URL+'/global';return Promise.all([fetch(url).then(function(r){return r.json()}),fetch(globalUrl).then(function(r){return r.json()}).catch(function(){return null})]).then(function(results){var prices=results[0];var global=results[1];var crypto={};for(var name in CRYPTO_IDS){var id=CRYPTO_IDS[name];var d=prices[id];if(!d)continue;var p=d.usd;var ch=d.usd_24h_change||0;crypto[name]={price:'$'+formatNum(p),change:(ch>=0?'+':'')+ch.toFixed(2)+'%',direction:ch>0.01?'up':ch<-0.01?'down':'zero'}}if(global&&global.data){var mc=global.data.total_market_cap&&global.data.total_market_cap.usd;var mch=global.data.market_cap_change_percentage_24h_usd;if(mc){crypto['Crypto Total']={price:'$'+(mc/1e12).toFixed(2)+'T',change:(mch>=0?'+':'')+(mch||0).toFixed(2)+'%',direction:mch>0?'up':mch<0?'down':'zero'}}}lastCrypto=crypto;return crypto}).catch(function(e){console.warn('[Ticker] Crypto error:',e.message);return null})}function render(){var tradfi=lastTradfi?lastTradfi.tradfi:{};var crypto=lastCrypto||{};var kst=lastTradfi?lastTradfi.kst:new Date().toLocaleString('ko-KR',{timeZone:'Asia/Seoul'});var html=[];html.push('<div class="stk-ts"><span class="stk-dot"></span><span class="stk-time">'+esc(kst)+' KST</span></div>');for(var i=0;i<TRADFI_ORDER.length;i++){var name=TRADFI_ORDER[i];var d=tradfi[name];if(d)html.push(makeItem(name,d,false))}html.push('<div class="stk-div"><span></span></div>');for(var j=0;j<CRYPTO_ORDER.length;j++){var cname=CRYPTO_ORDER[j];var cd=crypto[cname];if(cd)html.push(makeItem(cname,cd,true))}var track=html.join('');container.innerHTML='<div class="stk-track">'+track+track+'</div>'}function makeItem(name,d,isCrypto){var dir=d.direction||'zero';var arrow=dir==='up'?'<span class="au"></span>':dir==='down'?'<span class="ad"></span>':'';return'<div class="stk-item"><span class="stk-lbl'+(isCrypto?' crypto':'')+'">'+esc(name)+'</span><span class="stk-prc">'+esc(d.price)+'</span><span class="stk-chg '+dir+'">'+arrow+' '+esc(d.change)+'</span></div>'}function formatNum(n){if(n>=10000)return n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});if(n>=100)return n.toFixed(2);if(n>=1)return n.toFixed(2);return n.toFixed(4)}function esc(s){if(!s)return'';var d=document.createElement('span');d.textContent=String(s);return d.innerHTML}if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',init)}else{init()}})();
 </script>
-
-
-
-
 
 
 
@@ -633,7 +608,7 @@ font-size:11.5px;line-height:1.8;color:#9a958a;word-break:keep-all}
         <div class="bullet"><span class="dot">◾</span><span>이번 발표가 PE의 가치 창출 공식도 살짝 바꿈. 옛날엔 '비용 절감 = 사람 자르기'였는데, 이젠 사람 자른 자리에 AI 깔아주는 식으로 진화. 인수 직후 인건비 줄이기가 PE의 단골 카드인데, 합작 멤버 8곳이 같은 도구를 동시에 깔면 비용 절감 효과가 동시다발로 발생할 가능성. 실리콘밸리 매출 + 월가 매출 + LP 자금이 한 묶음으로 흐르는 구도 <span class="note">(진정한 밸류애드)</span></span></div>
         <div class="bullet"><span class="dot">◾</span><span>다만 데이터 회사들의 진짜 시험은 지금부터. 팩트셋·블룸버그·모닝스타가 가진 진짜 자산은 데이터 그 자체 이외에도, 출처·정확성·법적 라이선스를 같이 제공한다는 점. AI가 아무리 가공을 잘해도, 라이선스가 막혀있으면 정식 리포트엔 못 씀. 결국 AI 회사들이 데이터 회사를 갈아치우려 들지, 라이선스 비용을 내고 같이 갈지가 갈림길 — 그 결정 전까지 시장에선 데이터 회사들을 불안하게 쳐다보는 중</span></div>
       </div>
-      </div></div></div><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/anthropic.html">앤스로픽</a><span class="sep">·</span><a href="/wiki/blackstone.html">블랙스톤</a><span class="sep">·</span><a href="/wiki/goldman.html">골드만삭스</a><span class="sep">·</span><a href="/wiki/apollo.html">아폴로글로벌</a><span class="sep">·</span><a href="/wiki/openai.html">오픈AI</a></div></div><p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
+      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
     </div>
 
     <!-- STORY 2: GameStop eBay -->
@@ -647,7 +622,7 @@ font-size:11.5px;line-height:1.8;color:#9a958a;word-break:keep-all}
         <div class="bullet"><span class="dot">◾</span><span>이베이 입장에서도 흥미. 시총이 정체된 지 오래라 어떤 구원자라도 환영하는 분위기. 다만 게임스탑이 진짜 자금을 끌어올 수 있는지가 결정적 변수 — 밈주 군단의 매수에 의존한 주식 일부 + 대형 은행들이 대출 쏴주는 게 같이 작동해야 가능. 시장에서는 일단 "이베이 측이 정중히 거절할 가능성 70%, 협상 시작 30%"로 보는 중</span></div>
         <div class="bullet"><span class="dot">◾</span><span>이번 딜의 진짜 주제는 LBO 시장 자체의 부활. 사모채권·정크본드 시장이 다시 LBO 자금 댈 만한 체력을 갖추기 시작했고, 사모 자금이 차오르면서 시총 작은 인수자가 본인 4배 회사를 사겠다고 나서는 환경이 만들어진 셈. 밈주 + LBO + 가상자산 보유가 한 패키지로 묶인 이번 딜을, 시장에선 "지금 사이클이 어디까지 왔는지를 보여주는 신호"로 읽는 중 <span class="note">(울프오브월스트리트 복습 타이밍)</span></span></div>
       </div>
-      </div></div></div><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/gamestop.html">게임스탑</a><span class="sep">·</span><a href="/wiki/ebay.html">이베이</a><span class="sep">·</span><a href="/wiki/bitcoin.html">비트코인</a><span class="sep">·</span><a href="/wiki/michael-burry.html">마이클 버리</a><span class="sep">·</span><a href="/wiki/oil.html">원유</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0522.html#story-5"><b>05-22</b> 게임스탑, 이베이 지분 6.6%로 올림</a></span></span></div></div><p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
+      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
     </div>
 
     <!-- STORY 3: 매파 vs 실적 -->
@@ -674,7 +649,7 @@ font-size:11.5px;line-height:1.8;color:#9a958a;word-break:keep-all}
         <div class="bullet"><span class="dot">◾</span><span>첫 고객 명단부터 무게감이 다름. P&G·3M·랜즈엔드 <span class="sub">(Lands' End; 미국 캐주얼 의류)</span>·아메리칸이글 사인 완료. 더 매운 건 ASCS로 월마트·쇼피파이·틱톡샵 주문까지 처리해준다는 점. 아마존 마켓플레이스의 경쟁사한테서 들어온 주문이 아마존 창고에서 출고되는 구조. 일반 쇼핑몰 운영자 물류 대행은 몇 년째 돌아가던 사업이었는데, 이제 대형 제조사 원자재·완제품까지 통째로 맡기 시작</span></div>
         <div class="bullet"><span class="dot">◾</span><span>풀어야 할 숙제는 데이터 프라이버시. 아마존은 과거 마켓플레이스 셀러 데이터를 본인들 PB 상품 만드는 데 썼다는 의혹을 받은 전례가 있음. 이번엔 ASCS 고객 데이터는 본인들 리테일 사업 의사결정에 쓰지 않겠다고 못 박는 중. 일단 물류업체들 전반의 주가가 개박살, 같은 날 3자물류 GXO도 13% 폭락. 어느 시장이든 들어가면 결국 경쟁자가 되는 아마존인데, 그런 아마존한테 자기 물류를 맡길 회사가 얼마나 나올지를 시장이 지켜보는 중</span></div>
       </div>
-      </div></div></div></div><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/amazon.html">아마존</a><span class="sep">·</span><a href="/wiki/pg.html">프록터앤갬블</a><span class="sep">·</span><a href="/wiki/walmart.html">월마트</a><span class="sep">·</span><a href="/wiki/shopify.html">쇼피파이</a></div></div><p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
+      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
     </div>
 
     <!-- STORY 5: 스피릿 항공 청산 -->
@@ -688,7 +663,7 @@ font-size:11.5px;line-height:1.8;color:#9a958a;word-break:keep-all}
         <div class="bullet"><span class="dot">◾</span><span>이번 청산은 채권자에게도 거의 의미가 없는 절차. 항공기 리스 자산이 대부분이라 자산 매각해도 회수할 게 별로 없음. 지분 가치는 0이 되고, 무담보 채권자 회수율도 한 자릿수 예상. 1.4만명 직원도 5월 중순 무더기 해고로 직행. 같은 날 삭스 글로벌 <span class="sub">(Saks Global; 명품 백화점 삭스 피프스 애비뉴 모회사)</span>도 비슷한 결의 구조조정안을 채권자 표결에 부쳤음</span></div>
         <div class="bullet"><span class="dot">◾</span><span>스피릿 자리는 프론티어·얼리전트 같은 다른 초저가 항공들이 가져갈 가능성. 다만 이들도 사업 모델이 동일해서, "베이직 이코노미"라는 대형사 옵션 등장 이후 모두 적자 운영. 미국 항공 산업에선 초저가 모델이 끝자락에 진입하는 흐름. 시장은 미 초저가 항공들의 통합 사이클이 본격적으로 열릴 가능성을 보는 중 <span class="note">(한국도 비슷한 결 — 진에어·에어부산·에어서울이 통합진에어로 묶이는 중, 국내 LCC 7개 → 4개 체제로 재편 진행)</span></span></div>
       </div>
-      </div></div></div><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/trump.html">트럼프</a></div></div><p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
+      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
     </div>
 
   </div><!-- /content -->

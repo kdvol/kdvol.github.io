@@ -399,27 +399,6 @@
 <meta name="twitter:title" content="🤖 문샷 쇼크 — 순살브리핑 2026.07.20"/>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "NewsArticle", "headline": "문샷 쇼크 — 순살브리핑 2026.07.20", "datePublished": "2026-07-20T09:00:00+09:00", "dateModified": "2026-07-20T09:00:00+09:00", "inLanguage": "ko", "mainEntityOfPage": "https://soonsal.com/newsletters/2026/0720.html", "author": {"@type": "Organization", "name": "순살브리핑", "url": "https://soonsal.com/"}, "publisher": {"@type": "Organization", "name": "순살브리핑", "logo": {"@type": "ImageObject", "url": "https://soonsal.com/apple-touch-icon.png"}}, "keywords": "문샷AI킴K3반도체베어마켓, 미국이란유가폭등, 스위트그린기생충폭락, 결혼비용관세인플레이션, 원화자유화한은금리인상", "image": ["https://soonsal.com/cardnews/2026/0720_png/card_01.png"]}</script>
 <!-- soonsal:bc --><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "순살브리핑", "item": "https://soonsal.com/"}, {"@type": "ListItem", "position": 2, "name": "브리핑", "item": "https://soonsal.com/newsletters/"}, {"@type": "ListItem", "position": 3, "name": "🤖 문샷 쇼크 — 순살브리핑 2026.07.20", "item": "https://soonsal.com/newsletters/2026/0720.html"}]}</script>
-
-
-
-
-<style id="soonsal-story-links">
-/* 스토리 끝 — 다 읽은 사람만 본다. 본문 흐름을 끊지 않는다 */
-.story-links{margin:14px 0 0;padding:11px 0 0;border-top:1px solid #ece8e0;
-font-size:11.5px;line-height:1.8;color:#9a958a;word-break:keep-all}
-.story-links .k{color:#b5b0a4;margin-right:5px}
-.story-links a{color:#8a857c;text-decoration:none;border-bottom:1px solid #e6e1d8}
-.story-links a:hover{color:#C24A00;border-bottom-color:#C24A00}
-.story-links .sep{opacity:.4;margin:0 4px}
-.story-links .row + .row{margin-top:4px}
-/* 「같은 흐름」은 제목이 길어 한 줄에 하나씩 세운다. 라벨은 왼쪽에 고정 */
-.story-links .flows{display:flex;align-items:flex-start}
-.story-links .flow-list{display:flex;flex-direction:column;gap:2px;min-width:0}
-.story-links .flow{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.story-links .flow b{font-weight:600;color:#b5b0a4;margin-right:3px}
-@media(max-width:560px){.story-links .flows{display:block}
-  .story-links .flow-list{margin-top:2px;padding-left:1px}}
-</style>
 </head>
 <body>
 <div id="soonsal-live-ticker" style="display:none;"></div>
@@ -463,10 +442,6 @@ font-size:11.5px;line-height:1.8;color:#9a958a;word-break:keep-all}
 <script>
 (function(){'use strict';var WORKER_URL='https://soonsal-data.kd-d0a.workers.dev/';var COINGECKO_URL='https://api.coingecko.com/api/v3';var TRADFI_ORDER=['S&P 500','NASDAQ','Dow Jones','KOSPI','US 10Y','WTI Oil','Gold','DXY','EUR/USD','USD/JPY','USD/KRW'];var CRYPTO_ORDER=['Bitcoin','Ethereum','Solana','XRP','BNB','Crypto Total'];var CRYPTO_IDS={'Bitcoin':'bitcoin','Ethereum':'ethereum','Solana':'solana','XRP':'ripple','BNB':'binancecoin'};var REFRESH=60000;var container,timer,lastTradfi,lastCrypto;function init(){container=document.getElementById('soonsal-live-ticker');if(!container)return;container.style.display='block';container.innerHTML='<div class="stk-loading"><div class="stk-spin"></div>Loading market data...</div>';fetchAll();timer=setInterval(fetchAll,REFRESH)}function fetchAll(){var p1=fetchTradFi();var p2=fetchCrypto();Promise.allSettled?Promise.allSettled([p1,p2]).then(render):Promise.all([p1.catch(function(){return null}),p2.catch(function(){return null})]).then(render)}function fetchTradFi(){return fetch(WORKER_URL).then(function(r){return r.json()}).then(function(data){if(data.tradfi)lastTradfi=data;return data}).catch(function(e){console.warn('[Ticker] TradFi error:',e.message);return null})}function fetchCrypto(){var ids=Object.values(CRYPTO_IDS).join(',');var url=COINGECKO_URL+'/simple/price?ids='+ids+'&vs_currencies=usd&include_24hr_change=true&include_market_cap=true';var globalUrl=COINGECKO_URL+'/global';return Promise.all([fetch(url).then(function(r){return r.json()}),fetch(globalUrl).then(function(r){return r.json()}).catch(function(){return null})]).then(function(results){var prices=results[0];var global=results[1];var crypto={};for(var name in CRYPTO_IDS){var id=CRYPTO_IDS[name];var d=prices[id];if(!d)continue;var p=d.usd;var ch=d.usd_24h_change||0;crypto[name]={price:'$'+formatNum(p),change:(ch>=0?'+':'')+ch.toFixed(2)+'%',direction:ch>0.01?'up':ch<-0.01?'down':'zero'}}if(global&&global.data){var mc=global.data.total_market_cap&&global.data.total_market_cap.usd;var mch=global.data.market_cap_change_percentage_24h_usd;if(mc){crypto['Crypto Total']={price:'$'+(mc/1e12).toFixed(2)+'T',change:(mch>=0?'+':'')+(mch||0).toFixed(2)+'%',direction:mch>0?'up':mch<0?'down':'zero'}}}lastCrypto=crypto;return crypto}).catch(function(e){console.warn('[Ticker] Crypto error:',e.message);return null})}function render(){var tradfi=lastTradfi?lastTradfi.tradfi:{};var crypto=lastCrypto||{};var kst=lastTradfi?lastTradfi.kst:new Date().toLocaleString('ko-KR',{timeZone:'Asia/Seoul'});var html=[];html.push('<div class="stk-ts"><span class="stk-dot"></span><span class="stk-time">'+esc(kst)+' KST</span></div>');for(var i=0;i<TRADFI_ORDER.length;i++){var name=TRADFI_ORDER[i];var d=tradfi[name];if(d)html.push(makeItem(name,d,false))}html.push('<div class="stk-div"><span></span></div>');for(var j=0;j<CRYPTO_ORDER.length;j++){var cname=CRYPTO_ORDER[j];var cd=crypto[cname];if(cd)html.push(makeItem(cname,cd,true))}var track=html.join('');container.innerHTML='<div class="stk-track">'+track+track+'</div>'}function makeItem(name,d,isCrypto){var dir=d.direction||'zero';var arrow=dir==='up'?'<span class="au"></span>':dir==='down'?'<span class="ad"></span>':'';return'<div class="stk-item"><span class="stk-lbl'+(isCrypto?' crypto':'')+'">'+esc(name)+'</span><span class="stk-prc">'+esc(d.price)+'</span><span class="stk-chg '+dir+'">'+arrow+' '+esc(d.change)+'</span></div>'}function formatNum(n){if(n>=10000)return n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});if(n>=100)return n.toFixed(2);if(n>=1)return n.toFixed(2);return n.toFixed(4)}function esc(s){if(!s)return'';var d=document.createElement('span');d.textContent=String(s);return d.innerHTML}if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',init)}else{init()}})();
 </script>
-
-
-
-
 
 
 
@@ -653,7 +628,7 @@ font-size:11.5px;line-height:1.8;color:#9a958a;word-break:keep-all}
         <div class="bullet"><span class="dot">◾</span><span><strong>6월 22일 이후 반도체 업종에서 날아간 시총만 3.3조불</strong>. 그런데도 지수는 연초 대비 +65%라, 같은 기간 S&P500이 +9%인 걸 생각하면 아직 한참 위. 마벨·ARM·인텔·마이크론이 고점 대비 -30%를 넘겼고, TSMC는 분기 순이익이 77% 뛴 사상 최대 실적을 내고도 7거래일 연속 하락해 2022년 7월 이후 최장 기록. 금요일에도 장중 -5.7%까지 밀렸다가 줍줍세가 붙어 -1.6%로 마감</span></div>
         <div class="bullet"><span class="dot">◾</span><span>문샷은 6개월 안에 홍콩 상장을 하겠다며 주주들에게 동의서를 돌리는 중. 창업 3년 만에, 마무리 단계인 투자 유치에서 몸값 300억불 이상을 부르는데 조건은 아직 확정 전 <span class="note">(결과물이 곧 마케팅)</span>. 중국 AI 상장의 기준선은 이미 즈푸AI가 찍어놨음. 1월에 세계 첫 대형언어모델 상장사로 홍콩에 들어가 반년 만에 +1,500%까지 갔다가, 이번 K3 한 방에 하루 -27%. 일단 문샷 IPO 주관사 자리를 놓고 미·중 대형 투자은행들이 붙는 중</span></div>
       </div>
-      </div></div></div><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/anthropic.html">앤스로픽</a><span class="sep">·</span><a href="/wiki/netflix.html">넷플릭스</a><span class="sep">·</span><a href="/wiki/sp500.html">S&amp;P 500</a><span class="sep">·</span><a href="/wiki/intel.html">인텔</a><span class="sep">·</span><a href="/wiki/micron.html">마이크론</a></div></div><p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
+      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
     </div>
 
 <!-- STORY 2 -->
@@ -680,7 +655,7 @@ font-size:11.5px;line-height:1.8;color:#9a958a;word-break:keep-all}
         <div class="bullet"><span class="dot">◾</span><span>타코벨 모회사 얌 브랜즈 <span class="sub">(Yum! Brands; KFC도 보유)</span>와 스위트그린 둘 다 연차보고서에 식중독을 주요 위험으로 이미 써뒀음 <span class="note">(소비자가 공시를 읽는 일은 없다는 건 함정)</span>. 얌은 3자 공급업체·배달 플랫폼 의존이 커지며 위험이 자기 통제 밖으로 나간다고도 짚어놨음. 타코벨은 문제 양상추를 미국 전 매장에서 빼고 새 거래처를 확인할 때까지 일부 메뉴까지 내렸고, 주가는 금요일 -2.75%로 마감</span></div>
         <div class="bullet"><span class="dot">◾</span><span>타코벨과 연결된 확진은 5개 주 1,644명, 입원 94명. 여기에 국내 감염인지 더 따져볼 사례가 5,100건 넘게 쌓였고, CDC는 무관한 발병도 따로 보는 중. 검사 안 받고 낫는 사람이 많아 실제 환자는 더 많고, 사이클로스포라 시즌이 8월 말까지라 더 늘 수 있음. 스위트그린은 사태 전부터 1분기 동일매장 -12.8%, 방문객 -11.2%로 이미 흔들리던 중. 반등을 하고도 주간으로는 마이너스인 이유. 8월 6일 실적 발표를 기다리는 중</span></div>
       </div>
-      </div></div></div></div><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/walmart.html">월마트</a></div></div><p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
+      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
     </div>
 
 <!-- STORY 4 -->
@@ -707,7 +682,7 @@ font-size:11.5px;line-height:1.8;color:#9a958a;word-break:keep-all}
         <div class="bullet"><span class="dot">◾</span><span>같은 날 코스피는 -6.37% <span class="sub">(463.81p)</span> 빠진 6,820.60. 전날 +6.24%로 매수 사이드카가 걸렸던 시장이 하루 만에 매도 사이드카 <span class="sub">(선물이 급하게 빠지면 프로그램 매매를 잠깐 세우는 장치)</span>로 뒤집혔고, 한 주의 4거래일 내내 롤러코스터가 돌아감. 삼성전자 -8.77%, SK하이닉스 -11.53%. 개인이 3.66조원을 받아내는 사이 외국인과 기관이 3.7조원 넘게 팔았음</span></div>
         <div class="bullet"><span class="dot">◾</span><span>다만 인상은 이미 예상됐던 재료라, 급락의 주범은 전일 미국 반도체주 약세와 하이닉스 ADR <span class="sub">(미국 증시에서 거래되는 하이닉스 주식)</span> -9%였다는 게 시장 얘기. 정작 금리를 올릴 근거는 수출에 있었음. 6월 수출이 1,022.5억불, 월 1,000억불을 넘긴 4번째 국가로 등극, 반도체는 448.2억불로 +199.5%. 환율은 이달 초 1,560원에서 1,480원대로 내려온 상태</span></div>
       </div>
-      </div></div></div></div><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/bok.html">한국은행</a><span class="sep">·</span><a href="/wiki/samsung.html">삼성전자</a><span class="sep">·</span><a href="/wiki/kospi.html">코스피</a><span class="sep">·</span><a href="/wiki/sk-hynix.html">SK하이닉스</a></div></div><p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
+      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
     </div>
 
 </div><!-- /content -->

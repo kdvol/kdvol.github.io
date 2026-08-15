@@ -399,27 +399,6 @@
 <meta name="twitter:title" content="🐟 인텔 6배 폭등 — 순살브리핑 2026.05.11"/>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "NewsArticle", "headline": "인텔 6배 폭등 — 순살브리핑 2026.05.11", "datePublished": "2026-05-11T09:00:00+09:00", "dateModified": "2026-05-11T09:00:00+09:00", "inLanguage": "ko", "mainEntityOfPage": "https://soonsal.com/newsletters/2026/0511.html", "author": {"@type": "Organization", "name": "순살브리핑", "url": "https://soonsal.com/"}, "publisher": {"@type": "Organization", "name": "순살브리핑", "logo": {"@type": "ImageObject", "url": "https://soonsal.com/apple-touch-icon.png"}}, "keywords": "인텔애플칩딜INTC+14%사상최고치1년만에6배,  4월NFP11만5천vs미시간소비심리48.2사상최저,  AI노트테이커변호사비밀특권무효화Heppner케이스,  헤지펀드4월+5%코비드이후최고집중도사상최대,  헤지펀드인력쟁탈전인재선물시장"}</script>
 <!-- soonsal:bc --><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "순살브리핑", "item": "https://soonsal.com/"}, {"@type": "ListItem", "position": 2, "name": "브리핑", "item": "https://soonsal.com/newsletters/"}, {"@type": "ListItem", "position": 3, "name": "🐟 인텔 6배 폭등 — 순살브리핑 2026.05.11", "item": "https://soonsal.com/newsletters/2026/0511.html"}]}</script>
-
-
-
-
-<style id="soonsal-story-links">
-/* 스토리 끝 — 다 읽은 사람만 본다. 본문 흐름을 끊지 않는다 */
-.story-links{margin:14px 0 0;padding:11px 0 0;border-top:1px solid #ece8e0;
-font-size:11.5px;line-height:1.8;color:#9a958a;word-break:keep-all}
-.story-links .k{color:#b5b0a4;margin-right:5px}
-.story-links a{color:#8a857c;text-decoration:none;border-bottom:1px solid #e6e1d8}
-.story-links a:hover{color:#C24A00;border-bottom-color:#C24A00}
-.story-links .sep{opacity:.4;margin:0 4px}
-.story-links .row + .row{margin-top:4px}
-/* 「같은 흐름」은 제목이 길어 한 줄에 하나씩 세운다. 라벨은 왼쪽에 고정 */
-.story-links .flows{display:flex;align-items:flex-start}
-.story-links .flow-list{display:flex;flex-direction:column;gap:2px;min-width:0}
-.story-links .flow{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.story-links .flow b{font-weight:600;color:#b5b0a4;margin-right:3px}
-@media(max-width:560px){.story-links .flows{display:block}
-  .story-links .flow-list{margin-top:2px;padding-left:1px}}
-</style>
 </head>
 <body>
 <div id="soonsal-live-ticker" style="display:none;"></div>
@@ -463,10 +442,6 @@ font-size:11.5px;line-height:1.8;color:#9a958a;word-break:keep-all}
 <script>
 (function(){'use strict';var WORKER_URL='https://soonsal-data.kd-d0a.workers.dev/';var COINGECKO_URL='https://api.coingecko.com/api/v3';var TRADFI_ORDER=['S&P 500','NASDAQ','Dow Jones','KOSPI','US 10Y','WTI Oil','Gold','DXY','EUR/USD','USD/JPY','USD/KRW'];var CRYPTO_ORDER=['Bitcoin','Ethereum','Solana','XRP','BNB','Crypto Total'];var CRYPTO_IDS={'Bitcoin':'bitcoin','Ethereum':'ethereum','Solana':'solana','XRP':'ripple','BNB':'binancecoin'};var REFRESH=60000;var container,timer,lastTradfi,lastCrypto;function init(){container=document.getElementById('soonsal-live-ticker');if(!container)return;container.style.display='block';container.innerHTML='<div class="stk-loading"><div class="stk-spin"></div>Loading market data...</div>';fetchAll();timer=setInterval(fetchAll,REFRESH)}function fetchAll(){var p1=fetchTradFi();var p2=fetchCrypto();Promise.allSettled?Promise.allSettled([p1,p2]).then(render):Promise.all([p1.catch(function(){return null}),p2.catch(function(){return null})]).then(render)}function fetchTradFi(){return fetch(WORKER_URL).then(function(r){return r.json()}).then(function(data){if(data.tradfi)lastTradfi=data;return data}).catch(function(e){console.warn('[Ticker] TradFi error:',e.message);return null})}function fetchCrypto(){var ids=Object.values(CRYPTO_IDS).join(',');var url=COINGECKO_URL+'/simple/price?ids='+ids+'&vs_currencies=usd&include_24hr_change=true&include_market_cap=true';var globalUrl=COINGECKO_URL+'/global';return Promise.all([fetch(url).then(function(r){return r.json()}),fetch(globalUrl).then(function(r){return r.json()}).catch(function(){return null})]).then(function(results){var prices=results[0];var global=results[1];var crypto={};for(var name in CRYPTO_IDS){var id=CRYPTO_IDS[name];var d=prices[id];if(!d)continue;var p=d.usd;var ch=d.usd_24h_change||0;crypto[name]={price:'$'+formatNum(p),change:(ch>=0?'+':'')+ch.toFixed(2)+'%',direction:ch>0.01?'up':ch<-0.01?'down':'zero'}}if(global&&global.data){var mc=global.data.total_market_cap&&global.data.total_market_cap.usd;var mch=global.data.market_cap_change_percentage_24h_usd;if(mc){crypto['Crypto Total']={price:'$'+(mc/1e12).toFixed(2)+'T',change:(mch>=0?'+':'')+(mch||0).toFixed(2)+'%',direction:mch>0?'up':mch<0?'down':'zero'}}}lastCrypto=crypto;return crypto}).catch(function(e){console.warn('[Ticker] Crypto error:',e.message);return null})}function render(){var tradfi=lastTradfi?lastTradfi.tradfi:{};var crypto=lastCrypto||{};var kst=lastTradfi?lastTradfi.kst:new Date().toLocaleString('ko-KR',{timeZone:'Asia/Seoul'});var html=[];html.push('<div class="stk-ts"><span class="stk-dot"></span><span class="stk-time">'+esc(kst)+' KST</span></div>');for(var i=0;i<TRADFI_ORDER.length;i++){var name=TRADFI_ORDER[i];var d=tradfi[name];if(d)html.push(makeItem(name,d,false))}html.push('<div class="stk-div"><span></span></div>');for(var j=0;j<CRYPTO_ORDER.length;j++){var cname=CRYPTO_ORDER[j];var cd=crypto[cname];if(cd)html.push(makeItem(cname,cd,true))}var track=html.join('');container.innerHTML='<div class="stk-track">'+track+track+'</div>'}function makeItem(name,d,isCrypto){var dir=d.direction||'zero';var arrow=dir==='up'?'<span class="au"></span>':dir==='down'?'<span class="ad"></span>':'';return'<div class="stk-item"><span class="stk-lbl'+(isCrypto?' crypto':'')+'">'+esc(name)+'</span><span class="stk-prc">'+esc(d.price)+'</span><span class="stk-chg '+dir+'">'+arrow+' '+esc(d.change)+'</span></div>'}function formatNum(n){if(n>=10000)return n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});if(n>=100)return n.toFixed(2);if(n>=1)return n.toFixed(2);return n.toFixed(4)}function esc(s){if(!s)return'';var d=document.createElement('span');d.textContent=String(s);return d.innerHTML}if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',init)}else{init()}})();
 </script>
-
-
-
-
 
 
 
@@ -635,7 +610,7 @@ font-size:11.5px;line-height:1.8;color:#9a958a;word-break:keep-all}
         <div class="bullet"><span class="dot">◾</span><span>파운드리는 여전히 적자. 1Q에만 24억불 손실. But 정부랑 같이 가는 그림은 명확함. 트럼프 행정부가 추진 중인 "Made in America" 반도체 정책의 핵심 파트너 — 다른 두 곳 <span class="sub">(TSMC 대만, 삼성 한국)</span>은 다 외국 회사. 워싱턴 입장에선 인텔이 살아남아야 미국 본토 첨단 칩 제조 능력이 유지되는 구조</span></div>
         <div class="bullet"><span class="dot">◾</span><span>한국 입장에선 미묘한 구도. 애플 칩 일부가 인텔로 넘어간다는 건 TSMC 비중이 깎이고, 그 자리를 삼성도 노릴 수 있다는 시나리오. But 시장에서 보는 시점은 대략 1년 후 <span class="sub">(2027년 Q2~Q3)</span>, 인텔 18A 공정 안정화 이후. 그 사이에 삼성이 어떤 카드를 들고 나오느냐가 변수</span></div>
       </div>
-      </div></div></div><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/apple.html">애플</a><span class="sep">·</span><a href="/wiki/intel.html">인텔</a><span class="sep">·</span><a href="/wiki/tsmc.html">TSMC</a><span class="sep">·</span><a href="/wiki/trump.html">트럼프</a></div></div><p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
+      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
     </div>
 
     <!-- STORY 2: 굿잡 배드바이브 -->
@@ -649,7 +624,7 @@ font-size:11.5px;line-height:1.8;color:#9a958a;word-break:keep-all}
         <div class="bullet"><span class="dot">◾</span><span>일단 시장은 일자리 숫자만 보고 환호. 금요일 S&P 500 +0.84%, Nasdaq +1.71%로 사상 최고치 경신. 6주 연속 상승장. But 헤드라인 일자리와 실제 체감 사이 차이가 점점 벌어지는 중 — 경제학자들 사이에서 "노동시장이 얼어붙어 있는 상태"라는 표현이 나오는 중 <span class="note">(통계는 굿, 채용도 굿, 그런데 분위기는 노굿)</span></span></div>
         <div class="bullet"><span class="dot">◾</span><span>다음 핵심은 화요일 발표될 4월 CPI. 예상치는 +3.9% <span class="sub">(3월 +3.3% 대비 가속)</span>. 관세 효과가 본격 반영되는 첫 데이터인데, 4%대로 들어가는 순간 연준이 금리 인하를 더 미룰 수밖에 없는 구도. 시장이 일자리 굿에 환호하면서도 CPI 발표일을 두려워하는 이유 — 인플레가 높게 나오면 일자리 굿이 호재가 아니라 악재로 변신할 가능성</span></div>
       </div>
-      </div></div></div><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/openai.html">오픈AI</a><span class="sep">·</span><a href="/wiki/sp500.html">S&amp;P 500</a><span class="sep">·</span><a href="/wiki/nasdaq.html">나스닥</a><span class="sep">·</span><a href="/wiki/fed.html">미국 연준</a></div></div><p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
+      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
     </div>
 
     <!-- STORY 3: AI 노트테이커 변호사 비상 -->
@@ -676,7 +651,7 @@ font-size:11.5px;line-height:1.8;color:#9a958a;word-break:keep-all}
         <div class="bullet"><span class="dot">◾</span><span>1분기에만 헤지펀드로 450억불 신규 자금 유입, 최근 2개 분기 합치면 900억불 — 2007년 이후 최대 흐름. 사모펀드 NAV <span class="sub">(Net Asset Value, 순자산가치)</span> 신뢰 흔들리고 사모신용 거품 우려 커지는 와중에, 유동성 있고 매월 값매기는 헤지펀드로 자금이 돌아오는 그림. BlackRock도 사모펀드 다음 카드로 헤지펀드를 주목하는 중</span></div>
         <div class="bullet"><span class="dot">◾</span><span>But 진짜 리스크는 이 쏠림 자체에 있음. 빅테크 7~8개가 빠지는 순간 회복이 통째로 무너질 수 있는 구조라, 4월 같은 알파가 다음 달도 이어진다고 보장 못 함. 회복장 쏠림이 사상 최대라는 건, 거꾸로 말하면 그 쏠림이 깨지는 순간 헤지펀드들도 같이 나락갈 수 있다는 뜻</span></div>
       </div>
-      </div></div></div></div><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/blackrock.html">블랙록</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0311.html#story-4"><b>03-11</b> 빌 애크먼, 헤지펀드를 상장시킨다</a></span><span class="flow"><a href="/newsletters/2026/0401.html#story-4"><b>04-01</b> 1티어 헤지펀드, 개인도 가입 가능?</a></span></span></div></div><p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
+      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
     </div>
 
     <!-- STORY 5: 헤지펀드 인력 쟁탈전 -->
@@ -690,7 +665,7 @@ font-size:11.5px;line-height:1.8;color:#9a958a;word-break:keep-all}
         <div class="bullet"><span class="dot">◾</span><span>인재 지키는 쪽도 빡센 노력 중. 시타델은 2020년까지 PM 취업금지 평균 1년이었는데 지금은 21개월까지 늘렸고, 거기서 멈추지 않고 플로리다 주에서 취업금지 최대 4년까지 허용하는 법안을 로비해서 통과시킴 <span class="sub">(연봉 $14만+ 대상자들)</span>. 런던은 2년짜리 가든 리브 <span class="sub">(퇴사 후 경쟁사 못 가고 월급만 받으며 쉬는 기간)</span>도 흔함. But, 반대편에선 영국 노동당이 취업금지 자체를 없애겠다고 밀어붙이는 중이라 업계가 긴장</span></div>
         <div class="bullet"><span class="dot">◾</span><span>결국 취업금지를 늘릴수록 가로채기의 수익성도 같이 올라가는 아이러니. 묶어두는 기간이 길어질수록 공백기의 희소가치가 커지고, 일부 PM 패키지는 5,000만불 <span class="sub">(약 700억원)</span>을 넘어섬. 이 비용은 수수료로 펀드 고객한테 전가. 인재를 잡으려고 만든 장치가 인재 빼가기 시장의 인프라가 된 셈 <span class="note">(옵셔널리티를 이해하는 사람들한테 옵셔널리티를 걸면, 당연히 역이용 당함)</span></span></div>
       </div>
-      </div></div></div><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/microstrategy.html">마이크로스트래티지</a><span class="sep">·</span><a href="/wiki/citadel.html">시타델</a></div></div><p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
+      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
     </div>
 
   </div><!-- /content -->

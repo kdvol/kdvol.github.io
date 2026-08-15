@@ -399,25 +399,6 @@
 <meta name="twitter:title" content="🐟반도체 대학살? — 순살브리핑 2026.06.08"/>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "NewsArticle", "headline": "🐟반도체 대학살? — 순살브리핑 2026.06.08", "datePublished": "2026-06-08T09:00:00+09:00", "dateModified": "2026-06-08T09:00:00+09:00", "inLanguage": "ko", "mainEntityOfPage": "https://soonsal.com/newsletters/2026/0608.html", "author": {"@type": "Organization", "name": "순살브리핑", "url": "https://soonsal.com/"}, "publisher": {"@type": "Organization", "name": "순살브리핑", "logo": {"@type": "ImageObject", "url": "https://soonsal.com/apple-touch-icon.png"}}, "keywords": "고용서프라이즈172K시장폭락나스닥-4.18%,  이란미사일이스라엘휴전붕괴,  앤트로픽AI멈추자IPO직전비확산,  반도체대학살코스피-5.54%원화17년최저,  블랙스톤BCRED사모대출환매제한"}</script>
 <!-- soonsal:bc --><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "순살브리핑", "item": "https://soonsal.com/"}, {"@type": "ListItem", "position": 2, "name": "브리핑", "item": "https://soonsal.com/newsletters/"}, {"@type": "ListItem", "position": 3, "name": "🐟반도체 대학살? — 순살브리핑 2026.06.08", "item": "https://soonsal.com/newsletters/2026/0608.html"}]}</script>
-
-
-<style id="soonsal-story-links">
-/* 스토리 끝 — 다 읽은 사람만 본다. 본문 흐름을 끊지 않는다 */
-.story-links{margin:14px 0 0;padding:11px 0 0;border-top:1px solid #ece8e0;
-font-size:11.5px;line-height:1.8;color:#9a958a;word-break:keep-all}
-.story-links .k{color:#b5b0a4;margin-right:5px}
-.story-links a{color:#8a857c;text-decoration:none;border-bottom:1px solid #e6e1d8}
-.story-links a:hover{color:#C24A00;border-bottom-color:#C24A00}
-.story-links .sep{opacity:.4;margin:0 4px}
-.story-links .row + .row{margin-top:4px}
-/* 「같은 흐름」은 제목이 길어 한 줄에 하나씩 세운다. 라벨은 왼쪽에 고정 */
-.story-links .flows{display:flex;align-items:flex-start}
-.story-links .flow-list{display:flex;flex-direction:column;gap:2px;min-width:0}
-.story-links .flow{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.story-links .flow b{font-weight:600;color:#b5b0a4;margin-right:3px}
-@media(max-width:560px){.story-links .flows{display:block}
-  .story-links .flow-list{margin-top:2px;padding-left:1px}}
-</style>
 </head>
 
 <body>
@@ -462,10 +443,6 @@ font-size:11.5px;line-height:1.8;color:#9a958a;word-break:keep-all}
 <script>
 (function(){'use strict';var WORKER_URL='https://soonsal-data.kd-d0a.workers.dev/';var COINGECKO_URL='https://api.coingecko.com/api/v3';var TRADFI_ORDER=['S&P 500','NASDAQ','Dow Jones','KOSPI','US 10Y','WTI Oil','Gold','DXY','EUR/USD','USD/JPY','USD/KRW'];var CRYPTO_ORDER=['Bitcoin','Ethereum','Solana','XRP','BNB','Crypto Total'];var CRYPTO_IDS={'Bitcoin':'bitcoin','Ethereum':'ethereum','Solana':'solana','XRP':'ripple','BNB':'binancecoin'};var REFRESH=60000;var container,timer,lastTradfi,lastCrypto;function init(){container=document.getElementById('soonsal-live-ticker');if(!container)return;container.style.display='block';container.innerHTML='<div class="stk-loading"><div class="stk-spin"></div>Loading market data...</div>';fetchAll();timer=setInterval(fetchAll,REFRESH)}function fetchAll(){var p1=fetchTradFi();var p2=fetchCrypto();Promise.allSettled?Promise.allSettled([p1,p2]).then(render):Promise.all([p1.catch(function(){return null}),p2.catch(function(){return null})]).then(render)}function fetchTradFi(){return fetch(WORKER_URL).then(function(r){return r.json()}).then(function(data){if(data.tradfi)lastTradfi=data;return data}).catch(function(e){console.warn('[Ticker] TradFi error:',e.message);return null})}function fetchCrypto(){var ids=Object.values(CRYPTO_IDS).join(',');var url=COINGECKO_URL+'/simple/price?ids='+ids+'&vs_currencies=usd&include_24hr_change=true&include_market_cap=true';var globalUrl=COINGECKO_URL+'/global';return Promise.all([fetch(url).then(function(r){return r.json()}),fetch(globalUrl).then(function(r){return r.json()}).catch(function(){return null})]).then(function(results){var prices=results[0];var global=results[1];var crypto={};for(var name in CRYPTO_IDS){var id=CRYPTO_IDS[name];var d=prices[id];if(!d)continue;var p=d.usd;var ch=d.usd_24h_change||0;crypto[name]={price:'$'+formatNum(p),change:(ch>=0?'+':'')+ch.toFixed(2)+'%',direction:ch>0.01?'up':ch<-0.01?'down':'zero'}}if(global&&global.data){var mc=global.data.total_market_cap&&global.data.total_market_cap.usd;var mch=global.data.market_cap_change_percentage_24h_usd;if(mc){crypto['Crypto Total']={price:'$'+(mc/1e12).toFixed(2)+'T',change:(mch>=0?'+':'')+(mch||0).toFixed(2)+'%',direction:mch>0?'up':mch<0?'down':'zero'}}}lastCrypto=crypto;return crypto}).catch(function(e){console.warn('[Ticker] Crypto error:',e.message);return null})}function render(){var tradfi=lastTradfi?lastTradfi.tradfi:{};var crypto=lastCrypto||{};var kst=lastTradfi?lastTradfi.kst:new Date().toLocaleString('ko-KR',{timeZone:'Asia/Seoul'});var html=[];html.push('<div class="stk-ts"><span class="stk-dot"></span><span class="stk-time">'+esc(kst)+' KST</span></div>');for(var i=0;i<TRADFI_ORDER.length;i++){var name=TRADFI_ORDER[i];var d=tradfi[name];if(d)html.push(makeItem(name,d,false))}html.push('<div class="stk-div"><span></span></div>');for(var j=0;j<CRYPTO_ORDER.length;j++){var cname=CRYPTO_ORDER[j];var cd=crypto[cname];if(cd)html.push(makeItem(cname,cd,true))}var track=html.join('');container.innerHTML='<div class="stk-track">'+track+track+'</div>'}function makeItem(name,d,isCrypto){var dir=d.direction||'zero';var arrow=dir==='up'?'<span class="au"></span>':dir==='down'?'<span class="ad"></span>':'';return'<div class="stk-item"><span class="stk-lbl'+(isCrypto?' crypto':'')+'">'+esc(name)+'</span><span class="stk-prc">'+esc(d.price)+'</span><span class="stk-chg '+dir+'">'+arrow+' '+esc(d.change)+'</span></div>'}function formatNum(n){if(n>=10000)return n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});if(n>=100)return n.toFixed(2);if(n>=1)return n.toFixed(2);return n.toFixed(4)}function esc(s){if(!s)return'';var d=document.createElement('span');d.textContent=String(s);return d.innerHTML}if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',init)}else{init()}})();
 </script>
-
-
-
-
 
 
 
@@ -639,7 +616,7 @@ font-size:11.5px;line-height:1.8;color:#9a958a;word-break:keep-all}
     <div class="bullet"><span class="dot">◾</span><span>금요일 직격탄은 반도체. 브로드컴이 다음 분기 AI 칩 매출을 160억불로 제시했는데 기대치 <span class="sub">(172억불)</span>에 못 미치자 이틀 새 −20%, 마블·마이크론·인텔·AMD까지 줄줄이 두 자릿수 급락하며 반도체 시총만 이틀 새 1조불 넘게 증발. 메타도 알파벳에 이어 수백억불 유상증자 검토설에 5%대 하락. 빚으로도 모자라 주식까지 찍어야 할 만큼 AI 투자 부담이 커졌다는 신호</span></div>
     <div class="bullet"><span class="dot">◾</span><span>이제 시장의 눈은 금리. 강한 고용에 인하 카드가 사라지면서, 연말까지 금리 인상 가능성을 70% 안팎으로 보는 중. <strong>좋은 경제 지표가 곧 증시 악재가 되는 구조</strong>가 다시 돌아온 것. 파월 후임으로 5월 취임한 새 의장이 6월 16~17일 첫 회의를 앞둔 가운데, 이번 주 수요일 5월 물가지표가 다음 판을 가를 변수로 시장이 주시하는 중</span></div>
     <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">* 매수매도 추천 아님, 순살도 주주 아님</p>
-  <div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/nasdaq.html">나스닥</a><span class="sep">·</span><a href="/wiki/broadcom.html">브로드컴</a><span class="sep">·</span><a href="/wiki/micron.html">마이크론</a><span class="sep">·</span><a href="/wiki/intel.html">인텔</a><span class="sep">·</span><a href="/wiki/meta.html">메타</a></div></div></div></div>
+  </div>
 </div>
 
 <!-- STORY 2 -->
@@ -666,7 +643,7 @@ font-size:11.5px;line-height:1.8;color:#9a958a;word-break:keep-all}
     <div class="bullet"><span class="dot">◾</span><span>투자자 입장은 더 복잡. 앤트로픽·OpenAI의 1조불짜리 몸값은 'AI 경쟁이 계속 질주한다'는 전제에 기대는데, 스스로 속도를 늦추면 그 전제가 흔들림. 게다가 정치 리스크도 겹침. 트럼프는 OpenAI·xAI 지분을 정부가 받는 방안을 검토 중인데, 2월 군사용 거부로 행정부와 틀어진 앤트로픽만 여기서 쏙 빠짐. 샌더스는 아예 AI 기업 지분 50% 국유화 법안까지 냈을 정도</span></div>
     <div class="bullet"><span class="dot">◾</span><span>AI 규제 논의가 빠르게 현실이 되는 분위기. 여론도 속도를 높이기보다 안전장치를 세우는 쪽 걱정이 큰 편이고, 규제에 시큰둥하던 트럼프 행정부조차 점점 열린 자세. 앤트로픽의 제안이 진심이든 포지셔닝이든, 끝없이 밟기만 하던 AI 산업에 '속도 조절'이라는 말이 처음 끼어든 것 자체를 시장이 새 변수로 받아들이는 중 <span class="note">(될까?)</span></span></div>
     <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">* 매수매도 추천 아님, 순살도 주주 아님</p>
-  <div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/anthropic.html">앤스로픽</a><span class="sep">·</span><a href="/wiki/trump.html">트럼프</a><span class="sep">·</span><a href="/wiki/openai.html">오픈AI</a></div></div></div></div>
+  </div>
 </div>
 
 <!-- STORY 4 -->
@@ -680,7 +657,7 @@ font-size:11.5px;line-height:1.8;color:#9a958a;word-break:keep-all}
     <div class="bullet"><span class="dot">◾</span><span>다만 핵심 산업들은 탄탄함. 엔비디아 젠슨 황이 방한해 삼성·SK하이닉스와의 HBM <span class="sub">(고대역폭 메모리)</span> 동맹을 다시 확인하며, 한국이 AI 하드웨어 공급망의 핵심이라는 점을 못 박음. 골드만삭스도 코스피 12개월 목표치를 12,000으로 올렸음. AI 수요 자체가 꺾인 게 아니라 단기 급등에 따른 '밸류에이션 되돌림'에 가깝다는 분석</span></div>
     <div class="bullet"><span class="dot">◾</span><span>이번 주 코스피의 방향은 두 가지에 달림. 수요일 미국 5월 물가가 인플레를 재확인시키면 금리 인상론에 외국인 매도까지 겹칠 수 있음. 반대로 물가가 낮게 나오면 '과매도 반등' 명분이 생김. 여기에 환율 안정 여부와 미국 반도체주 회복, 삼성전자의 엔비디아 납품용 HBM 인증까지가 바닥을 가를 변수로 시장이 주시하는 중</span></div>
     <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">* 매수매도 추천 아님, 순살도 주주 아님</p>
-  <div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/kospi.html">코스피</a><span class="sep">·</span><a href="/wiki/samsung.html">삼성전자</a><span class="sep">·</span><a href="/wiki/sk-hynix.html">SK하이닉스</a><span class="sep">·</span><a href="/wiki/broadcom.html">브로드컴</a><span class="sep">·</span><a href="/wiki/micron.html">마이크론</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0518.html#story-2"><b>05-18</b> 채권시장 대학살</a></span></span></div></div></div></div>
+  </div>
 </div>
 
 <!-- STORY 5 -->

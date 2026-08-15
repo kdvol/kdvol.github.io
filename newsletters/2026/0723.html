@@ -399,27 +399,6 @@
 <meta name="twitter:title" content="🤝 올해 수익률 1등 주인공 — 순살브리핑 2026.07.23"/>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "NewsArticle", "headline": "올해 수익률 1등 주인공 — 순살브리핑 2026.07.23", "datePublished": "2026-07-23T09:00:00+09:00", "dateModified": "2026-07-23T09:00:00+09:00", "inLanguage": "ko", "mainEntityOfPage": "https://soonsal.com/newsletters/2026/0723.html", "author": {"@type": "Organization", "name": "순살브리핑", "url": "https://soonsal.com/"}, "publisher": {"@type": "Organization", "name": "순살브리핑", "logo": {"@type": "ImageObject", "url": "https://soonsal.com/apple-touch-icon.png"}}, "keywords": "사우디핵협정우라늄농축123협정, 1789Capital트럼프주니어17배, 바이오텍IPO수익률55%, 인도교민달러예금RBI, 영국증시외국인수러시", "image": ["https://soonsal.com/cardnews/2026/0723_png/card_01.png"]}</script>
 <!-- soonsal:bc --><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "순살브리핑", "item": "https://soonsal.com/"}, {"@type": "ListItem", "position": 2, "name": "브리핑", "item": "https://soonsal.com/newsletters/"}, {"@type": "ListItem", "position": 3, "name": "🤝 올해 수익률 1등 주인공 — 순살브리핑 2026.07.23", "item": "https://soonsal.com/newsletters/2026/0723.html"}]}</script>
-
-
-
-
-<style id="soonsal-story-links">
-/* 스토리 끝 — 다 읽은 사람만 본다. 본문 흐름을 끊지 않는다 */
-.story-links{margin:14px 0 0;padding:11px 0 0;border-top:1px solid #ece8e0;
-font-size:11.5px;line-height:1.8;color:#9a958a;word-break:keep-all}
-.story-links .k{color:#b5b0a4;margin-right:5px}
-.story-links a{color:#8a857c;text-decoration:none;border-bottom:1px solid #e6e1d8}
-.story-links a:hover{color:#C24A00;border-bottom-color:#C24A00}
-.story-links .sep{opacity:.4;margin:0 4px}
-.story-links .row + .row{margin-top:4px}
-/* 「같은 흐름」은 제목이 길어 한 줄에 하나씩 세운다. 라벨은 왼쪽에 고정 */
-.story-links .flows{display:flex;align-items:flex-start}
-.story-links .flow-list{display:flex;flex-direction:column;gap:2px;min-width:0}
-.story-links .flow{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.story-links .flow b{font-weight:600;color:#b5b0a4;margin-right:3px}
-@media(max-width:560px){.story-links .flows{display:block}
-  .story-links .flow-list{margin-top:2px;padding-left:1px}}
-</style>
 </head>
 <body>
 <div id="soonsal-live-ticker" style="display:none;"></div>
@@ -463,10 +442,6 @@ font-size:11.5px;line-height:1.8;color:#9a958a;word-break:keep-all}
 <script>
 (function(){'use strict';var WORKER_URL='https://soonsal-data.kd-d0a.workers.dev/';var COINGECKO_URL='https://api.coingecko.com/api/v3';var TRADFI_ORDER=['S&P 500','NASDAQ','Dow Jones','KOSPI','US 10Y','WTI Oil','Gold','DXY','EUR/USD','USD/JPY','USD/KRW'];var CRYPTO_ORDER=['Bitcoin','Ethereum','Solana','XRP','BNB','Crypto Total'];var CRYPTO_IDS={'Bitcoin':'bitcoin','Ethereum':'ethereum','Solana':'solana','XRP':'ripple','BNB':'binancecoin'};var REFRESH=60000;var container,timer,lastTradfi,lastCrypto;function init(){container=document.getElementById('soonsal-live-ticker');if(!container)return;container.style.display='block';container.innerHTML='<div class="stk-loading"><div class="stk-spin"></div>Loading market data...</div>';fetchAll();timer=setInterval(fetchAll,REFRESH)}function fetchAll(){var p1=fetchTradFi();var p2=fetchCrypto();Promise.allSettled?Promise.allSettled([p1,p2]).then(render):Promise.all([p1.catch(function(){return null}),p2.catch(function(){return null})]).then(render)}function fetchTradFi(){return fetch(WORKER_URL).then(function(r){return r.json()}).then(function(data){if(data.tradfi)lastTradfi=data;return data}).catch(function(e){console.warn('[Ticker] TradFi error:',e.message);return null})}function fetchCrypto(){var ids=Object.values(CRYPTO_IDS).join(',');var url=COINGECKO_URL+'/simple/price?ids='+ids+'&vs_currencies=usd&include_24hr_change=true&include_market_cap=true';var globalUrl=COINGECKO_URL+'/global';return Promise.all([fetch(url).then(function(r){return r.json()}),fetch(globalUrl).then(function(r){return r.json()}).catch(function(){return null})]).then(function(results){var prices=results[0];var global=results[1];var crypto={};for(var name in CRYPTO_IDS){var id=CRYPTO_IDS[name];var d=prices[id];if(!d)continue;var p=d.usd;var ch=d.usd_24h_change||0;crypto[name]={price:'$'+formatNum(p),change:(ch>=0?'+':'')+ch.toFixed(2)+'%',direction:ch>0.01?'up':ch<-0.01?'down':'zero'}}if(global&&global.data){var mc=global.data.total_market_cap&&global.data.total_market_cap.usd;var mch=global.data.market_cap_change_percentage_24h_usd;if(mc){crypto['Crypto Total']={price:'$'+(mc/1e12).toFixed(2)+'T',change:(mch>=0?'+':'')+(mch||0).toFixed(2)+'%',direction:mch>0?'up':mch<0?'down':'zero'}}}lastCrypto=crypto;return crypto}).catch(function(e){console.warn('[Ticker] Crypto error:',e.message);return null})}function render(){var tradfi=lastTradfi?lastTradfi.tradfi:{};var crypto=lastCrypto||{};var kst=lastTradfi?lastTradfi.kst:new Date().toLocaleString('ko-KR',{timeZone:'Asia/Seoul'});var html=[];html.push('<div class="stk-ts"><span class="stk-dot"></span><span class="stk-time">'+esc(kst)+' KST</span></div>');for(var i=0;i<TRADFI_ORDER.length;i++){var name=TRADFI_ORDER[i];var d=tradfi[name];if(d)html.push(makeItem(name,d,false))}html.push('<div class="stk-div"><span></span></div>');for(var j=0;j<CRYPTO_ORDER.length;j++){var cname=CRYPTO_ORDER[j];var cd=crypto[cname];if(cd)html.push(makeItem(cname,cd,true))}var track=html.join('');container.innerHTML='<div class="stk-track">'+track+track+'</div>'}function makeItem(name,d,isCrypto){var dir=d.direction||'zero';var arrow=dir==='up'?'<span class="au"></span>':dir==='down'?'<span class="ad"></span>':'';return'<div class="stk-item"><span class="stk-lbl'+(isCrypto?' crypto':'')+'">'+esc(name)+'</span><span class="stk-prc">'+esc(d.price)+'</span><span class="stk-chg '+dir+'">'+arrow+' '+esc(d.change)+'</span></div>'}function formatNum(n){if(n>=10000)return n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});if(n>=100)return n.toFixed(2);if(n>=1)return n.toFixed(2);return n.toFixed(4)}function esc(s){if(!s)return'';var d=document.createElement('span');d.textContent=String(s);return d.innerHTML}if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',init)}else{init()}})();
 </script>
-
-
-
-
 
 
 
@@ -640,7 +615,7 @@ font-size:11.5px;line-height:1.8;color:#9a958a;word-break:keep-all}
         <div class="bullet"><span class="dot">◾</span><span>출자자 구성이 비공개인 것도 논란을 키움. 운용사 측은 대형 미국 펀드라면 걸프 자금을 받는 게 드문 일이 아니라고 반박하지만, 외국 자금이 어느 기업과 정책에 노출되는지는 밖에서 확인하기 어려움. 민주당 의원들은 1789 관련 자료 제출과 소환 표결을 밀었고, 감시단체들은 익명 출자 구조가 행정부에 접근하려는 간접 통로가 될 수 있다고 경고</span></div>
         <div class="bullet"><span class="dot">◾</span><span>1789라는 이름은 미국 권리장전이 의회에 제출된 해에서 따왔고, 초기에는 보수 미디어·에너지·총기 유통처럼 주류 자본이 꺼리던 분야에 돈을 넣었음. 지금은 국방·우주·AI까지 넓히며 100억불 운용을 목표로 세 번째 펀드를 모으는 중. 빠른 성장이 투자 실력의 결과인지, 정치 권력과 가까운 위치가 만든 프리미엄인지가 시장의 질문으로 남아 있음</span></div>
       </div>
-      </div></div></div></div><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/trump.html">트럼프</a><span class="sep">·</span><a href="/wiki/spacex.html">스페이스X</a></div></div><p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
+      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
     </div>
 
 <!-- STORY 3 -->
@@ -681,7 +656,7 @@ font-size:11.5px;line-height:1.8;color:#9a958a;word-break:keep-all}
         <div class="bullet"><span class="dot">◾</span><span>거절하던 이사회도 가격이 오르면 흔들림. 검사·인증업체 Intertek은 세 차례 제안을 거절한 뒤 부채를 포함해 109억파운드짜리 딜에 합의. 물류창고업체 Segro도 Prologis의 앞선 제안을 여러 번 밀어냈지만, 7월 22일 140억파운드짜리 최종안은 이사회가 추천할 만한 수준이라고 입장을 바꿈. 다만 둘 다 주주 승인과 정식 절차가 남아 있음 <span class="note">(거절하기엔 너무 큰 돈이었다)</span></span></div>
         <div class="bullet"><span class="dot">◾</span><span>항공사 easyJet도 일단 55억파운드 인수 제안을 이사회가 지지하는 단계 <span class="sub">(거래 끝난 건 아님)</span>. 영국 정부는 상장 규정을 손보고 연기금의 국내 성장자산 투자를 늘리려 하지만, 연금 가입자 수익률을 희생해 자국 주식을 강제로 사게 할 수 있느냐는 반발도 큼. 신규 상장보다 기존 대형주가 빠져나가는 속도가 빠른 런던 시장에서, 매수층을 되살릴 방법을 놓고 논쟁하는 중</span></div>
       </div>
-      </div><p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
+      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
     </div>
 
 </div><!-- /content -->
