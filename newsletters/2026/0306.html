@@ -460,7 +460,32 @@ transition:color .18s ease,background .18s ease}
   .sub-btn-header{padding:7px 13px;font-size:11.5px;letter-spacing:-.3px}
   .search-btn-header{width:32px;height:32px}
 }
-</style></head>
+</style>
+
+
+
+<style id="soonsal-story-links">
+/* 스토리 끝 — 다 읽은 사람만 본다. 본문 흐름을 끊지 않는다 */
+.story-links{margin:14px 0 0;padding:11px 0 0;border-top:1px solid #ece8e0;
+font-size:11.5px;line-height:1.8;color:#9a958a;word-break:keep-all}
+.story-links .k{color:#b5b0a4;margin-right:5px}
+.story-links a{color:#8a857c;text-decoration:none;border-bottom:1px solid #e6e1d8}
+.story-links a:hover{color:#C24A00;border-bottom-color:#C24A00}
+.story-links .sep{opacity:.4;margin:0 4px}
+/* 주제는 개별 이름이 아니라 묶음이다 — 테두리로 구분한다 */
+.story-links a.topic{border-bottom:0;padding:1px 7px;border-radius:999px;
+background:#f3efe8;color:#8a857c}
+.story-links a.topic:hover{background:#C24A00;color:#fff}
+.story-links .row + .row{margin-top:4px}
+/* 「같은 흐름」은 제목이 길어 한 줄에 하나씩 세운다. 라벨은 왼쪽에 고정 */
+.story-links .flows{display:flex;align-items:flex-start}
+.story-links .flow-list{display:flex;flex-direction:column;gap:2px;min-width:0}
+.story-links .flow{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.story-links .flow b{font-weight:600;color:#b5b0a4;margin-right:3px}
+@media(max-width:560px){.story-links .flows{display:block}
+  .story-links .flow-list{margin-top:2px;padding-left:1px}}
+</style>
+</head>
 <body>
 <div id="soonsal-live-ticker" style="display:none;"></div>
 <style>
@@ -705,7 +730,7 @@ transition:color .18s ease,background .18s ease}
         <div class="bullet"><span class="dot">◾</span><span>이번 주 Apple의 제품 러시는 MacBook Neo만이 아님. M5 칩 탑재 MacBook Air, 새 iPad Air, 얇은 iPhone 17 Air까지 줄줄이 발표. 특히 M5 칩은 Apple이 자체 설계한 AI 추론 전용 실리콘의 첫 세대 — AI 연산을 로컬에서 처리해 클라우드 의존도를 낮추겠다는 전략</span></div>
         <div class="bullet"><span class="dot">◾</span><span>Google 입장에서 이건 심각한 위협. Chromebook은 $200~$500대의 가격 메리트로 교육 시장을 석권해왔는데, <strong>$599에 Apple 로고가 붙은 노트북이 나오면 가격 갭이 사실상 소멸</strong>. 문제는 소프트웨어 생태계 — MacBook Neo가 교육용 앱 생태계까지 침투할 수 있느냐가 관건</span></div>
         <div class="bullet"><span class="dot">◾</span><span>더 큰 그림은 관세. 트럼프 행정부의 글로벌 관세가 15%로 인상 예정인 상황에서, 중국 생산 비중이 높은 Apple이 오히려 가격을 낮춘 건 의외. 일각에서는 "관세 인상 전에 시장 선점하려는 타이밍 도박"이라는 해석도 — 가격 인상이 불가피해지기 전에 저가 라인업을 깔아두겠다는 계산</span></div>
-      </div>
+      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/apple.html">애플</a><span class="sep">·</span><a href="/wiki/tim-cook.html">팀 쿡</a><span class="sep">·</span><a href="/wiki/google.html">구글</a><span class="sep">·</span><a href="/wiki/trump.html">트럼프</a><span class="sep">·</span><a class="topic" href="/topics/trump-politics.html">트럼프·정책</a><span class="sep">·</span><a class="topic" href="/topics/ai.html">AI</a></div></div></div>
     </div>
 
     <div class="story" id="story-2">
@@ -717,7 +742,7 @@ transition:color .18s ease,background .18s ease}
         <div class="bullet"><span class="dot">◾</span><span>아시아 쪽 파급도 심각. 한국 KOSPI가 에너지 가격 급등 우려에 -12% 역대 최악 하락 → 서킷브레이커 발동 → 다음 날 +12% 역대급 반등. 한국·대만 반도체 산업의 카타르 LNG 의존도가 높아서, <strong>호르무즈 해협 봉쇄 장기화 시 칩 공급망 자체가 흔들릴 수 있다는 공포</strong></span></div>
         <div class="bullet"><span class="dot">◾</span><span>한편 미 잠수함이 스리랑카 인근 국제 해역에서 이란 군함을 격침 — 2차대전 이후 미 잠수함의 첫 수상함 공격. 호르무즈 해협 일일 1,300만 배럴 원유 수출 경로는 여전히 병목 상태. Brent유 일시 $84 터치 후 트럼프의 "해군 호위" 발표로 소폭 후퇴</span></div>
         <div class="bullet"><span class="dot">◾</span><span>시장은 묘한 반응. NYT가 "이란이 미국에 종전 의사를 타진했다"고 보도하자 증시 즉각 반등, 유가 안정. 투자자들은 전쟁 확대보다는 협상 시나리오에 무게를 두는 분위기 — 상원은 전쟁권한 결의안을 부결시켰고, 트럼프는 "종전 후 이란의 역할을 적극 검토 중"이라고 발언</span></div>
-      </div>
+      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/trump.html">트럼프</a><span class="sep">·</span><a href="/wiki/kospi.html">코스피</a><span class="sep">·</span><a href="/wiki/tsmc.html">TSMC</a><span class="sep">·</span><a href="/wiki/oil.html">원유</a><span class="sep">·</span><a class="topic" href="/topics/trump-politics.html">트럼프·정책</a><span class="sep">·</span><a class="topic" href="/topics/energy.html">에너지·원자재</a></div></div></div>
     </div>
 
     <div class="story" id="story-3">
@@ -729,7 +754,7 @@ transition:color .18s ease,background .18s ease}
         <div class="bullet"><span class="dot">◾</span><span>한편 OpenAI도 뒤통수를 맞은 격. Amodei 메모에 따르면 OpenAI의 국방부 계약은 "80%가 safety theater" — 겉으로는 안전장치를 걸어놓고 실질적으로는 국방부가 원하는 걸 다 해주는 구조라는 비판. Sam Altman은 이번 주 기존 계약의 결함을 인정하고 "더 강한 안전장치를 협상했다"고 발표 <span class="note">(남 비판하다가 자기 계약 업그레이드한 셈)</span></span></div>
         <div class="bullet"><span class="dot">◾</span><span>Anthropic의 현재 ARR <span class="sub">(연간 반복 매출)</span>이 $200억을 돌파 — 작년 12월 대비 2배 이상. Claude 모델의 기업 채택이 급증하면서 매출이 폭발적으로 성장 중. 하지만 정부 계약자와의 거래가 차단되면 이 성장세가 심각하게 훼손될 수 있는 상황</span></div>
         <div class="bullet"><span class="dot">◾</span><span>결국 이건 AI 안전성 논쟁의 탈을 쓴 정치 싸움. 국방부 입장에서도 Anthropic 도구 제거는 "messy한 작업"이 될 거라고 인정. 양측 모두 잃을 게 크기에 타협의 여지가 있지만, "어떤 용도에 AI를 쓸 수 있는가"라는 근본 질문은 답이 나지 않은 상태</span></div>
-      </div>
+      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/anthropic.html">앤스로픽</a><span class="sep">·</span><a href="/wiki/trump.html">트럼프</a><span class="sep">·</span><a href="/wiki/sam-altman.html">샘 알트먼</a><span class="sep">·</span><a href="/wiki/openai.html">오픈AI</a><span class="sep">·</span><a class="topic" href="/topics/ai.html">AI</a><span class="sep">·</span><a class="topic" href="/topics/trump-politics.html">트럼프·정책</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0228.html#story-1"><b>02-28</b> Anthropic vs 펜타곤, 그리고 어부지리 Ope</a></span><span class="flow"><a href="/newsletters/2026/0303.html#story-3"><b>03-03</b> Anthropic vs 펜타곤 — 정부에서 쫓겨났는데 </a></span></span></div></div></div>
     </div>
 
     <div class="story" id="story-4">
@@ -741,7 +766,7 @@ transition:color .18s ease,background .18s ease}
         <div class="bullet"><span class="dot">◾</span><span>문제는 리스크 감시 체계의 부재. 은행에는 감독 당국이 있지만 사모 크레딧에는 없음. 금리가 높은 상태가 지속되면서 차입자들의 이자 부담이 커지고, AI 투자 과열에 따른 기술 기업 부실화 가능성까지 겹치면 "비은행 대출의 신용 리스크를 누가 감시하는가"가 핵심 이슈</span></div>
         <div class="bullet"><span class="dot">◾</span><span>Blue Owl이 타겟이 된 이유는 독특한 비즈니스 모델. 일반 PE가 기업을 인수해서 가치를 올려 파는 구조라면, Blue Owl은 다른 PE에게 돈을 빌려주는 "PE의 은행" 역할. <strong>만약 PE 산업 전체가 흔들리면 Blue Owl이 가장 먼저 타격받는 구조적 취</strong>약점이 있음</span></div>
         <div class="bullet"><span class="dot">◾</span><span>Morgan Stanley도 같은 날 전 부문에서 3% 감원을 단행. 이란 전쟁·관세·금리 불확실성이 동시에 겹치면서 금융업계 전반의 비용 절감 압력이 가시화되고 있다는 신호. 사모 크레딧 리스크가 전통 금융으로 전이될 수 있다는 우려가 더해지며, 시장은 "다음 위기의 진앙이 어딘가"를 탐색 중</span></div>
-      </div>
+      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/morgan-stanley.html">모건스탠리</a><span class="sep">·</span><a class="topic" href="/topics/banks-wallst.html">월가·은행</a><span class="sep">·</span><a class="topic" href="/topics/deals.html">딜·M&amp;A</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0519.html#story-3"><b>05-19</b> 사모 크레딧에 검찰이 등장</a></span><span class="flow"><a href="/newsletters/2026/0304.html#story-4"><b>03-04</b> Blackstone에서 $3.8B가 빠져나감 — 사모 </a></span></span></div></div></div>
     </div>
 
     <div class="story" id="story-5">
@@ -753,7 +778,7 @@ transition:color .18s ease,background .18s ease}
         <div class="bullet"><span class="dot">◾</span><span>AI 네트워킹도 핵심 성장 엔진. 수천 개의 GPU를 연결해서 하나의 거대 AI 시스템을 만들려면 초고속 네트워킹 인프라가 필수. Broadcom의 Jericho3-AI와 Tomahawk 5 칩이 이 시장을 지배 중 — GPU가 두뇌라면 네트워크는 신경계, 둘 다 없으면 AI는 작동 불능</span></div>
         <div class="bullet"><span class="dot">◾</span><span>$1,000억 매출 가이던스의 의미. 현재 Broadcom의 연매출은 약 $500억대. 2배 성장을 자신하는 건 <strong>AI 인프라 투자가 일시적 유행이 아니라 구조적 전환이라는 경영진의 확신</strong>. 실제로 2월 AI 투자 합계만 $1,400억+ <span class="sub">(Anthropic $300억 + OpenAI $1,100억)</span> — 이 돈이 결국 반도체 회사로 흘러가는 구조</span></div>
         <div class="bullet"><span class="dot">◾</span><span>리스크도 있음. 트럼프 행정부가 Nvidia 등의 글로벌 AI 칩 판매에 미국 승인을 요구하는 규제를 준비 중이라는 보도가 나오면서 반도체 섹터 전체가 일시적으로 출렁. Nvidia는 장중 급락 후 +0.2%로 마감. AI 칩 규제가 현실화되면 Broadcom도 영향권에서 자유롭지 못한 상황</span></div>
-      </div>
+      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/broadcom.html">브로드컴</a><span class="sep">·</span><a href="/wiki/nvidia.html">엔비디아</a><span class="sep">·</span><a href="/wiki/openai.html">오픈AI</a><span class="sep">·</span><a href="/wiki/anthropic.html">앤스로픽</a><span class="sep">·</span><a href="/wiki/meta.html">메타</a><span class="sep">·</span><a class="topic" href="/topics/ai.html">AI</a><span class="sep">·</span><a class="topic" href="/topics/semiconductor.html">반도체</a></div></div></div>
     </div>
 
   </div><!-- /content -->

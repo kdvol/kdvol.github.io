@@ -453,7 +453,31 @@ transition:color .18s ease,background .18s ease}
   .sub-btn-header{padding:7px 13px;font-size:11.5px;letter-spacing:-.3px}
   .search-btn-header{width:32px;height:32px}
 }
-</style></head>
+</style>
+
+
+<style id="soonsal-story-links">
+/* 스토리 끝 — 다 읽은 사람만 본다. 본문 흐름을 끊지 않는다 */
+.story-links{margin:14px 0 0;padding:11px 0 0;border-top:1px solid #ece8e0;
+font-size:11.5px;line-height:1.8;color:#9a958a;word-break:keep-all}
+.story-links .k{color:#b5b0a4;margin-right:5px}
+.story-links a{color:#8a857c;text-decoration:none;border-bottom:1px solid #e6e1d8}
+.story-links a:hover{color:#C24A00;border-bottom-color:#C24A00}
+.story-links .sep{opacity:.4;margin:0 4px}
+/* 주제는 개별 이름이 아니라 묶음이다 — 테두리로 구분한다 */
+.story-links a.topic{border-bottom:0;padding:1px 7px;border-radius:999px;
+background:#f3efe8;color:#8a857c}
+.story-links a.topic:hover{background:#C24A00;color:#fff}
+.story-links .row + .row{margin-top:4px}
+/* 「같은 흐름」은 제목이 길어 한 줄에 하나씩 세운다. 라벨은 왼쪽에 고정 */
+.story-links .flows{display:flex;align-items:flex-start}
+.story-links .flow-list{display:flex;flex-direction:column;gap:2px;min-width:0}
+.story-links .flow{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.story-links .flow b{font-weight:600;color:#b5b0a4;margin-right:3px}
+@media(max-width:560px){.story-links .flows{display:block}
+  .story-links .flow-list{margin-top:2px;padding-left:1px}}
+</style>
+</head>
 
 <body>
 <div id="soonsal-live-ticker" style="display:none;"></div>
@@ -665,7 +689,7 @@ transition:color .18s ease,background .18s ease}
       <p style="font-size:12px; font-weight:700; color:#888; margin:0 0 6px;">🏛 전통 금융 대비 현재 위치</p>
       <p style="font-size:13px; color:#444; margin:0; line-height:1.65;">S&P 500은 전고점 대비 약 -5%인데 BTC는 -53%. PCE 4.1%에 S&P는 -0.01%로 거의 안 움직였지만 BTC는 -1.8%. 전통 자산은 "이미 반영됨"이고 크립토는 "아직 덜 반영됨" — 현금흐름이 있느냐 없느냐가 금리 민감도 차이를 만드는 전형적 사례</p>
     </div>
-  <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
+  <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/bitcoin.html">비트코인</a><span class="sep">·</span><a href="/wiki/fed.html">미국 연준</a><span class="sep">·</span><a href="/wiki/oil.html">원유</a><span class="sep">·</span><a href="/wiki/fidelity.html">피델리티</a><span class="sep">·</span><a href="/wiki/sp500.html">S&amp;P 500</a><span class="sep">·</span><a class="topic" href="/topics/fed-rates.html">연준·금리</a><span class="sep">·</span><a class="topic" href="/topics/crypto.html">크립토</a></div></div>
 </div>
 
 <!-- STORY 2 -->
@@ -682,7 +706,7 @@ transition:color .18s ease,background .18s ease}
     <div style="background:#f5f5f0; border-radius:8px; padding:14px 16px; margin-top:16px;">
       <p style="font-size:12px; font-weight:700; color:#888; margin:0 0 6px;">🏛 전통 금융 대비 현재 위치</p>
       <p style="font-size:13px; color:#444; margin:0; line-height:1.65;">CBDC는 전통 금융과 크립토의 교차점. 중앙은행이 직접 디지털 화폐를 발행하면 스테이블코인의 존재 이유가 흔들림. 크립토 업계가 CBDC 금지를 원하는 이유 — 정부 디지털 화폐가 나오면 USDT·USDC의 시장이 잠식당할 수 있기 때문</p>
-    </div>
+    <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/trump.html">트럼프</a><span class="sep">·</span><a href="/wiki/fed.html">미국 연준</a><span class="sep">·</span><a href="/wiki/world-liberty.html">월드리버티(WLFI)</a><span class="sep">·</span><a href="/wiki/oil.html">원유</a><span class="sep">·</span><a href="/wiki/tether.html">테더(USDT)</a><span class="sep">·</span><a class="topic" href="/topics/trump-politics.html">트럼프·정책</a><span class="sep">·</span><a class="topic" href="/topics/banks-wallst.html">월가·은행</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0624-crypto.html#story-4"><b>06-24</b> 미 상원, CBDC 4년 금지법 통과</a></span></span></div></div></div>
 </div>
 
 <!-- STORY 3 -->
@@ -700,7 +724,7 @@ transition:color .18s ease,background .18s ease}
       <p style="font-size:12px; font-weight:700; color:#888; margin:0 0 6px;">🏛 전통 금융 대비 현재 위치</p>
       <p style="font-size:13px; color:#444; margin:0; line-height:1.65;">전통 금융에서 레버리지로 단일 자산에 올인하는 상장사는 사실상 없음. 금 ETF를 사서 금에 올인하는 상장사가 없는 것처럼. Strategy의 독특함은 "BTC 트레저리 전략"을 기업 정체성 자체로 만든 것 — 이 전략이 성공하면 천재, 실패하면 도박사라는 평가가 갈리는 이유</p>
     </div>
-  <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
+  <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/bitcoin.html">비트코인</a><span class="sep">·</span><a href="/wiki/michael-saylor.html">마이클 세일러</a><span class="sep">·</span><a href="/wiki/microstrategy.html">마이크로스트래티지</a><span class="sep">·</span><a href="/wiki/oil.html">원유</a><span class="sep">·</span><a class="topic" href="/topics/crypto.html">크립토</a><span class="sep">·</span><a class="topic" href="/topics/ipo.html">IPO·상장</a></div></div>
 </div>
 
 <!-- STORY 4 -->
@@ -717,7 +741,7 @@ transition:color .18s ease,background .18s ease}
     <div style="background:#f5f5f0; border-radius:8px; padding:14px 16px; margin-top:16px;">
       <p style="font-size:12px; font-weight:700; color:#888; margin:0 0 6px;">🏛 전통 금융 대비 현재 위치</p>
       <p style="font-size:13px; color:#444; margin:0; line-height:1.65;">전통 금융에서 핵심 인재의 이직이 주가에 직접 영향을 주는 경우는 드물지만, AI 업계에서는 한 사람이 제품 전체의 방향을 좌우할 수 있음. 구글 주가 -6%는 "이 두 사람이 빠지면 제미나이와 알파폴드의 미래가 달라진다"는 시장의 판단</p>
-    </div>
+    <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/google.html">구글</a><span class="sep">·</span><a href="/wiki/anthropic.html">앤스로픽</a><span class="sep">·</span><a href="/wiki/openai.html">오픈AI</a><span class="sep">·</span><a href="/wiki/solana.html">솔라나</a><span class="sep">·</span><a href="/wiki/ethereum.html">이더리움</a><span class="sep">·</span><a class="topic" href="/topics/ai.html">AI</a><span class="sep">·</span><a class="topic" href="/topics/bigtech.html">빅테크</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0228-crypto.html#story-1"><b>02-28</b> Anthropic 퇴출, OpenAI 수주 — AI 군</a></span><span class="flow"><a href="/newsletters/2026/0228.html#story-1"><b>02-28</b> Anthropic vs 펜타곤, 그리고 어부지리 Ope</a></span></span></div></div></div>
 </div>
 
 <!-- STORY 5 -->
@@ -734,7 +758,7 @@ transition:color .18s ease,background .18s ease}
     <div style="background:#f5f5f0; border-radius:8px; padding:14px 16px; margin-top:16px;">
       <p style="font-size:12px; font-weight:700; color:#888; margin:0 0 6px;">🏛 전통 금융 대비 현재 위치</p>
       <p style="font-size:13px; color:#444; margin:0; line-height:1.65;">서브프라임 모기지 시장은 약 1.3조불이었는데, 지금 사모신용은 1.8조불로 더 큼. 2008년과의 결정적 차이는 대출 대상이 소비자가 아니라 기업이라는 점, 그리고 레버리지 구조가 다르다는 점. 다만 "유동성 미스매치" <span class="sub">(투자자는 단기로 빼려 하는데, 자산은 장기로 묶여 있는 구조)</span>라는 본질적 취약점은 동일</p>
-    </div>
+    <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/berkshire.html">버크셔</a><span class="sep">·</span><a href="/wiki/blackrock.html">블랙록</a><span class="sep">·</span><a href="/wiki/blackstone.html">블랙스톤</a><span class="sep">·</span><a href="/wiki/apollo.html">아폴로글로벌</a><span class="sep">·</span><a href="/wiki/jpmorgan.html">JP모건</a><span class="sep">·</span><a class="topic" href="/topics/insurance.html">보험</a><span class="sep">·</span><a class="topic" href="/topics/etf-funds.html">ETF·펀드</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0626.html#story-4"><b>06-26</b> 사모신용 Big Short, 2008 영웅 재등장</a></span></span></div></div></div>
 </div>
 
 </div><!-- /content -->

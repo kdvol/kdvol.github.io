@@ -467,7 +467,32 @@ transition:color .18s ease,background .18s ease}
   .sub-btn-header{padding:7px 13px;font-size:11.5px;letter-spacing:-.3px}
   .search-btn-header{width:32px;height:32px}
 }
-</style></head>
+</style>
+
+
+
+<style id="soonsal-story-links">
+/* 스토리 끝 — 다 읽은 사람만 본다. 본문 흐름을 끊지 않는다 */
+.story-links{margin:14px 0 0;padding:11px 0 0;border-top:1px solid #ece8e0;
+font-size:11.5px;line-height:1.8;color:#9a958a;word-break:keep-all}
+.story-links .k{color:#b5b0a4;margin-right:5px}
+.story-links a{color:#8a857c;text-decoration:none;border-bottom:1px solid #e6e1d8}
+.story-links a:hover{color:#C24A00;border-bottom-color:#C24A00}
+.story-links .sep{opacity:.4;margin:0 4px}
+/* 주제는 개별 이름이 아니라 묶음이다 — 테두리로 구분한다 */
+.story-links a.topic{border-bottom:0;padding:1px 7px;border-radius:999px;
+background:#f3efe8;color:#8a857c}
+.story-links a.topic:hover{background:#C24A00;color:#fff}
+.story-links .row + .row{margin-top:4px}
+/* 「같은 흐름」은 제목이 길어 한 줄에 하나씩 세운다. 라벨은 왼쪽에 고정 */
+.story-links .flows{display:flex;align-items:flex-start}
+.story-links .flow-list{display:flex;flex-direction:column;gap:2px;min-width:0}
+.story-links .flow{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.story-links .flow b{font-weight:600;color:#b5b0a4;margin-right:3px}
+@media(max-width:560px){.story-links .flows{display:block}
+  .story-links .flow-list{margin-top:2px;padding-left:1px}}
+</style>
+</head>
 <body>
 <div id="soonsal-live-ticker" style="display:none;"></div>
 <style>
@@ -666,7 +691,7 @@ transition:color .18s ease,background .18s ease}
         <div class="bullet"><span class="dot">◾</span><span><strong>미국 휘발유 갤런당 $3.11 — 한 달 새 23센트 상승.</strong> AAA 기준 전일 대비 11센트 추가 상승. 애널리스트들은 $100유가 시나리오에서 $4/갤런까지 가능하다고 봄. Marco Rubio 국무장관이 에너지 비용 완화 방안을 검토 중이라고 밝혔지만, 전략비축유 <span class="sub">(SPR, 4.15억 배럴)</span> 방출은 당장 없을 것이라고 코멘트</span></div>
         <div class="bullet"><span class="dot">◾</span><span><strong>트럼프, 호르무즈 해군 호위 + 정치적 리스크 보험 제안.</strong> 유조선에 미 해군 호위와 보험을 제공하겠다고 발표해 오후 장에서 매도세가 다소 진정됨. 하지만 RBC의 Helima Croft <span class="sub">(글로벌 원자재 전략 헤드)</span>는 "아직 concepts-of-a-plan 수준"이라며 실효성에 회의적 — 해군 자원이 충분한지, 보험이 얼마나 빨리 작동할 수 있는지 모두 미지수</span></div>
         <div class="bullet"><span class="dot">◾</span><span><strong>전쟁 파급: 아마존 데이터센터 피격, IPO 연기 속출.</strong> 이란 드론이 UAE·바레인의 Amazon 데이터센터를 타격해 앱 장애 발생. FT에 따르면 여행 스타트업이 IPO를 연기 중. 반면 Brookfield 자산운용 CEO는 카타르 $200억 데이터센터 계획 유지를 선언 — "아직 경기침체 영역은 아니다"는 골드만삭스 CEO의 평가와 맥을 같이하는 기업 온도차 <span class="note">(같은 뉴스, 정반대 해석)</span></span></div>
-      </div>
+      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/oil.html">원유</a><span class="sep">·</span><a href="/wiki/opec.html">OPEC</a><span class="sep">·</span><a href="/wiki/trump.html">트럼프</a><span class="sep">·</span><a href="/wiki/amazon.html">아마존</a><span class="sep">·</span><a href="/wiki/goldman.html">골드만삭스</a><span class="sep">·</span><a class="topic" href="/topics/energy.html">에너지·원자재</a><span class="sep">·</span><a class="topic" href="/topics/trump-politics.html">트럼프·정책</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0713.html#story-1"><b>07-13</b> 호르무즈, 또 닫혔다</a></span><span class="flow"><a href="/newsletters/2026/0303.html#story-1"><b>03-03</b> 이란 전쟁 3일차 — 호르무즈 봉쇄에 유가 8% 급등,</a></span></span></div></div></div>
     </div>
 
     <!-- STORY 2 -->
@@ -679,7 +704,7 @@ transition:color .18s ease,background .18s ease}
         <div class="bullet"><span class="dot">◾</span><span><strong>Fed 금리 인하 기대 급격히 축소.</strong> Janet Yellen <span class="sub">(전 재무장관)</span>은 "이란 상황이 연준을 더 hold 모드로 만들 것"이라고 평가. 유럽에서는 오히려 ECB 금리 인상 확률이 연말까지 60%로 반영되기 시작 — 미국은 금리 동결, 유럽은 인상 가능성이라는 대서양 양안의 정책 디커플링이 달러 강세를 더 부추기는 구조</span></div>
         <div class="bullet"><span class="dot">◾</span><span><strong>월가 수장들은 "아직 본격 위기 아니다" 톤.</strong> 골드만삭스 CEO은 시장 반응이 "의외로 benign"하다고 평가. 도이치뱅크 전략가도 "경기침체 영역과는 아직 거리가 있다"고 분석 — 이들의 기본 시나리오는 호르무즈 봉쇄가 1~2주 내 해제되는 것. 하지만 트럼프가 "5주"를 언급한 만큼 이 낙관론이 맞을지는 미지수</span></div>
         <div class="bullet"><span class="dot">◾</span><span><strong>이란 정보국이 비밀리에 종전 협상을 타진했다는 NYT 보도.</strong> 하지만 미국 관리들은 이 접근을 "진지하지 않다"고 판단. 이란 보안수장은 공식적으로 협상을 배제한 상태 — 비공식 채널과 공식 입장이 엇갈리면서 전쟁 종료 시점 예측이 더 어려워지는 중 <a href="https://www.nytimes.com/section/dealbook" style="color:#888; font-size:12px;"><span class="sub">(원문)</span></a></span></div>
-      </div>
+      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/sp500.html">S&amp;P 500</a><span class="sep">·</span><a href="/wiki/dollar.html">달러(환율)</a><span class="sep">·</span><a href="/wiki/fed.html">미국 연준</a><span class="sep">·</span><a href="/wiki/ecb.html">유럽중앙은행</a><span class="sep">·</span><a href="/wiki/goldman.html">골드만삭스</a><span class="sep">·</span><a class="topic" href="/topics/fed-rates.html">연준·금리</a><span class="sep">·</span><a class="topic" href="/topics/fx.html">환율·달러</a></div></div></div>
     </div>
 
     <!-- STORY 3 -->
@@ -692,7 +717,7 @@ transition:color .18s ease,background .18s ease}
         <div class="bullet"><span class="dot">◾</span><span><strong>유럽 Stoxx 600, 이틀간 3% 하락 — 4월 이후 최대 낙폭.</strong> UK FTSE 100도 4월 이후 최악의 하루를 기록. ECB 금리 인상 확률이 연말까지 60%로 반영되면서 유럽 채권시장도 불안 — 에너지 위기 → 인플레이션 → 금리 인상이라는 2022년 악몽의 데자뷔</span></div>
         <div class="bullet"><span class="dot">◾</span><span><strong>UAE 증시 거래 재개, 하지만 이란 드론이 두바이 미국 영사관 타격.</strong> 개전 이후 처음으로 두바이·아부다비 거래소가 문을 열었지만, 같은 날 이란 드론이 미국 영사관을 타격하고 이스라엘은 레바논에 지상군을 투입 — 전쟁이 이란 본토를 넘어 지역 전체로 확산되는 양상</span></div>
         <div class="bullet"><span class="dot">◾</span><span><strong>10년 뮤니 채권 금리 11bp 급등, 4월 이후 최악.</strong> 수익률 2.63%까지 상승. 안전자산 선호와 인플레이션 우려가 동시에 채권시장을 압박하는 이례적 상황 — 보통 위기 시 채권은 안전자산으로 매수되지만, 이번에는 인플레이션이 더 무서워서 채권마저 팔리는 "nowhere to hide" 장세</span></div>
-      </div>
+      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/kospi.html">코스피</a><span class="sep">·</span><a href="/wiki/oil.html">원유</a><span class="sep">·</span><a href="/wiki/dollar.html">달러(환율)</a><span class="sep">·</span><a href="/wiki/ecb.html">유럽중앙은행</a><span class="sep">·</span><a class="topic" href="/topics/fed-rates.html">연준·금리</a><span class="sep">·</span><a class="topic" href="/topics/japan.html">일본</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0713.html#story-2"><b>07-13</b> 캐리트레이드, 2000년 이후 최고 환경</a></span></span></div></div></div>
     </div>
 
     <!-- STORY 4 -->
@@ -705,7 +730,7 @@ transition:color .18s ease,background .18s ease}
         <div class="bullet"><span class="dot">◾</span><span><strong>OpenAI-펜타곤 계약 수정, Anthropic이 원하던 조건 그대로.</strong> 펜타곤과 OpenAI가 계약을 수정했는데, 그 내용이 Anthropic이 요구했다가 거절당한 조건과 거의 동일. NYT DealBook은 "정부가 선의로 협상했는지 의문"이라고 지적. 국방부 성명은 Anthropic이 "개인적 원한 <span class="sub">(personal vendettas)</span>"을 가졌다고 비난 <span class="note">(결국 사람 문제였다는 얘기)</span></span></div>
         <div class="bullet"><span class="dot">◾</span><span><strong>이란 공습에 Anthropic AI가 실제 사용됐다는 보도.</strong> 트럼프가 Anthropic과 관계를 끊은 직후에도 군사 작전에 해당 AI가 활용됐다고 Decrypt가 보도 — AI와 군사의 경계가 점점 모호해지는 중. 기술 기업이 정치적 이유로 정부와 결별해도 이미 배포된 기술은 회수가 불가능하다는 현실을 보여줌 <a href="https://decrypt.co/359577/anthropics-ai-iran-strikes-trump-moved-to-cut-ties" style="color:#888; font-size:12px;"><span class="sub">(원문)</span></a></span></div>
         <div class="bullet"><span class="dot">◾</span><span><strong>법정 대결 예고.</strong> 이 건은 높은 확률로 소송으로 이어질 전망. 그때 더 많은 내부 사정이 공개될 수 있음 — Anthropic vs 트럼프 행정부는 "AI 기업과 정부의 관계"를 정의할 선례가 될 수 있는 사건</span></div>
-      </div>
+      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/anthropic.html">앤스로픽</a><span class="sep">·</span><a href="/wiki/openai.html">오픈AI</a><span class="sep">·</span><a href="/wiki/trump.html">트럼프</a><span class="sep">·</span><a class="topic" href="/topics/ai.html">AI</a><span class="sep">·</span><a class="topic" href="/topics/trump-politics.html">트럼프·정책</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0303.html#story-3"><b>03-03</b> Anthropic vs 펜타곤 — 정부에서 쫓겨났는데 </a></span><span class="flow"><a href="/newsletters/2026/0410.html#story-5"><b>04-10</b> AI, AI, AI — Meta와 Anthropic</a></span></span></div></div></div>
     </div>
 
     <!-- STORY 5 -->
@@ -717,7 +742,7 @@ transition:color .18s ease,background .18s ease}
         <div class="bullet"><span class="dot">◾</span><span><strong>9개 로펌은 이미 백악관과 조기 합의.</strong> Paul Weiss, Skadden 같은 월가 대형 로펌들이 트럼프 행정부와 합의하며 무료 법률 자문 수천 시간 등을 약속했는데, 이번 DOJ 번복으로 "처음부터 버텼으면 더 나았다"는 시각이 확산 — 조기 합의한 로펌들의 판단이 결과적으로 실수로 보이기 시작</span></div>
         <div class="bullet"><span class="dot">◾</span><span><strong>번복 배경은 완전히 불명.</strong> 왜 철회했다가 24시간 만에 다시 싸우겠다고 했는지 공식 설명 없음. 법률 전문가들은 행정부 내부 의견 충돌, 혹은 "철회 결정이 트럼프에게 보고 안 됐다가 뒤늦게 발각됐을 가능성"을 제기</span></div>
         <div class="bullet"><span class="dot">◾</span><span><strong>Big Law의 교훈: "일찍 항복하면 손해."</strong> 이번 사건은 트럼프 시대 기업-정부 관계의 전형적 패턴을 보여줌 — 강하게 나오면 굴복시키려 하지만, 버티면 결국 후퇴하는 구조. 처음부터 싸운 4개 로펌이 법원에서 승리한 반면, 합의한 9개 로펌은 돌이킬 수 없는 양보를 한 셈 <span class="note">(항복한 척 했으나 진짜로 패배한 건에 대하여)</span></span></div>
-      </div>
+      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/trump.html">트럼프</a><span class="sep">·</span><a class="topic" href="/topics/trump-politics.html">트럼프·정책</a><span class="sep">·</span><a class="topic" href="/topics/banks-wallst.html">월가·은행</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0508.html#story-1"><b>05-08</b> 24시간 만에 뒤집힌 평화 베팅</a></span></span></div></div></div>
     </div>
 
     <!-- HEADLINE ROUNDUP -->

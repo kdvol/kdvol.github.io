@@ -450,7 +450,31 @@ transition:color .18s ease,background .18s ease}
   .sub-btn-header{padding:7px 13px;font-size:11.5px;letter-spacing:-.3px}
   .search-btn-header{width:32px;height:32px}
 }
-</style></head>
+</style>
+
+
+<style id="soonsal-story-links">
+/* 스토리 끝 — 다 읽은 사람만 본다. 본문 흐름을 끊지 않는다 */
+.story-links{margin:14px 0 0;padding:11px 0 0;border-top:1px solid #ece8e0;
+font-size:11.5px;line-height:1.8;color:#9a958a;word-break:keep-all}
+.story-links .k{color:#b5b0a4;margin-right:5px}
+.story-links a{color:#8a857c;text-decoration:none;border-bottom:1px solid #e6e1d8}
+.story-links a:hover{color:#C24A00;border-bottom-color:#C24A00}
+.story-links .sep{opacity:.4;margin:0 4px}
+/* 주제는 개별 이름이 아니라 묶음이다 — 테두리로 구분한다 */
+.story-links a.topic{border-bottom:0;padding:1px 7px;border-radius:999px;
+background:#f3efe8;color:#8a857c}
+.story-links a.topic:hover{background:#C24A00;color:#fff}
+.story-links .row + .row{margin-top:4px}
+/* 「같은 흐름」은 제목이 길어 한 줄에 하나씩 세운다. 라벨은 왼쪽에 고정 */
+.story-links .flows{display:flex;align-items:flex-start}
+.story-links .flow-list{display:flex;flex-direction:column;gap:2px;min-width:0}
+.story-links .flow{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.story-links .flow b{font-weight:600;color:#b5b0a4;margin-right:3px}
+@media(max-width:560px){.story-links .flows{display:block}
+  .story-links .flow-list{margin-top:2px;padding-left:1px}}
+</style>
+</head>
 <body>
 <div id="soonsal-live-ticker" style="display:none;"></div>
 <style>
@@ -674,7 +698,7 @@ transition:color .18s ease,background .18s ease}
         <div class="tradfi-label" style="font-size:12px;color:#888;font-weight:700;margin-bottom:4px;">🏛 전통 금융 대비 현재 위치</div>
         전통금융에서 자사 보유 자산 매각 발표는 회계 손실 인정과 마찬가지. 애플·MS가 "수익성 자산 매각해서 시장 안정화" 같은 말 안 함. Strategy 발언이 충격인 건 BTC 트레저리 모델 = 'never sell'이 핵심 신뢰 자산이었기 때문. 한 번 깨지면 같은 모델 회사들 (Tesla·Block·MARA·CleanSpark) 모두 가치 재평가 압력
       </div>
-      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
+      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/microstrategy.html">마이크로스트래티지</a><span class="sep">·</span><a href="/wiki/michael-saylor.html">마이클 세일러</a><span class="sep">·</span><a href="/wiki/bitcoin.html">비트코인</a><span class="sep">·</span><a href="/wiki/tesla.html">테슬라</a><span class="sep">·</span><a href="/wiki/apple.html">애플</a><span class="sep">·</span><a class="topic" href="/topics/crypto.html">크립토</a><span class="sep">·</span><a class="topic" href="/topics/deals.html">딜·M&amp;A</a></div></div>
     </div>
 
     <!-- STORY 2: BTC 후퇴 + ETF 흐름 -->
@@ -692,7 +716,7 @@ transition:color .18s ease,background .18s ease}
         <div class="tradfi-label" style="font-size:12px;color:#888;font-weight:700;margin-bottom:4px;">🏛 전통 금융 대비 현재 위치</div>
         4월 BTC ETF +24.4억불 유입 = 같은 달 미국 전체 ETF 시장 월간 평균 유입의 약 5% 비중. 1년 전 2-3%에서 빠르게 커지는 중. 누적 자금 $58.5B (런칭 후 28개월). But, 1·2월 -29억불 출금이 보여주듯 변동성은 전통 ETF 대비 5-10배. BTC ETF가 메인스트림 자산 클래스로 자리 잡는 중이지만, "위험자산 + 통화 헤지" 양면을 동시에 가지는 새로운 카테고리
       </div>
-      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
+      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/bitcoin.html">비트코인</a><span class="sep">·</span><a href="/wiki/blackrock.html">블랙록</a><span class="sep">·</span><a href="/wiki/solana.html">솔라나</a><span class="sep">·</span><a href="/wiki/xrp.html">리플(XRP)</a><span class="sep">·</span><a href="/wiki/fed.html">미국 연준</a><span class="sep">·</span><a class="topic" href="/topics/crypto.html">크립토</a><span class="sep">·</span><a class="topic" href="/topics/etf-funds.html">ETF·펀드</a></div></div>
     </div>
 
     <!-- STORY 3: Coinbase 14% 감원 + Q1 미스 -->
@@ -710,7 +734,7 @@ transition:color .18s ease,background .18s ease}
         <div class="tradfi-label" style="font-size:12px;color:#888;font-weight:700;margin-bottom:4px;">🏛 전통 금융 대비 현재 위치</div>
         전통 거래소 <span class="sub">(NYSE·CME·ICE)</span>는 거래 수수료가 매출의 5-10% 비중. 거래량 반토막 와도 데이터·청산·대출 매출로 버팀. 코인베이스는 거래 수수료가 매출의 50%+ 비중 — 거래량 반토막에 매출 직격탄. ETF로 거래 흐름이 분산되는 구조에서 비즈니스 모델 자체에 구조적 위협. "AI-native 핀테크"로 변신하는 것도 NYSE보다는 Square·PayPal 따라가는 그림
       </div>
-      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
+      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/coinbase.html">코인베이스</a><span class="sep">·</span><a href="/wiki/brian-armstrong.html">브라이언 암스트롱</a><span class="sep">·</span><a href="/wiki/bitcoin.html">비트코인</a><span class="sep">·</span><a href="/wiki/blackrock.html">블랙록</a><span class="sep">·</span><a href="/wiki/meta.html">메타</a><span class="sep">·</span><a class="topic" href="/topics/crypto.html">크립토</a><span class="sep">·</span><a class="topic" href="/topics/ai.html">AI</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0507.html#story-4"><b>05-07</b> 코인베이스 14% 감원, &quot;AI가 시켰다&qu</a></span><span class="flow"><a href="/newsletters/2026/0702-crypto.html#story-3"><b>07-02</b> Open USD — 비자·코인베이스·블랙록, 140개 </a></span></span></div></div>
     </div>
 
     <!-- STORY 4: 모건/골드만/Citi BTC 풀라인업 -->
@@ -728,7 +752,7 @@ transition:color .18s ease,background .18s ease}
         <div class="tradfi-label" style="font-size:12px;color:#888;font-weight:700;margin-bottom:4px;">🏛 전통 금융 대비 현재 위치</div>
         전통금융에서 수탁 <span class="sub">(BNY멜론·스테이트스트리트)</span>, 대출 <span class="sub">(상업은행)</span>, 거래 <span class="sub">(브로커딜러)</span>는 역할이 철저히 분리됨. BTC 시장에서 모건스탠리·골드만·Citi가 이 셋을 한 곳에서 묶어내는 중 — 크립토 원스톱 프라이빗 뱅킹의 시작. 한국 KB·신한도 곧 따라갈 구조
       </div>
-      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
+      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/bitcoin.html">비트코인</a><span class="sep">·</span><a href="/wiki/morgan-stanley.html">모건스탠리</a><span class="sep">·</span><a href="/wiki/goldman.html">골드만삭스</a><span class="sep">·</span><a href="/wiki/jpmorgan.html">JP모건</a><span class="sep">·</span><a href="/wiki/dimon.html">제이미 다이먼</a><span class="sep">·</span><a class="topic" href="/topics/banks-wallst.html">월가·은행</a><span class="sep">·</span><a class="topic" href="/topics/crypto.html">크립토</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0327-crypto.html#story-1"><b>03-27</b> 모건스탠리, 월가 은행 최초로 BTC ETF를 직접 만</a></span><span class="flow"><a href="/newsletters/2026/0331-crypto.html#story-1"><b>03-31</b> 모건스탠리 BTC ETF 0.14% — 수수료 전쟁의 </a></span></span></div></div>
     </div>
 
     <!-- STORY 5: 블랙록 컴퓨팅 선물 → RWA 다음 단계 -->
@@ -746,7 +770,7 @@ transition:color .18s ease,background .18s ease}
         <div class="tradfi-label" style="font-size:12px;color:#888;font-weight:700;margin-bottom:4px;">🏛 전통 금융 대비 현재 위치</div>
         원유·금·천연가스 같은 전통 commodity 선물 시장은 CME·ICE 기반으로 70년+ 역사. 측정 단위 <span class="sub">(배럴·온스)</span>·등급·인도 표준이 시장 자체보다 더 중요한 인프라. 컴퓨팅자원은 GPU 시간·칩 등급·전력원이 아직 표준화 안 된 상태 — 선물 시장 깔리려면 5-10년. But, 토큰화 인프라가 이미 있어서 전통 commodity보다 빠르게 형성 가능. 블랙록이 시장 표준 잡으면 자산운용사 + 거래소 + 토큰화 플랫폼 동시 보유
       </div>
-      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
+      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/larry-fink.html">래리 핑크</a><span class="sep">·</span><a href="/wiki/blackrock.html">블랙록</a><span class="sep">·</span><a href="/wiki/bitcoin.html">비트코인</a><span class="sep">·</span><a href="/wiki/xrp.html">리플(XRP)</a><span class="sep">·</span><a href="/wiki/mastercard.html">마스터카드</a><span class="sep">·</span><a class="topic" href="/topics/crypto.html">크립토</a><span class="sep">·</span><a class="topic" href="/topics/etf-funds.html">ETF·펀드</a></div></div>
     </div>
 
   </div><!-- /content -->

@@ -453,7 +453,31 @@ transition:color .18s ease,background .18s ease}
   .sub-btn-header{padding:7px 13px;font-size:11.5px;letter-spacing:-.3px}
   .search-btn-header{width:32px;height:32px}
 }
-</style></head>
+</style>
+
+
+<style id="soonsal-story-links">
+/* 스토리 끝 — 다 읽은 사람만 본다. 본문 흐름을 끊지 않는다 */
+.story-links{margin:14px 0 0;padding:11px 0 0;border-top:1px solid #ece8e0;
+font-size:11.5px;line-height:1.8;color:#9a958a;word-break:keep-all}
+.story-links .k{color:#b5b0a4;margin-right:5px}
+.story-links a{color:#8a857c;text-decoration:none;border-bottom:1px solid #e6e1d8}
+.story-links a:hover{color:#C24A00;border-bottom-color:#C24A00}
+.story-links .sep{opacity:.4;margin:0 4px}
+/* 주제는 개별 이름이 아니라 묶음이다 — 테두리로 구분한다 */
+.story-links a.topic{border-bottom:0;padding:1px 7px;border-radius:999px;
+background:#f3efe8;color:#8a857c}
+.story-links a.topic:hover{background:#C24A00;color:#fff}
+.story-links .row + .row{margin-top:4px}
+/* 「같은 흐름」은 제목이 길어 한 줄에 하나씩 세운다. 라벨은 왼쪽에 고정 */
+.story-links .flows{display:flex;align-items:flex-start}
+.story-links .flow-list{display:flex;flex-direction:column;gap:2px;min-width:0}
+.story-links .flow{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.story-links .flow b{font-weight:600;color:#b5b0a4;margin-right:3px}
+@media(max-width:560px){.story-links .flows{display:block}
+  .story-links .flow-list{margin-top:2px;padding-left:1px}}
+</style>
+</head>
 <body>
 <div id="soonsal-live-ticker" style="display:none;"></div>
 <style>
@@ -703,7 +727,7 @@ transition:color .18s ease,background .18s ease}
     <div style="background:#f5f5f0; border-radius:8px; padding:14px 16px; margin-top:16px;">
       <div style="font-size:12px; color:#888; font-weight:700; margin-bottom:6px;">🏛 전통 금융 대비 현재 위치</div>
       <div style="font-size:13px; color:#444; line-height:1.6;">전통 금융에서 금리 인상기에 가장 먼저 타격받는 건 수익률 없는 자산 — 금과 BTC가 대표적. 다만 2022년 금리 인상 사이클에서 금은 오히려 강세였고 BTC만 폭락한 전례가 있음. 차이점은 금에는 중앙은행 수요라는 구조적 바닥이 있지만, BTC에는 ETF 유입이 그 역할을 해야 한다는 것. 13연속 유출 후 겨우 1회 유입으로 전환된 현 시점이 그 시험대</div>
-    </div>
+    <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/bitcoin.html">비트코인</a><span class="sep">·</span><a href="/wiki/fed.html">미국 연준</a><span class="sep">·</span><a href="/wiki/polymarket.html">폴리마켓</a><span class="sep">·</span><a href="/wiki/cme.html">CME</a><span class="sep">·</span><a href="/wiki/oil.html">원유</a><span class="sep">·</span><a class="topic" href="/topics/fed-rates.html">연준·금리</a><span class="sep">·</span><a class="topic" href="/topics/crypto.html">크립토</a></div></div></div>
   </div>
   <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">* 매수매도 추천 아님, 순살도 주주 아님</p>
 </div>
@@ -722,7 +746,7 @@ transition:color .18s ease,background .18s ease}
     <div style="background:#f5f5f0; border-radius:8px; padding:14px 16px; margin-top:16px;">
       <div style="font-size:12px; color:#888; font-weight:700; margin-bottom:6px;">🏛 전통 금융 대비 현재 위치</div>
       <div style="font-size:13px; color:#444; line-height:1.6;">전통 금융에서 스마트머니의 역행 매집은 대표적 바닥 지표. 기관 투자자가 공포 구간에서 사는 건 워런 버핏의 "공포에 사라" 원칙과 동일. 다만 전통 시장에서도 바닥 매집 후 실제 가격 반등까지 3~6개월 걸리는 경우가 대부분. BTC도 같은 타임라인을 따를 가능성</div>
-    </div>
+    <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/bitcoin.html">비트코인</a><span class="sep">·</span><a href="/wiki/blackrock.html">블랙록</a><span class="sep">·</span><a href="/wiki/fidelity.html">피델리티</a><span class="sep">·</span><a href="/wiki/ethereum.html">이더리움</a><span class="sep">·</span><a href="/wiki/solana.html">솔라나</a><span class="sep">·</span><a class="topic" href="/topics/crypto.html">크립토</a><span class="sep">·</span><a class="topic" href="/topics/etf-funds.html">ETF·펀드</a></div></div></div>
   </div>
   <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">* 매수매도 추천 아님, 순살도 주주 아님</p>
 </div>
@@ -741,7 +765,7 @@ transition:color .18s ease,background .18s ease}
     <div style="background:#f5f5f0; border-radius:8px; padding:14px 16px; margin-top:16px;">
       <div style="font-size:12px; color:#888; font-weight:700; margin-bottom:6px;">🏛 전통 금융 대비 현재 위치</div>
       <div style="font-size:13px; color:#444; line-height:1.6;">전통 금융에서 은행 인가는 그 자체로 신뢰의 인장. 은행이 아닌 핀테크가 결제·수탁 사업을 하려면 각 주별 라이선스를 따로 받아야 하는데, 연방 신탁은행 인가 하나면 전국 영업 가능. PayPal·Square도 이 경로를 고민했지만 규제 부담 때문에 포기한 전례가 있음. 크립토 회사가 이 라이선스를 따는 건 처음</div>
-    </div>
+    <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/world-liberty.html">월드리버티(WLFI)</a><span class="sep">·</span><a href="/wiki/occ.html">미국 OCC</a><span class="sep">·</span><a href="/wiki/tether.html">테더(USDT)</a><span class="sep">·</span><a href="/wiki/circle.html">서클(Circle)</a><span class="sep">·</span><a href="/wiki/fdic.html">미국 FDIC</a><span class="sep">·</span><a class="topic" href="/topics/banks-wallst.html">월가·은행</a><span class="sep">·</span><a class="topic" href="/topics/crypto.html">크립토</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0714.html#story-4"><b>07-14</b> 스테이블코인 회사, 은행이 되다</a></span><span class="flow"><a href="/newsletters/2026/0619-crypto.html#story-4"><b>06-19</b> 와이오밍이 스테이블코인을 찍었다</a></span></span></div></div></div>
   </div>
 </div>
 
@@ -762,7 +786,7 @@ transition:color .18s ease,background .18s ease}
     </div>
   </div>
   <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">* 매수매도 추천 아님, 순살도 주주 아님</p>
-</div>
+<p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/kraken.html">크라켄</a><span class="sep">·</span><a href="/wiki/spacex.html">스페이스X</a><span class="sep">·</span><a href="/wiki/binance.html">바이낸스</a><span class="sep">·</span><a href="/wiki/hyperliquid.html">하이퍼리퀴드</a><span class="sep">·</span><a href="/wiki/oil.html">원유</a><span class="sep">·</span><a class="topic" href="/topics/crypto.html">크립토</a><span class="sep">·</span><a class="topic" href="/topics/ipo.html">IPO·상장</a></div></div></div>
 
 </div><!-- /content -->
 

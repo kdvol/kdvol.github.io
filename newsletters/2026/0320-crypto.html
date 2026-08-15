@@ -456,7 +456,31 @@ transition:color .18s ease,background .18s ease}
   .sub-btn-header{padding:7px 13px;font-size:11.5px;letter-spacing:-.3px}
   .search-btn-header{width:32px;height:32px}
 }
-</style></head>
+</style>
+
+
+<style id="soonsal-story-links">
+/* 스토리 끝 — 다 읽은 사람만 본다. 본문 흐름을 끊지 않는다 */
+.story-links{margin:14px 0 0;padding:11px 0 0;border-top:1px solid #ece8e0;
+font-size:11.5px;line-height:1.8;color:#9a958a;word-break:keep-all}
+.story-links .k{color:#b5b0a4;margin-right:5px}
+.story-links a{color:#8a857c;text-decoration:none;border-bottom:1px solid #e6e1d8}
+.story-links a:hover{color:#C24A00;border-bottom-color:#C24A00}
+.story-links .sep{opacity:.4;margin:0 4px}
+/* 주제는 개별 이름이 아니라 묶음이다 — 테두리로 구분한다 */
+.story-links a.topic{border-bottom:0;padding:1px 7px;border-radius:999px;
+background:#f3efe8;color:#8a857c}
+.story-links a.topic:hover{background:#C24A00;color:#fff}
+.story-links .row + .row{margin-top:4px}
+/* 「같은 흐름」은 제목이 길어 한 줄에 하나씩 세운다. 라벨은 왼쪽에 고정 */
+.story-links .flows{display:flex;align-items:flex-start}
+.story-links .flow-list{display:flex;flex-direction:column;gap:2px;min-width:0}
+.story-links .flow{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.story-links .flow b{font-weight:600;color:#b5b0a4;margin-right:3px}
+@media(max-width:560px){.story-links .flows{display:block}
+  .story-links .flow-list{margin-top:2px;padding-left:1px}}
+</style>
+</head>
 <body>
 <div id="soonsal-live-ticker" style="display:none;"></div>
 <style>
@@ -665,7 +689,7 @@ transition:color .18s ease,background .18s ease}
       <div class="tradfi-label">🏦 전통 금융 대비 현재 위치</div>
       전통 금융에서 IPO 시장은 금리 환경에 극도로 민감. 2022년 금리인상 사이클 때도 IPO 시장이 사실상 얼어붙었고, 2024~25년 금리인하 기대에 다시 열렸음. 지금은 인하 기대가 다시 소멸되는 구간이라, 크립토·테크 할 것 없이 고밸류 IPO의 창문이 동시에 닫히는 중. Kraken은 이 사이클의 첫 번째 희생자
     </div>
-  </div>
+  <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/kraken.html">크라켄</a><span class="sep">·</span><a href="/wiki/nasdaq.html">나스닥</a><span class="sep">·</span><a href="/wiki/goldman.html">골드만삭스</a><span class="sep">·</span><a href="/wiki/jpmorgan.html">JP모건</a><span class="sep">·</span><a href="/wiki/oil.html">원유</a><span class="sep">·</span><a class="topic" href="/topics/ipo.html">IPO·상장</a><span class="sep">·</span><a class="topic" href="/topics/fed-rates.html">연준·금리</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0709-crypto.html#story-5"><b>07-09</b> Kraken, 유럽에서 은행이 되려 한다</a></span></span></div></div></div>
 </div>
 
 <div class="story" id="story-2">
@@ -680,7 +704,7 @@ transition:color .18s ease,background .18s ease}
       <div class="tradfi-label">🏦 전통 금융 대비 현재 위치</div>
       전통 금융에서 리먼 브라더스 파산 처리는 10년 이상 걸렸고, 최종 회수율은 채권 종류에 따라 21~28% 수준. FTX는 붕괴 후 약 2년 반 만에 의미 있는 수준의 분배를 진행 중 — 크립토 시장의 파산 처리가 전통 금융보다 훨씬 빠른 건, 자산이 대부분 유동적이기 때문
     </div>
-  </div>
+  <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/ftx.html">FTX</a><span class="sep">·</span><a href="/wiki/bitcoin.html">비트코인</a><span class="sep">·</span><a href="/wiki/solana.html">솔라나</a><span class="sep">·</span><a href="/wiki/anthropic.html">앤스로픽</a><span class="sep">·</span><a href="/wiki/oil.html">원유</a><span class="sep">·</span><a class="topic" href="/topics/etf-funds.html">ETF·펀드</a><span class="sep">·</span><a class="topic" href="/topics/crypto.html">크립토</a></div></div></div>
 </div>
 
 <div class="story" id="story-3">
@@ -695,7 +719,7 @@ transition:color .18s ease,background .18s ease}
       <div class="tradfi-label">🏦 전통 금융 대비 현재 위치</div>
       현재 전통 증시는 T+1 정산 (거래 후 1영업일 뒤 결제)을 사용. 블록체인 기반 토큰화 증권은 이론적으로 T+0 (즉시 결제)이 가능하고, 24/7 거래·분수 소유권 (fractional ownership)·프로그래밍 가능한 증권 등의 기능을 열어줌. 나스닥 파일럿이 성공하면, 전체 증시 인프라가 블록체인으로 이전하는 장기 로드맵의 시작점이 될 수 있음
     </div>
-  </div>
+  <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/nasdaq.html">나스닥</a><span class="sep">·</span><a href="/wiki/mastercard.html">마스터카드</a><span class="sep">·</span><a href="/wiki/hyperliquid.html">하이퍼리퀴드</a><span class="sep">·</span><a class="topic" href="/topics/crypto.html">크립토</a></div></div></div>
 </div>
 
 <div class="story" id="story-4">
@@ -723,7 +747,7 @@ transition:color .18s ease,background .18s ease}
     <div class="bullet"><span class="dot">◾</span><span><strong>GSR</strong> <span class="sub">(크립토 캐피탈마켓)</span>, Autonomous와 Architech를 5,700만불에 인수 — 크립토 캐피탈마켓+트레저리 통합 플랫폼 구축</span></div>
     <div class="bullet"><span class="dot">◾</span><span><strong>Moody's</strong>, 크레딧 분석 온체인 엔진 런칭 — 전통 금융 신용평가를 블록체인에 도입하는 첫 사례</span></div>
     <div class="bullet"><span class="dot">◾</span><span><strong>Algorand Foundation</strong>, 직원 25% 감축 — 크립토 업계 해고 물결 지속</span></div>
-  </div>
+  <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/cftc.html">미국 CFTC</a><span class="sep">·</span><a href="/wiki/xrp.html">리플(XRP)</a><span class="sep">·</span><a href="/wiki/solana.html">솔라나</a><span class="sep">·</span><a href="/wiki/sec.html">미국 SEC</a><span class="sep">·</span><a href="/wiki/mastercard.html">마스터카드</a><span class="sep">·</span><a class="topic" href="/topics/trump-politics.html">트럼프·정책</a><span class="sep">·</span><a class="topic" href="/topics/crypto.html">크립토</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0703-crypto.html#story-5"><b>07-03</b> 대만, 포괄 크립토 법안 통과 — 글로벌 규제 러시</a></span></span></div></div></div>
 </div>
 
 <!-- HEADLINE ROUNDUP -->

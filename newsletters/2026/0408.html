@@ -433,7 +433,32 @@ transition:color .18s ease,background .18s ease}
   .sub-btn-header{padding:7px 13px;font-size:11.5px;letter-spacing:-.3px}
   .search-btn-header{width:32px;height:32px}
 }
-</style></head>
+</style>
+
+
+
+<style id="soonsal-story-links">
+/* 스토리 끝 — 다 읽은 사람만 본다. 본문 흐름을 끊지 않는다 */
+.story-links{margin:14px 0 0;padding:11px 0 0;border-top:1px solid #ece8e0;
+font-size:11.5px;line-height:1.8;color:#9a958a;word-break:keep-all}
+.story-links .k{color:#b5b0a4;margin-right:5px}
+.story-links a{color:#8a857c;text-decoration:none;border-bottom:1px solid #e6e1d8}
+.story-links a:hover{color:#C24A00;border-bottom-color:#C24A00}
+.story-links .sep{opacity:.4;margin:0 4px}
+/* 주제는 개별 이름이 아니라 묶음이다 — 테두리로 구분한다 */
+.story-links a.topic{border-bottom:0;padding:1px 7px;border-radius:999px;
+background:#f3efe8;color:#8a857c}
+.story-links a.topic:hover{background:#C24A00;color:#fff}
+.story-links .row + .row{margin-top:4px}
+/* 「같은 흐름」은 제목이 길어 한 줄에 하나씩 세운다. 라벨은 왼쪽에 고정 */
+.story-links .flows{display:flex;align-items:flex-start}
+.story-links .flow-list{display:flex;flex-direction:column;gap:2px;min-width:0}
+.story-links .flow{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.story-links .flow b{font-weight:600;color:#b5b0a4;margin-right:3px}
+@media(max-width:560px){.story-links .flows{display:block}
+  .story-links .flow-list{margin-top:2px;padding-left:1px}}
+</style>
+</head>
 <body>
 <div id="soonsal-live-ticker" style="display:none;"></div>
 <style>
@@ -655,7 +680,7 @@ transition:color .18s ease,background .18s ease}
         <div class="bullet"><span class="dot">◾</span><span>But 금요일 물가 지표에 따라 이 논리가 흔들릴 가능성. 3월 CPI 전망이 월간 +1%인데, 맞으면 2022년 이후 최대. 에너지·식품·항공료가 동시에 올랐음. 주유소 평균 이미 4.14불 — JP모건은 호르무즈가 4월 중순까지 안 열리면 5불 넘긴다는 뷰</span></div>
         <div class="bullet"><span class="dot">◾</span><span>더 큰 리스크는 연준 내부 분열. 클리블랜드 연은 총재 Hammack이 "금리를 올려야 할 수도 있다"고 했고, 시카고 연은 총재 Goolsbee는 유가가 물가를 올리고, 물가가 경기를 죽이고, 경기가 죽어도 유가는 안 내려가는 악순환 가능성을 공식 언급. 유가→물가→금리→경기 하강이라는 시나리오가 연준 안에서 처음으로 공론화된 것. 이 와중에 트럼프는 금리 내리라고 압박 중 <span class="note">(진짜 리스크는 이란이 아니라 연준 내분)</span></span></div>
         <div class="bullet"><span class="dot">◾</span><span>일단 트럼프는 Kharg 섬까지 공습한 후 2주 공격 중단 발표. But 이란 쪽 사정은 다름. 이란은 45일 임시 휴전을 "비논리적"이라며 거부하고 영구 종전만 받겠다는 입장. 10개 항 역제안도 냈음 — 제재 해제, 재건, 재공격 금지 보장 등. 작년 6월 "휴전 뒤 또 공격당한" 경험 때문에 임시 멈춤 자체를 안 믿는 상황. 호르무즈가 실제로 열릴지는 아직 미지수</span></div>
-      </div>
+      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/oil.html">원유</a><span class="sep">·</span><a href="/wiki/trump.html">트럼프</a><span class="sep">·</span><a href="/wiki/jpmorgan.html">JP모건</a><span class="sep">·</span><a href="/wiki/fed.html">미국 연준</a><span class="sep">·</span><a class="topic" href="/topics/energy.html">에너지·원자재</a><span class="sep">·</span><a class="topic" href="/topics/trump-politics.html">트럼프·정책</a></div></div></div>
     </div>
 
     <!-- STORY 2 -->
@@ -668,7 +693,7 @@ transition:color .18s ease,background .18s ease}
         <div class="bullet"><span class="dot">◾</span><span>과거의 와타나베 부인은 개인 투기였음. 지금은 차원이 다름. 일본 정부가 2024년 1월 신NISA <span class="sub">(비과세 투자계좌)</span>를 도입하면서 국민들한테 "저축 말고 투자하라"고 대놓고 밀어줬는데, 이 돈이 간 곳은 결국 해외 주식. 2024년 한 해에만 NISA를 통해 10.4조엔 <span class="sub">(약 660억불)</span>이 해외로 빠져나감. 미쓰비시UFJ 운용 <span class="sub">(일본 최대 자산운용사)</span>의 해외주식 펀드 유입도 전년 대비 66% 급증. 일본 가계 금융자산이 2,230조엔 <span class="sub">(약 14.2조불)</span>인데, 절반 이상이 아직 엔화 예금에 묶여 있음. 이 돈이 움직이기 시작한 것</span></div>
         <div class="bullet"><span class="dot">◾</span><span>지금 일본이라는 나라 자체가 하나의 거대한 캐리 트레이드 포지션이 됨. 경상수지 흑자가 예전처럼 물건 팔아서 나오는 게 아니라, 해외에 투자해서 벌어오는 소득수지가 대부분. 기업은 해외 직접투자를 늘리고, 개인은 NISA로 S&P 500을 사고, 연기금은 미국 채권을 담고 — 전부 엔화를 팔고 달러를 사는 거래. 미국 사모펀드들은 일본 개인 돈을 "참을성 있는 자금"이라 부르며 빨아들이는 중. 국가·기관·개인이 전부 같은 방향에 올라탄 셈</span></div>
         <div class="bullet"><span class="dot">◾</span><span>문제는 되감기. 2024년 8월, BOJ <span class="sub">(일본은행)</span>가 금리를 살짝 올리자 엔화가 급등하면서 전세계가 출렁였음. 닛케이 하루 -12%, 나스닥 한 달 -13%. BIS 추정으로 당시 풀린 캐리 포지션이 약 2,500억불. 근데 그때는 헤지펀드 중심의 투기 포지션이었음. 지금은 일반 가계와 연기금까지 같은 구조에 올라탄 상태. 다음번 되감기는 2024년 8월과 급이 다름 — 일본의 해외 자산이 6조불이고, 세계 최대 채권국의 포지션 전체가 한 방향으로 쏠려 있다는 뜻 <span class="note">(사실상 최대급 글로벌 투자사, 일본)</span></span></div>
-      </div>
+      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/yen.html">엔화</a><span class="sep">·</span><a href="/wiki/sp500.html">S&amp;P 500</a><span class="sep">·</span><a href="/wiki/boj.html">일본은행</a><span class="sep">·</span><a href="/wiki/nasdaq.html">나스닥</a><span class="sep">·</span><a href="/wiki/bis.html">국제결제은행(BIS)</a><span class="sep">·</span><a class="topic" href="/topics/japan.html">일본</a><span class="sep">·</span><a class="topic" href="/topics/fx.html">환율·달러</a></div></div></div>
     </div>
 
     <!-- STORY 3 -->
@@ -681,7 +706,7 @@ transition:color .18s ease,background .18s ease}
         <div class="bullet"><span class="dot">◾</span><span>위험 인정도 적나라함. 최신 AI가 대규모 사이버 공격과 생물 무기 제조를 가능하게 할 수 있다고 자인. "위험한 AI 시스템이 자율적으로 복제해서 회수가 불가능한 시나리오"까지 언급하면서, 정부와의 공동 대응 플레이북을 만들자고 제안. 자기 제품의 최악 시나리오를 자기 입으로 적어놓은 셈</span></div>
         <div class="bullet"><span class="dot">◾</span><span>정치판 상황도 복잡함. 상원에서는 AI 증세 법안이 준비 중이고, 샌더스는 데이터센터 건설 모라토리엄까지 발의. 반대편에서는 트럼프 행정부가 "가벼운 규제" 노선을 밀고 있음. OpenAI 사장 Brockman은 트럼프에게 수백만불을 기부한 사람인데, 보고서 내용은 샌더스 쪽에 더 가까움 <span class="note">(양쪽에 줄서기)</span></span></div>
         <div class="bullet"><span class="dot">◾</span><span>결국 이 문서의 목적은 두 가지. 하나는 규제가 오든 안 오든 "경고는 했다"는 기록. 다른 하나는 규제 논의를 자기가 원하는 방향으로 끌고 가려는 선제 포지셔닝. Anthropic이 6개월 전에 먼저 낸 정책 블루프린트에 대한 대응이기도 함. 8,520억불짜리 회사가 "우리 제품이 문명을 위협할 수 있다"고 공식 문서로 인정하는 건 전례 없는 일</span></div>
-      </div>
+      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/openai.html">오픈AI</a><span class="sep">·</span><a href="/wiki/sam-altman.html">샘 알트먼</a><span class="sep">·</span><a href="/wiki/trump.html">트럼프</a><span class="sep">·</span><a href="/wiki/anthropic.html">앤스로픽</a><span class="sep">·</span><a class="topic" href="/topics/ai.html">AI</a><span class="sep">·</span><a class="topic" href="/topics/trump-politics.html">트럼프·정책</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0326.html#story-3"><b>03-26</b> OpenAI, 영상 gg친 이유</a></span><span class="flow"><a href="/newsletters/2026/0629.html#story-2"><b>06-29</b> OpenAI, 1조 아니면 껃영</a></span></span></div></div></div>
     </div>
 
     <!-- STORY 4 -->
@@ -723,7 +748,7 @@ transition:color .18s ease,background .18s ease}
     <div class="bullet"><span class="dot">◾</span><span><strong>Neurocrine</strong>, 바이오텍 Soleno Therapeutics 29억불 인수 확정 — 희귀질환 Prader-Willi 치료제 확보 (<a href="https://www.cnbc.com/2026/04/06/neurocrine-to-buy-soleno-therapeutics.html" style="color:#888;font-size:12px;">CNBC</a>)</span></div>
     <div class="bullet"><span class="dot">◾</span><span><strong>Strategy</strong> <span class="sub">(구 MicroStrategy)</span>, BTC 3.3억불 추가 매수 재개 — Q1 미실현 손실 145억불에도 불구 (<a href="https://decrypt.co/363373/strategy-resumes-bitcoin-treasury-buys-with-330m-purchase" style="color:#888;font-size:12px;">Decrypt</a>)</span></div>
     <div class="bullet"><span class="dot">◾</span><span><strong>Broadcom</strong>, 알파벳과 TPU 공급 장기 계약 체결 — 주가 +4.5% (<span style="color:#888;font-size:12px;">BBG</span>)</span></div>
-  </div>
+  <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/fed.html">미국 연준</a><span class="sep">·</span><a href="/wiki/dimon.html">제이미 다이먼</a><span class="sep">·</span><a href="/wiki/goldman.html">골드만삭스</a><span class="sep">·</span><a href="/wiki/bill-ackman.html">빌 애크먼</a><span class="sep">·</span><a href="/wiki/blackrock.html">블랙록</a><span class="sep">·</span><a class="topic" href="/topics/etf-funds.html">ETF·펀드</a><span class="sep">·</span><a class="topic" href="/topics/deals.html">딜·M&amp;A</a></div></div></div>
 </div>
 
 <!-- HEADLINE ROUNDUP -->

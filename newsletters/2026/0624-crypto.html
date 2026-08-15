@@ -453,7 +453,31 @@ transition:color .18s ease,background .18s ease}
   .sub-btn-header{padding:7px 13px;font-size:11.5px;letter-spacing:-.3px}
   .search-btn-header{width:32px;height:32px}
 }
-</style></head>
+</style>
+
+
+<style id="soonsal-story-links">
+/* 스토리 끝 — 다 읽은 사람만 본다. 본문 흐름을 끊지 않는다 */
+.story-links{margin:14px 0 0;padding:11px 0 0;border-top:1px solid #ece8e0;
+font-size:11.5px;line-height:1.8;color:#9a958a;word-break:keep-all}
+.story-links .k{color:#b5b0a4;margin-right:5px}
+.story-links a{color:#8a857c;text-decoration:none;border-bottom:1px solid #e6e1d8}
+.story-links a:hover{color:#C24A00;border-bottom-color:#C24A00}
+.story-links .sep{opacity:.4;margin:0 4px}
+/* 주제는 개별 이름이 아니라 묶음이다 — 테두리로 구분한다 */
+.story-links a.topic{border-bottom:0;padding:1px 7px;border-radius:999px;
+background:#f3efe8;color:#8a857c}
+.story-links a.topic:hover{background:#C24A00;color:#fff}
+.story-links .row + .row{margin-top:4px}
+/* 「같은 흐름」은 제목이 길어 한 줄에 하나씩 세운다. 라벨은 왼쪽에 고정 */
+.story-links .flows{display:flex;align-items:flex-start}
+.story-links .flow-list{display:flex;flex-direction:column;gap:2px;min-width:0}
+.story-links .flow{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.story-links .flow b{font-weight:600;color:#b5b0a4;margin-right:3px}
+@media(max-width:560px){.story-links .flows{display:block}
+  .story-links .flow-list{margin-top:2px;padding-left:1px}}
+</style>
+</head>
 
 <body>
 <div id="soonsal-live-ticker" style="display:none;"></div>
@@ -658,7 +682,7 @@ transition:color .18s ease,background .18s ease}
       <p style="font-size:12px; font-weight:700; color:#888; margin:0 0 6px;">🏛 전통 금융 대비 현재 위치</p>
       <p style="font-size:13px; color:#444; margin:0; line-height:1.65;">S&P 500은 같은 기간 고점 대비 -5% 수준인데, BTC는 -51%. 금리 인상기에 현금흐름이 없는 자산은 할인율이 치솟으면서 가장 먼저 팔리는 순서 — 크립토가 그 최전선에 서 있는 셈</p>
     </div>
-  <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
+  <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/bitcoin.html">비트코인</a><span class="sep">·</span><a href="/wiki/nasdaq.html">나스닥</a><span class="sep">·</span><a href="/wiki/ethereum.html">이더리움</a><span class="sep">·</span><a href="/wiki/solana.html">솔라나</a><span class="sep">·</span><a href="/wiki/fed.html">미국 연준</a><span class="sep">·</span><a class="topic" href="/topics/semiconductor.html">반도체</a><span class="sep">·</span><a class="topic" href="/topics/crypto.html">크립토</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0227-crypto.html#story-3"><b>02-27</b> MetaMask 크립토 직불카드, 미국 전역 출시 — </a></span><span class="flow"><a href="/newsletters/2026/0319-crypto.html#story-3"><b>03-19</b> 두바이 크립토 허브, 5년 쌓고 3주 만에 흔들림</a></span></span></div></div>
 </div>
 
 <!-- STORY 2 -->
@@ -676,7 +700,7 @@ transition:color .18s ease,background .18s ease}
       <p style="font-size:12px; font-weight:700; color:#888; margin:0 0 6px;">🏛 전통 금융 대비 현재 위치</p>
       <p style="font-size:13px; color:#444; margin:0; line-height:1.65;">전통 증권 시장에서 거래·청산·결제는 수십 년간 다듬어진 파이프라인이 있는데, 크립토는 이 세 가지가 거래소 하나에 뭉쳐있거나 아예 없는 상태. ICE-OKX 합작은 그 '파이프라인 수입'을 시도하는 첫 대형 실험</p>
     </div>
-  <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
+  <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/nyse.html">뉴욕증권거래소</a><span class="sep">·</span><a href="/wiki/bitcoin.html">비트코인</a><span class="sep">·</span><a class="topic" href="/topics/banks-wallst.html">월가·은행</a><span class="sep">·</span><a class="topic" href="/topics/crypto.html">크립토</a></div></div>
 </div>
 
 <!-- STORY 3 -->
@@ -694,7 +718,7 @@ transition:color .18s ease,background .18s ease}
       <p style="font-size:12px; font-weight:700; color:#888; margin:0 0 6px;">🏛 전통 금융 대비 현재 위치</p>
       <p style="font-size:13px; color:#444; margin:0; line-height:1.65;">전통 자산에서 연기금의 대체투자 비중은 보통 10~20% <span class="sub">(PE·부동산·인프라)</span>. 크립토 1%는 그 대체투자 안에서도 가장 작은 슬라이스지만, '제도권 편입'이라는 상징성이 금액보다 큼</p>
     </div>
-  <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
+  <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/yen.html">엔화</a><span class="sep">·</span><a class="topic" href="/topics/japan.html">일본</a><span class="sep">·</span><a class="topic" href="/topics/etf-funds.html">ETF·펀드</a></div></div>
 </div>
 
 <!-- STORY 4 -->
@@ -712,7 +736,7 @@ transition:color .18s ease,background .18s ease}
       <p style="font-size:12px; font-weight:700; color:#888; margin:0 0 6px;">🏛 전통 금융 대비 현재 위치</p>
       <p style="font-size:13px; color:#444; margin:0; line-height:1.65;">전통 금융의 달러 결제는 Swift·Fedwire 같은 중앙 시스템을 통함. 크립토의 스테이블코인은 이걸 블록체인으로 대체하려는 시도인데, CBDC 금지법은 그 대체 실험에 4년간 정부가 끼어들지 않겠다는 보장을 준 셈</p>
     </div>
-  <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
+  <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/fed.html">미국 연준</a><span class="sep">·</span><a href="/wiki/tether.html">테더(USDT)</a><span class="sep">·</span><a href="/wiki/circle.html">서클(Circle)</a><span class="sep">·</span><a href="/wiki/swift.html">SWIFT(국제결제망)</a><span class="sep">·</span><a class="topic" href="/topics/crypto.html">크립토</a><span class="sep">·</span><a class="topic" href="/topics/fed-rates.html">연준·금리</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0626-crypto.html#story-2"><b>06-26</b> 트럼프, CBDC 금지법 서명식 취소</a></span></span></div></div>
 </div>
 
 <!-- STORY 5 -->
@@ -730,7 +754,7 @@ transition:color .18s ease,background .18s ease}
       <p style="font-size:12px; font-weight:700; color:#888; margin:0 0 6px;">🏛 전통 금융 대비 현재 위치</p>
       <p style="font-size:13px; color:#444; margin:0; line-height:1.65;">전통 금융에선 해킹 피해가 나면 예금보험이나 은행 보상으로 복구가 됨. 크립토는 '코드가 법'이라 한번 털리면 되돌릴 방법이 거의 없음. 보험 상품이 생기고는 있지만, 커버리지가 전체 TVL의 2% 미만 — 안전망이 거의 없는 상태</p>
     </div>
-  <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
+  <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a class="topic" href="/topics/banks-wallst.html">월가·은행</a><span class="sep">·</span><a class="topic" href="/topics/insurance.html">보험</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0630-crypto.html#story-5"><b>06-30</b> DeFi 해킹, Q2 분기 사상 최다 89건</a></span><span class="flow"><a href="/newsletters/2026/0715.html#story-1"><b>07-15</b> 골드만 역대 최고 분기, 은행들 싹 다 기대 초과</a></span></span></div></div>
 </div>
 
 </div><!-- /content -->

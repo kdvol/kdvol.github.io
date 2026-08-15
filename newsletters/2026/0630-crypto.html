@@ -453,7 +453,31 @@ transition:color .18s ease,background .18s ease}
   .sub-btn-header{padding:7px 13px;font-size:11.5px;letter-spacing:-.3px}
   .search-btn-header{width:32px;height:32px}
 }
-</style></head>
+</style>
+
+
+<style id="soonsal-story-links">
+/* 스토리 끝 — 다 읽은 사람만 본다. 본문 흐름을 끊지 않는다 */
+.story-links{margin:14px 0 0;padding:11px 0 0;border-top:1px solid #ece8e0;
+font-size:11.5px;line-height:1.8;color:#9a958a;word-break:keep-all}
+.story-links .k{color:#b5b0a4;margin-right:5px}
+.story-links a{color:#8a857c;text-decoration:none;border-bottom:1px solid #e6e1d8}
+.story-links a:hover{color:#C24A00;border-bottom-color:#C24A00}
+.story-links .sep{opacity:.4;margin:0 4px}
+/* 주제는 개별 이름이 아니라 묶음이다 — 테두리로 구분한다 */
+.story-links a.topic{border-bottom:0;padding:1px 7px;border-radius:999px;
+background:#f3efe8;color:#8a857c}
+.story-links a.topic:hover{background:#C24A00;color:#fff}
+.story-links .row + .row{margin-top:4px}
+/* 「같은 흐름」은 제목이 길어 한 줄에 하나씩 세운다. 라벨은 왼쪽에 고정 */
+.story-links .flows{display:flex;align-items:flex-start}
+.story-links .flow-list{display:flex;flex-direction:column;gap:2px;min-width:0}
+.story-links .flow{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.story-links .flow b{font-weight:600;color:#b5b0a4;margin-right:3px}
+@media(max-width:560px){.story-links .flows{display:block}
+  .story-links .flow-list{margin-top:2px;padding-left:1px}}
+</style>
+</head>
 
 <body>
 <div id="soonsal-live-ticker" style="display:none;"></div>
@@ -681,7 +705,7 @@ transition:color .18s ease,background .18s ease}
       <p style="font-size:12px; font-weight:700; color:#888; margin:0 0 6px;">🏛 전통 금융 대비 현재 위치</p>
       <p style="font-size:13px; color:#444; margin:0; line-height:1.65;">전통 금융에서 비유하면, 나스닥 <span class="sub">(혁신 기술주)</span>이 국채 MMF <span class="sub">(머니마켓펀드)</span>에 시총을 뺏긴 것과 비슷. 실제로 미국 MMF 시장은 5.5조불로 나스닥 시총의 약 25% 수준인데, 크립토에서는 "MMF"가 "나스닥"을 이미 추월. 투자자 심리가 극단적으로 방어적이라는 뜻</p>
     </div>
-  <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
+  <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/tether.html">테더(USDT)</a><span class="sep">·</span><a href="/wiki/ethereum.html">이더리움</a><span class="sep">·</span><a href="/wiki/tron.html">트론(TRX)</a><span class="sep">·</span><a href="/wiki/solana.html">솔라나</a><span class="sep">·</span><a href="/wiki/nasdaq.html">나스닥</a><span class="sep">·</span><a class="topic" href="/topics/crypto.html">크립토</a><span class="sep">·</span><a class="topic" href="/topics/etf-funds.html">ETF·펀드</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0625-crypto.html#story-2"><b>06-25</b> 이더리움 재단, 20% 감원</a></span></span></div></div>
 </div>
 
 <!-- STORY 2 -->
@@ -698,7 +722,7 @@ transition:color .18s ease,background .18s ease}
     <div style="background:#f5f5f0; border-radius:8px; padding:14px 16px; margin-top:16px;">
       <p style="font-size:12px; font-weight:700; color:#888; margin:0 0 6px;">🏛 전통 금융 대비 현재 위치</p>
       <p style="font-size:13px; color:#444; margin:0; line-height:1.65;">전통 금융의 옵션·선물 시장도 태동기에 비슷한 성장통을 겪음. CME <span class="sub">(시카고상품거래소)</span>가 1970~80년대에 규제와 싸우면서 성장한 패턴과 흡사. 차이점은 속도 — CME가 10억불 매출에 도달하는 데 수십 년 걸렸는데, 폴리마켓은 수수료 도입 후 6개월 만에 달성. 속도가 빨라진 만큼 규제 충돌도 압축돼서 찾아오는 중</p>
-    </div>
+    <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/polymarket.html">폴리마켓</a><span class="sep">·</span><a href="/wiki/kalshi.html">칼시(Kalshi)</a><span class="sep">·</span><a href="/wiki/ethereum.html">이더리움</a><span class="sep">·</span><a href="/wiki/cftc.html">미국 CFTC</a><span class="sep">·</span><a href="/wiki/bok.html">한국은행</a><span class="sep">·</span><a class="topic" href="/topics/prediction-markets.html">예측시장</a><span class="sep">·</span><a class="topic" href="/topics/sports-biz.html">스포츠 비즈니스</a></div></div></div>
 </div>
 
 <!-- STORY 3 -->
@@ -716,7 +740,7 @@ transition:color .18s ease,background .18s ease}
       <p style="font-size:12px; font-weight:700; color:#888; margin:0 0 6px;">🏛 전통 금융 대비 현재 위치</p>
       <p style="font-size:13px; color:#444; margin:0; line-height:1.65;">전통 금융에서 비유하면, 아마존이 금융 서비스에 진입할 때의 공포와 비슷. 메타의 무기는 분배력 <span class="sub">(30억+ 사용자)</span>이지 금융 인프라가 아님. 리브라/Diem 실패가 보여주듯 규제 허들이 높지만, 이번에는 "실돈 안 거는 포인트 게임"으로 시작해서 그 허들을 우회하려는 것. 전통 금융이 겪어보지 못한 속도의 시장 확장이 가능한 구도</p>
     </div>
-  <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
+  <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/meta.html">메타</a><span class="sep">·</span><a href="/wiki/polymarket.html">폴리마켓</a><span class="sep">·</span><a href="/wiki/kalshi.html">칼시(Kalshi)</a><span class="sep">·</span><a href="/wiki/circle.html">서클(Circle)</a><span class="sep">·</span><a href="/wiki/cftc.html">미국 CFTC</a><span class="sep">·</span><a class="topic" href="/topics/prediction-markets.html">예측시장</a><span class="sep">·</span><a class="topic" href="/topics/bigtech.html">빅테크</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0625-crypto.html#story-3"><b>06-25</b> 메타, 예측시장 앱 만든다</a></span><span class="flow"><a href="/newsletters/2026/0521-crypto.html#story-2"><b>05-21</b> 미네소타, 예측시장을 범죄로 규정</a></span></span></div></div>
 </div>
 
 <!-- STORY 4 -->
@@ -734,7 +758,7 @@ transition:color .18s ease,background .18s ease}
       <p style="font-size:12px; font-weight:700; color:#888; margin:0 0 6px;">🏛 전통 금융 대비 현재 위치</p>
       <p style="font-size:13px; color:#444; margin:0; line-height:1.65;">전통 금융에서 비유하면, 뉴욕증권거래소를 운영하는 재단이 인력 20%를 자르고 예산을 40% 줄이는 것과 비슷한 충격. 차이점은 이더리움은 "탈중앙"을 표방하니까 EF 없이도 돌아가야 한다는 것. But 실제로 핵심 개발의 상당 부분이 EF 자금에 의존해온 구조라서, "탈중앙 이상"과 "중앙 자금 의존 현실" 사이의 긴장이 본격적으로 터진 순간</p>
     </div>
-  <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
+  <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/ethereum.html">이더리움</a><span class="sep">·</span><a href="/wiki/vitalik.html">비탈릭 부테린</a><span class="sep">·</span><a href="/wiki/bitcoin.html">비트코인</a><span class="sep">·</span><a href="/wiki/nyse.html">뉴욕증권거래소</a><span class="sep">·</span><a class="topic" href="/topics/crypto.html">크립토</a><span class="sep">·</span><a class="topic" href="/topics/labor-jobs.html">노동·고용</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0625-crypto.html#story-2"><b>06-25</b> 이더리움 재단, 20% 감원</a></span><span class="flow"><a href="/newsletters/2026/0707.html#story-3"><b>07-07</b> Xbox 25년 역사상 최대 칼질</a></span></span></div></div>
 </div>
 
 <!-- STORY 5 -->
@@ -751,7 +775,7 @@ transition:color .18s ease,background .18s ease}
     <div style="background:#f5f5f0; border-radius:8px; padding:14px 16px; margin-top:16px;">
       <p style="font-size:12px; font-weight:700; color:#888; margin:0 0 6px;">🏛 전통 금융 대비 현재 위치</p>
       <p style="font-size:13px; color:#444; margin:0; line-height:1.65;">전통 금융에서 증권 거래소가 분기에 89번 해킹당하면 즉각 폐쇄 명령이 내려짐. 은행은 서드파티 벤더 보안 감사를 의무화하고 <span class="sub">(OCC 규정)</span>, 프론트엔드 변조 감지 시스템을 24/7 운영. DeFi에는 이런 의무가 없어서 "기술은 최첨단, 보안 체계는 2000년대 초반 수준"이라는 괴리가 반복되는 것</p>
-    </div>
+    <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/polymarket.html">폴리마켓</a><span class="sep">·</span><a href="/wiki/occ.html">미국 OCC</a><span class="sep">·</span><a class="topic" href="/topics/crypto.html">크립토</a><span class="sep">·</span><a class="topic" href="/topics/prediction-markets.html">예측시장</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0624-crypto.html#story-5"><b>06-24</b> Q2, 역대 최다 해킹 분기</a></span></span></div></div></div>
 </div>
 
 

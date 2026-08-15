@@ -451,7 +451,31 @@ transition:color .18s ease,background .18s ease}
   .sub-btn-header{padding:7px 13px;font-size:11.5px;letter-spacing:-.3px}
   .search-btn-header{width:32px;height:32px}
 }
-</style></head>
+</style>
+
+
+<style id="soonsal-story-links">
+/* 스토리 끝 — 다 읽은 사람만 본다. 본문 흐름을 끊지 않는다 */
+.story-links{margin:14px 0 0;padding:11px 0 0;border-top:1px solid #ece8e0;
+font-size:11.5px;line-height:1.8;color:#9a958a;word-break:keep-all}
+.story-links .k{color:#b5b0a4;margin-right:5px}
+.story-links a{color:#8a857c;text-decoration:none;border-bottom:1px solid #e6e1d8}
+.story-links a:hover{color:#C24A00;border-bottom-color:#C24A00}
+.story-links .sep{opacity:.4;margin:0 4px}
+/* 주제는 개별 이름이 아니라 묶음이다 — 테두리로 구분한다 */
+.story-links a.topic{border-bottom:0;padding:1px 7px;border-radius:999px;
+background:#f3efe8;color:#8a857c}
+.story-links a.topic:hover{background:#C24A00;color:#fff}
+.story-links .row + .row{margin-top:4px}
+/* 「같은 흐름」은 제목이 길어 한 줄에 하나씩 세운다. 라벨은 왼쪽에 고정 */
+.story-links .flows{display:flex;align-items:flex-start}
+.story-links .flow-list{display:flex;flex-direction:column;gap:2px;min-width:0}
+.story-links .flow{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.story-links .flow b{font-weight:600;color:#b5b0a4;margin-right:3px}
+@media(max-width:560px){.story-links .flows{display:block}
+  .story-links .flow-list{margin-top:2px;padding-left:1px}}
+</style>
+</head>
 <body>
 <div id="soonsal-live-ticker" style="display:none;"></div>
 <style>
@@ -675,7 +699,7 @@ transition:color .18s ease,background .18s ease}
       <p style="font-size:12px; font-weight:700; color:#888; margin:0 0 6px;">🏛 전통 금융 대비 현재 위치</p>
       <p style="font-size:13px; color:#444; margin:0; line-height:1.65;">전통 금융의 공포 지수 VIX는 15.81로 평온한 수준인데, 크립토 공포·탐욕 지수는 24로 극도의 공포 상태. 같은 시장 환경을 전혀 다른 온도로 읽고 있는 것. BTC가 S&P 500보다 6~15배 큰 변동성을 보이는 구조적 차이에 더해, 크립토에는 레버리지 청산이라는 증폭 장치가 있음. "같은 연준 뉴스, 다른 진폭"은 여전히 유효</p>
     </div>
-  <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
+  <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/bitcoin.html">비트코인</a><span class="sep">·</span><a href="/wiki/fidelity.html">피델리티</a><span class="sep">·</span><a href="/wiki/blackrock.html">블랙록</a><span class="sep">·</span><a href="/wiki/fed.html">미국 연준</a><span class="sep">·</span><a href="/wiki/sp500.html">S&amp;P 500</a><span class="sep">·</span><a class="topic" href="/topics/fed-rates.html">연준·금리</a><span class="sep">·</span><a class="topic" href="/topics/crypto.html">크립토</a></div></div>
 </div>
 
 <!-- STORY 2 -->
@@ -692,7 +716,7 @@ transition:color .18s ease,background .18s ease}
     <div style="background:#f5f5f0; border-radius:8px; padding:14px 16px; margin-top:16px;">
       <p style="font-size:12px; font-weight:700; color:#888; margin:0 0 6px;">🏛 전통 금융 대비 현재 위치</p>
       <p style="font-size:13px; color:#444; margin:0; line-height:1.65;">전통 금융의 증권법은 1933~34년에 만들어져 90년간 축적. 크립토는 17년째 연방 포괄 법률이 없는 상태. Clarity Act가 통과되면 "크립토판 1933 증권법" 역할 — SEC가 건건이 소송하던 시대에서 명문법 체계로 전환하는 구조적 전환점. 전통 금융에서 법률 하나가 산업 판도를 바꾼 선례는 1999년 글래스-스티걸 폐지가 대표적</p>
-    </div>
+    <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/polymarket.html">폴리마켓</a><span class="sep">·</span><a href="/wiki/coinbase.html">코인베이스</a><span class="sep">·</span><a href="/wiki/kraken.html">크라켄</a><span class="sep">·</span><a class="topic" href="/topics/trump-politics.html">트럼프·정책</a><span class="sep">·</span><a class="topic" href="/topics/prediction-markets.html">예측시장</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0518-crypto.html#story-1"><b>05-18</b> Clarity Act, 첫 관문 돌파</a></span><span class="flow"><a href="/newsletters/2026/0710-crypto.html#story-1"><b>07-10</b> Clarity Act, &quot;거의 다 왔다&quo</a></span></span></div></div></div>
 </div>
 
 <!-- STORY 3 -->
@@ -709,7 +733,7 @@ transition:color .18s ease,background .18s ease}
     <div style="background:#f5f5f0; border-radius:8px; padding:14px 16px; margin-top:16px;">
       <p style="font-size:12px; font-weight:700; color:#888; margin:0 0 6px;">🏛 전통 금융 대비 현재 위치</p>
       <p style="font-size:13px; color:#444; margin:0; line-height:1.65;">전통 금융의 인프라 업그레이드와 비교하면 속도가 압도적. NYSE의 거래 시스템 교체에 5~10년, SWIFT의 ISO 20022 전환에 7년 걸린 반면, 이더리움은 1~2년 단위로 프로토콜 자체를 바꿈. 대신 전통 금융 인프라는 장애 시 정부가 백스톱하지만, 블록체인은 코드가 곧 규칙 — 업그레이드 실패 시 네트워크 전체가 위험에 노출되는 구조적 차이</p>
-    </div>
+    <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/ethereum.html">이더리움</a><span class="sep">·</span><a href="/wiki/solana.html">솔라나</a><span class="sep">·</span><a href="/wiki/blackrock.html">블랙록</a><span class="sep">·</span><a class="topic" href="/topics/crypto.html">크립토</a><span class="sep">·</span><a class="topic" href="/topics/etf-funds.html">ETF·펀드</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0625-crypto.html#story-2"><b>06-25</b> 이더리움 재단, 20% 감원</a></span></span></div></div></div>
 </div>
 
 <!-- STORY 4 -->
@@ -726,7 +750,7 @@ transition:color .18s ease,background .18s ease}
     <div style="background:#f5f5f0; border-radius:8px; padding:14px 16px; margin-top:16px;">
       <p style="font-size:12px; font-weight:700; color:#888; margin:0 0 6px;">🏛 전통 금융 대비 현재 위치</p>
       <p style="font-size:13px; color:#444; margin:0; line-height:1.65;">전통 금융에서 예측시장은 1990년대 아이오와 전자시장 <span class="sub">(IEM)</span>이 학술 목적으로 처음 등장. 크립토에서는 폴리마켓이 2020년 대선부터 대중화. 차이점은 투명성 — 전통 예측시장은 운영자가 장부를 관리하지만, 폴리마켓은 이더리움/폴리곤 위에서 모든 베팅과 정산이 온체인으로 기록됨. "도박이냐 투자냐"는 전통 금융에서도 선물·옵션 초기에 겪은 논쟁과 같은 구조</p>
-    </div>
+    <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/sec.html">미국 SEC</a><span class="sep">·</span><a href="/wiki/kalshi.html">칼시(Kalshi)</a><span class="sep">·</span><a href="/wiki/cftc.html">미국 CFTC</a><span class="sep">·</span><a href="/wiki/polymarket.html">폴리마켓</a><span class="sep">·</span><a href="/wiki/robinhood.html">로빈후드</a><span class="sep">·</span><a class="topic" href="/topics/prediction-markets.html">예측시장</a><span class="sep">·</span><a class="topic" href="/topics/trump-politics.html">트럼프·정책</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0706.html#story-5"><b>07-06</b> 스포츠 도박도 ETF로 만드는 세상</a></span><span class="flow"><a href="/newsletters/2026/0506-crypto.html#story-2"><b>05-06</b> 예측시장 ETF, 출시 직전에 SEC가 제동</a></span></span></div></div></div>
 </div>
 
 <!-- STORY 5 -->
@@ -743,7 +767,7 @@ transition:color .18s ease,background .18s ease}
     <div style="background:#f5f5f0; border-radius:8px; padding:14px 16px; margin-top:16px;">
       <p style="font-size:12px; font-weight:700; color:#888; margin:0 0 6px;">🏛 전통 금융 대비 현재 위치</p>
       <p style="font-size:13px; color:#444; margin:0; line-height:1.65;">전통 금융에서 달러 결제는 SWIFT + 코레스 뱅킹 네트워크가 독점. 국제 송금에 2~5일, 수수료 $25~50. 스테이블코인은 같은 달러를 블록체인 위에서 수초 만에, 수 센트 수수료로 전송. "달러의 디지털 래퍼"라고 보면 되는데, 전통 결제 인프라의 구조적 비효율을 우회하는 셈. 다만 은행 예금과 달리 스테이블코인에는 예금보험이 없음 — GENIUS Act가 이 격차를 메우려는 시도</p>
-    </div>
+    <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/circle.html">서클(Circle)</a><span class="sep">·</span><a href="/wiki/tether.html">테더(USDT)</a><span class="sep">·</span><a href="/wiki/nyse.html">뉴욕증권거래소</a><span class="sep">·</span><a href="/wiki/swift.html">SWIFT(국제결제망)</a><span class="sep">·</span><a class="topic" href="/topics/crypto.html">크립토</a><span class="sep">·</span><a class="topic" href="/topics/banks-wallst.html">월가·은행</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0326-crypto.html#story-2"><b>03-26</b> Circle -20%, 스테이블코인 이자 전쟁</a></span><span class="flow"><a href="/newsletters/2026/0714-crypto.html#story-1"><b>07-14</b> Circle, 은행이 되다 — $73B 스테이블코인의 </a></span></span></div></div></div>
 </div>
 
 

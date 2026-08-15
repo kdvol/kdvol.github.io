@@ -476,7 +476,31 @@ transition:color .18s ease,background .18s ease}
   .sub-btn-header{padding:7px 13px;font-size:11.5px;letter-spacing:-.3px}
   .search-btn-header{width:32px;height:32px}
 }
-</style></head>
+</style>
+
+
+<style id="soonsal-story-links">
+/* 스토리 끝 — 다 읽은 사람만 본다. 본문 흐름을 끊지 않는다 */
+.story-links{margin:14px 0 0;padding:11px 0 0;border-top:1px solid #ece8e0;
+font-size:11.5px;line-height:1.8;color:#9a958a;word-break:keep-all}
+.story-links .k{color:#b5b0a4;margin-right:5px}
+.story-links a{color:#8a857c;text-decoration:none;border-bottom:1px solid #e6e1d8}
+.story-links a:hover{color:#C24A00;border-bottom-color:#C24A00}
+.story-links .sep{opacity:.4;margin:0 4px}
+/* 주제는 개별 이름이 아니라 묶음이다 — 테두리로 구분한다 */
+.story-links a.topic{border-bottom:0;padding:1px 7px;border-radius:999px;
+background:#f3efe8;color:#8a857c}
+.story-links a.topic:hover{background:#C24A00;color:#fff}
+.story-links .row + .row{margin-top:4px}
+/* 「같은 흐름」은 제목이 길어 한 줄에 하나씩 세운다. 라벨은 왼쪽에 고정 */
+.story-links .flows{display:flex;align-items:flex-start}
+.story-links .flow-list{display:flex;flex-direction:column;gap:2px;min-width:0}
+.story-links .flow{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.story-links .flow b{font-weight:600;color:#b5b0a4;margin-right:3px}
+@media(max-width:560px){.story-links .flows{display:block}
+  .story-links .flow-list{margin-top:2px;padding-left:1px}}
+</style>
+</head>
 <body>
 <div id="soonsal-live-ticker" style="display:none;"></div>
 <style>
@@ -688,7 +712,7 @@ transition:color .18s ease,background .18s ease}
         </div>
 
         <div class="bullet"><span class="dot">◾</span><span><strong>예측시장 열기도 식어가는 중.</strong> 지정학적 불확실성이 4일째 이어지면서 Polymarket 2월 거래량이 감소. "불확실성이 너무 크면 오히려 베팅을 꺼리는 역설" — 예측시장이 가장 유용한 건 결과가 명확한 바이너리 이벤트이지, 현재처럼 시나리오가 무한히 분기하는 상황에서는 한계가 드러남 <a href="https://polymarket.com" style="color:#888; font-size:12px;"><span class="sub">(원문)</span></a></span></div>
-      </div>
+      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/bitcoin.html">비트코인</a><span class="sep">·</span><a href="/wiki/dollar.html">달러(환율)</a><span class="sep">·</span><a href="/wiki/oil.html">원유</a><span class="sep">·</span><a href="/wiki/fed.html">미국 연준</a><span class="sep">·</span><a href="/wiki/ethereum.html">이더리움</a><span class="sep">·</span><a class="topic" href="/topics/crypto.html">크립토</a><span class="sep">·</span><a class="topic" href="/topics/fed-rates.html">연준·금리</a></div></div></div>
     </div>
 
     <!-- STORY 2 -->
@@ -709,7 +733,7 @@ transition:color .18s ease,background .18s ease}
 
         <div class="bullet"><span class="dot">◾</span><span><strong>Strategy <span class="sub">(구 MicroStrategy)</span>, BTC $2억 추가 매수.</strong> Michael Saylor는 최근 기업 대상 세일즈 피치에서 "안전성"을 강조하기 시작. BTC를 "위험한 투기"가 아닌 "인플레이션 헤지"로 리프레이밍하는 전략 — STRC 배당도 인상하며 전통 금융 투자자에게 어필 중 <a href="https://decrypt.co/359593/strategy-spends-200-million-bitcoin-raises-strc-dividend" style="color:#888; font-size:12px;"><span class="sub">(원문)</span></a></span></div>
         <div class="bullet"><span class="dot">◾</span><span><strong>BTC 조작 의혹도 여전.</strong> 지정학 혼란 속에서도 가격 회복이 미진하자 시장 조작 주장이 다시 부상. 하지만 대부분의 전문가는 "달러 강세 + 유가 쇼크라는 매크로 역풍이 주된 원인"으로 분석 — 조작론보다는 거시경제 변수가 BTC를 지배하고 있다는 점이 오히려 시장 성숙의 증거</span></div>
-      </div>
+      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/bitcoin.html">비트코인</a><span class="sep">·</span><a href="/wiki/microstrategy.html">마이크로스트래티지</a><span class="sep">·</span><a href="/wiki/dollar.html">달러(환율)</a><span class="sep">·</span><a href="/wiki/oil.html">원유</a><span class="sep">·</span><a class="topic" href="/topics/etf-funds.html">ETF·펀드</a><span class="sep">·</span><a class="topic" href="/topics/crypto.html">크립토</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0428-crypto.html#story-2"><b>04-28</b> BTC ETF, 기관은 안 떠남</a></span><span class="flow"><a href="/newsletters/2026/0521-crypto.html#story-1"><b>05-21</b> BTC ETF, 기관이 빠져나간다</a></span></span></div></div></div>
     </div>
 
     <!-- STORY 3 -->
@@ -730,7 +754,7 @@ transition:color .18s ease,background .18s ease}
 
         <div class="bullet"><span class="dot">◾</span><span><strong>한국 재무장관, 크립토 관리 실패 후 개혁 약속.</strong> 국세청이 지갑 시드 <span class="sub">(seed phrase)</span>를 유출해 $4.8M 손실이 발생한 사건 이후, 재무장관이 제도적 개혁을 약속. 미네소타주에서는 크립토 ATM 전면 금지법을 검토 중 <span class="sub">(미국 최초)</span> — 각국 규제 당국이 크립토를 다루는 역량의 격차가 그대로 드러나는 사례들</span></div>
         <div class="bullet"><span class="dot">◾</span><span><strong>일본 총리 타카이치, 솔라나 밈코인 공식 부인.</strong> 자신의 이름을 딴 SOL 밈코인이 등장하자 즉각 부인 → 해당 토큰 75% 폭락. 정치인 밈코인의 리스크가 다시 한번 확인됨 — 트럼프 형제의 American Bitcoin은 Q4 적자에도 마이닝 용량을 확대하며 정반대 방향으로 움직이는 중</span></div>
-      </div>
+      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/trump.html">트럼프</a><span class="sep">·</span><a href="/wiki/dimon.html">제이미 다이먼</a><span class="sep">·</span><a href="/wiki/jpmorgan.html">JP모건</a><span class="sep">·</span><a href="/wiki/solana.html">솔라나</a><span class="sep">·</span><a href="/wiki/bitcoin.html">비트코인</a><span class="sep">·</span><a class="topic" href="/topics/banks-wallst.html">월가·은행</a><span class="sep">·</span><a class="topic" href="/topics/crypto.html">크립토</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0410-crypto.html#story-3"><b>04-10</b> 스테이블코인, 이자 줘도 된다는 신호</a></span><span class="flow"><a href="/newsletters/2026/0714.html#story-4"><b>07-14</b> 스테이블코인 회사, 은행이 되다</a></span></span></div></div></div>
     </div>
 
     <!-- STORY 4 -->
@@ -751,7 +775,7 @@ transition:color .18s ease,background .18s ease}
 
         <div class="bullet"><span class="dot">◾</span><span><strong>Polymarket, 카타르 LNG 재가동 확률 35%.</strong> 10일 내 QatarEnergy가 LNG 생산을 재개할지에 대한 베팅 계약. 거래량은 $11K 미만으로 아직 소규모이지만, 특정 생산 능력 리스크를 격리해서 가격화하는 도구로서의 가능성을 보여줌 — 전통 금융에서는 이런 초미세 리스크를 거래할 수단이 없었음</span></div>
         <div class="bullet"><span class="dot">◾</span><span><strong>Kalshi, 롤렉스 가격 베팅 출시.</strong> Bezel 마켓플레이스 기준가로 명품 시계 가격이 오를지 베팅할 수 있는 상품. 지정학 → 사치재 가격 → 예측시장이라는 새로운 파생 경로 — 전쟁이 명품 가격에 미치는 영향까지 실시간으로 시장이 가격에 반영하는 세상 <span class="note">(베팅할 수 있는 게 없으면 만드는 게 예측시장)</span></span></div>
-      </div>
+      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/cftc.html">미국 CFTC</a><span class="sep">·</span><a href="/wiki/binance.html">바이낸스</a><span class="sep">·</span><a href="/wiki/nasdaq.html">나스닥</a><span class="sep">·</span><a href="/wiki/polymarket.html">폴리마켓</a><span class="sep">·</span><a href="/wiki/kalshi.html">칼시(Kalshi)</a><span class="sep">·</span><a class="topic" href="/topics/prediction-markets.html">예측시장</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0429-crypto.html#story-3"><b>04-29</b> CFTC, AI를 앞세워 크립토 관리에 나서다</a></span></span></div></div></div>
     </div>
 
     <!-- STORY 5 -->
@@ -772,7 +796,7 @@ transition:color .18s ease,background .18s ease}
 
         <div class="bullet"><span class="dot">◾</span><span><strong>Dimon의 스테이블코인 이자 반대와 대조적.</strong> 은행은 스테이블코인을 적으로 보지만, 결제 네트워크 <span class="sub">(Visa, Stripe)</span>는 새 수익원으로 보는 중. 같은 "전통 금융"이지만 은행과 결제 네트워크의 포지션이 완전히 다름 — 은행은 예금을 뺏기고, 결제사는 새 레일에서 수수료를 먹는 구도</span></div>
         <div class="bullet"><span class="dot">◾</span><span><strong>Saylor의 "안전성" 피치와 연결되는 맥락.</strong> Strategy의 Michael Saylor가 기업 세일즈에서 "안전성"을 강조하기 시작한 것, Visa/Stripe가 스테이블코인 카드를 내놓은 것, BTC ETF에 기관 자금이 유입되는 것 — 이 세 가지는 모두 "크립토가 투기에서 인프라로 전환되고 있다"는 같은 방향을 가리킴</span></div>
-      </div>
+      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/visa.html">비자(Visa)</a><span class="sep">·</span><a href="/wiki/stripe.html">스트라이프</a><span class="sep">·</span><a href="/wiki/tether.html">테더(USDT)</a><span class="sep">·</span><a href="/wiki/circle.html">서클(Circle)</a><span class="sep">·</span><a href="/wiki/mastercard.html">마스터카드</a><span class="sep">·</span><a class="topic" href="/topics/crypto.html">크립토</a><span class="sep">·</span><a class="topic" href="/topics/banks-wallst.html">월가·은행</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0512-crypto.html#story-5"><b>05-12</b> 스테이블코인 카드 결제, 1년 새 두 배</a></span><span class="flow"><a href="/newsletters/2026/0714.html#story-4"><b>07-14</b> 스테이블코인 회사, 은행이 되다</a></span></span></div></div></div>
     </div>
 
     <!-- HEADLINE ROUNDUP -->

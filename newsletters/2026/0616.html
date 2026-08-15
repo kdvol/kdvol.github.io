@@ -434,7 +434,32 @@ transition:color .18s ease,background .18s ease}
   .sub-btn-header{padding:7px 13px;font-size:11.5px;letter-spacing:-.3px}
   .search-btn-header{width:32px;height:32px}
 }
-</style></head>
+</style>
+
+
+
+<style id="soonsal-story-links">
+/* 스토리 끝 — 다 읽은 사람만 본다. 본문 흐름을 끊지 않는다 */
+.story-links{margin:14px 0 0;padding:11px 0 0;border-top:1px solid #ece8e0;
+font-size:11.5px;line-height:1.8;color:#9a958a;word-break:keep-all}
+.story-links .k{color:#b5b0a4;margin-right:5px}
+.story-links a{color:#8a857c;text-decoration:none;border-bottom:1px solid #e6e1d8}
+.story-links a:hover{color:#C24A00;border-bottom-color:#C24A00}
+.story-links .sep{opacity:.4;margin:0 4px}
+/* 주제는 개별 이름이 아니라 묶음이다 — 테두리로 구분한다 */
+.story-links a.topic{border-bottom:0;padding:1px 7px;border-radius:999px;
+background:#f3efe8;color:#8a857c}
+.story-links a.topic:hover{background:#C24A00;color:#fff}
+.story-links .row + .row{margin-top:4px}
+/* 「같은 흐름」은 제목이 길어 한 줄에 하나씩 세운다. 라벨은 왼쪽에 고정 */
+.story-links .flows{display:flex;align-items:flex-start}
+.story-links .flow-list{display:flex;flex-direction:column;gap:2px;min-width:0}
+.story-links .flow{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.story-links .flow b{font-weight:600;color:#b5b0a4;margin-right:3px}
+@media(max-width:560px){.story-links .flows{display:block}
+  .story-links .flow-list{margin-top:2px;padding-left:1px}}
+</style>
+</head>
 
 <body>
 <div id="soonsal-live-ticker" style="display:none;"></div>
@@ -712,7 +737,7 @@ transition:color .18s ease,background .18s ease}
     <div class="bullet"><span class="dot">◾</span><span>파급 효과가 경기장 밖까지 흘러 넘침. 뉴욕 5개 자치구의 바·레스토랑이 몇 주째 만석이었고, 유니폼·모자 같은 굿즈 판매도 폭발. 뉴욕시 외식업 관계자 요약, "사람들이 흥분해서 모자 사고, 유니폼 사고, 미용실 가고, 저녁에 놀러 나감". 센트럴파크·MSG 앞 공개 관람 행사까지 허가되면서, 경기가 끝난 뒤에도 우승 퍼레이드·기념 굿즈 수요가 이어지는 중</span></div>
     <div class="bullet"><span class="dot">◾</span><span>재밌는 건 옆동네 베팅 시장. 닉스의 29점 차 대역전극에 퀀트 트레이딩 회사 서스퀘한나 <span class="sub">(SIG)</span>가 예측시장 부문에서 역대 최대 손실을 기록. 닉스 승률이 5%까지 떨어진 시점에 베팅이 쏠렸다가 역전되면서, 유저들 주문 받아주던 마켓메이커가 직격탄을 맞은 구조. 마침 FIFA 월드컵까지 미국에서 열리는 중이라 스포츠 베팅 시장 자체가 과열 <span class="note">(미국 MZ세대들의 질문 폭발 중, "Who is Messi?")</span></span></div>
     <div class="bullet"><span class="dot">◾</span><span><strong>스포츠는 이제 단순한 엔터테인먼트가 아니라 도시 경제 인프라</strong>. 이번에 닉스가 포스트시즌 7경기만으로 2억불 넘는 경제 효과를 만들어낸 건, 티켓·음식·교통·숙박·굿즈가 동시에 돌아가기 때문. 뉴욕처럼 인프라가 깔린 도시에서 우승팀이 나오면 경제적 파급력이 곱절로 커지는 구조. 사모펀드 KKR은 아예 북미 4대리그 스포츠 팀들에 투자하는 펀드 <span class="sub">(악토스 파트너스)</span> 사들여서, 신규 투자자 모으는 중</span></div>
-  </div>
+  <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a class="topic" href="/topics/sports-biz.html">스포츠 비즈니스</a><span class="sep">·</span><a class="topic" href="/topics/etf-funds.html">ETF·펀드</a></div></div></div>
 </div>
 
 <!-- STORY 5 -->
@@ -725,7 +750,7 @@ transition:color .18s ease,background .18s ease}
     <div class="bullet"><span class="dot">◾</span><span><strong>부채로 성장하면 그 부채가 소비와 투자를 자극해 물가를 밀어올리는 구조라, 금리를 내리고 싶어도 내릴 수 없는 함정</strong>. 4월 인플레가 3년래 최고를 찍은 상황에서 금리를 내리면 부채 확대 → 물가 상승이라는 악순환 고리가 열림. 오늘 시작되는 FOMC가 신임 케빈 워시 의장의 첫 회의인데, "연준 운영을 근본부터 바꾸겠다"고 공언해온 인물이라 시장이 첫 기자회견에 촉각을 곤두세우는 중</span></div>
     <div class="bullet"><span class="dot">◾</span><span>기업 쪽에서는 AI 투자가 이 구조를 더 심화시키는 중. 빅테크가 데이터센터에 수천억불을 쏟아붓고, 그 비용을 회사채·IPO·유증으로 조달하니 자본시장 전체의 부채 밀도가 올라감. 바이백으로 주식을 줄이던 시절엔 기업이 현금을 쌓아뒀는데, 지금은 그 현금을 AI에 쓰고 부족분을 빚 <span class="sub">(또는 자본 조달)</span>으로 채우는 판. 스페이스X가 아직 연간 49억불 적자인데도 750억불 IPO를 강행한 게 이 흐름의 극단적 사례</span></div>
     <div class="bullet"><span class="dot">◾</span><span>한국 입장에서도 직결되는 이야기. 미국 금리가 높은 채로 오래 가면 달러원 환율이 눌리고, 원화 약세는 수입 물가를 밀어올려 한은의 금리 인하 여지를 좁힘. 어제 발표된 미-이란 평화 합의로 유가가 배럴당 80불대까지 빠지면서 숨통이 트인 상황이지만, 미국이 빚으로 성장하는 구조가 이어지면 금리 인하는 예상보다 늦어질 수 있다는 게 시장의 시선</span></div>
-  </div>
+  <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/fed.html">미국 연준</a><span class="sep">·</span><a href="/wiki/spacex.html">스페이스X</a><span class="sep">·</span><a href="/wiki/oil.html">원유</a><span class="sep">·</span><a class="topic" href="/topics/fed-rates.html">연준·금리</a><span class="sep">·</span><a class="topic" href="/topics/ai.html">AI</a></div></div></div>
 </div>
 
 </div><!-- /content -->

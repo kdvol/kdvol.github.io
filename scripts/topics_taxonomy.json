@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "note": "스토리 단위 주제 분류 사전. atomize.py/build_topics.py가 로드. label_pattern=작성자 섹션라벨(고정밀), content_pattern=제목+본문(재현율). 미매칭 라벨은 _pending에 자동 축적 → auto_evolve가 승격.",
+  "note": "스토리 단위 주제 분류 사전. atomize.py/build_topics.py가 로드. label_pattern=작성자 섹션라벨(고정밀), content_pattern=제목+본문(재현율). 미매칭 라벨은 _pending에 자동 축적 → auto_evolve가 승격.  주제 태그는 20개 스토리 이상에서 반복되는 것만 둔다 (KD 2026-08-15: '태그 추가 시작하면 미친듯이 늘어날 수 있어서 적정 선을 지켜야 함').",
   "min_stories_per_topic": 3,
   "topics": [
     {
@@ -114,46 +114,79 @@
       "emoji": "🏦",
       "label_pattern": "BANK|WALL ?ST|FINANCE|TRADFI|INSTITUTIONAL|HEDGE ?FUND|MARKETS|STRATEGY",
       "content_pattern": "은행|JP모건|골드만|모건스탠리|씨티|웰스파고|월가|헤지펀드|버크셔|버핏|사모대출|투자은행"
+    },
+    {
+      "slug": "prediction-markets",
+      "name": "예측시장",
+      "emoji": "🎲",
+      "label_pattern": "PREDICTION|BETTING|예측시장",
+      "content_pattern": "예측시장|예측 시장|칼시|Kalshi|폴리마켓|Polymarket"
+    },
+    {
+      "slug": "space-aero",
+      "name": "우주·항공",
+      "emoji": "🚀",
+      "label_pattern": "SPACE|AEROSPACE|AVIATION|우주|항공",
+      "content_pattern": "우주|위성|스페이스X|발사체|보잉|에어버스"
+    },
+    {
+      "slug": "labor-jobs",
+      "name": "노동·고용",
+      "emoji": "👷",
+      "label_pattern": "LABOR|JOBS|EMPLOYMENT|고용|노동",
+      "content_pattern": "해고|노조|파업|실업률|일자리|채용 시장|인력난"
+    },
+    {
+      "slug": "real-estate",
+      "name": "부동산",
+      "emoji": "🏠",
+      "label_pattern": "REAL ESTATE|PROPERTY|부동산",
+      "content_pattern": "부동산|리츠|\\bREIT|주택 시장|모기지|임대료"
+    },
+    {
+      "slug": "consumer-retail",
+      "name": "소비·리테일",
+      "emoji": "🛒",
+      "label_pattern": "CONSUMER|RETAIL|BRANDS|소비|리테일",
+      "content_pattern": "리테일|소매업|프랜차이즈|외식업|쇼핑몰|편의점|백화점"
+    },
+    {
+      "slug": "sports-biz",
+      "name": "스포츠 비즈니스",
+      "emoji": "🏟️",
+      "label_pattern": "SPORTS|스포츠",
+      "content_pattern": "구단|프로 리그|NBA|NFL|MLB|프리미어리그|FIFA|올림픽|월드컵|중계권"
+    },
+    {
+      "slug": "insurance",
+      "name": "보험",
+      "emoji": "🛡️",
+      "label_pattern": "INSURANCE|보험",
+      "content_pattern": "보험사|보험료|보험금|재보험|손해보험|생명보험|보험 시장|산불 보험|보험 상품|보험 가입|보험 업계|보험 계약|언더라이팅"
+    },
+    {
+      "slug": "defense",
+      "name": "방산·안보",
+      "emoji": "🎯",
+      "label_pattern": "DEFENSE|SECURITY|방산|국방",
+      "content_pattern": "방산|국방비|군수|미사일|전투기|무기 수출"
+    },
+    {
+      "slug": "media-content",
+      "name": "미디어·콘텐츠",
+      "emoji": "🎬",
+      "label_pattern": "MEDIA|ENTERTAINMENT|CONTENT|미디어",
+      "content_pattern": "스트리밍|넷플릭스|디즈니|할리우드|박스오피스|음원"
+    },
+    {
+      "slug": "healthcare",
+      "name": "헬스케어·제약",
+      "emoji": "💊",
+      "label_pattern": "PHARMA|BIOTECH|HEALTH|제약|바이오",
+      "content_pattern": "제약사|임상|FDA|신약|바이오텍|치료제|의약품|백신"
     }
   ],
   "_pending": {
-    "REAL ESTATE · RETAIL": {
-      "count": 1,
-      "examples": [
-        "🏬 죽었다던 미국 쇼핑몰이 부활하는 이유"
-      ]
-    },
-    "FRAUD · AGRICULTURE": {
-      "count": 1,
-      "examples": [
-        "🐄 유령 소 8만 마리, 1.7억불 축산 사기극"
-      ]
-    },
-    "CONSUMER · ENTERTAINMENT": {
-      "count": 1,
-      "examples": [
-        "🍿 영화표 없이 1억불 팔리는 팝콘통 장사"
-      ]
-    },
-    "CONSUMER · MEDIA": {
-      "count": 1,
-      "examples": [
-        "📱 팔로워 500명한테 광고비 쏘는 브랜드들"
-      ]
-    },
-    "BIOTECH · CONSUMER": {
-      "count": 1,
-      "examples": [
-        "🐶 알레르기 단백질 하나를 지운 강아지의 등장"
-      ]
-    },
-    "CONSUMER · BRANDS": {
-      "count": 2,
-      "examples": [
-        "🍔 와퍼 하나로 뒤집힌 버거 2위 싸움",
-        "🦫 오른쪽 보고 웃는 동물은 다 우리 것?"
-      ]
-    },
     "FOOD · IP": {
       "count": 1,
       "examples": [

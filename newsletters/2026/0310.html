@@ -432,7 +432,32 @@ transition:color .18s ease,background .18s ease}
   .sub-btn-header{padding:7px 13px;font-size:11.5px;letter-spacing:-.3px}
   .search-btn-header{width:32px;height:32px}
 }
-</style></head>
+</style>
+
+
+
+<style id="soonsal-story-links">
+/* 스토리 끝 — 다 읽은 사람만 본다. 본문 흐름을 끊지 않는다 */
+.story-links{margin:14px 0 0;padding:11px 0 0;border-top:1px solid #ece8e0;
+font-size:11.5px;line-height:1.8;color:#9a958a;word-break:keep-all}
+.story-links .k{color:#b5b0a4;margin-right:5px}
+.story-links a{color:#8a857c;text-decoration:none;border-bottom:1px solid #e6e1d8}
+.story-links a:hover{color:#C24A00;border-bottom-color:#C24A00}
+.story-links .sep{opacity:.4;margin:0 4px}
+/* 주제는 개별 이름이 아니라 묶음이다 — 테두리로 구분한다 */
+.story-links a.topic{border-bottom:0;padding:1px 7px;border-radius:999px;
+background:#f3efe8;color:#8a857c}
+.story-links a.topic:hover{background:#C24A00;color:#fff}
+.story-links .row + .row{margin-top:4px}
+/* 「같은 흐름」은 제목이 길어 한 줄에 하나씩 세운다. 라벨은 왼쪽에 고정 */
+.story-links .flows{display:flex;align-items:flex-start}
+.story-links .flow-list{display:flex;flex-direction:column;gap:2px;min-width:0}
+.story-links .flow{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.story-links .flow b{font-weight:600;color:#b5b0a4;margin-right:3px}
+@media(max-width:560px){.story-links .flows{display:block}
+  .story-links .flow-list{margin-top:2px;padding-left:1px}}
+</style>
+</head>
 <body>
 <div id="soonsal-live-ticker" style="display:none;"></div>
 <style>
@@ -644,7 +669,7 @@ transition:color .18s ease,background .18s ease}
       <div class="bullet"><span class="dot">◾</span><span>내부에서도 균열. 로보틱스 팀장이 토요일 사임. CEO 샘 알트만은 "타이밍이 기회주의적으로 보인다"고 인정하면서 계약 일부 수정을 약속. 그 사이 쇼핑 기능 통합 계획도 철회하고, 성인 모드 출시도 두 번째 연기 — 사방에서 불이 붙은 상태</span></div>
       <div class="bullet"><span class="dot">◾</span><span>밝은 면이 없는 건 아님. 기업가치 $7,300억, 2월 주간 활성 사용자 9억 명, Q4 IPO 추진 중. 하지만 군사 계약이 IPO 스토리에 "ESG 리스크"라는 새 변수를 추가. 연금·ESG 펀드 등 기관 투자자의 참여 의지에 영향을 줄 수 있는 이슈</span></div>
       <div class="bullet"><span class="dot">◾</span><span>이 사건이 보여주는 것: AI 산업이 "기술 우위"만으로 승부하던 시대에서 "어디에 기술을 쓰느냐"까지 판단받는 시대로 넘어가고 있음. 구글·메타가 과거 군사 프로젝트에서 손을 뗀 것도 같은 맥락 — 인재와 사용자 모두 "윤리적 포지셔닝"을 소비하기 시작한 것</span></div>
-    </div>
+    <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/openai.html">오픈AI</a><span class="sep">·</span><a href="/wiki/anthropic.html">앤스로픽</a><span class="sep">·</span><a href="/wiki/google.html">구글</a><span class="sep">·</span><a href="/wiki/meta.html">메타</a><span class="sep">·</span><a class="topic" href="/topics/ai.html">AI</a><span class="sep">·</span><a class="topic" href="/topics/ipo.html">IPO·상장</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0319.html#story-3"><b>03-19</b> 섹시한 ChatGPT 등장 예정</a></span></span></div></div></div>
   </div>
 
   <!-- STORY 2 -->
@@ -657,7 +682,7 @@ transition:color .18s ease,background .18s ease}
       <div class="bullet"><span class="dot">◾</span><span>이 설계가 말해주는 것: 알파벳은 "검색·광고 회사"에서 "AI + 자율주행 + 드론 물류" 회사로의 정체성 전환을 CEO 보수 구조로 못 박은 것. 과거 "Other Bets" <span class="sub">(기타 투자)</span>으로 분류되던 사업들이 CEO의 지갑과 직결됐다는 건 자본시장에 보내는 명확한 메시지</span></div>
       <div class="bullet"><span class="dot">◾</span><span>$6.92억이면 S&P 500 CEO 중위 보수의 약 40배. 하지만 시가총액 $2.2조 기준으로는 0.03% — 규모 대비로 보면 이례적이지 않다는 반론도 있음. 핵심은 금액이 아니라 구조: CEO가 주가가 아닌 특정 사업부의 성장에 인센티브를 받는 디자인은 테크 업계에서도 드문 실험</span></div>
       <div class="bullet"><span class="dot">◾</span><span>같은 주, 잭 도시의 Block은 "AI 생산성 향상"을 이유로 직원 40% <span class="sub">(약 4,000명)</span> 해고. 반대편에선 DRAM 가격이 AI 수요로 1년간 700% 급등, 올해 테크 분야 $6,500억 투자 예상. 누군가의 $6.92억과 누군가의 해고 통보가 같은 주에 나오는 시대 — AI가 만드는 양극화의 단면</span></div>
-    </div>
+    <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/google.html">구글</a><span class="sep">·</span><a href="/wiki/sec.html">미국 SEC</a><span class="sep">·</span><a href="/wiki/sp500.html">S&amp;P 500</a><span class="sep">·</span><a href="/wiki/block-inc.html">블록(Block/캐시앱)</a><span class="sep">·</span><a class="topic" href="/topics/bigtech.html">빅테크</a><span class="sep">·</span><a class="topic" href="/topics/ai.html">AI</a></div></div></div>
   </div>
 
   <!-- STORY 3 -->
@@ -670,7 +695,7 @@ transition:color .18s ease,background .18s ease}
       <div class="bullet"><span class="dot">◾</span><span>합의가 "매각 없이" 가능했던 이유: 법무부가 구조적 분리보다 행동적 제재 <span class="sub">(예: 독점적 계약 관행 금지, 경쟁사 접근성 보장)</span>를 선택할 가능성이 높다는 분석. 실질적으로는 티켓마스터의 수수료 구조와 배타적 계약에 제한을 거는 방향</span></div>
       <div class="bullet"><span class="dot">◾</span><span>프리마켓에서 Live Nation 주가가 상승. 투자자 관점에서 "규제 오버행이 제거됐다"는 해석. 하지만 소비자 입장에서는 의문 — 티켓마스터의 "편의 수수료" <span class="sub">(때로 티켓 가격의 30%+)</span>가 정말 낮아질지는 합의 세부 조항에 달림</span></div>
       <div class="bullet"><span class="dot">◾</span><span>이 사건이 보여주는 것: 빅테크에 이어 엔터테인먼트까지, 미국의 반독점 규제가 "분할"보다 "행동 규제"를 선호하는 트렌드. 구글 검색 반독점 소송, 아마존 FTC 소송과 같은 맥락 — 기업을 쪼개는 것보다 경쟁 환경을 조성하는 접근이 워싱턴의 기본값</span></div>
-    </div>
+    <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/google.html">구글</a><span class="sep">·</span><a href="/wiki/amazon.html">아마존</a><span class="sep">·</span><a class="topic" href="/topics/deals.html">딜·M&amp;A</a><span class="sep">·</span><a class="topic" href="/topics/bigtech.html">빅테크</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0303.html#story-5"><b>03-03</b> Live Nation 반독점 재판 시작 — 티켓마스터 </a></span><span class="flow"><a href="/newsletters/2026/0416.html#story-4"><b>04-16</b> 티켓마스터, 16년 만에 유죄</a></span></span></div></div></div>
   </div>
 
   <!-- STORY 4 -->
@@ -683,7 +708,7 @@ transition:color .18s ease,background .18s ease}
       <div class="bullet"><span class="dot">◾</span><span>중국 내부의 계산: "미국이 이란에서 이기든 지든, 중국이 이긴다"는 분석이 돌고 있음. 근거 — 미군이 중동에 묶이면 대만·남중국해에 쏟을 자원이 줄어듦. 이란 원유 의존도는 비축유·재생에너지·러시아산 원유로 이미 헤지한 상태</span></div>
       <div class="bullet"><span class="dot">◾</span><span>트럼프도 중국에 유화적 제스처를 보내고 있음. 엔비디아 칩 대중 수출 일부 승인, TikTok 운영 유지 협상 중재, 대만 무기 판매 패키지 발표 지연. 베이징은 이를 읽고 농산물 대량 구매·보잉 항공기 추가 발주 등 "선물 보따리"를 준비 중으로 분석</span></div>
       <div class="bullet"><span class="dot">◾</span><span>투자자에게 중요한 포인트: 트럼프-시진핑 회담이 성사되면 관세 완화 기대가 살아날 수 있고, 이는 글로벌 리스크 자산 전반에 긍정적. 반대로 결렬되면 이란 전쟁 + 무역 갈등 = 이중 충격. 지금은 "양쪽 모두 딜을 원한다"는 쪽이 우세하지만, 이란 변수가 언제든 테이블을 뒤집을 수 있는 상태</span></div>
-    </div>
+    <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/oil.html">원유</a><span class="sep">·</span><a href="/wiki/trump.html">트럼프</a><span class="sep">·</span><a href="/wiki/xi-jinping.html">시진핑</a><span class="sep">·</span><a href="/wiki/nvidia.html">엔비디아</a><span class="sep">·</span><a href="/wiki/boeing.html">보잉</a><span class="sep">·</span><a class="topic" href="/topics/china.html">중국</a><span class="sep">·</span><a class="topic" href="/topics/trump-politics.html">트럼프·정책</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0317.html#story-1"><b>03-17</b> 이란 전쟁의 숨은 승자, 러시아</a></span></span></div></div></div>
   </div>
 
   <!-- STORY 5 -->
@@ -696,7 +721,7 @@ transition:color .18s ease,background .18s ease}
       <div class="bullet"><span class="dot">◾</span><span>SanDisk가 연초 이래 주가 2배 — S&P 500 최고 수익률. 메모리 반도체가 올해 최대 수혜 섹터. 반면 반도체 장비주 <span class="sub">(Applied Materials, Lam Research, ASML)</span>는 6% 이상 하락 — AI 수요는 "메모리 칩"에 집중되고 있어, 같은 반도체라도 수혜 여부가 갈리는 중</span></div>
       <div class="bullet"><span class="dot">◾</span><span>"AI 워싱" 논란이 커지고 있음. Block의 해고가 정말 AI 때문인지, 아니면 실적 압박을 AI라는 유행어로 포장한 것인지 시장이 의문을 제기. 동시에 오라클과 OpenAI가 Stargate 데이터센터 확장 계획을 취소한 소식은 AI 인프라 투자에 대한 회의론을 키움</span></div>
       <div class="bullet"><span class="dot">◾</span><span>전체 그림: AI는 칩 가격을 700% 올리고, CEO에겐 $6.92억을 안기고, 4,000명에겐 해고 통보를 보냄. 동시에 $6,500억이 데이터센터로 흘러감. 이 모든 일이 같은 주에 벌어짐. 기술 혁신이 부의 재배분을 동반할 때, 그 방향이 어디를 향하는지가 분명해지는 순간</span></div>
-    </div>
+    <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/block-inc.html">블록(Block/캐시앱)</a><span class="sep">·</span><a href="/wiki/sp500.html">S&amp;P 500</a><span class="sep">·</span><a href="/wiki/asml.html">ASML</a><span class="sep">·</span><a href="/wiki/oracle.html">오라클</a><span class="sep">·</span><a href="/wiki/openai.html">오픈AI</a><span class="sep">·</span><a class="topic" href="/topics/ai.html">AI</a><span class="sep">·</span><a class="topic" href="/topics/labor-jobs.html">노동·고용</a></div></div></div>
   </div>
 
   </div><!-- /content -->

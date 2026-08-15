@@ -451,7 +451,31 @@ transition:color .18s ease,background .18s ease}
   .sub-btn-header{padding:7px 13px;font-size:11.5px;letter-spacing:-.3px}
   .search-btn-header{width:32px;height:32px}
 }
-</style></head>
+</style>
+
+
+<style id="soonsal-story-links">
+/* 스토리 끝 — 다 읽은 사람만 본다. 본문 흐름을 끊지 않는다 */
+.story-links{margin:14px 0 0;padding:11px 0 0;border-top:1px solid #ece8e0;
+font-size:11.5px;line-height:1.8;color:#9a958a;word-break:keep-all}
+.story-links .k{color:#b5b0a4;margin-right:5px}
+.story-links a{color:#8a857c;text-decoration:none;border-bottom:1px solid #e6e1d8}
+.story-links a:hover{color:#C24A00;border-bottom-color:#C24A00}
+.story-links .sep{opacity:.4;margin:0 4px}
+/* 주제는 개별 이름이 아니라 묶음이다 — 테두리로 구분한다 */
+.story-links a.topic{border-bottom:0;padding:1px 7px;border-radius:999px;
+background:#f3efe8;color:#8a857c}
+.story-links a.topic:hover{background:#C24A00;color:#fff}
+.story-links .row + .row{margin-top:4px}
+/* 「같은 흐름」은 제목이 길어 한 줄에 하나씩 세운다. 라벨은 왼쪽에 고정 */
+.story-links .flows{display:flex;align-items:flex-start}
+.story-links .flow-list{display:flex;flex-direction:column;gap:2px;min-width:0}
+.story-links .flow{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.story-links .flow b{font-weight:600;color:#b5b0a4;margin-right:3px}
+@media(max-width:560px){.story-links .flows{display:block}
+  .story-links .flow-list{margin-top:2px;padding-left:1px}}
+</style>
+</head>
 <body>
 <div id="soonsal-live-ticker" style="display:none;"></div>
 <style>
@@ -669,7 +693,7 @@ transition:color .18s ease,background .18s ease}
         <div class="tradfi-label" style="font-size:12px;color:#888;font-weight:700;margin-bottom:4px;">🏛 전통 금융 대비 현재 위치</div>
         전통 MMF는 BlackRock·Fidelity·Vanguard 같은 운용사가 약 7조불 시장을 양분. 단점은 24/7 거래 불가, T+1 정산, 담보 활용 제한. 토큰화 MMF는 같은 자산을 즉시 정산·24시간 거래·DeFi 담보 활용까지 확장하는 그림. 자산 운용 업계의 핵심 상품이 통째로 온체인으로 옮겨가는 1단계
       </div>
-      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
+      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/blackrock.html">블랙록</a><span class="sep">·</span><a href="/wiki/fidelity.html">피델리티</a><span class="sep">·</span><a class="topic" href="/topics/etf-funds.html">ETF·펀드</a><span class="sep">·</span><a class="topic" href="/topics/crypto.html">크립토</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0619-crypto.html#story-2"><b>06-19</b> BlackRock, BTC 3위 고래 됐다</a></span><span class="flow"><a href="/newsletters/2026/0316-crypto.html#story-2"><b>03-16</b> BlackRock, &quot;보유만 하지 말고 이자도</a></span></span></div></div>
     </div>
 
     <!-- STORY 2: Morgan Stanley MSBT 첫 달 -->
@@ -687,7 +711,7 @@ transition:color .18s ease,background .18s ease}
         <div class="tradfi-label" style="font-size:12px;color:#888;font-weight:700;margin-bottom:4px;">🏛 전통 금융 대비 현재 위치</div>
         BTC ETF 시장 첫 18개월은 BlackRock·Fidelity가 거의 독점. 그동안 다른 운용사들이 사실상 못 들어왔던 자리에 Morgan Stanley가 어드바이저 채널로 새 진입로를 뚫는 중. 전통 자산 운용 시장에서 인덱스 펀드 → 액티브 매니지드 → 어드바이저 채널로 자금이 흘러가던 패턴이 BTC ETF에서 압축되어 재현 중
       </div>
-      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
+      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/morgan-stanley.html">모건스탠리</a><span class="sep">·</span><a href="/wiki/bitcoin.html">비트코인</a><span class="sep">·</span><a href="/wiki/blackrock.html">블랙록</a><span class="sep">·</span><a href="/wiki/fidelity.html">피델리티</a><span class="sep">·</span><a class="topic" href="/topics/crypto.html">크립토</a><span class="sep">·</span><a class="topic" href="/topics/etf-funds.html">ETF·펀드</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0228-crypto.html#story-2"><b>02-28</b> Morgan Stanley, 디지털자산 뱅킹 차터 신청</a></span><span class="flow"><a href="/newsletters/2026/0428-crypto.html#story-2"><b>04-28</b> BTC ETF, 기관은 안 떠남</a></span></span></div></div>
     </div>
 
     <!-- STORY 3: 한국 정부 해외 크립토 감독 강화 -->
@@ -705,7 +729,7 @@ transition:color .18s ease,background .18s ease}
         <div class="tradfi-label" style="font-size:12px;color:#888;font-weight:700;margin-bottom:4px;">🏛 전통 금융 대비 현재 위치</div>
         한국은 1997년 외환위기 이후 외환 거래 신고제를 운영 중 — 5,000불+ 송금 시 신고 의무. 이번 크립토 감독 강화는 사실상 외환 거래 신고제를 크립토에 확장하는 그림. 전통 금융과 크립토의 규제 격차가 좁아지는 흐름. 글로벌에선 EU MiCA·미국 Travel Rule도 같은 방향. But 한국·EU가 미국보다 더 빠르고 엄격하게 가는 분기 시작
       </div>
-      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
+      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/bitcoin.html">비트코인</a><span class="sep">·</span><a href="/wiki/ecb.html">유럽중앙은행</a><span class="sep">·</span><a href="/wiki/trump.html">트럼프</a><span class="sep">·</span><a href="/wiki/xrp.html">리플(XRP)</a><span class="sep">·</span><a class="topic" href="/topics/crypto.html">크립토</a><span class="sep">·</span><a class="topic" href="/topics/etf-funds.html">ETF·펀드</a></div></div>
     </div>
 
     <!-- STORY 4: IREN Nvidia $3.4B AI 딜 -->
@@ -723,7 +747,7 @@ transition:color .18s ease,background .18s ease}
         <div class="tradfi-label" style="font-size:12px;color:#888;font-weight:700;margin-bottom:4px;">🏛 전통 금융 대비 현재 위치</div>
         전통 금융에서는 데이터센터 REIT <span class="sub">(Equinix·Digital Realty)</span>가 인프라를 임대하는 비즈니스 모델. 마이너의 AI 피벗은 같은 모델로 합류하는 그림 — 단, 자체 비트코인 보유 자산까지 함께 있는 하이브리드 구조. AI 인프라 + 디지털 자산 보유사로 자리를 다시 잡는 중. 데이터센터 REIT 시장 (시총 2,000억불+)과 직접 경쟁 구도가 형성되는 변곡점
       </div>
-      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
+      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/bitcoin.html">비트코인</a><span class="sep">·</span><a href="/wiki/nvidia.html">엔비디아</a><span class="sep">·</span><a href="/wiki/naver.html">네이버</a><span class="sep">·</span><a href="/wiki/kakao.html">카카오</a><span class="sep">·</span><a class="topic" href="/topics/ai.html">AI</a><span class="sep">·</span><a class="topic" href="/topics/crypto.html">크립토</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0318.html#story-2"><b>03-18</b> Nvidia의 1조불 예언, 진짜일까</a></span></span></div></div>
     </div>
 
     <!-- STORY 5: 스테이블코인 카드 결제 100% YoY -->
@@ -741,7 +765,7 @@ transition:color .18s ease,background .18s ease}
         <div class="tradfi-label" style="font-size:12px;color:#888;font-weight:700;margin-bottom:4px;">🏛 전통 금융 대비 현재 위치</div>
         Visa·Mastercard는 결제 시장 연간 약 9조불 처리. 그 위에 스테이블코인 카드가 얹히는 구조 — 결제 네트워크는 그대로 두고 정산 통화만 바뀜. Visa·Mastercard 입장에서는 즉시 위협보다는 신규 결제 영역에서의 점유율 경쟁. 한국 카드사는 글로벌 결제 확장 시 USDC·USDT 통합 시점 고민이 필요한 단계
       </div>
-      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
+      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/circle.html">서클(Circle)</a><span class="sep">·</span><a href="/wiki/tether.html">테더(USDT)</a><span class="sep">·</span><a href="/wiki/visa.html">비자(Visa)</a><span class="sep">·</span><a href="/wiki/mastercard.html">마스터카드</a><span class="sep">·</span><a href="/wiki/meta.html">메타</a><span class="sep">·</span><a class="topic" href="/topics/crypto.html">크립토</a><span class="sep">·</span><a class="topic" href="/topics/trump-politics.html">트럼프·정책</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0305-crypto.html#story-5"><b>03-05</b> Visa·Stripe 스테이블코인 카드 글로벌 확대</a></span><span class="flow"><a href="/newsletters/2026/0319-crypto.html#story-2"><b>03-19</b> Mastercard가 스테이블코인에 18억불 — 전통 </a></span></span></div></div>
     </div>
 
   </div><!-- /content -->

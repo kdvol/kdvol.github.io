@@ -456,7 +456,31 @@ transition:color .18s ease,background .18s ease}
   .sub-btn-header{padding:7px 13px;font-size:11.5px;letter-spacing:-.3px}
   .search-btn-header{width:32px;height:32px}
 }
-</style></head>
+</style>
+
+
+<style id="soonsal-story-links">
+/* 스토리 끝 — 다 읽은 사람만 본다. 본문 흐름을 끊지 않는다 */
+.story-links{margin:14px 0 0;padding:11px 0 0;border-top:1px solid #ece8e0;
+font-size:11.5px;line-height:1.8;color:#9a958a;word-break:keep-all}
+.story-links .k{color:#b5b0a4;margin-right:5px}
+.story-links a{color:#8a857c;text-decoration:none;border-bottom:1px solid #e6e1d8}
+.story-links a:hover{color:#C24A00;border-bottom-color:#C24A00}
+.story-links .sep{opacity:.4;margin:0 4px}
+/* 주제는 개별 이름이 아니라 묶음이다 — 테두리로 구분한다 */
+.story-links a.topic{border-bottom:0;padding:1px 7px;border-radius:999px;
+background:#f3efe8;color:#8a857c}
+.story-links a.topic:hover{background:#C24A00;color:#fff}
+.story-links .row + .row{margin-top:4px}
+/* 「같은 흐름」은 제목이 길어 한 줄에 하나씩 세운다. 라벨은 왼쪽에 고정 */
+.story-links .flows{display:flex;align-items:flex-start}
+.story-links .flow-list{display:flex;flex-direction:column;gap:2px;min-width:0}
+.story-links .flow{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.story-links .flow b{font-weight:600;color:#b5b0a4;margin-right:3px}
+@media(max-width:560px){.story-links .flows{display:block}
+  .story-links .flow-list{margin-top:2px;padding-left:1px}}
+</style>
+</head>
 <body>
 <div id="soonsal-live-ticker" style="display:none;"></div>
 <style>
@@ -672,7 +696,7 @@ transition:color .18s ease,background .18s ease}
       <div class="tradfi-label">🏦 전통 금융 대비 현재 위치</div>
       2022년 금리인상 사이클 때 BTC는 고점 대비 -77% 빠졌음. 지금은 3.5%에서 동결이고 인상 가능성은 아직 언급 수준이지만, 시장은 "가능성"만으로도 선반영하는 법. 전통 자산 대비 크립토의 금리 민감도가 2~3배 높다는 건 이번 FOMC에서도 다시 확인된 셈
     </div>
-  </div>
+  <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/fed.html">미국 연준</a><span class="sep">·</span><a href="/wiki/bitcoin.html">비트코인</a><span class="sep">·</span><a href="/wiki/ethereum.html">이더리움</a><span class="sep">·</span><a href="/wiki/solana.html">솔라나</a><span class="sep">·</span><a href="/wiki/xrp.html">리플(XRP)</a><span class="sep">·</span><a class="topic" href="/topics/fed-rates.html">연준·금리</a><span class="sep">·</span><a class="topic" href="/topics/crypto.html">크립토</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0521-crypto.html#story-5"><b>05-21</b> &quot;금리 인상&quot; 시대, 크립토가 버틸 </a></span></span></div></div></div>
 </div>
 
 <div class="story" id="story-2">
@@ -689,7 +713,7 @@ transition:color .18s ease,background .18s ease}
       SWIFT는 하루 약 5조불의 국제 결제를 처리하는 인프라인데, 수십 년간 속도와 비용 문제가 지적돼 왔음. 스테이블코인이 이 시장의 일부라도 가져가면 연간 수백억불 규모의 수수료 시장이 재편됨. Mastercard의 BVNK 인수는 "카드사가 블록체인 레일에 올라타는" 전환점 — 전통 금융이 크립토를 대체하는 게 아니라, 크립토 인프라를 흡수하는 방향
     </div>
   </div>
-  <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님</p>
+  <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/mastercard.html">마스터카드</a><span class="sep">·</span><a href="/wiki/coinbase.html">코인베이스</a><span class="sep">·</span><a href="/wiki/circle.html">서클(Circle)</a><span class="sep">·</span><a href="/wiki/paypal.html">페이팔</a><span class="sep">·</span><a class="topic" href="/topics/crypto.html">크립토</a><span class="sep">·</span><a class="topic" href="/topics/deals.html">딜·M&amp;A</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0319.html#story-5"><b>03-19</b> Mastercard가 스테이블코인에 18억불을 거는 이</a></span><span class="flow"><a href="/newsletters/2026/0529-crypto.html#story-3"><b>05-29</b> 비자가 스테이블코인 결제의 진짜 승자?</a></span></span></div></div>
 </div>
 
 <div class="story" id="story-3">
@@ -704,7 +728,7 @@ transition:color .18s ease,background .18s ease}
       <div class="tradfi-label">🏦 전통 금융 대비 현재 위치</div>
       전통 금융에서 허브 이동은 수십 년 단위의 일이지만, 크립토는 물리적 인프라 의존도가 낮아서 훨씬 빠르게 움직일 수 있음. 2019년 이후 두바이로 몰려들었던 크립토 기업들이 싱가포르·스위스·홍콩으로 분산될 가능성. 전쟁이 규제 환경이 아닌 물리적 안전을 기준으로 허브를 재편하는 전례 없는 상황
     </div>
-  </div>
+  <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/tether.html">테더(USDT)</a><span class="sep">·</span><a href="/wiki/binance.html">바이낸스</a><span class="sep">·</span><a href="/wiki/polymarket.html">폴리마켓</a><span class="sep">·</span><a href="/wiki/blackrock.html">블랙록</a><span class="sep">·</span><a href="/wiki/trump.html">트럼프</a><span class="sep">·</span><a class="topic" href="/topics/crypto.html">크립토</a><span class="sep">·</span><a class="topic" href="/topics/defense.html">방산·안보</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0624-crypto.html#story-1"><b>06-24</b> 칩렉이 크립토까지 덮쳤다</a></span></span></div></div></div>
 </div>
 
 <div class="story" id="story-4">
@@ -733,7 +757,7 @@ transition:color .18s ease,background .18s ease}
     <div class="bullet"><span class="dot">◾</span><span><strong>Mastercard</strong>, 스테이블코인 인프라 BVNK을 최대 $18억에 인수 — 역대 최대 스테이블코인 딜 (<a href="https://www.cnbc.com/2026/03/17/mastercard-acquiring-stablecoin-startup-bvnk-in-crypto-bet.html" style="color:#888;font-size:12px;">CNBC</a>)</span></div>
     <div class="bullet"><span class="dot">◾</span><span><strong>PayPal</strong>, 자체 스테이블코인 PYUSD 글로벌 확장 발표 — Visa·Mastercard에 이어 결제 3대장 전부 스테이블코인 진입</span></div>
     <div class="bullet"><span class="dot">◾</span><span><strong>SEC</strong>, 크립토 자산에 증권법 적용 새 프레임워크 발표 — 규제 불확실성 일부 해소</span></div>
-  </div>
+  <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/kalshi.html">칼시(Kalshi)</a><span class="sep">·</span><a href="/wiki/cftc.html">미국 CFTC</a><span class="sep">·</span><a href="/wiki/polymarket.html">폴리마켓</a><span class="sep">·</span><a href="/wiki/oil.html">원유</a><span class="sep">·</span><a href="/wiki/trump.html">트럼프</a><span class="sep">·</span><a class="topic" href="/topics/prediction-markets.html">예측시장</a><span class="sep">·</span><a class="topic" href="/topics/trump-politics.html">트럼프·정책</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0625-crypto.html#story-3"><b>06-25</b> 메타, 예측시장 앱 만든다</a></span><span class="flow"><a href="/newsletters/2026/0528.html#story-3"><b>05-28</b> 트럼프, 예측시장에 러브콜</a></span></span></div></div></div>
 </div>
 
 <!-- HEADLINE ROUNDUP -->

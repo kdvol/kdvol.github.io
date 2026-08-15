@@ -458,7 +458,31 @@ transition:color .18s ease,background .18s ease}
   .sub-btn-header{padding:7px 13px;font-size:11.5px;letter-spacing:-.3px}
   .search-btn-header{width:32px;height:32px}
 }
-</style></head>
+</style>
+
+
+<style id="soonsal-story-links">
+/* 스토리 끝 — 다 읽은 사람만 본다. 본문 흐름을 끊지 않는다 */
+.story-links{margin:14px 0 0;padding:11px 0 0;border-top:1px solid #ece8e0;
+font-size:11.5px;line-height:1.8;color:#9a958a;word-break:keep-all}
+.story-links .k{color:#b5b0a4;margin-right:5px}
+.story-links a{color:#8a857c;text-decoration:none;border-bottom:1px solid #e6e1d8}
+.story-links a:hover{color:#C24A00;border-bottom-color:#C24A00}
+.story-links .sep{opacity:.4;margin:0 4px}
+/* 주제는 개별 이름이 아니라 묶음이다 — 테두리로 구분한다 */
+.story-links a.topic{border-bottom:0;padding:1px 7px;border-radius:999px;
+background:#f3efe8;color:#8a857c}
+.story-links a.topic:hover{background:#C24A00;color:#fff}
+.story-links .row + .row{margin-top:4px}
+/* 「같은 흐름」은 제목이 길어 한 줄에 하나씩 세운다. 라벨은 왼쪽에 고정 */
+.story-links .flows{display:flex;align-items:flex-start}
+.story-links .flow-list{display:flex;flex-direction:column;gap:2px;min-width:0}
+.story-links .flow{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.story-links .flow b{font-weight:600;color:#b5b0a4;margin-right:3px}
+@media(max-width:560px){.story-links .flows{display:block}
+  .story-links .flow-list{margin-top:2px;padding-left:1px}}
+</style>
+</head>
 <body>
 <div id="soonsal-live-ticker" style="display:none;"></div>
 <style>
@@ -671,7 +695,7 @@ transition:color .18s ease,background .18s ease}
     <p>◾ Tether도 가만히 있지 않음. 투자 총괄이 퇴임하면서 조직을 재편하는 중이고, 지난주에는 로봇공학 회사와 매트리스 제조사에까지 투자를 확대. But, 규제 측면에서 USDC와의 격차가 벌어지는 게 문제 — 홍콩·EU·영국이 스테이블코인 규제를 강화할수록 투명성이 높은 USDC 쪽으로 기관 자금이 쏠리는 흐름</p>
     <p>◾ 드러켄밀러 <span class="sub">(조지 소로스의 퀀텀펀드 전 CIO, 월가 레전드)</span>가 스테이블코인 성장에 강세 전망을 공개적으로 밝힌 것도 같은 맥락. 그가 보는 시나리오 — 달러의 글로벌 결제 인프라가 낡았는데, 스테이블코인이 그 위에 새 레이어를 까는 구조. 미국이 CBDC는 막고 민간 스테이블코인은 키우겠다는 방향이 확정되면서, 규제 리스크가 오히려 USDC 같은 플레이어에게는 해자가 되는 역설</p>
   </div>
-  <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
+  <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/circle.html">서클(Circle)</a><span class="sep">·</span><a href="/wiki/tether.html">테더(USDT)</a><span class="sep">·</span><a href="/wiki/blackrock.html">블랙록</a><span class="sep">·</span><a class="topic" href="/topics/crypto.html">크립토</a><span class="sep">·</span><a class="topic" href="/topics/etf-funds.html">ETF·펀드</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0511-crypto.html#story-1"><b>05-11</b> AWS가 USDC 결제 인프라를 깔았다, AI 봇들이 </a></span><span class="flow"><a href="/newsletters/2026/0716-crypto.html#story-4"><b>07-16</b> Hyperliquid가 USDC 수익을 먹어치우는 중 </a></span></span></div></div>
 </div>
 
 <div class="story" id="story-2">
@@ -686,7 +710,7 @@ transition:color .18s ease,background .18s ease}
     </div>
     <p>◾ 중국의 디지털 위안 <span class="sub">(e-CNY)</span>이 이미 시범 운영 중인 상황에서, 홍콩이 민간 은행 주도의 스테이블코인을 허용한 건 "중국식 국가 주도" vs "홍콩식 민간 주도"의 경쟁 구도를 공식화한 셈. 싱가포르·두바이도 비슷한 프레임워크를 준비 중이라, 아시아 스테이블코인 허브 경쟁이 본격화</p>
     <p>◾ 크립토 업계 입장에서는 양날의 검. 은행이 들어오면 신뢰도와 유동성이 올라가지만, Tether·Circle 같은 크립토 네이티브 발행사와 직접 경쟁하게 되는 구조. 은행의 무기는 규제 신뢰 + 기존 고객 기반이고, 크립토 네이티브의 무기는 속도 + DeFi 호환성 — 어느 쪽이 이기느냐가 스테이블코인 시장의 다음 10년을 결정</p>
-  </div>
+  <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/swift.html">SWIFT(국제결제망)</a><span class="sep">·</span><a href="/wiki/tether.html">테더(USDT)</a><span class="sep">·</span><a href="/wiki/circle.html">서클(Circle)</a><span class="sep">·</span><a class="topic" href="/topics/china.html">중국</a><span class="sep">·</span><a class="topic" href="/topics/crypto.html">크립토</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0424-crypto.html#story-5"><b>04-24</b> 홍콩, 스테이블코인 라이선스 첫 발급</a></span><span class="flow"><a href="/newsletters/2026/0714.html#story-4"><b>07-14</b> 스테이블코인 회사, 은행이 되다</a></span></span></div></div></div>
 </div>
 
 <div class="story" id="story-3">
@@ -701,7 +725,7 @@ transition:color .18s ease,background .18s ease}
     </div>
     <p>◾ 두바이 크립토 이벤트 Token2049도 연기. TON <span class="sub">(텔레그램 블록체인)</span>은 UAE 안전 우려로 두바이 행사를 아예 취소. 중동이 크립토 허브로 부상한 지 3년 만에, 전쟁이라는 변수가 그 전제를 흔들어놓은 것</p>
     <p>◾ 역설적으로 크립토 자산 자체는 전쟁에 강세. BTC가 $73K를 터치하고, ETF 유입은 5일 연속. 크립토가 "비즈니스 환경"으로는 타격을 받으면서 "자산"으로는 오히려 빛나는 이중 구조 — 중동 의존도가 높은 기업일수록 이 괴리가 크게 느껴지는 중 <span class="note">(돈은 벌리는데 영업은 못 하는 상황)</span></p>
-  </div>
+  <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/goldman.html">골드만삭스</a><span class="sep">·</span><a href="/wiki/blackrock.html">블랙록</a><span class="sep">·</span><a href="/wiki/telegram.html">텔레그램</a><span class="sep">·</span><a class="topic" href="/topics/etf-funds.html">ETF·펀드</a><span class="sep">·</span><a class="topic" href="/topics/energy.html">에너지·원자재</a></div></div></div>
 </div>
 
 <div class="story" id="story-4">
@@ -713,7 +737,7 @@ transition:color .18s ease,background .18s ease}
     <p>◾ 세일러의 반박도 흥미한 게, 단순 감정 반응이 아니라 데이터를 깔고 나왔음. Strategy의 BTC 보유량이 현재 역대 최대이고, 이란 전쟁 기간에도 기업 BTC 매수가 사상 최고를 찍고 있다는 점을 근거로 — "폰지는 위기 때 무너지는데, BTC는 위기 때 기관 매수가 늘어나고 있다"는 논리</p>
     <p>◾ 진짜 포인트는 존슨의 발언 자체가 아니라, 이런 발언이 나오는 타이밍. BTC가 전통 자산과의 상관관계를 끊고 독자적으로 움직이기 시작한 3월에 — 주식과 채권은 동반 하락하는데 BTC는 오르는 "디커플링" 현상이 나타나는 와중에, 정치인이 "폰지"를 외치는 건 오히려 BTC의 내러티브 전환을 확인시켜주는 역설 <span class="note">(매번 이런 발언이 나올 때마다 가격이 올랐던 건 우연이 아닐 수도)</span></p>
   </div>
-  <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
+  <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/bitcoin.html">비트코인</a><span class="sep">·</span><a href="/wiki/michael-saylor.html">마이클 세일러</a><span class="sep">·</span><a href="/wiki/microstrategy.html">마이크로스트래티지</a><span class="sep">·</span><a class="topic" href="/topics/crypto.html">크립토</a><span class="sep">·</span><a class="topic" href="/topics/etf-funds.html">ETF·펀드</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0617-crypto.html#story-1"><b>06-17</b> 세일러, BTC 매수 속도 줄이다</a></span></span></div></div>
 </div>
 
 <div class="story" id="story-5">
@@ -728,7 +752,7 @@ transition:color .18s ease,background .18s ease}
     </div>
     <p>◾ 크립토 거래소와 전통 거래소가 경쟁자이자 파트너가 되는 묘한 구도. 나스닥은 이미 크립토 수탁 서비스를 운영 중이고, NYSE의 모회사 ICE는 Bakkt를 통해 디지털 자산에 투자해왔음. 양쪽이 서로의 영역으로 넘어가면서, "Everything Exchange" <span class="sub">(주식·채권·크립토·원자재를 한 곳에서 거래하는 통합 거래소)</span> 경쟁이 시작</p>
     <p>◾ SEC 자문단이 토큰화 증권을 공식 지지한 것도 이 흐름의 일부. 규제 당국이 블록체인을 "투기 도구"가 아니라 "금융 인프라"로 인정하기 시작한 것. 다만 모든 걸 온체인으로 옮기려면 규제·세금·감사 체계를 처음부터 다시 설계해야 하는 문제가 있어서, 완전한 전환은 수년 단위 — 지금은 파일럿 단계</p>
-  </div>
+  <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/nyse.html">뉴욕증권거래소</a><span class="sep">·</span><a href="/wiki/nasdaq.html">나스닥</a><span class="sep">·</span><a href="/wiki/sec.html">미국 SEC</a><span class="sep">·</span><a class="topic" href="/topics/energy.html">에너지·원자재</a><span class="sep">·</span><a class="topic" href="/topics/trump-politics.html">트럼프·정책</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0520-crypto.html#story-2"><b>05-20</b> SEC, 주식을 블록체인에 올린다</a></span></span></div></div></div>
 </div>
 
 </div>

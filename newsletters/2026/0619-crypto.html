@@ -453,7 +453,31 @@ transition:color .18s ease,background .18s ease}
   .sub-btn-header{padding:7px 13px;font-size:11.5px;letter-spacing:-.3px}
   .search-btn-header{width:32px;height:32px}
 }
-</style></head>
+</style>
+
+
+<style id="soonsal-story-links">
+/* 스토리 끝 — 다 읽은 사람만 본다. 본문 흐름을 끊지 않는다 */
+.story-links{margin:14px 0 0;padding:11px 0 0;border-top:1px solid #ece8e0;
+font-size:11.5px;line-height:1.8;color:#9a958a;word-break:keep-all}
+.story-links .k{color:#b5b0a4;margin-right:5px}
+.story-links a{color:#8a857c;text-decoration:none;border-bottom:1px solid #e6e1d8}
+.story-links a:hover{color:#C24A00;border-bottom-color:#C24A00}
+.story-links .sep{opacity:.4;margin:0 4px}
+/* 주제는 개별 이름이 아니라 묶음이다 — 테두리로 구분한다 */
+.story-links a.topic{border-bottom:0;padding:1px 7px;border-radius:999px;
+background:#f3efe8;color:#8a857c}
+.story-links a.topic:hover{background:#C24A00;color:#fff}
+.story-links .row + .row{margin-top:4px}
+/* 「같은 흐름」은 제목이 길어 한 줄에 하나씩 세운다. 라벨은 왼쪽에 고정 */
+.story-links .flows{display:flex;align-items:flex-start}
+.story-links .flow-list{display:flex;flex-direction:column;gap:2px;min-width:0}
+.story-links .flow{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.story-links .flow b{font-weight:600;color:#b5b0a4;margin-right:3px}
+@media(max-width:560px){.story-links .flows{display:block}
+  .story-links .flow-list{margin-top:2px;padding-left:1px}}
+</style>
+</head>
 <body>
 <div id="soonsal-live-ticker" style="display:none;"></div>
 <style>
@@ -675,7 +699,7 @@ transition:color .18s ease,background .18s ease}
     <div style="background:#f5f5f0; border-radius:8px; padding:14px 16px; margin-top:16px;">
       <div style="font-size:12px; color:#888; font-weight:700; margin-bottom:6px;">🏛 전통 금융 대비 현재 위치</div>
       <div style="font-size:13px; color:#444; line-height:1.6;">금리 인상기에 가장 먼저 타격받는 건 수익률 없는 자산 — 금과 BTC가 대표적. 다만 2022년 인상 사이클에서 금은 중앙은행 매수에 오히려 강세, BTC만 폭락한 전례가 있음. BTC에는 ETF 유입이 그 역할을 해야 하는데, 지금은 유출 중이라 버팀목이 없는 상태</div>
-    </div>
+    <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/nasdaq.html">나스닥</a><span class="sep">·</span><a href="/wiki/oil.html">원유</a><span class="sep">·</span><a href="/wiki/fed.html">미국 연준</a><span class="sep">·</span><a href="/wiki/bitcoin.html">비트코인</a><span class="sep">·</span><a href="/wiki/ethereum.html">이더리움</a><span class="sep">·</span><a class="topic" href="/topics/fed-rates.html">연준·금리</a><span class="sep">·</span><a class="topic" href="/topics/crypto.html">크립토</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0615-crypto.html#story-2"><b>06-15</b> 가격은 올랐는데 기관은 안 사는 이유</a></span></span></div></div></div>
   </div>
   <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">* 매수매도 추천 아님, 순살도 주주 아님</p>
 </div>
@@ -694,7 +718,7 @@ transition:color .18s ease,background .18s ease}
     <div style="background:#f5f5f0; border-radius:8px; padding:14px 16px; margin-top:16px;">
       <div style="font-size:12px; color:#888; font-weight:700; margin-bottom:6px;">🏛 전통 금융 대비 현재 위치</div>
       <div style="font-size:13px; color:#444; line-height:1.6;">전통 금융에서 자산운용사가 특정 자산의 3위 보유자가 되면 그 시장의 가격 결정력을 갖게 됨. 다만 ETF는 "의사결정 없는 보유" — BlackRock이 사고파는 게 아니라 고객이 사고팔면 따라 움직이는 패시브 구조. 그래서 ETF 유입/유출이 곧 BTC 방향타가 되는 것</div>
-    </div>
+    <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/blackrock.html">블랙록</a><span class="sep">·</span><a href="/wiki/bitcoin.html">비트코인</a><span class="sep">·</span><a href="/wiki/microstrategy.html">마이크로스트래티지</a><span class="sep">·</span><a href="/wiki/larry-fink.html">래리 핑크</a><span class="sep">·</span><a class="topic" href="/topics/etf-funds.html">ETF·펀드</a><span class="sep">·</span><a class="topic" href="/topics/crypto.html">크립토</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0316-crypto.html#story-2"><b>03-16</b> BlackRock, &quot;보유만 하지 말고 이자도</a></span><span class="flow"><a href="/newsletters/2026/0323-crypto.html#story-3"><b>03-23</b> BlackRock 스테이킹 ETF, ETH 게임체인저?</a></span></span></div></div></div>
   </div>
   <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">* 매수매도 추천 아님, 순살도 주주 아님</p>
 </div>
@@ -713,7 +737,7 @@ transition:color .18s ease,background .18s ease}
     <div style="background:#f5f5f0; border-radius:8px; padding:14px 16px; margin-top:16px;">
       <div style="font-size:12px; color:#888; font-weight:700; margin-bottom:6px;">🏛 전통 금융 대비 현재 위치</div>
       <div style="font-size:13px; color:#444; line-height:1.6;">전통 금융에서 자산 분류는 곧 규제 체계 = 곧 기관 접근성. 주식은 SEC, 원자재는 CFTC가 관할하는데, 크립토는 둘 다 아닌 회색지대였음. CLARITY Act는 이 회색을 없애주는 법. 기관이 "이게 뭔지 모르겠다"며 안 사던 걸, "상품이다"라고 정해주면 컴플라이언스 팀이 허가를 내줄 수 있는 구조</div>
-    </div>
+    <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/sec.html">미국 SEC</a><span class="sep">·</span><a href="/wiki/xrp.html">리플(XRP)</a><span class="sep">·</span><a href="/wiki/cftc.html">미국 CFTC</a><span class="sep">·</span><a href="/wiki/fed.html">미국 연준</a><span class="sep">·</span><a href="/wiki/world-liberty.html">월드리버티(WLFI)</a><span class="sep">·</span><a class="topic" href="/topics/crypto.html">크립토</a><span class="sep">·</span><a class="topic" href="/topics/trump-politics.html">트럼프·정책</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0414-crypto.html#story-1"><b>04-14</b> CLARITY Act, 드디어 돌파구?</a></span><span class="flow"><a href="/newsletters/2026/0323-crypto.html#story-1"><b>03-23</b> CLARITY Act, 4월 투표 앞두고 핵심 타협 임</a></span></span></div></div></div>
   </div>
 </div>
 
@@ -731,7 +755,7 @@ transition:color .18s ease,background .18s ease}
     <div style="background:#f5f5f0; border-radius:8px; padding:14px 16px; margin-top:16px;">
       <div style="font-size:12px; color:#888; font-weight:700; margin-bottom:6px;">🏛 전통 금융 대비 현재 위치</div>
       <div style="font-size:13px; color:#444; line-height:1.6;">전통 금융에서 정부가 직접 결제 수단을 발행한 가장 가까운 사례는 우체국 예금. 19세기 영국·일본·한국에서 금융 소외 계층에게 은행 서비스를 제공하려 만든 제도. 와이오밍 FRNT도 결국 같은 문제의식 — 은행 없이도 정부 서비스를 디지털로 받을 수 있게 하려는 것</div>
-    </div>
+    <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/solana.html">솔라나</a><span class="sep">·</span><a href="/wiki/kraken.html">크라켄</a><span class="sep">·</span><a href="/wiki/tether.html">테더(USDT)</a><span class="sep">·</span><a href="/wiki/paypal.html">페이팔</a><span class="sep">·</span><a href="/wiki/world-liberty.html">월드리버티(WLFI)</a><span class="sep">·</span><a class="topic" href="/topics/crypto.html">크립토</a><span class="sep">·</span><a class="topic" href="/topics/banks-wallst.html">월가·은행</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0429-crypto.html#story-4"><b>04-29</b> 이스라엘, 첫 규제 스테이블코인 승인 — 디지털 셰켈 </a></span><span class="flow"><a href="/newsletters/2026/0618-crypto.html#story-3"><b>06-18</b> WLFI 은행 인가 — USD1이 스테이블코인 판도를 </a></span></span></div></div></div>
   </div>
 </div>
 
@@ -762,7 +786,7 @@ transition:color .18s ease,background .18s ease}
     <div class="bullet"><span class="dot">◾</span><span><strong>Strategy</strong>, BTC 매주 추가 매수 지속 — 총 보유량 ~847K개, 평균매입가 물린 상태에서도 매수 중단 없음 <a href="https://bitbo.io/treasuries/microstrategy/" style="color:#888; font-size:12px;"><span class="sub">(보유현황)</span></a></span></div>
     <div class="bullet"><span class="dot">◾</span><span><strong>WLFI</strong> <span class="sub">(트럼프 가족 크립토)</span>, 연방 은행 인가 임박 — USD1 유통량 33억불 돌파 <span class="sub">(Reuters)</span></span></div>
     <div class="bullet"><span class="dot">◾</span><span><strong>와이오밍주</strong> FRNT, Franklin Templeton 준비금 운용 기반 확장 중 <a href="https://governor.wyo.gov/news-releases/wyoming-ushers-in-new-era-launches-first-of-its-kind-frontier-stable-token-for-public-purchase" style="color:#888; font-size:12px;"><span class="sub">(원문)</span></a></span></div>
-  </div>
+  <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/ftx.html">FTX</a><span class="sep">·</span><a href="/wiki/oil.html">원유</a><span class="sep">·</span><a href="/wiki/sbf.html">샘 뱅크먼-프리드(SBF)</a><span class="sep">·</span><a href="/wiki/trump.html">트럼프</a><span class="sep">·</span><a href="/wiki/bitcoin.html">비트코인</a><span class="sep">·</span><a class="topic" href="/topics/trump-politics.html">트럼프·정책</a><span class="sep">·</span><a class="topic" href="/topics/banks-wallst.html">월가·은행</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0608-crypto.html#story-2"><b>06-08</b> 월드컵 시즌, 크립토 사기도 시즌</a></span><span class="flow"><a href="/newsletters/2026/0306-crypto.html#story-5"><b>03-06</b> 이란 $7.8B 크립토 시장 — 전쟁이 채택을 가속하는</a></span></span></div></div></div>
 </div>
 
 <!-- HEADLINE ROUNDUP -->

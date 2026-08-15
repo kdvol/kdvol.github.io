@@ -452,7 +452,31 @@ transition:color .18s ease,background .18s ease}
   .sub-btn-header{padding:7px 13px;font-size:11.5px;letter-spacing:-.3px}
   .search-btn-header{width:32px;height:32px}
 }
-</style></head>
+</style>
+
+
+<style id="soonsal-story-links">
+/* 스토리 끝 — 다 읽은 사람만 본다. 본문 흐름을 끊지 않는다 */
+.story-links{margin:14px 0 0;padding:11px 0 0;border-top:1px solid #ece8e0;
+font-size:11.5px;line-height:1.8;color:#9a958a;word-break:keep-all}
+.story-links .k{color:#b5b0a4;margin-right:5px}
+.story-links a{color:#8a857c;text-decoration:none;border-bottom:1px solid #e6e1d8}
+.story-links a:hover{color:#C24A00;border-bottom-color:#C24A00}
+.story-links .sep{opacity:.4;margin:0 4px}
+/* 주제는 개별 이름이 아니라 묶음이다 — 테두리로 구분한다 */
+.story-links a.topic{border-bottom:0;padding:1px 7px;border-radius:999px;
+background:#f3efe8;color:#8a857c}
+.story-links a.topic:hover{background:#C24A00;color:#fff}
+.story-links .row + .row{margin-top:4px}
+/* 「같은 흐름」은 제목이 길어 한 줄에 하나씩 세운다. 라벨은 왼쪽에 고정 */
+.story-links .flows{display:flex;align-items:flex-start}
+.story-links .flow-list{display:flex;flex-direction:column;gap:2px;min-width:0}
+.story-links .flow{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.story-links .flow b{font-weight:600;color:#b5b0a4;margin-right:3px}
+@media(max-width:560px){.story-links .flows{display:block}
+  .story-links .flow-list{margin-top:2px;padding-left:1px}}
+</style>
+</head>
 <body>
 <div id="soonsal-live-ticker" style="display:none;"></div>
 <style>
@@ -693,7 +717,7 @@ transition:color .18s ease,background .18s ease}
       <p style="font-size:12px; font-weight:700; color:#888; margin:0 0 6px;">🏛 전통 금융 대비 현재 위치</p>
       <p style="font-size:13px; color:#444; margin:0; line-height:1.65;">전통 금융에서 ETF 유입 반전 후 "추세 전환"으로 보려면 3주 연속 순유입이 필요. 그 전까지는 bear market rally <span class="sub">(약세장 반등)</span> 가능성을 열어둬야 함. 블랙록 IBIT가 양방향 모두에서 최대 플레이어라는 건 대형 운용사 한 곳의 유출입이 전체 흐름에 큰 영향을 줄 수 있다는 뜻 — 전통 금융의 대형 ETF 운용사 지배력과 같은 구조</p>
     </div>
-  <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
+  <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/bitcoin.html">비트코인</a><span class="sep">·</span><a href="/wiki/solana.html">솔라나</a><span class="sep">·</span><a href="/wiki/xrp.html">리플(XRP)</a><span class="sep">·</span><a href="/wiki/blackrock.html">블랙록</a><span class="sep">·</span><a href="/wiki/fidelity.html">피델리티</a><span class="sep">·</span><a class="topic" href="/topics/etf-funds.html">ETF·펀드</a><span class="sep">·</span><a class="topic" href="/topics/crypto.html">크립토</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0714-crypto.html#story-4"><b>07-14</b> Markets — 전 종목 -3%, ETF는 돌아왔는데</a></span><span class="flow"><a href="/newsletters/2026/0428-crypto.html#story-2"><b>04-28</b> BTC ETF, 기관은 안 떠남</a></span></span></div></div>
 </div>
 
 
@@ -712,7 +736,7 @@ transition:color .18s ease,background .18s ease}
     <div style="background:#f5f5f0; border-radius:8px; padding:14px 16px; margin-top:16px;">
       <p style="font-size:12px; font-weight:700; color:#888; margin:0 0 6px;">🏛 전통 금융 대비 현재 위치</p>
       <p style="font-size:13px; color:#444; margin:0; line-height:1.65;">전통 금융에서 정부의 대규모 자산 처분은 사전 공시가 일반적 — 국채 발행 일정은 수개월 전에 공개됨. 크립토는 아직 이런 투명성 인프라가 없어서, "정부 지갑이 움직였다"는 온체인 데이터 하나에 시장이 흔들리는 구조. 전략비축 행정명령이 이 갭을 메우려는 시도지만, BTC와 비BTC의 차별적 보호가 오히려 혼란을 키우는 중</p>
-    </div>
+    <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/coinbase.html">코인베이스</a><span class="sep">·</span><a href="/wiki/bitcoin.html">비트코인</a><span class="sep">·</span><a href="/wiki/ethereum.html">이더리움</a><span class="sep">·</span><a href="/wiki/oracle.html">오라클</a><span class="sep">·</span><a href="/wiki/trump.html">트럼프</a><span class="sep">·</span><a class="topic" href="/topics/trump-politics.html">트럼프·정책</a><span class="sep">·</span><a class="topic" href="/topics/crypto.html">크립토</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0511-crypto.html#story-2"><b>05-11</b> Coinbase, 거래소에서 인프라 회사로 강제 전환 </a></span></span></div></div></div>
 </div>
 
 
@@ -731,7 +755,7 @@ transition:color .18s ease,background .18s ease}
     <div style="background:#f5f5f0; border-radius:8px; padding:14px 16px; margin-top:16px;">
       <p style="font-size:12px; font-weight:700; color:#888; margin:0 0 6px;">🏛 전통 금융 대비 현재 위치</p>
       <p style="font-size:13px; color:#444; margin:0; line-height:1.65;">예측시장은 본질적으로 바이너리 옵션 <span class="sub">(결과가 0 또는 1)</span>이라 CFTC 규제 파생상품. 연방 차원에서는 CFTC 관할 이벤트 계약으로 취급되지만, 주 정부는 스포츠 관련 계약을 도박으로 보고 충돌하는 중. Interactive Brokers·CME 같은 전통 금융 인프라가 직접 이벤트 계약을 제공하기 시작했고, 이는 크립토 기반 상품이 전통 금융 인프라와 직접 경쟁하는 초기 사례</p>
-    </div>
+    <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/kalshi.html">칼시(Kalshi)</a><span class="sep">·</span><a href="/wiki/polymarket.html">폴리마켓</a><span class="sep">·</span><a href="/wiki/robinhood.html">로빈후드</a><span class="sep">·</span><a href="/wiki/openai.html">오픈AI</a><span class="sep">·</span><a href="/wiki/nyse.html">뉴욕증권거래소</a><span class="sep">·</span><a class="topic" href="/topics/prediction-markets.html">예측시장</a><span class="sep">·</span><a class="topic" href="/topics/sports-biz.html">스포츠 비즈니스</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0728.html#story-4"><b>07-28</b> 월드컵이 굴린 270억불 예측시장</a></span><span class="flow"><a href="/newsletters/2026/0625-crypto.html#story-3"><b>06-25</b> 메타, 예측시장 앱 만든다</a></span></span></div></div></div>
 </div>
 
 
@@ -750,7 +774,7 @@ transition:color .18s ease,background .18s ease}
     <div style="background:#f5f5f0; border-radius:8px; padding:14px 16px; margin-top:16px;">
       <p style="font-size:12px; font-weight:700; color:#888; margin:0 0 6px;">🏛 전통 금융 대비 현재 위치</p>
       <p style="font-size:13px; color:#444; margin:0; line-height:1.65;">전통 금융에서 비자·마스터카드 같은 결제 네트워크는 수수료율을 가맹점에 일방적으로 정하는 구조. 스테이블코인 발행사도 비슷한 위치를 꿈꿨는데, DeFi 거래소가 "거래량으로 협상력을 확보해 수익을 역으로 뜯어가는" 구조가 되면서 전통 결제 네트워크와 정반대 방향으로 흘러가는 중. 크립토에서는 유통 플랫폼이 발행사보다 힘이 센 구조가 만들어지고 있음</p>
-    </div>
+    <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/hyperliquid.html">하이퍼리퀴드</a><span class="sep">·</span><a href="/wiki/circle.html">서클(Circle)</a><span class="sep">·</span><a href="/wiki/jpmorgan.html">JP모건</a><span class="sep">·</span><a href="/wiki/coinbase.html">코인베이스</a><span class="sep">·</span><a href="/wiki/binance.html">바이낸스</a><span class="sep">·</span><a class="topic" href="/topics/crypto.html">크립토</a><span class="sep">·</span><a class="topic" href="/topics/banks-wallst.html">월가·은행</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0526-crypto.html#story-2"><b>05-26</b> Hyperliquid, &quot;그림자 주식시장&qu</a></span><span class="flow"><a href="/newsletters/2026/0317-crypto.html#story-1"><b>03-17</b> USDC가 USDT를 넘은 날</a></span></span></div></div></div>
 </div>
 
 
