@@ -398,6 +398,17 @@
 <meta name="twitter:title" content="💰 대통령 게시물 유료 속보, 월 10만불 — 순살브리핑 2026.07.22"/>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "NewsArticle", "headline": "대통령 게시물 유료 속보, 월 10만불 — 순살브리핑 2026.07.22", "datePublished": "2026-07-22T09:00:00+09:00", "dateModified": "2026-07-22T09:00:00+09:00", "inLanguage": "ko", "mainEntityOfPage": "https://soonsal.com/newsletters/2026/0722.html", "author": {"@type": "Organization", "name": "순살브리핑", "url": "https://soonsal.com/"}, "publisher": {"@type": "Organization", "name": "순살브리핑", "logo": {"@type": "ImageObject", "url": "https://soonsal.com/apple-touch-icon.png"}}, "keywords": "트럼프TruthAPI유료속보TMTG, 미국중국AI오픈웨이트모델차단, 호르무즈선원위험수당, KOSPI비트코인변동성역전, 런던증시LSE24시간거래"}</script>
 <!-- soonsal:bc --><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "순살브리핑", "item": "https://soonsal.com/"}, {"@type": "ListItem", "position": 2, "name": "브리핑", "item": "https://soonsal.com/newsletters/"}, {"@type": "ListItem", "position": 3, "name": "💰 대통령 게시물 유료 속보, 월 10만불 — 순살브리핑 2026.07.22", "item": "https://soonsal.com/newsletters/2026/0722.html"}]}</script>
+
+<style id="soonsal-story-links">
+/* 스토리 끝 — 다 읽은 사람만 본다. 본문 흐름을 끊지 않는다 */
+.story-links{margin:14px 0 0;padding:11px 0 0;border-top:1px solid #ece8e0;
+font-size:11.5px;line-height:1.8;color:#9a958a;word-break:keep-all}
+.story-links .k{color:#b5b0a4;margin-right:5px}
+.story-links a{color:#8a857c;text-decoration:none;border-bottom:1px solid #e6e1d8}
+.story-links a:hover{color:#C24A00;border-bottom-color:#C24A00}
+.story-links .sep{opacity:.4;margin:0 4px}
+.story-links .row + .row{margin-top:3px}
+</style>
 </head>
 <body>
 <div id="soonsal-live-ticker" style="display:none;"></div>
@@ -441,6 +452,8 @@
 <script>
 (function(){'use strict';var WORKER_URL='https://soonsal-data.kd-d0a.workers.dev/';var COINGECKO_URL='https://api.coingecko.com/api/v3';var TRADFI_ORDER=['S&P 500','NASDAQ','Dow Jones','KOSPI','US 10Y','WTI Oil','Gold','DXY','EUR/USD','USD/JPY','USD/KRW'];var CRYPTO_ORDER=['Bitcoin','Ethereum','Solana','XRP','BNB','Crypto Total'];var CRYPTO_IDS={'Bitcoin':'bitcoin','Ethereum':'ethereum','Solana':'solana','XRP':'ripple','BNB':'binancecoin'};var REFRESH=60000;var container,timer,lastTradfi,lastCrypto;function init(){container=document.getElementById('soonsal-live-ticker');if(!container)return;container.style.display='block';container.innerHTML='<div class="stk-loading"><div class="stk-spin"></div>Loading market data...</div>';fetchAll();timer=setInterval(fetchAll,REFRESH)}function fetchAll(){var p1=fetchTradFi();var p2=fetchCrypto();Promise.allSettled?Promise.allSettled([p1,p2]).then(render):Promise.all([p1.catch(function(){return null}),p2.catch(function(){return null})]).then(render)}function fetchTradFi(){return fetch(WORKER_URL).then(function(r){return r.json()}).then(function(data){if(data.tradfi)lastTradfi=data;return data}).catch(function(e){console.warn('[Ticker] TradFi error:',e.message);return null})}function fetchCrypto(){var ids=Object.values(CRYPTO_IDS).join(',');var url=COINGECKO_URL+'/simple/price?ids='+ids+'&vs_currencies=usd&include_24hr_change=true&include_market_cap=true';var globalUrl=COINGECKO_URL+'/global';return Promise.all([fetch(url).then(function(r){return r.json()}),fetch(globalUrl).then(function(r){return r.json()}).catch(function(){return null})]).then(function(results){var prices=results[0];var global=results[1];var crypto={};for(var name in CRYPTO_IDS){var id=CRYPTO_IDS[name];var d=prices[id];if(!d)continue;var p=d.usd;var ch=d.usd_24h_change||0;crypto[name]={price:'$'+formatNum(p),change:(ch>=0?'+':'')+ch.toFixed(2)+'%',direction:ch>0.01?'up':ch<-0.01?'down':'zero'}}if(global&&global.data){var mc=global.data.total_market_cap&&global.data.total_market_cap.usd;var mch=global.data.market_cap_change_percentage_24h_usd;if(mc){crypto['Crypto Total']={price:'$'+(mc/1e12).toFixed(2)+'T',change:(mch>=0?'+':'')+(mch||0).toFixed(2)+'%',direction:mch>0?'up':mch<0?'down':'zero'}}}lastCrypto=crypto;return crypto}).catch(function(e){console.warn('[Ticker] Crypto error:',e.message);return null})}function render(){var tradfi=lastTradfi?lastTradfi.tradfi:{};var crypto=lastCrypto||{};var kst=lastTradfi?lastTradfi.kst:new Date().toLocaleString('ko-KR',{timeZone:'Asia/Seoul'});var html=[];html.push('<div class="stk-ts"><span class="stk-dot"></span><span class="stk-time">'+esc(kst)+' KST</span></div>');for(var i=0;i<TRADFI_ORDER.length;i++){var name=TRADFI_ORDER[i];var d=tradfi[name];if(d)html.push(makeItem(name,d,false))}html.push('<div class="stk-div"><span></span></div>');for(var j=0;j<CRYPTO_ORDER.length;j++){var cname=CRYPTO_ORDER[j];var cd=crypto[cname];if(cd)html.push(makeItem(cname,cd,true))}var track=html.join('');container.innerHTML='<div class="stk-track">'+track+track+'</div>'}function makeItem(name,d,isCrypto){var dir=d.direction||'zero';var arrow=dir==='up'?'<span class="au"></span>':dir==='down'?'<span class="ad"></span>':'';return'<div class="stk-item"><span class="stk-lbl'+(isCrypto?' crypto':'')+'">'+esc(name)+'</span><span class="stk-prc">'+esc(d.price)+'</span><span class="stk-chg '+dir+'">'+arrow+' '+esc(d.change)+'</span></div>'}function formatNum(n){if(n>=10000)return n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});if(n>=100)return n.toFixed(2);if(n>=1)return n.toFixed(2);return n.toFixed(4)}function esc(s){if(!s)return'';var d=document.createElement('span');d.textContent=String(s);return d.innerHTML}if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',init)}else{init()}})();
 </script>
+
+
 
 
 
@@ -602,7 +615,7 @@
         <div class="bullet"><span class="dot">◾</span><span>2025년 4월 트럼프가 "지금이 살 때!"라고 올리고 4시간 뒤 관세 유예를 발표, 그날 S&P 500이 +9.5% 폭등했었음. 이 API와 함께라면 해당 사례를 현금화 가능. 심지어 Truth API 발표 당일인 7월 17일, 트럼프의 텔레프롬프터 기사 <span class="sub">(Gabriel Perez)</span>가 대통령 연설 내용을 미리 알고 예측시장 Kalshi에서 9만불 넘게 벌어먹다 CFTC <span class="sub">(상품선물거래위원회)</span> 조사를 받고 있는 것이 드러남. 한쪽은 내부 정보로 조사를 당하고, 같은 구조가 다른 한쪽에서는 합법 상품으로 나온 날</span></div>
         <div class="bullet"><span class="dot">◾</span><span>미국 증권법상 대통령은 이해충돌 규정에서 빠져 있고, 공개 정보를 밀리초 먼저 전달하는 것 자체도 위법은 아님. 실제로 트럼프의 2025년 재산공개 자료를 뜯어보면, 주식을 사고 며칠 내로 해당 기업을 Truth Social에서 띄워준 사례가 21개 기업 44건이고, 윤리 전문 변호사는 Truth Social이 "사실상 대통령 기자회견실"이 됐다고 표현. 전직 SEC <span class="sub">(증권거래위원회)</span> 국장은 "소수만 정보를 갖는 2단계 시장"이라 했는데, 그 2단계 시장의 공식 가격표가 이제 나온 상황</span></div>
       </div>
-      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
+      <div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/trump.html">트럼프</a><span class="sep">·</span><a href="/wiki/nasdaq.html">나스닥</a><span class="sep">·</span><a href="/wiki/sp500.html">S&amp;P 500</a><span class="sep">·</span><a href="/wiki/kalshi.html">칼시(Kalshi)</a><span class="sep">·</span><a href="/wiki/cftc.html">미국 CFTC</a></div></div><p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
     </div>
 
 <!-- STORY 2 -->
@@ -616,7 +629,7 @@
         <div class="bullet"><span class="dot">◾</span><span>중국도 역으로 벽을 세우는 중. 상무부가 알리바바·바이트댄스 등 주요 기업과 회의를 열고, 핵심 AI 모델 가중치의 해외 다운로드 제한 + AI 스타트업의 외국 자본 인수 차단을 함께 검토 중. 올 초 메타가 중국 AI 스타트업 마누스를 20억불에 인수하려다 당국이 뒤집어엎은 게 대표 사례. 9월 시진핑 방미 전에 양측이 첫 공식 AI 협의를 갖기로 했는데, 결국 양쪽 다 상대방 모델은 막고 자기 모델은 열려는 게임 <span class="note">(AI판 만리장성 vs 디지털 철의 장막)</span></span></div>
         <div class="bullet"><span class="dot">◾</span><span>6월엔 앤트로픽 최신 모델이 상무부 수출통제 지시로 일시 접근 차단, 오픈AI GPT-5.6도 정부 승인 파트너에게만 먼저 풀리는 등 프론티어 모델 접근 제한 사례가 나오는 중. 반대편에서는 David Sacks를 비롯한 실리콘밸리 투자자들이 "오픈소스 AI가 보안 위협이라는 로비는 실체가 없다, 이건 그냥 경쟁"이라고 반박. 칩은 수출통제로 막을 수 있었지만, 이미 다운로드된 소프트웨어를 막는 건 전혀 다른 문제. 다음 이벤트는 9월 미중 AI 협의</span></div>
       </div>
-      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
+      <div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/alibaba.html">알리바바</a><span class="sep">·</span><a href="/wiki/meta.html">메타</a><span class="sep">·</span><a href="/wiki/xi-jinping.html">시진핑</a><span class="sep">·</span><a href="/wiki/anthropic.html">앤스로픽</a><span class="sep">·</span><a href="/wiki/openai.html">오픈AI</a></div><div class="row"><span class="k">같은 흐름</span><a href="/newsletters/2026/0528.html#story-2">05-28 중국, AI 인재들 못 나감</a><span class="sep">·</span><a href="/newsletters/2026/0623.html#story-2">06-23 중국 AI, 기승전 가성비?</a></div></div><p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
     </div>
 
 <!-- STORY 3 -->
@@ -630,7 +643,7 @@
         <div class="bullet"><span class="dot">◾</span><span>트럼프가 7월 13일 '호르무즈 수호자'를 자처하며 화물 가치의 20%를 수수료로 받겠다고 선언. But 다음 날 바로 철회, 걸프 국가들의 대미 투자·무역 합의로 대체하겠다고 방향을 틀었음. 유엔 해사기구도 "국제 해상 통행에 요금을 부과할 법적 근거가 없다"고 반대. 하루 만에 접힌 구상이지만, 양쪽 해협 <span class="sub">(호르무즈+홍해)</span>은 여전히 위험해진 상황. 전쟁 전 기준 글로벌 원유 공급의 ~20%가 이 해협을 통과</span></div>
         <div class="bullet"><span class="dot">◾</span><span>위성 신호 <span class="sub">(AIS)</span>를 끄고 해협을 몰래 통과하는 '다크 선박'도 늘어나는 중이라 실제 통과량을 정확히 파악하기 어려움. 시노코르는 MSC <span class="sub">(세계 최대 컨테이너 해운사)</span>의 후원으로 초대형유조선 함대를 키웠고, UAE·사우디·이라크 원유 수출의 핵심 플레이어. 시노코르 외에도 여러 선주가 보너스 패키지를 내놓으면서 선원들 회유 중 <span class="sub">(금액은 시노코르보다 낮은 편)</span></span></div>
       </div>
-      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
+      <div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/oil.html">원유</a><span class="sep">·</span><a href="/wiki/trump.html">트럼프</a></div><div class="row"><span class="k">같은 흐름</span><a href="/newsletters/2026/0713.html#story-1">07-13 호르무즈, 또 닫혔다</a><span class="sep">·</span><a href="/newsletters/2026/0417.html#story-5">04-17 호르무즈 다음은 대만해협</a></div></div><p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
     </div>
 
 <!-- STORY 4 -->
@@ -644,7 +657,7 @@
         <div class="bullet"><span class="dot">◾</span><span>개미의 레버리지가 불을 키웠음. 올해 개인 투자자가 KOSPI에 넣은 돈이 100조원 <span class="sub">(약 $670억)</span> 이상인데, 상당액이 레버리지 ETF로 들어갔음. 레버리지 ETF 운용자산이 연초 $50억에서 $400억으로 8배 뛰자 금융당국이 7월 16일 신규 단일종목 레버리지 ETF 승인을 중단. 레버리지 상품은 하락장에서 증거금 부족과 손실 제한 매도가 겹치면서 낙폭을 더 키울 수 있는 구조</span></div>
         <div class="bullet"><span class="dot">◾</span><span>그런데도 KOSPI는 2026년 주요국 증시 중 수익률 상위 — 연초 대비 여전히 +60%대. AI용 메모리 수요가 삼성전자·SK하이닉스 실적 기대를 끌어올린 건 맞음. But, 두 종목과 레버리지 상품에 지수 전체가 과도하게 기대는 구조가 유지되는 한, KOSPI의 변동성도 쉽게 정상화되기 어려운 상황</span></div>
       </div>
-      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
+      <div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/kospi.html">코스피</a><span class="sep">·</span><a href="/wiki/bitcoin.html">비트코인</a><span class="sep">·</span><a href="/wiki/samsung.html">삼성전자</a><span class="sep">·</span><a href="/wiki/sk-hynix.html">SK하이닉스</a></div><div class="row"><span class="k">같은 흐름</span><a href="/newsletters/2026/0813.html#story-3">08-13 비트코인을 이긴 포켓몬</a></div></div><p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
     </div>
 
 <!-- STORY 5 -->
@@ -658,7 +671,7 @@
         <div class="bullet"><span class="dot">◾</span><span>한국 투자자에게 당장 미국 주식 본장이 열리는 건 아님. LSE 24 초기에는 영국·미국 자산과 연계된 상장지수상품부터 거래할 예정. 다만 미국 거래소까지 비슷한 구조를 확대하면, 아시아 시간대에도 미국 자산을 거래할 수 있는 통로가 넓어지는 방향. 유동성이 분산되면 스프레드가 벌어질 수 있고, 알고리즘 대비 개인 투자자의 불리함이 커지는 우려도 있음</span></div>
         <div class="bullet"><span class="dot">◾</span><span>사람이 자는 동안 AI 에이전트가 주문을 넣고, 지구 반대편 투자자가 런던 상장상품을 거래하는 구조. 향후 디지털 예탁원까지 연결되면 거래부터 정산까지 초연결, 시장 운영이 유저들의 직접 컨트롤 밖에서 일어나게 됨. 수백 년 역사의 런던증시가 이 방향으로 공식적으로 확장 중, 로빈후드는 이미 AI 에이전트 전용 거래 계정을 열어둔 상태</span></div>
       </div>
-      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
+      <div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/nasdaq.html">나스닥</a><span class="sep">·</span><a href="/wiki/cme.html">CME</a><span class="sep">·</span><a href="/wiki/robinhood.html">로빈후드</a></div></div><p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
     </div>
 
 </div><!-- /content -->

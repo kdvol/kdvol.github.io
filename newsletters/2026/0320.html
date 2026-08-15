@@ -399,6 +399,17 @@
 <meta name="twitter:title" content="🐟 사람 자르면 주가 뛰는 AI 시대 — 순살브리핑 2026.03.20"/>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "NewsArticle", "headline": "사람 자르면 주가 뛰는 AI 시대 — 순살브리핑 2026.03.20", "datePublished": "2026-03-20T09:00:00+09:00", "dateModified": "2026-03-20T09:00:00+09:00", "inLanguage": "ko", "mainEntityOfPage": "https://soonsal.com/newsletters/2026/0320.html", "author": {"@type": "Organization", "name": "순살브리핑", "url": "https://soonsal.com/"}, "publisher": {"@type": "Organization", "name": "순살브리핑", "logo": {"@type": "ImageObject", "url": "https://soonsal.com/apple-touch-icon.png"}}, "keywords": "엘리엇 MOL 일본해운 장금상선 행동주의,  AI해고 Meta Block HSBC 주가반등,  Private Credit 환매위기 BDC,  Micron HBM 매출3배 주가급락,  Swarmer 드론IPO 우크라이나 이란전쟁"}</script>
 <!-- soonsal:bc --><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "순살브리핑", "item": "https://soonsal.com/"}, {"@type": "ListItem", "position": 2, "name": "브리핑", "item": "https://soonsal.com/newsletters/"}, {"@type": "ListItem", "position": 3, "name": "🐟 사람 자르면 주가 뛰는 AI 시대 — 순살브리핑 2026.03.20", "item": "https://soonsal.com/newsletters/2026/0320.html"}]}</script>
+
+<style id="soonsal-story-links">
+/* 스토리 끝 — 다 읽은 사람만 본다. 본문 흐름을 끊지 않는다 */
+.story-links{margin:14px 0 0;padding:11px 0 0;border-top:1px solid #ece8e0;
+font-size:11.5px;line-height:1.8;color:#9a958a;word-break:keep-all}
+.story-links .k{color:#b5b0a4;margin-right:5px}
+.story-links a{color:#8a857c;text-decoration:none;border-bottom:1px solid #e6e1d8}
+.story-links a:hover{color:#C24A00;border-bottom-color:#C24A00}
+.story-links .sep{opacity:.4;margin:0 4px}
+.story-links .row + .row{margin-top:3px}
+</style>
 </head>
 <body>
 <div id="soonsal-live-ticker" style="display:none;"></div>
@@ -442,6 +453,8 @@
 <script>
 (function(){'use strict';var WORKER_URL='https://soonsal-data.kd-d0a.workers.dev/';var COINGECKO_URL='https://api.coingecko.com/api/v3';var TRADFI_ORDER=['S&P 500','NASDAQ','Dow Jones','KOSPI','US 10Y','WTI Oil','Gold','DXY','EUR/USD','USD/JPY','USD/KRW'];var CRYPTO_ORDER=['Bitcoin','Ethereum','Solana','XRP','BNB','Crypto Total'];var CRYPTO_IDS={'Bitcoin':'bitcoin','Ethereum':'ethereum','Solana':'solana','XRP':'ripple','BNB':'binancecoin'};var REFRESH=60000;var container,timer,lastTradfi,lastCrypto;function init(){container=document.getElementById('soonsal-live-ticker');if(!container)return;container.style.display='block';container.innerHTML='<div class="stk-loading"><div class="stk-spin"></div>Loading market data...</div>';fetchAll();timer=setInterval(fetchAll,REFRESH)}function fetchAll(){var p1=fetchTradFi();var p2=fetchCrypto();Promise.allSettled?Promise.allSettled([p1,p2]).then(render):Promise.all([p1.catch(function(){return null}),p2.catch(function(){return null})]).then(render)}function fetchTradFi(){return fetch(WORKER_URL).then(function(r){return r.json()}).then(function(data){if(data.tradfi)lastTradfi=data;return data}).catch(function(e){console.warn('[Ticker] TradFi error:',e.message);return null})}function fetchCrypto(){var ids=Object.values(CRYPTO_IDS).join(',');var url=COINGECKO_URL+'/simple/price?ids='+ids+'&vs_currencies=usd&include_24hr_change=true&include_market_cap=true';var globalUrl=COINGECKO_URL+'/global';return Promise.all([fetch(url).then(function(r){return r.json()}),fetch(globalUrl).then(function(r){return r.json()}).catch(function(){return null})]).then(function(results){var prices=results[0];var global=results[1];var crypto={};for(var name in CRYPTO_IDS){var id=CRYPTO_IDS[name];var d=prices[id];if(!d)continue;var p=d.usd;var ch=d.usd_24h_change||0;crypto[name]={price:'$'+formatNum(p),change:(ch>=0?'+':'')+ch.toFixed(2)+'%',direction:ch>0.01?'up':ch<-0.01?'down':'zero'}}if(global&&global.data){var mc=global.data.total_market_cap&&global.data.total_market_cap.usd;var mch=global.data.market_cap_change_percentage_24h_usd;if(mc){crypto['Crypto Total']={price:'$'+(mc/1e12).toFixed(2)+'T',change:(mch>=0?'+':'')+(mch||0).toFixed(2)+'%',direction:mch>0?'up':mch<0?'down':'zero'}}}lastCrypto=crypto;return crypto}).catch(function(e){console.warn('[Ticker] Crypto error:',e.message);return null})}function render(){var tradfi=lastTradfi?lastTradfi.tradfi:{};var crypto=lastCrypto||{};var kst=lastTradfi?lastTradfi.kst:new Date().toLocaleString('ko-KR',{timeZone:'Asia/Seoul'});var html=[];html.push('<div class="stk-ts"><span class="stk-dot"></span><span class="stk-time">'+esc(kst)+' KST</span></div>');for(var i=0;i<TRADFI_ORDER.length;i++){var name=TRADFI_ORDER[i];var d=tradfi[name];if(d)html.push(makeItem(name,d,false))}html.push('<div class="stk-div"><span></span></div>');for(var j=0;j<CRYPTO_ORDER.length;j++){var cname=CRYPTO_ORDER[j];var cd=crypto[cname];if(cd)html.push(makeItem(cname,cd,true))}var track=html.join('');container.innerHTML='<div class="stk-track">'+track+track+'</div>'}function makeItem(name,d,isCrypto){var dir=d.direction||'zero';var arrow=dir==='up'?'<span class="au"></span>':dir==='down'?'<span class="ad"></span>':'';return'<div class="stk-item"><span class="stk-lbl'+(isCrypto?' crypto':'')+'">'+esc(name)+'</span><span class="stk-prc">'+esc(d.price)+'</span><span class="stk-chg '+dir+'">'+arrow+' '+esc(d.change)+'</span></div>'}function formatNum(n){if(n>=10000)return n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});if(n>=100)return n.toFixed(2);if(n>=1)return n.toFixed(2);return n.toFixed(4)}function esc(s){if(!s)return'';var d=document.createElement('span');d.textContent=String(s);return d.innerHTML}if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',init)}else{init()}})();
 </script>
+
+
 
 
 
@@ -636,7 +649,7 @@
     <div class="bullet"><span class="dot">◾</span><span>해운업 자체가 지금 뜨거운 섹터이기도 함. 중동 전쟁으로 호르무즈 해협 긴장이 높아지면서 유조선 운임이 폭등 중이고, 컨테이너·벌크선도 지정학 리스크에 민감하게 반응하는 상황. 한국에서도 장금상선이 회자되는 게 같은 맥락 — 전쟁 직전 초대형 유조선 <span class="sub">(VLCC)</span>을 100~150척 규모로 공격적으로 확보해둔 전략이 맞아떨어지면서 하루 7억원대 임대 수익을 올리는 중. 비상장·오너 100% 지배 구조라 외부 압력 없이 빠르게 움직일 수 있었던 것. 오너 일가가 직접 선박 투자를 챙기는 구조로, 지정학 판단이 곧바로 실행으로 이어진 케이스</span></div>
     <div class="bullet"><span class="dot">◾</span><span>결국 같은 해운업인데 엘리엇이 들어가는 일본 MOL과, 오너가 직접 베팅하는 한국 장금상선은 완전히 다른 게임. MOL은 현금이 쌓여 있는데 주주한테 안 돌려주니 행동주의 펀드가 밖에서 흔드는 구조이고, 장금상선은 오너가 100% 들고 있으니 시장 타이밍에 즉각 올인이 가능한 구조. "누가 돈을 쓰느냐"의 거버넌스 차이가 같은 업황에서 완전히 다른 수익 구조를 만들어내는 셈. 엘리엇의 MOL 투자는 단순히 해운 한 종목 이야기가 아니라, 일본 기업 전체에 걸린 "번 돈은 주주한테 돌려라"는 압력이 이제 수출·제조업 넘어 해운까지 번졌다는 신호</span></div>
   </div>
-  <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
+  <div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/hyundai.html">현대차</a><span class="sep">·</span><a href="/wiki/softbank.html">소프트뱅크</a></div></div><p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
 </div>
 
 <div class="story" id="story-2">
@@ -649,7 +662,7 @@
     <div class="bullet"><span class="dot">◾</span><span><strong>월가는 해고 소식에 Meta 주가 +3%로 화답, 여론은 정확히 반대 방향</strong>. NBC News 3월 조사에서 미국 유권자 57%가 "AI 리스크가 혜택보다 크다"고 답했고, Data for Progress 2월 조사에선 65%가 "AI는 억만장자만 부유하게 만들 것"이라고 봄. "AI가 경제를 해칠 것"이라는 응답도 석 달 만에 37%→46%로 급등 — 특히 민주당 지지층에서 34%→53%로 뛴 게 눈에 띔. 비용 절감 = 호재라는 월가 공식과 "기술이 내 밥그릇을 뺏는다"는 시민 체감 사이 간극이 빠르게 벌어지는 중</span></div>
     <div class="bullet"><span class="dot">◾</span><span>2026 중간선거에서 이 간극이 정치적 무기가 될 가능성. "사람 자르면 주가 뛴다"는 공식이 반복될수록 규제 카드는 가까워짐 — AI 고용 영향 보고 의무, 해고 보상 기금 같은 법안이 의회에서 힘을 받을 수 있는 토양. 심지어 OpenAI의 샘 알트만조차 "기업들이 AI를 해고 핑계로 쓰는 AI 워싱"이라고 꼬집은 상태 <span class="note">(님이 만드심)</span>. AI를 만드는 쪽에서도 이 공식이 불편한 것</span></div>
   </div>
-  <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
+  <div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/block-inc.html">블록(Block/캐시앱)</a><span class="sep">·</span><a href="/wiki/amazon.html">아마존</a><span class="sep">·</span><a href="/wiki/meta.html">메타</a><span class="sep">·</span><a href="/wiki/comcast.html">컴캐스트</a><span class="sep">·</span><a href="/wiki/openai.html">오픈AI</a></div><div class="row"><span class="k">같은 흐름</span><a href="/newsletters/2026/0424.html#story-1">04-24 AI 돈 쓰려고, 사람 자르는 중</a><span class="sep">·</span><a href="/newsletters/2026/0326.html#story-1">03-26 AI 시대에 빠진 것 2가지</a></div></div><p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
 </div>
 
 <div class="story" id="story-3">
@@ -674,7 +687,7 @@
     <div class="bullet"><span class="dot">◾</span><span>한국 반도체 입장에서 보면 양날의 칼. 전날 삼성전자 +7.5%, SK하이닉스 +9%로 KOSPI가 사이드카까지 걸리며 폭등했는데, 그 다음 날 Micron 실적 급락 소식이 들어온 것. 실제로 3/19 KOSPI는 -2.73%로 반락. HBM 수요 자체는 구조적 강세지만, 밸류에이션이 이미 많이 반영된 상태에서 글로벌 매크로 리스크 <span class="sub">(유가, 금리, 전쟁)</span>가 겹치면 단기 조정 압력이 클 수 있다는 걸 보여준 하루</span></div>
     <div class="bullet"><span class="dot">◾</span><span>시장에서는 "현재 연간 이익 40불 가능, 내년 50불까지 갈 수 있다. P/E 10~15배 적용하면 아직 상당한 업사이드"라는 강매수 의견도. 시장 반응은 냉담했지만, 장기 투자자 입장에서는 AI 메모리 슈퍼사이클이 깨진 게 아니라 밸류에이션 조정이라는 해석. 이란 전쟁이 진행되는 한 유가와 금리 변수가 반도체 주가를 계속 흔들 수밖에 없어서, 실적이 좋아도 전쟁 프리미엄을 이기기 어려운 구간</span></div>
   </div>
-  <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
+  <div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/micron.html">마이크론</a><span class="sep">·</span><a href="/wiki/sk-hynix.html">SK하이닉스</a><span class="sep">·</span><a href="/wiki/nvidia.html">엔비디아</a><span class="sep">·</span><a href="/wiki/broadcom.html">브로드컴</a><span class="sep">·</span><a href="/wiki/fed.html">미국 연준</a></div><div class="row"><span class="k">같은 흐름</span><a href="/newsletters/2026/0331.html#story-5">03-31 2주 전엔 영웅, 지금은 천덕꾸러기 — Micr</a></div></div><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/oil.html">원유</a><span class="sep">·</span><a href="/wiki/fed.html">미국 연준</a><span class="sep">·</span><a href="/wiki/fdic.html">미국 FDIC</a><span class="sep">·</span><a href="/wiki/micron.html">마이크론</a><span class="sep">·</span><a href="/wiki/sk-hynix.html">SK하이닉스</a></div><div class="row"><span class="k">같은 흐름</span><a href="/newsletters/2026/0302-crypto.html#story-4">03-02 Apollo의 xAI 부채 트레이딩 — Priv</a><span class="sep">·</span><a href="/newsletters/2026/0302.html#story-3">03-02 Apollo, xAI 부채 투자로 $2.5억 수</a></div></div><p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
 </div>
 
 <div class="story" id="story-5">
@@ -687,7 +700,7 @@
     <div class="bullet"><span class="dot">◾</span><span>타이밍이 폭발적이었던 게, 우크라이나에서 검증된 드론 전쟁이 이제 이란에서도 동시에 벌어지는 중. 미군은 이란의 Shahed-136 <span class="sub">(러시아가 우크라이나에 대량 투입한 자폭 드론)</span>을 역설계해 LUCAS라는 카미카제 드론을 만들었는데 <span class="note">(다크아칸 마인드컨트롤 실사판)</span>, 이걸 이란전 <span class="sub">(Operation Epic Fury)</span>에 실전 투입한 것이 올해 2월. 상장 당일에는 펜타곤의 LUCAS 양산 보도까지 터짐. 펜타곤은 올해 저가 공격 드론 30만대에 10억불 이상을 쏟을 계획, 미 육군은 2~3년 내 드론 100만대 조달을 목표로 잡은 상태. 전쟁이 심지어 하나가 아니라 둘이라 드론 수요가 폭발-ing</span></div>
     <div class="bullet"><span class="dot">◾</span><span>드론 방산 섹터 전체가 올해 미친 랠리를 타는 중. Kratos Defense가 연초 대비 +72% <span class="sub">(1년간 +280%)</span>, AeroVironment은 수주잔고만 35억불. 2026년 미국 국방예산이 약 1조불로 전년 대비 13% 늘었고, 그 안에서 무인·자율 시스템 비중이 빠르게 커지는 중. Swarmer의 +520%는 이 흐름 위에 "우크라이나 실전 검증"이라는 라벨이 얹어진 결과. 다만 연매출 31만불짜리 회사에 시총 3.8억불이 붙었다는 건, 시장은 현재가 아닌 전쟁이 만들 미래를 사고 있다는 뜻</span></div>
   </div>
-  <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
+  <div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/nasdaq.html">나스닥</a><span class="sep">·</span><a href="/wiki/trump.html">트럼프</a><span class="sep">·</span><a href="/wiki/google.html">구글</a></div></div><p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
 </div>
 
 </div>

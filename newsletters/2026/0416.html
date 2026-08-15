@@ -399,6 +399,17 @@
 <meta name="twitter:title" content="🐟 운동화 팔아요? 아뇨 GPU 파는데요? — 순살브리핑 2026.04.16"/>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "NewsArticle", "headline": "운동화 팔아요? 아뇨 GPU 파는데요? — 순살브리핑 2026.04.16", "datePublished": "2026-04-16T09:00:00+09:00", "dateModified": "2026-04-16T09:00:00+09:00", "inLanguage": "ko", "mainEntityOfPage": "https://soonsal.com/newsletters/2026/0416.html", "author": {"@type": "Organization", "name": "순살브리핑", "url": "https://soonsal.com/"}, "publisher": {"@type": "Organization", "name": "순살브리핑", "logo": {"@type": "ImageObject", "url": "https://soonsal.com/apple-touch-icon.png"}}, "keywords": "트럼프파월해고위협연준의장,  알파벳구글SpaceX1000억불,  올버즈AI전환GPU뉴버드700%,  라이브네이션티켓마스터독점유죄,  머스크이모지좋아요판사기피법적구속력", "image": ["https://soonsal.com/cardnews/2026/0416_png/card_01.png"]}</script>
 <!-- soonsal:bc --><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "순살브리핑", "item": "https://soonsal.com/"}, {"@type": "ListItem", "position": 2, "name": "브리핑", "item": "https://soonsal.com/newsletters/"}, {"@type": "ListItem", "position": 3, "name": "🐟 운동화 팔아요? 아뇨 GPU 파는데요? — 순살브리핑 2026.04.16", "item": "https://soonsal.com/newsletters/2026/0416.html"}]}</script>
+
+<style id="soonsal-story-links">
+/* 스토리 끝 — 다 읽은 사람만 본다. 본문 흐름을 끊지 않는다 */
+.story-links{margin:14px 0 0;padding:11px 0 0;border-top:1px solid #ece8e0;
+font-size:11.5px;line-height:1.8;color:#9a958a;word-break:keep-all}
+.story-links .k{color:#b5b0a4;margin-right:5px}
+.story-links a{color:#8a857c;text-decoration:none;border-bottom:1px solid #e6e1d8}
+.story-links a:hover{color:#C24A00;border-bottom-color:#C24A00}
+.story-links .sep{opacity:.4;margin:0 4px}
+.story-links .row + .row{margin-top:3px}
+</style>
 </head>
 <body>
 <div id="soonsal-live-ticker" style="display:none;"></div>
@@ -442,6 +453,8 @@
 <script>
 (function(){'use strict';var WORKER_URL='https://soonsal-data.kd-d0a.workers.dev/';var COINGECKO_URL='https://api.coingecko.com/api/v3';var TRADFI_ORDER=['S&P 500','NASDAQ','Dow Jones','KOSPI','US 10Y','WTI Oil','Gold','DXY','EUR/USD','USD/JPY','USD/KRW'];var CRYPTO_ORDER=['Bitcoin','Ethereum','Solana','XRP','BNB','Crypto Total'];var CRYPTO_IDS={'Bitcoin':'bitcoin','Ethereum':'ethereum','Solana':'solana','XRP':'ripple','BNB':'binancecoin'};var REFRESH=60000;var container,timer,lastTradfi,lastCrypto;function init(){container=document.getElementById('soonsal-live-ticker');if(!container)return;container.style.display='block';container.innerHTML='<div class="stk-loading"><div class="stk-spin"></div>Loading market data...</div>';fetchAll();timer=setInterval(fetchAll,REFRESH)}function fetchAll(){var p1=fetchTradFi();var p2=fetchCrypto();Promise.allSettled?Promise.allSettled([p1,p2]).then(render):Promise.all([p1.catch(function(){return null}),p2.catch(function(){return null})]).then(render)}function fetchTradFi(){return fetch(WORKER_URL).then(function(r){return r.json()}).then(function(data){if(data.tradfi)lastTradfi=data;return data}).catch(function(e){console.warn('[Ticker] TradFi error:',e.message);return null})}function fetchCrypto(){var ids=Object.values(CRYPTO_IDS).join(',');var url=COINGECKO_URL+'/simple/price?ids='+ids+'&vs_currencies=usd&include_24hr_change=true&include_market_cap=true';var globalUrl=COINGECKO_URL+'/global';return Promise.all([fetch(url).then(function(r){return r.json()}),fetch(globalUrl).then(function(r){return r.json()}).catch(function(){return null})]).then(function(results){var prices=results[0];var global=results[1];var crypto={};for(var name in CRYPTO_IDS){var id=CRYPTO_IDS[name];var d=prices[id];if(!d)continue;var p=d.usd;var ch=d.usd_24h_change||0;crypto[name]={price:'$'+formatNum(p),change:(ch>=0?'+':'')+ch.toFixed(2)+'%',direction:ch>0.01?'up':ch<-0.01?'down':'zero'}}if(global&&global.data){var mc=global.data.total_market_cap&&global.data.total_market_cap.usd;var mch=global.data.market_cap_change_percentage_24h_usd;if(mc){crypto['Crypto Total']={price:'$'+(mc/1e12).toFixed(2)+'T',change:(mch>=0?'+':'')+(mch||0).toFixed(2)+'%',direction:mch>0?'up':mch<0?'down':'zero'}}}lastCrypto=crypto;return crypto}).catch(function(e){console.warn('[Ticker] Crypto error:',e.message);return null})}function render(){var tradfi=lastTradfi?lastTradfi.tradfi:{};var crypto=lastCrypto||{};var kst=lastTradfi?lastTradfi.kst:new Date().toLocaleString('ko-KR',{timeZone:'Asia/Seoul'});var html=[];html.push('<div class="stk-ts"><span class="stk-dot"></span><span class="stk-time">'+esc(kst)+' KST</span></div>');for(var i=0;i<TRADFI_ORDER.length;i++){var name=TRADFI_ORDER[i];var d=tradfi[name];if(d)html.push(makeItem(name,d,false))}html.push('<div class="stk-div"><span></span></div>');for(var j=0;j<CRYPTO_ORDER.length;j++){var cname=CRYPTO_ORDER[j];var cd=crypto[cname];if(cd)html.push(makeItem(cname,cd,true))}var track=html.join('');container.innerHTML='<div class="stk-track">'+track+track+'</div>'}function makeItem(name,d,isCrypto){var dir=d.direction||'zero';var arrow=dir==='up'?'<span class="au"></span>':dir==='down'?'<span class="ad"></span>':'';return'<div class="stk-item"><span class="stk-lbl'+(isCrypto?' crypto':'')+'">'+esc(name)+'</span><span class="stk-prc">'+esc(d.price)+'</span><span class="stk-chg '+dir+'">'+arrow+' '+esc(d.change)+'</span></div>'}function formatNum(n){if(n>=10000)return n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});if(n>=100)return n.toFixed(2);if(n>=1)return n.toFixed(2);return n.toFixed(4)}function esc(s){if(!s)return'';var d=document.createElement('span');d.textContent=String(s);return d.innerHTML}if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',init)}else{init()}})();
 </script>
+
+
 
 
 
@@ -637,7 +650,7 @@
         <div class="bullet"><span class="dot">◾</span><span>이 자본력과 자신감을 바탕으로, 알파벳은 AI 쪽에 돈을 쏟아붓는 중. 앤트로픽에 수십억불을 넣었고, 웨이모 <span class="sub">(자율주행)</span>에도 최근 160억불을 태웠음. CEO 순다르 피차이는 투자자 행사에서 "AI만큼 큰돈을 넣을 곳은 역사상 없었다"라고 직접 말했는데, 그 말을 뒷받침할 실탄이 SpaceX 지분에서 나오는 구조. 로켓은 안 만들었지만 로켓 지분으로 AI 전쟁 군자금을 마련한 셈</span></div>
         <div class="bullet"><span class="dot">◾</span><span>11년 전에 9억불 넣은 투자가 1,000억불이 됐다는 건, 수익률로 치면 110배 이상. 벤처 투자의 교과서에 실릴 만한 사례인데, 더 흥미로운 건 구글의 투자 팀 <span class="sub">(GV, CapitalG)</span>이 들고 있는 비상장 포트폴리오 중엔 아직도 비공개가 많음. SpaceX만 이 정도면, 스트라이프나 다른 비상장 유니콘에서 또 이런 숫자가 튀어나올 수 있음 — 알파벳의 진짜 가치를 아직 다 못 세고 있을 가능성</span></div>
       </div>
-      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
+      <div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/google.html">구글</a><span class="sep">·</span><a href="/wiki/spacex.html">스페이스X</a><span class="sep">·</span><a href="/wiki/anthropic.html">앤스로픽</a><span class="sep">·</span><a href="/wiki/stripe.html">스트라이프</a></div><div class="row"><span class="k">같은 흐름</span><a href="/newsletters/2026/0323.html#story-5">03-23 WarnerMount, 1,100억불짜리 도박</a><span class="sep">·</span><a href="/newsletters/2026/0323.html#story-2">03-23 베조스, 1,000억불짜리 &quot;공장+AI</a></div></div><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/trump.html">트럼프</a><span class="sep">·</span><a href="/wiki/fed.html">미국 연준</a><span class="sep">·</span><a href="/wiki/powell.html">제롬 파월</a><span class="sep">·</span><a href="/wiki/spacex.html">스페이스X</a><span class="sep">·</span><a href="/wiki/polymarket.html">폴리마켓</a></div></div><p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
     </div>
 
     <!-- STORY 3 -->
@@ -651,7 +664,7 @@
         <div class="bullet"><span class="dot">◾</span><span>더 무서운 건 "대체 전환" 조항. 최근 10거래일 최저가의 93%에 전환할 수 있음. 주가가 3불로 빠졌다가 4불로 튀면, 2.79불에 주식 받아서 4불에 팔면 됨. 월가에서 "데스 스파이럴 컨버터블"이라 부르는 구조. 주가가 올라도 돈 벌고, 떨어져도 돈 벌고, 기존 주주만 희석당하는 판. 이 투자자가 진짜 GPU 사업에 베팅하는 게 아니라, AI 키워드에 달려드는 시장 심리에 베팅하는 것</span></div>
         <div class="bullet"><span class="dot">◾</span><span>사실 이 플레이북은 간단함. 거의 망한 상장사 10개 골라서, 각각 500만불씩 넣고 AI 전환 발표시키면 됨. 하나만 터져도 500만불이 3억불이 되니까 나머지 9개 날려도 본전 이상. 2017년에 아이스티 회사가 "Long Blockchain"으로 이름 바꾸고 380% 뛰었다가 상장폐지 + SEC 기소당한 것과 판박이. 그때는 블록체인, 지금은 AI — 키워드만 바뀌었을 뿐 구조는 똑같음</span></div>
       </div>
-      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
+      <div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/sec.html">미국 SEC</a></div></div><p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
     </div>
 
     <!-- STORY 4 -->

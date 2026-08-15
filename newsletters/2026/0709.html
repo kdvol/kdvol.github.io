@@ -398,6 +398,17 @@
 <meta name="twitter:title" content="🐟 앞광고를 절대로 찾아보지마! — 순살브리핑 2026.07.09"/>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "NewsArticle", "headline": "앞광고를 절대로 찾아보지마! — 순살브리핑 2026.07.09", "datePublished": "2026-07-09T09:00:00+09:00", "dateModified": "2026-07-09T09:00:00+09:00", "inLanguage": "ko", "mainEntityOfPage": "https://soonsal.com/newsletters/2026/0709.html", "author": {"@type": "Organization", "name": "순살브리핑", "url": "https://soonsal.com/"}, "publisher": {"@type": "Organization", "name": "순살브리핑", "logo": {"@type": "ImageObject", "url": "https://soonsal.com/apple-touch-icon.png"}}, "keywords": "BlueOrigin100억불베조스첫외부투자, PE9년밀린재고SaaSpocalypse, 엔비디아시총1조불증발, SK하이닉스미국상장280억불초과청약, Meta4개주1.4조불소송"}</script>
 <!-- soonsal:bc --><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "순살브리핑", "item": "https://soonsal.com/"}, {"@type": "ListItem", "position": 2, "name": "브리핑", "item": "https://soonsal.com/newsletters/"}, {"@type": "ListItem", "position": 3, "name": "🐟 앞광고를 절대로 찾아보지마! — 순살브리핑 2026.07.09", "item": "https://soonsal.com/newsletters/2026/0709.html"}]}</script>
+
+<style id="soonsal-story-links">
+/* 스토리 끝 — 다 읽은 사람만 본다. 본문 흐름을 끊지 않는다 */
+.story-links{margin:14px 0 0;padding:11px 0 0;border-top:1px solid #ece8e0;
+font-size:11.5px;line-height:1.8;color:#9a958a;word-break:keep-all}
+.story-links .k{color:#b5b0a4;margin-right:5px}
+.story-links a{color:#8a857c;text-decoration:none;border-bottom:1px solid #e6e1d8}
+.story-links a:hover{color:#C24A00;border-bottom-color:#C24A00}
+.story-links .sep{opacity:.4;margin:0 4px}
+.story-links .row + .row{margin-top:3px}
+</style>
 </head>
 <body>
 <div id="soonsal-live-ticker" style="display:none;"></div>
@@ -441,6 +452,8 @@
 <script>
 (function(){'use strict';var WORKER_URL='https://soonsal-data.kd-d0a.workers.dev/';var COINGECKO_URL='https://api.coingecko.com/api/v3';var TRADFI_ORDER=['S&P 500','NASDAQ','Dow Jones','KOSPI','US 10Y','WTI Oil','Gold','DXY','EUR/USD','USD/JPY','USD/KRW'];var CRYPTO_ORDER=['Bitcoin','Ethereum','Solana','XRP','BNB','Crypto Total'];var CRYPTO_IDS={'Bitcoin':'bitcoin','Ethereum':'ethereum','Solana':'solana','XRP':'ripple','BNB':'binancecoin'};var REFRESH=60000;var container,timer,lastTradfi,lastCrypto;function init(){container=document.getElementById('soonsal-live-ticker');if(!container)return;container.style.display='block';container.innerHTML='<div class="stk-loading"><div class="stk-spin"></div>Loading market data...</div>';fetchAll();timer=setInterval(fetchAll,REFRESH)}function fetchAll(){var p1=fetchTradFi();var p2=fetchCrypto();Promise.allSettled?Promise.allSettled([p1,p2]).then(render):Promise.all([p1.catch(function(){return null}),p2.catch(function(){return null})]).then(render)}function fetchTradFi(){return fetch(WORKER_URL).then(function(r){return r.json()}).then(function(data){if(data.tradfi)lastTradfi=data;return data}).catch(function(e){console.warn('[Ticker] TradFi error:',e.message);return null})}function fetchCrypto(){var ids=Object.values(CRYPTO_IDS).join(',');var url=COINGECKO_URL+'/simple/price?ids='+ids+'&vs_currencies=usd&include_24hr_change=true&include_market_cap=true';var globalUrl=COINGECKO_URL+'/global';return Promise.all([fetch(url).then(function(r){return r.json()}),fetch(globalUrl).then(function(r){return r.json()}).catch(function(){return null})]).then(function(results){var prices=results[0];var global=results[1];var crypto={};for(var name in CRYPTO_IDS){var id=CRYPTO_IDS[name];var d=prices[id];if(!d)continue;var p=d.usd;var ch=d.usd_24h_change||0;crypto[name]={price:'$'+formatNum(p),change:(ch>=0?'+':'')+ch.toFixed(2)+'%',direction:ch>0.01?'up':ch<-0.01?'down':'zero'}}if(global&&global.data){var mc=global.data.total_market_cap&&global.data.total_market_cap.usd;var mch=global.data.market_cap_change_percentage_24h_usd;if(mc){crypto['Crypto Total']={price:'$'+(mc/1e12).toFixed(2)+'T',change:(mch>=0?'+':'')+(mch||0).toFixed(2)+'%',direction:mch>0?'up':mch<0?'down':'zero'}}}lastCrypto=crypto;return crypto}).catch(function(e){console.warn('[Ticker] Crypto error:',e.message);return null})}function render(){var tradfi=lastTradfi?lastTradfi.tradfi:{};var crypto=lastCrypto||{};var kst=lastTradfi?lastTradfi.kst:new Date().toLocaleString('ko-KR',{timeZone:'Asia/Seoul'});var html=[];html.push('<div class="stk-ts"><span class="stk-dot"></span><span class="stk-time">'+esc(kst)+' KST</span></div>');for(var i=0;i<TRADFI_ORDER.length;i++){var name=TRADFI_ORDER[i];var d=tradfi[name];if(d)html.push(makeItem(name,d,false))}html.push('<div class="stk-div"><span></span></div>');for(var j=0;j<CRYPTO_ORDER.length;j++){var cname=CRYPTO_ORDER[j];var cd=crypto[cname];if(cd)html.push(makeItem(cname,cd,true))}var track=html.join('');container.innerHTML='<div class="stk-track">'+track+track+'</div>'}function makeItem(name,d,isCrypto){var dir=d.direction||'zero';var arrow=dir==='up'?'<span class="au"></span>':dir==='down'?'<span class="ad"></span>':'';return'<div class="stk-item"><span class="stk-lbl'+(isCrypto?' crypto':'')+'">'+esc(name)+'</span><span class="stk-prc">'+esc(d.price)+'</span><span class="stk-chg '+dir+'">'+arrow+' '+esc(d.change)+'</span></div>'}function formatNum(n){if(n>=10000)return n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});if(n>=100)return n.toFixed(2);if(n>=1)return n.toFixed(2);return n.toFixed(4)}function esc(s){if(!s)return'';var d=document.createElement('span');d.textContent=String(s);return d.innerHTML}if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',init)}else{init()}})();
 </script>
+
+
 
 
 
@@ -612,7 +625,7 @@
         <div class="bullet"><span class="dot">◾</span><span>재밌는 건 Coatue와 베조스의 관계. 베조스의 패밀리 오피스가 Coatue의 신기술 펀드 <span class="sub">(Innovative Strategies Fund)</span>의 대형 쩐주임. 즉, 베조스가 투자한 펀드가 다시 베조스 회사에 투자하는 순환 구조. Coatue는 SpaceX에도 투자한 곳이라, 우주 산업 양대 기업에 모두 돈이 걸린 셈. 서로의 이해관계가 맞물리는 딜. 전략적으로 펀드들에 LP로 돈 뿌려놓는 건 투자업계에서는 사실 흔한 일</span></div>
         <div class="bullet"><span class="dot">◾</span><span>올해 Blue Origin 예상 지출만 약 50억불. 이 속도면 베조스가 아마존 주식을 더 팔아야 하는데, 외부 투자가 들어오면 그 압박에서 벗어남. NASA 달 착륙선 계약 <span class="sub">(34억불)</span>, 아마존 위성 발사 물량, 우주군 국가안보 임무까지 앞으로 쓸 돈이 더 많은 구조. 베조스는 2024년에 "Blue Origin이 언젠가 아마존보다 가치가 클 수 있다"고 공언한 적도 있음 <span class="note">(일단 SpaceX는 아마존 시총과 비슷한 체급)</span></span></div>
       </div>
-      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
+      <div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/bezos.html">제프 베조스</a><span class="sep">·</span><a href="/wiki/blue-origin.html">블루오리진</a><span class="sep">·</span><a href="/wiki/amazon.html">아마존</a><span class="sep">·</span><a href="/wiki/spacex.html">스페이스X</a></div></div><p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
     </div>
 
 <!-- STORY 2 (광고주 모집) -->
@@ -639,7 +652,7 @@
         <div class="bullet"><span class="dot">◾</span><span>이 와중에 중국도 변수. 베이징이 알리바바·바이트댄스 등에 엔비디아 H200 칩 제한적 구매를 허용하는 방안을 검토 중이라는 보도. 수출 통제를 완화하면 엔비디아 매출에는 호재. But, 동시에 DeepSeek이 자체 AI 추론 칩을 개발한다는 소식도 나옴. 장기적으로 고객이 자체 칩으로 갈아타면 97% 점유율도 흔들리는 구조 <span class="sub">(OpenAI도 추론 칩 Jalapeno를 막 공개한 판)</span></span></div>
         <div class="bullet"><span class="dot">◾</span><span>필라델피아 반도체지수 <span class="sub">(SOX)</span>는 올해 +71%인데, 엔비디아 주가는 +8%에 그침 — S&P 500 <span class="sub">(+9%)</span>과 비슷한 수준. 반도체 업종 전체는 달리는데 대장주만 쳐지는 전형적인 "쏠림 되돌림" 패턴. 작년까지 사실상 독식하며 말아올린 주가가 2026년엔 업종 전체로 퍼지는 중. 일단 월가 애널리스트 36명 중 35명이 여전히 매수 의견인 상황</span></div>
       </div>
-      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
+      <div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/nvidia.html">엔비디아</a><span class="sep">·</span><a href="/wiki/sp500.html">S&amp;P 500</a><span class="sep">·</span><a href="/wiki/micron.html">마이크론</a><span class="sep">·</span><a href="/wiki/amd.html">AMD</a><span class="sep">·</span><a href="/wiki/alibaba.html">알리바바</a></div><div class="row"><span class="k">같은 흐름</span><a href="/newsletters/2026/0227.html#story-6">02-27 엔비디아, 시장 기대 다 때려잡았는데 주가는 -</a><span class="sep">·</span><a href="/newsletters/2026/0410.html#story-3">04-10 아마존 CEO, 엔비디아에 선전 포고</a></div></div><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/fidelity.html">피델리티</a><span class="sep">·</span><a href="/wiki/blackrock.html">블랙록</a><span class="sep">·</span><a href="/wiki/jpmorgan.html">JP모건</a><span class="sep">·</span><a href="/wiki/goldman.html">골드만삭스</a><span class="sep">·</span><a href="/wiki/stripe.html">스트라이프</a></div></div><p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
     </div>
 
 <!-- STORY 4 -->
@@ -653,7 +666,7 @@
         <div class="bullet"><span class="dot">◾</span><span>예측시장은 군중의 지혜로 진실을 찾는 도구로 홍보됨. But, 구조를 뒤집어 보면 정반대. 베팅 수익이 현실 조작 비용보다 크기만 하면, 진실을 찾는 것보다 현실을 바꿔버리는 게 합리적인 선택이 되는 구조. 주식시장에서도 가격 조작은 있었지만, <strong>예측시장은 조작 대상을 금융시장에서 '현실 전체'로 넓혀버린 셈</strong>. Spotify 차트, 파리 기온, 전쟁 지도, 기자회견 발언까지 돈이 걸리는 순간 뭐든 조작 대상. Spotify 입장에선 봇 탐지에 돈을 더 쓰게 생겼는데, 원인 제공자인 예측시장 플랫폼을 상대로 법적 책임을 물을 프레임워크가 아직 없음</span></div>
         <div class="bullet"><span class="dot">◾</span><span>Spotify는 Kalshi·Polymarket 양쪽에 로고 제거를 요구하고 차트 공개 전 추가 검증 절차를 예고. 의회에서도 정부 행위·전쟁·테러 관련 베팅을 금지하는 BETS OFF Act 등 규제 법안이 쏟아지는 중. But, Kalshi 음악 시장 거래량은 2025년 전체 7,000만불에서 2026년 4개월 만에 4억불로 폭증. 시장이 커질수록 조작 인센티브도 커지는 상황 <span class="note">(truth machine이라더니)</span></span></div>
       </div>
-      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
+      <div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/kalshi.html">칼시(Kalshi)</a><span class="sep">·</span><a href="/wiki/cftc.html">미국 CFTC</a><span class="sep">·</span><a href="/wiki/polymarket.html">폴리마켓</a></div><div class="row"><span class="k">같은 흐름</span><a href="/newsletters/2026/0625-crypto.html#story-3">06-25 메타, 예측시장 앱 만든다</a><span class="sep">·</span><a href="/newsletters/2026/0313-crypto.html#story-4">03-13 크립토 거래소, 예측시장으로 뛰어드는 이유</a></div></div><p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
     </div>
 
 <!-- STORY 5 -->

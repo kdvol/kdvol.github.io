@@ -399,6 +399,17 @@
 <meta name="twitter:title" content="💥 실패에 베팅한 결과 — 순살브리핑 2026.07.15"/>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "NewsArticle", "headline": "실패에 베팅한 결과 — 순살브리핑 2026.07.15", "datePublished": "2026-07-15T09:00:00+09:00", "dateModified": "2026-07-15T09:00:00+09:00", "inLanguage": "ko", "mainEntityOfPage": "https://soonsal.com/newsletters/2026/0715.html", "author": {"@type": "Organization", "name": "순살브리핑", "url": "https://soonsal.com/"}, "publisher": {"@type": "Organization", "name": "순살브리핑", "logo": {"@type": "ImageObject", "url": "https://soonsal.com/apple-touch-icon.png"}}, "keywords": "IBM역대최대폭락매출미스, 골드만역대최고분기은행어닝, 트럼프호르무즈통행료번복, 6월CPI물가하락연준, 패러마운트WBD반독점소송", "image": ["https://soonsal.com/cardnews/2026/0715_png/card_01.png"]}</script>
 <!-- soonsal:bc --><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "순살브리핑", "item": "https://soonsal.com/"}, {"@type": "ListItem", "position": 2, "name": "브리핑", "item": "https://soonsal.com/newsletters/"}, {"@type": "ListItem", "position": 3, "name": "💥 실패에 베팅한 결과 — 순살브리핑 2026.07.15", "item": "https://soonsal.com/newsletters/2026/0715.html"}]}</script>
+
+<style id="soonsal-story-links">
+/* 스토리 끝 — 다 읽은 사람만 본다. 본문 흐름을 끊지 않는다 */
+.story-links{margin:14px 0 0;padding:11px 0 0;border-top:1px solid #ece8e0;
+font-size:11.5px;line-height:1.8;color:#9a958a;word-break:keep-all}
+.story-links .k{color:#b5b0a4;margin-right:5px}
+.story-links a{color:#8a857c;text-decoration:none;border-bottom:1px solid #e6e1d8}
+.story-links a:hover{color:#C24A00;border-bottom-color:#C24A00}
+.story-links .sep{opacity:.4;margin:0 4px}
+.story-links .row + .row{margin-top:3px}
+</style>
 </head>
 <body>
 <div id="soonsal-live-ticker" style="display:none;"></div>
@@ -442,6 +453,8 @@
 <script>
 (function(){'use strict';var WORKER_URL='https://soonsal-data.kd-d0a.workers.dev/';var COINGECKO_URL='https://api.coingecko.com/api/v3';var TRADFI_ORDER=['S&P 500','NASDAQ','Dow Jones','KOSPI','US 10Y','WTI Oil','Gold','DXY','EUR/USD','USD/JPY','USD/KRW'];var CRYPTO_ORDER=['Bitcoin','Ethereum','Solana','XRP','BNB','Crypto Total'];var CRYPTO_IDS={'Bitcoin':'bitcoin','Ethereum':'ethereum','Solana':'solana','XRP':'ripple','BNB':'binancecoin'};var REFRESH=60000;var container,timer,lastTradfi,lastCrypto;function init(){container=document.getElementById('soonsal-live-ticker');if(!container)return;container.style.display='block';container.innerHTML='<div class="stk-loading"><div class="stk-spin"></div>Loading market data...</div>';fetchAll();timer=setInterval(fetchAll,REFRESH)}function fetchAll(){var p1=fetchTradFi();var p2=fetchCrypto();Promise.allSettled?Promise.allSettled([p1,p2]).then(render):Promise.all([p1.catch(function(){return null}),p2.catch(function(){return null})]).then(render)}function fetchTradFi(){return fetch(WORKER_URL).then(function(r){return r.json()}).then(function(data){if(data.tradfi)lastTradfi=data;return data}).catch(function(e){console.warn('[Ticker] TradFi error:',e.message);return null})}function fetchCrypto(){var ids=Object.values(CRYPTO_IDS).join(',');var url=COINGECKO_URL+'/simple/price?ids='+ids+'&vs_currencies=usd&include_24hr_change=true&include_market_cap=true';var globalUrl=COINGECKO_URL+'/global';return Promise.all([fetch(url).then(function(r){return r.json()}),fetch(globalUrl).then(function(r){return r.json()}).catch(function(){return null})]).then(function(results){var prices=results[0];var global=results[1];var crypto={};for(var name in CRYPTO_IDS){var id=CRYPTO_IDS[name];var d=prices[id];if(!d)continue;var p=d.usd;var ch=d.usd_24h_change||0;crypto[name]={price:'$'+formatNum(p),change:(ch>=0?'+':'')+ch.toFixed(2)+'%',direction:ch>0.01?'up':ch<-0.01?'down':'zero'}}if(global&&global.data){var mc=global.data.total_market_cap&&global.data.total_market_cap.usd;var mch=global.data.market_cap_change_percentage_24h_usd;if(mc){crypto['Crypto Total']={price:'$'+(mc/1e12).toFixed(2)+'T',change:(mch>=0?'+':'')+(mch||0).toFixed(2)+'%',direction:mch>0?'up':mch<0?'down':'zero'}}}lastCrypto=crypto;return crypto}).catch(function(e){console.warn('[Ticker] Crypto error:',e.message);return null})}function render(){var tradfi=lastTradfi?lastTradfi.tradfi:{};var crypto=lastCrypto||{};var kst=lastTradfi?lastTradfi.kst:new Date().toLocaleString('ko-KR',{timeZone:'Asia/Seoul'});var html=[];html.push('<div class="stk-ts"><span class="stk-dot"></span><span class="stk-time">'+esc(kst)+' KST</span></div>');for(var i=0;i<TRADFI_ORDER.length;i++){var name=TRADFI_ORDER[i];var d=tradfi[name];if(d)html.push(makeItem(name,d,false))}html.push('<div class="stk-div"><span></span></div>');for(var j=0;j<CRYPTO_ORDER.length;j++){var cname=CRYPTO_ORDER[j];var cd=crypto[cname];if(cd)html.push(makeItem(cname,cd,true))}var track=html.join('');container.innerHTML='<div class="stk-track">'+track+track+'</div>'}function makeItem(name,d,isCrypto){var dir=d.direction||'zero';var arrow=dir==='up'?'<span class="au"></span>':dir==='down'?'<span class="ad"></span>':'';return'<div class="stk-item"><span class="stk-lbl'+(isCrypto?' crypto':'')+'">'+esc(name)+'</span><span class="stk-prc">'+esc(d.price)+'</span><span class="stk-chg '+dir+'">'+arrow+' '+esc(d.change)+'</span></div>'}function formatNum(n){if(n>=10000)return n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});if(n>=100)return n.toFixed(2);if(n>=1)return n.toFixed(2);return n.toFixed(4)}function esc(s){if(!s)return'';var d=document.createElement('span');d.textContent=String(s);return d.innerHTML}if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',init)}else{init()}})();
 </script>
+
+
 
 
 
@@ -618,7 +631,7 @@
         <div class="bullet"><span class="dot">◾</span><span>투자은행 수수료도 같이 살아남. 골드만 IB 수수료는 전년 대비 +55%, 특히 IPO <span class="sub">(주식 신규 발행 도와줌)</span> 실적이 +130%로 폭발. 가장 큰 건은 6월 SpaceX IPO <span class="sub">(857억불; 사상 최대 규모 IPO)</span>, 골드만·모건스탠리가 주관사로 수수료를 두둑이 챙김. 이 한 건으로 5개 은행 거의 전부가 콩고물을 나눠 먹음. M&A 시장도 확실히 돌아오는 분위기</span></div>
         <div class="bullet"><span class="dot">◾</span><span>다만 이 실적이 "경기가 좋다"는 뜻은 아님. 은행들이 이만큼 번 건 시장이 안정적이어서가 아니라 불안했기 때문. 같은 날 첫 의회 증언에 나선 신임 연준의장 워시는 "인플레 높은건 용납 안 한다"며 못을 박았고, 유가가 다시 뛰면서 인플레 재점화 우려도 살아남. 수요일엔 모건스탠리·블랙록·ASML, 목요일엔 TSMC·넷플릭스가 실적발표 대기 중 — 은행만 좋았던 건지, 시장 전체가 괜찮은 건지 확인할 차례</span></div>
       </div>
-      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
+      <div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/goldman.html">골드만삭스</a><span class="sep">·</span><a href="/wiki/jpmorgan.html">JP모건</a><span class="sep">·</span><a href="/wiki/oil.html">원유</a><span class="sep">·</span><a href="/wiki/spacex.html">스페이스X</a><span class="sep">·</span><a href="/wiki/morgan-stanley.html">모건스탠리</a></div><div class="row"><span class="k">같은 흐름</span><a href="/newsletters/2026/0624-crypto.html#story-5">06-24 Q2, 역대 최다 해킹 분기</a></div></div><p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
     </div>
 
 <!-- STORY 2 -->
@@ -632,7 +645,7 @@
         <div class="bullet"><span class="dot">◾</span><span>흥미로운 건, IBM을 무너뜨린 그 흐름이 AI 산업엔 오히려 초호황 신호라는 것. 기업들이 하드웨어에 돈을 쏟을수록 엔비디아 같은 칩·서버 진영은 수요가 넘치니, AI 인프라가 식기는커녕 과열이라는 얘기. 결국 같은 붐 덕분에 하드웨어 쪽은 신나고, 소프트웨어로 비전 팔던 IBM은 우는 셈 <span class="note">(IBM이 흘린 만큼 엔비디아가 줍는 구조)</span>. 같은 테크 안에서도 승자·패자가 갈리기 시작했고, IBM이 대형 패자로 찍힌 것</span></div>
         <div class="bullet"><span class="dot">◾</span><span>정식 실적은 7월 22일. 근데 IBM이 흔들리자 같은 소프트웨어 안에서도 반응이 둘로 갈렸음 — 크리슈나가 "고객들이 사이버보안 걱정에 정신 팔렸다"고 짚자 크라우드스트라이크·옥타 <span class="sub">(보안주)</span> 11%씩 폭등, 반대로 서비스나우·오라클·MS 같은 전통 소프트웨어는 나란히 하락. 소프트웨어 지수 <span class="sub">(IGV)</span>마저 보안주 힘으로 되레 상승. 시장은 "소프트웨어 전체"가 아니라 "보안은 필수, 나머지는 뒷전"으로 선을 그은 걸로 해석</span></div>
       </div>
-      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
+      <div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/ibm.html">IBM</a><span class="sep">·</span><a href="/wiki/samsung.html">삼성전자</a><span class="sep">·</span><a href="/wiki/sk-hynix.html">SK하이닉스</a><span class="sep">·</span><a href="/wiki/micron.html">마이크론</a><span class="sep">·</span><a href="/wiki/anthropic.html">앤스로픽</a></div><div class="row"><span class="k">같은 흐름</span><a href="/newsletters/2026/0707.html#story-3">07-07 Xbox 25년 역사상 최대 칼질</a></div></div><p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
     </div>
 
 <!-- STORY 3 -->
@@ -646,7 +659,7 @@
         <div class="bullet"><span class="dot">◾</span><span>그렇다고 쉬인이 무너지는 중은 아님. 값을 올리고 비용을 깎아 2025년 순이익 목표를 20억불로 올려 잡았는데, 트래픽이 빠지는 와중에 마진으로 버티는 그림. 작년 11월엔 프랑스에서 아동 형상 성인용품이 마켓플레이스에 올라와 사이트 차단 위기까지 갔었음. 베이징이 도장을 1년이나 묵힌 것도 이것 때문이라는 이야기. 근데 정작 파리 법원은 두 번 다 쉬인 손을 들어줬고, 남은 건 소매업계 12곳의 소송과 형사 수사</span></div>
         <div class="bullet"><span class="dot">◾</span><span>정작 홍콩은 쉬인이 없어도 아쉬울 게 없는 상황. 작년에 글로벌 IPO 조달액 1위를 되찾았고, 올 상반기에도 270억불을 빨아들이며 작년 같은 기간보다 92% 뜀. 상장 대기 후보만 420곳. 올해 최대 딜은 아이폰 조립사 럭스쉐어의 31억불, 쉬인의 30억불은 1등도 장담 못 함. 본토 기업들이 해외 돈을 구하러 홍콩으로 몰려든 결과인데, 중국 색을 지우는 데 3년을 쓴 회사가 그 줄에 끼어 8월을 기다리는 중</span></div>
       </div>
-      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
+      <div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/softbank.html">소프트뱅크</a></div></div><p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
     </div>
 
 <!-- STORY 4 -->

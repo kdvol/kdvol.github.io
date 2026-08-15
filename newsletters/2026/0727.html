@@ -398,6 +398,17 @@
 <meta name="twitter:title" content="🃏 포켓몬 카드에 긁힌 일본 정부 — 순살브리핑 2026.07.27"/>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "NewsArticle", "headline": "포켓몬 카드에 긁힌 일본 정부 — 순살브리핑 2026.07.27", "datePublished": "2026-07-27T09:00:00+09:00", "dateModified": "2026-07-27T09:00:00+09:00", "inLanguage": "ko", "mainEntityOfPage": "https://soonsal.com/newsletters/2026/0727.html", "author": {"@type": "Organization", "name": "순살브리핑", "url": "https://soonsal.com/"}, "publisher": {"@type": "Organization", "name": "순살브리핑", "logo": {"@type": "ImageObject", "url": "https://soonsal.com/apple-touch-icon.png"}}, "keywords": "CXMT상하이STAR상장역대최대IPO86억불, 알파벳스페이스X지분940억불평가이익990억불, AMC팝콘통1억불매출, 일본자민당트레이딩카드의원연맹출범, 글로벌국채금리3.68%2008년이후최고"}</script>
 <!-- soonsal:bc --><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "순살브리핑", "item": "https://soonsal.com/"}, {"@type": "ListItem", "position": 2, "name": "브리핑", "item": "https://soonsal.com/newsletters/"}, {"@type": "ListItem", "position": 3, "name": "🃏 포켓몬 카드에 긁힌 일본 정부 — 순살브리핑 2026.07.27", "item": "https://soonsal.com/newsletters/2026/0727.html"}]}</script>
+
+<style id="soonsal-story-links">
+/* 스토리 끝 — 다 읽은 사람만 본다. 본문 흐름을 끊지 않는다 */
+.story-links{margin:14px 0 0;padding:11px 0 0;border-top:1px solid #ece8e0;
+font-size:11.5px;line-height:1.8;color:#9a958a;word-break:keep-all}
+.story-links .k{color:#b5b0a4;margin-right:5px}
+.story-links a{color:#8a857c;text-decoration:none;border-bottom:1px solid #e6e1d8}
+.story-links a:hover{color:#C24A00;border-bottom-color:#C24A00}
+.story-links .sep{opacity:.4;margin:0 4px}
+.story-links .row + .row{margin-top:3px}
+</style>
 </head>
 <body>
 <div id="soonsal-live-ticker" style="display:none;"></div>
@@ -441,6 +452,8 @@
 <script>
 (function(){'use strict';var WORKER_URL='https://soonsal-data.kd-d0a.workers.dev/';var COINGECKO_URL='https://api.coingecko.com/api/v3';var TRADFI_ORDER=['S&P 500','NASDAQ','Dow Jones','KOSPI','US 10Y','WTI Oil','Gold','DXY','EUR/USD','USD/JPY','USD/KRW'];var CRYPTO_ORDER=['Bitcoin','Ethereum','Solana','XRP','BNB','Crypto Total'];var CRYPTO_IDS={'Bitcoin':'bitcoin','Ethereum':'ethereum','Solana':'solana','XRP':'ripple','BNB':'binancecoin'};var REFRESH=60000;var container,timer,lastTradfi,lastCrypto;function init(){container=document.getElementById('soonsal-live-ticker');if(!container)return;container.style.display='block';container.innerHTML='<div class="stk-loading"><div class="stk-spin"></div>Loading market data...</div>';fetchAll();timer=setInterval(fetchAll,REFRESH)}function fetchAll(){var p1=fetchTradFi();var p2=fetchCrypto();Promise.allSettled?Promise.allSettled([p1,p2]).then(render):Promise.all([p1.catch(function(){return null}),p2.catch(function(){return null})]).then(render)}function fetchTradFi(){return fetch(WORKER_URL).then(function(r){return r.json()}).then(function(data){if(data.tradfi)lastTradfi=data;return data}).catch(function(e){console.warn('[Ticker] TradFi error:',e.message);return null})}function fetchCrypto(){var ids=Object.values(CRYPTO_IDS).join(',');var url=COINGECKO_URL+'/simple/price?ids='+ids+'&vs_currencies=usd&include_24hr_change=true&include_market_cap=true';var globalUrl=COINGECKO_URL+'/global';return Promise.all([fetch(url).then(function(r){return r.json()}),fetch(globalUrl).then(function(r){return r.json()}).catch(function(){return null})]).then(function(results){var prices=results[0];var global=results[1];var crypto={};for(var name in CRYPTO_IDS){var id=CRYPTO_IDS[name];var d=prices[id];if(!d)continue;var p=d.usd;var ch=d.usd_24h_change||0;crypto[name]={price:'$'+formatNum(p),change:(ch>=0?'+':'')+ch.toFixed(2)+'%',direction:ch>0.01?'up':ch<-0.01?'down':'zero'}}if(global&&global.data){var mc=global.data.total_market_cap&&global.data.total_market_cap.usd;var mch=global.data.market_cap_change_percentage_24h_usd;if(mc){crypto['Crypto Total']={price:'$'+(mc/1e12).toFixed(2)+'T',change:(mch>=0?'+':'')+(mch||0).toFixed(2)+'%',direction:mch>0?'up':mch<0?'down':'zero'}}}lastCrypto=crypto;return crypto}).catch(function(e){console.warn('[Ticker] Crypto error:',e.message);return null})}function render(){var tradfi=lastTradfi?lastTradfi.tradfi:{};var crypto=lastCrypto||{};var kst=lastTradfi?lastTradfi.kst:new Date().toLocaleString('ko-KR',{timeZone:'Asia/Seoul'});var html=[];html.push('<div class="stk-ts"><span class="stk-dot"></span><span class="stk-time">'+esc(kst)+' KST</span></div>');for(var i=0;i<TRADFI_ORDER.length;i++){var name=TRADFI_ORDER[i];var d=tradfi[name];if(d)html.push(makeItem(name,d,false))}html.push('<div class="stk-div"><span></span></div>');for(var j=0;j<CRYPTO_ORDER.length;j++){var cname=CRYPTO_ORDER[j];var cd=crypto[cname];if(cd)html.push(makeItem(cname,cd,true))}var track=html.join('');container.innerHTML='<div class="stk-track">'+track+track+'</div>'}function makeItem(name,d,isCrypto){var dir=d.direction||'zero';var arrow=dir==='up'?'<span class="au"></span>':dir==='down'?'<span class="ad"></span>':'';return'<div class="stk-item"><span class="stk-lbl'+(isCrypto?' crypto':'')+'">'+esc(name)+'</span><span class="stk-prc">'+esc(d.price)+'</span><span class="stk-chg '+dir+'">'+arrow+' '+esc(d.change)+'</span></div>'}function formatNum(n){if(n>=10000)return n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});if(n>=100)return n.toFixed(2);if(n>=1)return n.toFixed(2);return n.toFixed(4)}function esc(s){if(!s)return'';var d=document.createElement('span');d.textContent=String(s);return d.innerHTML}if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',init)}else{init()}})();
 </script>
+
+
 
 
 
@@ -613,7 +626,7 @@
         <div class="bullet"><span class="dot">◾</span><span>체급은 아직 다름. 1분기 세계 D램 점유율이 CXMT 7.6%, 삼성전자 38.6%, SK하이닉스 28.8%, 마이크론 22.4%. But 직전 분기 4.7%에서 한 분기 만에 뛴 수치고, 분기 매출도 직전 분기 25억불에서 올해 1분기 73억불로 세 배가 됨. 스마트폰·PC용 범용 D램이 주력이고, AI 서버에 들어가는 고대역폭 메모리 <span class="sub">(HBM)</span>는 아직 양산 판매를 못 하는 중. 한국과의 HBM 기술 격차는 3년 안팎으로 좁혀졌다는 게 업계 추정</span></div>
         <div class="bullet"><span class="dot">◾</span><span>발목을 잡는 건 장비. 미국 수출 통제로 최신 노광 장비를 못 사서 구형 장비로 두세 번 나눠 찍다 보니, 비트당 원가가 삼성·하이닉스·마이크론보다 30% 넘게 비싸다는 게 시장 추정. 그래서 첫날 주가보다 중요한 정보는, 조달한 86억불로 월 웨이퍼 생산능력을 얼마나 늘리겠다고 공시하는지 여부. STAR마켓은 첫 5거래일 가격 제한폭이 없어 위아래로 뚫릴 수 있고, SK하이닉스 실적 <span class="sub">(29일)</span>과 연준 회의 <span class="sub">(28~29일)</span>가 바로 뒤에 붙어 있음</span></div>
       </div>
-      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
+      <div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/kospi.html">코스피</a><span class="sep">·</span><a href="/wiki/samsung.html">삼성전자</a><span class="sep">·</span><a href="/wiki/sk-hynix.html">SK하이닉스</a><span class="sep">·</span><a href="/wiki/oil.html">원유</a><span class="sep">·</span><a href="/wiki/micron.html">마이크론</a></div></div><p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
     </div>
 
 <!-- STORY 2 -->
@@ -627,7 +640,7 @@
         <div class="bullet"><span class="dot">◾</span><span>시장이 이 횡재에 심드렁했던 이유는 같은 날 발표한 설비투자 계획 때문. 올해 설비투자 계획을 1,800~1,900억불에서 1,950~2,050억불로 올렸고, 분기 잉여현금흐름 <span class="sub">(번 돈에서 투자비를 뺀 것)</span>은 +101억불에서 -59억불로 뒤집혔음. 990억불짜리 평가이익보다 현금이 마이너스로 돌아섰다는 내용에 더 크게 긁혀서, 실적 발표 뒤 주가는 7%대로 빠짐 <span class="note">(당분간 밑 빠진 독)</span></span></div>
         <div class="bullet"><span class="dot">◾</span><span>스페이스X 주가는 6월 12일 공모가 $135로 상장해 나흘 만에 $225.64까지 갔다가 금요일 $115.07로 마감. 고점 대비 거의 반토막이고 공모가도 밑도는 중. 첫 분기 실적 발표는 8월 4일, 상장 때 걸어둔 첫 락업 해제는 이틀 뒤인 8월 6일. 평가이익을 만들어낸 회계 규칙은 주가가 빠지면 같은 크기의 평가손실도 그대로 꽂히기 때문에, 시장은 3분기 장부를 기다리는 중</span></div>
       </div>
-      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
+      <div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/spacex.html">스페이스X</a><span class="sep">·</span><a href="/wiki/anthropic.html">앤스로픽</a><span class="sep">·</span><a href="/wiki/nvidia.html">엔비디아</a></div></div><p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
     </div>
 
 <!-- STORY 3 -->
@@ -641,7 +654,7 @@
         <div class="bullet"><span class="dot">◾</span><span>이 사업이 커진 계기는 2024년에 터진 밈 하나. 듄 2편 모래벌레 모양 통이 생김새가 좀 그렇다고 SNS에서 폭발했는데, 정가 $24.99짜리가 매진되고 재판매 호가는 $40~100대, 일부는 $800까지 붙음. 이후 위키드 핑크·그린 통, 슈렉 25주년 화장실 모양 통이 줄줄이 나왔고, 8월 말 해리포터 재개봉엔 4피트짜리 빗자루 모양 통이 $50에 나옴 <span class="sub">(팝콘 135온스 들어감)</span></span></div>
         <div class="bullet"><span class="dot">◾</span><span>수집품 개념이다 보니 심지어 재판매 시장도 생겨나는 중. &lt;어카운턴트 2&gt; 통은 20개 묶음이 이베이에서 $550, 개당 $27.5에 팔린 사례도 있음. 극장 입장에선 재판매가가 어떻든 상관없는 게, 이미 정가에 팔아 매출을 잡았기 때문. 다만 1억불은 이익이 아니라 매출이고, AMC의 지난해 전체 매출 48억불대와 견주면 2% 남짓. 관객 없이도 돈 벌수 있는 구조를 어디까지 키울 수 있는지 시장이 주목 중</span></div>
       </div>
-      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
+      <div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/ebay.html">이베이</a></div></div><p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
     </div>
 
 <!-- STORY 4 -->
@@ -668,7 +681,7 @@
         <div class="bullet"><span class="dot">◾</span><span>미국 장기채 상품의 성적표가 이 흐름을 요약함. 20년 이상 미 국채에 투자하는 대표 ETF가 최근 한 달에만 5% 가까이 빠졌고, 2020년 고점 대비로는 반토막이 났음. 분배금을 꼬박꼬박 재투자해도 5년 성적이 -27%인데, 같은 기간 S&amp;P500은 +92%. 안전자산으로 분류되는 상품이 6년 동안 반토막인 셈 <span class="note">(그럼 이게 정말 안전 자산인가)</span></span></div>
         <div class="bullet"><span class="dot">◾</span><span>그래서 이번 주 연준 회의의 무게가 달라짐. 28~29일 회의에서 금리를 올릴 확률이 시장 기준 3분의 1까지 올라옴. 연초만 해도 인하를 기다리던 시장이 반년 만에 정반대로 돌아선 것. 현재 정책금리는 3.50~3.75%인데 연준 이사가 최근 연설에서 든 물가는 3.7%로 목표치 2%를 한참 웃도는 중. 새로 온 연준의장은 6월 회의에서 전망치 제출도 건너뛴 상태, 시장은 깜깜이 상태로 수요일 발표를 기다리는 중</span></div>
       </div>
-      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
+      <div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/oil.html">원유</a><span class="sep">·</span><a href="/wiki/tesla.html">테슬라</a><span class="sep">·</span><a href="/wiki/fed.html">미국 연준</a></div><div class="row"><span class="k">같은 흐름</span><a href="/newsletters/2026/0518.html#story-2">05-18 채권시장 대학살</a></div></div><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/oil.html">원유</a><span class="sep">·</span><a href="/wiki/tesla.html">테슬라</a><span class="sep">·</span><a href="/wiki/fed.html">미국 연준</a></div></div><p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
     </div>
 
 </div><!-- /content -->

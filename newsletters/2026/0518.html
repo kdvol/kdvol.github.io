@@ -399,6 +399,17 @@
 <meta name="twitter:title" content="🔥 대학살 — 순살브리핑 2026.05.18"/>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "NewsArticle", "headline": "대학살 — 순살브리핑 2026.05.18", "datePublished": "2026-05-18T09:00:00+09:00", "dateModified": "2026-05-18T09:00:00+09:00", "inLanguage": "ko", "mainEntityOfPage": "https://soonsal.com/newsletters/2026/0518.html", "author": {"@type": "Organization", "name": "순살브리핑", "url": "https://soonsal.com/"}, "publisher": {"@type": "Organization", "name": "순살브리핑", "logo": {"@type": "ImageObject", "url": "https://soonsal.com/apple-touch-icon.png"}}, "keywords": "코스피 8000 사상 최고 폭락 -6.12% 7493 삼성전자 SK하이닉스 외국인 매도 사이드카,  채권 셀오프 30년 국채 5.12% 10년 4.595% 글로벌 금리 급등 인플레이션 유가,  Warsh 연준의장 첫날 Powell 퇴장 금리인상 Miran 사퇴,  Cerebras IPO +68% -10% AI 하드웨어 950억불,  셀프스토리지 PSA 인수합병 1위"}</script>
 <!-- soonsal:bc --><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "순살브리핑", "item": "https://soonsal.com/"}, {"@type": "ListItem", "position": 2, "name": "브리핑", "item": "https://soonsal.com/newsletters/"}, {"@type": "ListItem", "position": 3, "name": "🔥 대학살 — 순살브리핑 2026.05.18", "item": "https://soonsal.com/newsletters/2026/0518.html"}]}</script>
+
+<style id="soonsal-story-links">
+/* 스토리 끝 — 다 읽은 사람만 본다. 본문 흐름을 끊지 않는다 */
+.story-links{margin:14px 0 0;padding:11px 0 0;border-top:1px solid #ece8e0;
+font-size:11.5px;line-height:1.8;color:#9a958a;word-break:keep-all}
+.story-links .k{color:#b5b0a4;margin-right:5px}
+.story-links a{color:#8a857c;text-decoration:none;border-bottom:1px solid #e6e1d8}
+.story-links a:hover{color:#C24A00;border-bottom-color:#C24A00}
+.story-links .sep{opacity:.4;margin:0 4px}
+.story-links .row + .row{margin-top:3px}
+</style>
 </head>
 <body>
 <div id="soonsal-live-ticker" style="display:none;"></div>
@@ -442,6 +453,8 @@
 <script>
 (function(){'use strict';var WORKER_URL='https://soonsal-data.kd-d0a.workers.dev/';var COINGECKO_URL='https://api.coingecko.com/api/v3';var TRADFI_ORDER=['S&P 500','NASDAQ','Dow Jones','KOSPI','US 10Y','WTI Oil','Gold','DXY','EUR/USD','USD/JPY','USD/KRW'];var CRYPTO_ORDER=['Bitcoin','Ethereum','Solana','XRP','BNB','Crypto Total'];var CRYPTO_IDS={'Bitcoin':'bitcoin','Ethereum':'ethereum','Solana':'solana','XRP':'ripple','BNB':'binancecoin'};var REFRESH=60000;var container,timer,lastTradfi,lastCrypto;function init(){container=document.getElementById('soonsal-live-ticker');if(!container)return;container.style.display='block';container.innerHTML='<div class="stk-loading"><div class="stk-spin"></div>Loading market data...</div>';fetchAll();timer=setInterval(fetchAll,REFRESH)}function fetchAll(){var p1=fetchTradFi();var p2=fetchCrypto();Promise.allSettled?Promise.allSettled([p1,p2]).then(render):Promise.all([p1.catch(function(){return null}),p2.catch(function(){return null})]).then(render)}function fetchTradFi(){return fetch(WORKER_URL).then(function(r){return r.json()}).then(function(data){if(data.tradfi)lastTradfi=data;return data}).catch(function(e){console.warn('[Ticker] TradFi error:',e.message);return null})}function fetchCrypto(){var ids=Object.values(CRYPTO_IDS).join(',');var url=COINGECKO_URL+'/simple/price?ids='+ids+'&vs_currencies=usd&include_24hr_change=true&include_market_cap=true';var globalUrl=COINGECKO_URL+'/global';return Promise.all([fetch(url).then(function(r){return r.json()}),fetch(globalUrl).then(function(r){return r.json()}).catch(function(){return null})]).then(function(results){var prices=results[0];var global=results[1];var crypto={};for(var name in CRYPTO_IDS){var id=CRYPTO_IDS[name];var d=prices[id];if(!d)continue;var p=d.usd;var ch=d.usd_24h_change||0;crypto[name]={price:'$'+formatNum(p),change:(ch>=0?'+':'')+ch.toFixed(2)+'%',direction:ch>0.01?'up':ch<-0.01?'down':'zero'}}if(global&&global.data){var mc=global.data.total_market_cap&&global.data.total_market_cap.usd;var mch=global.data.market_cap_change_percentage_24h_usd;if(mc){crypto['Crypto Total']={price:'$'+(mc/1e12).toFixed(2)+'T',change:(mch>=0?'+':'')+(mch||0).toFixed(2)+'%',direction:mch>0?'up':mch<0?'down':'zero'}}}lastCrypto=crypto;return crypto}).catch(function(e){console.warn('[Ticker] Crypto error:',e.message);return null})}function render(){var tradfi=lastTradfi?lastTradfi.tradfi:{};var crypto=lastCrypto||{};var kst=lastTradfi?lastTradfi.kst:new Date().toLocaleString('ko-KR',{timeZone:'Asia/Seoul'});var html=[];html.push('<div class="stk-ts"><span class="stk-dot"></span><span class="stk-time">'+esc(kst)+' KST</span></div>');for(var i=0;i<TRADFI_ORDER.length;i++){var name=TRADFI_ORDER[i];var d=tradfi[name];if(d)html.push(makeItem(name,d,false))}html.push('<div class="stk-div"><span></span></div>');for(var j=0;j<CRYPTO_ORDER.length;j++){var cname=CRYPTO_ORDER[j];var cd=crypto[cname];if(cd)html.push(makeItem(cname,cd,true))}var track=html.join('');container.innerHTML='<div class="stk-track">'+track+track+'</div>'}function makeItem(name,d,isCrypto){var dir=d.direction||'zero';var arrow=dir==='up'?'<span class="au"></span>':dir==='down'?'<span class="ad"></span>':'';return'<div class="stk-item"><span class="stk-lbl'+(isCrypto?' crypto':'')+'">'+esc(name)+'</span><span class="stk-prc">'+esc(d.price)+'</span><span class="stk-chg '+dir+'">'+arrow+' '+esc(d.change)+'</span></div>'}function formatNum(n){if(n>=10000)return n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});if(n>=100)return n.toFixed(2);if(n>=1)return n.toFixed(2);return n.toFixed(4)}function esc(s){if(!s)return'';var d=document.createElement('span');d.textContent=String(s);return d.innerHTML}if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',init)}else{init()}})();
 </script>
+
+
 
 
 
@@ -619,7 +632,7 @@
         <div class="bullet"><span class="dot">◾</span><span>삼성전자가 시총 1조불 클럽에 진입했고, SK하이닉스도 그 문턱에 와있었음. AI 메모리 확장 기대감에 주가가 올해만 3배+ 뛰었는데, 동시에 삼성전자 노조 41,000명이 5/21부터 18일간 파업을 예고한 상황. 칩 생산 차질 우려까지 겹치면서 외국인이 차익 실현에 나선 것</span></div>
         <div class="bullet"><span class="dot">◾</span><span>그래도 주간 기준으로 보면, 금요일 폭락에도 코스피는 +0.3%대 양봉 마감. 문제는 다음 주 — 엔비디아 실적 <span class="sub">(5/20)</span>이 AI 반도체 랠리의 다음 방향을 결정하는데, 코스피 반도체 비중이 역대 최고 수준인 상태라 엔비디아 숫자에 따라 또 한 번 크게 흔들릴 수 있는 상황</span></div>
       </div>
-      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
+      <div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/kospi.html">코스피</a><span class="sep">·</span><a href="/wiki/samsung.html">삼성전자</a><span class="sep">·</span><a href="/wiki/sk-hynix.html">SK하이닉스</a><span class="sep">·</span><a href="/wiki/lg-energy.html">LG에너지솔루션</a><span class="sep">·</span><a href="/wiki/oil.html">원유</a></div><div class="row"><span class="k">같은 흐름</span><a href="/newsletters/2026/0512.html#story-1">05-12 코스피 7800피, 반도체 외길 지수</a></div></div><p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
     </div>
 
     <!-- STORY 2: 채권 대학살 -->
@@ -633,7 +646,7 @@
         <div class="bullet"><span class="dot">◾</span><span>일단 시장에선 연말까지 금리 인상 확률이 50%를 넘김, 시장이 "연준의 손이 묶여있다"고 판단한 결과. 인플레 주범인 유가가 '전쟁발'이라 수요·공급 조절로 해결이 안 된다는 것. 연준이 금리를 올려봤자 이란전쟁을 멈출 수 없고, 금리를 내리면 에너지발 인플레를 더 키움. 이 와중에 여론에 직격인 여름휴가 시즌은 이제 곧 시작</span></div>
         <div class="bullet"><span class="dot">◾</span><span>1990년대 '채권 비질란테' <span class="sub">(Bond Vigilantes — 정부가 인플레를 방치하면 국채를 팔아 금리를 올려 "벌"을 주는 투자자들)</span>가 돌아왔다는 평가. 클린턴 시절 "경제를 지배하는 건 채권시장"이라는 말이 여기서 나왔는데, 지금도 채권시장이 연준보다 먼저 움직이는 중. 안전자산이라던 금도 -2.63% 폭락, 달러는 강세. 유가→인플레→금리→주식으로 이어지는 악순환 — 지금 시장은 딱히 안전한 곳이 없는 상황</span></div>
       </div>
-      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
+      <div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/sp500.html">S&amp;P 500</a><span class="sep">·</span><a href="/wiki/kospi.html">코스피</a><span class="sep">·</span><a href="/wiki/nvidia.html">엔비디아</a><span class="sep">·</span><a href="/wiki/intel.html">인텔</a><span class="sep">·</span><a href="/wiki/amd.html">AMD</a></div><div class="row"><span class="k">같은 흐름</span><a href="/newsletters/2026/0312.html#story-3">03-12 AI 크레딧 역전 — &quot;누가 AI에 당</a><span class="sep">·</span><a href="/newsletters/2026/0330.html#story-3">03-30 채권시장 쓰나미 — 30년물 5% 터치</a></div></div><p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
     </div>
 
     <!-- STORY 3: Warsh 연준의장 -->
@@ -660,7 +673,7 @@
         <div class="bullet"><span class="dot">◾</span><span>그래도 시장이 이 가격을 쳐준 건 올해 초 붙은 두 건의 계약 때문. OpenAI와 750MW 규모의 추론 인프라 계약을 맺었고, 2030년까지 추가 3GW 가까이 확대 가능한 옵션까지 붙은 구조. 총 규모 200억불 이상. AWS도 3월에 자사 데이터센터에 세레브라스를 직접 배치하는 조건으로 합류. <strong>"UAE 납품업체"에서 "AI 인프라 플레이어"로 내러티브가 바뀐 순간, 130배가 붙은 것</strong></span></div>
         <div class="bullet"><span class="dot">◾</span><span>다음 시험대는 이틀 뒤 수요일 엔비디아 실적 <span class="sub">(5/20)</span>. 엔비디아가 기대치를 넘기면 AI 반도체 전체 파이가 커지는 쪽으로 읽히고, 못 넘기면 매출 130배짜리 종목이 가장 먼저 때려맞는 구조. 상장 둘째 날인 금요일 -10% <span class="sub">(종가 280불)</span>는 그 긴장감의 시작. 뒤에는 SpaceX·OpenAI·앤트로픽 IPO가 줄 서 있어서, 세레브라스의 상장 후 궤적이 AI IPO 시즌 전체의 온도계가 되는 상황</span></div>
       </div>
-      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
+      <div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/nasdaq.html">나스닥</a><span class="sep">·</span><a href="/wiki/uber.html">우버</a><span class="sep">·</span><a href="/wiki/nvidia.html">엔비디아</a><span class="sep">·</span><a href="/wiki/openai.html">오픈AI</a><span class="sep">·</span><a href="/wiki/spacex.html">스페이스X</a></div></div><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/fed.html">미국 연준</a><span class="sep">·</span><a href="/wiki/oil.html">원유</a><span class="sep">·</span><a href="/wiki/trump.html">트럼프</a><span class="sep">·</span><a href="/wiki/powell.html">제롬 파월</a><span class="sep">·</span><a href="/wiki/nasdaq.html">나스닥</a></div><div class="row"><span class="k">같은 흐름</span><a href="/newsletters/2026/0618.html#story-4">06-18 Warsh 시대 개막 — 인상 카드가 보이기 시</a><span class="sep">·</span><a href="/newsletters/2026/0703-crypto.html#story-1">07-03 BTC $61K, 21개월 저점에서 반등 — W</a></div></div><p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
     </div>
 
     <!-- STORY 5: PSA × NSA 셀프스토리지 -->
@@ -674,7 +687,7 @@
         <div class="bullet"><span class="dot">◾</span><span>이 산업이 돈이 되는 이유는 경기 방어력. 순영업이익률 약 70%, 부동산 섹터 중 최상위권. 고객 평균 이용 기간 18개월 이상. 경기가 좋으면 이사·소비 증가로 짐 맡길 곳이 필요하고, 나빠도 집 줄이거나 사업장 정리하면서 창고가 필요. "올라도 쓰고 내려도 쓰는" 구조. 다만 팬데믹 때 너무 많이 지어놓은 물량이 아직 소화 중 — 2025년 신규 공급이 전년 대비 11% 줄긴 했지만 수급 정상화에는 시간 필요. 오히려 공급 감소가 기존 대형 운영사에 유리한 환경을 만드는 중</span></div>
         <div class="bullet"><span class="dot">◾</span><span>글로벌 시장 약 640억불, 거의 절반이 미국. 1인당 7sqft인 미국에 비하면 아시아는 1sqft도 안 되는 수준 — 아시아태평양이 가장 빠른 성장 지역. 한국은 2026년에는 시장 규모 약 2천억원까지 성장. 서울·수도권에 80% 이상 집중, 1인 가구 증가 + 높은 집값이 수요를 밀어올리는 구조. 미국에선 5만 개 넘는 창고가 있는 성숙 시장이라 통합 게임, 한국은 95%가 영세 업체인 초기 단계. 성장 단계는 정반대지만 "집이 작으면 창고를 빌린다"는 본질은 같은 셈</span></div>
       </div>
-      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
+      <div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/starbucks.html">스타벅스</a></div></div><p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
     </div>
 
   </div><!-- /content -->
