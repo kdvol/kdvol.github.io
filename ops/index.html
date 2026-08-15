@@ -288,7 +288,9 @@ function when(ep){ if(!ep) return ''; const d=new Date(ep*1000);
 function tabs(){
   const a=DATA.alerts.length, s=DATA.meta.counts;
   const defs=[['알람',a],['예약',s.scheduled||0],['제작',(s.in_production||0)+(s.review_ready||0)+(s.review_stale||0)],
-              ['발행',(DATA.posts||[]).length],['성과',null],['배움',(DATA.learn?.rules||[]).length],['인프라',null]];
+              ['발행',(DATA.posts||[]).length],['성과',null],
+              ['상호링크',(DATA.crosslink?.holes)||0],
+              ['배움',(DATA.learn?.rules||[]).length],['인프라',null]];
   $('#tabs').innerHTML=defs.map(([n,c])=>
     `<button class="${n===TAB?'on':''}" onclick="TAB='${n}';render()">${n}${c!=null?`<span class="n">${c}</span>`:''}</button>`).join('');
 }
@@ -513,6 +515,32 @@ function render(){
         <div class="k">${esc(a.kind)}</div><div class="m">${esc(a.message)}</div>
         ${a.evidence?`<div class="e">${esc(a.evidence)}</div>`:''}</div>`).join('')
       :'<div class="empty">막힌 데 없습니다</div>');
+  }
+  else if(TAB==='상호링크'){
+    // 순살 대원칙 — 채널끼리 서로를 가리켜야 한 채널의 도달이 다른 곳으로 넘어간다.
+    const c=D.crosslink||{};
+    if(!c.ok){ v.innerHTML='<div class="empty">원장이 없습니다 — registry.py backfill</div>'; }
+    else{
+      const bad = c.rate<50;
+      v.innerHTML=`<div class="kpis" style="margin-top:12px">
+        <div class="kpi ${bad?'crit':''}"><div class="v">${c.rate}%</div><div class="l">연결률</div></div>
+        <div class="kpi ${c.holes?'crit':''}"><div class="v">${c.holes}</div><div class="l">링크 빠진 작품</div></div>
+        <div class="kpi"><div class="v">${c.multi}</div><div class="l">두 채널 이상</div></div>
+        <div class="kpi"><div class="v">${c.works}</div><div class="l">전체 작품</div></div>
+      </div>
+      <h2>어느 방향이 비었나</h2>
+      ${(c.by_direction||[]).map(([k,n])=>`<div class="card al ${n>50?'high':'warn'}">
+        <div class="k">${esc(k)}</div><div class="m">${n}건</div></div>`).join('')||'<div class="empty">없음</div>'}
+      <h2>먼저 채울 것</h2>
+      ${(c.worst||[]).map(w=>`<div class="card">
+        <div class="k">${esc(w.date)}</div><div class="m">${esc(w.title)}</div>
+        <div class="e">${esc((w.missing||[]).join(', '))}</div></div>`).join('')||'<div class="empty">없음</div>'}
+      <div class="empty" style="margin-top:14px;text-align:left">
+        인스타는 발행 뒤 캡션을 못 고치므로 <b>첫 댓글</b>에 겁니다.
+        유튜브는 설명란, 스레드는 마지막 편, 웹은 페이지 하단.<br>
+        무엇을 걸지: <code>python3 scripts/registry.py plan MMDD</code>
+      </div>`;
+    }
   }
   else if(TAB==='성과'){
     const p=D.performance||{}, t=p.tracks||{};
