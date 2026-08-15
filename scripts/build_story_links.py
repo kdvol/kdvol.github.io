@@ -43,6 +43,7 @@ DISCLAIMER = ('<p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">'
 MAX_ENT = 5
 MAX_REL = 2
 MAX_TOPIC = 2      # 주제는 둘까지. 셋이 넘으면 분류표가 되고 아무도 안 누른다
+MIN_HITS = 2       # 스치듯 한 번 나온 것은 그 글의 주제가 아니다
 
 # ★ 태그가 늘어나지 않게 잡는 선 (KD 2026-08-15)
 #   > "이렇게 태그 추가 시작하면 미친듯이 늘어날 수도 있어서 적정 선을 지켜야 함"
@@ -114,17 +115,27 @@ def live_topics(tops: list[dict], bodies: list[str]) -> list[dict]:
     return keep
 
 
-def topics_in(text: str, tops: list[dict]) -> list[dict]:
+def topics_in(text: str, tops: list[dict], title: str = "") -> list[dict]:
     """등장 순이 아니라 **얼마나 나왔나** 순. 등장 순으로 고르면 스치듯 한 번
     나온 주제가 그 글의 중심 주제를 밀어낸다 — 염소 산불 글에서 「보험」이
     「트럼프·정책」에 밀려 빠졌다 (KD 2026-08-15)."""
     hits = []
     for t in tops:
         n = len(t["re"].findall(text))
+        # 제목에 있으면 두 번 친다. 「크립토 연방 은행」 기사에 「크립토」가
+        # 안 붙었던 건 본문 언급 수로만 셌기 때문이다.
+        if title and t["re"].search(title):
+            n += 2
         if n:
             hits.append((n, -text.index(t["re"].search(text).group(0)), t))
     hits.sort(key=lambda x: (-x[0], -x[1]))
-    return [t for _, _, t in hits[:MAX_TOPIC]]
+    # 두 번은 나와야 주제로 친다. 비만약 기사에 「에너지·원자재」가 붙은 건
+    # `골드만삭스`의 '골드' 한 번 때문이었다. 다만 그렇게 걸러 하나도 안 남으면
+    # 가장 많이 나온 것 하나는 살린다 — 태그가 통째로 사라지는 게 더 나쁘다.
+    strong = [h for h in hits if h[0] >= MIN_HITS]
+    if not strong and hits:
+        strong = hits[:1]
+    return [t for _, _, t in strong[:MAX_TOPIC]]
 
 
 def wiki_exists(slug: str) -> bool:
@@ -248,7 +259,7 @@ def process(page: Path, ents: list[dict], all_stories: list[dict],
         body = re.sub(r"<[^>]+>", " ", m.group(1))
         blk = block(found_in(body, ents),
                     related(s.get("t", ""), issue, all_stories),
-                    topics_in(body, tops))
+                    topics_in(body, tops, s.get("t", "")))
         if not blk and not made_disclaimer:
             continue          # 걸 링크도 없고 면책도 이미 있다 — 건드릴 게 없다
         # 면책은 본문에 **바로 붙어야** 한다 (KD 2026-08-15). 부가 링크가

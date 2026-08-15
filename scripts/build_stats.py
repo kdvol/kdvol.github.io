@@ -17,6 +17,13 @@ OUT = ROOT / "stats"
 ATOMS = ROOT / "content" / "story_atoms.json"
 
 CSS = """
+/* 기간 고르개 — 어떤 범위를 보고 있는지 화면에 늘 적혀 있어야 한다 */
+.daybar{display:flex;align-items:center;gap:9px;margin:10px 0 4px;flex-wrap:wrap}
+.daybar label{font-size:12px;color:#8a857c;font-weight:700}
+.daybar select{font:inherit;font-size:13px;padding:6px 10px;border-radius:8px;
+border:1px solid #ddd6cb;background:#fff;color:#2b2b2b}
+.daybar .scope{font-size:12px;color:#9a958a}
+@media(max-width:560px){.daybar select{flex:1;min-width:0}}
 *{margin:0;padding:0;box-sizing:border-box}
 body{background:#111;color:#eee;font-family:'DM Sans','Apple SD Gothic Neo','Malgun Gothic',sans-serif;
 -webkit-text-size-adjust:100%}
@@ -222,13 +229,13 @@ function renderCommunity() {
       kpi(lr + '%', '재방문율', (L.repeat_v || 0) + '명', true) +
       kpi(le.react || 0, '반응', null, true) +
       kpi(le.comment || 0, '댓글', null, true) + '</div>' +
-      '<h2>최근 ' + ins.days + '일</h2>';
+      (ins.day ? '' : '<h2>최근 ' + ins.days + '일</h2>');
   }
 
   // 댓글 참여자 — 어떤 업종의 사람들이 말을 거는지
   var W = ins.writers || {};
   if (W.total) {
-    h += '<h2>댓글 남긴 분들 <small>공개된 글 기준</small></h2>' +
+    h += '<h2>댓글 남긴 분들 <small>전체 기간 · 공개된 글 기준</small></h2>' +
       '<div class="sum">' +
       kpi(W.writers || 0, '작성자', (W.total || 0) + '개 글', true) +
       kpi(pct(W.repeat_w, W.writers) + '%', '다시 쓴 비율', (W.repeat_w || 0) + '명', true) +
@@ -237,17 +244,28 @@ function renderCommunity() {
       bars((W.byTag || []).map(function (r) { return [r.tag, r.n]; }), '개') + '</div>';
   }
 
-  h += '<div class="sum">' +
-    kpi(people0, '오늘 방문자', today.hits + '뷰', true) +
-    kpi(people7, '7일 방문자', h7 + '뷰 · 중복 제외', true) +
-    kpi(pct(v.repeat_v, v.total) + '%', '재방문율', (v.repeat_v || 0) + '/' + (v.total || 0) + '명', true) +
-    kpi(pct(acts, sumU) + '%', '참여율', acts + '건 / ' + sumU + '순방문', true) +
-    '</div>';
+  // 하루만 볼 땐 창(窓) 수치를 같이 놓지 않는다. 한 줄 안에 기간이 섞이면
+  // 어느 쪽도 못 믿는다 — 「방문 17명」 옆에 「유입 4,683」이 그랬다.
+  if (ins.day) {
+    h += '<h2>' + ins.day + ' 하루</h2><div class="sum">' +
+      kpi(people0, '그날 방문자', today.hits + '뷰', true) +
+      kpi(v.fresh || 0, '첫 방문', '이날 처음 온 사람', true) +
+      kpi(acts, '반응·공유', '이날 발생', true) +
+      kpi(pct(acts, today.uniq) + '%', '참여율', acts + '건 / ' + today.uniq + '순방문', true) +
+      '</div>';
+  } else {
+    h += '<div class="sum">' +
+      kpi(people0, '오늘 방문자', today.hits + '뷰', true) +
+      kpi(people7, '7일 방문자', h7 + '뷰 · 중복 제외', true) +
+      kpi(pct(v.repeat_v, v.total) + '%', '재방문율', (v.repeat_v || 0) + '/' + (v.total || 0) + '명', true) +
+      kpi(pct(acts, sumU) + '%', '참여율', acts + '건 / ' + sumU + '순방문', true) +
+      '</div>';
+  }
 
   // 일별 추이 — 뷰(주황) 위에 순방문자(파랑)를 겹쳐 보여준다
   var max = 1;
   daily.forEach(function (d) { if (d.hits > max) max = d.hits; });
-  h += '<h2>일별 추이 <small>최근 ' + ins.days + '일</small></h2><div class="card"><div class="trend">' +
+  h += '<h2>일별 추이 <small>' + (ins.scope || ('최근 ' + ins.days + '일')) + '</small></h2><div class="card"><div class="trend">' +
     daily.map(function (d) {
       return '<i style="height:' + Math.max(2, d.hits / max * 60) + 'px" title="' + d.day +
         ' · ' + d.hits + '뷰 / 순방문 ' + d.uniq + '"><i class="u" style="position:absolute;left:0;right:0;bottom:0;height:' +
@@ -527,6 +545,36 @@ function renderComments() {
     });
 }
 
+
+// ── 하루만 보기 (KD 2026-08-15: "모든 데이터를 일자별로도 볼 수 있게")
+//    창(30일) 합계와 하루 값이 한 화면에 섞여 있어 어느 쪽도 못 믿었다.
+//    날짜를 고르면 **모든 패널**이 그날 것만 보여준다. 필드를 늘린 게 아니라
+//    서버에서 범위를 좁혀 오므로, 화면 코드는 갈라지지 않는다.
+var DAYSEL = null;                 // null = 최근 30일
+var load = function () {};         // 아래에서 실제 로더로 바뀐다
+
+function dayQ() { return DAYSEL ? '&day=' + DAYSEL : ''; }
+
+function paintDays() {
+  var el = document.getElementById('daybar');
+  if (!el) return;
+  var days = ((D.insights || {}).daily || []).map(function (d) { return d.day; });
+  // 하루만 볼 땐 그날 하루치만 오므로, 고르개는 처음 목록을 계속 쓴다
+  if (!DAYSEL) DAYS_ALL = days.slice(-30);
+  var opts = (DAYS_ALL || days).slice().reverse().map(function (d) {
+    return '<option value="' + d + '"' + (DAYSEL === d ? ' selected' : '') + '>' + d + '</option>';
+  }).join('');
+  el.innerHTML = '<label>기간</label>' +
+    '<select id="daypick"><option value="">최근 30일 합계</option>' + opts + '</select>' +
+    '<span class="scope">' + ((D.insights || {}).scope || '') + '</span>';
+  var sel = document.getElementById('daypick');
+  sel.addEventListener('change', function () {
+    DAYSEL = sel.value || null;
+    load();
+  });
+}
+var DAYS_ALL = null;
+
 var TABS = [['community', '커뮤니티'], ['reactions', '반응'], ['comments', '댓글']];
 function paintTabs() {
   document.getElementById('tabs').innerHTML = TABS.map(function (t) {
@@ -574,13 +622,17 @@ if (!API) {
       throw e;
     });
   };
-  Promise.all([get('/counts'), get('/activity'), get('/insights?days=30')])
+  // 날짜를 바꾸면 다시 부른다 — 그래서 함수로 묶는다
+  load = function () {
+  Promise.all([get('/counts'), get('/activity'), get('/insights?days=30' + dayQ())])
     .then(function (res) {
       D.counts = res[0] || {};
       D.activity = res[1];
       D.insights = res[2];
       paintTabs();
-      renderCommunity();
+      paintDays();
+      TAB === 'comments' ? renderComments()
+        : TAB === 'reactions' ? renderReactions() : renderCommunity();
     }).catch(function (e) {
       if (String(e.message) === 'unauthorized') {
         try { localStorage.removeItem('ss_admin'); } catch (x) {}
@@ -590,6 +642,8 @@ if (!API) {
       }
       fail();
     });
+  };
+  load();
 }
 """
 
@@ -617,6 +671,7 @@ def build(atoms=None):
 <h1>순살 대시보드</h1>
 <p class="sub">몇 명이 와서 무엇에 반응했는지 — 운영자용 화면 (검색 노출 안 됨)</p>
 <div class="tabs" id="tabs"></div>
+<div class="daybar" id="daybar"></div>
 <div id="app"><div class="empty">불러오는 중…</div></div>
 </div>
 <script>

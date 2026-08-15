@@ -8,7 +8,7 @@
       "name": "크립토",
       "emoji": "🔐",
       "label_pattern": "CRYPTO|크립토|BITCOIN|BTC|ETH|STABLECOIN|스테이블|DEFI|WEB3|블록체인|디지털자산|온체인",
-      "content_pattern": "비트코인|이더리움|스테이블코인|리플|솔라나|바이낸스|코인베이스|디파이|\\bDeFi\\b|\\bNFT\\b|\\bDAO\\b|스테이킹|알트코인|밈코인|\\bBTC\\b|\\bETH\\b"
+      "content_pattern": "비트코인|이더리움|스테이블코인|리플|솔라나|바이낸스|코인베이스|디파이|\\bDeFi\\b|\\bNFT\\b|\\bDAO\\b|스테이킹|알트코인|밈코인|\\bBTC\\b|\\bETH\\b|크립토|암호화폐|가상자산"
     },
     {
       "slug": "ai",
@@ -78,7 +78,7 @@
       "name": "에너지·원자재",
       "emoji": "🛢️",
       "label_pattern": "ENERGY|에너지|\\bOIL\\b|COMMODIT|원유|POWER|NUCLEAR",
-      "content_pattern": "유가|\\bOPEC\\b|원유|\\bWTI\\b|천연가스|정유|금값|골드|구리|원자재|우라늄|전력망|원전"
+      "content_pattern": "유가|\\bOPEC\\b|원유|\\bWTI\\b|천연가스|정유|금값|골드(?!만)|구리|원자재|우라늄|전력망|원전"
     },
     {
       "slug": "tesla-ev",

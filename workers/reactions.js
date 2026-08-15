@@ -736,20 +736,34 @@ export default {
         const days = Math.min(Math.max(parseInt(url.searchParams.get('days') || '30', 10) || 30, 1), 120);
         const since = `date(unixepoch() + 32400, 'unixepoch', '-${days} days')`;
 
+        // ── 하루만 보기 (KD 2026-08-15: "모든 데이터를 일자별로도 볼 수 있게")
+        //    일자별이 있던 건 조회수·댓글·반응뿐이고 경로·유입·이동·방문자는
+        //    창 전체 합계만 나왔다. 그래서 "방문 17명" 옆에 "유입 4,683" 같은
+        //    값이 나란히 찍혔다. 필드를 늘리는 대신 **범위 자체**를 하루로
+        //    좁힌다 — 응답 모양이 그대로라 화면 코드가 갈라지지 않는다.
+        //    형식은 정규식으로 못 박는다. 문자열이 SQL 에 그대로 들어간다.
+        const one = (url.searchParams.get('day') || '').trim();
+        const isDay = /^\d{4}-\d{2}-\d{2}$/.test(one);
+        const DCOND = isDay ? `= '${one}'` : `>= ${since}`;
+        // 우리 day 는 KST 기준이라, ts 로 자를 땐 9시간을 당겨야 같은 하루가 된다
+        const TSCOND = isDay
+          ? `ts >= unixepoch('${one}') - 32400 and ts < unixepoch('${one}', '+1 day') - 32400`
+          : `ts >= unixepoch(${since})`;
+
         const [daily, top, eng, ref, hop, vis] = await env.DB.batch([
           env.DB.prepare(
             `select day, sum(hits) as hits, sum(uniq) as uniq from views
-             where day >= ${since} group by day order by day`),
+             where day ${DCOND} group by day order by day`),
           env.DB.prepare(
             `select path, sum(hits) as hits, sum(uniq) as uniq from views
-             where day >= ${since} group by path order by hits desc limit 25`),
+             where day ${DCOND} group by path order by hits desc limit 25`),
           env.DB.prepare(
-            `select day, kind, n from engage where day >= ${since}`),
+            `select day, kind, n from engage where day ${DCOND}`),
           env.DB.prepare(
-            `select src, sum(n) as n from refs where day >= ${since} group by src order by n desc`),
+            `select src, sum(n) as n from refs where day ${DCOND} group by src order by n desc`),
           // 이동 쌍 상위 — 어떤 글에서 어떤 글로 넘어가는지
           env.DB.prepare(
-            `select frm, to_, sum(n) as n from hops where day >= ${since}
+            `select frm, to_, sum(n) as n from hops where day ${DCOND}
              group by frm, to_ order by n desc limit 20`),
           // 재방문 = 서로 다른 날 2일 이상 방문한 사람.
           // active7은 일별 uniq 합과 다르다 — 합계는 이틀 온 사람을 두 번 센다.
@@ -757,11 +771,11 @@ export default {
             `select
                count(*) as total,
                sum(case when days >= 2 then 1 else 0 end) as repeat_v,
-               sum(case when last_day >= ${since} then 1 else 0 end) as active,
+               sum(case when last_day ${DCOND} then 1 else 0 end) as active,
                sum(case when last_day >= date(unixepoch() + 32400, 'unixepoch', '-7 days')
                         then 1 else 0 end) as active7,
                sum(case when last_day = ${DAY} then 1 else 0 end) as today,
-               sum(case when first_day >= ${since} then 1 else 0 end) as fresh
+               sum(case when first_day ${DCOND} then 1 else 0 end) as fresh
              from visitors`),
         ]);
 
@@ -778,12 +792,12 @@ export default {
                        + 'where state = 1 group by vid having count(*) >= 2)'),
           env.DB.prepare("select date(ts + 32400, 'unixepoch') as day, count(*) as n, "
                        + 'sum(case when op = 0 then 1 else 0 end) as readers '
-                       + `from comments where state = 1 and ts >= unixepoch(${since}) `
+                       + `from comments where state = 1 and ${TSCOND} `
                        + 'group by day order by day'),
                   env.DB.prepare("select date(ts + 32400, 'unixepoch') as day, "
                        + 'sum(case when delta = 1 then 1 else 0 end) as up, '
                        + 'sum(case when delta = -1 then 1 else 0 end) as undo '
-                       + `from events where ts >= unixepoch(${since}) `
+                       + `from events where ${TSCOND} `
                        + 'group by day order by day'),
         ]);
 
@@ -800,6 +814,8 @@ export default {
 
         return json({
           days,
+          day: isDay ? one : null,
+          scope: isDay ? one : `최근 ${days}일`,
           lifetime: Object.assign({}, (life[0].results || [])[0], (life[1].results || [])[0],
                                   { engage: lifeEng }),
           writers: Object.assign({}, (cm[1].results || [])[0], (cm[2].results || [])[0],
