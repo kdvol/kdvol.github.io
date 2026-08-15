@@ -210,6 +210,7 @@ SECTION_HEAD = {
     "/search/":     ("전체에서 찾기", "검색", "제목·주제·등장 대상으로 브리핑을 찾음"),
     "/topics/":     ("주제로 모아보기", "주제별", "스토리를 주제·기업·인물로 묶어 둠"),
     "/newsletters/":("매일 아침 배달", "뉴스레터", "밤새 시장에서 일어난 일을 아침에 한 번에 봄"),
+    "/cardnews/":   ("인스타에 올라간 것", "카드뉴스", "한 장씩 넘겨 보는 순살, 여기 다 모아 둠"),
 }
 
 SECTION_CSS = """
@@ -329,13 +330,39 @@ TICKER_FILE = Path(__file__).resolve().parent / "_ticker.html"
 TICKER_RE = re.compile(r'<div id="soonsal-live-ticker".*?</script>', re.S)
 
 
+# 이 두 페이지는 생성 스크립트가 따로 없고 손으로 쓴 HTML이다. 그래서
+# 섹션 머리가 <div> 킥커 하나뿐이었고 h1 도 설명도 없었다. nav 후처리를
+# 매번 거치므로 여기서 표준 머리로 바꿔 둔다.
+LEGACY_KICKER_RE = re.compile(
+    r'<div style="font-size:11px;\s*font-weight:700;\s*color:#F07040;[^"]*"[^>]*>'
+    r'\s*[^<]*?</div>', re.S)
+
+
+def _with_section_head(html: str, path: str) -> str:
+    head = section_head(path)
+    if not head:
+        return html
+    new = html
+    if 'class="sec-head"' not in new:
+        new, count = LEGACY_KICKER_RE.subn(lambda _: head, new, count=1)
+        if not count:
+            return html
+    # 손으로 쓴 페이지에는 섹션 머리 CSS가 없다. 마크업만 넣으면 h1 이
+    # 브라우저 기본값(32px)으로 뜬다 — 스타일도 같이 넣는다.
+    if ".sec-kicker{" not in new and "</head>" in new:
+        new = new.replace("</head>", f'<style id="soonsal-sec-head">{SECTION_CSS}</style>\n</head>', 1)
+    return new
+
+
 def _with_ticker(html: str) -> str:
     """상단 시황 띠를 헤더 있는 모든 페이지에 보장한다."""
     if not TICKER_FILE.exists() or "<body" not in html:
         return html
     block = TICKER_FILE.read_text(encoding="utf-8")
-    if TICKER_RE.search(html):
-        return TICKER_RE.sub(lambda _: block, html, count=1)
+    # 자리를 차지하는 sticky 라서 DOM 위치가 곧 화면 위치다. 예전에 문서
+    # 끝에 붙은 페이지들이 있었는데(fixed 일 땐 안 보이던 문제다) 띠가
+    # 페이지 맨 아래에 깔렸다. 있던 걸 걷어내고 <body> 직후로 다시 놓는다.
+    html = TICKER_RE.sub("", html, count=1)
     i = html.index("<body")
     j = html.index(">", i) + 1
     return html[:j] + "\n" + block + html[j:]
@@ -415,6 +442,8 @@ def main():
         new = _fix_logo_size(new)
         new = _fix_logo_src(new)
         new = _with_icons(new)
+        own = "/" + p.relative_to(ROOT).parts[0] + "/"
+        new = _with_section_head(new, own)
         if new != t:
             p.write_text(new, encoding="utf-8")
             n += 1

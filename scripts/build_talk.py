@@ -78,7 +78,7 @@ justify-content:center;font-size:.78rem;font-weight:800;color:#111;letter-spacin
    쓰는 색이라 여기 쓰면 본문보다 태그가 먼저 읽힌다. 한 톤 낮추고 굵기만 준다. */
 .tx .at{color:#8f8578;font-weight:600}
 .c.op .nm .k{color:#F5A481}
-.ob{font-size:.62rem;font-weight:700;color:#fff;background:#E55A00;border-radius:4px;padding:1px 6px}
+.ob{font-size:.62rem;font-weight:700;color:#fff;background:#C24A00;border-radius:999px;padding:1px 6px}
 .ob.bot{background:#5a6b7a}
 
 /* 액션 — 아이콘 + 숫자, 탭 영역을 넉넉히 */

@@ -32,35 +32,37 @@ BASE = "https://soonsal.com"
 
 CSS = """
 *{margin:0;padding:0;box-sizing:border-box}
-body{background:#faf9f5;color:#1a1a1a;font-family:'Pretendard',-apple-system,BlinkMacSystemFont,
+/* 이 페이지만 밝은 배경이라 사이트 전반과 따로 놀았고, 공통 섹션 머리가
+   흰 글자를 쓰면서 제목이 아예 안 보였다. 다른 섹션과 같은 어두운 판으로 맞춘다. */
+body{background:#111;color:#e8e4dc;font-family:'Pretendard',-apple-system,BlinkMacSystemFont,
 'Segoe UI',sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased}
 .wrap{max-width:720px;margin:0 auto;padding:30px 18px 80px}
 h1{font-size:1.6rem;font-weight:800;letter-spacing:-.03em;margin-bottom:6px}
-.sub{color:#8a857c;font-size:.9rem;margin-bottom:24px;line-height:1.7}
+.sub{color:#8b8578;font-size:.9rem;margin-bottom:24px;line-height:1.7}
 .bar{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:18px}
-.fb{background:#fff;border:1px solid #e6e1d8;border-radius:999px;padding:7px 14px;
-font-size:.84rem;font-weight:700;color:#6b665e;cursor:pointer;font-family:inherit}
-.fb.on{background:#1a1a1a;border-color:#1a1a1a;color:#fff}
-.fb .n{color:#a9a49b;font-weight:600;margin-left:5px}
-.fb.on .n{color:#d8d3ca}
-.it{display:flex;gap:13px;background:#fff;border:1px solid #ece8e0;border-radius:12px;
+.fb{background:#1a1a1a;border:1px solid #2c2c2c;border-radius:999px;padding:7px 14px;
+font-size:.84rem;font-weight:700;color:#9a958a;cursor:pointer;font-family:inherit}
+.fb.on{background:#F07040;border-color:#F07040;color:#12100e}
+.fb .n{color:#6b665e;font-weight:600;margin-left:5px}
+.fb.on .n{color:#3a2418}
+.it{display:flex;gap:13px;background:#171717;border:1px solid #262626;border-radius:12px;
 padding:14px 16px;margin-bottom:9px;text-decoration:none;color:inherit}
-.it:hover{border-color:#d8d3ca}
-.it .mk{flex:0 0 auto;width:34px;height:34px;border-radius:12px;background:#f6f4ef;
-border:1px solid #ece8e0;display:flex;align-items:center;justify-content:center;font-size:1rem}
+.it:hover{border-color:#3a3a3a}
+.it .mk{flex:0 0 auto;width:34px;height:34px;border-radius:12px;background:#1f1d1a;
+border:1px solid #2c2c2c;display:flex;align-items:center;justify-content:center;font-size:1rem}
 .it .bd{min-width:0;flex:1}
 .it .bd>span{display:block}
-.it .lb{font-size:.68rem;font-weight:800;letter-spacing:.05em;color:#b09a86;margin-bottom:3px}
+.it .lb{font-size:.68rem;font-weight:800;letter-spacing:.05em;color:#F59B75;margin-bottom:3px}
 .it .tt{font-size:.97rem;font-weight:700;letter-spacing:-.02em;line-height:1.45;
-overflow-wrap:anywhere}
-.it .dt{font-size:.78rem;color:#a9a49b;margin-top:4px}
-.empty{background:#fff;border:1px dashed #ddd8ce;border-radius:12px;padding:34px 22px;
-text-align:center;color:#8a857c;font-size:.92rem;line-height:1.8}
-.empty b{display:block;color:#3a3632;font-size:1.02rem;margin-bottom:8px}
-.empty a{color:#E55A00;font-weight:700;text-decoration:none}
-.fine{margin-top:26px;padding-top:18px;border-top:1px solid #ece8e0;
-color:#a9a49b;font-size:.78rem;line-height:1.8}
-.fine a{color:#8a857c}
+overflow-wrap:anywhere;color:#f0ece4}
+.it .dt{font-size:.78rem;color:#7c756c;margin-top:4px}
+.empty{background:#171717;border:1px dashed #333;border-radius:12px;padding:34px 22px;
+text-align:center;color:#8b8578;font-size:.92rem;line-height:1.8}
+.empty b{display:block;color:#e8e4dc;font-size:1.02rem;margin-bottom:8px}
+.empty a{color:#F07040;font-weight:700;text-decoration:none}
+.fine{margin-top:26px;padding-top:18px;border-top:1px solid #262626;
+color:#7c756c;font-size:.78rem;line-height:1.8}
+.fine a{color:#8b8578}
 """
 
 JS = r"""
