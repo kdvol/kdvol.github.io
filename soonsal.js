@@ -354,6 +354,19 @@
     }, function (e) { clearTimeout(timer); throw e; });
   }
 
+  // 구독 버튼은 이 사이트의 유일한 전환점인데 클릭을 재지 않고 있었다.
+  // 방문이 늘어도 구독으로 이어지는지 알 길이 없었다 (KD 2026-08-16).
+  function watchSubscribe() {
+    var els = document.querySelectorAll('a[href*="subscribe.soonsal.com"]');
+    for (var i = 0; i < els.length; i++) {
+      (function (el) {
+        if (el.__ssSub) return;
+        el.__ssSub = 1;
+        el.addEventListener('click', function () { track('subscribe'); });
+      })(els[i]);
+    }
+  }
+
   function track(kind) {          // read / react / share / telegram / instagram / comment
     if (optedOut()) return;
     var v = vid();
@@ -632,6 +645,7 @@
     document.head.appendChild(st);
     mountFinish();
     mountHomeMark();
+    watchSubscribe();
 
     // 이제 사이트 안에 대화가 있다. 텔레그램으로 내보내는 대신 순살톡으로 보낸다.
     // 새 글 수를 배지로 띄워서 '뭔가 올라왔다'가 보이게 한다.

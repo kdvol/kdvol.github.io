@@ -60,7 +60,11 @@ function json(data, origin, status = 200, extra = {}) {
 // 조회에서 걸러낸다 — 쓰기는 막지 않는다(테스트를 계속 할 수 있어야 한다).
 const TEST_ISSUE = '9999';
 
-const KIND = ['read', 'react', 'share', 'telegram', 'instagram', 'comment', 'school', 'talk'];
+// 클라이언트가 보내는데 목록에 없으면 **조용히 버려진다**. 2026-08-16 에
+// finish·home 이 그렇게 두 달 넘게 사라지고 있었다. 보내는 쪽과 맞춘다.
+// subscribe 는 이 사이트의 유일한 전환점인데 아예 재지 않고 있었다.
+const KIND = ['read', 'finish', 'react', 'share', 'telegram', 'instagram',
+              'comment', 'school', 'talk', 'home', 'subscribe'];
 const TOPIC_KIND = ['impression', 'view', 'dwell', 'share'];
 const SRC = ['direct', 'telegram', 'instagram', 'search', 'mail', 'other'];
 // 하이픈 허용 — 'agent-...' 형태를 정상적인 ID로 받기 위해서다. 형식 검증에
@@ -754,7 +758,7 @@ export default {
           ? `ts >= unixepoch('${one}') - 32400 and ts < unixepoch('${one}', '+1 day') - 32400`
           : `ts >= unixepoch(${since})`;
 
-        const [daily, dau, top, eng, ref, hop, vis] = await env.DB.batch([
+        const [daily, dau, freshD, top, eng, ref, hop, vis] = await env.DB.batch([
           env.DB.prepare(
             `select day, sum(hits) as hits, sum(uniq) as uniq from views
              where day ${DCOND} group by day order by day`),
@@ -762,6 +766,11 @@ export default {
           env.DB.prepare(
             `select day, count(*) as people from dau
              where day ${DCOND} group by day order by day`),
+          // 그날 처음 온 사람 수. 창 합계만 있으면 dau 가 덮는 날짜와 기간이
+          // 어긋나 '새 사람 40 / 다시 온 사람 0' 같은 값이 나온다.
+          env.DB.prepare(
+            `select first_day as day, count(*) as n from visitors
+             where first_day ${DCOND} group by first_day order by first_day`),
           env.DB.prepare(
             `select path, sum(hits) as hits, sum(uniq) as uniq from views
              where day ${DCOND} group by path order by hits desc limit 25`),
@@ -830,6 +839,7 @@ export default {
                                  { byTag: cm[0].results || [] }),
           daily: daily.results || [],
           dau: dau.results || [],
+          freshDaily: freshD.results || [],
           top: top.results || [],
           engage: eng.results || [],
           refs: ref.results || [],

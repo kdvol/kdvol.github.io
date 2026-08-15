@@ -188,7 +188,12 @@ function setup() {
 // ── 커뮤니티(방문) 화면 ──────────────────────────────────
 var SRC_KO = { direct: '직접·북마크', telegram: '텔레그램', instagram: '인스타그램',
                search: '검색', mail: '뉴스레터', other: '기타' };
-var KIND_KO = { read: '끝까지 읽음', react: '반응', share: '공유', telegram: '텔레그램 이동',
+// 모으고 있는데 화면에 없던 것들: comment·school·talk·home·finish.
+// finish·home 은 워커가 아예 버리고 있어 값이 0 이었다 (2026-08-16 수정).
+var KIND_KO = { read: '끝까지 읽음', finish: '완독 도장', react: '반응',
+  comment: '댓글 작성', subscribe: '구독 버튼 클릭',
+  talk: '순살톡 이동', school: '스쿨 이동', home: '홈으로',
+  share: '공유', telegram: '텔레그램 이동',
                 instagram: '인스타 이동' };
 
 function renderCommunity() {
@@ -326,6 +331,54 @@ function renderCommunity() {
     '</div>' +
     (hasDau ? '' : '<p class="note">이 기간은 사람 수 집계 전이라 방문자 막대가 없습니다. ' +
       '주황 막대는 페이지뷰입니다.</p>') + '</div>';
+
+  // ── 현황 판단에 실제로 쓰이는 수치 (KD 2026-08-16) ────────────────
+  //   지금까지 화면은 "몇 명 왔나"만 말했다. 그걸로는 이 사이트가 자라는지,
+  //   글이 하루살이인지, 구독으로 이어지는지를 알 수 없다.
+  //   새로 모으지 않고 이미 있는 값으로 낼 수 있는 것부터 세운다.
+  //   새/재방문을 가르려면 두 값이 **같은 날짜 집합**에서 와야 한다.
+  //   창 전체 fresh 와 dau 있는 날만의 사람 수를 빼면 음수가 난다.
+  var FRESH = {};
+  (ins.freshDaily || []).forEach(function (r) { FRESH[r.day] = r.n; });
+  var freshWin = 0;
+  daily.forEach(function (d) {
+    if (DAU[d.day] !== undefined) freshWin += (FRESH[d.day] || 0);
+  });
+  var returning = Math.max(0, pplWin - freshWin);
+
+  // 글의 수명 — 오늘 조회가 최근 글에 몰리는가, 아카이브가 계속 읽히는가.
+  // 하루살이면 발행일 트래픽이 전부고, 자산이면 지난 글이 계속 돈다.
+  var recent = 0, archive = 0;
+  var cut = daily.length ? daily[daily.length - 1].day : '';
+  (ins.top || []).forEach(function (r) {
+    var m = /\/(\d{4})\/(\d{4})/.exec(r.path);
+    if (!m) { archive += r.hits; return; }
+    // 경로에 박힌 날짜가 창 시작보다 오래면 아카이브
+    var d = m[1] + '-' + m[2].slice(0, 2) + '-' + m[2].slice(2);
+    (daily.length && d >= daily[0].day) ? recent += r.hits : archive += r.hits;
+  });
+  var lifeTot = recent + archive;
+
+  var subs = eng.subscribe || 0;
+
+  h += '<h2>이 사이트가 어떤 상태인가 <small>' +
+    (ins.scope || ('최근 ' + ins.days + '일')) + '</small></h2><div class="sum">' +
+    (hasDau
+      ? kpi(freshWin + '/' + returning, '새 사람 / 다시 온 사람',
+            pct(returning, pplWin) + '% 가 재방문', true)
+      : kpi('—', '새 사람 / 다시 온 사람', '사람 수 집계 전', true)) +
+    kpi(subs, '구독 버튼 클릭',
+        hasDau && pplWin ? pct(subs, pplWin) + '% 전환' : '전환율은 사람 수 필요', true) +
+    (lifeTot
+      ? kpi(pct(archive, lifeTot) + '%', '지난 글이 먹은 조회',
+            archive + ' / ' + lifeTot + '뷰', true)
+      : kpi('—', '지난 글이 먹은 조회', '경로 표본 없음', true)) +
+    kpi(pct(eng.finish || 0, eng.read || 0) + '%', '읽은 뒤 도장까지',
+        (eng.finish || 0) + ' / ' + (eng.read || 0) + '건', true) +
+    '</div>' +
+    '<p class="note">새 사람 = 이 기간에 처음 온 방문자. 지난 글이 먹은 조회 = ' +
+    '이 기간보다 앞서 발행된 글이 가져간 조회 비중 — 높을수록 아카이브가 자산으로 ' +
+    '돈다는 뜻입니다. 구독 버튼 클릭은 2026-08-16부터 쌓입니다.</p>';
 
   // 커뮤니티 지표 — 온 사람 중 얼마나 남기고 가는가
   h += '<h2>참여 <small>방문자가 실제로 한 행동</small></h2><div class="card">' +
