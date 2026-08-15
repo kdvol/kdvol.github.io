@@ -1,0 +1,22 @@
+{
+ "type": "single_video",
+ "video": "_publish/sv/chart20260814b_ig/reel.mp4",
+ "source": "/Users/soonsal/soonsal-reels/output/chart_20260814b/reel.mp4",
+ "source_sha256": "1c733c92b4ccd594b2fd5b403fb892dee388ba15b52e5ad0a003c88d4efa5ca3",
+ "caption_txt": "_publish/sv/chart20260814b_ig/POST.txt",
+ "post_txt": "_publish/sv/chart20260814b_ig/POST.txt",
+ "prefix": "sv/2026/0815_chart20260814b_ig",
+ "instagram": true,
+ "youtube": false,
+ "youtube_title": "",
+ "name": "chart20260814b_ig",
+ "date": "20260815",
+ "target_epoch": 1786791600,
+ "dry_run": false,
+ "reviewed": {
+  "by": "KD",
+  "at": "2026-08-15T11:19:59",
+  "verbatim": "엔화는 IG 릴스 안 나갔는데? 릴스로 내보내도 좋을듯"
+ },
+ "ig_media_id": "18126202435676495"
+}
