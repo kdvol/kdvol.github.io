@@ -647,6 +647,10 @@ export default {
                  days = days + (case when last_day <> ${DAY} then 1 else 0 end),
                  last_day = ${DAY}`
             ).bind(vid),
+            // 그날 왔다는 사실만 남긴다. 같은 사람이 열 번 와도 한 줄이다.
+            env.DB.prepare(
+              `insert or ignore into dau (day, vid) values (${DAY}, ?1)`
+            ).bind(vid),
           );
           if (first) {
             stmts.push(env.DB.prepare(
@@ -750,9 +754,13 @@ export default {
           ? `ts >= unixepoch('${one}') - 32400 and ts < unixepoch('${one}', '+1 day') - 32400`
           : `ts >= unixepoch(${since})`;
 
-        const [daily, top, eng, ref, hop, vis] = await env.DB.batch([
+        const [daily, dau, top, eng, ref, hop, vis] = await env.DB.batch([
           env.DB.prepare(
             `select day, sum(hits) as hits, sum(uniq) as uniq from views
+             where day ${DCOND} group by day order by day`),
+          // 그날 실제로 온 사람 수 — 경로 기준 uniq 와 다르다
+          env.DB.prepare(
+            `select day, count(*) as people from dau
              where day ${DCOND} group by day order by day`),
           env.DB.prepare(
             `select path, sum(hits) as hits, sum(uniq) as uniq from views
@@ -821,6 +829,7 @@ export default {
           writers: Object.assign({}, (cm[1].results || [])[0], (cm[2].results || [])[0],
                                  { byTag: cm[0].results || [] }),
           daily: daily.results || [],
+          dau: dau.results || [],
           top: top.results || [],
           engage: eng.results || [],
           refs: ref.results || [],

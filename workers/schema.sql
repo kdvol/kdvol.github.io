@@ -170,3 +170,14 @@ create table if not exists notices (
   seen integer not null default 0
 );
 create index if not exists idx_nt_vid on notices(vid, seen, id desc);
+
+-- 하루에 몇 명이 왔나. visitors 는 vid 별 first/last 만 있어서 **날짜별 명단**이
+-- 없었다. 그래서 "그날 방문자"를 못 셌고, /stats/ 가 오늘 값을 고른 날짜 자리에
+-- 대신 찍었다(2026-08-16: 08-14 를 골라도 12 가 안 변함).
+-- views.uniq 는 경로 기준이라 한 사람이 세 페이지를 보면 3 으로 센다.
+create table if not exists dau (
+  day text not null,               -- KST 기준 YYYY-MM-DD
+  vid text not null,
+  primary key (day, vid)
+);
+create index if not exists idx_dau_day on dau(day);

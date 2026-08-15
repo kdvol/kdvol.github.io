@@ -217,6 +217,10 @@ function renderCommunity() {
   // views.uniq는 '경로별' 첫 방문이라 한 사람이 3페이지를 보면 3으로 잡힌다.
   // 사람 수는 visitors 테이블에서 온 값(v.today / v.active7)을 쓴다.
   var people0 = (v.today === undefined || v.today === null) ? today.uniq : v.today;
+  // dau 가 있으면 그게 정확하다 — visitors.today 는 '마지막 방문일이 오늘'이라
+  // 오늘 왔다가 내일 또 오면 오늘 칸에서 빠진다.
+  var d0 = (ins.dau || []).filter(function (r) { return r.day === today.day; })[0];
+  if (d0) people0 = d0.people;
 
   var L = ins.lifetime || {};
   var h = '';
@@ -247,12 +251,27 @@ function renderCommunity() {
   // 하루만 볼 땐 창(窓) 수치를 같이 놓지 않는다. 한 줄 안에 기간이 섞이면
   // 어느 쪽도 못 믿는다 — 「방문 17명」 옆에 「유입 4,683」이 그랬다.
   if (ins.day) {
+    // ★ 그날 방문자는 dau(날짜별 명단)에서만 나온다 (KD 2026-08-16).
+    //   전에는 v.today 를 썼는데 그건 `last_day = 오늘` 이라 **고른 날짜와
+    //   무관하게 늘 같은 값**이었다. 08-14 를 골라도 12 가 안 변했다.
+    //   views.uniq 는 경로 기준이라 한 사람이 세 페이지를 보면 3 으로 센다.
+    var dd = (ins.dau || []).filter(function (r) { return r.day === ins.day; })[0];
+    var ppl = dd ? dd.people : null;
     h += '<h2>' + ins.day + ' 하루</h2><div class="sum">' +
-      kpi(people0, '그날 방문자', today.hits + '뷰', true) +
+      (ppl === null
+        ? kpi('—', '그날 방문자', '이 날짜는 집계 전', true)
+        : kpi(ppl, '그날 방문자', today.hits + '뷰 · ' + today.uniq + '페이지열람', true)) +
       kpi(v.fresh || 0, '첫 방문', '이날 처음 온 사람', true) +
       kpi(acts, '반응·공유', '이날 발생', true) +
-      kpi(pct(acts, today.uniq) + '%', '참여율', acts + '건 / ' + today.uniq + '순방문', true) +
+      (ppl
+        ? kpi(pct(acts, ppl) + '%', '참여율', acts + '건 / ' + ppl + '명', true)
+        : kpi('—', '참여율', '방문자 수가 있어야 냄', true)) +
       '</div>';
+    if (ppl === null) {
+      h += '<p class="note">이 날짜는 사람 수 집계를 시작하기 전입니다. ' +
+        '페이지 열람 수(' + today.uniq + ')는 경로 기준이라 한 사람이 여러 글을 보면 ' +
+        '여러 번 세집니다 — 사람 수로 읽으면 안 됩니다.</p>';
+    }
   } else {
     h += '<div class="sum">' +
       kpi(people0, '오늘 방문자', today.hits + '뷰', true) +
