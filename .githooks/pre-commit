@@ -1,0 +1,3 @@
+#!/bin/sh
+# 충돌 표시가 든 파일이 커밋되면 그대로 배포된다 (2026-08-16 실제 사고).
+python3 scripts/check_conflict_markers.py --staged || exit 1
