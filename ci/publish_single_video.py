@@ -113,7 +113,21 @@ def post_ig_reel(video_url, caption):
     if not wait_container(cid, tok):
         return None
     pub = api(f"{igid}/media_publish", {"creation_id": cid, "access_token": tok})
-    return pub["id"]
+    mid = pub["id"]
+    # ★ **id 를 받은 것과 계정에 걸린 것은 다르다** (2026-08-15).
+    #   chart20260814b 는 media_publish 가 18090878672431731 를 돌려줬는데
+    #   계정 릴스 탭에 없었다. 그런데 매니페스트엔 「게시 완료」로 남아 재시도도 안 됐다.
+    #   그래서 **되읽어서 permalink 가 나올 때만** 게시로 친다.
+    try:
+        back = api(mid, {"fields": "permalink,media_type", "access_token": tok}, "GET")
+    except Exception as exc:
+        log(f"⚠️ 게시 확인 실패({mid}): {exc} — 게시로 안 친다")
+        return None
+    if not back.get("permalink"):
+        log(f"⚠️ {mid} 에 permalink 가 없다 — 계정에 안 걸렸다고 본다")
+        return None
+    log(f"게시 확인: {back['permalink']}")
+    return mid
 
 
 def upload_youtube(video_path, title, description):
