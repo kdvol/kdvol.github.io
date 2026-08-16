@@ -148,6 +148,8 @@ a{color:var(--or);text-decoration:none}
 .st.review_ready{background:rgba(91,141,239,.16);color:var(--blu)}
 .st.review_stale,.st.ambiguous{background:rgba(245,165,36,.16);color:var(--amb)}
 .st.in_production,.st.gated,.st.planning{background:var(--card2);color:var(--tx3)}
+/* 세워 둔 편 — 제작 중과 눈으로 구분되어야 재고로 안 보인다 */
+.st.parked{background:rgba(120,120,140,.20);color:var(--tx3);border:1px dashed var(--line)}
 .ch{display:inline-block;width:22px;text-align:center;font-weight:800}
 .ch.on{color:var(--or)} .ch.off{color:#3A3430}
 .ok{color:var(--grn)} .no{color:var(--red)} .mid{color:var(--amb)} .dim{color:var(--tx3)}
@@ -233,7 +235,7 @@ async function unlock(){
 $('#pw')?.addEventListener('keydown',e=>{if(e.key==='Enter')unlock()});
 
 const STATUS={published:'발행됨',scheduled:'예약됨',review_ready:'검수 통과',
-  review_stale:'관문 무효',in_production:'제작 중',gated:'착수 승인',
+  review_stale:'관문 무효',in_production:'제작 중',gated:'착수 승인',parked:'보류 · 다시 볼 것',
   planning:'기획',ambiguous:'확인 필요'};
 const CH={ig_carousel:'IG 캐러셀',ig_reel:'IG 릴스',yt_shorts:'YT 숏츠',threads:'쓰레드',web:'웹'};
 const esc=(s)=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
@@ -243,7 +245,7 @@ function when(ep){ if(!ep) return ''; const d=new Date(ep*1000);
 
 function tabs(){
   const a=DATA.alerts.length, s=DATA.meta.counts;
-  const defs=[['알람',a],['예약',s.scheduled||0],['제작',(s.in_production||0)+(s.review_ready||0)+(s.review_stale||0)],
+  const defs=[['알람',a],['예약',s.scheduled||0],['제작',(s.in_production||0)+(s.review_ready||0)+(s.review_stale||0)],['보류',s.parked||0],
               ['발행',(DATA.posts||[]).length],['성과',null],['배움',(DATA.learn?.rules||[]).length],['인프라',null]];
   $('#tabs').innerHTML=defs.map(([n,c])=>
     `<button class="${n===TAB?'on':''}" onclick="TAB='${n}';render()">${n}${c!=null?`<span class="n">${c}</span>`:''}</button>`).join('');
