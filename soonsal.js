@@ -461,11 +461,24 @@
   function newsletterTag() {
     try {
       var q = new URLSearchParams(location.search);
-      var sv = (q.get('s') || '').trim();
-      var iv = (q.get('i') || '').trim();
+      // ★ 파라미터를 **하나로** 받는다 (2026-08-16).
+      //   전에는 ?s=…&i=… 였는데, 메일 HTML 에서 & 가 &amp; 로 이스케이프된 채
+      //   그대로 나가 i 가 `amp;i` 로 잡혔다. 두 번째 값이 통째로 사라진다.
+      //   & 를 안 쓰면 이 사고가 구조적으로 불가능하다.
+      //     ?ss=<16자리>.<회차>
+      var sv = '', iv = '';
+      var one = (q.get('ss') || '').trim();
+      if (one.indexOf('.') > 0) {
+        sv = one.split('.')[0];
+        iv = one.split('.').slice(1).join('.');
+      } else {
+        sv = (q.get('s') || '').trim();
+        // &amp; 로 깨진 옛 링크도 살려서 받는다
+        iv = (q.get('i') || q.get('amp;i') || '').trim();
+      }
       if (!/^[a-f0-9]{16}$/.test(sv) || !/^[0-9a-z-]{3,12}$/.test(iv)) return {};
       // 주소창에서 지운다. 뒤로가기 기록도 남기지 않는다.
-      q.delete('s'); q.delete('i');
+      q.delete('ss'); q.delete('s'); q.delete('i'); q.delete('amp;i');
       var rest = q.toString();
       history.replaceState(null, '', location.pathname + (rest ? '?' + rest : '') + location.hash);
       return { s: sv, i: iv };
