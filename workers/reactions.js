@@ -64,7 +64,8 @@ const TEST_ISSUE = '9999';
 // finish·home 이 그렇게 두 달 넘게 사라지고 있었다. 보내는 쪽과 맞춘다.
 // subscribe 는 이 사이트의 유일한 전환점인데 아예 재지 않고 있었다.
 const KIND = ['read', 'finish', 'react', 'share', 'telegram', 'instagram',
-              'comment', 'school', 'talk', 'home', 'subscribe'];
+              'comment', 'school', 'talk', 'home', 'subscribe',
+              'human'];
 const TOPIC_KIND = ['impression', 'view', 'dwell', 'share'];
 const SRC = ['direct', 'telegram', 'instagram', 'search', 'mail', 'other'];
 // 하이픈 허용 — 'agent-...' 형태를 정상적인 ID로 받기 위해서다. 형식 검증에
