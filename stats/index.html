@@ -187,7 +187,8 @@ var SRC_KO = { direct: '직접·북마크', telegram: '텔레그램', instagram:
                search: '검색', mail: '뉴스레터', other: '기타' };
 // 모으고 있는데 화면에 없던 것들: comment·school·talk·home·finish.
 // finish·home 은 워커가 아예 버리고 있어 값이 0 이었다 (2026-08-16 수정).
-var KIND_KO = { read: '끝까지 읽음', finish: '완독 도장', react: '반응',
+var KIND_KO = { human: '사람 확인(손이 움직임)', read: '끝까지 읽음',
+  finish: '완독 도장', react: '반응',
   comment: '댓글 작성', subscribe: '구독 버튼 클릭',
   talk: '순살톡 이동', school: '스쿨 이동', home: '홈으로',
   share: '공유', telegram: '텔레그램 이동',
@@ -393,6 +394,20 @@ function renderCommunity() {
       ? kpi(freshWin + '/' + returning, '새 사람 / 다시 온 사람',
             pct(returning, pplWin) + '% 가 재방문', true)
       : kpi('—', '새 사람 / 다시 온 사람', '사람 수 집계 전', true)) +
+    (function () {
+      // 광고주에게 낼 수 있는 유일한 정직한 숫자 — 손이 움직인 열람의 비율
+      var from = (COV.kinds || {}).human;
+      if (!from) return kpi('—', '사람 확인 비율', '사람 신호 집계 전', true);
+      var days = daily.map(function (d) { return d.day; })
+        .filter(function (d) { return d > from; });
+      if (!days.length) return kpi('—', '사람 확인 비율',
+        '사람 신호가 ' + from + ' 시작 — 내일부터', true);
+      var hu = sumEng(days, ['human']);
+      var hit = 0;
+      daily.forEach(function (d) { if (days.indexOf(d.day) >= 0) hit += d.hits; });
+      return kpi(pct(hu, hit) + '%', '사람 확인 비율',
+        hu + ' / ' + hit + '뷰 · ' + days[0] + '~' + days[days.length - 1], true);
+    })() +
     kpi(subs, '구독 버튼 클릭',
         hasDau && pplWin
           ? pct(sumEng(kindDays(ratioDays, 'subscribe'), ['subscribe']), pplWin) +
@@ -414,7 +429,9 @@ function renderCommunity() {
         days[0] + '~' + days[days.length - 1], true);
     })() +
     '</div>' +
-    '<p class="note">새 사람 = 이 기간에 처음 온 방문자. 지난 글이 먹은 조회 = ' +
+    '<p class="note">사람 확인 = 마우스·터치·키 입력이 실제로 들어온 열람. ' +
+    '메일 보안 스캐너는 링크를 눌러도 손이 움직이지 않습니다 — 광고 클릭률에 ' +
+    '허수가 섞이는 자리가 여기입니다. 새 사람 = 이 기간에 처음 온 방문자. 지난 글이 먹은 조회 = ' +
     '이 기간보다 앞서 발행된 글이 가져간 조회 비중 — 높을수록 아카이브가 자산으로 ' +
     '돈다는 뜻입니다. 구독 버튼 클릭은 2026-08-16부터 쌓입니다.</p>';
 

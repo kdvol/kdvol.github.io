@@ -443,6 +443,36 @@
     try { return localStorage.getItem('ss_optout') === '1'; } catch (e) { return false; }
   }
 
+  // ── 정말 사람이 눌렀나 (KD 2026-08-16) ─────────────────────────────
+  //   대기업 메일 보안이 링크를 미리 눌러 본다. 이메일 솔루션의 클릭률에
+  //   허수가 많은 이유다. 우리 쪽 판정인 `read`(70% 스크롤 또는 45초 체류)도
+  //   스캐너가 페이지를 열어 두면 그대로 켜진다 — 실제로 read 가 조회의 61%다.
+  //
+  //   기계가 흉내내기 어려운 건 **손**이다. 마우스를 실제로 움직이거나,
+  //   손가락으로 만지거나, 키를 누르는 것. 브라우저가 진짜 입력에만 붙여 주는
+  //   isTrusted 를 같이 본다(합성 이벤트는 false).
+  //   개인정보는 늘지 않는다 — "사람이었다"는 사실 하나만 남긴다.
+  function watchHuman() {
+    var fired = false;
+    function human(e) {
+      if (fired || !e || e.isTrusted !== true) return;
+      // 프로그램이 만든 pointermove 는 이동량이 0 인 경우가 많다
+      if (e.type === 'pointermove' && !e.movementX && !e.movementY) return;
+      fired = true;
+      track('human');
+      off();
+    }
+    var evs = ['pointermove', 'touchstart', 'keydown', 'wheel'];
+    function off() {
+      evs.forEach(function (n) { window.removeEventListener(n, human, true); });
+    }
+    evs.forEach(function (n) {
+      window.addEventListener(n, human, { capture: true, passive: true });
+    });
+    // 30분이 지나도 손이 안 왔으면 사람이 아니었다고 본다
+    setTimeout(off, 18e5);
+  }
+
   function trackView() {
     if (!API) return;
     if (navigator.webdriver) return;                       // 자동화 브라우저 제외
@@ -452,6 +482,7 @@
     if (!v) return;
     var path = location.pathname;
     beacon({ t: 'hit', v: v, p: path, f: firstToday(path), r: refSrc(), pv: prevPath() });
+  watchHuman();
     setPrevPath(path);
 
     // "읽었다" 판정 — 70%까지 내려갔거나 45초 이상 머물렀을 때 1회
