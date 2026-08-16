@@ -86,6 +86,10 @@ def _token():
                 return s.split("=", 1)[1].strip()
     return os.environ.get("INSTAGRAM_ACCESS_TOKEN", "")
 
+# 첫 댓글 길이 상한. caption_lint.COMMENT_MAX 와 같은 값을 쓴다.
+COMMENT_MAX = 130
+
+
 def post_first_comment(stdout, d):
     """deploy 성공 stdout에서 미디어 ID 파싱 → POST.txt [첫 댓글] 게시(해시태그)."""
     pt = d.get("post_txt") or d.get("caption_txt")
@@ -102,8 +106,19 @@ def post_first_comment(stdout, d):
     tok = _token()
     if not (cm and tok):
         log("첫 댓글 텍스트/토큰 없음 — 스킵"); return
+
+    # ★ 글 폭탄을 막는다 (KD 2026-08-16).
+    #   caption_lint 에 첫 댓글 130자 제한이 **이미 있었는데** 발행기가 그
+    #   검사를 안 태웠다. 그래서 616자·710자짜리가 두 번 그대로 나갔다.
+    #   규칙이 있어도 문이 없으면 안 지켜진다 — 여기서 막는다.
+    body = cm.group(1).strip()
+    core = re.sub(r"#\S+", "", body).strip()        # 해시태그는 길이에서 뺀다
+    if len(core) > COMMENT_MAX:
+        log(f"⛔ 첫 댓글 {len(core)}자 (최대 {COMMENT_MAX}) — 글 폭탄이라 게시하지 않음")
+        log(f"   {p} 의 [첫 댓글] 을 줄인 뒤 scripts/ig_crosslink.py 로 수동으로 단다")
+        return
     try:
-        data = urllib.parse.urlencode({"message": cm.group(1).strip(), "access_token": tok}).encode()
+        data = urllib.parse.urlencode({"message": body, "access_token": tok}).encode()
         with urllib.request.urlopen(f"https://graph.facebook.com/v21.0/{mid}/comments", data=data, timeout=25) as r:
             log(f"첫 댓글 게시 완료: {json.loads(r.read().decode())}")
     except Exception as e:
