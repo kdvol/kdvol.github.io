@@ -63,19 +63,18 @@ const TEST_ISSUE = '9999';
 // 클라이언트가 보내는데 목록에 없으면 **조용히 버려진다**. 2026-08-16 에
 // finish·home 이 그렇게 두 달 넘게 사라지고 있었다. 보내는 쪽과 맞춘다.
 // subscribe 는 이 사이트의 유일한 전환점인데 아예 재지 않고 있었다.
-// ── 민감 주제는 구독자 단위로 기록하지 않는다 (개인정보보호법 제23조) ──
-//   건강·질병은 민감정보다. 별도 동의 없이는 처리 자체가 금지된다.
-//   순살은 금융 매체지만 비만약·우울증 치료제·바이오텍을 자주 다룬다.
-//   "이 구독자가 우울증 기사를 읽었다"가 개인과 연결돼 남으면 건강에 관한
-//   정보로 해석될 여지가 있다.
+// ── 민감정보 제외 장치 (지금은 비어 있다) ────────────────────────────
+//   2026-08-16 에 건강 관련 경로를 통째로 뺐다가 되돌렸다. 과대 해석이었다.
 //
-//   회차 페이지는 한 장에 스토리가 다섯이라 "그 글을 읽었다"가 특정되지
-//   않는다 — 그대로 둔다. 반면 주제·위키 페이지는 그 주제 하나를 가리키므로
-//   구독자 단위 기록에서 뺀다. 날짜별 합계로는 계속 센다.
-const SENSITIVE = [
-  /^\/topics\/healthcare/i,
-  /^\/wiki\/(?:.*(?:pharma|biotech|health|vaccine|obesity|depress))/i,
-];
+//   법제처 유권해석(19-0314)은 민감정보 범위를 두고 "지나치게 확장할 우려"를
+//   지적하며 **좁은 해석**을 택했고, 판단 기준으로 "개인정보처리자가 곧바로
+//   인식할 수 있어야 한다"를 들었다. 경제 기사를 읽은 사실에서 그 사람의
+//   건강 상태를 곧바로 인식할 수는 없다 — 제약 기사를 읽는 건 투자 관심이지
+//   병력이 아니다. 순살은 경제 매체이고 약을 권하지 않는다.
+//
+//   장치는 남겨 둔다. 환자 관점의 글(증상·치료 후기 같은 것)을 싣게 되면
+//   그때 여기에 경로를 넣는다. 지금은 해당 없음.
+const SENSITIVE = [];
 function sensitivePath(p) {
   return SENSITIVE.some(function (re) { return re.test(p); });
 }
@@ -892,9 +891,21 @@ export default {
         const lifeEng = {};
         for (const r of (life[2].results || [])) lifeEng[r.kind] = r.n;
 
+        // 회차별 열람 — 뉴스레터 링크로 온 사람 수. 개인 목록은 내보내지 않는다.
+        const rd = await env.DB.batch([
+          env.DB.prepare(
+            `select iss, count(distinct sub) as people, sum(n) as reads
+             from reads where day ${DCOND} group by iss order by people desc limit 20`),
+          env.DB.prepare(
+            `select day, count(distinct sub) as people from reads
+             where day ${DCOND} group by day order by day`),
+        ]);
+
         return json({
           days,
           coverage,
+          issues: rd[0].results || [],
+          readsDaily: rd[1].results || [],
           day: isDay ? one : null,
           scope: isDay ? one : `최근 ${days}일`,
           lifetime: Object.assign({}, (life[0].results || [])[0], (life[1].results || [])[0],

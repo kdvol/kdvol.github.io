@@ -203,3 +203,13 @@ create table if not exists reads_optout (
   sub text primary key,
   at  integer not null
 );
+
+-- 개인을 되짚은 기록 (안전조치, 법 제29조).
+-- 가명정보를 특정 개인으로 되돌리는 조회는 흔해서는 안 되는 일이다.
+-- 언제 누가 왜 했는지 남긴다. 남기지 않으면 안 한 것과 구별되지 않는다.
+create table if not exists reid_log (
+  at     integer not null,
+  who    text not null,          -- 운영자 표시
+  reason text not null,          -- 왜 되짚었나
+  n      integer not null default 1
+);

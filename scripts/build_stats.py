@@ -463,6 +463,22 @@ function renderCommunity() {
       '겹치는 날이 없으면 「—」로 둡니다.</p></div>';
   }
 
+  // ── 뉴스레터 회차별 열람 (KD 2026-08-16) ────────────────────────────
+  //   웹에 직접 오는 사람보다 메일 링크로 오는 사람이 압도적이다.
+  //   그동안 그게 전부 「직접」 으로 뭉쳐 보이지 않았다.
+  var iss = ins.issues || [];
+  if (iss.length) {
+    h += '<h2>회차별 열람 <small>메일 링크로 들어온 구독자</small></h2>' +
+      '<div class="card">' +
+      bars(iss.map(function (r) { return [r.iss, r.people]; }), '명') +
+      '<p class="note">구독자 표시로 센 <b>사람 수</b>입니다. 같은 분이 여러 번 열어도 ' +
+      '한 명입니다. 개인 목록은 이 화면에도, API 에도 나오지 않습니다.</p></div>';
+  } else if ((ins.coverage || {}).views) {
+    h += '<h2>회차별 열람</h2><div class="card"><p class="note">' +
+      '아직 없습니다. 뉴스레터 링크에 <code>?s=…&i=…</code> 가 붙어야 쌓입니다 — ' +
+      '발송 시스템 쪽 작업이 남아 있습니다.</p></div>';
+  }
+
   h += '<h2>유입 경로</h2><div class="card">' +
     bars((ins.refs || []).map(function (r) { return [SRC_KO[r.src] || r.src, r.n]; }), '명') + '</div>';
 
