@@ -818,6 +818,31 @@ export default {
                        + 'group by day order by day'),
         ]);
 
+        // ── 지표마다 집계 시작일이 다르다 (KD 2026-08-16) ─────────────
+        //   dau 는 08-16 에, views/visitors 는 08-11 에 시작했다. 시작일이
+        //   다른 값끼리 나누면 읽음률 94,875% 같은 게 나온다. 실제로 나왔다.
+        //   그래서 각 표의 **첫 날**을 같이 보낸다. 화면은 겹치는 구간에서만
+        //   비율을 낸다.
+        const cov = await env.DB.batch([
+          env.DB.prepare('select min(day) as d from views'),
+          env.DB.prepare('select min(first_day) as d from visitors'),
+          env.DB.prepare('select min(day) as d from dau'),
+          env.DB.prepare('select min(day) as d from engage'),
+          env.DB.prepare('select min(day) as d from refs'),
+          // 행동 종류마다 시작일이 다르다 — finish·home·subscribe 는 목록에
+          // 없어서 버려지다가 2026-08-16 에야 받기 시작했다. 표 전체의 시작일로
+          // 나누면 그 종류의 비율이 실제보다 낮게 나온다.
+          env.DB.prepare('select kind, min(day) as d from engage group by kind'),
+        ]);
+        const coverage = {
+          views: (cov[0].results || [])[0]?.d || null,
+          visitors: (cov[1].results || [])[0]?.d || null,
+          dau: (cov[2].results || [])[0]?.d || null,
+          engage: (cov[3].results || [])[0]?.d || null,
+          refs: (cov[4].results || [])[0]?.d || null,
+          kinds: Object.fromEntries((cov[5].results || []).map(r => [r.kind, r.d])),
+        };
+
         // 전체 기간 누적 — 창(days)과 무관하게 집계 시작 이후 전부
         const life = await env.DB.batch([
           env.DB.prepare('select sum(hits) as hits, min(day) as since, '
@@ -831,6 +856,7 @@ export default {
 
         return json({
           days,
+          coverage,
           day: isDay ? one : null,
           scope: isDay ? one : `최근 ${days}일`,
           lifetime: Object.assign({}, (life[0].results || [])[0], (life[1].results || [])[0],
