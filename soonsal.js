@@ -452,6 +452,26 @@
   //   손가락으로 만지거나, 키를 누르는 것. 브라우저가 진짜 입력에만 붙여 주는
   //   isTrusted 를 같이 본다(합성 이벤트는 false).
   //   개인정보는 늘지 않는다 — "사람이었다"는 사실 하나만 남긴다.
+  // ── 뉴스레터 링크의 구독자 표시 (KD 2026-08-16) ────────────────────
+  //   메일 링크에 ?s=<일방향 처리값>&i=<회차> 가 붙어 온다. 이걸 그대로
+  //   넘겨 "이 회차를 읽은 구독자 수"를 센다. 고지·동의를 갱신한 뒤에만 쓴다.
+  //
+  //   주소창에 남겨 두면 공유할 때 남의 표시가 따라간다. 읽고 나서 지운다.
+  //   같은 이유로 세션에 넣어 두지 않는다 — 그 페이지 한 번에만 쓴다.
+  function newsletterTag() {
+    try {
+      var q = new URLSearchParams(location.search);
+      var sv = (q.get('s') || '').trim();
+      var iv = (q.get('i') || '').trim();
+      if (!/^[a-f0-9]{16}$/.test(sv) || !/^[0-9a-z-]{3,12}$/.test(iv)) return {};
+      // 주소창에서 지운다. 뒤로가기 기록도 남기지 않는다.
+      q.delete('s'); q.delete('i');
+      var rest = q.toString();
+      history.replaceState(null, '', location.pathname + (rest ? '?' + rest : '') + location.hash);
+      return { s: sv, i: iv };
+    } catch (e) { return {}; }
+  }
+
   function watchHuman() {
     var fired = false;
     function human(e) {
@@ -481,7 +501,9 @@
     var v = vid();
     if (!v) return;
     var path = location.pathname;
-    beacon({ t: 'hit', v: v, p: path, f: firstToday(path), r: refSrc(), pv: prevPath() });
+    var nl = newsletterTag();
+  beacon({ t: 'hit', v: v, p: path, f: firstToday(path), r: refSrc(), pv: prevPath(),
+           s: nl.s, i: nl.i });
   watchHuman();
     setPrevPath(path);
 
