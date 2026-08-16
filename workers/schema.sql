@@ -181,3 +181,25 @@ create table if not exists dau (
   primary key (day, vid)
 );
 create index if not exists idx_dau_day on dau(day);
+
+-- 뉴스레터 링크로 들어온 열람. 구독자 표시(가명)와 함께 낱개로 남는다.
+-- 고지·동의를 갱신한 2026-08-16 부터 받는다. 90일 뒤 낱개 줄은 지우고
+-- 날짜별 합계만 남긴다 — /privacy/ 에 그렇게 적어 두었다.
+--   sub  일방향 처리된 구독자 표시. 되돌리는 열쇠는 발송 시스템에만 있다.
+--   iss  회차(0816 같은 것). 어느 메일에서 왔는지.
+create table if not exists reads (
+  day  text not null,
+  sub  text not null,
+  iss  text not null,
+  path text not null,
+  n    integer not null default 1,
+  primary key (day, sub, iss, path)
+);
+create index if not exists idx_reads_day on reads(day);
+create index if not exists idx_reads_sub on reads(sub, day);
+
+-- 연결 끄기를 요청한 구독자 표시. 여기 있으면 기록하지 않는다.
+create table if not exists reads_optout (
+  sub text primary key,
+  at  integer not null
+);

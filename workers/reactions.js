@@ -63,6 +63,8 @@ const TEST_ISSUE = '9999';
 // 클라이언트가 보내는데 목록에 없으면 **조용히 버려진다**. 2026-08-16 에
 // finish·home 이 그렇게 두 달 넘게 사라지고 있었다. 보내는 쪽과 맞춘다.
 // subscribe 는 이 사이트의 유일한 전환점인데 아예 재지 않고 있었다.
+const SUB_RE = /^[a-f0-9]{16}$/;      // 일방향 처리값 16자리
+const ISS_RE = /^[0-9a-z-]{3,12}$/;   // 회차 표시
 const KIND = ['read', 'finish', 'react', 'share', 'telegram', 'instagram',
               'comment', 'school', 'talk', 'home', 'subscribe',
               'human'];
@@ -657,6 +659,24 @@ export default {
               `insert or ignore into dau (day, vid) values (${DAY}, ?1)`
             ).bind(vid),
           );
+          // ── 뉴스레터 링크로 들어온 열람 (KD 2026-08-16, 고지·동의 갱신 후) ──
+          //   sub 는 구독자 번호를 일방향 처리한 값이다. 되돌리는 열쇠는 발송
+          //   시스템에만 있고 여기엔 없다. 그래도 우리가 열쇠를 가지므로
+          //   익명이 아니라 **가명 처리된 정보**로 다루고, 90일 뒤 낱개 줄을
+          //   지운다. 연결 끄기를 요청한 표시는 아예 기록하지 않는다.
+          const sub = String((b && b.s) || '').trim();
+          const iss = String((b && b.i) || '').trim();
+          if (SUB_RE.test(sub) && ISS_RE.test(iss)) {
+            const off = await env.DB.prepare(
+              'select 1 from reads_optout where sub = ?1').bind(sub).first();
+            if (!off) {
+              stmts.push(env.DB.prepare(
+                `insert into reads (day, sub, iss, path, n) values (${DAY}, ?1, ?2, ?3, 1)
+                 on conflict(day, sub, iss, path) do update set n = n + 1`
+              ).bind(sub, iss, path));
+            }
+          }
+
           if (first) {
             stmts.push(env.DB.prepare(
               `insert into refs (day, src, n) values (${DAY}, ?1, 1)
