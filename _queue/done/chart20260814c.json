@@ -1,0 +1,23 @@
+{
+ "type": "single_video",
+ "video": "_publish/sv/chart20260814c/reel.mp4",
+ "source": "/Users/soonsal/soonsal-reels/output/chart_20260814c/reel.mp4",
+ "source_sha256": "44ae31886e957efe5dcf9af7ccf0ce51f7485d3b26cab089f75a12b42ff13933",
+ "caption_txt": "_publish/sv/chart20260814c/POST.txt",
+ "post_txt": "_publish/sv/chart20260814c/POST.txt",
+ "prefix": "sv/2026/0816_chart20260814c",
+ "instagram": false,
+ "youtube": true,
+ "youtube_title": "",
+ "name": "chart20260814c",
+ "date": "20260816",
+ "target_epoch": 1786874400,
+ "dry_run": false,
+ "reviewed": {
+  "by": "KD",
+  "at": "2026-08-14T12:46:24",
+  "verbatim": "식품값 영상은 좋음 - 검수 통과/발행 예약"
+ },
+ "_ig_off_why": "KD 2026-08-14 「1번으로 가자 - IG 빼고 유튜브만」 — 릴스 계정이 정해지기 전까지 IG 발행을 끈다. 지금 켜면 전부 soonsal.brief 로 간다.",
+ "youtube_video_id": "PX2HFKCe0kw"
+}
