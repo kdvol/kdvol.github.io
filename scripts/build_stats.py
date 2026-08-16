@@ -18,7 +18,31 @@ ATOMS = ROOT / "content" / "story_atoms.json"
 
 CSS = """
 /* 기간 고르개 — 어떤 범위를 보고 있는지 화면에 늘 적혀 있어야 한다 */
+/* 기간 고르개 — 손가락으로 누른다. 가로 스크롤로 넘긴다 */
+.rng{display:flex;gap:6px;overflow-x:auto;-webkit-overflow-scrolling:touch;
+padding:2px 0 4px;margin:10px 0 2px;scrollbar-width:none}
+.rng::-webkit-scrollbar{display:none}
+.rng button{flex:0 0 auto;font:inherit;font-size:13px;font-weight:700;padding:9px 15px;
+border-radius:999px;border:1px solid #ddd6cb;background:#fff;color:#6b665e;cursor:pointer;
+min-height:40px}
+.rng button.on{background:#1e1e1e;border-color:#1e1e1e;color:#fff}
+/* 차트 둘을 나란히, 좁으면 위아래로 */
+.two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.ch .cht{font-size:12px;font-weight:800;color:#6b665e;margin-bottom:8px}
+.ch .trend{display:flex;align-items:flex-end;gap:2px;height:58px}
+.ch .trend i{flex:1;border-radius:2px 2px 0 0;min-width:2px}
+details.cov{margin-top:18px}
+details.cov summary{cursor:pointer;font-size:12px;color:#8a857c;font-weight:700}
+@media(max-width:560px){
+  .two{grid-template-columns:1fr}
+  h2{font-size:15px;margin-top:22px}
+  .sum{grid-template-columns:1fr 1fr;gap:8px}
+  .kpi .v{font-size:26px}
+  .rng button{padding:10px 14px}
+}
 .daybar{display:flex;align-items:center;gap:9px;margin:10px 0 4px;flex-wrap:wrap}
+/* [hidden] 은 UA 규칙이라 위 display:flex 에 진다. 명시적으로 이긴다 */
+.daybar[hidden]{display:none}
 .daybar label{font-size:12px;color:#8a857c;font-weight:700}
 .daybar select{font:inherit;font-size:13px;padding:6px 10px;border-radius:8px;
 border:1px solid #ddd6cb;background:#fff;color:#2b2b2b}
@@ -200,373 +224,191 @@ var KIND_KO = { human: '사람 확인(손이 움직임)', read: '끝까지 읽�
 function renderCommunity() {
   var ins = D.insights;
   if (!ins) { app.innerHTML = '<div class="empty">방문 집계를 불러오지 못했습니다.</div>'; return; }
-  var daily = ins.daily || [], v = ins.visitors || {};
+  var daily = ins.daily || [], v = ins.visitors || {}, L = ins.lifetime || {};
   if (!daily.length) {
     app.innerHTML = '<div class="card"><b style="color:#F07040">아직 방문 기록이 없습니다.</b>' +
-      '<p class="note">방금 붙인 집계라 지금부터 쌓입니다. 페이지를 한 번 열어보면 바로 잡힙니다.<br>' +
-      '수집 항목: 익명 난수 ID·경로·유입 경로뿐. 쿠키·IP·UA는 쓰지 않습니다.</p></div>';
+      '<p class="note">방금 붙인 집계라 지금부터 쌓입니다.</p></div>';
     return;
   }
 
-  var today = daily[daily.length - 1] || { hits: 0, uniq: 0 };
-  var sumH = 0, sumU = 0;
-  daily.forEach(function (d) { sumH += d.hits; sumU += d.uniq; });
-  var last7 = daily.slice(-7), h7 = 0, u7 = 0;
-  last7.forEach(function (d) { h7 += d.hits; u7 += d.uniq; });
-  // 일별 순방문 합은 이틀 온 사람을 두 번 센다 → 실제 사람 수는 active7
-  var people7 = (v.active7 === undefined || v.active7 === null) ? u7 : v.active7;
-
-  var eng = {};
-  (ins.engage || []).forEach(function (e) { eng[e.kind] = (eng[e.kind] || 0) + e.n; });
-  var acts = (eng.react || 0) + (eng.share || 0) + (eng.telegram || 0) + (eng.instagram || 0);
-
-  // ★ 비율은 **겹치는 날짜에서만** 낸다 (KD 2026-08-16).
-  //   지표마다 집계 시작일이 다르다 — dau 는 08-16, views 는 08-11 에 시작했다.
-  //   30일치 행동을 반나절치 사람 수로 나눠 읽음률 94,875% 가 실제로 나왔다.
-  //   그래서 dau 가 있는 날만 고르고, 그 **같은 날들**의 행동만 분자로 쓴다.
-  var DAU = {};
+  // ── 기간·커버리지 ────────────────────────────────────────────────
+  var COV = ins.coverage || {}, KC = COV.kinds || {};
+  var DAU = {}, FRESH = {};
   (ins.dau || []).forEach(function (r) { DAU[r.day] = r.people; });
-  //   시작일 **당일은 반쪽**이다. dau 는 오늘 낮에 배포돼 아침 방문이 빠졌는데,
-  //   read 는 자정부터 쌓였다. 그래서 읽음률 425% 가 나왔다. 첫날은 뺀다.
-  var COV = ins.coverage || {};
-  var ratioDays = daily.map(function (d) { return d.day; })
-    .filter(function (day) {
-      return DAU[day] !== undefined && (!COV.dau || day > COV.dau);
+  (ins.freshDaily || []).forEach(function (r) { FRESH[r.day] = r.n; });
+  var days = daily.map(function (d) { return d.day; });
+
+  // 비율은 **두 값이 같은 날짜에서 나올 때만** 낸다. 시작일 당일은 반쪽이라 뺀다.
+  function daysFor(kind) {
+    var from = kind ? KC[kind] : COV.dau;
+    return days.filter(function (d) {
+      return DAU[d] !== undefined && (!COV.dau || d > COV.dau) && (!from || d > from);
     });
-  var hasDau = ratioDays.length > 0;
-  // 왜 비율이 없는지 화면이 말할 수 있게
-  var whyNoRatio = hasDau ? ''
-    : (!COV.dau ? '방문자 수 집계 전'
-       : '방문자 수 집계가 ' + COV.dau + '에 시작 — 첫날은 반쪽이라 뺍니다. 내일부터 나옵니다');
-
-  // 그 종류를 받기 시작한 날 이후만 센다
-  function kindDays(days, kind) {
-    var from = (COV.kinds || {})[kind];
-    return from ? days.filter(function (d) { return d >= from; }) : days;
   }
-
-  function sumEng(days, kinds) {
+  function sumEng(ds, kinds) {
     var n = 0;
     (ins.engage || []).forEach(function (e) {
-      if (days.indexOf(e.day) >= 0 && (!kinds || kinds.indexOf(e.kind) >= 0)) n += e.n;
+      if (ds.indexOf(e.day) >= 0 && (!kinds || kinds.indexOf(e.kind) >= 0)) n += e.n;
     });
     return n;
   }
-  var pplWin = 0;
-  ratioDays.forEach(function (d) { pplWin += DAU[d]; });
-  var ACT_KINDS = ['react', 'share', 'telegram', 'instagram'];
-  var actsWin = sumEng(ratioDays, ACT_KINDS);
-  var readWin = sumEng(ratioDays, ['read']);
-  // 비율이 덮는 실제 구간 — 화면에 그대로 적는다
-  var covLabel = !hasDau ? ''
-    : (ratioDays.length === 1 ? ratioDays[0]
-       : ratioDays[0] + '~' + ratioDays[ratioDays.length - 1] + ' ' + ratioDays.length + '일');
+  function people(ds) { var n = 0; ds.forEach(function (d) { n += (DAU[d] || 0); }); return n; }
+  function label(ds) {
+    if (!ds.length) return '';
+    return ds.length === 1 ? ds[0] : ds[0].slice(5) + '~' + ds[ds.length - 1].slice(5);
+  }
+  // 비율을 못 내면 왜 못 내는지 말한다. 숫자를 지어내지 않는다.
+  function why(kind) {
+    var from = kind ? KC[kind] : COV.dau;
+    if (!COV.dau) return '방문자 집계 전';
+    if (kind && !from) return '이 항목 집계 전';
+    return (from > COV.dau ? from : COV.dau) + ' 시작 — 내일부터';
+  }
+  function ratio(num, ds, lbl) {
+    if (!ds.length) return null;
+    var den = people(ds);
+    if (!den) return null;
+    return { v: pct(num, den) + '%', d: num + ' / ' + den + '명 · ' + label(ds) };
+  }
 
-  // views.uniq는 '경로별' 첫 방문이라 한 사람이 3페이지를 보면 3으로 잡힌다.
-  // 사람 수는 visitors 테이블에서 온 값(v.today / v.active7)을 쓴다.
-  var people0 = (v.today === undefined || v.today === null) ? today.uniq : v.today;
-  // dau 가 있으면 그게 정확하다 — visitors.today 는 '마지막 방문일이 오늘'이라
-  // 오늘 왔다가 내일 또 오면 오늘 칸에서 빠진다.
-  var d0 = (ins.dau || []).filter(function (r) { return r.day === today.day; })[0];
-  if (d0) people0 = d0.people;
-
-  var L = ins.lifetime || {};
+  var winDays = daysFor(null);
+  var scope = ins.scope || ('최근 ' + ins.days + '일');
   var h = '';
-  if (L.people) {
-    var lr = pct(L.repeat_v, L.people);
-    var le = L.engage || {};
-    h += '<h2>전체 기간 <small>' + (L.since || '') + ' 집계 시작 · ' + (L.days || 0) + '일</small></h2>' +
-      '<div class="sum">' +
-      kpi(L.people, '누적 브라우저', (L.hits || 0) + '뷰', true) +
-      kpi(lr + '%', '같은 브라우저 재방문', (L.repeat_v || 0) + '개', true) +
-      kpi(le.react || 0, '반응', null, true) +
-      kpi(le.comment || 0, '댓글', null, true) + '</div>' +
-      '<p class="note">여기 「방문자」는 <b>사람이 아니라 브라우저</b>입니다. ' +
-      '기기에 남긴 익명 ID로 세는데, 메일 앱 안에서 열면 저장소가 매번 비워져 ' +
-      '같은 사람도 새 ID를 받습니다. 실제로 ' +
-      (lr < 15 ? '재방문이 ' + lr + '%밖에 안 되고 유입이 대부분 「직접」인데, ' +
-                 '이건 메일에서 열렸다는 신호입니다. 사람 수는 이 값보다 적습니다.'
-               : '재방문율이 ' + lr + '%입니다.') + '</p>' +
-      (ins.day ? '' : '<h2>최근 ' + ins.days + '일</h2>');
-  }
 
-  // 댓글 참여자 — 어떤 업종의 사람들이 말을 거는지
-  var W = ins.writers || {};
-  if (W.total) {
-    h += '<h2>댓글 남긴 분들 <small>전체 기간 · 공개된 글 기준</small></h2>' +
-      '<div class="sum">' +
-      kpi(W.writers || 0, '작성자', (W.total || 0) + '개 글', true) +
-      kpi(pct(W.repeat_w, W.writers) + '%', '다시 쓴 비율', (W.repeat_w || 0) + '명', true) +
-      kpi(W.with_co || 0, '직장 공개', null, true) + '</div>' +
-      '<div class="card" style="margin-top:10px">' +
-      bars((W.byTag || []).map(function (r) { return [r.tag, r.n]; }), '개') + '</div>';
-  }
-
-  // 하루만 볼 땐 창(窓) 수치를 같이 놓지 않는다. 한 줄 안에 기간이 섞이면
-  // 어느 쪽도 못 믿는다 — 「방문 17명」 옆에 「유입 4,683」이 그랬다.
-  if (ins.day) {
-    // ★ 그날 방문자는 dau(날짜별 명단)에서만 나온다 (KD 2026-08-16).
-    //   전에는 v.today 를 썼는데 그건 `last_day = 오늘` 이라 **고른 날짜와
-    //   무관하게 늘 같은 값**이었다. 08-14 를 골라도 12 가 안 변했다.
-    //   views.uniq 는 경로 기준이라 한 사람이 세 페이지를 보면 3 으로 센다.
-    var dd = (ins.dau || []).filter(function (r) { return r.day === ins.day; })[0];
-    var ppl = dd ? dd.people : null;
-    h += '<h2>' + ins.day + ' 하루</h2><div class="sum">' +
-      (ppl === null
-        ? kpi('—', '그날 방문자', '이 날짜는 집계 전', true)
-        : kpi(ppl, '그날 방문자', today.hits + '뷰 · ' + today.uniq + '페이지열람', true)) +
-      kpi(v.fresh || 0, '첫 방문', '이날 처음 온 사람', true) +
-      kpi(acts, '반응·공유', '이날 발생', true) +
-      (ppl
-        ? kpi(pct(acts, ppl) + '%', '참여율', acts + '건 / ' + ppl + '명', true)
-        : kpi('—', '참여율', '방문자 수가 있어야 냄', true)) +
-      '</div>';
-    if (ppl === null) {
-      h += '<p class="note">이 날짜는 사람 수 집계를 시작하기 전입니다. ' +
-        '페이지 열람 수(' + today.uniq + ')는 경로 기준이라 한 사람이 여러 글을 보면 ' +
-        '여러 번 세집니다 — 사람 수로 읽으면 안 됩니다.</p>';
-    }
-  } else {
-    // 재방문율은 전 기간 값이라 위 '전체 기간' 블록에 이미 있다. 하루·7일 옆에
-    // 또 놓으면 같은 줄에서 기간이 갈린다 — 뺀다.
-    // 참여율 분모는 사람이어야 한다. sumU 는 경로 기준이라 분모가 부풀었다.
+  // ═══ 1. 읽은 사람 — 뉴스레터 사업의 핵심 숫자 ═══════════════════
+  var iss = ins.issues || [];
+  var totalReaders = 0;
+  iss.forEach(function (r) { totalReaders += r.people; });
+  h += '<h2>1. 읽은 사람 <small>' + scope + '</small></h2>';
+  if (iss.length) {
     h += '<div class="sum">' +
-      kpi(people0, '오늘 방문자', today.hits + '뷰', true) +
-      kpi(people7, '7일 방문자', h7 + '뷰 · 중복 제외', true) +
-      kpi(hasDau ? pct(actsWin, pplWin) + '%' : '—', '참여율',
-          hasDau ? actsWin + '건 / ' + pplWin + '명 · ' + covLabel
-                 : whyNoRatio, true) +
-      '</div>';
+      kpi(totalReaders, '회차 열람 합계', '메일 링크로 들어온 구독자', true) +
+      kpi(iss.length, '회차 수', null, true) +
+      kpi(Math.round(totalReaders / iss.length), '회차당 평균', '명', true) +
+      '</div><div class="card">' +
+      bars(iss.map(function (r) { return [r.iss, r.people]; }), '명') +
+      '<p class="note">같은 분이 여러 번 열어도 한 명입니다.</p></div>';
+  } else {
+    h += '<div class="card"><p class="note"><b>아직 셀 수 없습니다.</b> ' +
+      '스티비 링크에 <code>?s=$%web_tag%$&i=회차</code> 를 붙여야 쌓입니다. ' +
+      '이게 이 화면에서 가장 중요한 숫자입니다.</p></div>';
   }
 
-  // 일별 추이 — 뷰(주황) 위에 **사람 수**(파랑)를 겹친다.
-  //   전에는 파란 막대가 views.uniq 였다. 그건 (날짜, 경로)별 첫 열람이라
-  //   한 사람이 세 글을 보면 3 이 된다. 「순방문자」라 적어 놓고 사람이 아닌
-  //   값을 그렸다 (KD 2026-08-16). 이제 dau 를 쓰고, 없는 날은 안 그린다.
-  var max = 1;
-  daily.forEach(function (d) { if (d.hits > max) max = d.hits; });
-  h += '<h2>일별 추이 <small>' + (ins.scope || ('최근 ' + ins.days + '일')) + '</small></h2><div class="card"><div class="trend">' +
-    daily.map(function (d) {
-      var ppl = DAU[d.day];
-      var tip = d.day + ' · ' + d.hits + '뷰';
-      tip += ppl === undefined ? ' / 사람 수 집계 전' : ' / 방문자 ' + ppl + '명';
-      var inner = ppl === undefined ? '' :
-        '<i class="u" style="position:absolute;left:0;right:0;bottom:0;height:' +
-        Math.max(1, ppl / max * 60) + 'px"></i>';
-      return '<i style="height:' + Math.max(2, d.hits / max * 60) + 'px" title="' +
-        tip + '">' + inner + '</i>';
-    }).join('') +
-    '</div><div class="tl"><span>' + daily[0].day.slice(5) + '</span><span>' +
-    daily[daily.length - 1].day.slice(5) + '</span></div>' +
-    '<div class="lgd"><span><b style="background:#F07040"></b>페이지뷰</span>' +
-    (hasDau ? '<span><b style="background:#3f6fd8"></b>방문자 수</span>' : '') +
+  // ═══ 2. 사람인가 — 광고주에게 낼 수 있는 유일한 정직한 숫자 ══════
+  var hd = daysFor('human');
+  var hHits = 0;
+  daily.forEach(function (d) { if (hd.indexOf(d.day) >= 0) hHits += d.hits; });
+  var hCnt = sumEng(hd, ['human']);
+  h += '<h2>2. 진짜 사람인가 <small>메일 보안 자동 클릭 걸러내기</small></h2><div class="sum">' +
+    (hd.length && hHits
+      ? kpi(pct(hCnt, hHits) + '%', '사람 확인 비율', hCnt + ' / ' + hHits + '뷰 · ' + label(hd), true)
+      : kpi('—', '사람 확인 비율', why('human'), true)) +
+    '</div><p class="note">마우스·터치·키 입력이 실제로 들어온 열람의 비율입니다. ' +
+    '보안 스캐너는 링크를 눌러도 손이 움직이지 않습니다.</p>';
+
+  // ═══ 3. 구독으로 이어지나 ═══════════════════════════════════════
+  var sd = daysFor('subscribe');
+  var sr = ratio(sumEng(sd, ['subscribe']), sd);
+  h += '<h2>3. 구독으로 이어지나 <small>사이트의 유일한 전환점</small></h2><div class="sum">' +
+    kpi(sumEng(days, ['subscribe']), '구독 버튼 클릭', scope, true) +
+    (sr ? kpi(sr.v, '전환율', sr.d, true) : kpi('—', '전환율', why('subscribe'), true)) +
+    '</div>';
+
+  // ═══ 4. 다시 오나 ═══════════════════════════════════════════════
+  var fresh = 0;
+  winDays.forEach(function (d) { fresh += (FRESH[d] || 0); });
+  var ppl = people(winDays);
+  h += '<h2>4. 다시 오나</h2><div class="sum">' +
+    (winDays.length
+      ? kpi(fresh + ' / ' + Math.max(0, ppl - fresh), '새 사람 / 다시 온 사람',
+            pct(Math.max(0, ppl - fresh), ppl) + '% 가 재방문 · ' + label(winDays), true)
+      : kpi('—', '새 사람 / 다시 온 사람', why(null), true)) +
+    kpi(pct(L.repeat_v, L.people) + '%', '전체 기간 재방문',
+        (L.repeat_v || 0) + ' / ' + (L.people || 0) + '개 브라우저', true) +
     '</div>' +
-    (hasDau ? '' : '<p class="note">이 기간은 사람 수 집계 전이라 방문자 막대가 없습니다. ' +
-      '주황 막대는 페이지뷰입니다.</p>') + '</div>';
+    '<p class="note">「브라우저」이지 사람이 아닙니다. 메일 앱에서 열면 저장소가 매번 ' +
+    '비워져 같은 분이 새 브라우저로 잡힙니다. 위 <b>1번</b>이 그걸 대신할 숫자입니다.</p>';
 
-  // ── 현황 판단에 실제로 쓰이는 수치 (KD 2026-08-16) ────────────────
-  //   지금까지 화면은 "몇 명 왔나"만 말했다. 그걸로는 이 사이트가 자라는지,
-  //   글이 하루살이인지, 구독으로 이어지는지를 알 수 없다.
-  //   새로 모으지 않고 이미 있는 값으로 낼 수 있는 것부터 세운다.
-  //   새/재방문을 가르려면 두 값이 **같은 날짜 집합**에서 와야 한다.
-  //   창 전체 fresh 와 dau 있는 날만의 사람 수를 빼면 음수가 난다.
-  var FRESH = {};
-  (ins.freshDaily || []).forEach(function (r) { FRESH[r.day] = r.n; });
-  var freshWin = 0;
-  ratioDays.forEach(function (d) { freshWin += (FRESH[d] || 0); });
-  var returning = Math.max(0, pplWin - freshWin);
+  // ═══ 5. 얼마나 오나 — 페이지뷰와 방문자를 따로 본다 ══════════════
+  h += '<h2>5. 얼마나 오나 <small>' + scope + '</small></h2>';
+  var maxH = 1, maxP = 1;
+  daily.forEach(function (d) {
+    if (d.hits > maxH) maxH = d.hits;
+    if ((DAU[d.day] || 0) > maxP) maxP = DAU[d.day];
+  });
+  function chart(title, pick, max, color, note) {
+    var any = daily.some(function (d) { return pick(d) !== null; });
+    return '<div class="card ch"><div class="cht">' + title + '</div>' +
+      (any ? '<div class="trend">' + daily.map(function (d) {
+        var val = pick(d);
+        return '<i style="height:' + (val === null ? 2 : Math.max(2, val / max * 56)) +
+          'px;background:' + (val === null ? '#3a3a3a' : color) + '" title="' + d.day +
+          ' · ' + (val === null ? '집계 전' : val) + '"></i>';
+      }).join('') + '</div><div class="tl"><span>' + days[0].slice(5) + '</span><span>' +
+        days[days.length - 1].slice(5) + '</span></div>'
+        : '<div class="empty">집계 전</div>') +
+      (note ? '<p class="note">' + note + '</p>' : '') + '</div>';
+  }
+  h += '<div class="two">' +
+    chart('페이지뷰', function (d) { return d.hits; }, maxH, '#F07040',
+          '열린 횟수. 사람 수가 아닙니다') +
+    chart('방문자 수', function (d) { return DAU[d.day] === undefined ? null : DAU[d.day]; },
+          maxP, '#3f6fd8', '실제 사람 수. 회색은 집계 전') +
+    '</div>';
 
-  // 글의 수명 — 오늘 조회가 최근 글에 몰리는가, 아카이브가 계속 읽히는가.
-  // 하루살이면 발행일 트래픽이 전부고, 자산이면 지난 글이 계속 돈다.
+  // ═══ 6. 무엇이 읽히나 ═══════════════════════════════════════════
+  var top = ins.top || [];
+  if (top.length) {
+    h += '<h2>6. 무엇이 읽히나</h2><div class="card">' +
+      bars(top.slice(0, 10).map(function (r) {
+        return [r.path.replace(/^\/newsletters\/\d{4}\//, '').replace(/\.html$/, ''), r.hits];
+      }), '뷰') + '</div>';
+  }
+
+  // ═══ 7. 어디서 오나 ═════════════════════════════════════════════
+  var refs = ins.refs || [];
+  if (refs.length) {
+    h += '<h2>7. 어디서 오나</h2><div class="card">' +
+      bars(refs.map(function (r) { return [SRC_KO[r.src] || r.src, r.n]; }), '') +
+      '<p class="note">메일 앱은 유입 정보를 주지 않아 「직접」으로 잡힙니다. ' +
+      '위 <b>1번</b>이 그 부분을 갈라 줍니다.</p></div>';
+  }
+
+  // ═══ 8. 무엇을 하나 ═════════════════════════════════════════════
+  var eng = {};
+  (ins.engage || []).forEach(function (e) { eng[e.kind] = (eng[e.kind] || 0) + e.n; });
+  h += '<h2>8. 무엇을 하나 <small>' + scope + ' 합계</small></h2><div class="card">' +
+    bars(Object.keys(KIND_KO).map(function (k) { return [KIND_KO[k], eng[k] || 0]; }), '건') +
+    '</div>';
+
+  // ═══ 9. 아카이브가 자산인가 ═════════════════════════════════════
   var recent = 0, archive = 0;
-  var cut = daily.length ? daily[daily.length - 1].day : '';
-  (ins.top || []).forEach(function (r) {
+  top.forEach(function (r) {
     var m = /\/(\d{4})\/(\d{4})/.exec(r.path);
     if (!m) { archive += r.hits; return; }
-    // 경로에 박힌 날짜가 창 시작보다 오래면 아카이브
     var d = m[1] + '-' + m[2].slice(0, 2) + '-' + m[2].slice(2);
-    (daily.length && d >= daily[0].day) ? recent += r.hits : archive += r.hits;
+    (d >= days[0]) ? recent += r.hits : archive += r.hits;
   });
   var lifeTot = recent + archive;
+  h += '<h2>9. 아카이브가 자산인가</h2><div class="sum">' +
+    (lifeTot ? kpi(pct(archive, lifeTot) + '%', '지난 글이 먹은 조회',
+                   archive + ' / ' + lifeTot + '뷰', true)
+             : kpi('—', '지난 글이 먹은 조회', '표본 없음', true)) +
+    kpi(L.people || 0, '누적 브라우저', (L.hits || 0) + '뷰 · ' + (L.since || '') + '~', true) +
+    '</div><p class="note">지난 글 비중이 높을수록 발행일 트래픽에만 기대지 않는다는 뜻입니다.</p>';
 
-  var subs = eng.subscribe || 0;
-
-  h += '<h2>이 사이트가 어떤 상태인가 <small>' +
-    (ins.scope || ('최근 ' + ins.days + '일')) + '</small></h2><div class="sum">' +
-    (hasDau
-      ? kpi(freshWin + '/' + returning, '새 사람 / 다시 온 사람',
-            pct(returning, pplWin) + '% 가 재방문', true)
-      : kpi('—', '새 사람 / 다시 온 사람', '사람 수 집계 전', true)) +
-    (function () {
-      // 광고주에게 낼 수 있는 유일한 정직한 숫자 — 손이 움직인 열람의 비율
-      var from = (COV.kinds || {}).human;
-      if (!from) return kpi('—', '사람 확인 비율', '사람 신호 집계 전', true);
-      var days = daily.map(function (d) { return d.day; })
-        .filter(function (d) { return d > from; });
-      if (!days.length) return kpi('—', '사람 확인 비율',
-        '사람 신호가 ' + from + ' 시작 — 내일부터', true);
-      var hu = sumEng(days, ['human']);
-      var hit = 0;
-      daily.forEach(function (d) { if (days.indexOf(d.day) >= 0) hit += d.hits; });
-      return kpi(pct(hu, hit) + '%', '사람 확인 비율',
-        hu + ' / ' + hit + '뷰 · ' + days[0] + '~' + days[days.length - 1], true);
-    })() +
-    kpi(subs, '구독 버튼 클릭',
-        hasDau && pplWin
-          ? pct(sumEng(kindDays(ratioDays, 'subscribe'), ['subscribe']), pplWin) +
-            '% 전환 · ' + covLabel
-          : whyNoRatio, true) +
-    (lifeTot
-      ? kpi(pct(archive, lifeTot) + '%', '지난 글이 먹은 조회',
-            archive + ' / ' + lifeTot + '뷰', true)
-      : kpi('—', '지난 글이 먹은 조회', '경로 표본 없음', true)) +
-    (function () {
-      var from = (COV.kinds || {}).finish;
-      if (!from) return kpi('—', '읽은 뒤 도장까지', '완독 도장 집계 전', true);
-      var days = daily.map(function (d) { return d.day; })
-        .filter(function (d) { return d > from; });
-      if (!days.length) return kpi('—', '읽은 뒤 도장까지',
-        '완독 도장 집계가 ' + from + ' 시작 — 내일부터', true);
-      var f = sumEng(days, ['finish']), r = sumEng(days, ['read']);
-      return kpi(pct(f, r) + '%', '읽은 뒤 도장까지', f + ' / ' + r + '건 · ' +
-        days[0] + '~' + days[days.length - 1], true);
-    })() +
-    '</div>' +
-    '<p class="note">사람 확인 = 마우스·터치·키 입력이 실제로 들어온 열람. ' +
-    '메일 보안 스캐너는 링크를 눌러도 손이 움직이지 않습니다 — 광고 클릭률에 ' +
-    '허수가 섞이는 자리가 여기입니다. 새 사람 = 이 기간에 처음 온 방문자. 지난 글이 먹은 조회 = ' +
-    '이 기간보다 앞서 발행된 글이 가져간 조회 비중 — 높을수록 아카이브가 자산으로 ' +
-    '돈다는 뜻입니다. 구독 버튼 클릭은 2026-08-16부터 쌓입니다.</p>';
-
-  // 커뮤니티 지표 — 온 사람 중 얼마나 남기고 가는가
-  h += '<h2>참여 <small>방문자가 실제로 한 행동</small></h2><div class="card">' +
-    bars(Object.keys(KIND_KO).map(function (k) { return [KIND_KO[k], eng[k] || 0]; }), '건') +
-    '<p class="note">끝까지 읽음 = 페이지 70%까지 내려갔거나 45초 이상 머문 방문.' +
-    (hasDau
-      ? ' ' + covLabel + ' 기준(방문자 ' + pplWin + '명) · 읽음률 ' +
-        pct(readWin, pplWin) + '% · 반응률 ' +
-        pct(sumEng(ratioDays, ['react']), pplWin) + '%' +
-        ' — 아래 건수는 ' + (ins.scope || '창 전체') + ' 합계라 기간이 다릅니다.'
-      : ' ' + whyNoRatio + ' — 아래 건수만 보세요.') +
-    '</p></div>';
-
-  var C = ins.coverage || {};
-  if (C.views) {
-    var ko = { views: '조회', visitors: '브라우저', dau: '날짜별 방문자',
-               engage: '행동', refs: '유입' };
+  // ═══ 집계 시작일 ════════════════════════════════════════════════
+  if (COV.views) {
+    var ko = { views: '조회', visitors: '브라우저', dau: '방문자 수', engage: '행동', refs: '유입' };
     var parts = [];
-    Object.keys(ko).forEach(function (k) { if (C[k]) parts.push(ko[k] + ' ' + C[k]); });
-    h += '<h2>집계 시작일 <small>지표마다 다릅니다</small></h2><div class="card">' +
-      '<p class="note">' + parts.join(' · ') + '<br>' +
-      '시작일이 다른 값끼리 나누면 비율이 터집니다. 그래서 비율은 ' +
-      '<b>겹치는 날</b>에서만 내고, 겹치는 구간을 옆에 적어 둡니다. ' +
-      '겹치는 날이 없으면 「—」로 둡니다.</p></div>';
+    Object.keys(ko).forEach(function (k) { if (COV[k]) parts.push(ko[k] + ' ' + COV[k]); });
+    h += '<details class="cov"><summary>집계 시작일 — 지표마다 다릅니다</summary>' +
+      '<p class="note">' + parts.join(' · ') +
+      '<br>시작일이 다른 값끼리 나누면 비율이 터집니다. 그래서 비율은 겹치는 날에서만 내고, ' +
+      '겹치는 날이 없으면 「—」로 둡니다.</p></details>';
   }
 
-  // ── 뉴스레터 회차별 열람 (KD 2026-08-16) ────────────────────────────
-  //   웹에 직접 오는 사람보다 메일 링크로 오는 사람이 압도적이다.
-  //   그동안 그게 전부 「직접」 으로 뭉쳐 보이지 않았다.
-  var iss = ins.issues || [];
-  if (iss.length) {
-    h += '<h2>회차별 열람 <small>메일 링크로 들어온 구독자</small></h2>' +
-      '<div class="card">' +
-      bars(iss.map(function (r) { return [r.iss, r.people]; }), '명') +
-      '<p class="note">구독자 표시로 센 <b>사람 수</b>입니다. 같은 분이 여러 번 열어도 ' +
-      '한 명입니다. 개인 목록은 이 화면에도, API 에도 나오지 않습니다.</p></div>';
-  } else if ((ins.coverage || {}).views) {
-    h += '<h2>회차별 열람</h2><div class="card"><p class="note">' +
-      '아직 없습니다. 뉴스레터 링크에 <code>?s=…&i=…</code> 가 붙어야 쌓입니다 — ' +
-      '발송 시스템 쪽 작업이 남아 있습니다.</p></div>';
-  }
-
-  h += '<h2>유입 경로</h2><div class="card">' +
-    bars((ins.refs || []).map(function (r) { return [SRC_KO[r.src] || r.src, r.n]; }), '명') + '</div>';
-
-  // 이동 쌍 — 어떤 글을 보고 어떤 글로 넘어가는지. 개인 이력이 아니라 경로 쌍 합계다.
-  var hops = ins.hops || [];
-  if (hops.length) {
-    h += '<h2>이어 읽은 글 <small>A를 보고 B로 넘어간 횟수</small></h2><div class="card">' +
-      hops.slice(0, 12).map(function (r) {
-        return '<div class="hop"><span class="p">' + pname(r.frm) + '</span>' +
-          '<span class="ar">→</span><span class="p">' + pname(r.to_) + '</span>' +
-          '<b>' + r.n + '</b></div>';
-      }).join('') + '</div>';
-  }
-
-  h += '<h2>많이 본 페이지</h2><div class="card">' +
-    bars((ins.top || []).slice(0, 12).map(function (r) {
-      var m = r.path.match(/(\d{4})(-crypto)?\.html$/);
-      var nm = m ? (m[1].slice(0, 2) + '/' + m[1].slice(2) + (m[2] ? ' 크립토' : '') + ' 브리핑') : r.path;
-      return [nm, r.hits];
-    }), '뷰') + '</div>';
-
-  h += '<p class="note">쿠키·IP·UA를 저장하지 않습니다. 브라우저 localStorage의 익명 난수 ID로 ' +
-    '같은 사람인지만 구분하고, 원본 로그 없이 일자별 집계만 남깁니다.<br>' +
-    '재방문 = 서로 다른 날에 2일 이상 방문한 사람. 같은 브라우저로 하루에 여러 번 들어와도 ' +
-    '1명으로 셉니다. 다만 <b>기기·브라우저가 다르면 다른 사람으로 잡힙니다</b> ' +
-    '(IP를 안 쓰기 때문에 합칠 방법이 없습니다).</p>' +
-    '<div class="tabs" style="margin-top:14px"><button id="optbtn"></button></div>';
   app.innerHTML = h;
-
-  // 운영자 본인 방문이 지표를 부풀리지 않게 — 확인하러 들어오는 기기마다 눌러둔다
-  var ob = document.getElementById('optbtn');
-  function paintOpt() {
-    var on = false;
-    try { on = localStorage.getItem('ss_optout') === '1'; } catch (e) {}
-    ob.textContent = on ? '✓ 이 브라우저는 집계에서 빠져 있음 (되돌리기)' : '이 브라우저를 집계에서 빼기';
-    ob.className = on ? 'on' : '';
-  }
-  ob.addEventListener('click', function () {
-    var on = false;
-    try { on = localStorage.getItem('ss_optout') === '1'; } catch (e) {}
-    try {
-      if (on) localStorage.removeItem('ss_optout');
-      else localStorage.setItem('ss_optout', '1');
-    } catch (e) {}
-    // 켤 때는 서버에도 남기고 이미 쌓인 이 브라우저의 방문자 기록을 지운다
-    if (!on && window.ssForgetMe) {
-      window.ssForgetMe();
-      setTimeout(function () { location.reload(); }, 600);
-    }
-    paintOpt();
-  });
-  paintOpt();
-}
-
-// ── 반응 화면 ────────────────────────────────────────────
-function sparkline(b, now) {
-  var max = 0;
-  b = b || [];
-  b.forEach(function (n) { if (n > max) max = n; });
-  if (!max) return '';
-  var bs = b.map(function (n, i) {
-    var hh = new Date((now - (23 - i) * 3600) * 1000).getHours();
-    return '<i style="height:' + Math.max(2, Math.round(n / max * 34)) + 'px" title="' +
-           hh + '시 · ' + n + '건"></i>';
-  }).join('');
-  return '<div class="spark"><div class="sl">최근 24시간 (시간대별)</div><div class="bars">' + bs + '</div></div>';
-}
-
-// 정렬 — 데이터는 이미 다 받아 뒀으니 클라이언트에서 바꾼다(재요청 없음)
-var SORTS = [
-  ['hot',  '반응 많은 순'],
-  ['new',  '최신 반응 순'],
-  ['date', '콘텐츠 날짜 순'],
-];
-var SORT = 'hot';
-try { SORT = localStorage.getItem('ss_sort') || 'hot'; } catch (e) {}
-
-var PAGE = 30;   // 한 번에 그리는 줄 수 — 스크롤이 끝에 닿으면 더 그린다
-
-function rowHTML(k, by, last, now) {
-  var m = SMAP[k] || { t: k, d: '' };
-  m = { t: m.t, d: m.d, u: sUrl(k) };
-  return '<a class="row" href="' + m.u + '"><span class="dt">' + (m.d || '').slice(5) + '</span>' +
-    '<span class="ti">' + m.t + '</span><span class="when">' + ago(last[k], now) + '</span>' +
-    '<span class="cnt">' + EMO.map(function (e) {
-      var n = by[k][e] || 0;
-      return '<span class="' + (n ? '' : 'z') + '">' + e + ' ' + n + '</span>';
-    }).join('') + '</span></a>';
 }
 
 function renderReactions() {
@@ -752,6 +594,33 @@ var load = function () {};         // 아래에서 실제 로더로 바뀐다
 
 function dayQ() { return DAYSEL ? '&day=' + DAYSEL : ''; }
 
+// 기간 프리셋 — 날짜 고르개보다 이게 먼저 눈에 와야 한다 (KD 2026-08-16)
+var RANGES = [[1, '오늘'], [7, '7일'], [30, '30일'], [90, '90일'], [120, '전체']];
+var WIN = 30;
+
+function paintRange() {
+  var el = document.getElementById('rngbar');
+  if (!el) return;
+  el.innerHTML = RANGES.map(function (r) {
+    return '<button data-d="' + r[0] + '"' +
+      (!DAYSEL && WIN === r[0] ? ' class="on"' : '') + '>' + r[1] + '</button>';
+  }).join('') + '<button data-pick="1"' + (DAYSEL ? ' class="on"' : '') + '>' +
+    (DAYSEL || '날짜 고르기') + '</button>';
+  el.querySelectorAll('button').forEach(function (b) {
+    b.addEventListener('click', function () {
+      if (b.getAttribute('data-pick')) {
+        var bar = document.getElementById('daybar');
+        if (bar) bar.hidden = !bar.hidden;
+        return;
+      }
+      DAYSEL = null; WIN = parseInt(b.getAttribute('data-d'), 10);
+      var bar = document.getElementById('daybar');
+      if (bar) bar.hidden = true;
+      load();
+    });
+  });
+}
+
 function paintDays() {
   var el = document.getElementById('daybar');
   if (!el) return;
@@ -821,12 +690,13 @@ if (!API) {
   };
   // 날짜를 바꾸면 다시 부른다 — 그래서 함수로 묶는다
   load = function () {
-  Promise.all([get('/counts'), get('/activity'), get('/insights?days=30' + dayQ())])
+  Promise.all([get('/counts'), get('/activity'), get('/insights?days=' + WIN + dayQ())])
     .then(function (res) {
       D.counts = res[0] || {};
       D.activity = res[1];
       D.insights = res[2];
       paintTabs();
+      paintRange();
       paintDays();
       TAB === 'comments' ? renderComments()
         : TAB === 'reactions' ? renderReactions() : renderCommunity();
@@ -868,7 +738,8 @@ def build(atoms=None):
 <h1>순살 대시보드</h1>
 <p class="sub">몇 명이 와서 무엇에 반응했는지 — 운영자용 화면 (검색 노출 안 됨)</p>
 <div class="tabs" id="tabs"></div>
-<div class="daybar" id="daybar"></div>
+<div class="rng" id="rngbar"></div>
+<div class="daybar" id="daybar" hidden></div>
 <div id="app"><div class="empty">불러오는 중…</div></div>
 </div>
 <script>
