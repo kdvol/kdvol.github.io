@@ -275,6 +275,33 @@ function renderCommunity() {
   var scope = ins.scope || ('최근 ' + ins.days + '일');
   var h = '';
 
+  // ═══ 0. 기본 — 몇 명이 몇 번 봤나 ══════════════════════════════
+  //   개편하면서 이걸 없앴다. 우선순위를 매긴다고 "판단용 지표"만 남겼는데,
+  //   대시보드를 열었을 때 제일 먼저 알고 싶은 건 그냥 규모다 (KD 2026-08-16).
+  var sumHits = 0, sumUniq = 0;
+  daily.forEach(function (d) { sumHits += d.hits; sumUniq += d.uniq; });
+  var sumPeople = people(days.filter(function (d) { return DAU[d] !== undefined; }));
+  var last = daily[daily.length - 1] || { hits: 0, uniq: 0, day: '' };
+  var lastPeople = DAU[last.day];
+
+  h += '<h2>' + scope + '</h2><div class="sum">' +
+    kpi(sumHits.toLocaleString(), '페이지뷰', '이 기간 열린 횟수', true) +
+    (sumPeople
+      ? kpi(sumPeople.toLocaleString(), '방문자', '사람 수 · ' + label(days.filter(function (d) { return DAU[d] !== undefined; })), true)
+      : kpi('—', '방문자', why(null), true)) +
+    kpi(sumUniq.toLocaleString(), '페이지 열람', '한 사람이 3개 글 보면 3', true) +
+    kpi(daily.length, '집계된 날', last.day || '', true) +
+    '</div>';
+
+  h += '<h2>가장 최근 하루 <small>' + (last.day || '') + '</small></h2><div class="sum">' +
+    kpi(last.hits.toLocaleString(), '페이지뷰', null, true) +
+    (lastPeople === undefined
+      ? kpi('—', '방문자', '이 날짜는 집계 전', true)
+      : kpi(lastPeople.toLocaleString(), '방문자', '사람 수', true)) +
+    kpi(sumEng([last.day], ['react']), '반응', null, true) +
+    kpi(sumEng([last.day], ['comment']), '댓글', null, true) +
+    '</div>';
+
   // ═══ 1. 읽은 사람 — 뉴스레터 사업의 핵심 숫자 ═══════════════════
   var iss = ins.issues || [];
   var totalReaders = 0;
@@ -409,6 +436,40 @@ function renderCommunity() {
   }
 
   app.innerHTML = h;
+}
+
+var SORTS = [
+  ['hot',  '반응 많은 순'],
+  ['new',  '최신 반응 순'],
+  ['date', '콘텐츠 날짜 순'],
+];
+var SORT = 'hot';
+try { SORT = localStorage.getItem('ss_sort') || 'hot'; } catch (e) {}
+
+var PAGE = 30;   // 한 번에 그리는 줄 수 — 스크롤이 끝에 닿으면 더 그린다
+
+function sparkline(b, now) {
+  var max = 0;
+  b = b || [];
+  b.forEach(function (n) { if (n > max) max = n; });
+  if (!max) return '';
+  var bs = b.map(function (n, i) {
+    var hh = new Date((now - (23 - i) * 3600) * 1000).getHours();
+    return '<i style="height:' + Math.max(2, Math.round(n / max * 34)) + 'px" title="' +
+           hh + '시 · ' + n + '건"></i>';
+  }).join('');
+  return '<div class="spark"><div class="sl">최근 24시간 (시간대별)</div><div class="bars">' + bs + '</div></div>';
+}
+
+function rowHTML(k, by, last, now) {
+  var m = SMAP[k] || { t: k, d: '' };
+  m = { t: m.t, d: m.d, u: sUrl(k) };
+  return '<a class="row" href="' + m.u + '"><span class="dt">' + (m.d || '').slice(5) + '</span>' +
+    '<span class="ti">' + m.t + '</span><span class="when">' + ago(last[k], now) + '</span>' +
+    '<span class="cnt">' + EMO.map(function (e) {
+      var n = by[k][e] || 0;
+      return '<span class="' + (n ? '' : 'z') + '">' + e + ' ' + n + '</span>';
+    }).join('') + '</span></a>';
 }
 
 function renderReactions() {
