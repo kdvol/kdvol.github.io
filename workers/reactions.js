@@ -63,6 +63,23 @@ const TEST_ISSUE = '9999';
 // 클라이언트가 보내는데 목록에 없으면 **조용히 버려진다**. 2026-08-16 에
 // finish·home 이 그렇게 두 달 넘게 사라지고 있었다. 보내는 쪽과 맞춘다.
 // subscribe 는 이 사이트의 유일한 전환점인데 아예 재지 않고 있었다.
+// ── 민감 주제는 구독자 단위로 기록하지 않는다 (개인정보보호법 제23조) ──
+//   건강·질병은 민감정보다. 별도 동의 없이는 처리 자체가 금지된다.
+//   순살은 금융 매체지만 비만약·우울증 치료제·바이오텍을 자주 다룬다.
+//   "이 구독자가 우울증 기사를 읽었다"가 개인과 연결돼 남으면 건강에 관한
+//   정보로 해석될 여지가 있다.
+//
+//   회차 페이지는 한 장에 스토리가 다섯이라 "그 글을 읽었다"가 특정되지
+//   않는다 — 그대로 둔다. 반면 주제·위키 페이지는 그 주제 하나를 가리키므로
+//   구독자 단위 기록에서 뺀다. 날짜별 합계로는 계속 센다.
+const SENSITIVE = [
+  /^\/topics\/healthcare/i,
+  /^\/wiki\/(?:.*(?:pharma|biotech|health|vaccine|obesity|depress))/i,
+];
+function sensitivePath(p) {
+  return SENSITIVE.some(function (re) { return re.test(p); });
+}
+
 const SUB_RE = /^[a-f0-9]{16}$/;      // 일방향 처리값 16자리
 const ISS_RE = /^[0-9a-z-]{3,12}$/;   // 회차 표시
 const KIND = ['read', 'finish', 'react', 'share', 'telegram', 'instagram',
@@ -666,7 +683,7 @@ export default {
           //   지운다. 연결 끄기를 요청한 표시는 아예 기록하지 않는다.
           const sub = String((b && b.s) || '').trim();
           const iss = String((b && b.i) || '').trim();
-          if (SUB_RE.test(sub) && ISS_RE.test(iss)) {
+          if (SUB_RE.test(sub) && ISS_RE.test(iss) && !sensitivePath(path)) {
             const off = await env.DB.prepare(
               'select 1 from reads_optout where sub = ?1').bind(sub).first();
             if (!off) {
