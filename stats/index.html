@@ -76,6 +76,11 @@ h2 small{color:#666;font-weight:400;font-size:.78rem;margin-left:7px}
 .trend{display:flex;align-items:flex-end;gap:2px;height:64px;margin-top:4px;justify-content:flex-start}
 .trend i{flex:1 1 0;max-width:28px;background:#F07040;border-radius:2px 2px 0 0;min-height:2px;opacity:.85;position:relative}
 .trend i.u{background:#3f6fd8}
+/* 막대 위 값 읽기 — 폰에서 title 속성은 안 뜬다. 손가락으로 훑으면 여기 찍힌다 */
+.trend{touch-action:pan-y}
+.trend i.on{opacity:1;outline:1px solid #fff3;outline-offset:1px}
+.rd{font-weight:800;color:#F07040;font-size:.78rem;margin-left:6px;font-variant-numeric:tabular-nums}
+.spark .bars{touch-action:pan-y}
 .tl{display:flex;justify-content:space-between;font-size:.7rem;color:#5f5f5f;margin-top:6px}
 .lgd{display:flex;gap:14px;font-size:.72rem;color:#888;margin-top:8px}
 .lgd b{display:inline-block;width:8px;height:8px;border-radius:2px;margin-right:5px}
@@ -113,48 +118,7 @@ border:1px solid #333;color:#999}
 .act button{background:#1c1c1c;border:1px solid #2c2c2c;color:#999;border-radius:6px;padding:3px 9px;
 font-size:.72rem;cursor:pointer;font-family:inherit}
 .act button:hover{border-color:#F07040;color:#F07040}
-</style></head><body>
-<div id="soonsal-live-ticker" style="display:none;"></div>
-<style>
-#soonsal-live-ticker{position:sticky;top:0;width:100%;height:34px;box-sizing:border-box;background:#0a0a0a;border-bottom:1px solid #1a1a1a;overflow:hidden;z-index:99999;user-select:none;-webkit-user-select:none}
-#soonsal-live-ticker::before,#soonsal-live-ticker::after{content:'';position:absolute;top:0;bottom:0;width:48px;z-index:2;pointer-events:none}
-#soonsal-live-ticker::before{left:0;background:linear-gradient(to right,#0a0a0a,transparent)}
-#soonsal-live-ticker::after{right:0;background:linear-gradient(to left,#0a0a0a,transparent)}
-#soonsal-live-ticker .stk-track{display:flex;align-items:center;width:max-content;height:34px;animation:stk-scroll 90s linear infinite}
-#soonsal-live-ticker .stk-track:hover{animation-play-state:paused}
-@keyframes stk-scroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
-#soonsal-live-ticker .stk-item{display:inline-flex;align-items:center;gap:7px;padding:0 16px;border-right:1px solid #1a1a1a;white-space:nowrap;flex-shrink:0}
-#soonsal-live-ticker .stk-lbl{font-family:'DM Sans',-apple-system,sans-serif;font-size:11px;font-weight:600;color:#555;letter-spacing:0.3px;text-transform:uppercase}
-#soonsal-live-ticker .stk-lbl.crypto{color:#F07040}
-#soonsal-live-ticker .stk-prc{font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:500;color:#e0ddd8;letter-spacing:-0.3px}
-#soonsal-live-ticker .stk-chg{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:500;display:inline-flex;align-items:center;gap:3px;padding:1px 5px;border-radius:3px}
-#soonsal-live-ticker .stk-chg.up{color:#4ade80;background:rgba(74,222,128,0.08)}
-#soonsal-live-ticker .stk-chg.down{color:#f87171;background:rgba(248,113,113,0.08)}
-#soonsal-live-ticker .stk-chg.zero{color:#777}
-#soonsal-live-ticker .au{display:inline-block;width:0;height:0;border-style:solid;border-width:0 3px 5px;border-color:transparent transparent #4ade80}
-#soonsal-live-ticker .ad{display:inline-block;width:0;height:0;border-style:solid;border-width:5px 3px 0;border-color:#f87171 transparent transparent}
-#soonsal-live-ticker .stk-div{display:inline-flex;align-items:center;padding:0 12px;flex-shrink:0}
-#soonsal-live-ticker .stk-div span{width:3px;height:3px;border-radius:50%;background:#F07040}
-#soonsal-live-ticker .stk-ts{display:inline-flex;align-items:center;gap:5px;padding:0 16px;flex-shrink:0}
-#soonsal-live-ticker .stk-dot{width:5px;height:5px;border-radius:50%;background:#4ade80;animation:stk-pulse 2s ease-in-out infinite}
-@keyframes stk-pulse{0%,100%{opacity:1}50%{opacity:0.3}}
-#soonsal-live-ticker .stk-time{font-family:'JetBrains Mono',monospace;font-size:10px;color:#555;letter-spacing:0.5px}
-#soonsal-live-ticker .stk-loading{display:flex;align-items:center;justify-content:center;height:34px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#555;gap:8px}
-#soonsal-live-ticker .stk-spin{width:10px;height:10px;border:2px solid #222;border-top-color:#F07040;border-radius:50%;animation:stk-sp 0.8s linear infinite}
-@keyframes stk-sp{to{transform:rotate(360deg)}}
-@media(max-width:768px){#soonsal-live-ticker .stk-item{padding:0 12px}#soonsal-live-ticker .stk-lbl{font-size:10px}#soonsal-live-ticker .stk-prc{font-size:11px}#soonsal-live-ticker .stk-chg{font-size:10px}}
-
-  @media (max-width:768px) {
-    .nav a { padding:12px 14px; font-size:12px; }
-    .sub-btn-header { font-size:11px !important; padding:6px 12px !important; }
-  }
-  @media (max-width:480px) {
-    .sub-btn-header { font-size:10px !important; padding:5px 10px !important; right:10px !important; }
-  }
-</style>
-<script>
-(function(){'use strict';var WORKER_URL='https://soonsal-data.kd-d0a.workers.dev/';var COINGECKO_URL='https://api.coingecko.com/api/v3';var TRADFI_ORDER=['S&P 500','NASDAQ','Dow Jones','KOSPI','US 10Y','WTI Oil','Gold','DXY','EUR/USD','USD/JPY','USD/KRW'];var CRYPTO_ORDER=['Bitcoin','Ethereum','Solana','XRP','BNB','Crypto Total'];var CRYPTO_IDS={'Bitcoin':'bitcoin','Ethereum':'ethereum','Solana':'solana','XRP':'ripple','BNB':'binancecoin'};var REFRESH=60000;var container,timer,lastTradfi,lastCrypto;function init(){container=document.getElementById('soonsal-live-ticker');if(!container)return;container.style.display='block';container.innerHTML='<div class="stk-loading"><div class="stk-spin"></div>Loading market data...</div>';fetchAll();timer=setInterval(fetchAll,REFRESH)}function fetchAll(){var p1=fetchTradFi();var p2=fetchCrypto();Promise.allSettled?Promise.allSettled([p1,p2]).then(render):Promise.all([p1.catch(function(){return null}),p2.catch(function(){return null})]).then(render)}function fetchTradFi(){return fetch(WORKER_URL).then(function(r){return r.json()}).then(function(data){if(data.tradfi)lastTradfi=data;return data}).catch(function(e){console.warn('[Ticker] TradFi error:',e.message);return null})}function fetchCrypto(){var ids=Object.values(CRYPTO_IDS).join(',');var url=COINGECKO_URL+'/simple/price?ids='+ids+'&vs_currencies=usd&include_24hr_change=true&include_market_cap=true';var globalUrl=COINGECKO_URL+'/global';return Promise.all([fetch(url).then(function(r){return r.json()}),fetch(globalUrl).then(function(r){return r.json()}).catch(function(){return null})]).then(function(results){var prices=results[0];var global=results[1];var crypto={};for(var name in CRYPTO_IDS){var id=CRYPTO_IDS[name];var d=prices[id];if(!d)continue;var p=d.usd;var ch=d.usd_24h_change||0;crypto[name]={price:'$'+formatNum(p),change:(ch>=0?'+':'')+ch.toFixed(2)+'%',direction:ch>0.01?'up':ch<-0.01?'down':'zero'}}if(global&&global.data){var mc=global.data.total_market_cap&&global.data.total_market_cap.usd;var mch=global.data.market_cap_change_percentage_24h_usd;if(mc){crypto['Crypto Total']={price:'$'+(mc/1e12).toFixed(2)+'T',change:(mch>=0?'+':'')+(mch||0).toFixed(2)+'%',direction:mch>0?'up':mch<0?'down':'zero'}}}lastCrypto=crypto;return crypto}).catch(function(e){console.warn('[Ticker] Crypto error:',e.message);return null})}function render(){var tradfi=lastTradfi?lastTradfi.tradfi:{};var crypto=lastCrypto||{};var kst=lastTradfi?lastTradfi.kst:new Date().toLocaleString('ko-KR',{timeZone:'Asia/Seoul'});var html=[];html.push('<div class="stk-ts"><span class="stk-dot"></span><span class="stk-time">'+esc(kst)+' KST</span></div>');for(var i=0;i<TRADFI_ORDER.length;i++){var name=TRADFI_ORDER[i];var d=tradfi[name];if(d)html.push(makeItem(name,d,false))}html.push('<div class="stk-div"><span></span></div>');for(var j=0;j<CRYPTO_ORDER.length;j++){var cname=CRYPTO_ORDER[j];var cd=crypto[cname];if(cd)html.push(makeItem(cname,cd,true))}var track=html.join('');container.innerHTML='<div class="stk-track">'+track+track+'</div>'}function makeItem(name,d,isCrypto){var dir=d.direction||'zero';var arrow=dir==='up'?'<span class="au"></span>':dir==='down'?'<span class="ad"></span>':'';return'<div class="stk-item"><span class="stk-lbl'+(isCrypto?' crypto':'')+'">'+esc(name)+'</span><span class="stk-prc">'+esc(d.price)+'</span><span class="stk-chg '+dir+'">'+arrow+' '+esc(d.change)+'</span></div>'}function formatNum(n){if(n>=10000)return n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});if(n>=100)return n.toFixed(2);if(n>=1)return n.toFixed(2);return n.toFixed(4)}function esc(s){if(!s)return'';var d=document.createElement('span');d.textContent=String(s);return d.innerHTML}if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',init)}else{init()}})();
-</script><div class="wrap">
+</style></head><body><div class="wrap">
 <h1>순살 대시보드</h1>
 <p class="sub">몇 명이 와서 무엇에 반응했는지 — 운영자용 화면 (검색 노출 안 됨)</p>
 <div class="tabs" id="tabs"></div>
@@ -210,6 +174,45 @@ function kpi(v, l, d, hero) {
   return '<div class="kpi' + (hero ? ' hero' : '') + '"><div class="v">' + v + '</div>' +
          '<div class="l">' + l + '</div>' + (d ? '<div class="d">' + d + '</div>' : '') + '</div>';
 }
+// 막대에 값 붙이기 — 데스크톱은 마우스, 폰은 손가락. 둘 다 pointer 로 받는다.
+//   예전엔 `title` 속성뿐이라 폰에서는 숫자를 볼 방법이 아예 없었다
+//   (KD 2026-08-17: "손가락을 올리든 하면 숫자가 뜨도록").
+function wireTrend(root) {
+  (root || document).querySelectorAll('.trend').forEach(function (t) {
+    var card = t.closest('.card, .spark') || t.parentNode;
+    var out = card.querySelector('.rd');
+    if (!out) return;
+    var bars = [].slice.call(t.querySelectorAll('i'));
+    function show(x) {
+      var hit = null;
+      bars.forEach(function (b) {
+        var r = b.getBoundingClientRect();
+        if (x >= r.left - 1 && x <= r.right + 1) hit = b;
+        b.classList.remove('on');
+      });
+      // 막대 사이 틈에 닿아도 가장 가까운 걸 잡는다 — 폰에서 자주 빗나간다
+      if (!hit && bars.length) {
+        var best = Infinity;
+        bars.forEach(function (b) {
+          var r = b.getBoundingClientRect(), d = Math.abs((r.left + r.right) / 2 - x);
+          if (d < best) { best = d; hit = b; }
+        });
+      }
+      if (!hit) return;
+      hit.classList.add('on');
+      out.textContent = hit.getAttribute('data-d') + ' · ' + hit.getAttribute('data-v');
+    }
+    function clear() {
+      bars.forEach(function (b) { b.classList.remove('on'); });
+      out.textContent = '';
+    }
+    t.addEventListener('pointermove', function (e) { show(e.clientX); });
+    t.addEventListener('pointerdown', function (e) { show(e.clientX); });
+    t.addEventListener('pointerleave', clear);
+    t.addEventListener('pointercancel', clear);
+  });
+}
+
 function bars(items, unit) {
   var max = 0;
   items.forEach(function (i) { if (i[1] > max) max = i[1]; });
@@ -404,12 +407,15 @@ function renderCommunity() {
   });
   function chart(title, pick, max, color, note) {
     var any = daily.some(function (d) { return pick(d) !== null; });
-    return '<div class="card ch"><div class="cht">' + title + '</div>' +
+    // 값은 `title` 속성이 아니라 화면에 직접 띄운다 — 폰에서는 손가락을
+    //   올려도 title 이 뜨지 않아 숫자를 볼 방법이 아예 없었다 (KD 2026-08-17).
+    return '<div class="card ch"><div class="cht">' + title +
+      ' <b class="rd"></b></div>' +
       (any ? '<div class="trend">' + daily.map(function (d) {
         var val = pick(d);
         return '<i style="height:' + (val === null ? 2 : Math.max(2, val / max * 56)) +
-          'px;background:' + (val === null ? '#3a3a3a' : color) + '" title="' + d.day +
-          ' · ' + (val === null ? '집계 전' : val) + '"></i>';
+          'px;background:' + (val === null ? '#3a3a3a' : color) + '" data-d="' + d.day +
+          '" data-v="' + (val === null ? '집계 전' : val.toLocaleString()) + '"></i>';
       }).join('') + '</div><div class="tl"><span>' + days[0].slice(5) + '</span><span>' +
         days[days.length - 1].slice(5) + '</span></div>'
         : '<div class="empty">집계 전</div>') +
@@ -475,6 +481,7 @@ function renderCommunity() {
   }
 
   app.innerHTML = h;
+  wireTrend(app);
 }
 
 var SORTS = [
@@ -487,17 +494,21 @@ try { SORT = localStorage.getItem('ss_sort') || 'hot'; } catch (e) {}
 
 var PAGE = 30;   // 한 번에 그리는 줄 수 — 스크롤이 끝에 닿으면 더 그린다
 
-function sparkline(b, now) {
+function sparkline(b, now, act) {
   var max = 0;
   b = b || [];
   b.forEach(function (n) { if (n > max) max = n; });
   if (!max) return '';
+  // 하루를 고르면 서버가 그날 0~23시로 보낸다. 아니면 지금 기준 최근 24시간.
+  var of = act && act.hoursOf;
   var bs = b.map(function (n, i) {
-    var hh = new Date((now - (23 - i) * 3600) * 1000).getHours();
-    return '<i style="height:' + Math.max(2, Math.round(n / max * 34)) + 'px" title="' +
-           hh + '시 · ' + n + '건"></i>';
+    var hh = of ? i : new Date((now - (23 - i) * 3600) * 1000).getHours();
+    return '<i style="height:' + Math.max(2, Math.round(n / max * 34)) +
+           'px" data-d="' + hh + '시" data-v="' + n + '건"></i>';
   }).join('');
-  return '<div class="spark"><div class="sl">최근 24시간 (시간대별)</div><div class="bars">' + bs + '</div></div>';
+  return '<div class="spark"><div class="sl">' +
+    (of ? of + ' 시간대별' : '최근 24시간 (시간대별)') +
+    ' <b class="rd"></b></div><div class="bars trend">' + bs + '</div></div>';
 }
 
 function rowHTML(k, by, last, now) {
@@ -541,9 +552,12 @@ function renderReactions() {
   keys.forEach(function (k) { tot += sum[k]; });
   var d1 = (act && act.d1) || 0, d7 = (act && act.d7) || 0, newest = 0;
   Object.keys(last).forEach(function (k) { if (last[k] > newest) newest = last[k]; });
+  var per = DAYSEL || ('최근 ' + WIN + '일');
 
-  var h = '<div class="sum">' + kpi(tot, '전체 반응') + kpi(d1, '최근 24시간') +
-    kpi(d7, '최근 7일') + kpi(keys.length, '반응받은 스토리') + '</div>' + sparkline(hours, now) +
+  var h = '<div class="sum">' + kpi(tot, '반응', per, true) +
+    kpi((act && act.win) || 0, '이 기간 반응', per, true) +
+    kpi(d1, '최근 24시간', null, true) + kpi(d7, '최근 7일', null, true) +
+    kpi(keys.length, '반응받은 스토리', per, true) + '</div>' + sparkline(hours, now, act) +
     (newest ? '<p class="sub" style="margin:14px 0 4px">마지막 반응 ' + ago(newest, now) + '</p>' : '');
 
   h += '<div class="tabs sortbar">' + SORTS.map(function (s) {
@@ -551,6 +565,7 @@ function renderReactions() {
   }).join('') + '<span class="cn">' + keys.length + '개</span></div>' +
     '<div id="rows"></div><div id="more"></div>';
   app.innerHTML = h;
+  wireTrend(app);
 
   app.querySelectorAll('.sortbar button').forEach(function (b) {
     b.addEventListener('click', function () {
@@ -667,6 +682,7 @@ function renderComments() {
           spam.map(function (c) { return cmRow(c, true); }).join('') + '</div>';
       }
       app.innerHTML = h;
+  wireTrend(app);
       app.querySelectorAll('.act button').forEach(function (b) {
         b.addEventListener('click', function () {
           setState(parseInt(b.getAttribute('data-i'), 10), parseInt(b.getAttribute('data-a'), 10));
@@ -726,12 +742,12 @@ function paintDays() {
   if (!el) return;
   var days = ((D.insights || {}).daily || []).map(function (d) { return d.day; });
   // 하루만 볼 땐 그날 하루치만 오므로, 고르개는 처음 목록을 계속 쓴다
-  if (!DAYSEL) DAYS_ALL = days.slice(-30);
+  if (!DAYSEL) DAYS_ALL = days.slice(-Math.max(WIN, 30));
   var opts = (DAYS_ALL || days).slice().reverse().map(function (d) {
     return '<option value="' + d + '"' + (DAYSEL === d ? ' selected' : '') + '>' + d + '</option>';
   }).join('');
   el.innerHTML = '<label>기간</label>' +
-    '<select id="daypick"><option value="">최근 30일 합계</option>' + opts + '</select>' +
+    '<select id="daypick"><option value="">최근 ' + WIN + '일 합계</option>' + opts + '</select>' +
     '<span class="scope">' + ((D.insights || {}).scope || '') + '</span>';
   var sel = document.getElementById('daypick');
   sel.addEventListener('change', function () {
@@ -790,7 +806,10 @@ if (!API) {
   };
   // 날짜를 바꾸면 다시 부른다 — 그래서 함수로 묶는다
   load = function () {
-  Promise.all([get('/counts'), get('/activity'), get('/insights?days=' + WIN + dayQ())])
+  // 셋 다 같은 기간을 받아야 한다. 예전엔 /insights 만 기간을 받아서,
+  //   「7일」을 눌러도 반응·시간대 막대는 안 바뀌었다 (KD 2026-08-17).
+  var q = '?days=' + WIN + dayQ();
+  Promise.all([get('/counts' + q), get('/activity' + q), get('/insights' + q)])
     .then(function (res) {
       D.counts = res[0] || {};
       D.activity = res[1];
