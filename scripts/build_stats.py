@@ -87,6 +87,11 @@ h2 small{color:#666;font-weight:400;font-size:.78rem;margin-left:7px}
 .trend{display:flex;align-items:flex-end;gap:2px;height:64px;margin-top:4px;justify-content:flex-start}
 .trend i{flex:1 1 0;max-width:28px;background:#F07040;border-radius:2px 2px 0 0;min-height:2px;opacity:.85;position:relative}
 .trend i.u{background:#3f6fd8}
+/* 막대 위 값 읽기 — 폰에서 title 속성은 안 뜬다. 손가락으로 훑으면 여기 찍힌다 */
+.trend{touch-action:pan-y}
+.trend i.on{opacity:1;outline:1px solid #fff3;outline-offset:1px}
+.rd{font-weight:800;color:#F07040;font-size:.78rem;margin-left:6px;font-variant-numeric:tabular-nums}
+.spark .bars{touch-action:pan-y}
 .tl{display:flex;justify-content:space-between;font-size:.7rem;color:#5f5f5f;margin-top:6px}
 .lgd{display:flex;gap:14px;font-size:.72rem;color:#888;margin-top:8px}
 .lgd b{display:inline-block;width:8px;height:8px;border-radius:2px;margin-right:5px}
@@ -171,6 +176,45 @@ function kpi(v, l, d, hero) {
   return '<div class="kpi' + (hero ? ' hero' : '') + '"><div class="v">' + v + '</div>' +
          '<div class="l">' + l + '</div>' + (d ? '<div class="d">' + d + '</div>' : '') + '</div>';
 }
+// 막대에 값 붙이기 — 데스크톱은 마우스, 폰은 손가락. 둘 다 pointer 로 받는다.
+//   예전엔 `title` 속성뿐이라 폰에서는 숫자를 볼 방법이 아예 없었다
+//   (KD 2026-08-17: "손가락을 올리든 하면 숫자가 뜨도록").
+function wireTrend(root) {
+  (root || document).querySelectorAll('.trend').forEach(function (t) {
+    var card = t.closest('.card, .spark') || t.parentNode;
+    var out = card.querySelector('.rd');
+    if (!out) return;
+    var bars = [].slice.call(t.querySelectorAll('i'));
+    function show(x) {
+      var hit = null;
+      bars.forEach(function (b) {
+        var r = b.getBoundingClientRect();
+        if (x >= r.left - 1 && x <= r.right + 1) hit = b;
+        b.classList.remove('on');
+      });
+      // 막대 사이 틈에 닿아도 가장 가까운 걸 잡는다 — 폰에서 자주 빗나간다
+      if (!hit && bars.length) {
+        var best = Infinity;
+        bars.forEach(function (b) {
+          var r = b.getBoundingClientRect(), d = Math.abs((r.left + r.right) / 2 - x);
+          if (d < best) { best = d; hit = b; }
+        });
+      }
+      if (!hit) return;
+      hit.classList.add('on');
+      out.textContent = hit.getAttribute('data-d') + ' · ' + hit.getAttribute('data-v');
+    }
+    function clear() {
+      bars.forEach(function (b) { b.classList.remove('on'); });
+      out.textContent = '';
+    }
+    t.addEventListener('pointermove', function (e) { show(e.clientX); });
+    t.addEventListener('pointerdown', function (e) { show(e.clientX); });
+    t.addEventListener('pointerleave', clear);
+    t.addEventListener('pointercancel', clear);
+  });
+}
+
 function bars(items, unit) {
   var max = 0;
   items.forEach(function (i) { if (i[1] > max) max = i[1]; });
@@ -365,12 +409,15 @@ function renderCommunity() {
   });
   function chart(title, pick, max, color, note) {
     var any = daily.some(function (d) { return pick(d) !== null; });
-    return '<div class="card ch"><div class="cht">' + title + '</div>' +
+    // 값은 `title` 속성이 아니라 화면에 직접 띄운다 — 폰에서는 손가락을
+    //   올려도 title 이 뜨지 않아 숫자를 볼 방법이 아예 없었다 (KD 2026-08-17).
+    return '<div class="card ch"><div class="cht">' + title +
+      ' <b class="rd"></b></div>' +
       (any ? '<div class="trend">' + daily.map(function (d) {
         var val = pick(d);
         return '<i style="height:' + (val === null ? 2 : Math.max(2, val / max * 56)) +
-          'px;background:' + (val === null ? '#3a3a3a' : color) + '" title="' + d.day +
-          ' · ' + (val === null ? '집계 전' : val) + '"></i>';
+          'px;background:' + (val === null ? '#3a3a3a' : color) + '" data-d="' + d.day +
+          '" data-v="' + (val === null ? '집계 전' : val.toLocaleString()) + '"></i>';
       }).join('') + '</div><div class="tl"><span>' + days[0].slice(5) + '</span><span>' +
         days[days.length - 1].slice(5) + '</span></div>'
         : '<div class="empty">집계 전</div>') +
@@ -436,6 +483,7 @@ function renderCommunity() {
   }
 
   app.innerHTML = h;
+  wireTrend(app);
 }
 
 var SORTS = [
@@ -448,17 +496,21 @@ try { SORT = localStorage.getItem('ss_sort') || 'hot'; } catch (e) {}
 
 var PAGE = 30;   // 한 번에 그리는 줄 수 — 스크롤이 끝에 닿으면 더 그린다
 
-function sparkline(b, now) {
+function sparkline(b, now, act) {
   var max = 0;
   b = b || [];
   b.forEach(function (n) { if (n > max) max = n; });
   if (!max) return '';
+  // 하루를 고르면 서버가 그날 0~23시로 보낸다. 아니면 지금 기준 최근 24시간.
+  var of = act && act.hoursOf;
   var bs = b.map(function (n, i) {
-    var hh = new Date((now - (23 - i) * 3600) * 1000).getHours();
-    return '<i style="height:' + Math.max(2, Math.round(n / max * 34)) + 'px" title="' +
-           hh + '시 · ' + n + '건"></i>';
+    var hh = of ? i : new Date((now - (23 - i) * 3600) * 1000).getHours();
+    return '<i style="height:' + Math.max(2, Math.round(n / max * 34)) +
+           'px" data-d="' + hh + '시" data-v="' + n + '건"></i>';
   }).join('');
-  return '<div class="spark"><div class="sl">최근 24시간 (시간대별)</div><div class="bars">' + bs + '</div></div>';
+  return '<div class="spark"><div class="sl">' +
+    (of ? of + ' 시간대별' : '최근 24시간 (시간대별)') +
+    ' <b class="rd"></b></div><div class="bars trend">' + bs + '</div></div>';
 }
 
 function rowHTML(k, by, last, now) {
@@ -502,9 +554,12 @@ function renderReactions() {
   keys.forEach(function (k) { tot += sum[k]; });
   var d1 = (act && act.d1) || 0, d7 = (act && act.d7) || 0, newest = 0;
   Object.keys(last).forEach(function (k) { if (last[k] > newest) newest = last[k]; });
+  var per = DAYSEL || ('최근 ' + WIN + '일');
 
-  var h = '<div class="sum">' + kpi(tot, '전체 반응') + kpi(d1, '최근 24시간') +
-    kpi(d7, '최근 7일') + kpi(keys.length, '반응받은 스토리') + '</div>' + sparkline(hours, now) +
+  var h = '<div class="sum">' + kpi(tot, '반응', per, true) +
+    kpi((act && act.win) || 0, '이 기간 반응', per, true) +
+    kpi(d1, '최근 24시간', null, true) + kpi(d7, '최근 7일', null, true) +
+    kpi(keys.length, '반응받은 스토리', per, true) + '</div>' + sparkline(hours, now, act) +
     (newest ? '<p class="sub" style="margin:14px 0 4px">마지막 반응 ' + ago(newest, now) + '</p>' : '');
 
   h += '<div class="tabs sortbar">' + SORTS.map(function (s) {
@@ -512,6 +567,7 @@ function renderReactions() {
   }).join('') + '<span class="cn">' + keys.length + '개</span></div>' +
     '<div id="rows"></div><div id="more"></div>';
   app.innerHTML = h;
+  wireTrend(app);
 
   app.querySelectorAll('.sortbar button').forEach(function (b) {
     b.addEventListener('click', function () {
@@ -628,6 +684,7 @@ function renderComments() {
           spam.map(function (c) { return cmRow(c, true); }).join('') + '</div>';
       }
       app.innerHTML = h;
+  wireTrend(app);
       app.querySelectorAll('.act button').forEach(function (b) {
         b.addEventListener('click', function () {
           setState(parseInt(b.getAttribute('data-i'), 10), parseInt(b.getAttribute('data-a'), 10));
@@ -687,12 +744,12 @@ function paintDays() {
   if (!el) return;
   var days = ((D.insights || {}).daily || []).map(function (d) { return d.day; });
   // 하루만 볼 땐 그날 하루치만 오므로, 고르개는 처음 목록을 계속 쓴다
-  if (!DAYSEL) DAYS_ALL = days.slice(-30);
+  if (!DAYSEL) DAYS_ALL = days.slice(-Math.max(WIN, 30));
   var opts = (DAYS_ALL || days).slice().reverse().map(function (d) {
     return '<option value="' + d + '"' + (DAYSEL === d ? ' selected' : '') + '>' + d + '</option>';
   }).join('');
   el.innerHTML = '<label>기간</label>' +
-    '<select id="daypick"><option value="">최근 30일 합계</option>' + opts + '</select>' +
+    '<select id="daypick"><option value="">최근 ' + WIN + '일 합계</option>' + opts + '</select>' +
     '<span class="scope">' + ((D.insights || {}).scope || '') + '</span>';
   var sel = document.getElementById('daypick');
   sel.addEventListener('change', function () {
@@ -751,7 +808,10 @@ if (!API) {
   };
   // 날짜를 바꾸면 다시 부른다 — 그래서 함수로 묶는다
   load = function () {
-  Promise.all([get('/counts'), get('/activity'), get('/insights?days=' + WIN + dayQ())])
+  // 셋 다 같은 기간을 받아야 한다. 예전엔 /insights 만 기간을 받아서,
+  //   「7일」을 눌러도 반응·시간대 막대는 안 바뀌었다 (KD 2026-08-17).
+  var q = '?days=' + WIN + dayQ();
+  Promise.all([get('/counts' + q), get('/activity' + q), get('/insights' + q)])
     .then(function (res) {
       D.counts = res[0] || {};
       D.activity = res[1];

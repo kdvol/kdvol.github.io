@@ -236,6 +236,22 @@ export default {
           for (const r of results || []) out[r.emoji] = r.count;
           return json(out, origin, 200, { 'Cache-Control': 'public, max-age=20' });
         }
+        // 운영자 전체 조회 — 기간을 받으면 그 창에서 일어난 반응만 센다.
+        //   지금까지 늘 전체 누적이라, 화면에서 「7일」을 눌러도 반응 수만
+        //   안 바뀌었다. 기간 버튼이 붙어 있는데 안 따라오는 값은 오류다
+        //   (KD 2026-08-17). reactions 는 누적이라 events 에서 접는다.
+        const cDays = Math.min(Math.max(parseInt(url.searchParams.get('days') || '0', 10) || 0, 0), 120);
+        const cOne = (url.searchParams.get('day') || '').trim();
+        const cIsDay = /^\d{4}-\d{2}-\d{2}$/.test(cOne);
+        if (cDays || cIsDay) {
+          const TS = cIsDay
+            ? `ts >= unixepoch('${cOne}') - 32400 and ts < unixepoch('${cOne}', '+1 day') - 32400`
+            : `ts >= unixepoch(date(unixepoch() + 32400, 'unixepoch', '-${cDays} days')) - 32400`;
+          const win = await env.DB.prepare(
+            `select story, emoji, sum(delta) as count from events where ${TS} `
+            + 'group by story, emoji having sum(delta) > 0').all();
+          return json(byStory(win.results || []), origin);
+        }
         const { results } = await env.DB
           .prepare('select story, emoji, count from reactions where count > 0').all();
         return json(byStory(results || []), origin);
@@ -558,21 +574,39 @@ export default {
         // 원본 이벤트를 그대로 내리면 반응이 쌓이는 만큼 응답이 커진다. 화면이
         // 쓰는 건 전부 집계값(24시간 시간대별 막대, 최근 1일·7일 합계)이라
         // 서버에서 접어서 보낸다. 응답 크기는 반응 수와 무관해진다.
-        const [lastQ, hourQ, sumQ] = await env.DB.batch([
+        // 기간 연동 — 24시간·7일이 화면의 기간 버튼과 따로 놀았다 (KD 2026-08-17).
+        //   하루를 고르면 그날 24시간을, 창이면 창 합계를 함께 돌려준다.
+        const aDays = Math.min(Math.max(parseInt(url.searchParams.get('days') || '0', 10) || 0, 0), 120);
+        const aOne = (url.searchParams.get('day') || '').trim();
+        const aIsDay = /^\d{4}-\d{2}-\d{2}$/.test(aOne);
+        const aTS = aIsDay
+          ? `ts >= unixepoch('${aOne}') - 32400 and ts < unixepoch('${aOne}', '+1 day') - 32400`
+          : (aDays
+            ? `ts >= unixepoch(date(unixepoch() + 32400, 'unixepoch', '-${aDays} days')) - 32400`
+            : 'ts > unixepoch() - 604800');
+        // 하루를 골랐으면 그날의 KST 시각별로, 아니면 지금 기준 최근 24시간
+        const hourSQL = aIsDay
+          ? `select cast(strftime('%H', ts + 32400, 'unixepoch') as integer) as hh, count(*) as n `
+            + `from events where delta = 1 and ${aTS} group by hh`
+          : 'select cast((unixepoch() - ts) / 3600 as integer) as hh, count(*) as n '
+            + 'from events where delta = 1 and ts > unixepoch() - 86400 group by hh';
+        const [lastQ, hourQ, sumQ, winQ] = await env.DB.batch([
           env.DB.prepare('select story, max(updated_at) as t from reactions where updated_at is not null group by story'),
-          env.DB.prepare('select cast((unixepoch() - ts) / 3600 as integer) as hh, count(*) as n '
-                       + 'from events where delta = 1 and ts > unixepoch() - 86400 group by hh'),
+          env.DB.prepare(hourSQL),
           env.DB.prepare('select sum(case when ts > unixepoch() - 86400 then 1 else 0 end) as d1, '
                        + 'count(*) as d7 from events where delta = 1 and ts > unixepoch() - 604800'),
+          env.DB.prepare(`select count(*) as n from events where delta = 1 and ${aTS}`),
         ]);
         const last = {};
         for (const r of lastQ.results || []) last[r.story] = r.t;
         const hours = new Array(24).fill(0);
         for (const r of hourQ.results || []) {
-          if (r.hh >= 0 && r.hh < 24) hours[23 - r.hh] = r.n;
+          if (r.hh >= 0 && r.hh < 24) hours[aIsDay ? r.hh : 23 - r.hh] = r.n;
         }
         const s = (sumQ.results || [])[0] || {};
         return json({ last, hours, d1: s.d1 || 0, d7: s.d7 || 0,
+                      win: ((winQ.results || [])[0] || {}).n || 0,
+                      hoursOf: aIsDay ? aOne : null,
                       now: Math.floor(Date.now() / 1000) }, origin);
       }
 
