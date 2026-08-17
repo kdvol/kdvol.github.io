@@ -17,8 +17,24 @@
     "ig"
    ],
    "applied": [
+    "threads",
+    "cardnews",
+    "reels",
+    "newsletter",
+    "web",
+    "shorts",
+    "ig",
     "threads"
    ],
+   "where": {
+    "cardnews": "channel_common_principles.md L7",
+    "reels": "channel_common_principles.md L7",
+    "newsletter": "channel_common_principles.md L7",
+    "web": "channel_common_principles.md L7",
+    "shorts": "channel_common_principles.md L7",
+    "ig": "channel_common_principles.md L7",
+    "threads": "channel_common_principles.md L7"
+   },
    "id": 1
   },
   {
@@ -37,8 +53,24 @@
     "ig"
    ],
    "applied": [
-    "cardnews"
+    "cardnews",
+    "cardnews",
+    "reels",
+    "newsletter",
+    "web",
+    "shorts",
+    "ig",
+    "threads"
    ],
+   "where": {
+    "cardnews": "common_review.md C15",
+    "reels": "common_review.md C15",
+    "newsletter": "common_review.md C15",
+    "web": "common_review.md C15",
+    "shorts": "common_review.md C15",
+    "ig": "common_review.md C15",
+    "threads": "common_review.md C15"
+   },
    "id": 2
   },
   {
@@ -57,9 +89,349 @@
     "ig"
    ],
    "applied": [
+    "threads",
+    "cardnews",
+    "reels",
+    "newsletter",
+    "web",
+    "shorts",
+    "ig",
     "threads"
    ],
+   "where": {
+    "cardnews": "common_review.md C14",
+    "reels": "common_review.md C14",
+    "newsletter": "common_review.md C14",
+    "web": "common_review.md C14",
+    "shorts": "common_review.md C14",
+    "ig": "common_review.md C14",
+    "threads": "common_review.md C14"
+   },
    "id": 3
+  },
+  {
+   "date": "2026-08-17",
+   "channel": "threads",
+   "claim": "원천에 있는 숫자라고 참이 아니다 — 순위·최대·규모는 해마다 기산점이 바뀐다",
+   "evidence": "격리 검수가 3편에서 오류 8건 적발, 대부분 아톰 안에 있던 값. 국내 ETF 150조(실제 500조), 외국인 240억불 순매도(실제 반기 최대 순매수), 세계 최대 채권국(실제 3위)",
+   "n": 8,
+   "status": "확인",
+   "applies_to": [
+    "cardnews",
+    "reels",
+    "newsletter",
+    "web",
+    "shorts",
+    "ig"
+   ],
+   "applied": [
+    "threads",
+    "cardnews",
+    "reels",
+    "newsletter",
+    "web",
+    "shorts",
+    "ig",
+    "threads"
+   ],
+   "where": {
+    "cardnews": "channel_common_principles.md L8",
+    "reels": "channel_common_principles.md L8",
+    "newsletter": "channel_common_principles.md L8",
+    "web": "channel_common_principles.md L8",
+    "shorts": "channel_common_principles.md L8",
+    "ig": "channel_common_principles.md L8",
+    "threads": "channel_common_principles.md L8"
+   },
+   "id": 4
+  },
+  {
+   "date": "2026-08-17",
+   "channel": "threads",
+   "claim": "격리 검수를 두 번(톤·팩트) 돌려야 한다 — 톤 검수가 잡은 정정에도 오류가 남는다",
+   "evidence": "톤 검수 8건 수정 후 팩트체크에서 12건 추가 적발. 기준일을 공표일로 적은 것, 무역수지 흑자 전환, 출처 귀속 오류 등 톤 검수가 못 보는 종류",
+   "n": 12,
+   "status": "확인",
+   "applies_to": [
+    "cardnews",
+    "reels",
+    "newsletter",
+    "web",
+    "shorts",
+    "ig"
+   ],
+   "applied": [
+    "threads",
+    "cardnews",
+    "reels",
+    "newsletter",
+    "web",
+    "shorts",
+    "ig",
+    "threads"
+   ],
+   "where": {
+    "cardnews": "common_review.md C16",
+    "reels": "common_review.md C16",
+    "newsletter": "common_review.md C16",
+    "web": "common_review.md C16",
+    "shorts": "common_review.md C16",
+    "ig": "common_review.md C16",
+    "threads": "common_review.md C16"
+   },
+   "id": 5
+  },
+  {
+   "date": "2026-08-17",
+   "channel": "threads",
+   "claim": "세는 말을 한글로 쓰면 게이트는 통과하지만 글이 순살 관행에서 벗어난다",
+   "evidence": "뉴스레터 아톰 1,022편 실측 — 년 99%·개 97%·개월 94%·배 92%·명 91%가 아라비아 숫자. 「번」만 25%인데 그건 부사(다시 한번/또 한 번)라서",
+   "n": 5,
+   "status": "확인",
+   "applies_to": [
+    "cardnews",
+    "reels",
+    "newsletter",
+    "web",
+    "shorts",
+    "ig"
+   ],
+   "applied": [
+    "threads",
+    "cardnews",
+    "reels",
+    "newsletter",
+    "web",
+    "shorts",
+    "ig",
+    "threads"
+   ],
+   "where": {
+    "cardnews": "common_review.md C13",
+    "reels": "common_review.md C13",
+    "newsletter": "common_review.md C13",
+    "web": "common_review.md C13",
+    "shorts": "common_review.md C13",
+    "ig": "common_review.md C13",
+    "threads": "common_review.md C13"
+   },
+   "id": 6
+  },
+  {
+   "date": "2026-08-17",
+   "channel": "threads",
+   "claim": "긴 체인은 뒤쪽 편이 API 제한에 걸려 끊긴다 — 재시도 창이 짧으면 착지가 통째로 빠진다",
+   "evidence": "11편 체인이 10·11편에서 끊김(72초 재시도 실패). 30초 쉬고 재시도하니 붙었음. 2026-08-13 6편 체인에서도 같은 일",
+   "n": 3,
+   "status": "확인",
+   "applies_to": [
+    "cardnews",
+    "reels",
+    "newsletter",
+    "web",
+    "shorts",
+    "ig"
+   ],
+   "applied": [
+    "threads",
+    "cardnews",
+    "reels",
+    "newsletter",
+    "web",
+    "shorts",
+    "ig",
+    "threads"
+   ],
+   "where": {
+    "cardnews": "common_review.md C7",
+    "reels": "common_review.md C7",
+    "newsletter": "common_review.md C7",
+    "web": "common_review.md C7",
+    "shorts": "common_review.md C7",
+    "ig": "common_review.md C7",
+    "threads": "common_review.md C7"
+   },
+   "id": 7
+  },
+  {
+   "date": "2026-08-17",
+   "channel": "threads",
+   "claim": "환산 자를 세웠으면 편 전체가 그 자로 굴러가야 한다 — 하나만 원단위로 돌아가면 그 편의 반전이 날아간다",
+   "evidence": "ai-power 1편에서 GW를 「원전 N기」로 바꿨는데 6편만 「18기가와트→11기가와트」로 돌아감. 자를 맞추니 6편이 2편의 축소판으로 읽혀 반전이 한 번 더 돎",
+   "n": 3,
+   "status": "확인",
+   "applies_to": [
+    "cardnews",
+    "reels",
+    "newsletter",
+    "web",
+    "shorts",
+    "ig"
+   ],
+   "applied": [
+    "threads",
+    "cardnews",
+    "reels",
+    "newsletter",
+    "web",
+    "shorts",
+    "ig",
+    "threads"
+   ],
+   "where": {
+    "cardnews": "common_review.md C17",
+    "reels": "common_review.md C17",
+    "newsletter": "common_review.md C17",
+    "web": "common_review.md C17",
+    "shorts": "common_review.md C17",
+    "ig": "common_review.md C17",
+    "threads": "common_review.md C17"
+   },
+   "id": 8
+  },
+  {
+   "date": "2026-08-17",
+   "channel": "threads",
+   "claim": "원천 괄호의 한정을 빼면 인과가 과장되고 그늘도 같이 사라진다",
+   "evidence": "ai-graduates 원천의 (성추문 이슈도 있어서 야유가 더 컸음)을 빠뜨려 「AI 때문에 야유」로 과장됨. 되살리자 3편이 층으로 승격되고 반전이 하나 늘었음",
+   "n": 3,
+   "status": "확인",
+   "applies_to": [
+    "cardnews",
+    "reels",
+    "newsletter",
+    "web",
+    "shorts",
+    "ig"
+   ],
+   "applied": [
+    "threads",
+    "cardnews",
+    "reels",
+    "newsletter",
+    "web",
+    "shorts",
+    "ig",
+    "threads"
+   ],
+   "where": {
+    "cardnews": "common_review.md C19",
+    "reels": "common_review.md C19",
+    "newsletter": "common_review.md C19",
+    "web": "common_review.md C19",
+    "shorts": "common_review.md C19",
+    "ig": "common_review.md C19",
+    "threads": "common_review.md C19"
+   },
+   "id": 9
+  },
+  {
+   "date": "2026-08-17",
+   "channel": "threads",
+   "claim": "1편 질문에 2편이 답하면 나머지 편을 읽을 이유가 사라진다",
+   "evidence": "ai-graduates 2편 첫 줄 「야유가 이해됨」이 1편 질문을 즉답. 지우고 숫자로 직행시키자 루프가 11편까지 살아남",
+   "n": 3,
+   "status": "확인",
+   "applies_to": [
+    "cardnews",
+    "reels",
+    "newsletter",
+    "web",
+    "shorts",
+    "ig"
+   ],
+   "applied": [
+    "threads",
+    "cardnews",
+    "reels",
+    "newsletter",
+    "web",
+    "shorts",
+    "ig",
+    "threads"
+   ],
+   "where": {
+    "cardnews": "common_review.md C18",
+    "reels": "common_review.md C18",
+    "newsletter": "common_review.md C18",
+    "web": "common_review.md C18",
+    "shorts": "common_review.md C18",
+    "ig": "common_review.md C18",
+    "threads": "common_review.md C18"
+   },
+   "id": 10
+  },
+  {
+   "date": "2026-08-17",
+   "channel": "threads",
+   "claim": "석 달 묵은 거시 수치는 약점이 아니라 자산이다 — 답이 나온 뒤에 쓰면 후속 검증이 끝난 스토리가 된다",
+   "evidence": "ceo-gloom 원천 79일 경과로 절반이 무너졌는데, 「석 달이 지났고 비관이 틀렸다」로 축을 바꾸니 열린 결말이 답 있는 결말이 됐음. GDP 1.6→2.1 확정 상향이 그 축",
+   "n": 3,
+   "status": "확인",
+   "applies_to": [
+    "cardnews",
+    "reels",
+    "newsletter",
+    "web",
+    "shorts",
+    "ig"
+   ],
+   "applied": [
+    "threads",
+    "cardnews",
+    "reels",
+    "newsletter",
+    "web",
+    "shorts",
+    "ig",
+    "threads"
+   ],
+   "where": {
+    "cardnews": "channel_common_principles.md L8",
+    "reels": "channel_common_principles.md L8",
+    "newsletter": "channel_common_principles.md L8",
+    "web": "channel_common_principles.md L8",
+    "shorts": "channel_common_principles.md L8",
+    "ig": "channel_common_principles.md L8",
+    "threads": "channel_common_principles.md L8"
+   },
+   "id": 11
+  },
+  {
+   "date": "2026-08-17",
+   "channel": "threads",
+   "claim": "긴 체인은 편 사이 간격이 제한을 정한다 — 재시도 창만 늘려도 안 붙는다",
+   "evidence": "편 간격 6초로 11편 체인이 2편에서 끊김. 재시도 30·60·120·180초로 이어 붙이니 붙음. 같은 날 두 체인 모두 끊겼고 하루 22편을 낸 뒤였음",
+   "n": 3,
+   "status": "확인",
+   "applies_to": [
+    "cardnews",
+    "reels",
+    "newsletter",
+    "web",
+    "shorts",
+    "ig"
+   ],
+   "applied": [
+    "threads",
+    "cardnews",
+    "reels",
+    "newsletter",
+    "web",
+    "shorts",
+    "ig",
+    "threads"
+   ],
+   "where": {
+    "cardnews": "common_review.md C7",
+    "reels": "common_review.md C7",
+    "newsletter": "common_review.md C7",
+    "web": "common_review.md C7",
+    "shorts": "common_review.md C7",
+    "ig": "common_review.md C7",
+    "threads": "common_review.md C7"
+   },
+   "id": 12
   }
  ]
 }
