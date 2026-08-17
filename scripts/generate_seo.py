@@ -138,7 +138,12 @@ def build_robots():
         # /partners=거래처별 제안서(단가 포함), /stats=운영자 대시보드.
         # 크롤러를 막는 건 최소 조치일 뿐 접근 통제가 아니다 — 실제 보호는 암호화다.
         f"Disallow: /_queue/\nDisallow: /_publish/\nDisallow: /node_modules/\n"
+        # /saved/ 는 브라우저 로컬 저장 페이지라 서버에 실을 내용이 없다.
+        #   noindex 만 달아 두면 GSC 가 「NOINDEX 로 제외」로 계속 세고,
+        #   유효성 검사가 영영 실패한다 (2026-08-17 실측: 5건 중 이것만 실패).
+        #   크롤을 막아 그 항목에서 빼낸다.
         f"Disallow: /stats/\nDisallow: /partners/\nDisallow: /ops/\n"
+        f"Disallow: /saved/\n"
         f"\nSitemap: {BASE}/sitemap.xml\n",
         encoding="utf-8")
 
