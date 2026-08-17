@@ -308,9 +308,22 @@
   function refSrc() {
     var r = document.referrer || '';
     if (/utm_source=mail|[?&]m=1\b/.test(location.search)) return 'mail';
+    // ★ 앱 안에서 열리면 referrer 가 안 온다. 스레드·유튜브 링크에는 ?f= 를
+    //   붙여 두고 그걸 먼저 본다 (2026-08-17). `&` 는 안 쓴다 — 메일에서
+    //   `&amp;` 로 깨지던 사고와 같은 이유로 파라미터를 하나만 쓴다.
+    var f = (location.search.match(/[?&]f=([a-z]{2,3})\b/) || [])[1];
+    if (f === 'th') return 'threads';
+    if (f === 'yt') return 'youtube';
     if (!r) return 'direct';
     if (/t\.me|telegram/i.test(r)) return 'telegram';
+    // ★ 스레드·유튜브를 따로 센다 (2026-08-17). 없으면 'other' 로 뭉개졌다.
+    //   스레드 마지막 편에 순살 링크를 거는 게 채널 상호 링크 대원칙인데,
+    //   그 링크가 사람을 데려오는지 잴 자리가 없으면 규칙이 허공에 뜬다.
+    //   threads.net 과 threads.com 둘 다 쓴다. instagram 보다 **먼저** 본다 —
+    //   스레드 링크의 referrer 에 instagram 이 섞여 오면 인스타로 잘못 잡힌다.
+    if (/threads\.(net|com)/i.test(r)) return 'threads';
     if (/instagram|ig\.me/i.test(r)) return 'instagram';
+    if (/youtube\.com|youtu\.be/i.test(r)) return 'youtube';
     if (/google\.|naver\.|daum\.|bing\.|duckduckgo/i.test(r)) return 'search';
     if (r.indexOf(location.origin) === 0) return 'direct';   // 사이트 내 이동
     return 'other';
