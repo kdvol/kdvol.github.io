@@ -255,6 +255,7 @@ function setup() {
 
 // ── 커뮤니티(방문) 화면 ──────────────────────────────────
 var SRC_KO = { direct: '직접·북마크', telegram: '텔레그램', instagram: '인스타그램',
+               threads: '스레드', youtube: '유튜브',
                search: '검색', mail: '뉴스레터', other: '기타' };
 // 모으고 있는데 화면에 없던 것들: comment·school·talk·home·finish.
 // finish·home 은 워커가 아예 버리고 있어 값이 0 이었다 (2026-08-16 수정).

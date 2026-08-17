@@ -85,7 +85,11 @@ const KIND = ['read', 'finish', 'react', 'share', 'telegram', 'instagram',
               'comment', 'school', 'talk', 'home', 'subscribe',
               'human'];
 const TOPIC_KIND = ['impression', 'view', 'dwell', 'share'];
-const SRC = ['direct', 'telegram', 'instagram', 'search', 'mail', 'other'];
+// threads·youtube 는 2026-08-17 에 더했다. 그 전엔 'other' 로 뭉개져서,
+// 스레드 마지막 편에 건 링크가 사람을 데려왔는지 셀 수가 없었다.
+// 이 배열에 없는 값은 서버가 'other' 로 바꾼다 — 클라이언트만 고치면 샌다.
+const SRC = ['direct', 'telegram', 'instagram', 'threads', 'youtube',
+             'search', 'mail', 'other'];
 // 하이픈 허용 — 'agent-...' 형태를 정상적인 ID로 받기 위해서다. 형식 검증에
 // 걸려 거부되면 집계 제외가 '우연히' 동작하는 셈이라, 의도한 AGENT_VID 검사가
 // 실제로 도는지 확인할 수 없다.
