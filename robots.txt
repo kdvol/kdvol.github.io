@@ -6,5 +6,6 @@ Disallow: /node_modules/
 Disallow: /stats/
 Disallow: /partners/
 Disallow: /ops/
+Disallow: /saved/
 
 Sitemap: https://soonsal.com/sitemap.xml
