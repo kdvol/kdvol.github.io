@@ -1,8 +1,8 @@
 <!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AI가 찜한 전기 72%는, 유령이었음 | 순살 카드뉴스</title>
-<meta name="description" content="AI가 찜한 전기 72%는, 유령이었음 — 순살브리핑 카드뉴스. 전체는 인스타그램에서 보실 수 있어요."/>
-<meta property="og:title" content="AI가 찜한 전기 72%는, 유령이었음"/>
+<title>데이터센터가 잡아둔 전기 72%는 허수였음 | 순살 카드뉴스</title>
+<meta name="description" content="데이터센터가 잡아둔 전기 72%는 허수였음 — 순살브리핑 카드뉴스. 전체는 인스타그램에서 보실 수 있어요."/>
+<meta property="og:title" content="데이터센터가 잡아둔 전기 72%는 허수였음"/>
 <meta property="og:image" content="https://soonsal.com/assets/cardnews/0817.jpg"/>
 <meta property="og:type" content="article"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
@@ -27,20 +27,7 @@ color:#fff;text-decoration:none;font-weight:700;font-size:.95rem;border-radius:1
 .go:hover{filter:brightness(1.05)}
 .sub{display:block;text-align:center;color:#8a8578;text-decoration:none;font-size:.82rem;margin-top:12px}
 .sub:hover{color:#E55A00}
-</style>
-<link rel="canonical" href="https://soonsal.com/cardnews/2026/0817.html"/>
-<meta name="description" content="AI가 찜한 전기 72%는, 유령이었음 | 순살 카드뉴스 — 2026년 8월 17일 순살브리핑. 글로벌 금융·경제·크립토 뉴스를 순살만 발라낸 데일리 브리핑."/>
-<meta property="og:type" content="article"/>
-<meta property="og:site_name" content="순살브리핑 Soonsal"/>
-<meta property="og:title" content="AI가 찜한 전기 72%는, 유령이었음 | 순살 카드뉴스"/>
-<meta property="og:description" content="AI가 찜한 전기 72%는, 유령이었음 | 순살 카드뉴스 — 2026년 8월 17일 순살브리핑. 글로벌 금융·경제·크립토 뉴스를 순살만 발라낸 데일리 브리핑."/>
-<meta property="og:url" content="https://soonsal.com/cardnews/2026/0817.html"/>
-<meta property="og:locale" content="ko_KR"/>
-<meta property="og:image" content="https://soonsal.com/cardnews/2026/0817_png/card_01.png"/>
-<meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:title" content="AI가 찜한 전기 72%는, 유령이었음 | 순살 카드뉴스"/>
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "AI가 찜한 전기 72%는, 유령이었음 | 순살 카드뉴스", "datePublished": "2026-08-17T09:00:00+09:00", "dateModified": "2026-08-17T09:00:00+09:00", "inLanguage": "ko", "mainEntityOfPage": "https://soonsal.com/cardnews/2026/0817.html", "author": {"@type": "Organization", "name": "순살브리핑", "url": "https://soonsal.com/"}, "publisher": {"@type": "Organization", "name": "순살브리핑", "logo": {"@type": "ImageObject", "url": "https://soonsal.com/apple-touch-icon.png"}}, "image": ["https://soonsal.com/cardnews/2026/0817_png/card_01.png"]}</script>
-</head><body>
+</style></head><body>
 <div id="soonsal-live-ticker" style="display:none;"></div>
 <style>
 #soonsal-live-ticker{position:sticky;top:0;width:100%;height:34px;box-sizing:border-box;background:#0a0a0a;border-bottom:1px solid #1a1a1a;overflow:hidden;z-index:99999;user-select:none;-webkit-user-select:none}
@@ -82,23 +69,11 @@ color:#fff;text-decoration:none;font-weight:700;font-size:.95rem;border-radius:1
 <script>
 (function(){'use strict';var WORKER_URL='https://soonsal-data.kd-d0a.workers.dev/';var COINGECKO_URL='https://api.coingecko.com/api/v3';var TRADFI_ORDER=['S&P 500','NASDAQ','Dow Jones','KOSPI','US 10Y','WTI Oil','Gold','DXY','EUR/USD','USD/JPY','USD/KRW'];var CRYPTO_ORDER=['Bitcoin','Ethereum','Solana','XRP','BNB','Crypto Total'];var CRYPTO_IDS={'Bitcoin':'bitcoin','Ethereum':'ethereum','Solana':'solana','XRP':'ripple','BNB':'binancecoin'};var REFRESH=60000;var container,timer,lastTradfi,lastCrypto;function init(){container=document.getElementById('soonsal-live-ticker');if(!container)return;container.style.display='block';container.innerHTML='<div class="stk-loading"><div class="stk-spin"></div>Loading market data...</div>';fetchAll();timer=setInterval(fetchAll,REFRESH)}function fetchAll(){var p1=fetchTradFi();var p2=fetchCrypto();Promise.allSettled?Promise.allSettled([p1,p2]).then(render):Promise.all([p1.catch(function(){return null}),p2.catch(function(){return null})]).then(render)}function fetchTradFi(){return fetch(WORKER_URL).then(function(r){return r.json()}).then(function(data){if(data.tradfi)lastTradfi=data;return data}).catch(function(e){console.warn('[Ticker] TradFi error:',e.message);return null})}function fetchCrypto(){var ids=Object.values(CRYPTO_IDS).join(',');var url=COINGECKO_URL+'/simple/price?ids='+ids+'&vs_currencies=usd&include_24hr_change=true&include_market_cap=true';var globalUrl=COINGECKO_URL+'/global';return Promise.all([fetch(url).then(function(r){return r.json()}),fetch(globalUrl).then(function(r){return r.json()}).catch(function(){return null})]).then(function(results){var prices=results[0];var global=results[1];var crypto={};for(var name in CRYPTO_IDS){var id=CRYPTO_IDS[name];var d=prices[id];if(!d)continue;var p=d.usd;var ch=d.usd_24h_change||0;crypto[name]={price:'$'+formatNum(p),change:(ch>=0?'+':'')+ch.toFixed(2)+'%',direction:ch>0.01?'up':ch<-0.01?'down':'zero'}}if(global&&global.data){var mc=global.data.total_market_cap&&global.data.total_market_cap.usd;var mch=global.data.market_cap_change_percentage_24h_usd;if(mc){crypto['Crypto Total']={price:'$'+(mc/1e12).toFixed(2)+'T',change:(mch>=0?'+':'')+(mch||0).toFixed(2)+'%',direction:mch>0?'up':mch<0?'down':'zero'}}}lastCrypto=crypto;return crypto}).catch(function(e){console.warn('[Ticker] Crypto error:',e.message);return null})}function render(){var tradfi=lastTradfi?lastTradfi.tradfi:{};var crypto=lastCrypto||{};var kst=lastTradfi?lastTradfi.kst:new Date().toLocaleString('ko-KR',{timeZone:'Asia/Seoul'});var html=[];html.push('<div class="stk-ts"><span class="stk-dot"></span><span class="stk-time">'+esc(kst)+' KST</span></div>');for(var i=0;i<TRADFI_ORDER.length;i++){var name=TRADFI_ORDER[i];var d=tradfi[name];if(d)html.push(makeItem(name,d,false))}html.push('<div class="stk-div"><span></span></div>');for(var j=0;j<CRYPTO_ORDER.length;j++){var cname=CRYPTO_ORDER[j];var cd=crypto[cname];if(cd)html.push(makeItem(cname,cd,true))}var track=html.join('');container.innerHTML='<div class="stk-track">'+track+track+'</div>'}function makeItem(name,d,isCrypto){var dir=d.direction||'zero';var arrow=dir==='up'?'<span class="au"></span>':dir==='down'?'<span class="ad"></span>':'';return'<div class="stk-item"><span class="stk-lbl'+(isCrypto?' crypto':'')+'">'+esc(name)+'</span><span class="stk-prc">'+esc(d.price)+'</span><span class="stk-chg '+dir+'">'+arrow+' '+esc(d.change)+'</span></div>'}function formatNum(n){if(n>=10000)return n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});if(n>=100)return n.toFixed(2);if(n>=1)return n.toFixed(2);return n.toFixed(4)}function esc(s){if(!s)return'';var d=document.createElement('span');d.textContent=String(s);return d.innerHTML}if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',init)}else{init()}})();
 </script>
-
-
-
-
-
-
-
-
-
-
-
-
 <div class="w">
 <a class="bk" href="/cardnews/">← 카드뉴스 전체</a>
 <p class="dt">2026.08.17</p>
-<h1>AI가 찜한 전기 72%는, 유령이었음</h1>
-<img class="cv" src="/assets/cardnews/0817.jpg" alt="AI가 찜한 전기 72%는, 유령이었음" width="1080" loading="eager"/>
+<h1>데이터센터가 잡아둔 전기 72%는 허수였음</h1>
+<img class="cv" src="/assets/cardnews/0817.jpg" alt="데이터센터가 잡아둔 전기 72%는 허수였음" width="1080" loading="eager"/>
 <div class="cta">
 <p><b>나머지 장은 인스타에 있어요.</b><br>저장해두고 나중에 다시 보거나, 친구에게 넘기기 편해요.</p>
 <a class="go" href="https://www.instagram.com/soonsal.brief/" target="_blank" rel="noopener">인스타그램에서 전체 보기 →</a>
