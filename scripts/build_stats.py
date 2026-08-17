@@ -329,14 +329,31 @@ function renderCommunity() {
   var last = daily[daily.length - 1] || { hits: 0, uniq: 0, day: '' };
   var lastPeople = DAU[last.day];
 
+  // ★ 방문자는 **페이지뷰보다 늦게 켰다.** 8/11 부터 조회수가 쌓이는데
+  //   사람 수(dau)는 8/16 부터다. 그래서 「6,838 뷰 · 207명」이 나란히 서면
+  //   같은 기간처럼 읽힌다 — 실제로는 8일 대 3일이다 (KD 2026-08-18:
+  //   "방문자수 집계에 오류가 있는듯. 기간 바꿔도 안 변함").
+  //   기간을 늘려도 방문자가 안 늘어나는 건 **집계를 늦게 켰기 때문**이지
+  //   숫자가 고장난 게 아니다. 그걸 화면이 말해 줘야 한다.
+  var pDays = days.filter(function (d) { return DAU[d] !== undefined; });
+  var narrow = pDays.length && pDays.length < daily.length;
   h += '<h2>' + scope + '</h2><div class="sum">' +
-    kpi(sumHits.toLocaleString(), '페이지뷰', '이 기간 열린 횟수', true) +
+    kpi(sumHits.toLocaleString(), '페이지뷰',
+        '이 기간 열린 횟수 · ' + label(days), true) +
     (sumPeople
-      ? kpi(sumPeople.toLocaleString(), '방문자', '사람 수 · ' + label(days.filter(function (d) { return DAU[d] !== undefined; })), true)
+      ? kpi(sumPeople.toLocaleString(), '방문자',
+            narrow
+              ? '⚠️ ' + label(pDays) + '만 (' + pDays.length + '일) — '
+                + COV.dau + ' 부터 켬'
+              : '사람 수 · ' + label(pDays), true)
       : kpi('—', '방문자', why(null), true)) +
     kpi(sumUniq.toLocaleString(), '페이지 열람', '한 사람이 3개 글 보면 3', true) +
-    kpi(daily.length, '집계된 날', last.day || '', true) +
-    '</div>';
+    kpi(daily.length, '집계된 날', label(days) || '', true) +
+    '</div>' +
+    (narrow
+      ? '<p class="note">방문자는 ' + COV.dau + ' 부터 셉니다. 기간을 늘려도 '
+        + '그 전은 안 늘어납니다 — 페이지뷰(' + daily.length + '일)와 모수가 다릅니다.</p>'
+      : '');
 
   h += '<h2>가장 최근 하루 <small>' + (last.day || '') + '</small></h2><div class="sum">' +
     kpi(last.hits.toLocaleString(), '페이지뷰', null, true) +

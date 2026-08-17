@@ -250,7 +250,7 @@ export default {
         if (cDays || cIsDay) {
           const TS = cIsDay
             ? `ts >= unixepoch('${cOne}') - 32400 and ts < unixepoch('${cOne}', '+1 day') - 32400`
-            : `ts >= unixepoch(date(unixepoch() + 32400, 'unixepoch', '-${cDays} days')) - 32400`;
+            : `ts >= unixepoch(date(unixepoch() + 32400, 'unixepoch', '-${cDays - 1} days')) - 32400`;
           const win = await env.DB.prepare(
             `select story, emoji, sum(delta) as count from events where ${TS} `
             + 'group by story, emoji having sum(delta) > 0').all();
@@ -586,7 +586,7 @@ export default {
         const aTS = aIsDay
           ? `ts >= unixepoch('${aOne}') - 32400 and ts < unixepoch('${aOne}', '+1 day') - 32400`
           : (aDays
-            ? `ts >= unixepoch(date(unixepoch() + 32400, 'unixepoch', '-${aDays} days')) - 32400`
+            ? `ts >= unixepoch(date(unixepoch() + 32400, 'unixepoch', '-${aDays - 1} days')) - 32400`
             : 'ts > unixepoch() - 604800');
         // 하루를 골랐으면 그날의 KST 시각별로, 아니면 지금 기준 최근 24시간
         const hourSQL = aIsDay
@@ -755,7 +755,11 @@ export default {
       if (request.method === 'GET' && url.pathname === '/topic-insights') {
         if (!adminOk(request, env)) return json({ error: 'unauthorized' }, origin, 401);
         const days = Math.min(Math.max(parseInt(url.searchParams.get('days') || '30', 10) || 30, 1), 120);
-        const since = `date(unixepoch() + 32400, 'unixepoch', '-${days} days')`;
+        // ★ N일을 고르면 **오늘 포함 N일**이다 (2026-08-18). `-N days` 로 잡으면
+        //   어제부터 오늘까지 N+1 일이 잡힌다 — 「오늘」(days=1)이 이틀치를
+        //   보여줬다. `-(N-1) days` 가 맞다. 보관 삭제(521행)는 「N일보다
+        //   오래된 것」이라 그대로 둔다 — 거긴 경계의 뜻이 다르다.
+        const since = `date(unixepoch() + 32400, 'unixepoch', '-${days - 1} days')`;
         const [metrics, uniques, reacts, comments, refs] = await env.DB.batch([
           env.DB.prepare(
             `select topic,
@@ -817,7 +821,11 @@ export default {
       if (request.method === 'GET' && url.pathname === '/insights') {
         if (!adminOk(request, env)) return json({ error: 'unauthorized' }, origin, 401);
         const days = Math.min(Math.max(parseInt(url.searchParams.get('days') || '30', 10) || 30, 1), 120);
-        const since = `date(unixepoch() + 32400, 'unixepoch', '-${days} days')`;
+        // ★ N일을 고르면 **오늘 포함 N일**이다 (2026-08-18). `-N days` 로 잡으면
+        //   어제부터 오늘까지 N+1 일이 잡힌다 — 「오늘」(days=1)이 이틀치를
+        //   보여줬다. `-(N-1) days` 가 맞다. 보관 삭제(521행)는 「N일보다
+        //   오래된 것」이라 그대로 둔다 — 거긴 경계의 뜻이 다르다.
+        const since = `date(unixepoch() + 32400, 'unixepoch', '-${days - 1} days')`;
 
         // ── 하루만 보기 (KD 2026-08-15: "모든 데이터를 일자별로도 볼 수 있게")
         //    일자별이 있던 건 조회수·댓글·반응뿐이고 경로·유입·이동·방문자는
