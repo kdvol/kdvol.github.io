@@ -24,7 +24,13 @@ SECTIONS = [  # (glob, 우선순위)
     ("topics/*.html", "0.7"),
     ("wiki/*.html", "0.7"),
 ]
-INDEXES = ["", "newsletters/", "chart/", "cardnews/", "english/", "financial-english/", "youtube/", "topics/", "search/", "advertise/"]
+# ★ `advertise/` 가 아니라 `collab/` 이다 (2026-08-17).
+#   문의 페이지가 /collab/ 로 옮겨지면서 /advertise/ 는 리다이렉트 껍데기만
+#   남았고, 그 껍데기에는 noindex 가 달려 있다. 그런데 사이트맵은 계속 옛
+#   주소를 가리켰다 — 「색인해 달라」와 「색인하지 마라」를 동시에 보낸 것이다.
+#   Search Console 이 「NOINDEX 태그에 의해 제외됨」으로 잡은 게 이것이다.
+INDEXES = ["", "newsletters/", "chart/", "cardnews/", "english/",
+           "financial-english/", "youtube/", "topics/", "search/", "collab/"]
 
 DATED = re.compile(r"(\d{2})(\d{2})(?:-[a-z0-9-]+)?\.html$")
 
@@ -267,6 +273,16 @@ def main():
     n_items = build_rss()
     build_robots()
     print(f"🗺️  SEO 생성: sitemap {n_urls} URLs · rss {n_items} items · robots.txt")
+
+    # ★ 만들고 나서 스스로 본다 (2026-08-17). 문의 페이지가 /collab/ 로
+    #   옮겨졌는데 INDEXES 만 안 고쳐서, 사이트맵이 noindex 껍데기를 계속
+    #   가리켰다. Search Console 이 몇 달을 「문제」로 들고 있었다.
+    try:
+        import subprocess, sys as _sys
+        subprocess.run([_sys.executable, str(Path(__file__).parent / "sitemap_lint.py")],
+                       cwd=str(ROOT), check=False)
+    except Exception as e:
+        print(f"⚠️ 사이트맵 자기검사 실패: {e}")
 
 
 if __name__ == "__main__":
