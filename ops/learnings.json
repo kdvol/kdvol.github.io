@@ -1,0 +1,65 @@
+{
+ "note": "순살 채널 공통 학습 원장. 내부용.",
+ "rows": [
+  {
+   "date": "2026-08-16",
+   "channel": "threads",
+   "claim": "한국 착지가 없는 소재는 도달이 4분의 1로 떨어진다",
+   "evidence": "같은 날 같은 형식 4편 — grocery 591 vs apple 4,379 · psilocybin 8,597 · hybrid 2,176. grocery 만 미국 계란값·미국 선거로 끝났다",
+   "n": 4,
+   "status": "확인",
+   "applies_to": [
+    "cardnews",
+    "reels",
+    "newsletter",
+    "web",
+    "shorts",
+    "ig"
+   ],
+   "applied": [
+    "threads"
+   ],
+   "id": 1
+  },
+  {
+   "date": "2026-08-17",
+   "channel": "cardnews",
+   "claim": "누가 손해 보는 이야기에 반대편을 안 넣으면 독자가 글쓴이를 공격한다",
+   "evidence": "0815 비버주유소 저장 0.06% · 0816 번호판카메라 0.15% (평균 0.51%). 두 편 다 그늘 없음, 댓글이 내용이 아니라 화자를 겨눔",
+   "n": 2,
+   "status": "가설",
+   "applies_to": [
+    "threads",
+    "reels",
+    "newsletter",
+    "web",
+    "shorts",
+    "ig"
+   ],
+   "applied": [
+    "cardnews"
+   ],
+   "id": 2
+  },
+  {
+   "date": "2026-08-17",
+   "channel": "threads",
+   "claim": "체인을 표면과 착지 두 겹으로 쓰면 쉽게 읽히는데 남는 게 없다",
+   "evidence": "KD 검수 — 4편 전부 가운데 층 없음. '전문성이 너무 없고 한꺼풀 벗겨내는 장점이 사라졌다'",
+   "n": 4,
+   "status": "확인",
+   "applies_to": [
+    "cardnews",
+    "reels",
+    "newsletter",
+    "web",
+    "shorts",
+    "ig"
+   ],
+   "applied": [
+    "threads"
+   ],
+   "id": 3
+  }
+ ]
+}

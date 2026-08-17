@@ -38,3 +38,16 @@ python3 scripts/registry.py plan MMDD  # 어디에 무슨 링크를 걸지
 python3 scripts/reads_admin.py --status          # 쌓이고 있나
 python3 scripts/reads_admin.py --optout <표시값>  # 연결 끄기
 ```
+
+## 다른 채널이 배운 것 (2026-08-17)
+
+이 저장소(웹)에서 일할 때도 다른 채널 학습을 먼저 본다. 사람이 옮기지 않으면
+안 흐른다.
+
+```bash
+cd ~/soonsal-build && python3 scripts/learnings.py inbox --channel web
+```
+
+배운 게 있으면 `learnings.py add --evidence "…"` 로 넣는다. 근거 없이는 안 들어간다.
+원장은 `~/soonsal-build/content_os/registry/learnings.jsonl`,
+웹 사본은 `/ops/learnings.json` (robots.txt 로 색인 차단).
