@@ -1,0 +1,13 @@
+{
+  "html": "_publish/순살카드뉴스_20260818_3.html",
+  "date": "20260818_3",
+  "name": "meta3",
+  "post_txt": "_publish/meta3.POST.txt",
+  "target_epoch": 1787032800,
+  "dry_run": false,
+  "reviewed": {
+    "by": "KD",
+    "at": "2026-08-18T16:50:33",
+    "verbatim": "일단 archive했으니 v3 로 다시 올려 / 일단 v3를 r2 경로로 발행 먼저 하라고"
+  }
+}

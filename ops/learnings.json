@@ -312,16 +312,23 @@
     "web",
     "shorts",
     "ig",
+    "threads",
+    "cardnews",
+    "reels",
+    "newsletter",
+    "web",
+    "shorts",
+    "ig",
     "threads"
    ],
    "where": {
-    "cardnews": "common_review.md C19",
-    "reels": "common_review.md C19",
-    "newsletter": "common_review.md C19",
-    "web": "common_review.md C19",
-    "shorts": "common_review.md C19",
-    "ig": "common_review.md C19",
-    "threads": "common_review.md C19"
+    "cardnews": "common_review.md C19·C21",
+    "reels": "common_review.md C19·C21",
+    "newsletter": "common_review.md C19·C21",
+    "web": "common_review.md C19·C21",
+    "shorts": "common_review.md C19·C21",
+    "ig": "common_review.md C19·C21",
+    "threads": "common_review.md C19·C21"
    },
    "id": 9
   },
@@ -432,6 +439,507 @@
     "threads": "common_review.md C7"
    },
    "id": 12
+  },
+  {
+   "date": "2026-08-17",
+   "channel": "threads",
+   "claim": "묵은 아톰은 그 전제가 시험당한 결과가 곧 새 층이다 — 묵음은 리스크가 아니라 안 쓴 층",
+   "evidence": "war-data-ipo 원천 152일. 그 사이 이란 휴전(4/8)과 고점 대비 반토막(83.30→40.10)이 생겼고, 둘 다 3월엔 없던 층이다. ceo-gloom 도 같은 꼴",
+   "n": 3,
+   "status": "확인",
+   "applies_to": [
+    "cardnews",
+    "reels",
+    "newsletter",
+    "web",
+    "shorts",
+    "ig"
+   ],
+   "applied": [
+    "threads",
+    "cardnews",
+    "reels",
+    "newsletter",
+    "web",
+    "shorts",
+    "ig",
+    "threads"
+   ],
+   "where": {
+    "cardnews": "channel_common_principles.md L8",
+    "reels": "channel_common_principles.md L8",
+    "newsletter": "channel_common_principles.md L8",
+    "web": "channel_common_principles.md L8",
+    "shorts": "channel_common_principles.md L8",
+    "ig": "channel_common_principles.md L8",
+    "threads": "channel_common_principles.md L8"
+   },
+   "id": 13
+  },
+  {
+   "date": "2026-08-17",
+   "channel": "threads",
+   "claim": "감시자가 0을 출력하는 방식으로 고장나면, 규칙이 있어도 영원히 샌다",
+   "evidence": "채널 상호 링크 대원칙은 2026-08-15부터 있었는데 스레드 판 15건 중 나가는 링크 0건. 그런데 registry.py gaps 는 누락을 0건 보고했다 — missing_links()가 '같은 작품 안에 상대 채널이 있을 때만' 요구하는데 backfill 이 스레드를 {날짜}-th-{토픽} 이라는 혼자짜리 작품으로 만들어서, 상대가 영원히 없으니 요구도 영원히 없었다. 빈 칸은 눈에 띄지만 0을 출력하는 감시자는 안심시킨다",
+   "n": 15,
+   "status": "확인",
+   "applies_to": [
+    "cardnews",
+    "reels",
+    "newsletter",
+    "web"
+   ],
+   "applied": [
+    "threads",
+    "cardnews",
+    "reels",
+    "newsletter",
+    "web"
+   ],
+   "where": {
+    "cardnews": "channel_common_principles.md L9",
+    "reels": "channel_common_principles.md L9",
+    "newsletter": "channel_common_principles.md L9",
+    "web": "channel_common_principles.md L9"
+   },
+   "id": 14
+  },
+  {
+   "date": "2026-08-17",
+   "channel": "threads",
+   "claim": "원장은 내가 적은 것이라 더 믿게 되는데, 적은 순간에 참이었을 뿐이다",
+   "evidence": "묵은 원천의 이란 휴전을 원장 근거로 고쳤는데 그 고침도 틀렸다 — 7/8 붕괴, 8/17 문서 만료. 같은 원장이 환율 1,380원(실측 1,412)을 굳혀 놔 '분기 매출 3억이 안 되는'이 뒤집혔고, '반토막'은 사흘 만에 -47.5%가 됐다. 한 회차 원장에서 롤링 값 오류 4건",
+   "n": 4,
+   "status": "확인",
+   "applies_to": [
+    "cardnews",
+    "newsletter",
+    "reels",
+    "web"
+   ],
+   "applied": [
+    "threads",
+    "cardnews",
+    "newsletter",
+    "reels",
+    "web"
+   ],
+   "where": {
+    "cardnews": "channel_common_principles.md L10",
+    "newsletter": "channel_common_principles.md L10",
+    "reels": "channel_common_principles.md L10",
+    "web": "channel_common_principles.md L10"
+   },
+   "id": 15
+  },
+  {
+   "date": "2026-08-17",
+   "channel": "threads",
+   "claim": "낱개로 통과하는 습관은 검사 단위를 바꿔야 잡힌다 — 체인은 편 수만큼 곱해진다",
+   "evidence": "새 체인 3편 33편에서 서두 라벨(「새 사업은 이거였음」「계산법은 간단함」) 9건. 편별 검수는 전부 통과했는데 각 편의 첫 줄만 모아 읽으니 공식이 보였다. 소재가 전기·호텔·소송으로 다른데도 여는 방식이 같아 같은 글로 읽혔다",
+   "n": 9,
+   "status": "확인",
+   "applies_to": [
+    "cardnews",
+    "reels",
+    "newsletter"
+   ],
+   "applied": [
+    "threads",
+    "cardnews",
+    "reels",
+    "newsletter"
+   ],
+   "where": {
+    "cardnews": "common_review.md A14",
+    "reels": "common_review.md A14",
+    "newsletter": "common_review.md A14"
+   },
+   "id": 16
+  },
+  {
+   "date": "2026-08-17",
+   "channel": "threads",
+   "claim": "규식을 사례에 맞춰 쓰면 그건 검사가 아니라 그 사례들의 목록이다",
+   "evidence": "C20 뼈대 라벨 규식을 2026-08-17 아침에 만들었는데 같은 날 저녁 묶음에서 5건을 놓쳤다 — 「여기서 뒤집힘」은 잡고 「여기서 판이 뒤집혔음」은 놓쳤다. 활용형만 달랐다. 꼴(자리 지시 + 전환 예고)로 다시 쓰니 5건 전부 잡히고 오탐 0건",
+   "n": 5,
+   "status": "확인",
+   "applies_to": [
+    "cardnews",
+    "reels",
+    "newsletter",
+    "web"
+   ],
+   "applied": [
+    "threads",
+    "cardnews",
+    "reels",
+    "newsletter",
+    "web"
+   ],
+   "where": {
+    "cardnews": "common_review.md A15",
+    "reels": "common_review.md A15",
+    "newsletter": "common_review.md A15",
+    "web": "common_review.md A15"
+   },
+   "id": 17
+  },
+  {
+   "date": "2026-08-18",
+   "channel": "threads",
+   "claim": "요구를 명령으로 옮기는 게 살아 있는 사건에서 가장 흔한 사실 오류다",
+   "evidence": "meta-trial 10편이 '법원이 그걸 직접 손보라고 함'이라고 썼는데 실제로는 주 정부가 법원에 요청한 것이고 판사 결정은 10월이다. 원천 아톰은 '법원이 직접 손보는 그림'이라고 헤지했는데 본문이 헤지를 떨어뜨렸다. 같은 체인 5편의 '아무도 모름'도 모두진술에서 공개되면 거짓이 되는 현재형이었다 — 과거형으로 바꿔 살렸다 (헤지 탈락 3건 + 현재형 1건 = 4건, 한 체인에서)",
+   "n": 4,
+   "status": "확인",
+   "applies_to": [
+    "cardnews",
+    "newsletter",
+    "reels",
+    "web"
+   ],
+   "applied": [
+    "threads",
+    "cardnews",
+    "newsletter",
+    "reels",
+    "web"
+   ],
+   "where": {
+    "cardnews": "common_review.md C24",
+    "newsletter": "common_review.md C24",
+    "reels": "common_review.md C24",
+    "web": "common_review.md C24"
+   },
+   "id": 18
+  },
+  {
+   "date": "2026-08-18",
+   "channel": "threads",
+   "claim": "원장이 묵은 사이 세상이 움직인 자리가, 빼먹은 사실이 아니라 안 쓴 마지막 층이다",
+   "evidence": "하루에 세 번 나왔다. ①war-data-ipo — 원장 '이란 휴전 현재도 유지' → 7/8 붕괴 ②power-arbitrage — 원장 '항소 기회 남아 있음' → 회사가 지난달 챕터11, 부채 14억불에 자산은 그 백분의 일 ③hotel-points — 원장 '카드사와 재협상 중' → 8/3 체결, 그것도 오너들 없이. ②③은 고치고 나니 원래 결말보다 세져서 각각 한 편을 새로 세웠다",
+   "n": 3,
+   "status": "확인",
+   "applies_to": [
+    "cardnews",
+    "newsletter",
+    "reels",
+    "web"
+   ],
+   "applied": [
+    "threads",
+    "cardnews",
+    "newsletter",
+    "reels",
+    "web"
+   ],
+   "where": {
+    "cardnews": "channel_common_principles.md L11",
+    "newsletter": "channel_common_principles.md L11",
+    "reels": "channel_common_principles.md L11",
+    "web": "channel_common_principles.md L11"
+   },
+   "id": 19
+  },
+  {
+   "date": "2026-08-18",
+   "channel": "threads",
+   "claim": "게이트가 한쪽만 벌주면 글은 반대쪽으로 샌다 — 구체를 벌주면 추상으로 도망간다",
+   "evidence": "하루에 게이트 여섯 개(C13 숫자·고유명사 상한, C17 환산 자, C20·A14 라벨, C24 헤지, 26자 줄)를 늘렸는데 전부 구체적인 것을 벌준다. 추상을 벌주는 검사는 0개였다. 결과로 「드론」이 「사람이 안 타는 장비가 몫을 키우는 중임」이 됐고, 바로 다음 줄에 「값싼 공격 드론」이 있었는데도 그랬다. KD가 '검수가 너무 과도해서 그런가'로 원인까지 짚었다",
+   "n": 4,
+   "status": "확인",
+   "applies_to": [
+    "cardnews",
+    "reels",
+    "newsletter",
+    "web"
+   ],
+   "applied": [
+    "threads",
+    "cardnews",
+    "reels",
+    "newsletter",
+    "web"
+   ],
+   "where": {
+    "cardnews": "common_review.md C25",
+    "reels": "common_review.md C25",
+    "newsletter": "common_review.md C25",
+    "web": "common_review.md C25"
+   },
+   "id": 20
+  },
+  {
+   "date": "2026-08-18",
+   "channel": "threads",
+   "claim": "검사를 만들면 반드시 「고장 낸 뒤 잡히는지」를 한 번 돌려 본다",
+   "evidence": "오늘 만든 충돌 검사가 통과했는데, 중재를 통째로 지워도 계속 통과했다 — 표지로 쓴 「우선」이 문제를 설명하는 문장('어느 쪽이 우선인지 안 적혀 있었다')에도 있어서 해결로 세어졌다. 결론형(이긴다·우선한다)으로 좁히니 지웠을 때 잡고 되돌리면 통과한다. 통과하는 걸 보는 것만으로는 검사가 사는지 알 수 없다",
+   "n": 3,
+   "status": "확인",
+   "applies_to": [
+    "cardnews",
+    "reels",
+    "newsletter",
+    "web"
+   ],
+   "applied": [
+    "threads",
+    "cardnews",
+    "reels",
+    "newsletter",
+    "web"
+   ],
+   "where": {
+    "cardnews": "common_review.md A15",
+    "reels": "common_review.md A15",
+    "newsletter": "common_review.md A15",
+    "web": "common_review.md A15"
+   },
+   "id": 21
+  },
+  {
+   "date": "2026-08-18",
+   "channel": "threads",
+   "claim": "1편에 숫자가 둘이면 독자가 셈을 해야 하고, 셈을 시키면 넘긴다",
+   "evidence": "기발행 10편을 나이 맞춰 재니 1편 숫자 0~1개는 평균 1,695(n=7, 최고 6,317), 2개 이상은 평균 128(n=3, 최고 198). 2개 이상인 셋(ceo-gloom 3개·pokemon 4개·noncompete 2개)이 전체 최하위 셋. 13배 차이",
+   "n": 10,
+   "status": "확인",
+   "applies_to": [
+    "cardnews",
+    "reels",
+    "newsletter"
+   ],
+   "applied": [
+    "threads",
+    "cardnews",
+    "reels",
+    "newsletter"
+   ],
+   "where": {
+    "cardnews": "channel_common_principles.md L12",
+    "reels": "channel_common_principles.md L12",
+    "newsletter": "channel_common_principles.md L12"
+   },
+   "id": 22
+  },
+  {
+   "date": "2026-08-18",
+   "channel": "threads",
+   "claim": "순위는 읽는 이름이지 셈하는 값이 아니다 — 숫자로 세면 규칙이 글을 망친다",
+   "evidence": "P9(1편 숫자 하나까지)을 만들며 「미국 ETF 시장 1위」를 「미국에서 제일 큰 ETF 회사 자리」로 바꿨다. KD 지적 — 순위가 더 와닿고 직관적. 데이터도 그쪽이었다: 순위를 빼고 다시 재니 표본이 7/3에서 9/6으로 늘고 격차가 13.2배에서 13.8배로 더 벌어졌다. 순위는 견줄 대상이 없어 독자가 계산할 게 없다",
+   "n": 15,
+   "status": "확인",
+   "applies_to": [
+    "cardnews",
+    "reels",
+    "newsletter"
+   ],
+   "applied": [
+    "threads",
+    "cardnews",
+    "reels",
+    "newsletter"
+   ],
+   "where": {
+    "cardnews": "channel_common_principles.md L12",
+    "reels": "channel_common_principles.md L12",
+    "newsletter": "channel_common_principles.md L12"
+   },
+   "id": 23
+  },
+  {
+   "date": "2026-08-18",
+   "channel": "newsletter",
+   "claim": "웹서치로 채운 섹션은 편집을 안 거친다 — 장초반 시세가 종가로 들어온다",
+   "evidence": "8/18 순살차트 팩트체크에서 차단 7건 중 셋이 원천 브리핑 자체의 오류였다. 한국 섹션이 8/14 09:03 기사(제목에 「장초반」)를 종가로 옮겨 SK하이닉스 168.2만(+5%, 실제 164.5만 +3.26%), 삼성전자 27.05만(+0.9%, 실제 27.45만 +2.43%), 외국인 순매수 5,728억(실제 3조 넘음)이 됐다. 그대로 냈으면 「삼성전자가 뒤처졌다」가 나갔는데 실제 격차는 0.83%p였다",
+   "n": 3,
+   "status": "확인",
+   "applies_to": [
+    "cardnews",
+    "reels",
+    "web",
+    "threads"
+   ],
+   "applied": [
+    "newsletter",
+    "cardnews",
+    "reels",
+    "web",
+    "threads"
+   ],
+   "where": {
+    "cardnews": "common_review.md C27",
+    "reels": "common_review.md C27",
+    "web": "common_review.md C27",
+    "threads": "common_review.md C27"
+   },
+   "id": 24
+  },
+  {
+   "date": "2026-08-18",
+   "channel": "web",
+   "claim": "슬러그가 다르면 같은 주제도 안 잡힌다 — 중복은 이름이 아니라 대상으로 잰다",
+   "evidence": "엔화 딜레마가 yen-anchor(8/13)·yen-trap(8/14)·japan-yen-bind(8/18)로 세 회차 연속 나갈 뻔했다. 슬러그가 셋 다 달라 이름 대조로는 안 걸렸다. 대상(Bank of Japan)+분류(환율)로 재니 즉시 잡혔다. 다만 분류만 보면 6토픽에 23건이 떠서 소음이 된다 — 대상이 같거나 제목이 닮았을 때만 센다",
+   "n": 3,
+   "status": "확인",
+   "applies_to": [
+    "cardnews",
+    "threads",
+    "reels",
+    "newsletter"
+   ],
+   "applied": [
+    "web",
+    "cardnews",
+    "threads",
+    "reels",
+    "newsletter"
+   ],
+   "where": {
+    "cardnews": "common_review.md C28",
+    "threads": "common_review.md C28",
+    "reels": "common_review.md C28",
+    "newsletter": "common_review.md C28"
+   },
+   "id": 25
+  },
+  {
+   "date": "2026-08-18",
+   "channel": "newsletter",
+   "claim": "팩트 정밀화가 표현 중립화로 새는 건 채널을 안 가린다 — 두 챗에서 독립으로 같은 병이 나왔다",
+   "evidence": "스레드 쪽에서 「드론」이 「사람이 안 타는 장비가 몫을 키우는 중임」이 됐고(C25), 뉴스레터 쪽에서 「줍줍」이 「통째로 받아가면서」, 「돌려막기」가 「차환」, 「뜯자」가 「일회성 5%」가 됐다. 서로 모르는 상태에서 같은 진단이 나왔다 — 팩트를 엄밀히 할수록 톤이 눌린다",
+   "n": 2,
+   "status": "가설",
+   "applies_to": [
+    "threads",
+    "cardnews",
+    "reels",
+    "web"
+   ],
+   "applied": [
+    "newsletter",
+    "threads",
+    "cardnews",
+    "reels",
+    "web"
+   ],
+   "where": {
+    "threads": "common_review.md C29",
+    "cardnews": "common_review.md C29",
+    "reels": "common_review.md C29",
+    "web": "common_review.md C29"
+   },
+   "id": 26
+  },
+  {
+   "date": "2026-08-18",
+   "channel": "threads",
+   "claim": "만들어 놓고 아무도 안 부르는 것과, 서로를 모른 채 같은 자리를 쓰는 것은 같은 병이다",
+   "evidence": "하루에 넷 났다 — 상호 링크 규칙에 검사를 부르는 손이 없었고(C22), 충돌 검사가 충돌을 안 봤고, nav 빌더를 발행기가 안 불렀고, 차트 빌드가 스레드 번들을 덮어써 08:00 슬롯이 통째로 비었다. 전부 두 부분이 서로를 모르는 자리였는데, rules_audit 는 상수·함수만 봐서 파일 단위를 못 봤다",
+   "n": 4,
+   "status": "확인",
+   "applies_to": [
+    "cardnews",
+    "reels",
+    "newsletter",
+    "web"
+   ],
+   "applied": [
+    "threads",
+    "cardnews",
+    "reels",
+    "newsletter",
+    "web"
+   ],
+   "where": {
+    "cardnews": "common_review.md C30",
+    "reels": "common_review.md C30",
+    "newsletter": "common_review.md C30",
+    "web": "common_review.md C30"
+   },
+   "id": 27
+  },
+  {
+   "date": "2026-08-18",
+   "channel": "threads",
+   "claim": "1편을 질문 말고 반전 예고로 닫으면 다음 편을 더 연다 [보류 — KD 2026-08-18: 지표 오르는 중이라 안 건드림]",
+   "evidence": "돈미새 2체인 모두 질문 없이 「근데 국장을 무너뜨리는 건 일본 금리가 아님ㅋㅋ」·「무슨 일이 있었는지 순서대로 정리함」으로 닫는다(46.3K·179K). 순살은 thread_batch.py:71 이 물음표를 강제해 초안 11개가 전부 질문으로 끝난다. 관측 n=1 계정",
+   "n": 1,
+   "status": "가설",
+   "applies_to": [
+    "threads"
+   ],
+   "applied": [
+    "threads"
+   ],
+   "id": 28
+  },
+  {
+   "date": "2026-08-18",
+   "channel": "threads",
+   "claim": "줄당 자수에 상한만 있고 하한이 없으면 아래로 쏠린다 [보류 — 같은 날 KD 지시]",
+   "evidence": "순살 MAX_LINE=26 인데 초안 11개 실측 평균 12자(상한의 절반). 돈미새 24자로 상한을 채운다. 같은 내용에 줄이 두 배 들고 조각이 얇아진다(80자 vs 110자)",
+   "n": 1,
+   "status": "가설",
+   "applies_to": [
+    "threads",
+    "cardnews"
+   ],
+   "applied": [
+    "threads"
+   ],
+   "id": 29
+  },
+  {
+   "date": "2026-08-18",
+   "channel": "threads",
+   "claim": "하루 3편으로 쪼개는 것보다 한 체인에 몰아주는 게 낫다 [보류 — 같은 날 KD 지시]",
+   "evidence": "하루 총 조각은 비슷한데(순살 33 vs 돈미새 26) 답글이 한 뿌리에 쌓인다. 순살 실측도 08:00 8,597·17:00 6,317 vs 14:00 591·20:00 91 로 뒤 슬롯이 앞을 못 따라간다. 다만 우리 n=15 에 8/16 전후로 판이 갈려 슬롯 효과와 못 가른다",
+   "n": 1,
+   "status": "가설",
+   "applies_to": [
+    "threads"
+   ],
+   "applied": [
+    "threads"
+   ],
+   "id": 30
+  },
+  {
+   "date": "2026-08-18",
+   "channel": "threads",
+   "claim": "기발행을 모은 고정 색인 체인이 신규 방문자를 팔로워로 바꾼다 [보류 — 같은 날 KD 지시]",
+   "evidence": "돈미새 고정글이 1/50 색인 체인이고 「앞으로 올리는 글들도 여기에 계속 달아놓음」이 박혀 있다. 팔로워 28.3K·최근 조회 19.4M. 순살은 같은 생각(C31 계보)을 내부 원장에만 뒀다",
+   "n": 1,
+   "status": "가설",
+   "applies_to": [
+    "threads",
+    "ig"
+   ],
+   "applied": [
+    "threads"
+   ],
+   "id": 31
+  },
+  {
+   "date": "2026-08-18",
+   "channel": "threads",
+   "claim": "검사가 있어도 「아무것도 안 보고 통과」하면 없는 것과 같다 — 다섯 모양이 있고 전부 기계로 잡힌다",
+   "evidence": "2026-08-18 하루에 다섯 모양이 실제로 났다: 없는 파일→조용히 return · 빈 목록→return [] · 부분 문자열 매치 · 감사가 자기를 살림 · 문서에만 있음. 옮기는 법은 rules/audit_practice.md",
+   "n": 7,
+   "status": "확인",
+   "applies_to": [
+    "ig",
+    "cardnews",
+    "reels",
+    "newsletter",
+    "web",
+    "shorts"
+   ],
+   "applied": [
+    "threads"
+   ],
+   "id": 32
   }
  ]
 }
