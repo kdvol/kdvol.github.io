@@ -89,10 +89,10 @@ border-radius:50%;background:#F07040;opacity:0;transition:opacity .2s}
 <meta property="og:url" content="https://soonsal.com/chart/">
 <meta property="og:site_name" content="순살브리핑">
 <meta name="twitter:card" content="summary_large_image">
-<meta property="og:image" content="https://soonsal.com/chart/assets/20260815/noncompete-two-years.png">
+<meta property="og:image" content="https://soonsal.com/chart/assets/20260818/ai-debt-crowding.png">
 <meta property="og:image:width" content="1080">
 <meta property="og:image:height" content="1350">
-<meta name="twitter:image" content="https://soonsal.com/chart/assets/20260815/noncompete-two-years.png">
+<meta name="twitter:image" content="https://soonsal.com/chart/assets/20260818/ai-debt-crowding.png">
 <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "CollectionPage", "headline": "순살차트 · 순살브리핑", "description": "밤새 쌓인 뉴스에서 돈이 어디로 움직이고 어디서 위험이 커지는지만 도식으로 짚은 순살차트", "url": "https://soonsal.com/chart/", "mainEntityOfPage": "https://soonsal.com/chart/", "inLanguage": "ko", "publisher": {"@type": "Organization", "name": "순살브리핑", "url": "https://soonsal.com/", "logo": {"@type": "ImageObject", "url": "https://soonsal.com/apple-touch-icon.png"}}, "isAccessibleForFree": true}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "순살브리핑", "item": "https://soonsal.com/"}, {"@type": "ListItem", "position": 2, "name": "순살차트", "item": "https://soonsal.com/chart/"}]}]}</script>
 <style id="soonsal-search-v1">
 /* 헤더 — 한 축에 셋. 세로 중심이 하나여야 어긋나지 않는다 */
@@ -134,42 +134,7 @@ transition:color .18s ease,background .18s ease}
 
 /* 구독하기가 있는 페이지에서는 그 왼쪽으로 비켜 앉는다 */
 </style>
-<style id="soonsal-header-v2">
-/* 헤더 — 한 축에 셋. 세로 중심이 하나여야 어긋나지 않는다 */
-.site-header{position:relative;display:grid;grid-template-columns:1fr auto 1fr;
-align-items:center;column-gap:12px;padding:20px max(16px, calc(50% - 400px));
-border-bottom:1px solid #222;background:#111}
-/* 칸과 **행**을 함께 못 박는다. 칸만 정하면 마크업 순서를 거스를 때
-   그리드가 다음 줄로 내려보낸다 — 순살차트는 구독이 먼저 와서 검색이
-   한 줄 아래(29px)로 떨어졌다. */
-.site-header>.search-btn-header{grid-area:1/1;justify-self:start}
-.site-header>.logo-link{grid-area:1/2;justify-self:center}
-.site-header>.sub-btn-header{grid-area:1/3;justify-self:end}
-.site-header>.logo-link{display:flex;align-items:center;gap:10px;
-text-decoration:none;color:#fff}
-.logo-text{font-size:22px;font-weight:800;letter-spacing:-.5px;line-height:1.1}
-
-/* 구독 — 이 사이트의 유일한 전환점. 좁은 화면에서도 남는다 */
-.sub-btn-header{position:static;transform:none;display:inline-flex;
-align-items:center;background:#E55A00;color:#fff;padding:9px 18px;
-border-radius:999px;font-size:13px;font-weight:800;line-height:1;
-text-decoration:none;white-space:nowrap;transition:background .18s ease}
-.sub-btn-header:hover{background:#CC4F00}
-
-.search-btn-header{position:static;transform:none;display:flex;
-align-items:center;justify-content:center;width:36px;height:36px;
-border-radius:999px;color:#8a857c;text-decoration:none;
-transition:color .18s ease,background .18s ease}
-.search-btn-header:hover{color:#fff;background:#1e1e1e}
-
-@media(max-width:560px){
-  .site-header{padding:14px 12px;column-gap:8px}
-  .site-header .logo-text{font-size:18px}
-  .site-header .logo-link img,.site-header .logo-icon{height:26px}
-  .sub-btn-header{padding:7px 13px;font-size:11.5px;letter-spacing:-.3px}
-  .search-btn-header{width:32px;height:32px}
-}
-</style><link rel="icon" href="/favicon.svg" type="image/svg+xml"/><link rel="icon" href="/favicon.ico" sizes="any"/><link rel="apple-touch-icon" href="/apple-touch-icon.png"/></head><body>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml"/><link rel="icon" href="/favicon.ico" sizes="any"/><link rel="apple-touch-icon" href="/apple-touch-icon.png"/></head><body>
 <div id="soonsal-live-ticker" style="display:none;"></div>
 <style>
 #soonsal-live-ticker{position:sticky;top:0;width:100%;height:34px;box-sizing:border-box;background:#0a0a0a;border-bottom:1px solid #1a1a1a;overflow:hidden;z-index:99999;user-select:none;-webkit-user-select:none}
@@ -211,169 +176,15 @@ transition:color .18s ease,background .18s ease}
 <script>
 (function(){'use strict';var WORKER_URL='https://soonsal-data.kd-d0a.workers.dev/';var COINGECKO_URL='https://api.coingecko.com/api/v3';var TRADFI_ORDER=['S&P 500','NASDAQ','Dow Jones','KOSPI','US 10Y','WTI Oil','Gold','DXY','EUR/USD','USD/JPY','USD/KRW'];var CRYPTO_ORDER=['Bitcoin','Ethereum','Solana','XRP','BNB','Crypto Total'];var CRYPTO_IDS={'Bitcoin':'bitcoin','Ethereum':'ethereum','Solana':'solana','XRP':'ripple','BNB':'binancecoin'};var REFRESH=60000;var container,timer,lastTradfi,lastCrypto;function init(){container=document.getElementById('soonsal-live-ticker');if(!container)return;container.style.display='block';container.innerHTML='<div class="stk-loading"><div class="stk-spin"></div>Loading market data...</div>';fetchAll();timer=setInterval(fetchAll,REFRESH)}function fetchAll(){var p1=fetchTradFi();var p2=fetchCrypto();Promise.allSettled?Promise.allSettled([p1,p2]).then(render):Promise.all([p1.catch(function(){return null}),p2.catch(function(){return null})]).then(render)}function fetchTradFi(){return fetch(WORKER_URL).then(function(r){return r.json()}).then(function(data){if(data.tradfi)lastTradfi=data;return data}).catch(function(e){console.warn('[Ticker] TradFi error:',e.message);return null})}function fetchCrypto(){var ids=Object.values(CRYPTO_IDS).join(',');var url=COINGECKO_URL+'/simple/price?ids='+ids+'&vs_currencies=usd&include_24hr_change=true&include_market_cap=true';var globalUrl=COINGECKO_URL+'/global';return Promise.all([fetch(url).then(function(r){return r.json()}),fetch(globalUrl).then(function(r){return r.json()}).catch(function(){return null})]).then(function(results){var prices=results[0];var global=results[1];var crypto={};for(var name in CRYPTO_IDS){var id=CRYPTO_IDS[name];var d=prices[id];if(!d)continue;var p=d.usd;var ch=d.usd_24h_change||0;crypto[name]={price:'$'+formatNum(p),change:(ch>=0?'+':'')+ch.toFixed(2)+'%',direction:ch>0.01?'up':ch<-0.01?'down':'zero'}}if(global&&global.data){var mc=global.data.total_market_cap&&global.data.total_market_cap.usd;var mch=global.data.market_cap_change_percentage_24h_usd;if(mc){crypto['Crypto Total']={price:'$'+(mc/1e12).toFixed(2)+'T',change:(mch>=0?'+':'')+(mch||0).toFixed(2)+'%',direction:mch>0?'up':mch<0?'down':'zero'}}}lastCrypto=crypto;return crypto}).catch(function(e){console.warn('[Ticker] Crypto error:',e.message);return null})}function render(){var tradfi=lastTradfi?lastTradfi.tradfi:{};var crypto=lastCrypto||{};var kst=lastTradfi?lastTradfi.kst:new Date().toLocaleString('ko-KR',{timeZone:'Asia/Seoul'});var html=[];html.push('<div class="stk-ts"><span class="stk-dot"></span><span class="stk-time">'+esc(kst)+' KST</span></div>');for(var i=0;i<TRADFI_ORDER.length;i++){var name=TRADFI_ORDER[i];var d=tradfi[name];if(d)html.push(makeItem(name,d,false))}html.push('<div class="stk-div"><span></span></div>');for(var j=0;j<CRYPTO_ORDER.length;j++){var cname=CRYPTO_ORDER[j];var cd=crypto[cname];if(cd)html.push(makeItem(cname,cd,true))}var track=html.join('');container.innerHTML='<div class="stk-track">'+track+track+'</div>'}function makeItem(name,d,isCrypto){var dir=d.direction||'zero';var arrow=dir==='up'?'<span class="au"></span>':dir==='down'?'<span class="ad"></span>':'';return'<div class="stk-item"><span class="stk-lbl'+(isCrypto?' crypto':'')+'">'+esc(name)+'</span><span class="stk-prc">'+esc(d.price)+'</span><span class="stk-chg '+dir+'">'+arrow+' '+esc(d.change)+'</span></div>'}function formatNum(n){if(n>=10000)return n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});if(n>=100)return n.toFixed(2);if(n>=1)return n.toFixed(2);return n.toFixed(4)}function esc(s){if(!s)return'';var d=document.createElement('span');d.textContent=String(s);return d.innerHTML}if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',init)}else{init()}})();
 </script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <header class="site-header" style="position:relative"><a href="https://subscribe.soonsal.com/subscribe" target="_blank" rel="noopener" class="sub-btn-header">구독하기</a><a href="/search/" class="search-btn-header" aria-label="검색"><svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.6-3.6"/></svg></a><a class="logo-link" href="/"><img src="/assets/soonsal-logo-white.png" alt="" onerror="this.style.display='none'"><span class="logo-text">순살브리핑 Soonsal</span></a></header>
 <nav class="nav" aria-label="주요 메뉴"><a href="/newsletters/">뉴스레터</a><a href="/chart/" class="active">순살차트</a><a href="/talk/">순살톡</a><a href="/school/" class="nav-desktop-link">스쿨</a><a href="/collab/" class="nav-desktop-link biz">협업 문의</a><details class="nav-more"><summary>더보기 <span aria-hidden="true">⌄</span></summary><section class="nav-menu" aria-label="추가 메뉴"><a href="/topics/">주제별</a><a href="/saved/">내가 모은 글</a><a href="/cardnews/">카드뉴스</a><a href="/youtube/">YouTube</a><a href="/school/" class="nav-mobile-only">스쿨</a><a href="/collab/" class="nav-mobile-only biz">협업 문의</a></section></details></nav>
 <main class="archive-shell"><header class="archive-head"><div class="archive-kicker">날짜별 시장 정리</div><h1>순살차트</h1><p class="deck">날짜를 고르고, 궁금한 주제부터 바로 봄</p></header><section class="archive-list" aria-label="날짜별 순살차트"><article class="issue-card latest">
-  <header class="issue-date"><time datetime="2026-08-15">2026-08-15</time><span class="latest-badge">최신</span><span class="issue-count">1개 주제</span></header>
-  <a class="lead-chart" href="2026/0815.html#noncompete-two-years" aria-label="한 헤지펀드는 애널리스트까지 최소 1년 묶어 둠 핵심 차트 보기"><span class="lead-chart-kicker">오늘의 핵심 차트</span><span class="lead-chart-title">한 헤지펀드는 애널리스트까지 <span class="topic-highlight">최소 1년</span> 묶어 둠</span><img src="/chart/assets/20260815/noncompete-two-years-diagram-mobile.svg" alt="" loading="eager"></a>
+  <header class="issue-date"><time datetime="2026-08-18">2026-08-18</time><span class="latest-badge">최신</span><span class="issue-count">6개 주제</span></header>
+  <a class="lead-chart" href="2026/0818.html#ai-debt-crowding" aria-label="AI 빚이 국채 금리를 같이 밀어 올리는 중 핵심 차트 보기"><span class="lead-chart-kicker">오늘의 핵심 차트</span><span class="lead-chart-title">AI 빚이 국채 금리를 같이 밀어 올리는 중</span><img src="/chart/assets/20260818/ai-debt-crowding-diagram-mobile.svg" alt="" loading="eager"></a>
+  <details class="issue-topics"><summary class="issue-head" aria-label="2026-08-18 나머지 주제 목록 접기 또는 펼치기"><span class="issue-more-icon" aria-hidden="true">＋</span><span class="issue-more-copy"><strong><em>5</em>개 차트 더 보기</strong><small>오늘 시장의 다른 흐름도 한 번에</small></span><span class="issue-toggle" aria-hidden="true">⌄</span></summary><div class="issue-body"><ol class="topic-list" aria-label="2026-08-18 나머지 주제 목록"><li><a href="2026/0818.html#gpu-collateral"><span class="topic-no">01</span><span class="topic-title">엔비디아가 칩을 <span class="topic-highlight">비행기 같은 담보물</span>로 만드는 중</span><span class="topic-go" aria-hidden="true">→</span></a></li><li><a href="2026/0818.html#oil-fund-warning"><span class="topic-no">03</span><span class="topic-title">상반기 최대로 벌어 놓고 주식 반토막을 경고한 국부펀드</span><span class="topic-go" aria-hidden="true">→</span></a></li><li><a href="2026/0818.html#shein-repricing"><span class="topic-no">04</span><span class="topic-title">1,000억불 하던 회사가 270억불에 상장하러 감</span><span class="topic-go" aria-hidden="true">→</span></a></li><li><a href="2026/0818.html#us-consumer-test"><span class="topic-no">05</span><span class="topic-title"><span class="topic-highlight">세금 환급이 밀어 올린</span> 소비, 이번 주 진짜 시험대에 오름</span><span class="topic-go" aria-hidden="true">→</span></a></li><li><a href="2026/0818.html#korea-three-day-gap"><span class="topic-no">06</span><span class="topic-title">3일 쉬고 열리는 코스피, <span class="topic-highlight">밀린 뉴스를 한 번에</span> 받음</span><span class="topic-go" aria-hidden="true">→</span></a></li></ol><a class="issue-all" href="2026/0818.html">이날 순살차트 전체 보기 <span aria-hidden="true">→</span></a></div></details>
+</article><article class="issue-card">
+  <header class="issue-date"><time datetime="2026-08-15">2026-08-15</time><span class="issue-count">1개 주제</span></header>
+  <a class="lead-chart" href="2026/0815.html#noncompete-two-years" aria-label="한 헤지펀드는 애널리스트까지 최소 1년 묶어 둠 핵심 차트 보기"><span class="lead-chart-kicker">오늘의 핵심 차트</span><span class="lead-chart-title">한 헤지펀드는 애널리스트까지 <span class="topic-highlight">최소 1년</span> 묶어 둠</span><img src="/chart/assets/20260815/noncompete-two-years-diagram-mobile.svg" alt="" loading="lazy"></a>
   <details class="issue-topics"><summary class="issue-head" aria-label="2026-08-15 나머지 주제 목록 접기 또는 펼치기"><span class="issue-more-icon" aria-hidden="true">＋</span><span class="issue-more-copy"><strong><em>0</em>개 차트 더 보기</strong><small>오늘 시장의 다른 흐름도 한 번에</small></span><span class="issue-toggle" aria-hidden="true">⌄</span></summary><div class="issue-body"><ol class="topic-list" aria-label="2026-08-15 나머지 주제 목록"></ol><a class="issue-all" href="2026/0815.html">이날 순살차트 전체 보기 <span aria-hidden="true">→</span></a></div></details>
 </article><article class="issue-card">
   <header class="issue-date"><time datetime="2026-08-14">2026-08-14</time><span class="issue-count">8개 주제</span></header>
