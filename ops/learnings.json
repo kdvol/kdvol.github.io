@@ -937,9 +937,48 @@
     "shorts"
    ],
    "applied": [
-    "threads"
+    "threads",
+    "ig",
+    "cardnews",
+    "reels",
+    "newsletter",
+    "web",
+    "shorts"
    ],
+   "where": {
+    "ig": "rules/common_review.md C34 + rules/audit_practice.md · writer_audit.silent_pass()",
+    "cardnews": "rules/common_review.md C34 + rules/audit_practice.md · writer_audit.silent_pass()",
+    "reels": "rules/common_review.md C34 + rules/audit_practice.md · writer_audit.silent_pass()",
+    "newsletter": "rules/common_review.md C34 + rules/audit_practice.md · writer_audit.silent_pass()",
+    "web": "rules/common_review.md C34 + rules/audit_practice.md · writer_audit.silent_pass()",
+    "shorts": "rules/common_review.md C34 + rules/audit_practice.md · writer_audit.silent_pass()"
+   },
    "id": 32
+  },
+  {
+   "date": "2026-08-18",
+   "channel": "threads",
+   "claim": "1편은 길이가 아니라 눈에 보이는 것으로 여느냐가 가른다",
+   "evidence": "8/16 이후 6건 실측(12시간 이상). 잘 된 넷은 첫 두 줄에 사람·물건이 있다(주부·환각버섯·아이폰·전기차, 5,931~16,887뷰). 추상으로 연 1건은 188뷰. 16,887뷰짜리는 1편 92자로 잘 된 무리 중 제일 길다 — 길이가 원인이 아니다",
+   "n": 6,
+   "status": "확인",
+   "applies_to": [
+    "threads",
+    "cardnews",
+    "reels"
+   ],
+   "applied": [
+    "threads",
+    "threads",
+    "cardnews",
+    "reels"
+   ],
+   "where": {
+    "threads": "rules/common_review.md C37 · common_lint.opener_issues()",
+    "cardnews": "rules/common_review.md C37 · common_lint.opener_issues()",
+    "reels": "rules/common_review.md C37 · common_lint.opener_issues()"
+   },
+   "id": 33
   }
  ]
 }
