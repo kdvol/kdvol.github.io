@@ -83,6 +83,35 @@ h2{font-size:.95rem;color:#ddd;margin:30px 0 10px;letter-spacing:-.01em}
 h2 small{color:#666;font-weight:400;font-size:.78rem;margin-left:7px}
 .kpi.hero .v{font-size:1.9rem}
 .kpi .d{font-size:.7rem;color:#5f5f5f;margin-top:3px}
+/* 측정 흐름 — 한 번의 방문이 어느 표에 어떻게 남나 (KD 2026-08-18) */
+.flow{padding:14px 16px}
+.flow .fh{font-size:.76rem;color:#8b8578;font-weight:700;margin:10px 0 6px}
+.flow .fh:first-child{margin-top:0}
+/* ★ 전부 .flow 안으로 좁힌다. 처음엔 `.fl` 로 뒀는데 막대 채움이 이미
+   `.bar .fl` 을 쓰고 있어서 `display:grid` 가 막대에 새어 들어갔다. */
+.flow .frow{display:grid;grid-template-columns:16px 128px 1fr auto;gap:2px 8px;
+  align-items:baseline;padding:7px 0;border-top:1px solid #1e1e1e}
+.flow .fa{color:#3f3f3f;font-family:ui-monospace,monospace}
+.flow .fw{font-size:.76rem;color:#9a9086}
+.flow .ft{font-size:.72rem;color:#F5A481;background:#1c1512;border:1px solid #33241c;
+  border-radius:4px;padding:1px 6px;white-space:nowrap;justify-self:start}
+.flow .fu{font-size:.66rem;color:#5f5f5f;border:1px solid #262626;border-radius:3px;
+  padding:0 4px;justify-self:start}
+.flow .fn{grid-column:2;font-size:.86rem;color:#f2efe8}
+.flow .fv{grid-column:4;grid-row:1/3;font-size:1.25rem;font-weight:800;color:#F07040;
+  font-variant-numeric:tabular-nums;align-self:center}
+.flow .fd{grid-column:2/4;font-size:.7rem;color:#5f5f5f}
+.flow .fx{margin-top:12px;padding-top:11px;border-top:1px solid #232323;
+  font-size:.82rem;color:#a8a29a;line-height:2}
+.flow .fx code{font-size:.74rem;color:#F5A481;background:#1c1512;
+  border:1px solid #33241c;border-radius:4px;padding:1px 6px}
+.flow .fx b{color:#f2efe8;font-variant-numeric:tabular-nums}
+@media(max-width:560px){
+  .flow .frow{grid-template-columns:14px 1fr auto}
+  .flow .fw{grid-column:2}.flow .ft{grid-column:2}.flow .fu{display:none}
+  .flow .fn{grid-column:2}.flow .fv{grid-column:3;grid-row:1/4}
+  .flow .fd{grid-column:2}
+}
 .card{background:#161616;border:1px solid #232323;border-radius:12px;padding:14px 16px;margin-bottom:10px}
 .trend{display:flex;align-items:flex-end;gap:2px;height:64px;margin-top:4px;justify-content:flex-start}
 .trend i{flex:1 1 0;max-width:28px;background:#F07040;border-radius:2px 2px 0 0;min-height:2px;opacity:.85;position:relative}
@@ -339,6 +368,67 @@ function renderCommunity() {
   //   숫자가 고장난 게 아니다. 그걸 화면이 말해 줘야 한다.
   var pDays = days.filter(function (d) { return DAU[d] !== undefined; });
   var narrow = pDays.length && pDays.length < daily.length;
+
+  // ═══ 0. 무엇을 어떻게 세나 ═══════════════════════════════════════
+  //   KD 2026-08-18: *"사람 확인 비율은, 페이지뷰/방문자/페이지 열람 이랑
+  //   어떻게 연결되어 계산되는지 모르겠음. 데이터 측정 전체 schema가 먼저
+  //   있고, 그걸 기반으로 숫자를 계산하고, 직관적으로 이해될수 있는 data
+  //   flow 대로 나한테 띄워줘야 함."*
+  //
+  //   맞는 지적이다. 지금까지는 숫자를 늘어놓기만 했다. 그런데 이 다섯은
+  //   **모수가 다 다르다** — 어떤 건 횟수, 어떤 건 브라우저 수, 어떤 건
+  //   시작일마저 다르다. 견줄 수 없는 걸 나란히 놓으면 헷갈리는 게 맞다.
+  //
+  //   그래서 표를 먼저 그린다. 한 번의 방문이 **어느 표에 어떻게 남는지**를
+  //   보이고, 각 칸에 그 표의 이름과 세는 단위를 박는다.
+  var hDays0 = daysFor('human');
+  var hHits0 = 0;
+  daily.forEach(function (d) { if (hDays0.indexOf(d.day) >= 0) hHits0 += d.hits; });
+  var hCnt0 = sumEng(hDays0, ['human']);
+  function flowRow(arrow, when, table, unit, label2, val, note) {
+    return '<div class="frow"><span class="fa">' + arrow + '</span>' +
+      '<span class="fw">' + when + '</span>' +
+      '<code class="ft">' + table + '</code>' +
+      '<span class="fu">' + unit + '</span>' +
+      '<b class="fn">' + label2 + '</b>' +
+      '<span class="fv">' + val + '</span>' +
+      (note ? '<span class="fd">' + note + '</span>' : '') + '</div>';
+  }
+  h += '<h2>무엇을 어떻게 세나 <small>' + scope + '</small></h2>' +
+    '<div class="card flow">' +
+    '<div class="fh">브라우저가 페이지를 연다</div>' +
+    flowRow('└', '봇이면', 'views.bot_hits', '횟수', '봇 조회',
+            sumBots.toLocaleString(),
+            '사람 숫자에는 안 섞는다') +
+    '<div class="fh">사람이면 — 아래 넷에 <b>동시에</b> 남는다</div>' +
+    flowRow('├', '언제나', 'views.hits', '횟수', '페이지뷰',
+            sumHits.toLocaleString(),
+            '같은 사람이 같은 글을 두 번 열면 2') +
+    flowRow('├', '그날 그 글 처음이면', 'views.uniq', '횟수', '페이지 열람',
+            sumUniq.toLocaleString(),
+            '한 사람이 3개 글 보면 3 · 같은 글 다시 열면 안 늘어남') +
+    flowRow('├', '그날 첫 방문이면', 'dau(day,vid)', '브라우저', '방문자',
+            (sumPeople || 0).toLocaleString(),
+            narrow ? '⚠️ ' + COV.dau + ' 부터 켬 — 위 셋과 기간이 다르다'
+                   : '몇 명이 왔나 · 하루에 한 번만 센다') +
+    flowRow('└', '손이 실제로 움직이면', 'engage(human)', '횟수', '사람 확인',
+            hCnt0.toLocaleString(),
+            hDays0.length ? '스크롤·클릭이 잡힌 횟수'
+                          : '⚠️ ' + why('human')) +
+    '<div class="fh">그래서 비율은</div>' +
+    '<div class="fx"><code>사람 확인 비율</code> = <code>engage(human)</code> ÷ ' +
+    '<code>views.hits</code> = ' +
+    (hDays0.length && hHits0
+      ? '<b>' + hCnt0.toLocaleString() + ' ÷ ' + hHits0.toLocaleString()
+        + ' = ' + pct(hCnt0, hHits0) + '%</b>'
+      : '<b>—</b> (' + why('human') + ')') +
+    '</div>' +
+    '<p class="note"><b>방문자로 나누지 않는다.</b> 사람 확인은 「몇 명이」가 아니라 ' +
+    '「열린 페이지 중 몇 번에」 손이 움직였나다. 분모가 브라우저 수가 아니라 ' +
+    '페이지뷰인 이유다. 그리고 <b>방문자만 시작일이 다르다</b> — 나머지는 ' +
+    (COV.views || '?') + ', 방문자는 ' + (COV.dau || '?') + ' 부터다.</p>' +
+    '</div>';
+
   h += '<h2>' + scope + '</h2><div class="sum">' +
     kpi(sumHits.toLocaleString(), '페이지뷰 (사람)',
         '봇을 뺀 횟수 · ' + label(days), true) +
