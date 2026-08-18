@@ -1,0 +1,13 @@
+{
+  "html": "_publish/순살카드뉴스_20260820.html",
+  "date": "20260820",
+  "name": "learntocode",
+  "post_txt": "_publish/learntocode.POST.txt",
+  "target_epoch": 1787187600,
+  "dry_run": false,
+  "reviewed": {
+    "by": "KD",
+    "at": "2026-08-18T14:00:35",
+    "verbatim": "시각은 오전중으로 발행하자"
+  }
+}
