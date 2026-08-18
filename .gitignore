@@ -17,3 +17,4 @@ workers/.partner-codes.json
 
 # 도식 영상은 R2에 둔다 — 리포에 매일 1MB씩 영구히 쌓이는 걸 막는다
 chart/assets/**/*.mp4
+.wrangler/
