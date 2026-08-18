@@ -325,7 +325,8 @@ def update_main_index(items, date_fmt, has_briefing, yyyy, mmdd):
     #   「만들어 놓고 아무도 안 부르는 검사」와 같은 꼴이다 — 오늘만 세 번째다.
     #   순서가 있다: nav 가 회차 링크를 먼저 놓고, 그 위에 스토리 줄을 덧댄다.
     for script in ("scripts/build_home.py", "scripts/build_nav.py",
-                   "scripts/build_newsletter_nav.py"):
+                   "scripts/build_newsletter_nav.py",
+                   "scripts/build_licensing_catalog.py"):
         r = subprocess.run(["python3", script], cwd=str(REPO),
                            capture_output=True, text=True)
         if r.returncode != 0:
