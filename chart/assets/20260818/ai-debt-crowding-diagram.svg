@@ -28,29 +28,27 @@
 <text x="540.0" y="1053.0" text-anchor="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="18" fill="#F5A481">이미 전이 중</text>
 </g>
 <g class="motion-step motion-node" data-motion-step="0" style="--motion-delay:0ms;--motion-accent-delay:640ms">
-<rect class="motion-node-shape" x="160.0" y="70.0" width="760.0" height="118.0" rx="22" fill="#332E26" stroke="#6B6156" stroke-width="3" filter="url(#shadow)"/>
+<rect class="motion-node-shape" x="70.0" y="70.0" width="940.0" height="118.0" rx="22" fill="#332E26" stroke="#6B6156" stroke-width="3" filter="url(#shadow)"/>
 <text x="540.0" y="129.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="700" fill="#F5F2EC">AI 데이터센터 건설비</text>
 </g>
 <g class="motion-step motion-node" data-motion-step="2" style="--motion-delay:1360ms;--motion-accent-delay:2000ms">
-<rect class="motion-node-shape" x="160.0" y="276.0" width="760.0" height="118.0" rx="22" fill="#332E26" stroke="#6B6156" stroke-width="3" filter="url(#shadow)"/>
-<text x="540.0" y="317.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="700" fill="#F5F2EC">우량 회사채 발행 올해 1.5조불, 작년보다</text>
-<text x="540.0" y="353.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="700" fill="#F5F2EC">36% 늘어남</text>
+<rect class="motion-node-shape" x="70.0" y="276.0" width="940.0" height="118.0" rx="22" fill="#332E26" stroke="#6B6156" stroke-width="3" filter="url(#shadow)"/>
+<text x="540.0" y="335.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="700" fill="#F5F2EC">우량 회사채 발행 올해 1.5조불, 작년보다 36% 늘어남</text>
 </g>
 <g class="motion-step motion-node" data-motion-step="4" style="--motion-delay:2720ms;--motion-accent-delay:3360ms">
-<rect class="motion-node-shape" x="160.0" y="482.0" width="760.0" height="118.0" rx="22" fill="#332E26" stroke="#6B6156" stroke-width="3" filter="url(#shadow)"/>
+<rect class="motion-node-shape" x="70.0" y="482.0" width="940.0" height="118.0" rx="22" fill="#332E26" stroke="#6B6156" stroke-width="3" filter="url(#shadow)"/>
 <text x="540.0" y="541.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="700" fill="#F5F2EC">그중 장기물 비중 13%→20%</text>
 </g>
 <g class="motion-step motion-node" data-motion-step="6" style="--motion-delay:4080ms;--motion-accent-delay:4720ms">
-<rect class="motion-node-shape" x="160.0" y="688.0" width="760.0" height="118.0" rx="22" fill="#332E26" stroke="#6B6156" stroke-width="3" filter="url(#shadow)"/>
+<rect class="motion-node-shape" x="70.0" y="688.0" width="940.0" height="118.0" rx="22" fill="#332E26" stroke="#6B6156" stroke-width="3" filter="url(#shadow)"/>
 <text x="540.0" y="747.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="700" fill="#F5F2EC">장기 자금을 국채와 나눠 씀</text>
 </g>
 <g class="motion-step motion-node motion-risk" data-motion-step="8" style="--motion-delay:5440ms;--motion-accent-delay:6080ms">
-<rect class="motion-node-shape" x="160.0" y="894.0" width="760.0" height="118.0" rx="22" fill="#4A2C1A" stroke="#F07040" stroke-width="3" filter="url(#shadow)"/>
-<text x="540.0" y="935.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="700" fill="#F5F2EC">미국 30년 만기 국채 5.31%, 2007년</text>
-<text x="540.0" y="971.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="700" fill="#F5F2EC">이후 최고</text>
+<rect class="motion-node-shape" x="70.0" y="894.0" width="940.0" height="118.0" rx="22" fill="#4A2C1A" stroke="#F07040" stroke-width="3" filter="url(#shadow)"/>
+<text x="540.0" y="953.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="700" fill="#F5F2EC">미국 30년 만기 국채 5.31%, 2007년 이후 최고</text>
 </g>
 <g class="motion-step motion-node motion-risk" data-motion-step="10" style="--motion-delay:6800ms;--motion-accent-delay:7440ms">
-<rect class="motion-node-shape" x="160.0" y="1100.0" width="760.0" height="118.0" rx="22" fill="#4A2C1A" stroke="#F07040" stroke-width="3" filter="url(#shadow)"/>
+<rect class="motion-node-shape" x="70.0" y="1100.0" width="940.0" height="118.0" rx="22" fill="#4A2C1A" stroke="#F07040" stroke-width="3" filter="url(#shadow)"/>
 <text x="540.0" y="1159.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="700" fill="#F5F2EC">미국 주택담보대출 금리로 전이</text>
 </g>
 <line x1="72" y1="70.0" x2="1008" y2="70.0" stroke="#2A2724" stroke-width="2"/>
