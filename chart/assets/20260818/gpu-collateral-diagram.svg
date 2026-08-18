@@ -19,13 +19,13 @@
 </g>
 <g class="motion-step motion-edge" data-motion-step="5" style="--motion-delay:5440ms">
 <path d="M 540.0 280.0 C 540.0 530.0, 540.0 530.0, 540.0 772.0" fill="none" stroke="#F07040" stroke-width="4" marker-end="url(#arrow)"/>
-<rect x="468.0" y="542.0" width="144" height="36" rx="18" fill="#0B0A09"/>
-<text x="540.0" y="569.0" text-anchor="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="18" fill="#F5A481">이게 전제를 받침</text>
+<rect x="646.6" y="500.0" width="144" height="36" rx="18" fill="#0B0A09"/>
+<text x="718.6" y="527.0" text-anchor="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="18" fill="#F5A481">이게 전제를 받침</text>
 </g>
 <g class="motion-step motion-edge" data-motion-step="5" style="--motion-delay:6120ms">
 <path d="M 862.0 280.0 C 862.0 530.0, 540.0 530.0, 540.0 772.0" fill="none" stroke="#F07040" stroke-width="4" stroke-dasharray="12 10" marker-end="url(#arrow)"/>
-<rect x="629.0" y="500.0" width="144" height="36" rx="18" fill="#0B0A09"/>
-<text x="701.0" y="527.0" text-anchor="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="18" fill="#F5A481">전제를 흔듦</text>
+<rect x="807.6" y="500.0" width="144" height="36" rx="18" fill="#0B0A09"/>
+<text x="879.6" y="527.0" text-anchor="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="18" fill="#F5A481">전제를 흔듦</text>
 </g>
 <g class="motion-step motion-node" data-motion-step="0" style="--motion-delay:0ms;--motion-accent-delay:640ms">
 <rect class="motion-node-shape" x="70.0" y="70.0" width="296.0" height="210" rx="22" fill="#332E26" stroke="#6B6156" stroke-width="3" filter="url(#shadow)"/>
@@ -47,15 +47,15 @@
 <text x="862.0" y="193.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="700" fill="#F5F2EC">칩이 나옴</text>
 </g>
 <g class="motion-step motion-node" data-motion-step="2" style="--motion-delay:2720ms;--motion-accent-delay:3360ms">
-<rect class="motion-node-shape" x="160.0" y="368.0" width="760.0" height="118.0" rx="22" fill="#332E26" stroke="#6B6156" stroke-width="3" filter="url(#shadow)"/>
+<rect class="motion-node-shape" x="70.0" y="368.0" width="940.0" height="118.0" rx="22" fill="#332E26" stroke="#6B6156" stroke-width="3" filter="url(#shadow)"/>
 <text x="540.0" y="427.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="700" fill="#F5F2EC">칩 사는 쪽은 자기 신용으로 조달 한계</text>
 </g>
 <g class="motion-step motion-node" data-motion-step="4" style="--motion-delay:4080ms;--motion-accent-delay:4720ms">
-<rect class="motion-node-shape" x="160.0" y="574.0" width="760.0" height="118.0" rx="22" fill="#332E26" stroke="#6B6156" stroke-width="3" filter="url(#shadow)"/>
+<rect class="motion-node-shape" x="70.0" y="574.0" width="940.0" height="118.0" rx="22" fill="#332E26" stroke="#6B6156" stroke-width="3" filter="url(#shadow)"/>
 <text x="540.0" y="633.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="700" fill="#F5F2EC">항공기 금융처럼 물건을 담보로</text>
 </g>
 <g class="motion-step motion-node" data-motion-step="6" style="--motion-delay:6800ms;--motion-accent-delay:7440ms">
-<rect class="motion-node-shape" x="160.0" y="780.0" width="760.0" height="118.0" rx="22" fill="#332E26" stroke="#6B6156" stroke-width="3" filter="url(#shadow)"/>
+<rect class="motion-node-shape" x="70.0" y="780.0" width="940.0" height="118.0" rx="22" fill="#332E26" stroke="#6B6156" stroke-width="3" filter="url(#shadow)"/>
 <text x="540.0" y="839.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="700" fill="#F5F2EC">전제, 중고 칩이 값을 유지함</text>
 </g>
 <line x1="72" y1="70.0" x2="1008" y2="70.0" stroke="#2A2724" stroke-width="2"/>
