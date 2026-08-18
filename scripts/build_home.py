@@ -71,11 +71,16 @@ font-weight:700;text-decoration:none}
 .more:hover{text-decoration:underline}
 .arch{display:grid;gap:1px;background:#1c1c1c;border:1px solid #1c1c1c;border-radius:12px;
 overflow:hidden}
+.iss{background:#141414;padding:10px 14px 12px}
+.iss .issd{display:block;text-decoration:none;margin-bottom:4px}
+.iss .st{display:block;color:#c9c3b8;text-decoration:none;padding:5px 0 5px 10px;
+  border-left:2px solid #262626;font-size:.9rem;line-height:1.45}
+.iss .st:hover{color:#fff;border-left-color:#E55A00}
 .arch a{display:flex;gap:12px;align-items:baseline;background:#141414;padding:12px 14px;
 text-decoration:none;color:#b8b2a8;font-size:.87rem}
 .arch a:hover{background:#191919;color:#fff}
 .arch .d{flex:0 0 auto;color:#6f6a60;font-size:.76rem;font-variant-numeric:tabular-nums}
-.arch .t{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.arch .t{overflow:hidden;text-overflow:ellipsis}
 .ch{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
 .ch a{background:#151515;border:1px solid #232323;border-radius:12px;padding:14px 15px;
 text-decoration:none;color:#e8e3da}
@@ -258,18 +263,37 @@ def build(atoms=None):
     nl_css, nl_body = nl
 
     # 아카이브는 회차 단위로 최근 12개. 336개를 다 내려보낼 이유가 없다.
-    seen, arch = set(), []
+    #
+    # ★ **회차마다 스토리를 다 보여준다** (KD 2026-08-18).
+    #   전에는 `if u in seen: continue` 로 회차당 첫 스토리 하나만 남겼다.
+    #   그러면 「08.14 · 퇴직연금의 아버지」 한 줄만 보이고 나머지 넷은
+    #   버려진다. 독자가 그 회차에 뭐가 들었는지 알 길이 없다.
+    #   회차로 묶고 **그 안의 스토리를 전부** 건다 — 각 스토리는 자기
+    #   딥링크(`#story-N`)로 간다.
+    from collections import OrderedDict  # noqa: PLC0415
+    issues = OrderedDict()
     for a in ordered:
         u = a.get("newsletter")
-        if not u or u in seen:
+        if not u:
             continue
-        seen.add(u)
-        arch.append((a["date"], u, _clean(a["title"])))
-        if len(arch) >= 12:
-            break
+        if u not in issues:
+            if len(issues) >= 12:
+                break
+            issues[u] = {"date": a["date"], "items": []}
+        issues[u]["items"].append(
+            (a.get("n", 0), a.get("url") or u, _clean(a["title"])))
+    # `ordered` 는 최신 회차가 먼저 오게 n 을 거꾸로 정렬해 둔 것이라,
+    #   회차 **안에서는** 5→1 로 뒤집혀 있다. 읽는 순서로 되돌린다.
+    for v in issues.values():
+        v["items"] = [(u, t) for _, u, t in sorted(v["items"])]
+    arch = [(v["date"], u, v["items"]) for u, v in issues.items()]
     arch_html = "".join(
-        f'<a href="{u}"><span class="d">{d[5:7]}.{d[8:10]}</span>'
-        f'<span class="t">{escape(t)}</span></a>' for d, u, t in arch)
+        f'<div class="iss"><a class="issd" href="{u}">'
+        f'<span class="d">{d[5:7]}.{d[8:10]}</span></a>'
+        + "".join(f'<a class="st" href="{link}">'
+                  f'<span class="t">{escape(t)}</span></a>'
+                  for link, t in items)
+        + '</div>' for d, u, items in arch)
 
     ch = "".join(
         f'<a href="{h}"' + (' target="_blank" rel="noopener"' if h.startswith("http") else '')
