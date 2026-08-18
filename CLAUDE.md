@@ -51,3 +51,18 @@ cd ~/soonsal-build && python3 scripts/learnings.py inbox --channel web
 배운 게 있으면 `learnings.py add --evidence "…"` 로 넣는다. 근거 없이는 안 들어간다.
 원장은 `~/soonsal-build/content_os/registry/learnings.jsonl`,
 웹 사본은 `/ops/learnings.json` (robots.txt 로 색인 차단).
+
+## 만들기 전에 계보를 읽는다 (2026-08-18)
+
+새 꼭지를 기획할 때 **같은 주제로 전에 낸 것**을 먼저 뽑아 읽는다 — 뉴스레터·
+차트·스레드·카드뉴스·릴스·숏츠 전부. 발행 직전 관문이 아니라 **기획 첫머리의
+재료**다. 이미 검증된 사실·인물·비유는 다시 캐지 않고, 성과가 붙은 편은
+짜임새(조각 수·반전 위치·1편 훅·착지)까지 가져온다.
+
+```bash
+cd ~/soonsal-build && python3 scripts/lineage.py brief --text "<이번 꼭지 요지>"
+```
+
+빌드가 자동으로 `output/distribution/<날짜>/LINEAGE.md` 에 남긴다.
+웹 3회차 중복 회피(C28)와 부딪히면 **C28 이 이긴다.**
+
