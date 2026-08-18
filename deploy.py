@@ -319,7 +319,13 @@ def update_main_index(items, date_fmt, has_briefing, yyyy, mmdd):
     부르는 쪽으로 바꾼다 — 최신 회차·순살차트·지난 목록을 알아서 다시 만든다.
     """
     import subprocess
-    for script in ("scripts/build_home.py", "scripts/build_nav.py"):
+    # ★ build_newsletter_nav 를 여기 넣는다 (KD 2026-08-18).
+    #   8/15 에 만들어 놓고 **발행기가 안 불렀다.** 그래서 그날 이후 회차는
+    #   목록에 스토리 다섯 줄이 안 붙었고, 손으로 돌려야만 붙었다.
+    #   「만들어 놓고 아무도 안 부르는 검사」와 같은 꼴이다 — 오늘만 세 번째다.
+    #   순서가 있다: nav 가 회차 링크를 먼저 놓고, 그 위에 스토리 줄을 덧댄다.
+    for script in ("scripts/build_home.py", "scripts/build_nav.py",
+                   "scripts/build_newsletter_nav.py"):
         r = subprocess.run(["python3", script], cwd=str(REPO),
                            capture_output=True, text=True)
         if r.returncode != 0:
