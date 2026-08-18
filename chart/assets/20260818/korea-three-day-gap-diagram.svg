@@ -1,105 +1,105 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="860" viewBox="0 0 1080 860" class="morning-diagram" data-motion-orientation="LR" data-motion-steps="3">
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="836" viewBox="0 0 1080 836" class="morning-diagram" data-motion-orientation="LR" data-motion-steps="3">
 <defs><filter id="shadow" x="-20%" y="-20%" width="140%" height="160%"><feDropShadow dx="0" dy="6" stdDeviation="8" flood-color="#111111" flood-opacity=".09"/></filter>
 <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#F07040"/></marker></defs>
-<rect width="1080" height="860" fill="#0B0A09"/>
+<rect width="1080" height="836" fill="#0B0A09"/>
 <g class="motion-step motion-edge" data-motion-step="1" style="--motion-delay:4080ms">
-<path d="M 151.7 188.0 C 151.7 439.0, 540.0 439.0, 540.0 682.0" fill="none" stroke="#F07040" stroke-width="4" marker-end="url(#arrow)"/>
-<rect x="273.8" y="409.0" width="144" height="36" rx="18" fill="#0B0A09"/>
-<text x="345.8" y="436.0" text-anchor="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="18" fill="#F5A481">여기서 출발</text>
+<path d="M 137.5 460.0 C 137.5 504.0, 540.0 504.0, 540.0 540.0" fill="none" stroke="#F07040" stroke-width="4" marker-end="url(#arrow)"/>
+<rect x="266.8" y="474.0" width="144" height="36" rx="18" fill="#0B0A09"/>
+<text x="338.8" y="501.0" text-anchor="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="18" fill="#F5A481">여기서 출발</text>
 </g>
 <g class="motion-step motion-edge" data-motion-step="1" style="--motion-delay:4760ms">
-<path d="M 307.0 188.0 C 307.0 439.0, 540.0 439.0, 540.0 682.0" fill="none" stroke="#F07040" stroke-width="4" stroke-dasharray="12 10" marker-end="url(#arrow)"/>
-<rect x="351.5" y="409.0" width="144" height="36" rx="18" fill="#0B0A09"/>
-<text x="423.5" y="436.0" text-anchor="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="18" fill="#F5A481">빚 많은 회사를 누름</text>
+<path d="M 298.5 460.0 C 298.5 504.0, 540.0 504.0, 540.0 540.0" fill="none" stroke="#F07040" stroke-width="4" stroke-dasharray="12 10" marker-end="url(#arrow)"/>
+<rect x="347.2" y="516.0" width="144" height="36" rx="18" fill="#0B0A09"/>
+<text x="419.2" y="543.0" text-anchor="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="18" fill="#F5A481">빚 많은 회사를 누름</text>
 </g>
 <g class="motion-step motion-edge" data-motion-step="1" style="--motion-delay:5440ms">
-<path d="M 462.3 188.0 C 462.3 439.0, 540.0 439.0, 540.0 682.0" fill="none" stroke="#F07040" stroke-width="4" stroke-dasharray="12 10" marker-end="url(#arrow)"/>
-<rect x="429.2" y="409.0" width="144" height="36" rx="18" fill="#0B0A09"/>
-<text x="501.2" y="436.0" text-anchor="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="18" fill="#F5A481">기름 많이 쓰는 회사를 누름</text>
+<path d="M 459.5 460.0 C 459.5 504.0, 540.0 504.0, 540.0 540.0" fill="none" stroke="#F07040" stroke-width="4" stroke-dasharray="12 10" marker-end="url(#arrow)"/>
+<rect x="427.8" y="474.0" width="144" height="36" rx="18" fill="#0B0A09"/>
+<text x="499.8" y="501.0" text-anchor="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="18" fill="#F5A481">기름 많이 쓰는 회사를 누름</text>
 </g>
 <g class="motion-step motion-edge" data-motion-step="1" style="--motion-delay:6120ms">
-<path d="M 617.7 188.0 C 617.7 439.0, 540.0 439.0, 540.0 682.0" fill="none" stroke="#F07040" stroke-width="4" stroke-dasharray="12 10" marker-end="url(#arrow)"/>
-<rect x="506.8" y="409.0" width="144" height="36" rx="18" fill="#0B0A09"/>
-<text x="578.8" y="436.0" text-anchor="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="18" fill="#F5A481">중국 수요 둔화</text>
+<path d="M 620.5 460.0 C 620.5 504.0, 540.0 504.0, 540.0 540.0" fill="none" stroke="#F07040" stroke-width="4" stroke-dasharray="12 10" marker-end="url(#arrow)"/>
+<rect x="508.2" y="516.0" width="144" height="36" rx="18" fill="#0B0A09"/>
+<text x="580.2" y="543.0" text-anchor="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="18" fill="#F5A481">중국 수요 둔화</text>
 </g>
 <g class="motion-step motion-edge" data-motion-step="1" style="--motion-delay:6800ms">
-<path d="M 773.0 188.0 C 773.0 439.0, 540.0 439.0, 540.0 682.0" fill="none" stroke="#F07040" stroke-width="4" stroke-dasharray="12 10" marker-end="url(#arrow)"/>
-<rect x="584.5" y="409.0" width="144" height="36" rx="18" fill="#0B0A09"/>
-<text x="656.5" y="436.0" text-anchor="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="18" fill="#F5A481">완화 기대</text>
+<path d="M 781.5 460.0 C 781.5 504.0, 540.0 504.0, 540.0 540.0" fill="none" stroke="#F07040" stroke-width="4" stroke-dasharray="12 10" marker-end="url(#arrow)"/>
+<rect x="588.8" y="474.0" width="144" height="36" rx="18" fill="#0B0A09"/>
+<text x="660.8" y="501.0" text-anchor="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="18" fill="#F5A481">완화 기대</text>
 </g>
 <g class="motion-step motion-edge" data-motion-step="1" style="--motion-delay:7480ms">
-<path d="M 928.3 188.0 C 928.3 439.0, 540.0 439.0, 540.0 682.0" fill="none" stroke="#F07040" stroke-width="4" stroke-dasharray="12 10" marker-end="url(#arrow)"/>
-<rect x="662.2" y="409.0" width="144" height="36" rx="18" fill="#0B0A09"/>
-<text x="734.2" y="436.0" text-anchor="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="18" fill="#F5A481">메모리 수요 근거</text>
+<path d="M 942.5 460.0 C 942.5 504.0, 540.0 504.0, 540.0 540.0" fill="none" stroke="#F07040" stroke-width="4" stroke-dasharray="12 10" marker-end="url(#arrow)"/>
+<rect x="669.2" y="516.0" width="144" height="36" rx="18" fill="#0B0A09"/>
+<text x="741.2" y="543.0" text-anchor="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="18" fill="#F5A481">메모리 수요 근거</text>
 </g>
 <g class="motion-step motion-node" data-motion-step="0" style="--motion-delay:0ms;--motion-accent-delay:640ms">
-<rect class="motion-node-shape" x="90.0" y="70.0" width="123.3" height="118" rx="22" fill="#332E26" stroke="#6B6156" stroke-width="3" filter="url(#shadow)"/>
-<text x="151.7" y="69.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="18" font-weight="700" fill="#F5F2EC">8/14</text>
-<text x="151.7" y="93.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="18" font-weight="700" fill="#F5F2EC">종가</text>
-<text x="151.7" y="117.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="18" font-weight="700" fill="#F5F2EC">코스피</text>
-<text x="151.7" y="141.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="18" font-weight="700" fill="#F5F2EC">6,978,</text>
-<text x="151.7" y="165.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="18" font-weight="700" fill="#F5F2EC">2.42%</text>
-<text x="151.7" y="189.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="18" font-weight="700" fill="#F5F2EC">오름</text>
+<rect class="motion-node-shape" x="70.0" y="70.0" width="135.0" height="390" rx="22" fill="#332E26" stroke="#6B6156" stroke-width="3" filter="url(#shadow)"/>
+<text x="137.5" y="175.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="700" fill="#F5F2EC">8/14</text>
+<text x="137.5" y="211.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="700" fill="#F5F2EC">종가</text>
+<text x="137.5" y="247.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="700" fill="#F5F2EC">코스피</text>
+<text x="137.5" y="283.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="700" fill="#F5F2EC">6,978,</text>
+<text x="137.5" y="319.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="700" fill="#F5F2EC">2.42%</text>
+<text x="137.5" y="355.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="700" fill="#F5F2EC">오름</text>
 </g>
 <g class="motion-step motion-node motion-risk" data-motion-step="0" style="--motion-delay:680ms;--motion-accent-delay:1320ms">
-<rect class="motion-node-shape" x="245.3" y="70.0" width="123.3" height="118" rx="22" fill="#4A2C1A" stroke="#F07040" stroke-width="3" filter="url(#shadow)"/>
-<text x="307.0" y="21.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="18" font-weight="700" fill="#F5F2EC">나빠진</text>
-<text x="307.0" y="45.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="18" font-weight="700" fill="#F5F2EC">것</text>
-<text x="307.0" y="69.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="18" font-weight="700" fill="#F5F2EC">하나,</text>
-<text x="307.0" y="93.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="18" font-weight="700" fill="#F5F2EC">미국</text>
-<text x="307.0" y="117.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="18" font-weight="700" fill="#F5F2EC">30년</text>
-<text x="307.0" y="141.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="18" font-weight="700" fill="#F5F2EC">만기</text>
-<text x="307.0" y="165.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="18" font-weight="700" fill="#F5F2EC">국채</text>
-<text x="307.0" y="189.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="18" font-weight="700" fill="#F5F2EC">2007년</text>
-<text x="307.0" y="213.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="18" font-weight="700" fill="#F5F2EC">이후</text>
-<text x="307.0" y="237.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="18" font-weight="700" fill="#F5F2EC">최고</text>
+<rect class="motion-node-shape" x="231.0" y="70.0" width="135.0" height="390" rx="22" fill="#4A2C1A" stroke="#F07040" stroke-width="3" filter="url(#shadow)"/>
+<text x="298.5" y="103.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="700" fill="#F5F2EC">나빠진</text>
+<text x="298.5" y="139.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="700" fill="#F5F2EC">것</text>
+<text x="298.5" y="175.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="700" fill="#F5F2EC">하나,</text>
+<text x="298.5" y="211.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="700" fill="#F5F2EC">미국</text>
+<text x="298.5" y="247.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="700" fill="#F5F2EC">30년</text>
+<text x="298.5" y="283.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="700" fill="#F5F2EC">만기</text>
+<text x="298.5" y="319.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="700" fill="#F5F2EC">국채</text>
+<text x="298.5" y="355.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="700" fill="#F5F2EC">2007년</text>
+<text x="298.5" y="391.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="700" fill="#F5F2EC">이후</text>
+<text x="298.5" y="427.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="700" fill="#F5F2EC">최고</text>
 </g>
 <g class="motion-step motion-node motion-risk" data-motion-step="0" style="--motion-delay:1360ms;--motion-accent-delay:2000ms">
-<rect class="motion-node-shape" x="400.7" y="70.0" width="123.3" height="118" rx="22" fill="#4A2C1A" stroke="#F07040" stroke-width="3" filter="url(#shadow)"/>
-<text x="462.3" y="69.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="18" font-weight="700" fill="#F5F2EC">나빠진</text>
-<text x="462.3" y="93.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="18" font-weight="700" fill="#F5F2EC">것 둘,</text>
-<text x="462.3" y="117.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="18" font-weight="700" fill="#F5F2EC">브렌트유</text>
-<text x="462.3" y="141.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="18" font-weight="700" fill="#F5F2EC">91.05불로</text>
-<text x="462.3" y="165.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="18" font-weight="700" fill="#F5F2EC">2.9%</text>
-<text x="462.3" y="189.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="18" font-weight="700" fill="#F5F2EC">오름</text>
+<rect class="motion-node-shape" x="392.0" y="70.0" width="135.0" height="390" rx="22" fill="#4A2C1A" stroke="#F07040" stroke-width="3" filter="url(#shadow)"/>
+<text x="459.5" y="175.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="700" fill="#F5F2EC">나빠진</text>
+<text x="459.5" y="211.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="700" fill="#F5F2EC">것 둘,</text>
+<text x="459.5" y="247.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="700" fill="#F5F2EC">브렌트유</text>
+<text x="459.5" y="283.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="700" fill="#F5F2EC">91.05불로</text>
+<text x="459.5" y="319.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="700" fill="#F5F2EC">2.9%</text>
+<text x="459.5" y="355.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="700" fill="#F5F2EC">오름</text>
 </g>
 <g class="motion-step motion-node motion-risk" data-motion-step="0" style="--motion-delay:2040ms;--motion-accent-delay:2680ms">
-<rect class="motion-node-shape" x="556.0" y="70.0" width="123.3" height="118" rx="22" fill="#4A2C1A" stroke="#F07040" stroke-width="3" filter="url(#shadow)"/>
-<text x="617.7" y="57.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="18" font-weight="700" fill="#F5F2EC">나빠진</text>
-<text x="617.7" y="81.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="18" font-weight="700" fill="#F5F2EC">것 셋,</text>
-<text x="617.7" y="105.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="18" font-weight="700" fill="#F5F2EC">중국</text>
-<text x="617.7" y="129.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="18" font-weight="700" fill="#F5F2EC">7월</text>
-<text x="617.7" y="153.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="18" font-weight="700" fill="#F5F2EC">지표</text>
-<text x="617.7" y="177.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="18" font-weight="700" fill="#F5F2EC">전방위</text>
-<text x="617.7" y="201.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="18" font-weight="700" fill="#F5F2EC">부진</text>
+<rect class="motion-node-shape" x="553.0" y="70.0" width="135.0" height="390" rx="22" fill="#4A2C1A" stroke="#F07040" stroke-width="3" filter="url(#shadow)"/>
+<text x="620.5" y="157.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="700" fill="#F5F2EC">나빠진</text>
+<text x="620.5" y="193.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="700" fill="#F5F2EC">것 셋,</text>
+<text x="620.5" y="229.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="700" fill="#F5F2EC">중국</text>
+<text x="620.5" y="265.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="700" fill="#F5F2EC">7월</text>
+<text x="620.5" y="301.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="700" fill="#F5F2EC">지표</text>
+<text x="620.5" y="337.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="700" fill="#F5F2EC">전방위</text>
+<text x="620.5" y="373.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="700" fill="#F5F2EC">부진</text>
 </g>
 <g class="motion-step motion-node" data-motion-step="0" style="--motion-delay:2720ms;--motion-accent-delay:3360ms">
-<rect class="motion-node-shape" x="711.3" y="70.0" width="123.3" height="118" rx="22" fill="#332E26" stroke="#6B6156" stroke-width="3" filter="url(#shadow)"/>
-<text x="773.0" y="21.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="18" font-weight="700" fill="#F5F2EC">좋아진</text>
-<text x="773.0" y="45.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="18" font-weight="700" fill="#F5F2EC">것</text>
-<text x="773.0" y="69.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="18" font-weight="700" fill="#F5F2EC">하나,</text>
-<text x="773.0" y="93.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="18" font-weight="700" fill="#F5F2EC">골드만이</text>
-<text x="773.0" y="117.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="18" font-weight="700" fill="#F5F2EC">9월</text>
-<text x="773.0" y="141.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="18" font-weight="700" fill="#F5F2EC">연준</text>
-<text x="773.0" y="165.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="18" font-weight="700" fill="#F5F2EC">인상</text>
-<text x="773.0" y="189.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="18" font-weight="700" fill="#F5F2EC">가능성</text>
-<text x="773.0" y="213.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="18" font-weight="700" fill="#F5F2EC">낮다고</text>
-<text x="773.0" y="237.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="18" font-weight="700" fill="#F5F2EC">봄</text>
+<rect class="motion-node-shape" x="714.0" y="70.0" width="135.0" height="390" rx="22" fill="#332E26" stroke="#6B6156" stroke-width="3" filter="url(#shadow)"/>
+<text x="781.5" y="103.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="700" fill="#F5F2EC">좋아진</text>
+<text x="781.5" y="139.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="700" fill="#F5F2EC">것</text>
+<text x="781.5" y="175.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="700" fill="#F5F2EC">하나,</text>
+<text x="781.5" y="211.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="700" fill="#F5F2EC">골드만이</text>
+<text x="781.5" y="247.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="700" fill="#F5F2EC">9월</text>
+<text x="781.5" y="283.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="700" fill="#F5F2EC">연준</text>
+<text x="781.5" y="319.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="700" fill="#F5F2EC">인상</text>
+<text x="781.5" y="355.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="700" fill="#F5F2EC">가능성</text>
+<text x="781.5" y="391.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="700" fill="#F5F2EC">낮다고</text>
+<text x="781.5" y="427.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="700" fill="#F5F2EC">봄</text>
 </g>
 <g class="motion-step motion-node" data-motion-step="0" style="--motion-delay:3400ms;--motion-accent-delay:4040ms">
-<rect class="motion-node-shape" x="866.7" y="70.0" width="123.3" height="118" rx="22" fill="#332E26" stroke="#6B6156" stroke-width="3" filter="url(#shadow)"/>
-<text x="928.3" y="57.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="18" font-weight="700" fill="#F5F2EC">좋아진</text>
-<text x="928.3" y="81.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="18" font-weight="700" fill="#F5F2EC">것 둘,</text>
-<text x="928.3" y="105.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="18" font-weight="700" fill="#F5F2EC">엔비디아가</text>
-<text x="928.3" y="129.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="18" font-weight="700" fill="#F5F2EC">오하이오에</text>
-<text x="928.3" y="153.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="18" font-weight="700" fill="#F5F2EC">최대</text>
-<text x="928.3" y="177.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="18" font-weight="700" fill="#F5F2EC">1,050억불</text>
-<text x="928.3" y="201.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="18" font-weight="700" fill="#F5F2EC">보증</text>
+<rect class="motion-node-shape" x="875.0" y="70.0" width="135.0" height="390" rx="22" fill="#332E26" stroke="#6B6156" stroke-width="3" filter="url(#shadow)"/>
+<text x="942.5" y="157.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="700" fill="#F5F2EC">좋아진</text>
+<text x="942.5" y="193.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="700" fill="#F5F2EC">것 둘,</text>
+<text x="942.5" y="229.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="700" fill="#F5F2EC">엔비디아가</text>
+<text x="942.5" y="265.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="700" fill="#F5F2EC">오하이오에</text>
+<text x="942.5" y="301.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="700" fill="#F5F2EC">최대</text>
+<text x="942.5" y="337.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="700" fill="#F5F2EC">1,050억불</text>
+<text x="942.5" y="373.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="700" fill="#F5F2EC">보증</text>
 </g>
 <g class="motion-step motion-node" data-motion-step="2" style="--motion-delay:8160ms;--motion-accent-delay:8800ms">
-<rect class="motion-node-shape" x="160.0" y="690.0" width="760.0" height="118" rx="22" fill="#332E26" stroke="#6B6156" stroke-width="3" filter="url(#shadow)"/>
-<text x="540.0" y="749.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="700" fill="#F5F2EC">반도체는 버티고 나머지가 밀림</text>
+<rect class="motion-node-shape" x="160.0" y="548.0" width="760.0" height="118.0" rx="22" fill="#332E26" stroke="#6B6156" stroke-width="3" filter="url(#shadow)"/>
+<text x="540.0" y="607.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="700" fill="#F5F2EC">반도체는 버티고 나머지가 밀림</text>
 </g>
-<line x1="72" y1="812" x2="1008" y2="812" stroke="#2A2724" stroke-width="2"/>
-<text x="72" y="842" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="17" fill="#7C756C">실선 = 확인된 연결 · 점선 = 해석/영향 경로</text>
+<line x1="72" y1="70.0" x2="1008" y2="70.0" stroke="#2A2724" stroke-width="2"/>
+<text x="72" y="100.0" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="17" fill="#7C756C">실선 = 확인된 연결 · 점선 = 해석/영향 경로</text>
 </svg>
