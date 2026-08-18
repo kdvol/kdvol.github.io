@@ -323,8 +323,10 @@ function renderCommunity() {
   // ═══ 0. 기본 — 몇 명이 몇 번 봤나 ══════════════════════════════
   //   개편하면서 이걸 없앴다. 우선순위를 매긴다고 "판단용 지표"만 남겼는데,
   //   대시보드를 열었을 때 제일 먼저 알고 싶은 건 그냥 규모다 (KD 2026-08-16).
-  var sumHits = 0, sumUniq = 0;
-  daily.forEach(function (d) { sumHits += d.hits; sumUniq += d.uniq; });
+  var sumHits = 0, sumUniq = 0, sumBots = 0;
+  daily.forEach(function (d) {
+    sumHits += d.hits; sumUniq += d.uniq; sumBots += (d.bots || 0);
+  });
   var sumPeople = people(days.filter(function (d) { return DAU[d] !== undefined; }));
   var last = daily[daily.length - 1] || { hits: 0, uniq: 0, day: '' };
   var lastPeople = DAU[last.day];
@@ -338,8 +340,8 @@ function renderCommunity() {
   var pDays = days.filter(function (d) { return DAU[d] !== undefined; });
   var narrow = pDays.length && pDays.length < daily.length;
   h += '<h2>' + scope + '</h2><div class="sum">' +
-    kpi(sumHits.toLocaleString(), '페이지뷰',
-        '이 기간 열린 횟수 · ' + label(days), true) +
+    kpi(sumHits.toLocaleString(), '페이지뷰 (사람)',
+        '봇을 뺀 횟수 · ' + label(days), true) +
     (sumPeople
       ? kpi(sumPeople.toLocaleString(), '방문자',
             narrow
@@ -347,7 +349,15 @@ function renderCommunity() {
                 + COV.dau + ' 부터 켬'
               : '사람 수 · ' + label(pDays), true)
       : kpi('—', '방문자', why(null), true)) +
-    kpi(sumUniq.toLocaleString(), '페이지 열람', '한 사람이 3개 글 보면 3', true) +
+    kpi(sumUniq.toLocaleString(), '페이지 열람 (사람)',
+        '한 사람이 3개 글 보면 3', true) +
+    // ★ 봇을 따로 센다 (KD 2026-08-18). 조회는 페이지 안의 JS 가 쏘니
+    //   JS 를 안 도는 고전 크롤러는 애초에 안 잡힌다. 여기 찍히는 건
+    //   **JS 를 도는 수집기**(AI 크롤러·미리보기 페처·헤드리스)다.
+    //   사람 수(방문자)에는 넣지 않는다 — 섞으면 그 숫자를 못 믿게 된다.
+    kpi(sumBots.toLocaleString(), '봇 조회',
+        sumHits ? '사람 대비 ' + pct(sumBots, sumHits + sumBots) + '%'
+                : (COV.bots || '2026-08-18 부터 셉니다'), true) +
     kpi(daily.length, '집계된 날', label(days) || '', true) +
     '</div>' +
     (narrow
@@ -483,11 +493,12 @@ function renderCommunity() {
   });
   var lifeTot = recent + archive;
   h += '<h2>9. 아카이브가 자산인가</h2><div class="sum">' +
-    (lifeTot ? kpi(pct(archive, lifeTot) + '%', '지난 글이 먹은 조회',
-                   archive + ' / ' + lifeTot + '뷰', true)
-             : kpi('—', '지난 글이 먹은 조회', '표본 없음', true)) +
+    (lifeTot ? kpi(pct(archive, lifeTot) + '%', '예전 글이 받은 조회',
+                   '이 기간에 나온 글이 아닌 것 · ' + archive + ' / ' + lifeTot + '뷰', true)
+             : kpi('—', '예전 글이 받은 조회', '표본 없음', true)) +
     kpi(L.people || 0, '누적 브라우저', (L.hits || 0) + '뷰 · ' + (L.since || '') + '~', true) +
-    '</div><p class="note">지난 글 비중이 높을수록 발행일 트래픽에만 기대지 않는다는 뜻입니다.</p>';
+    '</div><p class="note">이 기간에 발행한 글이 아니라 <b>그 전에 나온 글</b>이 '
+    + '가져온 조회의 비중입니다. 높을수록 발행일 하루 트래픽에만 기대지 않는다는 뜻입니다.</p>';
 
   // ═══ 집계 시작일 ════════════════════════════════════════════════
   if (COV.views) {

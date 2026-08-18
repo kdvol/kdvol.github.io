@@ -108,6 +108,29 @@ const BODY_MAX = 140;
 // 보류 건은 사람이 아니라 LLM(scripts/moderate_comments.py)이 하루 단위로 푼다.
 const AGENT_VID = /^agent-/i;   // 집계에서 항상 빼는 개발용 브라우저
 
+// ── 봇인가 사람인가 (KD 2026-08-18) ──────────────────────────────────
+//   조회는 페이지 안의 JS 가 쏜다. 그래서 JS 를 안 돌리는 고전 크롤러는
+//   애초에 안 잡힌다 — 다만 **표시가 없어서 확인할 방법이 없었다.**
+//   요즘은 JS 를 도는 수집기가 흔하다(AI 크롤러·미리보기 페처·헤드리스).
+//
+//   봇은 `views.bot_hits` 로만 센다. `visitors`·`dau` 에는 **안 넣는다** —
+//   사람 수는 사람 수여야 한다. 봇을 섞으면 그 숫자를 못 믿게 되고,
+//   못 믿는 숫자는 안 보게 된다.
+const BOT_UA = new RegExp([
+  'bot', 'crawl', 'spider', 'slurp', 'scrape', 'fetcher', 'monitor',
+  'headless', 'puppeteer', 'playwright', 'phantomjs', 'selenium',
+  'facebookexternalhit', 'whatsapp', 'telegrambot', 'skypeuripreview',
+  'discordbot', 'slackbot', 'linkedinbot', 'embedly', 'quora link preview',
+  'gptbot', 'claudebot', 'anthropic', 'perplexity', 'ccbot', 'bytespider',
+  'amazonbot', 'applebot', 'google-extended', 'chatgpt', 'oai-searchbot',
+].join('|'), 'i');
+
+function isBot(request) {
+  const ua = request.headers.get('user-agent') || '';
+  if (!ua) return 1;                 // UA 가 없는 요청은 브라우저가 아니다
+  return BOT_UA.test(ua) ? 1 : 0;
+}
+
 // 댓글에 붙는 업종 태그. 프리셋에서만 고르게 한다 — 자유입력을 받으면
 // '금감원 국장' 같은 직함 참칭이 가능해지고, 검증할 방법이 없는 소속이
 // 투자 얘기에 가짜 권위를 실어준다. 표시용 문자열이 곧 화이트리스트다.
@@ -680,6 +703,17 @@ export default {
         } else if (b.t === 'hit') {
           const path = normPath(b.p);
           if (!path) return new Response(null, { status: 204, headers: cors(origin) });
+          const bot = isBot(request);
+          if (bot) {
+            // 봇은 조회 칸만 올리고 여기서 끝낸다. 유입·이동·방문자·행동에는
+            // 넣지 않는다 — 그 표들은 「사람이 무엇을 하나」를 보는 자리다.
+            await env.DB.prepare(
+              `insert into views (day, path, hits, uniq, bot_hits)
+               values (${DAY}, ?1, 0, 0, 1)
+               on conflict(day, path) do update set bot_hits = bot_hits + 1`
+            ).bind(path).run();
+            return new Response(null, { status: 204, headers: cors(origin) });
+          }
           const first = b.f ? 1 : 0;                       // 오늘 이 페이지 첫 방문인가
           const src = SRC.includes(b.r) ? b.r : 'other';
 
@@ -843,7 +877,8 @@ export default {
 
         const [daily, dau, freshD, top, eng, ref, hop, vis] = await env.DB.batch([
           env.DB.prepare(
-            `select day, sum(hits) as hits, sum(uniq) as uniq from views
+            `select day, sum(hits) as hits, sum(uniq) as uniq,
+                    sum(bot_hits) as bots from views
              where day ${DCOND} group by day order by day`),
           // 그날 실제로 온 사람 수 — 경로 기준 uniq 와 다르다
           env.DB.prepare(
@@ -855,7 +890,8 @@ export default {
             `select first_day as day, count(*) as n from visitors
              where first_day ${DCOND} group by first_day order by first_day`),
           env.DB.prepare(
-            `select path, sum(hits) as hits, sum(uniq) as uniq from views
+            `select path, sum(hits) as hits, sum(uniq) as uniq,
+                    sum(bot_hits) as bots from views
              where day ${DCOND} group by path order by hits desc limit 25`),
           env.DB.prepare(
             `select day, kind, n from engage where day ${DCOND}`),
