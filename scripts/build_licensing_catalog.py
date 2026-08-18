@@ -22,7 +22,9 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 ATOMS = ROOT / "content/story_atoms.json"
 ENTS = ROOT / "scripts/entities.json"
-OUT = ROOT / "partners/kim/index.html"
+OUT = ROOT / "partners/kim-catalog/index.html"
+# ※ partners/KIM/ 은 기존 제안서 자리다. macOS 는 대소문자를 구분하지 않아
+#   partners/kim/ 으로 쓰면 그 제안서를 통째로 덮어쓴다. 폴더 이름을 겹치지 않게 둔다.
 
 SINCE = "2026-05-01"        # 목록에 담을 최소 발행일
 DEADLINE = "2026년 9월 17일"  # 이 날까지 갱신한다고 고객에게 약속한 날
@@ -148,9 +150,9 @@ h2 .cnt{{font-size:14px;color:var(--dim);font-weight:500;margin-left:8px}}
 <div class="sub">한국투자신탁운용 · 초기 심층 콘텐츠 10건 선정용</div>
 
 <div class="note">
-아래는 순살이 최근 발행한 스토리입니다. 이 중에서 골라주시면 해당 주제를 기준으로
-<b>플랫폼 게재용 심층 콘텐츠</b>로 새로 작성해 드립니다. 원문을 그대로 옮기는 것이 아니라,
-분량과 톤을 플랫폼에 맞춰 다시 씁니다.<br><br>
+아래는 순살이 최근 발행한 스토리입니다. 이 중에서 골라주시면 <b>플랫폼 규격에 맞춰
+다듬어 공급</b>해 드립니다. 지금 보시는 것과 비슷한 형태이며, 담고 싶은 앵글이 있으시면
+그 방향을 반영해 작성합니다.<br><br>
 목록은 <b>{DEADLINE}까지 매일 갱신</b>됩니다. 여기에 없는 주제도 요청하실 수 있습니다 —
 원하시는 방향을 알려주시면 그에 맞춰 새로 기획합니다.
 </div>
