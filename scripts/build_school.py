@@ -278,11 +278,49 @@ def _iso_dur(s):
     return out if out != "PT" else None
 
 
+def check_covers(courses) -> list[str]:
+    """표지에 검은 여백이 구워져 있는지 본다.
+
+    KD 2026-08-18: *"IBD 순살만 발라보기 → 이미지가 짤려서 올라가 있음."*
+    38648.jpg 가 유튜브 **채널 배너**(가로로 긴 띠)를 880×495 틀에 그냥 넣은
+    것이었다. 위아래가 새까맣고 제목 글씨도 없어 형제 카드와 따로 놀았다.
+
+    카드는 `object-fit:cover` 라 **틀에 맞는 그림이면 여백이 생길 수 없다.**
+    여백이 보인다는 건 파일 안에 구워져 있다는 뜻이고, 그건 눈으로만 보였다 —
+    치수는 여섯 장이 다 880×495 로 같아서 아무 검사도 안 걸렸다. 그래서
+    **치수 말고 화소**를 본다.
+
+    맨 위·맨 아래 5% 띠가 어둡고 **결이 없으면** 여백으로 본다. 어둡기만
+    으로는 못 가른다 — 빌 아크만 표지는 위쪽이 원래 어두워서 오탐이 났다.
+    구워 넣은 여백은 편차가 0 에 붙고(옛 38648 은 정확히 0), 그림은 어두워도
+    결이 남는다(빌 아크만 7). JPEG 잡티를 감안해 4 로 끊는다.
+    """
+    from PIL import Image, ImageStat                                # noqa: PLC0415
+    bad = []
+    for c in courses:
+        p = ROOT / "assets" / "school" / f"{c['id']}.jpg"
+        if not p.is_file():
+            bad.append(f"{c['id']} — 표지 파일이 없다 ({c['t']})")
+            continue
+        im = Image.open(p).convert("L")
+        w, h = im.size
+        band = max(4, h // 20)
+        for name, box in (("위", (0, 0, w, band)), ("아래", (0, h - band, w, h))):
+            st = ImageStat.Stat(im.crop(box))
+            if st.mean[0] < 24 and st.stddev[0] < 4:
+                bad.append(f"{c['id']} — {name}에 검은 여백이 구워져 있다 "
+                           f"(밝기 {st.mean[0]:.0f}·편차 {st.stddev[0]:.0f}) · {c['t']}")
+    return bad
+
+
 def build(courses=None):
     if courses is None:
         courses = json.loads((ROOT / "content/school_courses.json").read_text(encoding="utf-8"))
     by = {c["id"]: c for c in courses}
     OUT.mkdir(exist_ok=True)
+
+    for msg in check_covers(courses):
+        print(f"  ⚠️ 표지 · {msg}")
 
     caps = "".join(
         f"""<div class="cap"><div class="nm">{H.escape(v['n'])}</div>
