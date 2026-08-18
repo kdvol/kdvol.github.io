@@ -78,6 +78,6 @@
 <rect class="motion-node-shape" x="70.0" y="568.0" width="940.0" height="118.0" rx="22" fill="#332E26" stroke="#6B6156" stroke-width="3" filter="url(#shadow)"/>
 <text x="540.0" y="627.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="700" fill="#F5F2EC">반도체는 버티고 나머지가 밀림</text>
 </g>
-<line x1="72" y1="70.0" x2="1008" y2="70.0" stroke="#2A2724" stroke-width="2"/>
-<text x="72" y="100.0" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="17" fill="#7C756C">실선 = 확인된 연결 · 점선 = 해석/영향 경로</text>
+<line x1="72" y1="808" x2="1008" y2="808" stroke="#2A2724" stroke-width="2"/>
+<text x="72" y="838" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="17" fill="#7C756C">실선 = 확인된 연결 · 점선 = 해석/영향 경로</text>
 </svg>
