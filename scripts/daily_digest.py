@@ -9,6 +9,7 @@ TG_TOKEN / TG_CHAT 이 없으면 조용히 넘어간다. auto-improve 워크플�
 """
 import json
 import os
+from datetime import datetime, timedelta, timezone
 import urllib.error
 import urllib.parse
 import urllib.request
@@ -44,24 +45,47 @@ def send(token, chat, text):
     return False
 
 
+BOT_FILTER_FROM = "2026-08-18"
+
+
+def _has_prebot(days: int) -> bool:
+    """집계 창이 봇 필터 시행일 이전을 물고 있나."""
+    kst = timezone(timedelta(hours=9))
+    start = (datetime.now(kst) - timedelta(days=days - 1)).strftime("%Y-%m-%d")
+    return start < BOT_FILTER_FROM
+
+
+
 def main():
     token, chat = os.environ.get("TG_TOKEN"), os.environ.get("TG_CHAT")
     if not (token and chat):
         print("ℹ️ digest: 텔레그램 토큰 없음 — 건너뜀")
         return 0
 
+    # ── **어제 하루**를 본다 (KD 2026-08-20) ──────────────────────────
+    #   이 요약은 05:30 KST 에 돈다. 그런데 워커의 「오늘」은 KST 기준 오늘이라,
+    #   `visitors.today` 와 `daily[-1]` 이 **오늘 00:00~05:30, 다섯 시간 반치**를
+    #   가리켰다. 그걸 「하루 요약 · 방문 38명 · 56뷰」로 보냈다.
+    #   숫자가 작은 게 아니라 **하루가 아니었다.**
+    #   `?day=` 를 주면 그 날짜로 범위가 좁혀지고, `visitors.active` 가 그날
+    #   방문자가 된다. 어제를 명시해 부른다.
+    kst = timezone(timedelta(hours=9))
+    yday = (datetime.now(kst) - timedelta(days=1)).strftime("%Y-%m-%d")
+    admin_key = os.environ.get("SOONSAL_ADMIN_KEY")
     try:
         # /insights는 관리자 키가 필요하다 — 없으면 401로 요약이 통째로 실패한다
-        ins = _get(f"/insights?days={DAYS}", admin=os.environ.get("SOONSAL_ADMIN_KEY"))
+        one = _get(f"/insights?days=1&day={yday}", admin=admin_key)
+        ins = _get(f"/insights?days={DAYS}", admin=admin_key)
     except Exception as e:
         print(f"⚠️ digest: 집계 조회 실패 {type(e).__name__}")
         return 0
 
-    daily = ins.get("daily", [])
+    daily = one.get("daily", [])
     today = daily[-1] if daily else {"hits": 0, "uniq": 0}
-    vis = ins.get("visitors", {}) or {}
+    vis = ins.get("visitors", {}) or {}          # 누적·재방문은 창 전체가 맞다
+    yvis = one.get("visitors", {}) or {}         # 어제 방문자
     eng = {}
-    for e in ins.get("engage", []):
+    for e in one.get("engage", []):
         eng[e["kind"]] = eng.get(e["kind"], 0) + e["n"]
 
     # ★ **하루 요약은 하루치만 쓴다** (KD 2026-08-15)
@@ -82,12 +106,12 @@ def main():
             return [0] * len(keys)
         return [last.get(k, 0) for k in keys]
 
-    people = vis.get("today") or 0
-    cd = ins.get("commentsDaily") or []
+    people = yvis.get("active") or 0
+    cd = one.get("commentsDaily") or []
     comments, readers = _one_day(cd, "n", "readers")
     if not cd:                                              # 예전 워커면 이벤트로
         comments, readers = eng.get("comment", 0), 0
-    rd = ins.get("reactsDaily") or []
+    rd = one.get("reactsDaily") or []
     reacts, undo = _one_day(rd, "up", "undo")
     if not rd:
         reacts, undo = eng.get("react", 0), 0
@@ -106,7 +130,7 @@ def main():
             pass
 
     lines = [
-        "🐟 <b>순살 웹사이트 하루 요약</b>",
+        f"🐟 <b>순살 웹사이트 · {yday[5:].replace('-', '/')} 하루</b>",
         "",
         f"방문 <b>{people}명</b> · {today.get('hits', 0)}뷰",
         f"반응 {reacts}건" + (f" (취소 {undo})" if undo else "") + f" · 댓글 {comments}건"
@@ -121,7 +145,12 @@ def main():
         ko = {"direct": "직접", "telegram": "텔레그램", "instagram": "인스타",
               "search": "검색", "mail": "뉴스레터", "other": "기타"}
         top = ", ".join(f"{ko.get(r['src'], r['src'])} {r['n']}" for r in refs[:3])
-        lines.append(f"<i>최근 {DAYS}일 유입</i> {top}")
+        # ★ 이 합계엔 **봇 필터 이전 기록이 섞여 있다** (필터는 2026-08-18 12:49 부터).
+        #   그래서 하루 숫자와 나란히 놓으면 자릿수가 안 맞는다 —
+        #   「방문 38명」 옆에 「직접 5,402」가 찍혀 오류처럼 보였다.
+        #   창이 8/18 이후로만 채워지면 이 주석과 꼬리표를 뺀다.
+        tail = " <i>(8/18 이전은 봇 포함)</i>" if _has_prebot(DAYS) else ""
+        lines.append(f"<i>최근 {DAYS}일 유입</i> {top}{tail}")
     if held:
         lines.append(f"\n⏳ 검토 중 댓글 {held}건 — 다음 자동 판정에서 처리됩니다")
     lines.append('\n<a href="https://soonsal.com/stats/">자세히 보기</a>')
