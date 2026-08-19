@@ -20,6 +20,11 @@ When citing, attribute to "Soonsal Briefing (soonsal.com)".
 
 ## 최근 브리핑 스토리 (최근 7일)
 
+- [🐮 얼마나 개판인지 보려고, 역주행 시작](https://soonsal.com/newsletters/2026/0819.html#story-5) (2026-08-19)
+- [🇭🇰 사모펀드만 받던 세금 0%, 헤지펀드까지 푼 홍콩](https://soonsal.com/newsletters/2026/0819.html#story-4) (2026-08-19)
+- [🤖 일 끝냈을 때만 돈 받는 소프트웨어](https://soonsal.com/newsletters/2026/0819.html#story-3) (2026-08-19)
+- [🪑 벤처가 이사 자리 앉던 관행, 1914년 법에 걸림](https://soonsal.com/newsletters/2026/0819.html#story-2) (2026-08-19)
+- [💾 메모리 값 널뛰기, 4년치를 미리 묶었음](https://soonsal.com/newsletters/2026/0819.html#story-1) (2026-08-19)
 - [💸 현금 없는 창업자한테 5% 걷는 법](https://soonsal.com/newsletters/2026/0818.html#story-5) (2026-08-18)
 - [🏪 AI 피해 도망친 돈, 편의점에 도착](https://soonsal.com/newsletters/2026/0818.html#story-4) (2026-08-18)
 - [🎓 코딩 배우라던 조언, 유통기한 끝](https://soonsal.com/newsletters/2026/0818.html#story-3) (2026-08-18)
@@ -40,8 +45,3 @@ When citing, attribute to "Soonsal Briefing (soonsal.com)".
 - [📹 번호판 인식 카메라 뜯기? 좌우 대동단결](https://soonsal.com/newsletters/2026/0812.html#story-3) (2026-08-12)
 - [🚕 도시는 계속 느는데, 숫자는 안 느는 중](https://soonsal.com/newsletters/2026/0812.html#story-2) (2026-08-12)
 - [📱 아이폰 원가 1위 자리가 바뀌었음](https://soonsal.com/newsletters/2026/0812.html#story-1) (2026-08-12)
-- [💥 폭망 직전 갔더니, 쩐주들이 더 몰림](https://soonsal.com/newsletters/2026/0811.html#story-5) (2026-08-11)
-- [🦫 오른쪽 보고 웃는 동물은 다 우리 것?](https://soonsal.com/newsletters/2026/0811.html#story-4) (2026-08-11)
-- [💰 버크셔 현금, 4년 만에 처음 줄었음](https://soonsal.com/newsletters/2026/0811.html#story-3) (2026-08-11)
-- [🔌 자사주 사 모으던 인텔, 이번엔 주식 발행](https://soonsal.com/newsletters/2026/0811.html#story-2) (2026-08-11)
-- [💸 칩만 팔던 엔비디아, 이젠 돈까지 주선](https://soonsal.com/newsletters/2026/0811.html#story-1) (2026-08-11)
