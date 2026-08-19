@@ -85,6 +85,21 @@ def block(rows: list[dict]) -> str:
     return f'<ul class="issue-stories">{items}{tail}</ul>'
 
 
+def issues_in_page(src: str) -> list[str]:
+    """목록 페이지에 실린 회차를 **최신부터** 돌려준다.
+
+    페이지가 최신순이라 나온 순서를 그대로 쓴다. 중복은 첫 번째만 남긴다.
+    """
+    out, seen = [], set()
+    for y, m in re.findall(r'href="/newsletters/(\d{4})/(\d{4})\.html"', src):
+        k = f"{y}/{m}"
+        if k not in seen:
+            seen.add(k)
+            out.append(k)
+    return out
+
+
+
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--dry", action="store_true")
@@ -124,7 +139,26 @@ def main() -> int:
     if "soonsal-issue-stories" not in out and "</head>" in out:
         out = out.replace("</head>", CSS + "</head>", 1)
 
+    # ── 안 붙은 회차를 **말한다** (KD 2026-08-19) ────────────────────
+    #   *"만들고 누락되는 규칙 없도록 철저히 기존 시스템과 연결"*
+    #
+    #   8/19 목록에 그날 스토리가 안 붙어 있었다. 빌더는 정상 종료했다 —
+    #   색인에 그 회차가 아직 없으면 `if not rows: return` 으로 **조용히
+    #   건너뛰기** 때문이다. 붙은 개수만 세니 안 붙은 건 안 보였다.
+    #
+    #   순서 문제라서 더 나쁘다. `build_search` 가 색인을 새로 쓰기 전에
+    #   이 빌더가 돌면 **늘 최신 회차만 빠진다** — 그리고 그게 제일 중요한
+    #   회차다. 그래서 최신 회차가 빠지면 **실패로 끝낸다.**
+    missing = [d for d in issues_in_page(src) if not by.get(d)]
     print(f"  회차 {added}개에 스토리 줄 추가")
+    if missing:
+        print(f"  ⚠️ 스토리를 못 찾은 회차 {len(missing)}개: {', '.join(missing[:5])}"
+              + (" …" if len(missing) > 5 else ""))
+    newest = (issues_in_page(src) or [None])[0]
+    if newest and newest in set(missing):
+        print(f"  ⛔ 최신 회차 {newest} 에 스토리가 안 붙는다 — 색인이 아직 그 회차를 모른다.\n"
+              f"     python3 scripts/build_search.py 를 먼저 돌린 뒤 다시 부른다")
+        return 2
     if a.dry:
         print("  (dry) 쓰지 않음")
         return 0

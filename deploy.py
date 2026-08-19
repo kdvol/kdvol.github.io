@@ -324,14 +324,34 @@ def update_main_index(items, date_fmt, has_briefing, yyyy, mmdd):
     #   목록에 스토리 다섯 줄이 안 붙었고, 손으로 돌려야만 붙었다.
     #   「만들어 놓고 아무도 안 부르는 검사」와 같은 꼴이다 — 오늘만 세 번째다.
     #   순서가 있다: nav 가 회차 링크를 먼저 놓고, 그 위에 스토리 줄을 덧댄다.
+    #   ★ 색인을 **먼저** 새로 쓴다 (KD 2026-08-19). 8/19 목록에 그날 스토리가
+    #     안 붙었는데, 빌더는 정상 종료했다 — 색인이 아직 그 회차를 몰라서
+    #     조용히 건너뛴 것이다. 순서 문제라 **늘 최신 회차만** 빠진다.
+    #   ★ 그리고 하나가 실패해도 **멈추지 않는다.** 예전엔 `return` 이라
+    #     build_home 이 삐끗하면 목록·라이선싱까지 통째로 안 돌았다.
+    #     실패는 모아서 끝에 한 번에 말한다.
+    #   ★ `build_newsletter_nav` 는 **여기서 부르지 않는다** (KD 2026-08-19).
+    #     이 함수는 `generate_seo.py` 보다 **먼저** 돈다. 그런데 아톰을 만들고
+    #     검색 색인을 새로 쓰는 건 generate_seo 안이다. 그래서 목록 빌더가
+    #     돌 때 색인은 **늘 그날 회차를 모른다** — 매일 최신 회차만 빠졌다.
+    #     8/18·8/19 이틀 연속 같은 자리에서 났다.
+    #     색인이 새로 써진 **뒤에** 부른다: `run_post_index_builders()`.
+    failed = []
     for script in ("scripts/build_home.py", "scripts/build_nav.py",
-                   "scripts/build_newsletter_nav.py",
                    "scripts/build_licensing_catalog.py"):
+        if not (REPO / script).is_file():
+            failed.append(f"{script} — 파일이 없다")
+            continue
         r = subprocess.run(["python3", script], cwd=str(REPO),
                            capture_output=True, text=True)
         if r.returncode != 0:
-            print(f"  ⚠️  {script} 실패: {r.stderr.strip().splitlines()[-1:] or r.stdout}")
-            return
+            why = (r.stderr.strip().splitlines() or r.stdout.strip().splitlines() or [""])[-1]
+            print(f"  ⚠️  {script} 실패({r.returncode}): {why}")
+            failed.append(f"{script} — {why}")
+    if failed:
+        print("  ⛔ 빌더 " + str(len(failed)) + "개가 실패했다 — 목록이 낡은 채로 나갈 수 있다")
+        for f in failed:
+            print(f"     · {f}")
         print("  ✅ " + (r.stdout.strip().splitlines() or [script])[-1])
     return
 
@@ -478,6 +498,40 @@ def _legacy_update_main_index(items, date_fmt, has_briefing, yyyy, mmdd):
 # ═══════════════════════════════════════════
 # Archive index update
 # ═══════════════════════════════════════════
+
+
+def run_post_index_builders() -> int:
+    """검색 색인이 **새로 써진 뒤**에만 뜻이 있는 빌더들.
+
+    KD 2026-08-19: *"같은 오류 다시는 반복 안 되도록 코드 제대로 수정.
+    어제도 같은 오류났음."*
+
+    뉴스레터 목록의 스토리 다섯 줄은 `search/index.json` 을 읽어 붙인다.
+    그런데 그 색인을 새로 쓰는 `generate_seo.py` 가 목록 빌더보다 **나중에**
+    돌고 있었다. 그래서 그날 회차는 색인에 없고, 빌더는 조용히 건너뛰고,
+    목록엔 그날 스토리만 안 붙었다 — **이틀 연속 같은 자리다.**
+
+    순서를 코드로 못박는다. 이 함수는 `generate_seo` 뒤에서만 부른다.
+    실패하면 **소리 내어** 알린다 — 조용히 지나가서 이틀을 놓쳤다.
+    """
+    import subprocess
+    ok = True
+    for script in ("scripts/build_newsletter_nav.py",):
+        path = REPO / script
+        if not path.is_file():
+            print(f"  ⛔ {script} 가 없다 — 뉴스레터 목록이 낡은 채로 나간다")
+            ok = False
+            continue
+        r = subprocess.run([sys.executable, str(path)], cwd=str(REPO),
+                           capture_output=True, text=True)
+        for line in (r.stdout or "").strip().splitlines():
+            print(f"  {line}")
+        if r.returncode != 0:
+            print(f"  ⛔ {script} 실패({r.returncode}) — 뉴스레터 목록에 "
+                  f"오늘 스토리가 안 붙었다")
+            ok = False
+    return 0 if ok else 1
+
 
 def update_archive_index(item):
     """Update the relevant archive index (newsletters, cardnews, or english)."""
@@ -1351,6 +1405,10 @@ def main():
         print("\n🚀 Committing...")
         # sitemap/rss/robots 갱신 (실패해도 배포는 계속)
         subprocess.run([sys.executable, str(Path(__file__).parent / "scripts" / "generate_seo.py")], check=False)
+        # ★ 색인이 새로 써진 **뒤**에 목록을 다시 붙인다 (KD 2026-08-19).
+        #   순서가 뒤집혀 있어 매일 그날 회차만 빠졌다. 여기 말고 다른 데서
+        #   부르면 같은 사고가 난다.
+        run_post_index_builders()
 
         # 스크립트가 성공을 찍는 것과 실제 반영은 다른 일이다 — 파일을 직접 연다
         print("\n🔎 발행 결과 점검")
