@@ -1409,13 +1409,6 @@ def main():
         #   순서가 뒤집혀 있어 매일 그날 회차만 빠졌다. 여기 말고 다른 데서
         #   부르면 같은 사고가 난다.
         run_post_index_builders()
-        # ★ 마지막에 **정말 올라갔는지** 스스로 본다 (KD 2026-08-19).
-        #   *"고쳤으면 배포를 해야지 왜 안 해?"* — 오늘만 두 번, 일은 다 해 놓고
-        #   커밋·푸시를 안 했다. 로컬에서는 멀쩡히 보여서 끝난 걸로 착각한다.
-        #   사람이 라이브를 열어 봐야 드러나는 건 제일 비싼 발견 방식이다.
-        subprocess.run([sys.executable, str(REPO / "scripts" / "deploy_debt.py")],
-                       cwd=str(REPO), check=False)
-
         # 스크립트가 성공을 찍는 것과 실제 반영은 다른 일이다 — 파일을 직접 연다
         print("\n🔎 발행 결과 점검")
         verify_publish(site_items[0]["yyyy"], site_items[0]["mmdd"])
@@ -1424,7 +1417,15 @@ def main():
         mmdd = site_items[0]["mmdd"]
         msg = f"Add {' & '.join(names)} {mmdd}"
 
-        if git_sync_push(msg):                          # rebase-retry: 동시 push에도 안전
+        pushed = git_sync_push(msg)
+        # ★ C43 — **푸시가 끝난 뒤에** 정말 올라갔는지 본다 (KD 2026-08-19).
+        #   처음엔 이걸 push 앞에 뒀다. 그러면 매번 「푸시 안 한 커밋 있음」이
+        #   떠서 **늘 빨간불**이 된다 — 그 순간 아무도 안 본다.
+        #   검사는 **막을 수 있는 자리**가 아니라 **사실을 말할 수 있는 자리**에
+        #   놓는다. 여기가 마지막으로 그걸 말할 수 있는 자리다.
+        subprocess.run([sys.executable, str(REPO / "scripts" / "deploy_debt.py")],
+                       cwd=str(REPO), check=False)
+        if pushed:                                      # rebase-retry: 동시 push에도 안전
             print(f"\n✨ Site deployed! {msg}")
             # plantree 즉시 흡수 — Mac의 gh 인증 재사용, 실패해도 배포는 계속
             r = subprocess.run(["gh", "api", "repos/kdvol/plantree/dispatches",
