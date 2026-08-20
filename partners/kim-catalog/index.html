@@ -79,37 +79,6 @@ h2 .cnt{font-size:14px;color:var(--dim);font-weight:500;margin-left:8px}
 <script>
 (function(){'use strict';var WORKER_URL='https://soonsal-data.kd-d0a.workers.dev/';var COINGECKO_URL='https://api.coingecko.com/api/v3';var TRADFI_ORDER=['S&P 500','NASDAQ','Dow Jones','KOSPI','US 10Y','WTI Oil','Gold','DXY','EUR/USD','USD/JPY','USD/KRW'];var CRYPTO_ORDER=['Bitcoin','Ethereum','Solana','XRP','BNB','Crypto Total'];var CRYPTO_IDS={'Bitcoin':'bitcoin','Ethereum':'ethereum','Solana':'solana','XRP':'ripple','BNB':'binancecoin'};var REFRESH=60000;var container,timer,lastTradfi,lastCrypto;function init(){container=document.getElementById('soonsal-live-ticker');if(!container)return;container.style.display='block';container.innerHTML='<div class="stk-loading"><div class="stk-spin"></div>Loading market data...</div>';fetchAll();timer=setInterval(fetchAll,REFRESH)}function fetchAll(){var p1=fetchTradFi();var p2=fetchCrypto();Promise.allSettled?Promise.allSettled([p1,p2]).then(render):Promise.all([p1.catch(function(){return null}),p2.catch(function(){return null})]).then(render)}function fetchTradFi(){return fetch(WORKER_URL).then(function(r){return r.json()}).then(function(data){if(data.tradfi)lastTradfi=data;return data}).catch(function(e){console.warn('[Ticker] TradFi error:',e.message);return null})}function fetchCrypto(){var ids=Object.values(CRYPTO_IDS).join(',');var url=COINGECKO_URL+'/simple/price?ids='+ids+'&vs_currencies=usd&include_24hr_change=true&include_market_cap=true';var globalUrl=COINGECKO_URL+'/global';return Promise.all([fetch(url).then(function(r){return r.json()}),fetch(globalUrl).then(function(r){return r.json()}).catch(function(){return null})]).then(function(results){var prices=results[0];var global=results[1];var crypto={};for(var name in CRYPTO_IDS){var id=CRYPTO_IDS[name];var d=prices[id];if(!d)continue;var p=d.usd;var ch=d.usd_24h_change||0;crypto[name]={price:'$'+formatNum(p),change:(ch>=0?'+':'')+ch.toFixed(2)+'%',direction:ch>0.01?'up':ch<-0.01?'down':'zero'}}if(global&&global.data){var mc=global.data.total_market_cap&&global.data.total_market_cap.usd;var mch=global.data.market_cap_change_percentage_24h_usd;if(mc){crypto['Crypto Total']={price:'$'+(mc/1e12).toFixed(2)+'T',change:(mch>=0?'+':'')+(mch||0).toFixed(2)+'%',direction:mch>0?'up':mch<0?'down':'zero'}}}lastCrypto=crypto;return crypto}).catch(function(e){console.warn('[Ticker] Crypto error:',e.message);return null})}function render(){var tradfi=lastTradfi?lastTradfi.tradfi:{};var crypto=lastCrypto||{};var kst=lastTradfi?lastTradfi.kst:new Date().toLocaleString('ko-KR',{timeZone:'Asia/Seoul'});var html=[];html.push('<div class="stk-ts"><span class="stk-dot"></span><span class="stk-time">'+esc(kst)+' KST</span></div>');for(var i=0;i<TRADFI_ORDER.length;i++){var name=TRADFI_ORDER[i];var d=tradfi[name];if(d)html.push(makeItem(name,d,false))}html.push('<div class="stk-div"><span></span></div>');for(var j=0;j<CRYPTO_ORDER.length;j++){var cname=CRYPTO_ORDER[j];var cd=crypto[cname];if(cd)html.push(makeItem(cname,cd,true))}var track=html.join('');container.innerHTML='<div class="stk-track">'+track+track+'</div>'}function makeItem(name,d,isCrypto){var dir=d.direction||'zero';var arrow=dir==='up'?'<span class="au"></span>':dir==='down'?'<span class="ad"></span>':'';return'<div class="stk-item"><span class="stk-lbl'+(isCrypto?' crypto':'')+'">'+esc(name)+'</span><span class="stk-prc">'+esc(d.price)+'</span><span class="stk-chg '+dir+'">'+arrow+' '+esc(d.change)+'</span></div>'}function formatNum(n){if(n>=10000)return n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});if(n>=100)return n.toFixed(2);if(n>=1)return n.toFixed(2);return n.toFixed(4)}function esc(s){if(!s)return'';var d=document.createElement('span');d.textContent=String(s);return d.innerHTML}if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',init)}else{init()}})();
 </script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <div class="wrap">
 
 <h1>순살 콘텐츠 라이선싱 목록</h1>
@@ -138,10 +107,15 @@ h2 .cnt{font-size:14px;color:var(--dim);font-weight:500;margin-left:8px}
 <a class="row" href="https://soonsal.com/newsletters/2026/0803.html#story-1" target="_blank" rel="noopener" data-t="🎢 하루 만에 +18%, 근데 개미는 던지고 나갔음 삼성전자 sk하이닉스 마이크로소프트 korea · markets"><div class="meta"><span class="date">08.03</span><span class="lab">KOREA · MARKETS</span></div><div class="ttl">🎢 하루 만에 +18%, 근데 개미는 던지고 나갔음</div><div class="ents"><span class="ent">삼성전자</span><span class="ent">SK하이닉스</span><span class="ent">마이크로소프트</span></div><div class="why"><b>투자자 행태</b> · 급등한 날 개인이 오히려 던진 기록. 체험 기능과 붙이면 설득력이 생긴다</div></a>
 </div>
 
-<h2>전체 목록<span class="cnt">360편</span></h2>
+<h2>전체 목록<span class="cnt">365편</span></h2>
 <div class="h2sub">2026년 5월 이후 발행분 · 제목을 누르면 원문으로 이동합니다</div>
 <input id="q" type="search" placeholder="기업명·주제로 검색 (예: 엔비디아, ETF, 연금)" autocomplete="off">
 <div id="list">
+<a class="row" href="https://soonsal.com/newsletters/2026/0819.html#story-5" target="_blank" rel="noopener" data-t="🐮 얼마나 개판인지 보려고, 역주행 시작  china · media"><div class="meta"><span class="date">08.19</span><span class="lab">CHINA · MEDIA</span></div><div class="ttl">🐮 얼마나 개판인지 보려고, 역주행 시작</div><div class="ents"></div></a>
+<a class="row" href="https://soonsal.com/newsletters/2026/0819.html#story-4" target="_blank" rel="noopener" data-t="🇭🇰 사모펀드만 받던 세금 0%, 헤지펀드까지 푼 홍콩  asia · asset mgmt"><div class="meta"><span class="date">08.19</span><span class="lab">ASIA · ASSET MGMT</span></div><div class="ttl">🇭🇰 사모펀드만 받던 세금 0%, 헤지펀드까지 푼 홍콩</div><div class="ents"></div></a>
+<a class="row" href="https://soonsal.com/newsletters/2026/0819.html#story-3" target="_blank" rel="noopener" data-t="🤖 일 끝냈을 때만 돈 받는 소프트웨어 구글 오픈ai ai · software"><div class="meta"><span class="date">08.19</span><span class="lab">AI · SOFTWARE</span></div><div class="ttl">🤖 일 끝냈을 때만 돈 받는 소프트웨어</div><div class="ents"><span class="ent">구글</span><span class="ent">오픈AI</span></div></a>
+<a class="row" href="https://soonsal.com/newsletters/2026/0819.html#story-2" target="_blank" rel="noopener" data-t="🪑 벤처가 이사 자리 앉던 관행, 1914년 법에 걸림 마크 안드레센 vc · antitrust"><div class="meta"><span class="date">08.19</span><span class="lab">VC · ANTITRUST</span></div><div class="ttl">🪑 벤처가 이사 자리 앉던 관행, 1914년 법에 걸림</div><div class="ents"><span class="ent">마크 안드레센</span></div></a>
+<a class="row" href="https://soonsal.com/newsletters/2026/0819.html#story-1" target="_blank" rel="noopener" data-t="💾 메모리 값 널뛰기, 4년치를 미리 묶었음  semis · korea"><div class="meta"><span class="date">08.19</span><span class="lab">SEMIS · KOREA</span></div><div class="ttl">💾 메모리 값 널뛰기, 4년치를 미리 묶었음</div><div class="ents"></div></a>
 <a class="row" href="https://soonsal.com/newsletters/2026/0818.html#story-5" target="_blank" rel="noopener" data-t="💸 현금 없는 창업자한테 5% 걷는 법 구글 us · tax"><div class="meta"><span class="date">08.18</span><span class="lab">US · TAX</span></div><div class="ttl">💸 현금 없는 창업자한테 5% 걷는 법</div><div class="ents"><span class="ent">구글</span></div></a>
 <a class="row" href="https://soonsal.com/newsletters/2026/0818.html#story-4" target="_blank" rel="noopener" data-t="🏪 ai 피해 도망친 돈, 편의점에 도착 원유 equities · retail"><div class="meta"><span class="date">08.18</span><span class="lab">EQUITIES · RETAIL</span></div><div class="ttl">🏪 AI 피해 도망친 돈, 편의점에 도착</div><div class="ents"><span class="ent">원유</span></div></a>
 <a class="row" href="https://soonsal.com/newsletters/2026/0818.html#story-3" target="_blank" rel="noopener" data-t="🎓 코딩 배우라던 조언, 유통기한 끝  education · ai"><div class="meta"><span class="date">08.18</span><span class="lab">EDUCATION · AI</span></div><div class="ttl">🎓 코딩 배우라던 조언, 유통기한 끝</div><div class="ents"></div></a>
@@ -506,7 +480,7 @@ h2 .cnt{font-size:14px;color:var(--dim);font-weight:500;margin-left:8px}
 
 <div class="foot">
 <b>순살</b> · 신기동 대표이사 · team@soonsal.com · 010-9919-1712<br>
-마지막 갱신 2026년 08월 19일
+마지막 갱신 2026년 08월 20일
 </div>
 
 </div>

@@ -975,6 +975,11 @@
       "example": "🏦 골드만 역대 최고 분기, 은행들 싹 다 기대 초과",
       "ko": false
     },
+    "ADR": {
+      "count": 9,
+      "example": "🇰🇷 반토막 난 하이닉스, 40조로 줍줍",
+      "ko": false
+    },
     "Trust": {
       "count": 9,
       "example": "🏦 AI 쓰라면서요, 사고 나면 책임은 제가 지고요",
@@ -1023,11 +1028,6 @@
     "Pro": {
       "count": 8,
       "example": "📱 아이폰 원가 1위 자리가 바뀌었음",
-      "ko": false
-    },
-    "ADR": {
-      "count": 8,
-      "example": "🎢 하루 만에 +18%, 근데 개미는 던지고 나갔음",
       "ko": false
     },
     "Fable": {
