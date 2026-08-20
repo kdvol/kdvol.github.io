@@ -1,0 +1,13 @@
+{
+  "html": "_publish/순살카드뉴스_20260822.html",
+  "date": "20260822",
+  "name": "workdata",
+  "post_txt": "_publish/workdata.POST.txt",
+  "target_epoch": 1787360400,
+  "dry_run": false,
+  "reviewed": {
+    "by": "KD",
+    "at": "2026-08-20T18:09:50",
+    "verbatim": "가장 가까운 빈 날짜에 발행 예약해줘 - 0822가 비어있나? / 2번으로 가줘"
+  }
+}
