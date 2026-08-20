@@ -85,6 +85,29 @@ def block(rows: list[dict]) -> str:
     return f'<ul class="issue-stories">{items}{tail}</ul>'
 
 
+
+# ── 밖으로 밀려난 링크를 그리드 안으로 되돌린다 (KD 2026-08-20) ─────────
+#   `<ul>…</ul></div>` 가 한 줄이던 시절, 발행기가 같은 날짜를 다시 올리며
+#   **줄 단위로** 옛 항목을 지웠고 그때 그리드 닫는 태그까지 날아갔다.
+#   그러면 이런 꼴이 남는다 —
+#       <div class="today-grid" …>
+#       </div>
+#         <a href="…">…</a>
+#   링크가 그리드 밖이라 스타일이 통째로 빠진다. 붙이는 자리는 고쳤지만
+#   **이미 깨진 파일은 그대로**라, 여기서 되돌린다. 안 그러면 사람이 손으로
+#   고쳐야 하고 그건 다음에 또 잊는다.
+BROKEN = re.compile(
+    r'(<div class="today-grid"[^>]*>)\s*</div>\s*\n(\s*<a href="/newsletters/[^\n]*</a>)',
+    re.S)
+
+
+def _heal(src: str) -> str:
+    src, n = BROKEN.subn(lambda m: f"{m.group(1)}\n{m.group(2)}\n    </div>", src)
+    if n:
+        print(f"  🩹 그리드 밖으로 밀려난 링크 {n}개를 안으로 되돌렸다")
+    return src
+
+
 def issues_in_page(src: str) -> list[str]:
     """목록 페이지에 실린 회차를 **최신부터** 돌려준다.
 
@@ -113,7 +136,7 @@ def main() -> int:
         print("  search/index.json 이 없다 — build_search 먼저")
         return 1
 
-    src = INDEX.read_text(encoding="utf-8")
+    src = _heal(INDEX.read_text(encoding="utf-8"))
     # 이미 붙어 있으면 통째로 걷어내고 다시 붙인다(회차가 늘어나므로)
     src = re.sub(r'<div class="issue-stories">.*?</div>', "", src, flags=re.S)
     src = re.sub(r'<ul class="issue-stories">.*?</ul>', "", src, flags=re.S)
@@ -131,7 +154,13 @@ def main() -> int:
         if not rows:
             return inner + close
         added += 1
-        return inner + block(rows) + close
+        # ★ `</div>` 를 **제 줄에 돌려놓는다** (KD 2026-08-20).
+        #   예전엔 `inner + block + close` 라 `<ul>…</ul></div>` 가 한 줄이 됐다.
+        #   발행기는 같은 날짜를 다시 올릴 때 **줄 단위로** 옛 항목을 지우는데,
+        #   그 줄이 통째로 지워지면서 **그리드 닫는 태그까지 같이 날아갔다.**
+        #   그러면 링크가 그리드 밖으로 밀려 스타일이 통째로 빠진다 —
+        #   8/20 에 제목을 고쳐 다시 올렸다가 목록이 깨졌다.
+        return inner.rstrip() + "\n    " + block(rows) + "\n    " + close
 
     # today-grid 안쪽에 붙인다. 바깥(.today 밖)에 붙이면 카드 여백을 벗어난다.
     out = re.sub(r'(<div class="today-grid".*?)(</div>)',
