@@ -76,6 +76,84 @@ background:#f3efe8;color:#8a857c}
 """
 
 
+DIV_RE = re.compile(r"<(/?)div\b[^>]*>", re.I)
+
+
+def story_close(src: str, sid: str) -> int | None:
+    """`id="story-N"` 스토리 상자가 **닫히는 자리**의 시작 인덱스.
+
+    ★ 「`</p>` 뒤 `</div></div>`」로 자리를 잡던 것을 버렸다 (KD 2026-08-21:
+      *"0622 스토리2 는 웹사이트에서 양식들 더하다가 css가 깨져버렸어"*).
+
+      0622 2번은 마지막 불릿이 이렇게 끝난다 —
+
+        <div class="bullet">…<p>…한 주</p>
+        </div>   ← 불릿
+        </div>   ← story-body
+        </div>   ← story
+
+      옛 정규식은 `</p>` 바로 뒤에서 멈추고, 뒤따르는 `</div></div>` 를
+      「본문과 스토리」로 착각했다. 실제로는 **불릿과 story-body** 였다.
+      그래서 면책과 링크 줄이 **불릿 안**에 들어갔고, 불릿은 아이콘 옆
+      좁은 칸이라 글자가 세로로 한 줄씩 쌓였다.
+
+      태그를 세는 수밖에 없다. 여는 `div` 마다 +1, 닫는 `div` 마다 -1 해서
+      0 으로 돌아오는 자리가 그 스토리의 끝이다. **깊이를 세면 마크업이
+      어떻게 생겼든 안 틀린다** — 옛 회차마다 본문 끝 태그가 다르다는 게
+      이 함수가 있는 이유다.
+    """
+    m = re.search(r'<div[^>]*id="' + re.escape(sid) + r'"[^>]*>', src)
+    if not m:
+        return None
+    depth, pos = 1, m.end()
+    for t in DIV_RE.finditer(src, m.end()):
+        depth += -1 if t.group(1) else 1
+        if depth == 0:
+            return t.start()
+        pos = t.end()
+    return None                                   # 안 닫혔다 — 손대지 않는다
+
+
+def misplaced_stories(src: str) -> list[str]:
+    """면책·링크 줄이 **불릿 안**에 들어간 스토리 번호.
+
+    고치는 쪽과 검사하는 쪽이 **같은 파일**에 있어야 갈라지지 않는다
+    (2026-08-20 `standalone.py` 에서 정규식을 두 벌 쓰다 겪었다).
+    """
+    bad = []
+    for m in re.finditer(r'<div class="bullet"[^>]*>((?:(?!<div class="bullet")[\s\S])*?)</div>',
+                         src):
+        if "story-links" in m.group(1) or "매수매도 추천 아님" in m.group(1):
+            head = src[:m.start()]
+            sid = (re.findall(r'id="(story-\d+)"', head) or ["?"])[-1]
+            if sid not in bad:
+                bad.append(sid)
+    return bad
+
+
+def heal(src: str) -> tuple[str, int]:
+    """이미 **불릿 안**에 들어가 버린 면책을 걷어낸다.
+
+    링크 줄(`story-links`)은 `process()` 가 어차피 걷었다 다시 단다. 면책은
+    안 걷는다 — 제자리에 있는 것과 글자가 똑같아 구분할 수가 없다. 그래서
+    **불릿 안에 있다**는 위치로만 가려낸다. 걷어내면 그 스토리는 「면책 없음」
+    이 되고, 다음 단계가 제자리에 다시 붙인다.
+    """
+    n = 0
+
+    def one(m):
+        nonlocal n
+        inner = m.group(1)
+        if DISCLAIMER not in inner:
+            return m.group(0)
+        n += 1
+        return m.group(0).replace(DISCLAIMER, "")
+
+    out = re.sub(r'<div class="bullet"[^>]*>((?:(?!<div class="bullet")[\s\S])*?)</div>',
+                 one, src)
+    return out, n
+
+
 def entities() -> list[dict]:
     if not ENTITIES.is_file():
         return []
@@ -224,6 +302,12 @@ def process(page: Path, ents: list[dict], all_stories: list[dict],
                  r'(?:<div class="row[^"]*">[\s\S]*?</div>)+'
                  r'</div>', "", src)
     src = re.sub(r'<style id="soonsal-story-links">.*?</style>\s*', "", src, flags=re.S)
+    # ★ 지난 판이 불릿 안에 박아 둔 면책을 먼저 걷는다. 안 걷으면 「면책이
+    #   이미 있다」로 읽혀 그 자리에 그대로 남는다 — 고친 코드로 다시 돌려도
+    #   깨진 페이지가 안 낫는다. 고치는 도구는 **이미 망가진 것도** 고쳐야 한다.
+    src, healed = heal(src)
+    if healed:
+        print(f"   🩹 {page.name} — 불릿 안 면책 {healed}곳 걷어냄")
     issue = f"/{page.parent.name}/{page.stem}."
     mine = [s for s in all_stories if issue in s.get("u", "")]
     if not mine:
@@ -242,21 +326,22 @@ def process(page: Path, ents: list[dict], all_stories: list[dict],
         m = re.search(r'(id="' + anchor.group(1) + r'"' + inner + r')'
                       r'(<p style="font-size:11px[^>]*>매수매도 추천 아님[^<]*</p>)', out)
         made_disclaimer = False
+        at = None
         if not m:
             # 면책이 없는 스토리 — 절반(512/1,022)이 그렇다. 면책은 모든
             # 스토리에 붙어야 하므로(KD 2026-08-15) 여기서 만들어 넣는다.
-            # 회차마다 본문이 끝나는 태그가 다르다 — </p> 로 끝나는 판도 있고
-            # </span></div> 로 끝나는 옛 판도 있다. 스토리 안 **마지막**
-            # 닫는 태그 뒤를 찾는다.
-            for tail in (r'</p>\s*', r'</span>\s*</div>\s*', r'</div>\s*'):
-                m = re.search(r'(id="' + anchor.group(1) + r'"' + inner + tail + r')'
-                              r'(</div>\s*</div>)', out)
-                if m:
-                    break
+            # ★ 자리는 **스토리 상자가 닫히기 직전**이다. 태그로 짐작하지
+            #   않는다 — 회차마다 본문 끝 태그가 다르고, 짐작하면 불릿 안으로
+            #   들어간다(0622 2번). `story_close` 가 깊이를 세서 잡아 준다.
+            at = story_close(out, anchor.group(1))
+            if at is None:
+                continue
+            head = out[:at]
+            i = head.rfind(f'id="{anchor.group(1)}"')
+            m = re.match(r"[\s\S]*", head[i:])       # 본문 = 스토리 안 전체
+            body_src = head[i:]
             made_disclaimer = True
-        if not m:
-            continue
-        body = re.sub(r"<[^>]+>", " ", m.group(1))
+        body = re.sub(r"<[^>]+>", " ", body_src if made_disclaimer else m.group(1))
         blk = block(found_in(body, ents),
                     related(s.get("t", ""), issue, all_stories),
                     topics_in(body, tops, s.get("t", "")))
@@ -266,8 +351,8 @@ def process(page: Path, ents: list[dict], all_stories: list[dict],
         # 사이에 끼면 면책이 본문에서 떨어져 나와 딴 얘기처럼 읽힌다.
         # 그래서 링크 줄은 면책 **뒤**로 간다.
         if made_disclaimer:
-            # 본문 끝(</p>) 바로 뒤에 면책을 붙이고, 그 뒤에 링크를 단다
-            out = out[:m.end(1)] + DISCLAIMER + blk + out[m.end(1):]
+            # 스토리 상자가 닫히기 직전 — 면책이 먼저, 링크 줄이 그 뒤
+            out = out[:at] + DISCLAIMER + blk + out[at:]
         else:
             out = out[:m.end(2)] + blk + out[m.end(2):]
         added += 1
