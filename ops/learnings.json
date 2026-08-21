@@ -1099,6 +1099,26 @@
     "cardnews"
    ],
    "id": 39
+  },
+  {
+   "date": "2026-08-21",
+   "channel": "cardnews",
+   "claim": "규칙이 빠지는 자리는 린트가 아니라 **지시서**다 — 규식은 살아 있는데 부르는 트랙·실리는 지시서가 빠진다",
+   "evidence": "2026-08-20~21 이틀에 같은 모양 네 건. KOR_DAYS(common_lint 에 있는데 카드뉴스가 안 부름) · native_counted(카드뉴스에만 걸려 스레드 통과) · review_brief(톤·스레드에만) · kd_feedback(스레드·차트에만, 카드뉴스 누락). 넷 다 규칙 문서와 린트는 멀쩡했다",
+   "n": 4,
+   "status": "확인",
+   "applies_to": [
+    "threads",
+    "reels",
+    "newsletter",
+    "web",
+    "shorts",
+    "ig"
+   ],
+   "applied": [
+    "cardnews"
+   ],
+   "id": 40
   }
  ]
 }
