@@ -326,7 +326,17 @@ function renderCommunity() {
     });
     return n;
   }
-  function people(ds) { var n = 0; ds.forEach(function (d) { n += (DAU[d] || 0); }); return n; }
+  // ★ 이것은 **방문-일**이지 사람 수가 아니다 (KD 2026-08-21: "방문자/실제사람/
+  //   실제사람비율 계산식들이 이해가 안가"). 사흘 온 사람은 3 이 된다.
+  //   기간 안 **서로 다른 방문자**는 `visitors.active` 에 따로 있다 —
+  //   워커가 이미 뽑아 주는데 화면이 안 쓰고 날짜별 합계를 「사람 수」라고
+  //   불렀다. 워커 주석에도 「합계는 이틀 온 사람을 두 번 센다」고 적혀 있다.
+  function personDays(ds) { var n = 0; ds.forEach(function (d) { n += (DAU[d] || 0); }); return n; }
+  // 기간 안 서로 다른 방문 브라우저. 하루만 볼 땐 그날 dau 가 곧 그 값이다.
+  function uniqVisitors(ds) {
+    if (ds.length === 1) return DAU[ds[0]];
+    return (v.active === undefined || v.active === null) ? undefined : v.active;
+  }
   function label(ds) {
     if (!ds.length) return '';
     return ds.length === 1 ? ds[0] : ds[0].slice(5) + '~' + ds[ds.length - 1].slice(5);
@@ -338,11 +348,16 @@ function renderCommunity() {
     if (kind && !from) return '이 항목 집계 전';
     return (from > COV.dau ? from : COV.dau) + ' 시작 — 내일부터';
   }
+  // ★ 분모를 **페이지뷰**로 바꿨다 (2026-08-21). 전에는 방문-일로 나눴는데,
+  //   분자(구독 클릭)는 **횟수**고 분모는 **브라우저·일**이라 단위가 안 맞았다.
+  //   횟수 ÷ 횟수라야 「열린 페이지 중 몇 번에 눌렸나」가 된다 —
+  //   「사람 확인 비율」과 같은 셈법이다.
   function ratio(num, ds, lbl) {
     if (!ds.length) return null;
-    var den = people(ds);
+    var den = 0;
+    daily.forEach(function (d) { if (ds.indexOf(d.day) >= 0) den += d.hits; });
     if (!den) return null;
-    return { v: pct(num, den) + '%', d: num + ' / ' + den + '명 · ' + label(ds) };
+    return { v: pct(num, den) + '%', d: num + ' / ' + den + '뷰 · ' + label(ds) };
   }
 
   var winDays = daysFor(null);
@@ -356,7 +371,7 @@ function renderCommunity() {
   daily.forEach(function (d) {
     sumHits += d.hits; sumUniq += d.uniq; sumBots += (d.bots || 0);
   });
-  var sumPeople = people(days.filter(function (d) { return DAU[d] !== undefined; }));
+  var sumPeople = personDays(days.filter(function (d) { return DAU[d] !== undefined; }));
   var last = daily[daily.length - 1] || { hits: 0, uniq: 0, day: '' };
   var lastPeople = DAU[last.day];
 
@@ -394,26 +409,30 @@ function renderCommunity() {
       '<span class="fv">' + val + '</span>' +
       (note ? '<span class="fd">' + note + '</span>' : '') + '</div>';
   }
+  var uniqV = uniqVisitors(pDays);
   h += '<h2>무엇을 어떻게 세나 <small>' + scope + '</small></h2>' +
     '<div class="card flow">' +
     '<div class="fh">브라우저가 페이지를 연다</div>' +
     flowRow('└', '봇이면', 'views.bot_hits', '횟수', '봇 조회',
             sumBots.toLocaleString(),
-            '사람 숫자에는 안 섞는다') +
-    '<div class="fh">사람이면 — 아래 넷에 <b>동시에</b> 남는다</div>' +
+            '아래 어디에도 안 섞는다') +
+    '<div class="fh">봇이 아니면 — 아래에 <b>동시에</b> 남는다</div>' +
     flowRow('├', '언제나', 'views.hits', '횟수', '페이지뷰',
             sumHits.toLocaleString(),
-            '같은 사람이 같은 글을 두 번 열면 2') +
+            '한 사람이 같은 글을 두 번 열면 2') +
     flowRow('├', '그날 그 글 처음이면', 'views.uniq', '횟수', '페이지 열람',
             sumUniq.toLocaleString(),
             '한 사람이 3개 글 보면 3 · 같은 글 다시 열면 안 늘어남') +
-    flowRow('├', '그날 첫 방문이면', 'dau(day,vid)', '브라우저', '방문자',
+    flowRow('├', '그날 첫 방문이면', 'dau(day,vid)', '브라우저·일', '방문-일',
             (sumPeople || 0).toLocaleString(),
-            narrow ? '⚠️ ' + COV.dau + ' 부터 켬 — 위 셋과 기간이 다르다'
-                   : '몇 명이 왔나 · 하루에 한 번만 센다') +
-    flowRow('└', '손이 실제로 움직이면', 'engage(human)', '횟수', '사람 확인',
+            narrow ? '⚠️ ' + COV.dau + ' 부터 켬 — 위 둘과 기간이 다르다'
+                   : '사흘 온 사람은 3 · 사람 수가 아니다') +
+    flowRow('├', '그 기간에 처음이면', 'visitors(vid)', '브라우저', '방문 브라우저',
+            uniqV === undefined ? '—' : uniqV.toLocaleString(),
+            '기간 안에 몇 대가 왔나 · 사흘 와도 1') +
+    flowRow('└', '손이 실제로 움직이면', 'engage(human)', '횟수', '손이 움직인 열람',
             hCnt0.toLocaleString(),
-            hDays0.length ? '스크롤·클릭이 잡힌 횟수'
+            hDays0.length ? '한 번 열 때 최대 1회 · 사람 수가 아니다'
                           : '⚠️ ' + why('human')) +
     '<div class="fh">그래서 비율은</div>' +
     '<div class="fx"><code>사람 확인 비율</code> = <code>engage(human)</code> ÷ ' +
@@ -423,22 +442,37 @@ function renderCommunity() {
         + ' = ' + pct(hCnt0, hHits0) + '%</b>'
       : '<b>—</b> (' + why('human') + ')') +
     '</div>' +
-    '<p class="note"><b>방문자로 나누지 않는다.</b> 사람 확인은 「몇 명이」가 아니라 ' +
-    '「열린 페이지 중 몇 번에」 손이 움직였나다. 분모가 브라우저 수가 아니라 ' +
-    '페이지뷰인 이유다. 그리고 <b>방문자만 시작일이 다르다</b> — 나머지는 ' +
-    (COV.views || '?') + ', 방문자는 ' + (COV.dau || '?') + ' 부터다.</p>' +
+    // ★ 단위를 못 박는다 (KD 2026-08-21). 다섯 칸에 다 「사람」이 붙어 있었는데
+    //   실은 셋은 **횟수**, 하나는 **브라우저·일**, 하나만 **브라우저**였다.
+    //   견줄 수 없는 걸 같은 이름으로 부르면 못 알아보는 게 맞다.
+    '<p class="note"><b>단위가 셋이다.</b> 「페이지뷰·페이지 열람·손이 움직인 열람」은 ' +
+    '<b>횟수</b>, 「방문-일」은 <b>브라우저×날</b>, 「방문 브라우저」만 <b>대수</b>다. ' +
+    '그래서 비율은 <b>같은 단위끼리만</b> 낸다 — 사람 확인 비율은 횟수÷횟수라 ' +
+    '「몇 명이」가 아니라 <b>「열린 페이지 중 몇 번에」</b> 손이 움직였나다.</p>' +
+    '<p class="note"><b>못 내는 숫자.</b> 「손이 움직인 <u>사람</u>이 몇 명인가」는 ' +
+    '지금 스키마로 안 나온다 — <code>engage</code> 표에 <code>vid</code> 가 없어 ' +
+    '횟수만 남고 누가 했는지는 안 남는다. 사람 수로 내려면 표를 고쳐야 한다.</p>' +
+    '<p class="note"><b>시작일이 다르다.</b> 페이지뷰는 ' + (COV.views || '?') +
+    ', 방문 관련은 ' + (COV.dau || '?') + ' 부터다. 기간을 늘려도 그 전은 안 늘어난다.</p>' +
     '</div>';
 
   h += '<h2>' + scope + '</h2><div class="sum">' +
     kpi(sumHits.toLocaleString(), '페이지뷰 (사람)',
         '봇을 뺀 횟수 · ' + label(days), true) +
-    (sumPeople
-      ? kpi(sumPeople.toLocaleString(), '방문자',
+    // ★ 「방문자」를 둘로 쪼갰다 (KD 2026-08-21). 하나로 뭉쳐 있을 땐
+    //   날짜별 합계를 「사람 수」라고 불렀는데, 사흘 온 사람이 3명으로 셌다.
+    (uniqV === undefined
+      ? kpi('—', '방문 브라우저', why(null), true)
+      : kpi(uniqV.toLocaleString(), '방문 브라우저',
             narrow
               ? '⚠️ ' + label(pDays) + '만 (' + pDays.length + '일) — '
                 + COV.dau + ' 부터 켬'
-              : '사람 수 · ' + label(pDays), true)
-      : kpi('—', '방문자', why(null), true)) +
+              : '서로 다른 대수 · ' + label(pDays), true)) +
+    (sumPeople
+      ? kpi(sumPeople.toLocaleString(), '방문-일',
+            uniqV ? '한 대가 평균 ' + (sumPeople / uniqV).toFixed(1) + '일 옴'
+                  : '브라우저×날', true)
+      : kpi('—', '방문-일', why(null), true)) +
     kpi(sumUniq.toLocaleString(), '페이지 열람 (사람)',
         '한 사람이 3개 글 보면 3', true) +
     // ★ 봇을 따로 센다 (KD 2026-08-18). 조회는 페이지 안의 JS 가 쏘니
@@ -458,8 +492,8 @@ function renderCommunity() {
   h += '<h2>가장 최근 하루 <small>' + (last.day || '') + '</small></h2><div class="sum">' +
     kpi(last.hits.toLocaleString(), '페이지뷰', null, true) +
     (lastPeople === undefined
-      ? kpi('—', '방문자', '이 날짜는 집계 전', true)
-      : kpi(lastPeople.toLocaleString(), '방문자', '사람 수', true)) +
+      ? kpi('—', '방문 브라우저', '이 날짜는 집계 전', true)
+      : kpi(lastPeople.toLocaleString(), '방문 브라우저', '그날 온 대수', true)) +
     kpi(sumEng([last.day], ['react']), '반응', null, true) +
     kpi(sumEng([last.day], ['comment']), '댓글', null, true) +
     '</div>';
@@ -504,14 +538,20 @@ function renderCommunity() {
     '</div>';
 
   // ═══ 4. 다시 오나 ═══════════════════════════════════════════════
+  // ★ 단위가 섞여 있었다 (KD 2026-08-21). 「새 사람」은 서로 다른 브라우저 수인데
+  //   빼는 쪽(`people`)은 **방문-일**이었다. 브라우저에서 브라우저·일을 빼면
+  //   숫자가 아무 뜻도 없다. 둘 다 `visitors` 표에서 같은 단위로 가져온다 —
+  //   워커가 `fresh`(그 기간에 처음)와 `active`(그 기간에 왔음)를 이미 준다.
   var fresh = 0;
   winDays.forEach(function (d) { fresh += (FRESH[d] || 0); });
-  var ppl = people(winDays);
+  var wUniq = uniqVisitors(winDays);
+  if (winDays.length > 1 && v.fresh !== undefined) fresh = v.fresh;
+  var back = (wUniq === undefined) ? undefined : Math.max(0, wUniq - fresh);
   h += '<h2>4. 다시 오나</h2><div class="sum">' +
-    (winDays.length
-      ? kpi(fresh + ' / ' + Math.max(0, ppl - fresh), '새 사람 / 다시 온 사람',
-            pct(Math.max(0, ppl - fresh), ppl) + '% 가 재방문 · ' + label(winDays), true)
-      : kpi('—', '새 사람 / 다시 온 사람', why(null), true)) +
+    (winDays.length && wUniq !== undefined
+      ? kpi(fresh + ' / ' + back, '새 브라우저 / 다시 온 브라우저',
+            pct(back, wUniq) + '% 가 재방문 · ' + wUniq + '대 중 · ' + label(winDays), true)
+      : kpi('—', '새 브라우저 / 다시 온 브라우저', why(null), true)) +
     kpi(pct(L.repeat_v, L.people) + '%', '전체 기간 재방문',
         (L.repeat_v || 0) + ' / ' + (L.people || 0) + '개 브라우저', true) +
     '</div>' +
@@ -545,7 +585,7 @@ function renderCommunity() {
     chart('페이지뷰', function (d) { return d.hits; }, maxH, '#F07040',
           '열린 횟수. 사람 수가 아닙니다') +
     chart('방문자 수', function (d) { return DAU[d.day] === undefined ? null : DAU[d.day]; },
-          maxP, '#3f6fd8', '실제 사람 수. 회색은 집계 전') +
+          maxP, '#3f6fd8', '그날 온 브라우저 수. 회색은 집계 전') +
     '</div>';
 
   // ═══ 6. 무엇이 읽히나 ═══════════════════════════════════════════
