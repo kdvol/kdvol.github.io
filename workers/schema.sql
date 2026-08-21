@@ -182,6 +182,22 @@ create table if not exists dau (
 );
 create index if not exists idx_dau_day on dau(day);
 
+-- 손이 실제로 움직인 **사람**. dau 와 똑같은 꼴이다 (KD 2026-08-21:
+-- "방문자/실제사람/실제사람비율 계산식들이 이해가 안가").
+--
+-- engage 표는 (day, kind, n) 이라 **횟수만** 남는다. 그래서 「손이 움직인
+-- 열람이 몇 번인가」는 낼 수 있어도 「손이 움직인 사람이 몇 명인가」는
+-- 못 냈다. 광고주에게 내고 싶은 건 사람 수인데 스키마가 그걸 안 줬다.
+--
+-- engage 에 vid 를 넣지 않는다 — on conflict(day, kind) 로 합치는 표라
+-- 열을 늘리면 기존 집계가 전부 갈라진다. dau 처럼 표를 따로 둔다.
+create table if not exists human (
+  day text not null,               -- KST 기준 YYYY-MM-DD
+  vid text not null,
+  primary key (day, vid)
+);
+create index if not exists idx_human_day on human(day);
+
 -- 뉴스레터 링크로 들어온 열람. 구독자 표시(가명)와 함께 낱개로 남는다.
 -- 고지·동의를 갱신한 2026-08-16 부터 받는다. 90일 뒤 낱개 줄은 지우고
 -- 날짜별 합계만 남긴다 — /privacy/ 에 그렇게 적어 두었다.

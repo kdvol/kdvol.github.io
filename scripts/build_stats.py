@@ -309,6 +309,9 @@ function renderCommunity() {
   var COV = ins.coverage || {}, KC = COV.kinds || {};
   var DAU = {}, FRESH = {};
   (ins.dau || []).forEach(function (r) { DAU[r.day] = r.people; });
+  // 손이 움직인 **사람** 수 (2026-08-21 부터). engage(human) 은 횟수라 못 냈다.
+  var HUM = {};
+  (ins.humanDau || []).forEach(function (r) { HUM[r.day] = r.people; });
   (ins.freshDaily || []).forEach(function (r) { FRESH[r.day] = r.n; });
   var days = daily.map(function (d) { return d.day; });
 
@@ -522,11 +525,26 @@ function renderCommunity() {
   var hHits = 0;
   daily.forEach(function (d) { if (hd.indexOf(d.day) >= 0) hHits += d.hits; });
   var hCnt = sumEng(hd, ['human']);
+  // 사람 수 기준 — 같은 날짜만 견준다. 한쪽만 있는 날을 섞으면 비율이 튄다.
+  var pd2 = hd.filter(function (d) { return HUM[d] !== undefined && DAU[d] !== undefined; });
+  var hPpl = 0, hVis = 0;
+  pd2.forEach(function (d) { hPpl += HUM[d]; hVis += DAU[d]; });
   h += '<h2>2. 진짜 사람인가 <small>메일 보안 자동 클릭 걸러내기</small></h2><div class="sum">' +
     (hd.length && hHits
-      ? kpi(pct(hCnt, hHits) + '%', '사람 확인 비율', hCnt + ' / ' + hHits + '뷰 · ' + label(hd), true)
-      : kpi('—', '사람 확인 비율', why('human'), true)) +
-    '</div><p class="note">마우스·터치·키 입력이 실제로 들어온 열람의 비율입니다. ' +
+      ? kpi(pct(hCnt, hHits) + '%', '사람 확인 비율 (열람)',
+            hCnt + '회 / ' + hHits + '뷰 · ' + label(hd), true)
+      : kpi('—', '사람 확인 비율 (열람)', why('human'), true)) +
+    // ★ 사람 수 기준 (2026-08-21 부터). 광고주에게 내는 건 이쪽이다.
+    (pd2.length && hVis
+      ? kpi(pct(hPpl, hVis) + '%', '사람 확인 비율 (사람)',
+            hPpl + '명 / ' + hVis + '명 · ' + label(pd2), true)
+      : kpi('—', '사람 확인 비율 (사람)',
+            '사람 수 집계는 2026-08-21 부터 — 내일부터', true)) +
+    '</div><p class="note"><b>둘은 다른 질문입니다.</b> ' +
+    '「열람」은 <b>열린 페이지 중 몇 번에</b> 손이 움직였나 — 횟수÷횟수. ' +
+    '「사람」은 <b>온 사람 중 몇 명이</b> 손을 움직였나 — 명÷명. ' +
+    '같은 사람이 세 페이지에서 움직이면 앞은 3, 뒤는 1입니다.</p>' +
+    '<p class="note">마우스·터치·키 입력이 실제로 들어온 것만 셉니다. ' +
     '보안 스캐너는 링크를 눌러도 손이 움직이지 않습니다.</p>';
 
   // ═══ 3. 구독으로 이어지나 ═══════════════════════════════════════

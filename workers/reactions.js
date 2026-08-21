@@ -532,7 +532,7 @@ export default {
         let b;
         try { b = await request.json(); } catch (e) { return json({ error: 'bad json' }, origin, 400); }
 
-        const ALLOWED = { notices: 'ts', hops: 'day', events: 'ts' };
+        const ALLOWED = { notices: 'ts', hops: 'day', events: 'ts', human: 'day' };
         const deleted = {};
         for (const r of (b && b.rules) || []) {
           const col = ALLOWED[r.table];
@@ -653,6 +653,8 @@ export default {
             env.DB.prepare('insert into tracking_optout (vid, ts) values (?1, unixepoch()) '
                          + 'on conflict(vid) do nothing').bind(vid),
             env.DB.prepare('delete from visitors where vid = ?1').bind(vid),
+            // 사람 확인 낱개 줄도 같이 지운다 — 이 표는 vid 로 남는다
+            env.DB.prepare('delete from human where vid = ?1').bind(vid),
           ]);
           return new Response(null, { status: 204, headers: cors(origin) });
         }
@@ -777,6 +779,14 @@ export default {
             `insert into engage (day, kind, n) values (${DAY}, ?1, 1)
              on conflict(day, kind) do update set n = n + 1`
           ).bind(b.k));
+          // ★ 사람 확인은 **사람 수**로도 남긴다 (KD 2026-08-21). engage 는
+          //   횟수만 세는 표라, 같은 사람이 세 페이지에서 손을 움직이면 3 이다.
+          //   dau 와 같은 꼴로 하루에 한 번만 남겨야 「몇 명이」가 나온다.
+          if (b.k === 'human') {
+            stmts.push(env.DB.prepare(
+              `insert or ignore into human (day, vid) values (${DAY}, ?1)`
+            ).bind(vid));
+          }
         } else {
           return new Response(null, { status: 204, headers: cors(origin) });
         }
@@ -875,7 +885,7 @@ export default {
           ? `ts >= unixepoch('${one}') - 32400 and ts < unixepoch('${one}', '+1 day') - 32400`
           : `ts >= unixepoch(${since})`;
 
-        const [daily, dau, freshD, top, eng, ref, hop, vis] = await env.DB.batch([
+        const [daily, dau, humanD, freshD, top, eng, ref, hop, vis] = await env.DB.batch([
           env.DB.prepare(
             `select day, sum(hits) as hits, sum(uniq) as uniq,
                     sum(bot_hits) as bots from views
@@ -883,6 +893,10 @@ export default {
           // 그날 실제로 온 사람 수 — 경로 기준 uniq 와 다르다
           env.DB.prepare(
             `select day, count(*) as people from dau
+             where day ${DCOND} group by day order by day`),
+          // 그날 **손이 움직인 사람** 수. engage(human) 은 횟수라 사람 수가 안 나온다
+          env.DB.prepare(
+            `select day, count(*) as people from human
              where day ${DCOND} group by day order by day`),
           // 그날 처음 온 사람 수. 창 합계만 있으면 dau 가 덮는 날짜와 기간이
           // 어긋나 '새 사람 40 / 다시 온 사람 0' 같은 값이 나온다.
@@ -996,6 +1010,7 @@ export default {
                                  { byTag: cm[0].results || [] }),
           daily: daily.results || [],
           dau: dau.results || [],
+          humanDau: humanD.results || [],
           freshDaily: freshD.results || [],
           top: top.results || [],
           engage: eng.results || [],
