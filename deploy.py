@@ -1093,6 +1093,40 @@ def verify_publish(yyyy, mmdd):
     return not bad
 
 
+def git_pull_safely():
+    """작업 트리가 더러워도 **멈추지 않는다.**
+
+    KD 2026-08-21: *"0821 웹사이트 발행 또 에러났음. 어제 수정한거 아니었어?
+    왜 계속 반복이지?"*
+
+    어제 고친 건 목록 빌더였고, 오늘 멎은 자리는 **그보다 앞**이다 —
+    맨 처음 `git pull` 이 「local changes would be overwritten」로 죽었다.
+    이 저장소는 발행할 때마다 파생 파일(검색 색인·SEO·목록)이 새로 써지므로
+    **트리가 더러운 게 정상**이다. 그런데 여기서만 그걸 사고로 취급했다.
+
+    `--autostash` 가 정확히 이 일을 한다 — 넣어 두고, 당기고, 도로 꺼낸다.
+    꺼내다 충돌하면 stash 가 남으므로 **어디에 남았는지 화면에 적는다.**
+    조용히 넘어가면 다음 발행이 같은 자리에서 또 멎는다.
+    """
+    dirty = subprocess.run(["git", "status", "--porcelain"],
+                           capture_output=True, text=True).stdout.strip()
+    if dirty:
+        n = len(dirty.splitlines())
+        print(f"  ℹ️  작업 트리에 바뀐 파일 {n}개 — 넣어 두고 당긴다(autostash)")
+    r = subprocess.run(["git", "pull", "--autostash", "origin", "main"],
+                       capture_output=True, text=True)
+    print((r.stdout or "").rstrip())
+    if r.returncode != 0:
+        print((r.stderr or "").rstrip())
+        left = subprocess.run(["git", "stash", "list"],
+                              capture_output=True, text=True).stdout.strip()
+        if left:
+            print("  ⚠️  넣어 둔 변경이 남아 있다 — `git stash pop` 으로 꺼낸다:")
+            for l in left.splitlines()[:3]:
+                print(f"     · {l}")
+        raise SystemExit("⛔ git pull 실패 — 위 사유를 먼저 푼다")
+
+
 def git_sync_push(commit_msg, tries=6):
     """동시 push 안전 커밋+푸시. 다른 작업이 origin을 진행시켜도 실패하지 않도록
     add -A → commit → (pull --rebase, 충돌 시 merge -X ours) → push 를 백오프 재시도.
@@ -1270,7 +1304,7 @@ def main():
         print("⏭️  웹 발행 스킵 (--instagram-only)")
     else:
         print("📦 git pull...")
-        subprocess.run(["git", "pull", "origin", "main"], check=True)
+        git_pull_safely()
 
     # ── Parse and copy files ──
     items = []
