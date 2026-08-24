@@ -9,9 +9,17 @@
 <text x="72" y="160" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="50" font-weight="800" fill="#111111">엔비디아가 오른 메모리 가격을 떠넘겼음</text>
 <text x="72" y="310" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="25" fill="#666666">메모리가 서버값을 정하는 구조</text>
 <path d="M 309.0 508.0 C 309.0 557.3, 540.0 557.3, 540.0 598.7" fill="none" stroke="#F07040" stroke-width="4" marker-end="url(#arrow)"/>
+<rect x="352.5" y="527.3" width="144" height="36" rx="18" fill="#F5F5F0"/>
+<text x="424.5" y="554.3" text-anchor="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="18" fill="#F5A481">수요가 값을 밀어올림</text>
 <path d="M 771.0 508.0 C 771.0 557.3, 540.0 557.3, 540.0 598.7" fill="none" stroke="#F07040" stroke-width="4" marker-end="url(#arrow)"/>
-<path d="M 540.0 724.7 C 540.0 774.0, 540.0 774.0, 540.0 815.3" fill="none" stroke="#F07040" stroke-width="4" marker-end="url(#arrow)"/>
-<path d="M 540.0 941.3 C 540.0 990.7, 540.0 990.7, 540.0 1032.0" fill="none" stroke="#F07040" stroke-width="4" stroke-dasharray="12 10" marker-end="url(#arrow)"/>
+<rect x="583.5" y="527.3" width="144" height="36" rx="18" fill="#F5F5F0"/>
+<text x="655.5" y="554.3" text-anchor="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="18" fill="#F5A481">공급이 못 따라감</text>
+<path d="M 540.0 724.7 L 540.0 815.3" fill="none" stroke="#F07040" stroke-width="4" marker-end="url(#arrow)"/>
+<rect x="468.0" y="744.0" width="144" height="36" rx="18" fill="#F5F5F0"/>
+<text x="540.0" y="771.0" text-anchor="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="18" fill="#F5A481">인상분을 떠넘김</text>
+<path d="M 540.0 941.3 L 540.0 1032.0" fill="none" stroke="#F07040" stroke-width="4" stroke-dasharray="12 10" marker-end="url(#arrow)"/>
+<rect x="468.0" y="960.7" width="144" height="36" rx="18" fill="#F5F5F0"/>
+<text x="540.0" y="987.7" text-anchor="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="18" fill="#F5A481">꺾이면 되돌아옴</text>
 <rect x="94.0" y="390.0" width="430.0" height="118" rx="24" fill="#332E26" stroke="#6B6156" stroke-width="3" filter="url(#shadow)"/>
 <text x="309.0" y="449.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="700" fill="#F5F2EC">AI 서버 수요가 몰림</text>
 <rect x="556.0" y="390.0" width="430.0" height="118" rx="24" fill="#332E26" stroke="#6B6156" stroke-width="3" filter="url(#shadow)"/>

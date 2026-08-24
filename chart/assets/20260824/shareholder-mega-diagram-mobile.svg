@@ -4,23 +4,23 @@
 <rect width="720" height="716" fill="#0B0A09"/>
 <g class="motion-step motion-edge" data-motion-step="1" data-from="A" data-to="B" style="--motion-delay:680ms">
 <path d="M 360.0 162.0 C 360.0 204.0, 190.5 204.0, 190.5 238.0" fill="none" stroke="#F07040" stroke-width="4.5" marker-end="url(#arrow)"/>
-<rect x="221.2" y="185.0" width="108" height="34" rx="17" fill="#0B0A09"/>
-<text x="275.2" y="208.0" text-anchor="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="22" font-weight="800" fill="#F5A481">연결</text>
+<rect x="182.8" y="185.0" width="185" height="34" rx="17" fill="#0B0A09"/>
+<text x="275.2" y="208.0" text-anchor="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="22" font-weight="800" fill="#F5A481">환원으로 나감</text>
 </g>
 <g class="motion-step motion-edge" data-motion-step="1" data-from="A" data-to="C" style="--motion-delay:2040ms">
 <path d="M 360.0 162.0 C 360.0 204.0, 529.5 204.0, 529.5 238.0" fill="none" stroke="#F07040" stroke-width="4.5" marker-end="url(#arrow)"/>
-<rect x="390.8" y="185.0" width="108" height="34" rx="17" fill="#0B0A09"/>
-<text x="444.8" y="208.0" text-anchor="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="22" font-weight="800" fill="#F5A481">연결</text>
+<rect x="467.0" y="185.0" width="185" height="34" rx="17" fill="#0B0A09"/>
+<text x="559.5" y="208.0" text-anchor="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="22" font-weight="800" fill="#F5A481">설비로도 나감</text>
 </g>
 <g class="motion-step motion-edge" data-motion-step="3" data-from="B" data-to="D" style="--motion-delay:3400ms">
 <path d="M 190.5 364.0 C 190.5 406.0, 360.0 406.0, 360.0 440.0" fill="none" stroke="#F07040" stroke-width="4.5" stroke-dasharray="12 10" marker-end="url(#arrow)"/>
-<rect x="221.2" y="387.0" width="108" height="34" rx="17" fill="#0B0A09"/>
-<text x="275.2" y="410.0" text-anchor="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="22" font-weight="800" fill="#F5A481">해석</text>
+<rect x="182.8" y="387.0" width="185" height="34" rx="17" fill="#0B0A09"/>
+<text x="275.2" y="410.0" text-anchor="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="22" font-weight="800" fill="#F5A481">같은 통장에서</text>
 </g>
 <g class="motion-step motion-edge" data-motion-step="3" data-from="C" data-to="D" style="--motion-delay:4080ms">
 <path d="M 529.5 364.0 C 529.5 406.0, 360.0 406.0, 360.0 440.0" fill="none" stroke="#F07040" stroke-width="4.5" stroke-dasharray="12 10" marker-end="url(#arrow)"/>
-<rect x="472.0" y="387.0" width="238" height="34" rx="17" fill="#0B0A09"/>
-<text x="591.0" y="410.0" text-anchor="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="22" font-weight="800" fill="#F5A481">둔화하면 같이 준다</text>
+<rect x="464.4" y="387.0" width="164" height="34" rx="17" fill="#0B0A09"/>
+<text x="546.4" y="410.0" text-anchor="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="22" font-weight="800" fill="#F5A481">동시에 빠짐</text>
 </g>
 <g class="motion-step motion-node" data-motion-step="0" style="--motion-delay:0ms;--motion-accent-delay:640ms">
 <rect class="motion-node-shape" x="30.0" y="44.0" width="660.0" height="118.0" rx="20" fill="#332E26" stroke="#6B6156" stroke-width="3" filter="url(#shadow)"/>

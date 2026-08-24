@@ -4,15 +4,23 @@
 <rect width="1080" height="976" fill="#0B0A09"/>
 <g class="motion-step motion-edge" data-motion-step="1" style="--motion-delay:1360ms">
 <path d="M 312.0 188.0 C 312.0 232.0, 540.0 232.0, 540.0 268.0" fill="none" stroke="#F07040" stroke-width="4" marker-end="url(#arrow)"/>
+<rect x="354.0" y="202.0" width="144" height="36" rx="18" fill="#0B0A09"/>
+<text x="426.0" y="229.0" text-anchor="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="18" fill="#F5A481">수요가 값을 밀어올림</text>
 </g>
 <g class="motion-step motion-edge" data-motion-step="1" style="--motion-delay:2040ms">
 <path d="M 768.0 188.0 C 768.0 232.0, 540.0 232.0, 540.0 268.0" fill="none" stroke="#F07040" stroke-width="4" marker-end="url(#arrow)"/>
+<rect x="582.0" y="202.0" width="144" height="36" rx="18" fill="#0B0A09"/>
+<text x="654.0" y="229.0" text-anchor="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="18" fill="#F5A481">공급이 못 따라감</text>
 </g>
 <g class="motion-step motion-edge" data-motion-step="3" style="--motion-delay:3400ms">
-<path d="M 540.0 394.0 C 540.0 438.0, 540.0 438.0, 540.0 474.0" fill="none" stroke="#F07040" stroke-width="4" marker-end="url(#arrow)"/>
+<path d="M 540.0 394.0 L 540.0 474.0" fill="none" stroke="#F07040" stroke-width="4" marker-end="url(#arrow)"/>
+<rect x="468.0" y="408.0" width="144" height="36" rx="18" fill="#0B0A09"/>
+<text x="540.0" y="435.0" text-anchor="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="18" fill="#F5A481">인상분을 떠넘김</text>
 </g>
 <g class="motion-step motion-edge" data-motion-step="5" style="--motion-delay:4760ms">
-<path d="M 540.0 600.0 C 540.0 644.0, 540.0 644.0, 540.0 680.0" fill="none" stroke="#F07040" stroke-width="4" stroke-dasharray="12 10" marker-end="url(#arrow)"/>
+<path d="M 540.0 600.0 L 540.0 680.0" fill="none" stroke="#F07040" stroke-width="4" stroke-dasharray="12 10" marker-end="url(#arrow)"/>
+<rect x="468.0" y="614.0" width="144" height="36" rx="18" fill="#0B0A09"/>
+<text x="540.0" y="641.0" text-anchor="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="18" fill="#F5A481">꺾이면 되돌아옴</text>
 </g>
 <g class="motion-step motion-node" data-motion-step="0" style="--motion-delay:0ms;--motion-accent-delay:640ms">
 <rect class="motion-node-shape" x="97.0" y="70.0" width="430.0" height="118.0" rx="22" fill="#332E26" stroke="#6B6156" stroke-width="3" filter="url(#shadow)"/>

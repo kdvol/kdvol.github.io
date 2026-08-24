@@ -10,11 +10,17 @@
 <text x="72" y="222" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="50" font-weight="800" fill="#111111">빠짐</text>
 <text x="72" y="310" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="25" fill="#666666">한 호황, 세 방향 출금</text>
 <path d="M 540.0 508.0 C 540.0 611.5, 309.0 611.5, 309.0 707.0" fill="none" stroke="#F07040" stroke-width="4" marker-end="url(#arrow)"/>
+<rect x="352.5" y="581.5" width="144" height="36" rx="18" fill="#F5F5F0"/>
+<text x="424.5" y="608.5" text-anchor="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="18" fill="#F5A481">환원으로 나감</text>
 <path d="M 540.0 508.0 C 540.0 611.5, 771.0 611.5, 771.0 707.0" fill="none" stroke="#F07040" stroke-width="4" marker-end="url(#arrow)"/>
+<rect x="583.5" y="581.5" width="144" height="36" rx="18" fill="#F5F5F0"/>
+<text x="655.5" y="608.5" text-anchor="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="18" fill="#F5A481">설비로도 나감</text>
 <path d="M 309.0 833.0 C 309.0 936.5, 540.0 936.5, 540.0 1032.0" fill="none" stroke="#F07040" stroke-width="4" stroke-dasharray="12 10" marker-end="url(#arrow)"/>
+<rect x="352.5" y="906.5" width="144" height="36" rx="18" fill="#F5F5F0"/>
+<text x="424.5" y="933.5" text-anchor="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="18" fill="#F5A481">같은 통장에서</text>
 <path d="M 771.0 833.0 C 771.0 936.5, 540.0 936.5, 540.0 1032.0" fill="none" stroke="#F07040" stroke-width="4" stroke-dasharray="12 10" marker-end="url(#arrow)"/>
 <rect x="583.5" y="906.5" width="144" height="36" rx="18" fill="#F5F5F0"/>
-<text x="655.5" y="933.5" text-anchor="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="18" fill="#F5A481">둔화하면 같이 준다</text>
+<text x="655.5" y="933.5" text-anchor="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="18" fill="#F5A481">동시에 빠짐</text>
 <rect x="160.0" y="390.0" width="760.0" height="118" rx="24" fill="#332E26" stroke="#6B6156" stroke-width="3" filter="url(#shadow)"/>
 <text x="540.0" y="449.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="700" fill="#F5F2EC">메모리 호황으로 현금 사상 최대</text>
 <rect x="94.0" y="715.0" width="430.0" height="118" rx="24" fill="#332E26" stroke="#6B6156" stroke-width="3" filter="url(#shadow)"/>
