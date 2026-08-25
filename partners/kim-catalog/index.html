@@ -79,40 +79,6 @@ h2 .cnt{font-size:14px;color:var(--dim);font-weight:500;margin-left:8px}
 <script>
 (function(){'use strict';var WORKER_URL='https://soonsal-data.kd-d0a.workers.dev/';var COINGECKO_URL='https://api.coingecko.com/api/v3';var TRADFI_ORDER=['S&P 500','NASDAQ','Dow Jones','KOSPI','US 10Y','WTI Oil','Gold','DXY','EUR/USD','USD/JPY','USD/KRW'];var CRYPTO_ORDER=['Bitcoin','Ethereum','Solana','XRP','BNB','Crypto Total'];var CRYPTO_IDS={'Bitcoin':'bitcoin','Ethereum':'ethereum','Solana':'solana','XRP':'ripple','BNB':'binancecoin'};var REFRESH=60000;var container,timer,lastTradfi,lastCrypto;function init(){container=document.getElementById('soonsal-live-ticker');if(!container)return;container.style.display='block';container.innerHTML='<div class="stk-loading"><div class="stk-spin"></div>Loading market data...</div>';fetchAll();timer=setInterval(fetchAll,REFRESH)}function fetchAll(){var p1=fetchTradFi();var p2=fetchCrypto();Promise.allSettled?Promise.allSettled([p1,p2]).then(render):Promise.all([p1.catch(function(){return null}),p2.catch(function(){return null})]).then(render)}function fetchTradFi(){return fetch(WORKER_URL).then(function(r){return r.json()}).then(function(data){if(data.tradfi)lastTradfi=data;return data}).catch(function(e){console.warn('[Ticker] TradFi error:',e.message);return null})}function fetchCrypto(){var ids=Object.values(CRYPTO_IDS).join(',');var url=COINGECKO_URL+'/simple/price?ids='+ids+'&vs_currencies=usd&include_24hr_change=true&include_market_cap=true';var globalUrl=COINGECKO_URL+'/global';return Promise.all([fetch(url).then(function(r){return r.json()}),fetch(globalUrl).then(function(r){return r.json()}).catch(function(){return null})]).then(function(results){var prices=results[0];var global=results[1];var crypto={};for(var name in CRYPTO_IDS){var id=CRYPTO_IDS[name];var d=prices[id];if(!d)continue;var p=d.usd;var ch=d.usd_24h_change||0;crypto[name]={price:'$'+formatNum(p),change:(ch>=0?'+':'')+ch.toFixed(2)+'%',direction:ch>0.01?'up':ch<-0.01?'down':'zero'}}if(global&&global.data){var mc=global.data.total_market_cap&&global.data.total_market_cap.usd;var mch=global.data.market_cap_change_percentage_24h_usd;if(mc){crypto['Crypto Total']={price:'$'+(mc/1e12).toFixed(2)+'T',change:(mch>=0?'+':'')+(mch||0).toFixed(2)+'%',direction:mch>0?'up':mch<0?'down':'zero'}}}lastCrypto=crypto;return crypto}).catch(function(e){console.warn('[Ticker] Crypto error:',e.message);return null})}function render(){var tradfi=lastTradfi?lastTradfi.tradfi:{};var crypto=lastCrypto||{};var kst=lastTradfi?lastTradfi.kst:new Date().toLocaleString('ko-KR',{timeZone:'Asia/Seoul'});var html=[];html.push('<div class="stk-ts"><span class="stk-dot"></span><span class="stk-time">'+esc(kst)+' KST</span></div>');for(var i=0;i<TRADFI_ORDER.length;i++){var name=TRADFI_ORDER[i];var d=tradfi[name];if(d)html.push(makeItem(name,d,false))}html.push('<div class="stk-div"><span></span></div>');for(var j=0;j<CRYPTO_ORDER.length;j++){var cname=CRYPTO_ORDER[j];var cd=crypto[cname];if(cd)html.push(makeItem(cname,cd,true))}var track=html.join('');container.innerHTML='<div class="stk-track">'+track+track+'</div>'}function makeItem(name,d,isCrypto){var dir=d.direction||'zero';var arrow=dir==='up'?'<span class="au"></span>':dir==='down'?'<span class="ad"></span>':'';return'<div class="stk-item"><span class="stk-lbl'+(isCrypto?' crypto':'')+'">'+esc(name)+'</span><span class="stk-prc">'+esc(d.price)+'</span><span class="stk-chg '+dir+'">'+arrow+' '+esc(d.change)+'</span></div>'}function formatNum(n){if(n>=10000)return n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});if(n>=100)return n.toFixed(2);if(n>=1)return n.toFixed(2);return n.toFixed(4)}function esc(s){if(!s)return'';var d=document.createElement('span');d.textContent=String(s);return d.innerHTML}if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',init)}else{init()}})();
 </script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <div class="wrap">
 
 <h1>순살 콘텐츠 라이선싱 목록</h1>
@@ -141,10 +107,15 @@ h2 .cnt{font-size:14px;color:var(--dim);font-weight:500;margin-left:8px}
 <a class="row" href="https://soonsal.com/newsletters/2026/0803.html#story-1" target="_blank" rel="noopener" data-t="🎢 하루 만에 +18%, 근데 개미는 던지고 나갔음 삼성전자 sk하이닉스 마이크로소프트 korea · markets"><div class="meta"><span class="date">08.03</span><span class="lab">KOREA · MARKETS</span></div><div class="ttl">🎢 하루 만에 +18%, 근데 개미는 던지고 나갔음</div><div class="ents"><span class="ent">삼성전자</span><span class="ent">SK하이닉스</span><span class="ent">마이크로소프트</span></div><div class="why"><b>투자자 행태</b> · 급등한 날 개인이 오히려 던진 기록. 체험 기능과 붙이면 설득력이 생긴다</div></a>
 </div>
 
-<h2>전체 목록<span class="cnt">375편</span></h2>
+<h2>전체 목록<span class="cnt">380편</span></h2>
 <div class="h2sub">2026년 5월 이후 발행분 · 제목을 누르면 원문으로 이동합니다</div>
 <input id="q" type="search" placeholder="기업명·주제로 검색 (예: 엔비디아, ETF, 연금)" autocomplete="off">
 <div id="list">
+<a class="row" href="https://soonsal.com/newsletters/2026/0824.html#story-5" target="_blank" rel="noopener" data-t="🪙 금·비트코인이 불을 지르는 &#x27;디베이스먼트 트레이드&#x27; 비트코인 금 미국 연준 macro · markets"><div class="meta"><span class="date">08.24</span><span class="lab">MACRO · MARKETS</span></div><div class="ttl">🪙 금·비트코인이 불을 지르는 &#x27;디베이스먼트 트레이드&#x27;</div><div class="ents"><span class="ent">비트코인</span><span class="ent">금</span><span class="ent">미국 연준</span></div></a>
+<a class="row" href="https://soonsal.com/newsletters/2026/0824.html#story-4" target="_blank" rel="noopener" data-t="🏦 공개 안 되는 신용등급 자산, 보험사 안에서 10배  finance · regulation"><div class="meta"><span class="date">08.24</span><span class="lab">FINANCE · REGULATION</span></div><div class="ttl">🏦 공개 안 되는 신용등급 자산, 보험사 안에서 10배</div><div class="ents"></div></a>
+<a class="row" href="https://soonsal.com/newsletters/2026/0824.html#story-3" target="_blank" rel="noopener" data-t="💰 알리바바, 주식 팔아서 ai에 100억불 추가 알리바바 마이클 버리 china · ai"><div class="meta"><span class="date">08.24</span><span class="lab">CHINA · AI</span></div><div class="ttl">💰 알리바바, 주식 팔아서 AI에 100억불 추가</div><div class="ents"><span class="ent">알리바바</span><span class="ent">마이클 버리</span></div></a>
+<a class="row" href="https://soonsal.com/newsletters/2026/0824.html#story-2" target="_blank" rel="noopener" data-t="⛽ 디젤 마진, 역대 처음으로 100불을 뚫었음 원유 commodities · agriculture"><div class="meta"><span class="date">08.24</span><span class="lab">COMMODITIES · AGRICULTURE</span></div><div class="ttl">⛽ 디젤 마진, 역대 처음으로 100불을 뚫었음</div><div class="ents"><span class="ent">원유</span></div></a>
+<a class="row" href="https://soonsal.com/newsletters/2026/0824.html#story-1" target="_blank" rel="noopener" data-t="🇨🇦 캐나다, &quot;전쟁이다&quot; — 200억불 보복관세 트럼프 원유 trade · energy"><div class="meta"><span class="date">08.24</span><span class="lab">TRADE · ENERGY</span></div><div class="ttl">🇨🇦 캐나다, &quot;전쟁이다&quot; — 200억불 보복관세</div><div class="ents"><span class="ent">트럼프</span><span class="ent">원유</span></div></a>
 <a class="row" href="https://soonsal.com/newsletters/2026/0821.html#story-5" target="_blank" rel="noopener" data-t="🎓 미국, 유학생은 취업하려면 1.4억원 내라  usa · immigration"><div class="meta"><span class="date">08.21</span><span class="lab">USA · IMMIGRATION</span></div><div class="ttl">🎓 미국, 유학생은 취업하려면 1.4억원 내라</div><div class="ents"></div></a>
 <a class="row" href="https://soonsal.com/newsletters/2026/0821.html#story-4" target="_blank" rel="noopener" data-t="🏚 창업자는 무기징역, 돈은 안 돌아옴  china · property"><div class="meta"><span class="date">08.21</span><span class="lab">CHINA · PROPERTY</span></div><div class="ttl">🏚 창업자는 무기징역, 돈은 안 돌아옴</div><div class="ents"></div></a>
 <a class="row" href="https://soonsal.com/newsletters/2026/0821.html#story-3" target="_blank" rel="noopener" data-t="👗 제2의 테라노스? 실적 뻥튀기로 투자금 땡긴 범인  vc · fraud"><div class="meta"><span class="date">08.21</span><span class="lab">VC · FRAUD</span></div><div class="ttl">👗 제2의 테라노스? 실적 뻥튀기로 투자금 땡긴 범인</div><div class="ents"></div></a>
@@ -524,7 +495,7 @@ h2 .cnt{font-size:14px;color:var(--dim);font-weight:500;margin-left:8px}
 
 <div class="foot">
 <b>순살</b> · 신기동 대표이사 · team@soonsal.com · 010-9919-1712<br>
-마지막 갱신 2026년 08월 24일
+마지막 갱신 2026년 08월 25일
 </div>
 
 </div>
