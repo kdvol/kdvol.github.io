@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="716" viewBox="0 0 720 716" class="morning-diagram morning-diagram-mobile" data-mobile-layout="same-topology" data-motion-orientation="TB" data-motion-steps="5">
+<defs><filter id="shadow" x="-20%" y="-20%" width="140%" height="160%"><feDropShadow dx="0" dy="6" stdDeviation="8" flood-color="#111111" flood-opacity=".09"/></filter>
+<marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#F07040"/></marker></defs>
+<rect width="720" height="716" fill="#0B0A09"/>
+<g class="motion-step motion-edge" data-motion-step="1" data-from="A" data-to="C" style="--motion-delay:1360ms">
+<path d="M 190.5 162.0 C 190.5 204.0, 360.0 204.0, 360.0 238.0" fill="none" stroke="#F07040" stroke-width="4.5" marker-end="url(#arrow)"/>
+<rect x="172.2" y="185.0" width="206" height="34" rx="17" fill="#0B0A09"/>
+<text x="275.2" y="208.0" text-anchor="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="22" font-weight="800" fill="#F5A481">지금 공급 부족</text>
+</g>
+<g class="motion-step motion-edge" data-motion-step="1" data-from="B" data-to="C" style="--motion-delay:2040ms">
+<path d="M 529.5 162.0 C 529.5 204.0, 360.0 204.0, 360.0 238.0" fill="none" stroke="#F07040" stroke-width="4.5" stroke-dasharray="12 10" marker-end="url(#arrow)"/>
+<rect x="469.5" y="185.0" width="206" height="34" rx="17" fill="#0B0A09"/>
+<text x="572.5" y="208.0" text-anchor="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="22" font-weight="800" fill="#F5A481">즉시 대체 불가</text>
+</g>
+<g class="motion-step motion-edge" data-motion-step="3" data-from="C" data-to="D" style="--motion-delay:3400ms">
+<path d="M 360.0 364.0 L 360.0 440.0" fill="none" stroke="#F07040" stroke-width="4.5" stroke-dasharray="12 10" marker-end="url(#arrow)"/>
+<rect x="288.5" y="387.0" width="143" height="34" rx="17" fill="#0B0A09"/>
+<text x="360.0" y="410.0" text-anchor="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="22" font-weight="800" fill="#F5A481">약속≠결과</text>
+</g>
+<g class="motion-step motion-node" data-motion-step="0" style="--motion-delay:0ms;--motion-accent-delay:640ms">
+<rect class="motion-node-shape" x="30.0" y="44.0" width="321.0" height="118.0" rx="20" fill="#332E26" stroke="#6B6156" stroke-width="3" filter="url(#shadow)"/>
+<text x="190.5" y="85.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="800" fill="#F5F2EC">비축유 감소 캐나다</text>
+<text x="190.5" y="121.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="800" fill="#F5F2EC">정비 리스크</text>
+</g>
+<g class="motion-step motion-node" data-motion-step="0" style="--motion-delay:680ms;--motion-accent-delay:1320ms">
+<rect class="motion-node-shape" x="369.0" y="44.0" width="321.0" height="118.0" rx="20" fill="#332E26" stroke="#6B6156" stroke-width="3" filter="url(#shadow)"/>
+<text x="529.5" y="85.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="800" fill="#F5F2EC">베네수엘라 양허</text>
+<text x="529.5" y="121.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="800" fill="#F5F2EC">=미래형(자본·시간)</text>
+</g>
+<g class="motion-step motion-node" data-motion-step="2" style="--motion-delay:2720ms;--motion-accent-delay:3360ms">
+<rect class="motion-node-shape" x="30.0" y="246.0" width="660.0" height="118.0" rx="20" fill="#332E26" stroke="#6B6156" stroke-width="3" filter="url(#shadow)"/>
+<text x="360.0" y="305.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="800" fill="#F5F2EC">당장 대체 못 함 복구 시간이 관건</text>
+</g>
+<g class="motion-step motion-node motion-risk" data-motion-step="4" style="--motion-delay:4080ms;--motion-accent-delay:4720ms">
+<rect class="motion-node-shape" x="30.0" y="448.0" width="660.0" height="118.0" rx="20" fill="#4A2C1A" stroke="#F07040" stroke-width="3" filter="url(#shadow)"/>
+<text x="360.0" y="507.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="800" fill="#F5F2EC">&#x27;싼 기름&#x27;은 목표 관측된 결과 아님</text>
+</g>
+<line x1="40" y1="668" x2="680" y2="668" stroke="#2A2724" stroke-width="2"/>
+<text x="40" y="700" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="20" fill="#7C756C">실선 = 확인된 연결 · 점선 = 해석/영향 경로</text>
+</svg>
