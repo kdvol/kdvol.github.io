@@ -307,6 +307,9 @@
 
   function refSrc() {
     var r = document.referrer || '';
+    var utm = (location.search.match(/[?&]utm_source=([^&]+)/i) || [])[1] || '';
+    try { utm = decodeURIComponent(utm); } catch (e) {}
+    if (/chatgpt|openai|perplexity|claude|anthropic|gemini|copilot/i.test(utm)) return 'ai';
     if (/utm_source=mail|[?&]m=1\b/.test(location.search)) return 'mail';
     // ★ 앱 안에서 열리면 referrer 가 안 온다. 스레드·유튜브 링크에는 ?f= 를
     //   붙여 두고 그걸 먼저 본다 (2026-08-17). `&` 는 안 쓴다 — 메일에서
@@ -324,6 +327,7 @@
     if (/threads\.(net|com)/i.test(r)) return 'threads';
     if (/instagram|ig\.me/i.test(r)) return 'instagram';
     if (/youtube\.com|youtu\.be/i.test(r)) return 'youtube';
+    if (/chatgpt\.com|openai\.com|perplexity\.ai|claude\.ai|gemini\.google\.com|copilot\.microsoft\.com/i.test(r)) return 'ai';
     if (/google\.|naver\.|daum\.|bing\.|duckduckgo/i.test(r)) return 'search';
     if (r.indexOf(location.origin) === 0) return 'direct';   // 사이트 내 이동
     return 'other';
@@ -389,18 +393,18 @@
   function trackTopic(kind, story, ms) {
     if (!story || optedOut() || navigator.webdriver) return;
     var key = typeof story === 'string' ? story : storyKey(story);
-    if (!/^m\d{8}-[a-z0-9]+(?:-[a-z0-9]+)*$/.test(key || '')) return;
+    if (!/^(?:\d{4}c?-\d{1,2}|m\d{8}-[a-z0-9]+(?:-[a-z0-9]+)*)$/.test(key || '')) return;
     var v = vid();
     if (!v) return;
     beacon({ t: 'topic', v: v, topic: key, k: kind,
              ms: Math.max(0, Math.min(Number(ms) || 0, 1800000)), r: refSrc() });
   }
 
-  // 토픽별 읽기 신호. 서버에는 토픽·집계 종류·밀리초만 남고 개인별 열람 이력은
-  // 만들지 않는다. unique는 Worker가 토픽별 비가역 서명으로 바꾼다.
+  // 스토리별 읽기 신호. 서버에는 스토리·집계 종류·밀리초만 남고 개인별 열람
+  // 이력은 만들지 않는다. unique는 Worker가 스토리별 비가역 서명으로 바꾼다.
   function mountTopicTracking() {
     if (!API || !window.IntersectionObserver || navigator.webdriver || optedOut()) return;
-    var topics = document.querySelectorAll('.story[data-ss-story^="m"]');
+    var topics = document.querySelectorAll('.story');
     if (!topics.length) return;
     var state = {};
 
@@ -528,9 +532,18 @@
     if (!v) return;
     var path = location.pathname;
     var nl = newsletterTag();
-  beacon({ t: 'hit', v: v, p: path, f: firstToday(path), r: refSrc(), pv: prevPath(),
-           s: nl.s, i: nl.i });
-  watchHuman();
+    beacon({ t: 'hit', v: v, p: path, f: firstToday(path), r: refSrc(), pv: prevPath(),
+             s: nl.s, i: nl.i });
+    // 기존 page hit은 보존하고, 검색·AI가 #story-N으로 정확히 보낸 경우만
+    // 스토리 진입을 가산 기록한다. hash 자체나 개인별 이동 이력은 저장하지 않는다.
+    var hm = location.hash.match(/^#story-(\d{1,2})$/);
+    if (hm) {
+      var target = document.getElementById('story-' + hm[1]);
+      var story = target && target.classList && target.classList.contains('story')
+        ? target : (target && target.nextElementSibling);
+      if (story && story.classList && story.classList.contains('story')) trackTopic('entry', story);
+    }
+    watchHuman();
     setPrevPath(path);
 
     // "읽었다" 판정 — 70%까지 내려갔거나 45초 이상 머물렀을 때 1회
@@ -754,11 +767,8 @@
     // 순살톡은 하단에 고정 바가 있어 공유 버튼과 겹친다. 그 페이지에선 띄우지 않는다.
     if (location.pathname.indexOf('/talk/') !== 0) document.body.appendChild(sb);
 
-    // 딥링크(#story-N / #topic-slug)로 들어오면 해당 블록으로 확실히 스크롤
-    if (location.hash) {
-      var target = document.getElementById(location.hash.slice(1));
-      if (target) setTimeout(function () { target.scrollIntoView(true); }, 80);
-    }
+    // fragment 이동은 브라우저의 native 동작에 맡긴다. 로드 뒤 JS로 다시
+    // scrollIntoView하면 Google deep link와 사용자의 스크롤 위치를 덮을 수 있다.
 
     // data-ss-ev가 붙은 링크(논점 블록의 텔레그램·인스타)는 위임으로 한 번에
     document.addEventListener('click', function (e) {
@@ -769,7 +779,7 @@
     mountReactions();   // 스토리별 무로그인 반응
     mountTalk();        // 오늘의 논점 → 텔레그램
     trackView();        // 방문 집계 (익명, /stats/ 제외)
-    mountTopicTracking(); // Morning 토픽별 노출·읽기·체류(집계값만)
+    mountTopicTracking(); // 스토리별 진입·노출·읽기·체류(집계값만)
     mountNotice();      // 수집 안내(전 페이지 공통 푸터가 없어 여기서)
   }
 
