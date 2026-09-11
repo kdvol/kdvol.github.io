@@ -37,9 +37,32 @@ font-size:.62rem;color:#5e5e5e;margin-bottom:5px}.stage b{display:block;font-siz
 margin-top:5px}.stage small{display:block;font-size:.62rem;color:#777;margin-top:3px;line-height:1.45}
 details.legacy{margin-top:24px;border-top:1px solid #242424;padding-top:14px}details.legacy>summary{
 cursor:pointer;color:#aaa;font-size:.82rem;font-weight:800}details.legacy[open]>summary{color:#F07040}
+.truth{margin:12px 0 22px;padding:16px 17px;background:#171411;border:1px solid #3a271f;
+border-radius:14px}.truth strong{display:block;color:#F5A481;font-size:.9rem;margin-bottom:6px}
+.truth p{font-size:.78rem;color:#aaa;line-height:1.72}.truth b{color:#eee}
+.defs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-bottom:20px}
+.mdef{background:#161616;border:1px solid #252525;border-radius:12px;padding:13px 14px}
+.mdef h3{font-size:.84rem;color:#eee;margin-bottom:7px}.mdef dl{display:grid;grid-template-columns:58px 1fr;
+gap:4px 8px;font-size:.7rem;line-height:1.55}.mdef dt{color:#656565}.mdef dd{color:#a9a39b}
+.mdef code{font-size:.66rem;color:#F5A481}.chart-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.chart-grid>*{min-width:0}
+.chart-scroll{overflow-x:auto;padding-bottom:2px;scrollbar-width:thin}.trend.multi{height:76px;gap:3px;
+align-items:flex-end;margin-top:8px}.trend.multi .dg{height:72px;display:flex;align-items:flex-end;gap:1px;
+flex:1 0 6px}.trend.multi .dg i{display:block;flex:1 1 0;min-width:2px;max-width:none}
+.lgd{flex-wrap:wrap;line-height:1.5}.lgd span{white-space:nowrap}.section-note{font-size:.74rem;
+color:#74706a;line-height:1.7;margin:-3px 0 11px}.route-list{margin-top:4px}.route{display:grid;
+grid-template-columns:minmax(0,1fr) 18px minmax(0,1fr) auto;gap:7px;align-items:center;
+padding:9px 2px;border-bottom:1px solid #202020;font-size:.75rem}.route .rp{overflow:hidden;
+text-overflow:ellipsis;white-space:nowrap;color:#bbb}.route .ra{color:#555;text-align:center}.route b{color:#F07040}
+.story-table{width:100%;border-collapse:collapse;font-size:.72rem}.story-table th{text-align:right;color:#666;
+font-weight:600;padding:6px 5px;border-bottom:1px solid #292929}.story-table th:first-child,
+.story-table td:first-child{text-align:left}.story-table td{text-align:right;color:#aaa;padding:8px 5px;
+border-bottom:1px solid #202020;font-variant-numeric:tabular-nums}.story-table td:first-child{color:#ddd;
+max-width:220px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 @media(max-width:620px){.actors{grid-template-columns:1fr 1fr}.stages{grid-template-columns:1fr 1fr}}
 @media(max-width:560px){
   .two{grid-template-columns:1fr}
+  .chart-grid,.defs{grid-template-columns:1fr}
   h2{font-size:15px;margin-top:22px}
   .sum{grid-template-columns:1fr 1fr;gap:8px}
   .kpi .v{font-size:26px}
@@ -163,48 +186,7 @@ border:1px solid #333;color:#999}
 .act button{background:#1c1c1c;border:1px solid #2c2c2c;color:#999;border-radius:6px;padding:3px 9px;
 font-size:.72rem;cursor:pointer;font-family:inherit}
 .act button:hover{border-color:#F07040;color:#F07040}
-</style></head><body>
-<div id="soonsal-live-ticker" style="display:none;"></div>
-<style>
-#soonsal-live-ticker{position:sticky;top:0;width:100%;height:34px;box-sizing:border-box;background:#0a0a0a;border-bottom:1px solid #1a1a1a;overflow:hidden;z-index:99999;user-select:none;-webkit-user-select:none}
-#soonsal-live-ticker::before,#soonsal-live-ticker::after{content:'';position:absolute;top:0;bottom:0;width:48px;z-index:2;pointer-events:none}
-#soonsal-live-ticker::before{left:0;background:linear-gradient(to right,#0a0a0a,transparent)}
-#soonsal-live-ticker::after{right:0;background:linear-gradient(to left,#0a0a0a,transparent)}
-#soonsal-live-ticker .stk-track{display:flex;align-items:center;width:max-content;height:34px;animation:stk-scroll 90s linear infinite}
-#soonsal-live-ticker .stk-track:hover{animation-play-state:paused}
-@keyframes stk-scroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
-#soonsal-live-ticker .stk-item{display:inline-flex;align-items:center;gap:7px;padding:0 16px;border-right:1px solid #1a1a1a;white-space:nowrap;flex-shrink:0}
-#soonsal-live-ticker .stk-lbl{font-family:'DM Sans',-apple-system,sans-serif;font-size:11px;font-weight:600;color:#555;letter-spacing:0.3px;text-transform:uppercase}
-#soonsal-live-ticker .stk-lbl.crypto{color:#F07040}
-#soonsal-live-ticker .stk-prc{font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:500;color:#e0ddd8;letter-spacing:-0.3px}
-#soonsal-live-ticker .stk-chg{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:500;display:inline-flex;align-items:center;gap:3px;padding:1px 5px;border-radius:3px}
-#soonsal-live-ticker .stk-chg.up{color:#4ade80;background:rgba(74,222,128,0.08)}
-#soonsal-live-ticker .stk-chg.down{color:#f87171;background:rgba(248,113,113,0.08)}
-#soonsal-live-ticker .stk-chg.zero{color:#777}
-#soonsal-live-ticker .au{display:inline-block;width:0;height:0;border-style:solid;border-width:0 3px 5px;border-color:transparent transparent #4ade80}
-#soonsal-live-ticker .ad{display:inline-block;width:0;height:0;border-style:solid;border-width:5px 3px 0;border-color:#f87171 transparent transparent}
-#soonsal-live-ticker .stk-div{display:inline-flex;align-items:center;padding:0 12px;flex-shrink:0}
-#soonsal-live-ticker .stk-div span{width:3px;height:3px;border-radius:50%;background:#F07040}
-#soonsal-live-ticker .stk-ts{display:inline-flex;align-items:center;gap:5px;padding:0 16px;flex-shrink:0}
-#soonsal-live-ticker .stk-dot{width:5px;height:5px;border-radius:50%;background:#4ade80;animation:stk-pulse 2s ease-in-out infinite}
-@keyframes stk-pulse{0%,100%{opacity:1}50%{opacity:0.3}}
-#soonsal-live-ticker .stk-time{font-family:'JetBrains Mono',monospace;font-size:10px;color:#555;letter-spacing:0.5px}
-#soonsal-live-ticker .stk-loading{display:flex;align-items:center;justify-content:center;height:34px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#555;gap:8px}
-#soonsal-live-ticker .stk-spin{width:10px;height:10px;border:2px solid #222;border-top-color:#F07040;border-radius:50%;animation:stk-sp 0.8s linear infinite}
-@keyframes stk-sp{to{transform:rotate(360deg)}}
-@media(max-width:768px){#soonsal-live-ticker .stk-item{padding:0 12px}#soonsal-live-ticker .stk-lbl{font-size:10px}#soonsal-live-ticker .stk-prc{font-size:11px}#soonsal-live-ticker .stk-chg{font-size:10px}}
-
-  @media (max-width:768px) {
-    .nav a { padding:12px 14px; font-size:12px; }
-    .sub-btn-header { font-size:11px !important; padding:6px 12px !important; }
-  }
-  @media (max-width:480px) {
-    .sub-btn-header { font-size:10px !important; padding:5px 10px !important; right:10px !important; }
-  }
-</style>
-<script>
-(function(){'use strict';var WORKER_URL='https://soonsal-data.kd-d0a.workers.dev/';var COINGECKO_URL='https://api.coingecko.com/api/v3';var TRADFI_ORDER=['S&P 500','NASDAQ','Dow Jones','KOSPI','US 10Y','WTI Oil','Gold','DXY','EUR/USD','USD/JPY','USD/KRW'];var CRYPTO_ORDER=['Bitcoin','Ethereum','Solana','XRP','BNB','Crypto Total'];var CRYPTO_IDS={'Bitcoin':'bitcoin','Ethereum':'ethereum','Solana':'solana','XRP':'ripple','BNB':'binancecoin'};var REFRESH=60000;var container,timer,lastTradfi,lastCrypto;function init(){container=document.getElementById('soonsal-live-ticker');if(!container)return;container.style.display='block';container.innerHTML='<div class="stk-loading"><div class="stk-spin"></div>Loading market data...</div>';fetchAll();timer=setInterval(fetchAll,REFRESH)}function fetchAll(){var p1=fetchTradFi();var p2=fetchCrypto();Promise.allSettled?Promise.allSettled([p1,p2]).then(render):Promise.all([p1.catch(function(){return null}),p2.catch(function(){return null})]).then(render)}function fetchTradFi(){return fetch(WORKER_URL).then(function(r){return r.json()}).then(function(data){if(data.tradfi)lastTradfi=data;return data}).catch(function(e){console.warn('[Ticker] TradFi error:',e.message);return null})}function fetchCrypto(){var ids=Object.values(CRYPTO_IDS).join(',');var url=COINGECKO_URL+'/simple/price?ids='+ids+'&vs_currencies=usd&include_24hr_change=true&include_market_cap=true';var globalUrl=COINGECKO_URL+'/global';return Promise.all([fetch(url).then(function(r){return r.json()}),fetch(globalUrl).then(function(r){return r.json()}).catch(function(){return null})]).then(function(results){var prices=results[0];var global=results[1];var crypto={};for(var name in CRYPTO_IDS){var id=CRYPTO_IDS[name];var d=prices[id];if(!d)continue;var p=d.usd;var ch=d.usd_24h_change||0;crypto[name]={price:'$'+formatNum(p),change:(ch>=0?'+':'')+ch.toFixed(2)+'%',direction:ch>0.01?'up':ch<-0.01?'down':'zero'}}if(global&&global.data){var mc=global.data.total_market_cap&&global.data.total_market_cap.usd;var mch=global.data.market_cap_change_percentage_24h_usd;if(mc){crypto['Crypto Total']={price:'$'+(mc/1e12).toFixed(2)+'T',change:(mch>=0?'+':'')+(mch||0).toFixed(2)+'%',direction:mch>0?'up':mch<0?'down':'zero'}}}lastCrypto=crypto;return crypto}).catch(function(e){console.warn('[Ticker] Crypto error:',e.message);return null})}function render(){var tradfi=lastTradfi?lastTradfi.tradfi:{};var crypto=lastCrypto||{};var kst=lastTradfi?lastTradfi.kst:new Date().toLocaleString('ko-KR',{timeZone:'Asia/Seoul'});var html=[];html.push('<div class="stk-ts"><span class="stk-dot"></span><span class="stk-time">'+esc(kst)+' KST</span></div>');for(var i=0;i<TRADFI_ORDER.length;i++){var name=TRADFI_ORDER[i];var d=tradfi[name];if(d)html.push(makeItem(name,d,false))}html.push('<div class="stk-div"><span></span></div>');for(var j=0;j<CRYPTO_ORDER.length;j++){var cname=CRYPTO_ORDER[j];var cd=crypto[cname];if(cd)html.push(makeItem(cname,cd,true))}var track=html.join('');container.innerHTML='<div class="stk-track">'+track+track+'</div>'}function makeItem(name,d,isCrypto){var dir=d.direction||'zero';var arrow=dir==='up'?'<span class="au"></span>':dir==='down'?'<span class="ad"></span>':'';return'<div class="stk-item"><span class="stk-lbl'+(isCrypto?' crypto':'')+'">'+esc(name)+'</span><span class="stk-prc">'+esc(d.price)+'</span><span class="stk-chg '+dir+'">'+arrow+' '+esc(d.change)+'</span></div>'}function formatNum(n){if(n>=10000)return n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});if(n>=100)return n.toFixed(2);if(n>=1)return n.toFixed(2);return n.toFixed(4)}function esc(s){if(!s)return'';var d=document.createElement('span');d.textContent=String(s);return d.innerHTML}if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',init)}else{init()}})();
-</script><div class="wrap">
+</style></head><body><div class="wrap">
 <h1>순살 대시보드</h1>
 <p class="sub">몇 명이 와서 무엇에 반응했는지 — 운영자용 화면 (검색 노출 안 됨)</p>
 <div class="tabs" id="tabs"></div>
@@ -254,6 +236,10 @@ var PMAP = (function () {
 function pname(p) {
   var m = PMAP[p];
   if (m) return m;
+  if (p === '/') return '홈';
+  if (p === '/newsletters/' || p === '/newsletters') return '뉴스레터 목록';
+  if (p === '/topics/' || p === '/topics') return '토픽 목록';
+  if (p === '/search/' || p === '/search') return '검색';
   return String(p || '').replace(/^\/(newsletters|topics|english)\//, '').replace(/\.html$/, '') || '/';
 }
 function kpi(v, l, d, hero) {
@@ -309,6 +295,46 @@ function bars(items, unit) {
       '<span class="vn">' + i[1] + (unit || '') + '</span></div>';
   }).join('');
 }
+
+// 같은 날짜축 위에 여러 집계 단위를 겹쳐 보되, 막대 하나를 짚으면 날짜·항목·값을
+// 화면에 직접 쓴다. 90/120일은 가로 스크롤로 각 날짜 폭을 보존한다.
+function dailyChart(days, title, series, note, unit) {
+  series = (series || []).filter(function (s) {
+    return days.some(function (d) {
+      var v = s.value(d);
+      return v !== null && v !== undefined;
+    });
+  });
+  if (!days.length || !series.length) {
+    return '<div class="card ch"><div class="cht">' + title + '</div>' +
+      '<div class="empty">집계 전</div></div>';
+  }
+  var max = 1;
+  days.forEach(function (d) {
+    series.forEach(function (s) {
+      var v = s.value(d);
+      if (v !== null && v !== undefined && Number(v) > max) max = Number(v);
+    });
+  });
+  var minw = Math.max(320, days.length * Math.max(7, series.length * 3));
+  var groups = days.map(function (d) {
+    return '<span class="dg">' + series.map(function (s) {
+      var raw = s.value(d), missing = raw === null || raw === undefined;
+      var val = missing ? 0 : Number(raw) || 0;
+      var shown = missing ? '집계 전' : val.toLocaleString() + (unit || '');
+      return '<i style="height:' + (missing ? 2 : Math.max(2, val / max * 68)) +
+        'px;background:' + (missing ? '#383838' : s.color) + '" data-d="' + d +
+        '" data-v="' + esc(s.name + ' ' + shown) + '"></i>';
+    }).join('') + '</span>';
+  }).join('');
+  return '<div class="card ch"><div class="cht">' + title + ' <b class="rd"></b></div>' +
+    '<div class="chart-scroll"><div class="trend multi" style="min-width:' + minw + 'px">' +
+    groups + '</div></div><div class="tl"><span>' + days[0].slice(5) + '</span><span>' +
+    days[days.length - 1].slice(5) + '</span></div><div class="lgd">' +
+    series.map(function (s) {
+      return '<span><b style="background:' + s.color + '"></b>' + esc(s.name) + '</span>';
+    }).join('') + '</div>' + (note ? '<p class="note">' + note + '</p>' : '') + '</div>';
+}
 // 대시보드 전체가 관리자 키를 요구한다. 방문 수치는 광고 단가 협상에 쓰이는
 // 영업 정보라 주소만 알면 열리는 상태로 두지 않는다.
 function gate() {
@@ -343,7 +369,7 @@ var SRC_KO = { direct: '직접·북마크', telegram: '텔레그램', instagram:
                search: '검색', ai: 'AI 추천', mail: '뉴스레터', other: '기타' };
 // 모으고 있는데 화면에 없던 것들: comment·school·talk·home·finish.
 // finish·home 은 워커가 아예 버리고 있어 값이 0 이었다 (2026-08-16 수정).
-var KIND_KO = { human: '사람 확인(손이 움직임)', read: '끝까지 읽음',
+var KIND_KO = { human: '신뢰 입력 열람', read: '페이지 읽음 신호',
   finish: '완독 도장', react: '반응',
   comment: '댓글 작성', subscribe: '구독 버튼 클릭',
   talk: '순살톡 이동', school: '스쿨 이동', home: '홈으로',
@@ -362,12 +388,20 @@ function renderCommunity() {
 
   // ── 기간·커버리지 ────────────────────────────────────────────────
   var COV = ins.coverage || {}, KC = COV.kinds || {};
-  var DAU = {}, FRESH = {};
+  var DAU = {}, RET = {}, ENGDAY = {}, REFDAY = {};
   (ins.dau || []).forEach(function (r) { DAU[r.day] = r.people; });
   // 손이 움직인 **사람** 수 (2026-08-21 부터). engage(human) 은 횟수라 못 냈다.
   var HUM = {};
   (ins.humanDau || []).forEach(function (r) { HUM[r.day] = r.people; });
-  (ins.freshDaily || []).forEach(function (r) { FRESH[r.day] = r.n; });
+  (ins.returningDaily || []).forEach(function (r) { RET[r.day] = r; });
+  (ins.engage || []).forEach(function (r) {
+    if (!ENGDAY[r.day]) ENGDAY[r.day] = {};
+    ENGDAY[r.day][r.kind] = r.n;
+  });
+  (ins.refsDaily || []).forEach(function (r) {
+    if (!REFDAY[r.day]) REFDAY[r.day] = {};
+    REFDAY[r.day][r.src] = r.n;
+  });
   var days = daily.map(function (d) { return d.day; });
 
   // 비율은 **두 값이 같은 날짜에서 나올 때만** 낸다. 시작일 당일은 반쪽이라 뺀다.
@@ -393,6 +427,8 @@ function renderCommunity() {
   // 기간 안 서로 다른 방문 브라우저. 하루만 볼 땐 그날 dau 가 곧 그 값이다.
   function uniqVisitors(ds) {
     if (ds.length === 1) return DAU[ds[0]];
+    var exact = ins.windowVisitors || {};
+    if (exact.observed !== undefined && exact.observed !== null) return exact.observed;
     return (v.active === undefined || v.active === null) ? undefined : v.active;
   }
   function label(ds) {
@@ -406,6 +442,15 @@ function renderCommunity() {
     if (kind && !from) return '이 항목 집계 전';
     return (from > COV.dau ? from : COV.dau) + ' 시작 — 내일부터';
   }
+  function humanDay(d) {
+    if (!COV.humanVisitors || d <= COV.humanVisitors) return null;
+    return HUM[d] === undefined ? 0 : HUM[d];
+  }
+  function actionDay(d, kind) {
+    var from = KC[kind];
+    if (!from || d <= from) return null;
+    return ENGDAY[d] && ENGDAY[d][kind] !== undefined ? ENGDAY[d][kind] : 0;
+  }
   // ★ 분모를 **페이지뷰**로 바꿨다 (2026-08-21). 전에는 방문-일로 나눴는데,
   //   분자(구독 클릭)는 **횟수**고 분모는 **브라우저·일**이라 단위가 안 맞았다.
   //   횟수 ÷ 횟수라야 「열린 페이지 중 몇 번에 눌렸나」가 된다 —
@@ -418,7 +463,6 @@ function renderCommunity() {
     return { v: pct(num, den) + '%', d: num + ' / ' + den + '뷰 · ' + label(ds) };
   }
 
-  var winDays = daysFor(null);
   var scope = ins.scope || ('최근 ' + ins.days + '일');
   var h = '';
 
@@ -458,18 +502,11 @@ function renderCommunity() {
   var hHits0 = 0;
   daily.forEach(function (d) { if (hDays0.indexOf(d.day) >= 0) hHits0 += d.hits; });
   var hCnt0 = sumEng(hDays0, ['human']);
-  var hBots0 = 0;
-  daily.forEach(function (d) { if (hDays0.indexOf(d.day) >= 0) hBots0 += (d.bots || 0); });
-  var jsBase0 = hHits0 + hBots0;
-  var unknown0 = Math.max(0, hHits0 - hCnt0) + hBots0;
-  var storyRows0 = ((D.storyInsights || {}).topics || []).filter(function (r) {
-    return /^\d{4}c?-\d{1,2}$/.test(r.topic || '');
-  });
-  var entries0 = 0, impressions0 = 0, storyViews0 = 0, dwell0 = 0, outcomes0 = 0;
+  var storyRows0 = ((D.storyInsights || {}).topics || []).slice();
+  var entries0 = 0, storyViews0 = 0, dwell0 = 0, outcomes0 = 0;
   var entrySrc0 = {};
   storyRows0.forEach(function (r) {
     entries0 += r.entries || 0;
-    impressions0 += r.impressions || 0;
     storyViews0 += r.views || 0;
     dwell0 += r.dwell_ms || 0;
     outcomes0 += (r.reactions || 0) + (r.comments || 0) + (r.shares || 0);
@@ -494,17 +531,26 @@ function renderCommunity() {
     return '<div class="actor ' + (cls || '') + '"><div class="an">' + name + '</div>' +
       '<div class="av">' + value + '</div><div class="ad">' + detail + '</div></div>';
   }
+  function metricDef(name, unit, dedup, method, limit) {
+    return '<article class="mdef"><h3>' + name + '</h3><dl>' +
+      '<dt>단위</dt><dd>' + unit + '</dd><dt>중복</dt><dd>' + dedup + '</dd>' +
+      '<dt>판정</dt><dd>' + method + '</dd><dt>한계</dt><dd>' + limit + '</dd></dl></article>';
+  }
+  var hv0 = ins.humanVisitors || {};
+  var trustedBrowsers0 = hv0.confirmed || 0;
+  var observedBrowsers0 = hv0.observed || 0;
+  var allJs0 = sumHits + sumBots;
   h += '<section class="journey"><div class="eyebrow">1 · 방문 주체</div>' +
     '<h2>누가 와서, 무엇을 보고, 어떻게 끝났나</h2>' +
-    '<p class="base"><b>현재 비교 단위: JS 페이지 열기</b> · ' + (label(hDays0) || scope) +
-    ' · Edge 전체 HTML 요청 분류가 연결되면 같은 자리를 요청 단위로 교체합니다. ' +
-    '입력이 없거나 UA만으로 확정되지 않은 요청은 미분류에 남깁니다. ' +
-    '2~5단계는 새 스토리 계측의 기간 합계이며, 아직 같은 방문의 전환율로 잇지 않습니다.</p>' +
+    '<p class="base"><b>기간: ' + scope + '</b> · 수치마다 단위가 다르므로 카드에 단위를 함께 적습니다. ' +
+    'AI·일반 크롤러 전체는 아직 사이트 Edge 요청에서 계측하지 않아 이 화면에서 확정할 수 없습니다. ' +
+    '2~5단계는 같은 기간의 집계이며 개인 한 명의 완전한 여정으로 이어 붙인 값은 아닙니다.</p>' +
     '<div class="actors">' +
-    actor('확인된 Human', hCnt0.toLocaleString(), '신뢰 입력이 발생한 페이지 열기', 'h') +
-    actor('AI 에이전트·크롤러', '—', 'Edge 분류 측정 전') +
-    actor('일반 Bot', '—', '검색·미리보기·보안 Bot 분리 측정 전') +
-    actor('미분류', unknown0.toLocaleString(), 'Human 미확인 + JS 선언형 Bot · 임시 분류') +
+    actor('전체 관측 JS 열기', allJs0.toLocaleString(), '페이지 열림 횟수 · JS 미실행 요청 제외') +
+    actor('비봇으로 분류된 JS 열기', sumHits.toLocaleString(), 'UA 봇 규칙에 걸리지 않은 횟수') +
+    actor('신뢰 입력 브라우저', hv0.since ? trustedBrowsers0.toLocaleString() : '—',
+          observedBrowsers0 ? hv0.since + ' 다음날부터 고유 ID · ' + trustedBrowsers0 + '/' + observedBrowsers0 : '집계 시작 전', 'h') +
+    actor('JS UA Bot 열기', sumBots.toLocaleString(), 'JS를 실행했고 UA 봇 규칙에 걸린 횟수') +
     '</div><div class="stages">' +
     stage('2 · 획득', '어디서 왔나', entries0 ? srcBits0.join(' · ') : '—',
           entries0 ? '스토리 fragment 진입의 source' : '새 측정 배포 후 누적') +
@@ -514,9 +560,182 @@ function renderCommunity() {
           storyViews0 ? '1초·50% 이상 · 평균 체류 ' + storyAvg0 + '초' : '스토리 노출·읽기 측정') +
     stage('5 · 결과', '무엇을 했나', outcomes0 ? outcomes0.toLocaleString() : '—',
           outcomes0 ? '반응+댓글+공유 · 같은 기간 합계' : '반응·댓글·공유') +
-    '</div><p class="note">현재 관측된 같은 기간 JS 열기는 ' + jsBase0.toLocaleString() +
-    '회입니다. AI와 일반 Bot을 분리할 Edge 데이터가 아직 없으므로 두 값을 0으로 표시하지 않습니다.</p>' +
-    '</section><details class="legacy"><summary>기존 지표 보기 — 기존 데이터는 삭제하지 않음</summary>';
+    '</div><p class="note">AI·일반 Bot을 완전히 보려면 soonsal.com의 HTML 요청을 Edge에서 분류해야 합니다. ' +
+    '현재 Bot 수는 페이지 안의 JavaScript까지 실행한 요청 중 UA 문자열 규칙에 걸린 일부만 포함합니다.</p>' +
+    '</section>';
+
+  h += '<div class="truth"><strong>“확인된 휴먼”이라는 이름은 폐기합니다</strong>' +
+    '<p>현재 신호는 <b>실제 사람을 신원 확인한 값이 아닙니다.</b> 페이지가 열린 뒤 30분 안에 ' +
+    '브라우저가 <code>isTrusted</code>로 표시한 포인터 이동(실제 이동량 필요)·터치 시작·키 입력·휠 중 ' +
+    '하나가 나오면 기록합니다. 한 페이지 열림에서 최대 1회입니다. 정교한 자동화가 흉내 낼 수 있고, ' +
+    '가만히 읽은 사람은 놓칠 수 있으므로 “진짜 사람 비율”이 아니라 <b>신뢰 입력 관측률</b>입니다.</p></div>' +
+    '<h2>숫자의 정확한 뜻 <small>단위·중복·판정·한계</small></h2><div class="defs">' +
+    metricDef('전체 관측 JS 열기', '페이지 열림 횟수', '새로고침·재진입 모두 다시 셈',
+      '페이지 JavaScript가 Worker에 hit 전송', 'JS를 실행하지 않는 크롤러와 차단된 요청은 보이지 않음') +
+    metricDef('방문 브라우저', '익명 브라우저 ID 수', '선택 기간 여러 페이지·여러 날 방문해도 1',
+      'localStorage 난수 <code>ss_vid</code>를 기간 내 distinct', '사람·회원 수가 아님. 기기·브라우저·시크릿창·저장소 초기화마다 갈라짐') +
+    metricDef('신뢰 입력 브라우저', '익명 브라우저 ID 수', '선택 기간 여러 페이지에서 입력해도 1',
+      '포인터 이동·터치·키·휠 + <code>isTrusted</code>', '100% 사람 판별 아님. 무입력 독자는 빠지고 정교한 자동화는 섞일 수 있음') +
+    metricDef('신뢰 입력 열람', '페이지 열림 횟수', '한 페이지 열림당 최대 1, 다음 페이지에서는 다시 1',
+      '첫 신뢰 입력이 생길 때 <code>engage(human)</code> +1', '브라우저 수와 다름. “몇 명”이 아니라 “몇 번의 열람”') +
+    metricDef('페이지·브라우저·일 열기', '경로 × 브라우저 × KST 날짜', '같은 경로는 하루 1, 서로 다른 3페이지는 3',
+      '브라우저가 그날 본 경로를 localStorage에서 중복 제거', '브라우저 저장소가 지워지면 새 ID·새 기록') +
+    metricDef('방문-일', '브라우저 × KST 날짜', '하루 열 번 와도 1, 사흘 오면 기간 합계 3',
+      '<code>dau(day, vid)</code>의 일별 고유 행', '기간 고유 브라우저와 단위가 달라 서로 대체 불가') +
+    metricDef('신규 / 재방문', '그날의 익명 브라우저 수', '최초 관측일이면 신규, 이후 다른 날이면 재방문',
+      '<code>visitors.first_day</code>와 오늘을 비교', '같은 사람이 다른 브라우저로 오면 신규로 잡힘') +
+    metricDef('페이지 이동', '같은 탭의 이전 경로 → 다음 경로 횟수', '이동할 때마다 1; 개인별로 묶지 않음',
+      'sessionStorage의 직전 경로를 서버에서 경로 쌍으로 합산', '새 탭·탭 종료에서 끊김. 개인의 전체 동선은 저장·복원하지 않음') +
+    metricDef('스토리 소비', '스토리별 노출·유효 열람·체류 합계', '페이지 안 각 스토리마다 별도 집계',
+      '화면 진입=노출, 50% 이상 1초=유효 열람, 1초 이상 가시 시간=체류', '스크롤 좌표나 개인별 읽기 순서는 저장하지 않음') +
+    metricDef('페이지 읽음', '페이지 열림 횟수', '한 페이지 열림당 최대 1',
+      '페이지 70% 도달 또는 45초 체류', '실제 완독을 보장하지 않는 행동 신호') +
+    '</div>';
+
+  // ── 모든 핵심 범주의 일별 추이 ──────────────────────────────────
+  var storyDaily0 = {}, storyRefDaily0 = {};
+  ((D.storyInsights || {}).daily || []).forEach(function (r) { storyDaily0[r.day] = r; });
+  ((D.storyInsights || {}).referralsDaily || []).forEach(function (r) {
+    if (!storyRefDaily0[r.day]) storyRefDaily0[r.day] = {};
+    storyRefDaily0[r.day][r.src] = r.n;
+  });
+  h += '<h2>일별 핵심 추이 <small>막대를 짚으면 날짜와 숫자가 표시됩니다</small></h2>' +
+    '<div class="chart-grid">' +
+    dailyChart(days, '전체 트래픽', [
+      { name: '전체 JS 열기', color: '#F07040', value: function (d) {
+        var r = daily.find(function (x) { return x.day === d; }); return r ? r.hits + (r.bots || 0) : null;
+      }},
+      { name: '비봇 JS 열기', color: '#3f6fd8', value: function (d) {
+        var r = daily.find(function (x) { return x.day === d; }); return r ? r.hits : null;
+      }},
+      { name: 'JS UA Bot', color: '#777', value: function (d) {
+        var r = daily.find(function (x) { return x.day === d; }); return r ? (r.bots || 0) : null;
+      }}
+    ], '전체는 비봇 JS 열기 + JS UA Bot입니다. JS 미실행 요청은 포함하지 않습니다.', '회') +
+    dailyChart(days, '브라우저 규모', [
+      { name: '방문 브라우저', color: '#3f6fd8', value: function (d) { return DAU[d] === undefined ? null : DAU[d]; }},
+      { name: '신뢰 입력 브라우저', color: '#F07040', value: function (d) { return humanDay(d); }}
+    ], '둘 다 그날의 익명 브라우저 ID 수입니다. 같은 날 여러 페이지를 봐도 1입니다.', '대') +
+    dailyChart(days, '신뢰 입력 관측률', [
+      { name: '입력 브라우저 / 방문 브라우저', color: '#F07040', value: function (d) {
+        var n = humanDay(d); return DAU[d] && n !== null ? pct(n, DAU[d]) : null;
+      }}
+    ], '“진짜 사람 비율”이 아니라 그날 방문 브라우저 중 신뢰 입력이 관측된 ID 비율입니다.', '%') +
+    dailyChart(days, '신규와 재방문', [
+      { name: '당일 신규', color: '#70a0dc', value: function (d) { return RET[d] ? RET[d].fresh : null; }},
+      { name: '당일 재방문', color: '#F07040', value: function (d) { return RET[d] ? RET[d].returning_browsers : null; }}
+    ], '최초 관측일과 같은 날이면 신규, 최초 관측일보다 뒤면 재방문입니다.', '대') +
+    dailyChart(days, '스토리 소비 흐름', [
+      { name: '정확 진입', color: '#8f6fd2', value: function (d) { return storyDaily0[d] ? storyDaily0[d].entries : null; }},
+      { name: '화면 노출', color: '#70a0dc', value: function (d) { return storyDaily0[d] ? storyDaily0[d].impressions : null; }},
+      { name: '유효 열람', color: '#F07040', value: function (d) { return storyDaily0[d] ? storyDaily0[d].views : null; }},
+      { name: '반응+댓글+공유', color: '#61a47b', value: function (d) {
+        var r = storyDaily0[d]; return r ? (r.reactions || 0) + (r.comments || 0) + (r.shares || 0) : null;
+      }}
+    ], '정확 진입은 #story-N 딥링크, 유효 열람은 스토리 50% 이상이 1초간 보인 경우입니다.', '회') +
+    dailyChart(days, '읽기 행동', [
+      { name: '신뢰 입력 열람', color: '#F07040', value: function (d) { return actionDay(d, 'human'); }},
+      { name: '페이지 읽음', color: '#70a0dc', value: function (d) { return actionDay(d, 'read'); }},
+      { name: '완독 도장', color: '#61a47b', value: function (d) { return actionDay(d, 'finish'); }}
+    ], '각 값은 행동 발생 횟수입니다. 서로 다른 행동을 한 사람 수로 해석하지 않습니다.', '회') +
+    dailyChart(days, '참여·전환·이동 행동', [
+      { name: '구독 클릭', color: '#F07040', value: function (d) { return actionDay(d, 'subscribe'); }},
+      { name: '반응', color: '#8f6fd2', value: function (d) { return actionDay(d, 'react'); }},
+      { name: '댓글', color: '#61a47b', value: function (d) { return actionDay(d, 'comment'); }},
+      { name: '공유', color: '#70a0dc', value: function (d) { return actionDay(d, 'share'); }},
+      { name: '텔레그램', color: '#4e91c9', value: function (d) { return actionDay(d, 'telegram'); }},
+      { name: '인스타', color: '#c06b9c', value: function (d) { return actionDay(d, 'instagram'); }},
+      { name: '순살톡', color: '#d39455', value: function (d) { return actionDay(d, 'talk'); }},
+      { name: '스쿨', color: '#8aa05d', value: function (d) { return actionDay(d, 'school'); }},
+      { name: '홈', color: '#8b8277', value: function (d) { return actionDay(d, 'home'); }}
+    ], '현재 기록 중인 참여·전환·사이트 이동 종류를 빠짐없이 일별로 표시합니다.', '회') +
+    '</div>';
+
+  // ── 유입·페이지·경로도 합계와 일별 추이를 같이 보여준다 ──────────────
+  var srcTotal0 = {};
+  Object.keys(storyRefDaily0).forEach(function (d) {
+    Object.keys(storyRefDaily0[d]).forEach(function (s) {
+      srcTotal0[s] = (srcTotal0[s] || 0) + storyRefDaily0[d][s];
+    });
+  });
+  var srcTop0 = Object.keys(srcTotal0).sort(function (a, b) { return srcTotal0[b] - srcTotal0[a]; }).slice(0, 5);
+  if (srcTop0.length) {
+    h += '<h2>유입 경로 <small>스토리 진입 source</small></h2>' +
+      dailyChart(days, '유입 경로 일별', srcTop0.map(function (s, i) {
+        var colors = ['#F07040', '#70a0dc', '#61a47b', '#8f6fd2', '#9b8d7b'];
+        return { name: SRC_KO[s] || s, color: colors[i], value: function (d) {
+          return storyRefDaily0[d] && storyRefDaily0[d][s] !== undefined ? storyRefDaily0[d][s] : null;
+        }};
+      }), 'AI는 알려진 AI referrer 또는 UTM으로 온 진입입니다. AI 크롤러가 페이지를 수집한 횟수와는 다릅니다.', '회');
+  }
+  var legacySources0 = (ins.refs || []).slice(0, 5);
+  if (legacySources0.length) {
+    h += dailyChart(days, '페이지 첫 열기 referrer 일별', legacySources0.map(function (r, i) {
+      var colors = ['#F07040', '#70a0dc', '#61a47b', '#8f6fd2', '#9b8d7b'];
+      return { name: SRC_KO[r.src] || r.src, color: colors[i], value: function (d) {
+        return REFDAY[d] && REFDAY[d][r.src] !== undefined ? REFDAY[d][r.src] : 0;
+      }};
+    }), '기존 데이터 보존용입니다. 그날 그 경로의 첫 열기 기준이며 사이트 내부 이동도 직접 유입에 섞일 수 있어 획득 채널로 단정하지 않습니다.', '회');
+  }
+
+  var top0 = ins.top || [], pageDaily0 = {};
+  (ins.pageDaily || []).forEach(function (r) {
+    if (!pageDaily0[r.day]) pageDaily0[r.day] = {};
+    pageDaily0[r.day][r.path] = r.hits;
+  });
+  if (top0.length) {
+    var topPages0 = top0.slice(0, 5);
+    h += '<h2>인기 페이지 <small>합계와 일별 추이</small></h2><div class="card">' +
+      bars(top0.slice(0, 10).map(function (r) { return [pname(r.path), r.hits]; }), '뷰') + '</div>' +
+      dailyChart(days, '상위 5개 페이지 일별', topPages0.map(function (r, i) {
+        var colors = ['#F07040', '#70a0dc', '#61a47b', '#8f6fd2', '#9b8d7b'];
+        return { name: pname(r.path), color: colors[i], value: function (d) {
+          return pageDaily0[d] && pageDaily0[d][r.path] !== undefined ? pageDaily0[d][r.path] : null;
+        }};
+      }), '선택 기간 조회 상위 페이지입니다. 새로고침과 재진입은 다시 셉니다.', '뷰');
+  }
+
+  var hops0 = ins.hops || [], hopDaily0 = {};
+  (ins.hopsDaily || []).forEach(function (r) {
+    var key = r.frm + ' → ' + r.to_;
+    if (!hopDaily0[r.day]) hopDaily0[r.day] = {};
+    hopDaily0[r.day][key] = r.n;
+  });
+  if (hops0.length) {
+    h += '<h2>페이지 이동 흐름 <small>같은 탭의 연속 경로</small></h2><div class="card route-list">' +
+      hops0.slice(0, 10).map(function (r) {
+        return '<div class="route"><span class="rp" title="' + esc(r.frm) + '">' + pname(r.frm) +
+          '</span><span class="ra">→</span><span class="rp" title="' + esc(r.to_) + '">' +
+          pname(r.to_) + '</span><b>' + r.n.toLocaleString() + '</b></div>';
+      }).join('') + '<p class="note">누가 이동했는지는 저장하지 않습니다. 같은 탭의 직전 경로와 다음 경로를 ' +
+      '쌍으로만 합산하며, 새 탭이나 탭 종료 뒤에는 연결이 끊깁니다.</p></div>' +
+      dailyChart(days, '상위 5개 이동 쌍 일별', hops0.slice(0, 5).map(function (r, i) {
+        var key = r.frm + ' → ' + r.to_;
+        var colors = ['#F07040', '#70a0dc', '#61a47b', '#8f6fd2', '#9b8d7b'];
+        return { name: pname(r.frm) + ' → ' + pname(r.to_), color: colors[i], value: function (d) {
+          return hopDaily0[d] && hopDaily0[d][key] !== undefined ? hopDaily0[d][key] : null;
+        }};
+      }), '개인별 전체 여정이 아니라 집계된 이동 쌍의 추이입니다.', '회');
+  } else {
+    h += '<h2>페이지 이동 흐름</h2><div class="card"><div class="empty">아직 연속 이동 데이터가 없습니다.</div>' +
+      '<p class="note">같은 탭에서 다른 페이지로 이동하면 경로 쌍이 쌓입니다.</p></div>';
+  }
+
+  if (storyRows0.length) {
+    h += '<h2>어떤 콘텐츠를 소비했나 <small>스토리별</small></h2><div class="card" style="overflow-x:auto">' +
+      '<table class="story-table"><thead><tr><th>스토리</th><th>진입</th><th>노출</th><th>유효 열람</th>' +
+      '<th>평균 초</th><th>결과</th></tr></thead><tbody>' +
+      storyRows0.slice().sort(function (a, b) { return b.views - a.views; }).slice(0, 15).map(function (r) {
+        var name = (SMAP[r.topic] || {}).t || r.topic;
+        var result = (r.reactions || 0) + (r.comments || 0) + (r.shares || 0);
+        return '<tr><td title="' + esc(name) + '">' + esc(name) + '</td><td>' + (r.entries || 0) +
+          '</td><td>' + (r.impressions || 0) + '</td><td>' + (r.views || 0) + '</td><td>' +
+          (r.avg_dwell_seconds || 0) + '</td><td>' + result + '</td></tr>';
+      }).join('') + '</tbody></table><p class="note">페이지 안 스크롤 좌표나 개인별 읽기 순서는 저장하지 않습니다. ' +
+      '노출→유효 열람→체류→결과를 스토리별 집계로 비교합니다.</p></div>';
+  }
+
+  h += '<details class="legacy"><summary>기존 상세 지표 보기 — 원래 데이터와 화면은 보존</summary>';
   function flowRow(arrow, when, table, unit, label2, val, note) {
     return '<div class="frow"><span class="fa">' + arrow + '</span>' +
       '<span class="fw">' + when + '</span>' +
@@ -547,12 +766,12 @@ function renderCommunity() {
     flowRow('├', '그 기간에 처음이면', 'visitors(vid)', '브라우저', '방문 브라우저',
             uniqV === undefined ? '—' : uniqV.toLocaleString(),
             '기간 안에 몇 대가 왔나 · 사흘 와도 1') +
-    flowRow('└', '손이 실제로 움직이면', 'engage(human)', '횟수', 'Human 확인 페이지 열기',
+    flowRow('└', '신뢰 입력이 관측되면', 'engage(human)', '횟수', '신뢰 입력 페이지 열기',
             hCnt0.toLocaleString(),
             hDays0.length ? '한 번 열 때 최대 1회 · 사람 수가 아니다'
                           : '⚠️ ' + why('human')) +
     '<div class="fh">그래서 비율은</div>' +
-    '<div class="fx"><code>사람 확인 비율</code> = <code>engage(human)</code> ÷ ' +
+    '<div class="fx"><code>신뢰 입력 열람률</code> = <code>engage(human)</code> ÷ ' +
     '<code>views.hits</code> = ' +
     (hDays0.length && hHits0
       ? '<b>' + hCnt0.toLocaleString() + ' ÷ ' + hHits0.toLocaleString()
@@ -564,9 +783,9 @@ function renderCommunity() {
     //   견줄 수 없는 걸 같은 이름으로 부르면 못 알아보는 게 맞다.
     '<p class="note"><b>단위가 셋이다.</b> 「페이지뷰·페이지 열람·손이 움직인 열람」은 ' +
     '<b>횟수</b>, 「방문-일」은 <b>브라우저×날</b>, 「방문 브라우저」만 <b>대수</b>다. ' +
-    '그래서 비율은 <b>같은 단위끼리만</b> 낸다 — 사람 확인 비율은 횟수÷횟수라 ' +
+    '그래서 비율은 <b>같은 단위끼리만</b> 낸다 — 신뢰 입력 열람률은 횟수÷횟수라 ' +
     '「몇 명이」가 아니라 <b>「열린 페이지 중 몇 번에」</b> 손이 움직였나다.</p>' +
-    '<p class="note"><b>기간 고유 Human 브라우저 ID</b>는 <code>human(day,vid)</code>에서 ' +
+    '<p class="note"><b>기간 고유 신뢰 입력 브라우저 ID</b>는 <code>human(day,vid)</code>에서 ' +
     '<code>count(distinct vid)</code>로 별도 계산합니다. 사람 수가 아니라 익명 브라우저 ID 수입니다.</p>' +
     '<p class="note"><b>시작일이 다르다.</b> 페이지뷰는 ' + (COV.views || '?') +
     ', 방문 관련은 ' + (COV.dau || '?') + ' 부터다. 기간을 늘려도 그 전은 안 늘어난다.</p>' +
@@ -633,7 +852,7 @@ function renderCommunity() {
       '이게 이 화면에서 가장 중요한 숫자입니다.</p></div>';
   }
 
-  // ═══ 2. 사람인가 — 광고주에게 낼 수 있는 유일한 정직한 숫자 ══════
+  // ═══ 2. 신뢰 입력이 관측됐나 ═════════════════════════════════════
   var hd = daysFor('human');
   var hHits = 0;
   daily.forEach(function (d) { if (hd.indexOf(d.day) >= 0) hHits += d.hits; });
@@ -642,22 +861,22 @@ function renderCommunity() {
   // 쓰지 않는다.
   var hv = ins.humanVisitors || {};
   var hPpl = hv.confirmed || 0, hVis = hv.observed || 0;
-  h += '<h2>2. Human 확인 신호 <small>메일 보안 자동 클릭 걸러내기</small></h2><div class="sum">' +
+  h += '<h2>2. 신뢰 입력 신호 <small>휴먼 확정값이 아니라 행동 기반 보조 신호</small></h2><div class="sum">' +
     (hd.length && hHits
-      ? kpi(pct(hCnt, hHits) + '%', '사람 확인 비율 (열람)',
+      ? kpi(pct(hCnt, hHits) + '%', '신뢰 입력 열람률',
             hCnt + '회 / ' + hHits + '뷰 · ' + label(hd), true)
-      : kpi('—', '사람 확인 비율 (열람)', why('human'), true)) +
+      : kpi('—', '신뢰 입력 열람률', why('human'), true)) +
     (hVis
-      ? kpi(pct(hPpl, hVis) + '%', 'Human 확인 브라우저 ID 비율',
+      ? kpi(pct(hPpl, hVis) + '%', '신뢰 입력 브라우저 비율',
             hPpl + ' / ' + hVis + '개 · 기간 고유', true)
-      : kpi('—', 'Human 확인 브라우저 ID 비율',
+      : kpi('—', '신뢰 입력 브라우저 비율',
             (hv.since || 'Human ID 집계') + ' 시작 · 첫날 제외', true)) +
     '</div><p class="note"><b>둘은 다른 질문입니다.</b> ' +
     '「열람」은 <b>열린 페이지 중 몇 번에</b> 손이 움직였나 — 횟수÷횟수. ' +
     '「브라우저 ID」는 <b>기간 중 관측된 ID 가운데 몇 개가</b> 손 입력을 남겼나입니다. ' +
     '사람·회원 수라고 부르지 않습니다.</p>' +
-    '<p class="note">마우스·터치·키 입력이 실제로 들어온 것만 셉니다. ' +
-    '보안 스캐너는 링크를 눌러도 손이 움직이지 않습니다.</p>';
+    '<p class="note">포인터 이동·터치 시작·키 입력·휠 가운데 브라우저가 신뢰 입력으로 표시한 ' +
+    '첫 이벤트만 셉니다. 실제 사람 여부를 100% 보장하지 않습니다.</p>';
 
   // ═══ 3. 구독으로 이어지나 ═══════════════════════════════════════
   var sd = daysFor('subscribe');
@@ -668,20 +887,23 @@ function renderCommunity() {
     '</div>';
 
   // ═══ 4. 다시 오나 ═══════════════════════════════════════════════
-  // ★ 단위가 섞여 있었다 (KD 2026-08-21). 「새 사람」은 서로 다른 브라우저 수인데
-  //   빼는 쪽(`people`)은 **방문-일**이었다. 브라우저에서 브라우저·일을 빼면
-  //   숫자가 아무 뜻도 없다. 둘 다 `visitors` 표에서 같은 단위로 가져온다 —
-  //   워커가 `fresh`(그 기간에 처음)와 `active`(그 기간에 왔음)를 이미 준다.
-  var fresh = 0;
-  winDays.forEach(function (d) { fresh += (FRESH[d] || 0); });
-  var wUniq = uniqVisitors(winDays);
-  if (winDays.length > 1 && v.fresh !== undefined) fresh = v.fresh;
-  var back = (wUniq === undefined) ? undefined : Math.max(0, wUniq - fresh);
+  // 기간 내 dau를 다시 distinct해 실제 선택 창에 온 ID만 센다. 그중 first_day가
+  // 기간 안이면 기간 신규, 더 이전이면 기존 브라우저다. 기간 중 2일 이상 온 ID도
+  // 별도로 센다. 세 값 모두 브라우저 단위다.
+  var WV = ins.windowVisitors || {};
+  var wUniq = WV.observed;
+  var fresh = WV.acquired;
+  var back = WV.preexisting;
+  var repeated = WV.repeated_in_window;
   h += '<h2>4. 다시 오나</h2><div class="sum">' +
-    (winDays.length && wUniq !== undefined
-      ? kpi(fresh + ' / ' + back, '새 브라우저 / 다시 온 브라우저',
-            pct(back, wUniq) + '% 가 재방문 · ' + wUniq + '대 중 · ' + label(winDays), true)
-      : kpi('—', '새 브라우저 / 다시 온 브라우저', why(null), true)) +
+    (wUniq !== undefined
+      ? kpi((fresh || 0) + ' / ' + (back || 0), '기간 신규 / 기간 전부터 알던 브라우저',
+            (wUniq || 0) + '대 중 · ' + scope, true)
+      : kpi('—', '기간 신규 / 기간 전부터 알던 브라우저', why(null), true)) +
+    (wUniq !== undefined
+      ? kpi(pct(repeated, wUniq) + '%', '기간 중 2일 이상 방문',
+            (repeated || 0) + ' / ' + (wUniq || 0) + '개 브라우저', true)
+      : '') +
     kpi(pct(L.repeat_v, L.people) + '%', '전체 기간 재방문',
         (L.repeat_v || 0) + ' / ' + (L.people || 0) + '개 브라우저', true) +
     '</div>' +
