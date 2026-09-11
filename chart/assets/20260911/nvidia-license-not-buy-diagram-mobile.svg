@@ -9,8 +9,8 @@
 </g>
 <g class="motion-step motion-edge" data-motion-step="1" data-from="A" data-to="C" style="--motion-delay:2040ms">
 <path d="M 360.0 162.0 C 360.0 204.0, 529.5 204.0, 529.5 238.0" fill="none" stroke="#F07040" stroke-width="4.5" marker-end="url(#arrow)"/>
-<rect x="362.8" y="185.0" width="164" height="34" rx="17" fill="#0B0A09"/>
-<text x="444.8" y="208.0" text-anchor="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="22" font-weight="800" fill="#F5A481">그런데 값이</text>
+<rect x="373.2" y="185.0" width="143" height="34" rx="17" fill="#0B0A09"/>
+<text x="444.8" y="208.0" text-anchor="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="22" font-weight="800" fill="#F5A481">값은 딴판</text>
 </g>
 <g class="motion-step motion-edge" data-motion-step="3" data-from="B" data-to="D" style="--motion-delay:3400ms">
 <path d="M 190.5 384.0 C 190.5 426.0, 360.0 426.0, 360.0 460.0" fill="none" stroke="#F07040" stroke-width="4.5" marker-end="url(#arrow)"/>
@@ -19,8 +19,8 @@
 </g>
 <g class="motion-step motion-edge" data-motion-step="3" data-from="C" data-to="D" style="--motion-delay:4080ms">
 <path d="M 529.5 384.0 C 529.5 426.0, 360.0 426.0, 360.0 460.0" fill="none" stroke="#F07040" stroke-width="4.5" marker-end="url(#arrow)"/>
-<rect x="373.2" y="407.0" width="143" height="34" rx="17" fill="#0B0A09"/>
-<text x="444.8" y="430.0" text-anchor="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="22" font-weight="800" fill="#F5A481">값이 인수</text>
+<rect x="362.8" y="407.0" width="164" height="34" rx="17" fill="#0B0A09"/>
+<text x="444.8" y="430.0" text-anchor="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="22" font-weight="800" fill="#F5A481">인수급 가격</text>
 </g>
 <g class="motion-step motion-edge" data-motion-step="5" data-from="D" data-to="E" style="--motion-delay:5440ms">
 <path d="M 360.0 586.0 L 360.0 662.0" fill="none" stroke="#F07040" stroke-width="4.5" marker-end="url(#arrow)"/>
@@ -29,8 +29,7 @@
 </g>
 <g class="motion-step motion-node" data-motion-step="0" style="--motion-delay:0ms;--motion-accent-delay:640ms">
 <rect class="motion-node-shape" x="30.0" y="44.0" width="660.0" height="118.0" rx="20" fill="#332E26" stroke="#6B6156" stroke-width="3" filter="url(#shadow)"/>
-<text x="360.0" y="85.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="800" fill="#F5F2EC">엔비디아, Groq에 200억불 인력만</text>
-<text x="360.0" y="121.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="800" fill="#F5F2EC">데려감</text>
+<text x="360.0" y="103.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="800" fill="#F5F2EC">엔비디아, 200억불 주고 인력만 데려감</text>
 </g>
 <g class="motion-step motion-node" data-motion-step="2" style="--motion-delay:1360ms;--motion-accent-delay:2000ms">
 <rect class="motion-node-shape" x="30.0" y="246.0" width="321.0" height="138" rx="20" fill="#332E26" stroke="#6B6156" stroke-width="3" filter="url(#shadow)"/>
@@ -49,7 +48,7 @@
 </g>
 <g class="motion-step motion-node motion-risk" data-motion-step="6" style="--motion-delay:6120ms;--motion-accent-delay:6760ms">
 <rect class="motion-node-shape" x="30.0" y="670.0" width="660.0" height="118.0" rx="20" fill="#4A2C1A" stroke="#F07040" stroke-width="3" filter="url(#shadow)"/>
-<text x="360.0" y="729.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="800" fill="#F5F2EC">AI 큰 거래가 규제 그물 밖에서</text>
+<text x="360.0" y="729.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="800" fill="#F5F2EC">AI 큰 거래가 규제 밖에서 벌어짐</text>
 </g>
 <line x1="40" y1="890" x2="680" y2="890" stroke="#2A2724" stroke-width="2"/>
 <text x="40" y="922" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="20" fill="#7C756C">실선 = 확인된 연결 · 점선 = 해석/영향 경로</text>

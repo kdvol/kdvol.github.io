@@ -4,13 +4,13 @@
 <rect width="720" height="938" fill="#0B0A09"/>
 <g class="motion-step motion-edge" data-motion-step="1" data-from="A" data-to="C" style="--motion-delay:1360ms">
 <path d="M 190.5 182.0 C 190.5 224.0, 360.0 224.0, 360.0 258.0" fill="none" stroke="#F07040" stroke-width="4.5" marker-end="url(#arrow)"/>
-<rect x="193.2" y="205.0" width="164" height="34" rx="17" fill="#0B0A09"/>
-<text x="275.2" y="228.0" text-anchor="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="22" font-weight="800" fill="#F5A481">적용을 넓혀</text>
+<rect x="203.8" y="205.0" width="143" height="34" rx="17" fill="#0B0A09"/>
+<text x="275.2" y="228.0" text-anchor="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="22" font-weight="800" fill="#F5A481">대상 확대</text>
 </g>
 <g class="motion-step motion-edge" data-motion-step="1" data-from="B" data-to="C" style="--motion-delay:2040ms">
 <path d="M 529.5 182.0 C 529.5 224.0, 360.0 224.0, 360.0 258.0" fill="none" stroke="#F07040" stroke-width="4.5" marker-end="url(#arrow)"/>
-<rect x="373.2" y="205.0" width="143" height="34" rx="17" fill="#0B0A09"/>
-<text x="444.8" y="228.0" text-anchor="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="22" font-weight="800" fill="#F5A481">그 동기가</text>
+<rect x="362.8" y="205.0" width="164" height="34" rx="17" fill="#0B0A09"/>
+<text x="444.8" y="228.0" text-anchor="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="22" font-weight="800" fill="#F5A481">유출이 동기</text>
 </g>
 <g class="motion-step motion-edge" data-motion-step="3" data-from="C" data-to="D" style="--motion-delay:3400ms">
 <path d="M 360.0 384.0 L 360.0 460.0" fill="none" stroke="#F07040" stroke-width="4.5" marker-end="url(#arrow)"/>

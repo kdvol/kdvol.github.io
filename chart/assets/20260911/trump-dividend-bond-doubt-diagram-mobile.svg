@@ -9,8 +9,8 @@
 </g>
 <g class="motion-step motion-edge" data-motion-step="1" data-from="A" data-to="C" style="--motion-delay:2040ms">
 <path d="M 360.0 162.0 C 360.0 204.0, 529.5 204.0, 529.5 238.0" fill="none" stroke="#F07040" stroke-width="4.5" marker-end="url(#arrow)"/>
-<rect x="331.2" y="185.0" width="227" height="34" rx="17" fill="#0B0A09"/>
-<text x="444.8" y="208.0" text-anchor="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="22" font-weight="800" fill="#F5A481">얹었다면 튈 텐데</text>
+<rect x="341.8" y="185.0" width="206" height="34" rx="17" fill="#0B0A09"/>
+<text x="444.8" y="208.0" text-anchor="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="22" font-weight="800" fill="#F5A481">얹으면 튈 텐데</text>
 </g>
 <g class="motion-step motion-edge" data-motion-step="3" data-from="B" data-to="D" style="--motion-delay:3400ms">
 <path d="M 190.5 384.0 C 190.5 426.0, 360.0 426.0, 360.0 460.0" fill="none" stroke="#F07040" stroke-width="4.5" marker-end="url(#arrow)"/>
@@ -20,7 +20,7 @@
 <g class="motion-step motion-edge" data-motion-step="3" data-from="C" data-to="D" style="--motion-delay:4080ms">
 <path d="M 529.5 384.0 C 529.5 426.0, 360.0 426.0, 360.0 460.0" fill="none" stroke="#F07040" stroke-width="4.5" marker-end="url(#arrow)"/>
 <rect x="362.8" y="407.0" width="164" height="34" rx="17" fill="#0B0A09"/>
-<text x="444.8" y="430.0" text-anchor="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="22" font-weight="800" fill="#F5A481">금리가 증명</text>
+<text x="444.8" y="430.0" text-anchor="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="22" font-weight="800" fill="#F5A481">금리가 증거</text>
 </g>
 <g class="motion-step motion-edge" data-motion-step="5" data-from="D" data-to="E" style="--motion-delay:5440ms">
 <path d="M 360.0 586.0 L 360.0 662.0" fill="none" stroke="#F07040" stroke-width="4.5" marker-end="url(#arrow)"/>
