@@ -680,8 +680,10 @@ function load() {
 }
 
 load();
-// 쓰는 중에 갈아엎으면 쓰던 걸 잃는다 — 입력 중이면 건너뛴다
-setInterval(function () { if (!typing && !document.hidden) load(); }, 15000);
+// 상시 폴링은 없앴다(KD 2026-09-12) — 열어둔 탭이 15초마다 D1 을 때려
+// rows_read 를 하루 수백만으로 밀어올렸다. 트래픽 낮은 지금 라이브 효과는 과하다.
+// 대신 「들어올 때」에만 읽는다: 최초 로드 + 탭에 다시 돌아왔을 때 1회.
+// (내가 쓴 댓글은 post 핸들러가 곧바로 반영하므로 내 글은 바로 보인다.)
 document.addEventListener('visibilitychange', function () { if (!document.hidden) load(); });
 
 </script>
