@@ -24,8 +24,8 @@
 </g>
 <g class="motion-step motion-node" data-motion-step="0" style="--motion-delay:0ms;--motion-accent-delay:640ms">
 <rect class="motion-node-shape" x="97.0" y="70.0" width="430.0" height="118.0" rx="22" fill="#332E26" stroke="#6B6156" stroke-width="3" filter="url(#shadow)"/>
-<text x="312.0" y="111.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="700" fill="#F5F2EC">간첩죄 대상을 &#x27;외국</text>
-<text x="312.0" y="147.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="700" fill="#F5F2EC">전체&#x27;로 넓힘</text>
+<text x="312.0" y="111.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="700" fill="#F5F2EC">한국이 간첩죄 대상을</text>
+<text x="312.0" y="147.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="700" fill="#F5F2EC">&#x27;외국 전체&#x27;로 넓힘</text>
 </g>
 <g class="motion-step motion-node" data-motion-step="0" style="--motion-delay:680ms;--motion-accent-delay:1320ms">
 <rect class="motion-node-shape" x="553.0" y="70.0" width="430.0" height="118.0" rx="22" fill="#332E26" stroke="#6B6156" stroke-width="3" filter="url(#shadow)"/>
