@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="938" viewBox="0 0 720 938" class="morning-diagram morning-diagram-mobile" data-mobile-layout="same-topology" data-motion-orientation="TB" data-motion-steps="7">
+<defs><filter id="shadow" x="-20%" y="-20%" width="140%" height="160%"><feDropShadow dx="0" dy="6" stdDeviation="8" flood-color="#111111" flood-opacity=".09"/></filter>
+<marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#F07040"/></marker></defs>
+<rect width="720" height="938" fill="#0B0A09"/>
+<g class="motion-step motion-edge" data-motion-step="1" data-from="A" data-to="B" style="--motion-delay:680ms">
+<path d="M 360.0 162.0 L 360.0 238.0" fill="none" stroke="#F07040" stroke-width="4.5" marker-end="url(#arrow)"/>
+<rect x="278.0" y="185.0" width="164" height="34" rx="17" fill="#0B0A09"/>
+<text x="360.0" y="208.0" text-anchor="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="22" font-weight="800" fill="#F5A481">결제만 빼냄</text>
+</g>
+<g class="motion-step motion-edge" data-motion-step="3" data-from="B" data-to="C" style="--motion-delay:2040ms">
+<path d="M 360.0 364.0 C 360.0 406.0, 190.5 406.0, 190.5 440.0" fill="none" stroke="#F07040" stroke-width="4.5" marker-end="url(#arrow)"/>
+<rect x="182.8" y="387.0" width="185" height="34" rx="17" fill="#0B0A09"/>
+<text x="275.2" y="410.0" text-anchor="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="22" font-weight="800" fill="#F5A481">먹힌 이유 ①</text>
+</g>
+<g class="motion-step motion-edge" data-motion-step="3" data-from="B" data-to="D" style="--motion-delay:3400ms">
+<path d="M 360.0 364.0 C 360.0 406.0, 529.5 406.0, 529.5 440.0" fill="none" stroke="#F07040" stroke-width="4.5" marker-end="url(#arrow)"/>
+<rect x="467.0" y="387.0" width="185" height="34" rx="17" fill="#0B0A09"/>
+<text x="559.5" y="410.0" text-anchor="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="22" font-weight="800" fill="#F5A481">먹힌 이유 ②</text>
+</g>
+<g class="motion-step motion-edge" data-motion-step="5" data-from="C" data-to="E" style="--motion-delay:4760ms">
+<path d="M 190.5 586.0 C 190.5 628.0, 360.0 628.0, 360.0 662.0" fill="none" stroke="#F07040" stroke-width="4.5" stroke-dasharray="12 10" marker-end="url(#arrow)"/>
+<rect x="161.8" y="609.0" width="227" height="34" rx="17" fill="#0B0A09"/>
+<text x="275.2" y="632.0" text-anchor="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="22" font-weight="800" fill="#F5A481">자극에 값이 붙음</text>
+</g>
+<g class="motion-step motion-edge" data-motion-step="5" data-from="D" data-to="E" style="--motion-delay:5440ms">
+<path d="M 529.5 586.0 C 529.5 628.0, 360.0 628.0, 360.0 662.0" fill="none" stroke="#F07040" stroke-width="4.5" stroke-dasharray="12 10" marker-end="url(#arrow)"/>
+<rect x="472.0" y="609.0" width="227" height="34" rx="17" fill="#0B0A09"/>
+<text x="585.5" y="632.0" text-anchor="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="22" font-weight="800" fill="#F5A481">공짜로는 못 버팀</text>
+</g>
+<g class="motion-step motion-node" data-motion-step="0" style="--motion-delay:0ms;--motion-accent-delay:640ms">
+<rect class="motion-node-shape" x="30.0" y="44.0" width="660.0" height="118.0" rx="20" fill="#332E26" stroke="#6B6156" stroke-width="3" filter="url(#shadow)"/>
+<text x="360.0" y="85.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="800" fill="#F5F2EC">가짜 배달앱, 5월 한국서 등장 음식도</text>
+<text x="360.0" y="121.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="800" fill="#F5F2EC">돈도 안 감</text>
+</g>
+<g class="motion-step motion-node" data-motion-step="2" style="--motion-delay:1360ms;--motion-accent-delay:2000ms">
+<rect class="motion-node-shape" x="30.0" y="246.0" width="660.0" height="118.0" rx="20" fill="#332E26" stroke="#6B6156" stroke-width="3" filter="url(#shadow)"/>
+<text x="360.0" y="305.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="800" fill="#F5F2EC">고르고 기다리는 과정만 남기고 결제를 빼냄</text>
+</g>
+<g class="motion-step motion-node" data-motion-step="4" style="--motion-delay:2720ms;--motion-accent-delay:3360ms">
+<rect class="motion-node-shape" x="30.0" y="448.0" width="321.0" height="138" rx="20" fill="#332E26" stroke="#6B6156" stroke-width="3" filter="url(#shadow)"/>
+<text x="190.5" y="481.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="800" fill="#F5F2EC">도파민을 과하게</text>
+<text x="190.5" y="517.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="800" fill="#F5F2EC">자극하는 문화가</text>
+<text x="190.5" y="553.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="800" fill="#F5F2EC">퍼짐</text>
+</g>
+<g class="motion-step motion-node" data-motion-step="4" style="--motion-delay:4080ms;--motion-accent-delay:4720ms">
+<rect class="motion-node-shape" x="369.0" y="448.0" width="321.0" height="138" rx="20" fill="#332E26" stroke="#6B6156" stroke-width="3" filter="url(#shadow)"/>
+<text x="529.5" y="481.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="800" fill="#F5F2EC">지친 청년들이 돈</text>
+<text x="529.5" y="517.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="800" fill="#F5F2EC">안 드는 위로를</text>
+<text x="529.5" y="553.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="800" fill="#F5F2EC">찾음</text>
+</g>
+<g class="motion-step motion-node motion-risk" data-motion-step="6" style="--motion-delay:6120ms;--motion-accent-delay:6760ms">
+<rect class="motion-node-shape" x="30.0" y="670.0" width="660.0" height="118.0" rx="20" fill="#4A2C1A" stroke="#F07040" stroke-width="3" filter="url(#shadow)"/>
+<text x="360.0" y="711.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="800" fill="#F5F2EC">과정만 파는 시장이 열림 샌드위치</text>
+<text x="360.0" y="747.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="800" fill="#F5F2EC">12.99불도 가능</text>
+</g>
+<line x1="40" y1="890" x2="680" y2="890" stroke="#2A2724" stroke-width="2"/>
+<text x="40" y="922" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="20" fill="#7C756C">실선 = 확인된 연결 · 점선 = 해석/영향 경로</text>
+</svg>
