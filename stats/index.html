@@ -1,7 +1,7 @@
 <!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex,nofollow">
-<title>순살 대시보드 — 방문·반응</title>
+<title>순살 성장 대시보드 — 운영·수익화</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700;800&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet"/>
 <script src="/ss-config.js"></script>
@@ -158,6 +158,62 @@ h2 small{color:#666;font-weight:400;font-size:.78rem;margin-left:7px}
 .bar .fl{height:100%;background:#F07040;border-radius:3px}
 .bar .vn{width:62px;text-align:right;color:#999;font-variant-numeric:tabular-nums;font-size:.8rem}
 .note{color:#5f5f5f;font-size:.75rem;line-height:1.7;margin-top:10px}
+.scenario{display:flex;gap:10px;flex-wrap:wrap;align-items:end;margin-top:12px}
+.scenario label{font-size:.75rem;color:#888;display:grid;gap:4px}
+.scenario input{max-width:150px;padding:7px;border:1px solid #3a3a3a;border-radius:6px;
+  background:#202020;color:#eee;font:inherit}
+.decision-board{margin:18px 0 28px}.decision-head{display:flex;align-items:flex-end;
+justify-content:space-between;gap:12px;margin-bottom:10px}.decision-head h2{margin:0;font-size:1.2rem;color:#fff}
+.decision-head p{font-size:.72rem;color:#999;text-align:right;max-width:310px;line-height:1.55}
+.decision-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;margin:10px 0 14px}
+.decision-card{background:#161616;border:1px solid #282828;border-radius:12px;padding:14px;min-width:0}
+.decision-card .dk{font-size:.67rem;color:#F5A481;font-weight:800;letter-spacing:.04em}
+.decision-card h3{font-size:.88rem;color:#eee;line-height:1.45;margin:7px 0 5px}
+.decision-card p{font-size:.7rem;color:#999;line-height:1.6}.decision-card b{color:#ccc}
+.matrix-wrap{background:#141414;border:1px solid #252525;border-radius:12px;padding:14px;overflow:hidden}
+.matrix-head{display:flex;justify-content:space-between;gap:10px;align-items:baseline;margin-bottom:8px}
+.matrix-head b{font-size:.86rem;color:#eee}.matrix-head span{font-size:.68rem;color:#999;text-align:right}
+.matrix-scroll{overflow-x:auto}.matrix-svg{display:block;width:100%;min-width:330px;height:auto}
+.matrix-detail{min-height:38px;margin-top:7px;padding-top:8px;border-top:1px solid #242424;
+font-size:.72rem;color:#aaa;line-height:1.6}.matrix-detail b{color:#F5A481}
+.report-actions{display:flex;gap:7px;flex-wrap:wrap;margin:8px 0 16px}.report-actions button{
+background:#F07040;border:1px solid #F07040;color:#151515;border-radius:8px;padding:9px 14px;
+font:inherit;font-size:.78rem;font-weight:800;cursor:pointer}.report-actions button.alt{background:#161616;color:#bbb;border-color:#333}
+.advertiser-report{margin-top:8px}.report-hero{background:linear-gradient(135deg,#21150f,#151515 58%);
+border:1px solid #3b291f;border-radius:16px;padding:22px;margin-bottom:12px}.report-hero .brand{font-size:.72rem;
+color:#F5A481;font-weight:800;letter-spacing:.1em}.report-hero h2{font-size:1.55rem;color:#fff;margin:8px 0 5px}
+.report-hero p{font-size:.78rem;color:#aaa;line-height:1.65}.report-kpis{display:grid;
+grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin:12px 0}.report-kpi{background:#161616;
+border:1px solid #282828;border-radius:12px;padding:13px}.report-kpi .rv{font-size:1.45rem;color:#F07040;
+font-weight:800}.report-kpi .rl{font-size:.7rem;color:#aaa;margin-top:3px}.report-kpi .rdetail{
+font-size:.63rem;color:#999;line-height:1.45;margin-top:4px}.mixbar{display:flex;height:18px;border-radius:5px;
+overflow:hidden;background:#222;margin:12px 0 9px}.mixbar span{display:block;min-width:2px}.mixlegend{display:flex;
+gap:8px 13px;flex-wrap:wrap;font-size:.69rem;color:#999}.mixlegend i{display:inline-block;width:8px;
+height:8px;border-radius:2px;margin-right:4px}.quality-row{display:grid;grid-template-columns:140px 1fr 54px;
+gap:9px;align-items:center;padding:8px 0;font-size:.75rem}.quality-row .qname{color:#aaa}.quality-row .qtrack{
+height:9px;background:#222;border-radius:5px;overflow:hidden}.quality-row .qfill{height:100%;background:#F07040}
+.quality-row .qv{text-align:right;color:#ddd;font-variant-numeric:tabular-nums}.report-disclosure{font-size:.69rem;
+color:#999;line-height:1.7;border-top:1px solid #292929;margin-top:14px;padding-top:11px}
+.revenue-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.revenue-path{background:#161616;
+border:1px solid #272727;border-radius:12px;padding:14px}.revenue-path h3{font-size:.86rem;color:#eee;margin-bottom:5px}
+.revenue-path p{font-size:.7rem;color:#999;line-height:1.65}.revenue-result{font-size:.84rem;color:#F5A481;
+font-weight:800;margin-top:9px;min-height:22px}
+@media(max-width:700px){.decision-grid{grid-template-columns:1fr}.report-kpis{grid-template-columns:1fr 1fr}}
+@media(max-width:560px){.decision-head{display:block}.decision-head p{text-align:left;margin-top:5px}
+  .revenue-grid{grid-template-columns:1fr}.report-hero{padding:17px}.quality-row{grid-template-columns:112px 1fr 48px}}
+@media print{
+  body{background:#fff;color:#111}.wrap{max-width:none;padding:0}.wrap>h1,.wrap>.sub,#tabs,#rngbar,#daybar,
+  .report-actions{display:none!important}#app{display:block!important}.advertiser-report{display:block!important;margin:0}
+  .report-hero,.report-kpi,.card,.matrix-wrap,.revenue-path,.decision-card{background:#fff!important;color:#111!important;
+    border-color:#d9d9d9!important;break-inside:avoid}.report-hero h2,.report-kpi .rv,.card b,.story-table td:first-child{
+    color:#111!important}.report-hero p,.report-kpi .rl,.report-kpi .rdetail,.note,.report-disclosure,
+    .story-table td,.story-table th,.quality-row .qname,.mixlegend{color:#555!important}.mixbar,.quality-row .qtrack{background:#eee!important}
+  .advertiser-report h2,.advertiser-report h3,.matrix-head b,.matrix-head span,.quality-row .qv,.decision-card p,
+    .decision-card b,.decision-card .dk,.report-hero .brand,.report-disclosure b,.matrix-detail,.matrix-detail b{
+    color:#111!important}.matrix-svg rect{fill:#fff!important;stroke:#ccc!important}
+  .matrix-svg line{stroke:#bbb!important}.matrix-svg text{fill:#333!important}
+  .advertiser-report a{color:#111!important}@page{size:A4;margin:12mm}
+}
 .tabs{display:flex;gap:6px;margin-bottom:16px}
 .tabs button{background:#161616;border:1px solid #232323;color:#888;border-radius:7px;padding:6px 13px;
 font-size:.8rem;cursor:pointer;font-family:inherit}
@@ -228,8 +284,8 @@ font-size:.72rem;cursor:pointer;font-family:inherit}
 <script>
 (function(){'use strict';var WORKER_URL='https://soonsal-data.kd-d0a.workers.dev/';var COINGECKO_URL='https://api.coingecko.com/api/v3';var TRADFI_ORDER=['S&P 500','NASDAQ','Dow Jones','KOSPI','US 10Y','WTI Oil','Gold','DXY','EUR/USD','USD/JPY','USD/KRW'];var CRYPTO_ORDER=['Bitcoin','Ethereum','Solana','XRP','BNB','Crypto Total'];var CRYPTO_IDS={'Bitcoin':'bitcoin','Ethereum':'ethereum','Solana':'solana','XRP':'ripple','BNB':'binancecoin'};var REFRESH=60000;var container,timer,lastTradfi,lastCrypto;function init(){container=document.getElementById('soonsal-live-ticker');if(!container)return;container.style.display='block';container.innerHTML='<div class="stk-loading"><div class="stk-spin"></div>Loading market data...</div>';fetchAll();timer=setInterval(fetchAll,REFRESH)}function fetchAll(){var p1=fetchTradFi();var p2=fetchCrypto();Promise.allSettled?Promise.allSettled([p1,p2]).then(render):Promise.all([p1.catch(function(){return null}),p2.catch(function(){return null})]).then(render)}function fetchTradFi(){return fetch(WORKER_URL).then(function(r){return r.json()}).then(function(data){if(data.tradfi)lastTradfi=data;return data}).catch(function(e){console.warn('[Ticker] TradFi error:',e.message);return null})}function fetchCrypto(){var ids=Object.values(CRYPTO_IDS).join(',');var url=COINGECKO_URL+'/simple/price?ids='+ids+'&vs_currencies=usd&include_24hr_change=true&include_market_cap=true';var globalUrl=COINGECKO_URL+'/global';return Promise.all([fetch(url).then(function(r){return r.json()}),fetch(globalUrl).then(function(r){return r.json()}).catch(function(){return null})]).then(function(results){var prices=results[0];var global=results[1];var crypto={};for(var name in CRYPTO_IDS){var id=CRYPTO_IDS[name];var d=prices[id];if(!d)continue;var p=d.usd;var ch=d.usd_24h_change||0;crypto[name]={price:'$'+formatNum(p),change:(ch>=0?'+':'')+ch.toFixed(2)+'%',direction:ch>0.01?'up':ch<-0.01?'down':'zero'}}if(global&&global.data){var mc=global.data.total_market_cap&&global.data.total_market_cap.usd;var mch=global.data.market_cap_change_percentage_24h_usd;if(mc){crypto['Crypto Total']={price:'$'+(mc/1e12).toFixed(2)+'T',change:(mch>=0?'+':'')+(mch||0).toFixed(2)+'%',direction:mch>0?'up':mch<0?'down':'zero'}}}lastCrypto=crypto;return crypto}).catch(function(e){console.warn('[Ticker] Crypto error:',e.message);return null})}function render(){var tradfi=lastTradfi?lastTradfi.tradfi:{};var crypto=lastCrypto||{};var kst=lastTradfi?lastTradfi.kst:new Date().toLocaleString('ko-KR',{timeZone:'Asia/Seoul'});var html=[];html.push('<div class="stk-ts"><span class="stk-dot"></span><span class="stk-time">'+esc(kst)+' KST</span></div>');for(var i=0;i<TRADFI_ORDER.length;i++){var name=TRADFI_ORDER[i];var d=tradfi[name];if(d)html.push(makeItem(name,d,false))}html.push('<div class="stk-div"><span></span></div>');for(var j=0;j<CRYPTO_ORDER.length;j++){var cname=CRYPTO_ORDER[j];var cd=crypto[cname];if(cd)html.push(makeItem(cname,cd,true))}var track=html.join('');container.innerHTML='<div class="stk-track">'+track+track+'</div>'}function makeItem(name,d,isCrypto){var dir=d.direction||'zero';var arrow=dir==='up'?'<span class="au"></span>':dir==='down'?'<span class="ad"></span>':'';return'<div class="stk-item"><span class="stk-lbl'+(isCrypto?' crypto':'')+'">'+esc(name)+'</span><span class="stk-prc">'+esc(d.price)+'</span><span class="stk-chg '+dir+'">'+arrow+' '+esc(d.change)+'</span></div>'}function formatNum(n){if(n>=10000)return n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});if(n>=100)return n.toFixed(2);if(n>=1)return n.toFixed(2);return n.toFixed(4)}function esc(s){if(!s)return'';var d=document.createElement('span');d.textContent=String(s);return d.innerHTML}if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',init)}else{init()}})();
 </script><div class="wrap">
-<h1>순살 대시보드</h1>
-<p class="sub">몇 명이 와서 무엇에 반응했는지 — 운영자용 화면 (검색 노출 안 됨)</p>
+<h1>순살 성장 대시보드</h1>
+<p class="sub">어디서 와서 무엇을 소비하고 다시 오는지 — 콘텐츠 성장·수익화 판단용 (검색 노출 안 됨)</p>
 <div class="tabs" id="tabs"></div>
 <div class="rng" id="rngbar"></div>
 <div class="daybar" id="daybar" hidden></div>
@@ -376,6 +432,174 @@ function dailyChart(days, title, series, note, unit) {
       return '<span><b style="background:' + s.color + '"></b>' + esc(s.name) + '</span>';
     }).join('') + '</div>' + (note ? '<p class="note">' + note + '</p>' : '') + '</div>';
 }
+
+function storyName(id) { return (SMAP[id] || {}).t || String(id || '콘텐츠'); }
+function normalizedStories() {
+  return (((D.storyInsights || {}).topics) || []).map(function (r) {
+    var refs = r.referrals || {};
+    var morning = /^m/.test(String(r.topic || ''));
+    var referralTotal = Object.keys(refs).reduce(function (n, k) {
+      return n + (Number(refs[k]) || 0);
+    }, 0);
+    return {
+      topic: r.topic,
+      name: storyName(r.topic),
+      morning: morning,
+      entries: Number(r.entries) || 0,
+      impressions: Number(r.impressions) || 0,
+      views: Number(r.views) || 0,
+      dwell: Number(r.avg_dwell_seconds) || 0,
+      outcomes: (Number(r.reactions) || 0) + (Number(r.comments) || 0) + (Number(r.shares) || 0),
+      search: Number(refs.search) || 0,
+      ai: Number(refs.ai) || 0,
+      referrals: refs,
+      sourceObserved: referralTotal > 0,
+      contentObserved: (Number(r.entries) || 0) + (Number(r.impressions) || 0) +
+        (Number(r.views) || 0) + (Number(r.dwell_ms) || 0) + (Number(r.shares) || 0) > 0,
+      exactEntryObserved: !morning && ((Number(r.entries) || 0) > 0 || referralTotal > 0),
+    };
+  });
+}
+function median(nums) {
+  var a = nums.filter(function (n) { return Number.isFinite(n); }).sort(function (x, y) { return x - y; });
+  if (!a.length) return 0;
+  var m = Math.floor(a.length / 2);
+  return a.length % 2 ? a[m] : (a[m - 1] + a[m]) / 2;
+}
+function decisionCard(kind, row, evidence, action) {
+  if (!row) {
+    return '<article class="decision-card"><div class="dk">' + kind + '</div><h3>판단할 표본이 아직 없습니다</h3>' +
+      '<p>데이터가 쌓이면 후보와 근거가 자동으로 표시됩니다.</p></article>';
+  }
+  return '<article class="decision-card"><div class="dk">' + kind + '</div><h3>' + esc(row.name) + '</h3>' +
+    '<p><b>근거</b> ' + evidence + '<br><b>다음 행동</b> ' + action + '</p></article>';
+}
+function contentMatrix(rows, id, outcomesComparable) {
+  var useOutcomes = outcomesComparable !== false;
+  var eligible = rows.filter(function (r) { return r.views > 0 || r.dwell > 0; });
+  if (!eligible.length) {
+    return '<div class="matrix-wrap"><div class="matrix-head"><b>콘텐츠 기회 매트릭스</b></div>' +
+      '<div class="empty">유효 열람·체류 데이터가 쌓이면 표시됩니다.</div></div>';
+  }
+  var medV = median(eligible.map(function (r) { return r.views; }));
+  var medD = median(eligible.map(function (r) { return r.dwell; }));
+  var usable = eligible.slice().sort(function (a, b) { return b.views - a.views || b.dwell - a.dwell; }).slice(0, 14);
+  var pins = eligible.filter(function (r) { return r.dwell >= medD && r.views <= medV; })
+    .sort(function (a, b) { return b.dwell - a.dwell || a.views - b.views; }).slice(0, 2);
+  pins.forEach(function (r) {
+    if (!usable.some(function (x) { return x.topic === r.topic; })) usable.push(r);
+  });
+  usable = usable.slice(0, 16);
+  var compact = window.innerWidth < 560, w = compact ? 340 : 700, h = compact ? 310 : 350;
+  var left = compact ? 42 : 54, right = 18, top = 28, bottom = 42;
+  var maxV = Math.max.apply(null, usable.map(function (r) { return r.views; }).concat([1]));
+  var maxD = Math.max.apply(null, usable.map(function (r) { return r.dwell; }).concat([1]));
+  function x(v) { return left + Math.sqrt(v / maxV) * (w - left - right); }
+  function y(v) { return h - bottom - (v / maxD) * (h - top - bottom); }
+  var mx = x(medV), my = y(medD), labels = compact ? 3 : 6;
+  var points = usable.map(function (r, i) {
+    var rr = useOutcomes ? Math.min(12, 5 + Math.sqrt(r.outcomes || 0) * 1.8) : 7;
+    var fill = r.search + r.ai > 0 ? '#F07040' : '#70a0dc';
+    var outcomeLabel = useOutcomes ? '결과 ' + r.outcomes : '결과 비교 제외';
+    var discoverLabel = r.sourceObserved ?
+      (r.morning ? '검색/AI Morning 노출 source' : '검색/AI 정확 진입') : '검색/AI source 관측 전';
+    var title = r.name + ' · 유효 열람 ' + r.views + ' · 평균 ' + r.dwell + '초 · ' + outcomeLabel;
+    return '<g><circle data-matrix-point="1" data-name="' + esc(r.name) + '" data-views="' + r.views +
+      '" data-dwell="' + r.dwell + '" data-outcomes="' + r.outcomes + '" data-discover="' +
+      (r.search + r.ai) + '" cx="' + x(r.views).toFixed(1) + '" cy="' + y(r.dwell).toFixed(1) +
+      '" r="' + rr.toFixed(1) + '" fill="' + fill + '" fill-opacity=".82" stroke="#f5f5f5" stroke-opacity=".35" ' +
+      'data-discover-label="' + discoverLabel + '" data-discover-observed="' + (r.sourceObserved ? '1' : '0') + '" ' +
+      'data-outcome-label="' + esc(outcomeLabel) + '" ' +
+      'tabindex="0" role="button" aria-label="' + esc(title) + '">' +
+      '<title>' + esc(title) + '</title></circle>' +
+      (i < labels ? '<text x="' + Math.min(w - 92, x(r.views) + rr + 4).toFixed(1) + '" y="' +
+        (y(r.dwell) + 4).toFixed(1) + '" fill="#aaa" font-size="' + (compact ? 8 : 10) + '">' +
+        esc(r.name.slice(0, compact ? 9 : 15)) + '</text>' : '') + '</g>';
+  }).join('');
+  return '<div class="matrix-wrap"><div class="matrix-head"><b>콘텐츠 기회 매트릭스</b>' +
+    '<span>가로: 유효 열람 · 세로: 평균 체류 · ' +
+      (useOutcomes ? '원 크기: 반응+댓글+공유' : '원 크기: 고정(성과 비교 구간 불일치)') + '</span></div>' +
+    '<div class="matrix-scroll"><svg class="matrix-svg" viewBox="0 0 ' + w + ' ' + h +
+    '" role="img" aria-label="콘텐츠별 유효 열람과 평균 체류 비교">' +
+    '<rect x="' + left + '" y="' + top + '" width="' + (w-left-right) + '" height="' +
+      (h-top-bottom) + '" rx="7" fill="#111" stroke="#303030"/>' +
+    '<line x1="' + mx + '" x2="' + mx + '" y1="' + top + '" y2="' + (h-bottom) + '" stroke="#444"/>' +
+    '<line x1="' + left + '" x2="' + (w-right) + '" y1="' + my + '" y2="' + my + '" stroke="#444"/>' +
+    '<text x="' + (left+6) + '" y="' + (top+14) + '" fill="#aaa" font-size="9">유통 강화 후보</text>' +
+    '<text x="' + (mx+6) + '" y="' + (top+14) + '" fill="#F5A481" font-size="9">확장·스폰서 후보</text>' +
+    '<text x="' + (left+6) + '" y="' + (h-bottom-8) + '" fill="#aaa" font-size="9">재검토</text>' +
+    '<text x="' + (mx+6) + '" y="' + (h-bottom-8) + '" fill="#aaa" font-size="9">본문·제목 정합 개선</text>' +
+    '<text x="' + (w/2) + '" y="' + (h-10) + '" text-anchor="middle" fill="#aaa" font-size="10">유효 열람 →</text>' +
+    '<text transform="translate(12 ' + (h/2) + ') rotate(-90)" text-anchor="middle" fill="#aaa" font-size="10">평균 체류(초) →</text>' +
+    points + '</svg></div><div class="matrix-detail" id="' + id + '">' +
+    '점을 누르거나 키보드로 선택하면 콘텐츠별 근거가 표시됩니다. 최대 16개를 보여주되 유통 강화 후보를 우선 포함합니다. ' +
+    '주황색은 검색·AI source가 관측된 콘텐츠입니다.</div></div>';
+}
+function wireMatrix(root) {
+  (root || document).querySelectorAll('[data-matrix-point]').forEach(function (p) {
+    function show() {
+      var box = p.closest('.matrix-wrap'), out = box && box.querySelector('.matrix-detail');
+      if (!out) return;
+      out.innerHTML = '<b>' + esc(p.getAttribute('data-name')) + '</b> · 유효 열람 ' +
+        Number(p.getAttribute('data-views')).toLocaleString() + ' · 평균 체류 ' +
+        Number(p.getAttribute('data-dwell')).toLocaleString() + '초 · ' +
+        esc(p.getAttribute('data-outcome-label') || ('결과 ' +
+          Number(p.getAttribute('data-outcomes')).toLocaleString())) + ' · ' +
+        esc(p.getAttribute('data-discover-label') || '검색/AI source') +
+        (p.getAttribute('data-discover-observed') === '1' ? ' ' +
+          Number(p.getAttribute('data-discover')).toLocaleString() : '');
+    }
+    p.addEventListener('pointerenter', show); p.addEventListener('click', show); p.addEventListener('focus', show);
+    p.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); show(); }
+    });
+  });
+}
+function sourceMix(rows) {
+  var sums = {}, total = 0;
+  rows.forEach(function (r) {
+    Object.keys(r.referrals || {}).forEach(function (s) {
+      var n = Number(r.referrals[s]) || 0; sums[s] = (sums[s] || 0) + n; total += n;
+    });
+  });
+  if (!total) return '<div class="empty">유입 source 표본이 아직 없습니다.</div>';
+  var colors = ['#F07040','#70a0dc','#61a47b','#8f6fd2','#d39455','#c06b9c','#8b8277','#4e91c9'];
+  var keys = Object.keys(sums).sort(function (a, b) { return sums[b] - sums[a]; });
+  return '<div class="mixbar" role="img" aria-label="유입 source 구성">' + keys.map(function (s, i) {
+    return '<span style="width:' + (sums[s] / total * 100) + '%;background:' + colors[i % colors.length] + '"></span>';
+  }).join('') + '</div><div class="mixlegend">' + keys.map(function (s, i) {
+    return '<span><i style="background:' + colors[i % colors.length] + '"></i>' +
+      esc(SRC_KO[s] || s) + ' ' + sums[s].toLocaleString() + ' (' + pct(sums[s], total) + '%)</span>';
+  }).join('') + '</div>';
+}
+function wireRevenue(root) {
+  var pv = root.querySelector('#ad-pv'), rpm = root.querySelector('#ad-rpm');
+  var out = root.querySelector('#ad-result');
+  function updateAd() {
+    if (!pv || !rpm || !out) return;
+    var a = Number(pv.value), b = Number(rpm.value);
+    if (pv.value === '' || rpm.value === '' || !Number.isFinite(a) || !Number.isFinite(b) || a < 0 || b < 0) {
+      out.textContent = '두 가정을 0 이상으로 입력하세요.'; return;
+    }
+    out.textContent = '가정 수익 ' + Math.round(a / 1000 * b).toLocaleString() +
+      '원 · 광고 페이지뷰 ÷ 1,000 × 페이지 RPM (실제 수익 아님)';
+  }
+  if (pv && rpm && out) { pv.addEventListener('input', updateAd); rpm.addEventListener('input', updateAd); updateAd(); }
+  var slots = root.querySelector('#sp-slots'), fee = root.querySelector('#sp-fee');
+  var sponsorOut = root.querySelector('#sp-result');
+  function updateSponsor() {
+    if (!slots || !fee || !sponsorOut) return;
+    var a = Number(slots.value), b = Number(fee.value);
+    if (slots.value === '' || fee.value === '' || !Number.isFinite(a) || !Number.isFinite(b) || a < 0 || b < 0) {
+      sponsorOut.textContent = '두 가정을 0 이상으로 입력하세요.'; return;
+    }
+    sponsorOut.textContent = '가정 매출 ' + Math.round(a * b).toLocaleString() +
+      '원 · 월 판매 구좌 × 구좌 단가 (실제 매출 아님)';
+  }
+  if (slots && fee && sponsorOut) {
+    slots.addEventListener('input', updateSponsor); fee.addEventListener('input', updateSponsor); updateSponsor();
+  }
+}
 // 대시보드 전체가 관리자 키를 요구한다. 방문 수치는 광고 단가 협상에 쓰이는
 // 영업 정보라 주소만 알면 열리는 상태로 두지 않는다.
 function gate() {
@@ -421,7 +645,9 @@ function renderCommunity() {
   var ins = D.insights;
   if (!ins) { app.innerHTML = '<div class="empty">방문 집계를 불러오지 못했습니다.</div>'; return; }
   var daily = ins.daily || [], v = ins.visitors || {}, L = ins.lifetime || {};
-  if (!daily.length) {
+  var days = (ins.range && ins.range.dates && ins.range.dates.length)
+    ? ins.range.dates.slice() : daily.map(function (d) { return d.day; });
+  if (!days.length) {
     app.innerHTML = '<div class="card"><b style="color:#F07040">아직 방문 기록이 없습니다.</b>' +
       '<p class="note">방금 붙인 집계라 지금부터 쌓입니다.</p></div>';
     return;
@@ -443,8 +669,6 @@ function renderCommunity() {
     if (!REFDAY[r.day]) REFDAY[r.day] = {};
     REFDAY[r.day][r.src] = r.n;
   });
-  var days = daily.map(function (d) { return d.day; });
-
   // 비율은 **두 값이 같은 날짜에서 나올 때만** 낸다. 시작일 당일은 반쪽이라 뺀다.
   function daysFor(kind) {
     var from = kind ? KC[kind] : COV.dau;
@@ -506,6 +730,13 @@ function renderCommunity() {
 
   var scope = ins.scope || ('최근 ' + ins.days + '일');
   var h = '';
+  if (ins.generatedAt) {
+    h += '<div class="card"><p class="note" style="margin:0"><b>집계 생성 시각</b> ' +
+      esc(new Date(ins.generatedAt * 1000).toLocaleString('ko-KR', { timeZone: 'Asia/Seoul' })) +
+      ' KST · 내부 캐시 최대 15분. 새로고침해도 즉시 재집계되지 않을 수 있습니다.<br>' +
+      '<b>회색/집계 전</b>은 기록 없음 또는 미측정이고, <b>0</b>은 측정 범위에서 기록된 0입니다. ' +
+      '오늘 값은 아직 끝나지 않은 부분일입니다.</p></div>';
+  }
 
   // ═══ 0. 기본 — 몇 명이 몇 번 봤나 ══════════════════════════════
   //   개편하면서 이걸 없앴다. 우선순위를 매긴다고 "판단용 지표"만 남겼는데,
@@ -551,9 +782,11 @@ function renderCommunity() {
     storyViews0 += r.views || 0;
     dwell0 += r.dwell_ms || 0;
     outcomes0 += (r.reactions || 0) + (r.comments || 0) + (r.shares || 0);
-    Object.keys(r.referrals || {}).forEach(function (s) {
-      entrySrc0[s] = (entrySrc0[s] || 0) + r.referrals[s];
-    });
+    if (!/^m/.test(String(r.topic || ''))) {
+      Object.keys(r.referrals || {}).forEach(function (s) {
+        entrySrc0[s] = (entrySrc0[s] || 0) + r.referrals[s];
+      });
+    }
   });
   var srcBits0 = Object.keys(entrySrc0).sort(function (a, b) {
     return entrySrc0[b] - entrySrc0[a];
@@ -578,9 +811,76 @@ function renderCommunity() {
       '<dt>판정</dt><dd>' + method + '</dd><dt>한계</dt><dd>' + limit + '</dd></dl></article>';
   }
   var hv0 = ins.humanVisitors || {};
-  var trustedBrowsers0 = hv0.confirmed || 0;
+  var trustedBrowsers0 = hv0.matched === undefined ? (hv0.confirmed || 0) : hv0.matched;
   var observedBrowsers0 = hv0.observed || 0;
   var allJs0 = sumHits + sumBots;
+  var opRows0 = normalizedStories();
+  var opContentRows0 = opRows0.filter(function (r) { return r.contentObserved; });
+  var exactEntryRows0 = opRows0.filter(function (r) { return !r.morning; });
+  var exactMeasuredRows0 = exactEntryRows0.filter(function (r) { return r.exactEntryObserved; });
+  var viewMedian0 = median(opContentRows0.map(function (r) { return r.views; }));
+  var dwellMedian0 = median(opContentRows0.map(function (r) { return r.dwell; }));
+  var entryMedian0 = median(exactMeasuredRows0.map(function (r) { return r.entries; }));
+  var topicObservedStart0 = (((D.storyInsights || {}).daily) || []).filter(function (r) {
+    return (r.entries || 0) + (r.impressions || 0) + (r.views || 0) > 0;
+  }).map(function (r) { return r.day; }).sort()[0] || null;
+  var contentAvailable0 = !!topicObservedStart0;
+  var exactEntryAvailable0 = exactMeasuredRows0.length > 0;
+  // 반응·댓글은 콘텐츠 열람 계측보다 먼저 존재할 수 있다. 범위 시작이 콘텐츠
+  // 첫 관측보다 빠르면 토픽별 성과를 같은 구간의 열람과 비교하지 않는다.
+  var outcomesComparable0 = contentAvailable0 && (!days[0] || days[0] >= topicObservedStart0);
+  var discoverPick0 = exactEntryRows0.slice().sort(function (a, b) {
+    return (b.search + b.ai) - (a.search + a.ai) || b.views - a.views;
+  })[0];
+  if (discoverPick0 && discoverPick0.search + discoverPick0.ai === 0) discoverPick0 = null;
+  var distributePick0 = exactMeasuredRows0.filter(function (r) {
+    return r.views > 0 && r.dwell >= dwellMedian0 && r.entries <= entryMedian0;
+  }).sort(function (a, b) { return b.dwell - a.dwell || b.views - a.views; })[0];
+  var sponsorPick0 = opContentRows0.filter(function (r) {
+    return r.views >= Math.max(1, viewMedian0);
+  }).sort(function (a, b) {
+    return (outcomesComparable0 ? b.outcomes - a.outcomes : 0) ||
+      b.views - a.views || b.dwell - a.dwell;
+  })[0];
+  var window0 = ins.windowVisitors || {};
+  var rangeEnd0 = days[days.length - 1] || null;
+  var browserAvailable0 = window0.observed !== undefined && window0.observed !== null &&
+    (!COV.dau || (rangeEnd0 && rangeEnd0 >= COV.dau));
+  var repeatRate0 = browserAvailable0 && window0.observed ?
+    pct(window0.repeated_in_window || 0, window0.observed) : null;
+  var discoverTotal0 = exactEntryRows0.reduce(function (n, r) { return n + r.search + r.ai; }, 0);
+  h += '<section class="decision-board"><div class="decision-head"><h2>이번 기간 운영 판단</h2>' +
+    '<p>기존 응답만 브라우저에서 재계산합니다. 이 영역 때문에 D1 쿼리가 늘어나지 않습니다.</p></div>' +
+    '<div class="report-kpis">' +
+    '<div class="report-kpi"><div class="rv">' + (contentAvailable0 ? storyViews0.toLocaleString() : '—') +
+      '</div><div class="rl">유효 콘텐츠 열람</div><div class="rdetail">' +
+      (contentAvailable0 ? topicObservedStart0 + ' 이후 관측 · 50% 이상·1초' : '선택 기간 집계 전') + '</div></div>' +
+    '<div class="report-kpi"><div class="rv">' + (browserAvailable0 ? Number(window0.observed).toLocaleString() : '—') +
+      '</div><div class="rl">기간 고유 브라우저</div><div class="rdetail">' +
+      (browserAvailable0 ? ((COV.dau && days[0] <= COV.dau ? COV.dau + ' 시작일 부분 수집 포함 · ' : '') +
+        '사람·회원 수가 아닌 익명 ID') : (COV.dau ? COV.dau + '부터 집계' : '집계 전')) + '</div></div>' +
+    '<div class="report-kpi"><div class="rv">' + (repeatRate0 === null ? '—' : repeatRate0 + '%') +
+      '</div><div class="rl">기간 내 2일 이상 방문</div><div class="rdetail">같은 브라우저 ID 기준</div></div>' +
+    '<div class="report-kpi"><div class="rv">' + (exactEntryAvailable0 ? discoverTotal0.toLocaleString() : '—') +
+      '</div><div class="rl">검색·AI 정확 진입</div><div class="rdetail">' +
+      (exactEntryAvailable0 ? 'Morning 노출 source 제외' : '정확 진입 관측 전') + '</div></div></div>' +
+    '<div class="decision-grid">' +
+    decisionCard('검색·AI 확장 후보', discoverPick0,
+      discoverPick0 ? '검색·AI 유입 ' + (discoverPick0.search + discoverPick0.ai).toLocaleString() +
+        '회 · 유효 열람 ' + discoverPick0.views.toLocaleString() + '회' : '',
+      '최신 사실·FAQ·핵심 엔티티를 보강하고 후속편과 내부 링크를 연결') +
+    decisionCard('재배포 후보', distributePick0,
+      distributePick0 ? '평균 체류 ' + distributePick0.dwell.toLocaleString() + '초 · 정확 진입 ' +
+        distributePick0.entries.toLocaleString() + '회 · 기간 중앙값 비교' : '',
+      '홈·뉴스레터·텔레그램에서 다시 노출하고 제목·썸네일별 유입을 비교') +
+    decisionCard('광고 제안 후보', sponsorPick0,
+      sponsorPick0 ? '유효 열람 ' + sponsorPick0.views.toLocaleString() + '회 · ' +
+        (outcomesComparable0 ? '반응/댓글/공유 ' + sponsorPick0.outcomes.toLocaleString() + '회' :
+          '평균 체류 ' + sponsorPick0.dwell.toLocaleString() + '초(성과 비교 구간 불일치)') : '',
+      '광고주 리포트에 사례로 넣고 동일 주제의 스폰서십·브랜디드 콘텐츠를 제안') +
+    '</div>' + contentMatrix(opContentRows0, 'ops-matrix-detail', outcomesComparable0) +
+    '<p class="note">후보는 선택 기간의 상대적 중앙값과 관측량으로 정렬한 운영 우선순위입니다. ' +
+    '콘텐츠 품질이나 광고 효과를 보장하는 점수가 아닙니다.</p></section>';
   h += '<section class="journey"><div class="eyebrow">1 · 방문 주체</div>' +
     '<h2>누가 와서, 무엇을 보고, 어떻게 끝났나</h2>' +
     '<p class="base"><b>기간: ' + scope + '</b> · 수치마다 단위가 다르므로 카드에 단위를 함께 적습니다. ' +
@@ -609,7 +909,8 @@ function renderCommunity() {
     '<p>현재 신호는 <b>실제 사람을 신원 확인한 값이 아닙니다.</b> 페이지가 열린 뒤 30분 안에 ' +
     '브라우저가 <code>isTrusted</code>로 표시한 포인터 이동(실제 이동량 필요)·터치 시작·키 입력·휠 중 ' +
     '하나가 나오면 기록합니다. 한 페이지 열림에서 최대 1회입니다. 정교한 자동화가 흉내 낼 수 있고, ' +
-    '가만히 읽은 사람은 놓칠 수 있으므로 “진짜 사람 비율”이 아니라 <b>신뢰 입력 관측률</b>입니다.</p></div>' +
+    '가만히 읽은 사람은 놓칠 수 있으므로 “진짜 사람 비율”이 아니라 <b>신뢰 입력 관측률</b>입니다. ' +
+    '서버에는 손의 좌표나 움직임 원본이 아니라, 이 조건을 통과했다는 <code>human</code> 결과만 전송됩니다.</p></div>' +
     '<h2>숫자의 정확한 뜻 <small>단위·중복·판정·한계</small></h2><div class="defs">' +
     metricDef('전체 관측 JS 열기', '페이지 열림 횟수', '새로고침·재진입 모두 다시 셈',
       '페이지 JavaScript가 Worker에 hit 전송', 'JS를 실행하지 않는 크롤러와 차단된 요청은 보이지 않음') +
@@ -699,21 +1000,21 @@ function renderCommunity() {
       srcTotal0[s] = (srcTotal0[s] || 0) + storyRefDaily0[d][s];
     });
   });
-  var srcTop0 = Object.keys(srcTotal0).sort(function (a, b) { return srcTotal0[b] - srcTotal0[a]; }).slice(0, 5);
+  var srcTop0 = Object.keys(srcTotal0).sort(function (a, b) { return srcTotal0[b] - srcTotal0[a]; });
   if (srcTop0.length) {
     h += '<h2>유입 경로 <small>스토리 진입 source</small></h2>' +
       dailyChart(days, '유입 경로 일별', srcTop0.map(function (s, i) {
         var colors = ['#F07040', '#70a0dc', '#61a47b', '#8f6fd2', '#9b8d7b'];
-        return { name: SRC_KO[s] || s, color: colors[i], value: function (d) {
+        return { name: SRC_KO[s] || s, color: colors[i % colors.length], value: function (d) {
           return storyRefDaily0[d] && storyRefDaily0[d][s] !== undefined ? storyRefDaily0[d][s] : null;
         }};
       }), 'AI는 알려진 AI referrer 또는 UTM으로 온 진입입니다. AI 크롤러가 페이지를 수집한 횟수와는 다릅니다.', '회');
   }
-  var legacySources0 = (ins.refs || []).slice(0, 5);
+  var legacySources0 = (ins.refs || []).slice();
   if (legacySources0.length) {
     h += dailyChart(days, '페이지 첫 열기 referrer 일별', legacySources0.map(function (r, i) {
       var colors = ['#F07040', '#70a0dc', '#61a47b', '#8f6fd2', '#9b8d7b'];
-      return { name: SRC_KO[r.src] || r.src, color: colors[i], value: function (d) {
+      return { name: SRC_KO[r.src] || r.src, color: colors[i % colors.length], value: function (d) {
         return REFDAY[d] && REFDAY[d][r.src] !== undefined ? REFDAY[d][r.src] : 0;
       }};
     }), '기존 데이터 보존용입니다. 그날 그 경로의 첫 열기 기준이며 사이트 내부 이동도 직접 유입에 섞일 수 있어 획득 채널로 단정하지 않습니다.', '회');
@@ -749,7 +1050,8 @@ function renderCommunity() {
           '</span><span class="ra">→</span><span class="rp" title="' + esc(r.to_) + '">' +
           pname(r.to_) + '</span><b>' + r.n.toLocaleString() + '</b></div>';
       }).join('') + '<p class="note">누가 이동했는지는 저장하지 않습니다. 같은 탭의 직전 경로와 다음 경로를 ' +
-      '쌍으로만 합산하며, 새 탭이나 탭 종료 뒤에는 연결이 끊깁니다.</p></div>' +
+      '쌍으로만 합산하며, 새 탭이나 탭 종료 뒤에는 연결이 끊깁니다. <b>탭 종료·이탈 이벤트를 ' +
+      '따로 저장하지 않으므로 현재 숫자로 종료 페이지나 이탈률을 만들 수 없습니다.</b></p></div>' +
       dailyChart(days, '상위 5개 이동 쌍 일별', hops0.slice(0, 5).map(function (r, i) {
         var key = r.frm + ' → ' + r.to_;
         var colors = ['#F07040', '#70a0dc', '#61a47b', '#8f6fd2', '#9b8d7b'];
@@ -775,6 +1077,42 @@ function renderCommunity() {
       }).join('') + '</tbody></table><p class="note">페이지 안 스크롤 좌표나 개인별 읽기 순서는 저장하지 않습니다. ' +
       '노출→유효 열람→체류→결과를 스토리별 집계로 비교합니다.</p></div>';
   }
+
+  // 검색/AI 유입과 실제 소비를 한 표에서 보되, 현재 계측하지 않는 노출·인용·수익을
+  // 억지로 추정하지 않는다. 이 구분이 AEO/SEO와 광고 수익화의 다음 작업을 정한다.
+  var discover0 = storyRows0.filter(function (r) {
+    return ((r.referrals || {}).search || 0) + ((r.referrals || {}).ai || 0) > 0;
+  }).sort(function (a, b) {
+    return (((b.referrals || {}).search || 0) + ((b.referrals || {}).ai || 0)) -
+      (((a.referrals || {}).search || 0) + ((a.referrals || {}).ai || 0));
+  }).slice(0, 10);
+  h += '<h2>AEO·SEO와 수익화 판단 <small>관측값과 미연결 데이터를 분리</small></h2>' +
+    '<div class="card"><b>검색·AI 유입이 관측된 콘텐츠</b>' +
+    (discover0.length ? '<div style="overflow-x:auto"><table class="story-table"><thead><tr>' +
+      '<th>콘텐츠</th><th>검색 유입</th><th>AI 유입</th><th>유효 열람</th><th>측정 기준</th>' +
+      '</tr></thead><tbody>' + discover0.map(function (r) {
+        var name = (SMAP[r.topic] || {}).t || r.topic;
+        return '<tr><td>' + esc(name) + '</td><td>' + ((r.referrals || {}).search || 0) +
+          '</td><td>' + ((r.referrals || {}).ai || 0) + '</td><td>' + (r.views || 0) +
+          '</td><td>' + (/^m/.test(r.topic) ? 'Morning 노출 source' : '#story 진입 source') + '</td></tr>';
+      }).join('') + '</tbody></table></div>'
+      : '<p class="note">이 기간에는 검색·AI source가 기록된 콘텐츠가 없습니다. 검색 노출이 0이라는 뜻은 아닙니다.</p>') +
+    '<p class="note">여기서 AI는 알려진 referrer/UTM으로 들어온 요청이지, AI 답변의 노출·인용 횟수나 ' +
+    'AI 크롤러 수가 아닙니다. 검색 노출·검색어·CTR은 Search Console, 전체 크롤러 요청은 Edge 로그, ' +
+    '광고 요청·노출·수익은 AdSense 보고서를 연결해야 판단할 수 있습니다. 구조화 데이터·canonical·sitemap·' +
+    'llms 파일은 발견 가능성을 돕지만 노출이나 인용을 보장하지 않습니다.</p></div>' +
+    '<h2>AdSense 시나리오와 직접 판매</h2><div class="revenue-grid"><div class="revenue-path"><h3>1 · AdSense 페이지 수익</h3>' +
+    '<p>현재 비봇 JS 페이지 열기 수를 시작값으로 넣지만, 실제 광고 요청·승인된 인벤토리는 AdSense 보고서가 정본입니다.</p>' +
+    '<div class="scenario"><label>광고 페이지뷰<input id="ad-pv" type="number" min="0" step="1" value="' + sumHits + '"></label>' +
+    '<label>페이지 RPM (원)<input id="ad-rpm" type="number" min="0" step="0.01" value="3000"></label></div>' +
+    '<div class="revenue-result" id="ad-result" aria-live="polite"></div></div>' +
+    '<div class="revenue-path"><h3>2 · 직접 스폰서십</h3>' +
+    '<p>광고주용 리포트와 주제별 성과 근거를 바탕으로 월 구좌 수와 제안 단가를 계획합니다.</p>' +
+    '<div class="scenario"><label>월 판매 구좌<input id="sp-slots" type="number" min="0" step="1" value="2"></label>' +
+    '<label>구좌 단가 (원)<input id="sp-fee" type="number" min="0" step="10000" value="500000"></label></div>' +
+    '<div class="revenue-result" id="sp-result" aria-live="polite"></div></div></div>' +
+    '<p class="note">3단계 확장은 검색·AI source가 관측되는 주제에서 기간별 반복 유입을 먼저 검증한 뒤 여는 ' +
+    '브랜디드 리서치·리드 생성·데이터 상품입니다. 캠페인별 UTM과 광고주 CTA 전환을 연결해야 매출 귀속을 판단할 수 있습니다.</p>';
 
   h += '<details class="legacy"><summary>기존 상세 지표 보기 — 원래 데이터와 화면은 보존</summary>';
   function flowRow(arrow, when, table, unit, label2, val, note) {
@@ -901,7 +1239,8 @@ function renderCommunity() {
   // 기간 전체에서 distinct vid를 다시 센다. 일별 고유 합(브라우저·일)을 사람 수처럼
   // 쓰지 않는다.
   var hv = ins.humanVisitors || {};
-  var hPpl = hv.confirmed || 0, hVis = hv.observed || 0;
+  var hPpl = hv.matched === undefined ? (hv.confirmed || 0) : hv.matched;
+  var hRaw = hv.confirmed || 0, hVis = hv.observed || 0;
   h += '<h2>2. 신뢰 입력 신호 <small>휴먼 확정값이 아니라 행동 기반 보조 신호</small></h2><div class="sum">' +
     (hd.length && hHits
       ? kpi(pct(hCnt, hHits) + '%', '신뢰 입력 열람률',
@@ -917,7 +1256,9 @@ function renderCommunity() {
     '「브라우저 ID」는 <b>기간 중 관측된 ID 가운데 몇 개가</b> 손 입력을 남겼나입니다. ' +
     '사람·회원 수라고 부르지 않습니다.</p>' +
     '<p class="note">포인터 이동·터치 시작·키 입력·휠 가운데 브라우저가 신뢰 입력으로 표시한 ' +
-    '첫 이벤트만 셉니다. 실제 사람 여부를 100% 보장하지 않습니다.</p>';
+    '첫 이벤트만 셉니다. 실제 사람 여부를 100% 보장하지 않습니다. 원래 신뢰 입력 ID ' +
+    hRaw.toLocaleString() + '개 중 같은 KST 날짜의 방문 기록과 교집합인 ' +
+    hPpl.toLocaleString() + '개만 비율 분자에 사용합니다.</p>';
 
   // ═══ 3. 구독으로 이어지나 ═══════════════════════════════════════
   var sd = daysFor('subscribe');
@@ -1038,6 +1379,152 @@ function renderCommunity() {
   h += '</details>';
   app.innerHTML = h;
   wireTrend(app);
+  wireMatrix(app);
+  wireRevenue(app);
+}
+
+function renderAdvertiser() {
+  var ins = D.insights;
+  if (!ins) { app.innerHTML = '<div class="empty">광고주 리포트를 만들 데이터가 없습니다.</div>'; return; }
+  var rows = normalizedStories();
+  var contentRows = rows.filter(function (r) { return r.contentObserved; });
+  var exactEntryRows = rows.filter(function (r) { return !r.morning; });
+  var exactMeasuredRows = exactEntryRows.filter(function (r) { return r.exactEntryObserved; });
+  var morningRows = rows.filter(function (r) { return r.morning; });
+  var morningMeasuredRows = morningRows.filter(function (r) { return r.sourceObserved; });
+  var daily = ins.daily || [], scope = ins.scope || ('최근 ' + (ins.days || 30) + '일');
+  var pageviews = daily.reduce(function (n, r) { return n + (Number(r.hits) || 0); }, 0);
+  var validViews = contentRows.reduce(function (n, r) { return n + r.views; }, 0);
+  var impressions = contentRows.reduce(function (n, r) { return n + r.impressions; }, 0);
+  var discover = exactEntryRows.reduce(function (n, r) { return n + r.search + r.ai; }, 0);
+  var morningSource = morningMeasuredRows.reduce(function (n, r) { return n + r.search + r.ai; }, 0);
+  var win = ins.windowVisitors || {}, human = ins.humanVisitors || {};
+  var browsers = win.observed;
+  var trusted = human.matched === undefined ? human.confirmed : human.matched;
+  var top = contentRows.slice().sort(function (a, b) { return b.views - a.views || b.dwell - a.dwell; }).slice(0, 8);
+  var generated = ins.generatedAt ? new Date(ins.generatedAt * 1000).toLocaleString('ko-KR', { timeZone: 'Asia/Seoul' }) + ' KST' : '집계 시각 미기록';
+  var cov = ins.coverage || {};
+  var range = ins.range || {};
+  var rangeStart = range.start || (daily[0] && daily[0].day) || null;
+  var rangeEnd = range.end || (daily[daily.length - 1] && daily[daily.length - 1].day) || null;
+  var topicDaily = ((D.storyInsights || {}).daily) || [];
+  var topicObservedStart = topicDaily.filter(function (r) {
+    return (r.entries || 0) + (r.impressions || 0) + (r.views || 0) > 0;
+  }).map(function (r) { return r.day; }).sort()[0] || null;
+  // 0과 미측정을 구분한다. 시작일이 선택 범위의 끝보다 뒤라면 값이 0이어도
+  // 아직 집계되지 않은 것이므로 광고주 리포트에는 대시(—)로 보낸다.
+  // 브라우저 기간 집계는 시작일의 부분 수집도 포함하고, 신뢰 입력 쿼리만
+  // 시작일 당일을 제외한다. 화면 설명도 실제 SQL과 같은 경계를 쓴다.
+  function covered(first, excludeStart) {
+    if (!first) return true;
+    if (!rangeEnd) return false;
+    return excludeStart ? rangeEnd > first : rangeEnd >= first;
+  }
+  function coverageDetail(first, available, excludeStart, fallback) {
+    if (!first) return available ? (fallback || '집계 시작일 미확인') : '집계 전';
+    if (!available) return first + (excludeStart ? ' 다음 날부터 집계' : ' 이후 집계');
+    if (rangeStart && rangeStart <= first) return first +
+      (excludeStart ? ' 다음 날 이후만' : ' 이후만 · 시작일 부분 수집');
+    return first + ' 이후';
+  }
+  var pageAvailable = cov.views ? covered(cov.views, false) : daily.length > 0;
+  var browserAvailable = browsers !== undefined && browsers !== null && covered(cov.dau, false);
+  var humanStart = human.since || cov.humanVisitors || null;
+  var humanAvailable = human.observed !== undefined && human.observed !== null && covered(humanStart, true);
+  // topic-insights에는 아직 전역 coverage가 없으므로, 선택 응답 안의 첫 관측일이
+  // 있을 때만 콘텐츠 값이 측정됐다고 말한다. 값이 없으면 0으로 추정하지 않는다.
+  var contentAvailable = !!topicObservedStart;
+  var exactEntryAvailable = exactMeasuredRows.length > 0;
+  var rowOutcomesComparable = contentAvailable && (!rangeStart || rangeStart >= topicObservedStart);
+  var overlapViews = 0, overlapOutcomes = 0;
+  topicDaily.forEach(function (r) {
+    if (!topicObservedStart || r.day < topicObservedStart) return;
+    overlapViews += Number(r.views) || 0;
+    overlapOutcomes += Math.max(0, (Number(r.reactions) || 0) - (Number(r.reaction_undo) || 0)) +
+      (Number(r.comments) || 0) + (Number(r.shares) || 0);
+  });
+  var repeatRate = browserAvailable && browsers ? pct(win.repeated_in_window || 0, browsers) : null;
+  var trustedRate = humanAvailable && human.observed ? pct(trusted || 0, human.observed) : null;
+  var validRate = contentAvailable && impressions ? pct(validViews, impressions) : null;
+  var outcomePer100 = contentAvailable && overlapViews ? Math.round(overlapOutcomes / overlapViews * 100) : null;
+  function quality(name, value, detail, suffix, barValue) {
+    var shown = value === null ? '—' : value + (suffix || '%');
+    var width = barValue === undefined ? value : barValue;
+    return '<div class="quality-row"><span class="qname">' + name + '</span><span class="qtrack">' +
+      '<span class="qfill" style="display:block;width:' + (width === null ? 0 : Math.min(100, width)) + '%"></span></span>' +
+      '<span class="qv">' + shown + '</span></div>' + (detail ? '<p class="note" style="margin:0 0 4px">' + detail + '</p>' : '');
+  }
+  var h = '<section class="advertiser-report"><div class="report-actions">' +
+    '<button id="print-report">인쇄·PDF로 저장</button><button class="alt" id="back-ops">운영 화면으로</button></div>' +
+    '<header class="report-hero"><div class="brand">SOONSAL AUDIENCE & CONTENT SNAPSHOT</div>' +
+    '<h2>순살브리핑 미디어 리포트</h2><p><b>' + esc(scope) + '</b> · ' + esc(generated) +
+    '<br>시장과 비즈니스 이슈를 쉽게 설명하는 콘텐츠에 실제로 관측된 도달·소비·재방문 근거입니다.' +
+    '<br>측정 시작: 페이지 ' + esc(cov.views || '미확인') + ' · 브라우저 ' + esc(cov.dau || '미확인') +
+      ' · 신뢰 입력 ' + esc(humanStart || '미확인') + ' · 콘텐츠 첫 관측 ' +
+      esc(topicObservedStart || '미확인') + '</p></header>' +
+    '<div class="report-kpis">' +
+    '<div class="report-kpi"><div class="rv">' + (pageAvailable ? pageviews.toLocaleString() : '—') + '</div><div class="rl">비봇 JS 페이지 열기</div>' +
+      '<div class="rdetail">' + esc(coverageDetail(cov.views, pageAvailable, false)) + ' · 새로고침 포함</div></div>' +
+    '<div class="report-kpi"><div class="rv">' + (browserAvailable ? Number(browsers).toLocaleString() : '—') +
+      '</div><div class="rl">기간 고유 브라우저</div><div class="rdetail">' +
+      esc(coverageDetail(cov.dau, browserAvailable, false)) + ' · 익명 ID</div></div>' +
+    '<div class="report-kpi"><div class="rv">' + (contentAvailable ? validViews.toLocaleString() : '—') +
+      '</div><div class="rl">유효 콘텐츠 열람</div><div class="rdetail">' +
+      esc(contentAvailable ? coverageDetail(topicObservedStart, true, false) + ' · 50% 이상·1초' : '선택 기간 집계 전') + '</div></div>' +
+    '<div class="report-kpi"><div class="rv">' + (exactEntryAvailable ? discover.toLocaleString() : '—') +
+      '</div><div class="rl">검색·AI 정확 진입</div><div class="rdetail">' +
+      (exactEntryAvailable ? 'Morning 노출 source 제외' : '정확 진입 관측 전') + '</div></div></div>' +
+    '<h2>유입 구성 <small>서로 다른 측정 단위를 분리</small></h2><div class="card">' +
+      '<b>스토리 딥링크 정확 진입 source</b>' +
+      (exactEntryAvailable ? sourceMix(exactEntryRows) : '<div class="empty">정확 진입 관측 전입니다.</div>') +
+      (morningMeasuredRows.length ? '<p class="note"><b>Morning 화면 노출 source</b> · 검색/AI ' + morningSource.toLocaleString() +
+        '회. 한 번의 페이지 방문에서 여러 Morning 항목이 노출될 수 있어 진입 수와 합치지 않습니다.</p>' +
+        sourceMix(morningMeasuredRows) : (morningRows.length ?
+          '<p class="note"><b>Morning 화면 노출 source</b> · source 관측 전</p>' : '')) +
+      '<p class="note">AI는 AI 답변 노출·인용 횟수가 아니라 알려진 AI referrer 또는 UTM source입니다.</p></div>' +
+    '<h2>관심의 깊이 <small>서로 다른 측정 단위를 분리</small></h2><div class="card">' +
+      quality('유효 열람률', validRate, contentAvailable ? '화면 노출 대비 50% 이상·1초간 보인 콘텐츠 열람' : '선택 기간 콘텐츠 집계 전') +
+      quality('2일 이상 재방문', repeatRate, browserAvailable ? '선택 기간의 고유 브라우저 중 2일 이상 관측' : coverageDetail(cov.dau, false, false)) +
+      quality('신뢰 입력 관측', trustedRate, humanAvailable ? '방문 브라우저 중 신뢰 입력이 관측된 익명 ID' : coverageDetail(humanStart, false, true)) +
+      quality('열람 100회당 결과', outcomePer100, contentAvailable ? topicObservedStart +
+        ' 이후 같은 날의 순반응·댓글·공유 ÷ 유효 열람 × 100; 사람 비율이 아님' :
+        '선택 기간 콘텐츠 집계 전', '건', outcomePer100) +
+    '</div>' + contentMatrix(contentRows, 'advertiser-matrix-detail', rowOutcomesComparable) +
+    '<h2>주목받은 콘텐츠 <small>광고·협업 주제 선정 근거</small></h2><div class="card" style="overflow-x:auto">' +
+    (top.length ? '<table class="story-table"><thead><tr><th>콘텐츠</th><th>유효 열람</th><th>평균 체류</th>' +
+      '<th>반응 결과</th><th>검색·AI source</th><th>기준</th></tr></thead><tbody>' + top.map(function (r) {
+        return '<tr><td>' + esc(r.name) + '</td><td>' + r.views.toLocaleString() + '</td><td>' +
+          r.dwell.toLocaleString() + '초</td><td>' + (rowOutcomesComparable ? r.outcomes.toLocaleString() : '—') +
+          '</td><td>' + (r.sourceObserved ? (r.search + r.ai).toLocaleString() : '—') +
+          '</td><td>' + (r.sourceObserved ? (r.morning ? 'Morning 노출' : '딥링크 진입') :
+            (r.morning ? 'Morning source 관측 전' : '정확 진입 관측 전')) + '</td></tr>';
+      }).join('') + '</tbody></table>' + (rowOutcomesComparable ? '' :
+        '<p class="note">반응 결과는 콘텐츠 소비와 비교 가능한 측정 구간이 아니어서 표와 원 크기에서 제외했습니다.</p>') :
+        '<div class="empty">콘텐츠 표본이 아직 없습니다.</div>') + '</div>' +
+    '<h2>활용 가능한 광고 상품</h2><div class="decision-grid">' +
+    '<article class="decision-card"><div class="dk">PROGRAMMATIC</div><h3>페이지 기반 광고</h3>' +
+      '<p><b>근거</b> ' + (pageAvailable ? '선택 기간 비봇 JS 열기 ' + pageviews.toLocaleString() + '회' : '선택 기간 페이지 열기 집계 전') + '<br>' +
+      '<b>필요 연결</b> AdSense 광고 요청·노출·페이지 RPM</p></article>' +
+    '<article class="decision-card"><div class="dk">SPONSORSHIP</div><h3>주제·회차 스폰서십</h3>' +
+      '<p><b>근거</b> 상위 콘텐츠의 유효 열람·체류' + (rowOutcomesComparable ? '·반응' : '') +
+      '<br><b>권장 측정</b> 캠페인 UTM·광고주 CTA 클릭</p></article>' +
+    '<article class="decision-card"><div class="dk">BRANDED INTELLIGENCE</div><h3>브랜디드 리서치·리드 생성</h3>' +
+      '<p><b>' + (exactEntryAvailable && discover > 0 ? '현재 근거' : '검증할 가설') + '</b> ' +
+      (exactEntryAvailable && discover > 0 ? '검색·AI 딥링크 진입 ' + discover.toLocaleString() + '회 관측' :
+        (exactEntryAvailable ? '정확 진입 표본이 아직 없음' : '정확 진입 관측 전')) +
+      '<br><b>다음 검증</b> Search Console·기간별 반복 유입·문의 전환·리드 품질</p></article>' +
+    '</div><p class="report-disclosure"><b>측정 고지</b> 이 리포트의 방문자는 회원·실명 사람이 아니라 익명 브라우저 ID입니다. ' +
+    '페이지뷰는 JavaScript가 실행된 요청이며 전체 크롤러·광고 노출과 다릅니다. 신뢰 입력은 사람 신원 확인이 아니라 ' +
+    '포인터·터치·키·휠 입력이 관측된 보조 신호입니다. 위 측정 시작일 전은 0이 아니라 미측정이며, ' +
+    '콘텐츠 첫 관측일은 수집 시작일이 아니라 응답에서 값이 처음 보인 날입니다. 광고비 산정 전에는 AdSense/광고 서버 정본과 ' +
+    '캠페인별 전환 데이터를 함께 확인해야 합니다.</p>' +
+    '</section>';
+  app.innerHTML = h;
+  wireMatrix(app);
+  var printButton = document.getElementById('print-report');
+  if (printButton) printButton.addEventListener('click', function () { window.print(); });
+  var backButton = document.getElementById('back-ops');
+  if (backButton) backButton.addEventListener('click', function () { TAB = 'community'; paintTabs(); renderCommunity(); });
 }
 
 var SORTS = [
@@ -1313,7 +1800,7 @@ function paintDays() {
 }
 var DAYS_ALL = null;
 
-var TABS = [['community', '커뮤니티'], ['reactions', '반응'], ['comments', '댓글']];
+var TABS = [['community', '운영 판단'], ['report', '광고주 리포트'], ['reactions', '반응'], ['comments', '댓글']];
 function paintTabs() {
   document.getElementById('tabs').innerHTML = TABS.map(function (t) {
     return '<button data-t="' + t[0] + '"' + (TAB === t[0] ? ' class="on"' : '') + '>' + t[1] + '</button>';
@@ -1325,6 +1812,7 @@ document.getElementById('tabs').addEventListener('click', function (e) {
   TAB = b.getAttribute('data-t');
   paintTabs();
   TAB === 'community' ? renderCommunity()
+    : TAB === 'report' ? renderAdvertiser()
     : TAB === 'comments' ? renderComments()
     : renderReactions();
 });
@@ -1376,7 +1864,8 @@ if (!API) {
       paintRange();
       paintDays();
       TAB === 'comments' ? renderComments()
-        : TAB === 'reactions' ? renderReactions() : renderCommunity();
+        : TAB === 'reactions' ? renderReactions()
+        : TAB === 'report' ? renderAdvertiser() : renderCommunity();
     }).catch(function (e) {
       if (String(e.message) === 'unauthorized') {
         try { localStorage.removeItem('ss_admin'); } catch (x) {}
