@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="1030" viewBox="0 0 720 1030" class="morning-diagram morning-diagram-mobile" data-mobile-layout="same-topology" data-motion-orientation="TB" data-motion-steps="7">
+<defs><filter id="shadow" x="-20%" y="-20%" width="140%" height="160%"><feDropShadow dx="0" dy="6" stdDeviation="8" flood-color="#111111" flood-opacity=".09"/></filter>
+<marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#F07040"/></marker></defs>
+<rect width="720" height="1030" fill="#0B0A09"/>
+<g class="motion-step motion-edge" data-motion-step="1" data-from="A" data-to="C" style="--motion-delay:1360ms">
+<path d="M 190.5 218.0 C 190.5 260.0, 360.0 260.0, 360.0 294.0" fill="none" stroke="#F07040" stroke-width="4.5" marker-end="url(#arrow)"/>
+<rect x="193.2" y="241.0" width="164" height="34" rx="17" fill="#0B0A09"/>
+<text x="275.2" y="264.0" text-anchor="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="22" font-weight="800" fill="#F5A481">피가 모자람</text>
+</g>
+<g class="motion-step motion-edge" data-motion-step="1" data-from="B" data-to="C" style="--motion-delay:2040ms">
+<path d="M 529.5 218.0 C 529.5 260.0, 360.0 260.0, 360.0 294.0" fill="none" stroke="#F07040" stroke-width="4.5" marker-end="url(#arrow)"/>
+<rect x="362.8" y="241.0" width="164" height="34" rx="17" fill="#0B0A09"/>
+<text x="444.8" y="264.0" text-anchor="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="22" font-weight="800" fill="#F5A481">돈도 모자람</text>
+</g>
+<g class="motion-step motion-edge" data-motion-step="3" data-from="C" data-to="D" style="--motion-delay:3400ms">
+<path d="M 360.0 420.0 C 360.0 462.0, 190.5 462.0, 190.5 496.0" fill="none" stroke="#F07040" stroke-width="4.5" marker-end="url(#arrow)"/>
+<rect x="172.2" y="443.0" width="206" height="34" rx="17" fill="#0B0A09"/>
+<text x="275.2" y="466.0" text-anchor="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="22" font-weight="800" fill="#F5A481">현금 대신 이자</text>
+</g>
+<g class="motion-step motion-edge" data-motion-step="3" data-from="C" data-to="E" style="--motion-delay:4760ms">
+<path d="M 360.0 420.0 C 360.0 462.0, 529.5 462.0, 529.5 496.0" fill="none" stroke="#F07040" stroke-width="4.5" marker-end="url(#arrow)"/>
+<rect x="464.4" y="443.0" width="164" height="34" rx="17" fill="#0B0A09"/>
+<text x="546.4" y="466.0" text-anchor="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="22" font-weight="800" fill="#F5A481">국민이 몰림</text>
+</g>
+<g class="motion-step motion-edge" data-motion-step="5" data-from="D" data-to="F" style="--motion-delay:6120ms">
+<path d="M 190.5 678.0 C 190.5 720.0, 360.0 720.0, 360.0 754.0" fill="none" stroke="#F07040" stroke-width="4.5" stroke-dasharray="12 10" marker-end="url(#arrow)"/>
+<rect x="172.2" y="701.0" width="206" height="34" rx="17" fill="#0B0A09"/>
+<text x="275.2" y="724.0" text-anchor="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="22" font-weight="800" fill="#F5A481">규제에 안 걸림</text>
+</g>
+<g class="motion-step motion-edge" data-motion-step="5" data-from="E" data-to="F" style="--motion-delay:6800ms">
+<path d="M 529.5 678.0 C 529.5 720.0, 360.0 720.0, 360.0 754.0" fill="none" stroke="#F07040" stroke-width="4.5" stroke-dasharray="12 10" marker-end="url(#arrow)"/>
+<rect x="464.4" y="701.0" width="164" height="34" rx="17" fill="#0B0A09"/>
+<text x="546.4" y="724.0" text-anchor="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="22" font-weight="800" fill="#F5A481">창구가 커짐</text>
+</g>
+<g class="motion-step motion-node" data-motion-step="0" style="--motion-delay:0ms;--motion-accent-delay:640ms">
+<rect class="motion-node-shape" x="30.0" y="44.0" width="321.0" height="174" rx="20" fill="#332E26" stroke="#6B6156" stroke-width="3" filter="url(#shadow)"/>
+<text x="190.5" y="77.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="800" fill="#F5F2EC">헌혈자 명단 국민</text>
+<text x="190.5" y="113.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="800" fill="#F5F2EC">1.7%, 덴마크</text>
+<text x="190.5" y="149.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="800" fill="#F5F2EC">6.8%에 한참 못</text>
+<text x="190.5" y="185.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="800" fill="#F5F2EC">미침</text>
+</g>
+<g class="motion-step motion-node" data-motion-step="0" style="--motion-delay:680ms;--motion-accent-delay:1320ms">
+<rect class="motion-node-shape" x="369.0" y="44.0" width="321.0" height="174" rx="20" fill="#332E26" stroke="#6B6156" stroke-width="3" filter="url(#shadow)"/>
+<text x="529.5" y="95.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="800" fill="#F5F2EC">작년 재정적자</text>
+<text x="529.5" y="131.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="800" fill="#F5F2EC">GDP 7.9%,</text>
+<text x="529.5" y="167.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="800" fill="#F5F2EC">EU에서 가장 큼</text>
+</g>
+<g class="motion-step motion-node" data-motion-step="2" style="--motion-delay:2720ms;--motion-accent-delay:3360ms">
+<rect class="motion-node-shape" x="30.0" y="302.0" width="660.0" height="118.0" rx="20" fill="#332E26" stroke="#6B6156" stroke-width="3" filter="url(#shadow)"/>
+<text x="360.0" y="361.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="800" fill="#F5F2EC">헌혈 증명서 내면 국채 금리 1%p 더 줌</text>
+</g>
+<g class="motion-step motion-node" data-motion-step="4" style="--motion-delay:4080ms;--motion-accent-delay:4720ms">
+<rect class="motion-node-shape" x="30.0" y="504.0" width="321.0" height="174" rx="20" fill="#332E26" stroke="#6B6156" stroke-width="3" filter="url(#shadow)"/>
+<text x="190.5" y="537.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="800" fill="#F5F2EC">현금이 아니라 국채</text>
+<text x="190.5" y="573.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="800" fill="#F5F2EC">살 권리라 EU</text>
+<text x="190.5" y="609.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="800" fill="#F5F2EC">무상헌혈 원칙 안</text>
+<text x="190.5" y="645.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="800" fill="#F5F2EC">넘음</text>
+</g>
+<g class="motion-step motion-node" data-motion-step="4" style="--motion-delay:5440ms;--motion-accent-delay:6080ms">
+<rect class="motion-node-shape" x="369.0" y="504.0" width="321.0" height="174" rx="20" fill="#332E26" stroke="#6B6156" stroke-width="3" filter="url(#shadow)"/>
+<text x="529.5" y="555.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="800" fill="#F5F2EC">이 물량으로만 작년</text>
+<text x="529.5" y="591.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="800" fill="#F5F2EC">초 이후 6억불</text>
+<text x="529.5" y="627.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="800" fill="#F5F2EC">걷힘</text>
+</g>
+<g class="motion-step motion-node motion-risk" data-motion-step="6" style="--motion-delay:7480ms;--motion-accent-delay:8120ms">
+<rect class="motion-node-shape" x="30.0" y="762.0" width="660.0" height="118.0" rx="20" fill="#4A2C1A" stroke="#F07040" stroke-width="3" filter="url(#shadow)"/>
+<text x="360.0" y="803.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="800" fill="#F5F2EC">적자가 줄어도 이 우대를 안 내리는지가 볼</text>
+<text x="360.0" y="839.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="800" fill="#F5F2EC">자리</text>
+</g>
+<line x1="40" y1="982" x2="680" y2="982" stroke="#2A2724" stroke-width="2"/>
+<text x="40" y="1014" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="20" fill="#7C756C">실선 = 확인된 연결 · 점선 = 해석/영향 경로</text>
+</svg>
