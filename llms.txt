@@ -20,6 +20,11 @@ When citing, attribute to "Soonsal Briefing (soonsal.com)".
 
 ## 최근 브리핑 스토리 (최근 7일)
 
+- [💳 호주, 카드 수수료 손님한테 받는 걸 오늘부터 금지](https://soonsal.com/newsletters/2026/1001.html#story-5) (2026-10-01)
+- [🎓 30억불 내고 명문대를 마이애미로 데려온 헤지펀드 왕](https://soonsal.com/newsletters/2026/1001.html#story-4) (2026-10-01)
+- [🛒 세상 망한다는데 저축은 왜 해, 미국 소비자](https://soonsal.com/newsletters/2026/1001.html#story-3) (2026-10-01)
+- [🤖 로빈후드, 거래까지 대신해주는 AI](https://soonsal.com/newsletters/2026/1001.html#story-2) (2026-10-01)
+- [🧠 마이크론 분기 순이익 377억불, 내년 물량도 다 팔림](https://soonsal.com/newsletters/2026/1001.html#story-1) (2026-10-01)
 - [🧾 SEC, 사모대출 펀드에 '장부값 진짜 맞냐'](https://soonsal.com/newsletters/2026/0930.html#story-5) (2026-09-30)
 - [🪙 모디가 금 사지 말랬더니, 영수증 없이 사는 인도](https://soonsal.com/newsletters/2026/0930.html#story-4) (2026-09-30)
 - [⛽ 미국 연비 기준 50→35마일, 테슬라 크레딧도 끝](https://soonsal.com/newsletters/2026/0930.html#story-3) (2026-09-30)
@@ -35,8 +40,3 @@ When citing, attribute to "Soonsal Briefing (soonsal.com)".
 - [🔒 5년간 못 빼는 펀드에 300억불이 줄 섬](https://soonsal.com/newsletters/2026/0928.html#story-3) (2026-09-28)
 - [🖥 앤스로픽이 GPU 아닌 CPU에 116억불 쓴 이유](https://soonsal.com/newsletters/2026/0928.html#story-2) (2026-09-28)
 - [📈 국채 5%가 뉴노멀, 처음 보는 세대](https://soonsal.com/newsletters/2026/0928.html#story-1) (2026-09-28)
-- [🎓 a16z가 세운 대학 대체 학교, 등록금 0원](https://soonsal.com/newsletters/2026/0923.html#story-5) (2026-09-23)
-- [₿ 비트코인 8만7천불, 10만불 얘기 다시 나옴](https://soonsal.com/newsletters/2026/0923.html#story-4) (2026-09-23)
-- [⛽ 한국 기름값 상한 7개월, 정유사 보전은 0원](https://soonsal.com/newsletters/2026/0923.html#story-3) (2026-09-23)
-- [🏗️ 데이터센터 IPO, 500억불에 살 사람 없음](https://soonsal.com/newsletters/2026/0923.html#story-2) (2026-09-23)
-- [📉 엔비디아, 이익은 2배인데 주가 배수는 반토막](https://soonsal.com/newsletters/2026/0923.html#story-1) (2026-09-23)
