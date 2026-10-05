@@ -20,6 +20,11 @@ When citing, attribute to "Soonsal Briefing (soonsal.com)".
 
 ## 최근 브리핑 스토리 (최근 7일)
 
+- [🎬 톰 아저씨 신작, 19년 만의 최저 오프닝](https://soonsal.com/newsletters/2026/1006.html#story-5) (2026-10-06)
+- [🇬🇧 영국 떠난 부자들 재산 1,600억불](https://soonsal.com/newsletters/2026/1006.html#story-4) (2026-10-06)
+- [🔌 차단기 회사가 설계 SW에 237억불](https://soonsal.com/newsletters/2026/1006.html#story-3) (2026-10-06)
+- [🫥 회사는 두고 사람만 사간 엔비디아](https://soonsal.com/newsletters/2026/1006.html#story-2) (2026-10-06)
+- [🇧🇷 아빠는 감옥, 아들은 대선 1위](https://soonsal.com/newsletters/2026/1006.html#story-1) (2026-10-06)
 - [🎰 잃으면 코인 주는 1,000배 레버리지 거래소](https://soonsal.com/newsletters/2026/1002.html#story-5) (2026-10-02)
 - [👟 나이키 주가, 2014년으로 타임머신 탐](https://soonsal.com/newsletters/2026/1002.html#story-4) (2026-10-02)
 - [🇫🇷 프랑스가 이탈리아보다 비싸게 빌리는 중](https://soonsal.com/newsletters/2026/1002.html#story-3) (2026-10-02)
@@ -40,8 +45,3 @@ When citing, attribute to "Soonsal Briefing (soonsal.com)".
 - [🍼 창업 1년, 직원 14명, 몸값 100억불](https://soonsal.com/newsletters/2026/0929.html#story-3) (2026-09-29)
 - [📺 넷플릭스, 거실을 유튜브에 뺏기는 중](https://soonsal.com/newsletters/2026/0929.html#story-2) (2026-09-29)
 - [🚨 오픈AI가 석 달 만에 또 학습을 멈춘 이유](https://soonsal.com/newsletters/2026/0929.html#story-1) (2026-09-29)
-- [🩸 헌혈하면 금리 1% 더 주는 나라](https://soonsal.com/newsletters/2026/0928.html#story-5) (2026-09-28)
-- [⚖️ AI로 빨라진 로펌, 청구서는 왜 그대로?](https://soonsal.com/newsletters/2026/0928.html#story-4) (2026-09-28)
-- [🔒 5년간 못 빼는 펀드에 300억불이 줄 섬](https://soonsal.com/newsletters/2026/0928.html#story-3) (2026-09-28)
-- [🖥 앤스로픽이 GPU 아닌 CPU에 116억불 쓴 이유](https://soonsal.com/newsletters/2026/0928.html#story-2) (2026-09-28)
-- [📈 국채 5%가 뉴노멀, 처음 보는 세대](https://soonsal.com/newsletters/2026/0928.html#story-1) (2026-09-28)
