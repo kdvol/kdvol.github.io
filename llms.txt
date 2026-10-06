@@ -20,6 +20,11 @@ When citing, attribute to "Soonsal Briefing (soonsal.com)".
 
 ## 최근 브리핑 스토리 (최근 7일)
 
+- [🍶 해외선 힙한 막걸리, 수출은 15년 전 4분의 1](https://soonsal.com/newsletters/2026/1007.html#story-5) (2026-10-07)
+- [💰 월가 평균 연봉 7.6억, 올해 또 신기록 각](https://soonsal.com/newsletters/2026/1007.html#story-4) (2026-10-07)
+- [💾 하드디스크 부품 하나에 시게이트 9% 급락](https://soonsal.com/newsletters/2026/1007.html#story-3) (2026-10-07)
+- [🇨🇳 미국이 중국보다 이자를 3.5%p 더 내는 중](https://soonsal.com/newsletters/2026/1007.html#story-2) (2026-10-07)
+- [🤖 많이 쓸수록 적자, 싼 AI로 갈아타는 중](https://soonsal.com/newsletters/2026/1007.html#story-1) (2026-10-07)
 - [🎬 톰 아저씨 신작, 19년 만의 최저 오프닝](https://soonsal.com/newsletters/2026/1006.html#story-5) (2026-10-06)
 - [🇬🇧 영국 떠난 부자들 재산 1,600억불](https://soonsal.com/newsletters/2026/1006.html#story-4) (2026-10-06)
 - [🔌 차단기 회사가 설계 SW에 237억불](https://soonsal.com/newsletters/2026/1006.html#story-3) (2026-10-06)
@@ -40,8 +45,3 @@ When citing, attribute to "Soonsal Briefing (soonsal.com)".
 - [⛽ 미국 연비 기준 50→35마일, 테슬라 크레딧도 끝](https://soonsal.com/newsletters/2026/0930.html#story-3) (2026-09-30)
 - [🚀 14번째에 궤도, 스타십의 첫 배달은 위성 26개](https://soonsal.com/newsletters/2026/0930.html#story-2) (2026-09-30)
 - [📄 매출은 12배, 순손실 420억불, 몸값은 2조불](https://soonsal.com/newsletters/2026/0930.html#story-1) (2026-09-30)
-- [⚽ 맨시티 115건 중 114건 유죄, 페널티는 아직](https://soonsal.com/newsletters/2026/0929.html#story-5) (2026-09-29)
-- [🇧🇷 선거 열흘 앞, 룰라가 국민 빚 280억불을 사들임](https://soonsal.com/newsletters/2026/0929.html#story-4) (2026-09-29)
-- [🍼 창업 1년, 직원 14명, 몸값 100억불](https://soonsal.com/newsletters/2026/0929.html#story-3) (2026-09-29)
-- [📺 넷플릭스, 거실을 유튜브에 뺏기는 중](https://soonsal.com/newsletters/2026/0929.html#story-2) (2026-09-29)
-- [🚨 오픈AI가 석 달 만에 또 학습을 멈춘 이유](https://soonsal.com/newsletters/2026/0929.html#story-1) (2026-09-29)
