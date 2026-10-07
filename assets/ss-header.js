@@ -53,7 +53,7 @@
     var wrap=document.createElement('div');
     wrap.innerHTML='<div class="ss-ov"></div><aside class="ss-dr" aria-label="전체 메뉴"><button class="x" aria-label="닫기">×</button>'+
       '<a class="acc" href="/account/" rel="nofollow"><span class="ph">🙂</span><span><b>로그인하고 스크랩 모으기</b><span>카카오·구글로 1초 · 폰·PC 에서 같이</span></span></a>'+
-      '<a class="li mine" href="/saved/" rel="nofollow">☆ 내가 모은 글</a>'+
+      '<a class="li mine" href="/saved/" rel="nofollow">🐟 내가 모은 글</a>'+
       LINKS.map(function(g){return '<div class="gp">'+g[0]+'</div>'+g[1].map(function(x){return '<a class="li" href="'+x[0]+'">'+x[1]+'</a>'}).join('')}).join('')+
       '<a class="sub" href="https://subscribe.soonsal.com/subscribe" target="_blank" rel="noopener">무료 구독하기</a>'+
       '<a class="ft" href="/privacy/">개인정보 처리 안내</a></aside>';

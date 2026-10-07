@@ -12,14 +12,18 @@ h1{font-size:1.6rem;font-weight:800;letter-spacing:-.03em;margin-bottom:6px}
 h2{font-size:1.05rem;font-weight:800;margin:28px 0 10px}
 .sub{color:#8b8578;font-size:.9rem;margin-bottom:22px;line-height:1.7}
 .card{background:#171717;border:1px solid #262626;border-radius:14px;padding:18px 18px;margin-bottom:12px}
-.consent{font-size:.86rem;color:#b9b3a8;line-height:1.75}
-.consent ul{margin:8px 0 10px 18px}
-.consent label{display:flex;gap:9px;align-items:flex-start;font-weight:700;color:#f0ece4;margin-top:8px;cursor:pointer}
-.consent input{margin-top:5px;width:17px;height:17px;accent-color:#F07040}
-.btns{display:grid;gap:9px;margin-top:14px}
+.agree{display:flex;gap:9px;align-items:center;font-size:.9rem;font-weight:700;color:#f0ece4;cursor:pointer;margin:0 2px}
+.agree input{width:18px;height:18px;flex:0 0 auto;accent-color:#F07040}
+.agree.need{color:#F59B75}
+.consent{margin-top:12px;font-size:.84rem;color:#a39d92;line-height:1.75}
+.consent summary{cursor:pointer;color:#8b8578;list-style:none}.consent summary::-webkit-details-marker{display:none}
+.consent summary::before{content:'▸ ';color:#6f695f}.consent[open] summary::before{content:'▾ '}
+.consent ul{margin:8px 0 8px 18px}
+.btns{display:grid;gap:9px;margin:12px 0 0}
 .lb{display:flex;align-items:center;justify-content:center;gap:9px;border-radius:12px;padding:13px 14px;
 font-weight:800;font-size:.95rem;text-decoration:none;border:1px solid transparent;cursor:pointer;font-family:inherit}
-.lb[aria-disabled=true]{opacity:.35;pointer-events:none}
+.lb[aria-disabled=true]{opacity:.55}
+.lb.off{opacity:.3;pointer-events:none}
 .lb.kakao{background:#FEE500;color:#191600}.lb.google{background:#fff;color:#1f1f1f;border-color:#ddd}
 .lb.naver{background:#03C75A;color:#fff}
 .soon{font-size:.72rem;font-weight:700;opacity:.75}
@@ -268,11 +272,13 @@ transition:color .18s ease,background .18s ease}
 </script>
 <header class="site-header"><a href="/search/" class="search-btn-header" aria-label="검색"><svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.6-3.6"/></svg></a><a class="logo-link" href="/"><img src="/assets/soonsal-logo-white.png" alt="" onerror="this.style.display='none'"><span class="logo-text">순살브리핑 Soonsal</span></a><a href="https://subscribe.soonsal.com/subscribe" target="_blank" rel="noopener" class="sub-btn-header">구독하기</a></header><nav class="nav" aria-label="주요 메뉴"><a href="/newsletters/">뉴스레터</a><a href="/chart/">순살차트</a><a href="/cardnews/">카드뉴스</a><a href="/talk/">순살톡</a><script src="/assets/ss-header.js" defer></script></nav><div class="wrap">
 <h1>내 계정</h1>
-<p class="sub">로그인하면 스크랩·반응·한마디가 계정에 모여 폰과 PC 에서 같이 보여요.</p>
+<p class="sub">스크랩한 글이 폰과 PC 에서 같이 보여요.</p>
 <p class="msg" id="msg"></p>
 <div id="guest" hidden>
- <div class="card consent">
-  <b>순살이 받는 것</b>
+ <label class="agree" id="agreel"><input type="checkbox" id="agree"> [필수] 개인정보 수집·이용에 동의합니다</label>
+ <div class="btns" id="btns"></div>
+ <details class="consent">
+  <summary>무엇을 받나요? (이메일·이름·사진)</summary>
   <ul>
    <li>로그인한 서비스(카카오·구글·네이버)가 주는 <b>고유 번호</b>(암호화해 저장), <b>이메일</b>, <b>이름(별명)</b>, <b>프로필 사진 주소</b>.</li>
    <li>전화번호·생년월일·주소는 <b>받지 않아요.</b></li>
@@ -282,9 +288,7 @@ transition:color .18s ease,background .18s ease}
    <li>저장 위치: Cloudflare(데이터 처리 위탁). 구독 메일 명단과 연결하지 않아요.</li>
   </ul>
   <a href="/privacy/#account">개인정보 처리 안내 전체 보기</a>
-  <label><input type="checkbox" id="agree"> [필수] 위 개인정보 수집·이용에 동의합니다.</label>
- </div>
- <div class="btns" id="btns"></div>
+ </details>
 </div>
 <div id="member" hidden>
  <div class="card row"><div id="who"></div><button class="ghost" id="nickbtn">별명 바꾸기</button></div>
@@ -319,13 +323,17 @@ transition:color .18s ease,background .18s ease}
     var html='';
     ['kakao','google','naver'].forEach(function(p){
       var on=prov&&prov[p];
-      html+='<a class="lb '+p+'" data-p="'+p+'" aria-disabled="true" href="#">'+names[p]+
+      if(prov&&!on)return;   // 아직 안 켜진 로그인은 자리만 차지한다 — 켜지면 저절로 나온다
+      html+='<a class="lb '+p+(on?'':' off')+'" data-p="'+p+'" aria-disabled="true" href="#">'+names[p]+
         (on?'':' <span class="soon">준비 중</span>')+'</a>';
     });
     $('#btns').innerHTML=html;
-    function sync(){[].forEach.call(document.querySelectorAll('.lb'),function(a){
+    function sync(){$('#agreel').classList.remove('need');if(ok.checked)$('#msg').textContent='';[].forEach.call(document.querySelectorAll('.lb'),function(a){
       var on=prov&&prov[a.dataset.p]; a.setAttribute('aria-disabled',(ok.checked&&on)?'false':'true');
       a.href=(ok.checked&&on)?API+'/auth/'+a.dataset.p+'/start?consent='+VER+'&next='+encodeURIComponent('/account/'):'#';})}
+    // 동의 전에 눌러도 죽은 버튼처럼 굴지 않는다 — 체크할 자리를 짚어 준다
+    $('#btns').addEventListener('click',function(e){if(!ok.checked&&e.target.closest('.lb')){e.preventDefault();
+      $('#agreel').classList.add('need');$('#msg').textContent='위 동의에 먼저 체크해 주세요.';ok.focus()}});
     ok.addEventListener('change',sync); sync();
   }
 
@@ -363,11 +371,11 @@ transition:color .18s ease,background .18s ease}
   }
   function load(){
     Promise.all([api('/me/scraps'),fetch('/saved/stories.json').then(function(r){return r.json()}).catch(function(){return {}})])
-    .then(function(v){var rows=v[0].scraps||[],m=v[1]||{};var MK={scrap:'☆',react:'👍',cmt:'💬'};
-      if(!rows.length){$('#list').innerHTML='<div class="card">아직 모은 글이 없어요. 스토리 옆 ☆ 스크랩을 눌러 보세요.</div>';return}
+    .then(function(v){var rows=v[0].scraps||[],m=v[1]||{};var MK={scrap:'🐟',react:'👍',cmt:'💬'};
+      if(!rows.length){$('#list').innerHTML='<div class="card">아직 모은 글이 없어요. 스토리 옆 🐟 스크랩을 눌러 보세요.</div>';return}
       $('#list').innerHTML=rows.map(function(x){var t=m[x.story]||[x.story,'',''];var iss=x.story.split('-')[0].replace('c','');
         var href=/^\d{4}c?-\d+$/.test(x.story)?'/newsletters/2026/'+iss+'.html#story-'+x.story.split('-')[1]:'/';
-        return '<a class="it" href="'+href+'"><span class="mk">'+(MK[x.kind]||'☆')+'</span><span><span class="tt">'+
+        return '<a class="it" href="'+href+'"><span class="mk">'+(MK[x.kind]||'🐟')+'</span><span><span class="tt">'+
           String(t[0]).replace(/[<>&]/g,'')+'</span><span class="dt">'+(t[1]||'')+'</span></span></a>'}).join('')});
   }
   api('/me').then(function(j){

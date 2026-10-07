@@ -6,6 +6,24 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"/><link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700;800&display=swap" rel="stylesheet"/>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "ItemList", "name": "순살브리핑 2026-10-08", "itemListElement": [{"@type": "ListItem", "position": 1, "url": "https://soonsal.com/newsletters/2026/1008.html#story-1", "name": "🇹🇼 AI 수혜 1등 자리, 대만한테 뺏긴 코스피"}, {"@type": "ListItem", "position": 2, "url": "https://soonsal.com/newsletters/2026/1008.html#story-2", "name": "🛒 부자한테는 비싼 표 골라주는 AI 비서"}, {"@type": "ListItem", "position": 3, "url": "https://soonsal.com/newsletters/2026/1008.html#story-3", "name": "🚀 '우주 어딘가에 데이터센터', 빚 400억불"}, {"@type": "ListItem", "position": 4, "url": "https://soonsal.com/newsletters/2026/1008.html#story-4", "name": "⚓ 오큘러스 만든 형, 이번엔 잠수함 공장"}, {"@type": "ListItem", "position": 5, "url": "https://soonsal.com/newsletters/2026/1008.html#story-5", "name": "📉 삼전·닉스 단일종목 ETF, 개미 손실 2.3조"}]}</script>
 <style>
+.hero{background:#171717;border:1px solid #262626;border-radius:16px;padding:18px 16px 16px;margin:4px 0 30px}
+.hero .hl{font-size:.8rem;font-weight:800;letter-spacing:.06em;color:#F59B75;margin-bottom:10px}
+.hero .hl span{color:#7c756c;margin-left:6px;letter-spacing:0}
+.hero .hs{display:flex;gap:10px;align-items:flex-start;padding:8px 2px;border-bottom:1px solid #222;text-decoration:none;color:#f0ece4}
+.hero .hs:last-child{border-bottom:0}.hero .hs:hover .ht{color:#F59B75}
+.hero .hn{flex:0 0 auto;width:22px;height:22px;border-radius:50%;background:#262626;color:#bcb5a9;font-size:.75rem;font-weight:800;
+display:flex;align-items:center;justify-content:center;margin-top:2px}
+.hero .ht{font-size:.98rem;font-weight:800;line-height:1.45;letter-spacing:-.02em;text-wrap:pretty}
+.hero .hi{margin:0 0 14px;padding:0 2px 14px;border-bottom:1px solid #262626;font-size:1.06rem;font-weight:800;
+letter-spacing:-.02em;line-height:1.45;color:#f0ece4;text-transform:none;text-wrap:balance}
+.hero .hi b{color:#F59B75}.hero .hi small{display:block;margin-top:3px;font-size:.8rem;font-weight:600;color:#8a8378;letter-spacing:0}
+.hero .hcta{display:flex;gap:8px;margin-top:14px}
+.hero .hsub,.hero .hread{flex:1 1 0;min-width:0;white-space:nowrap;text-align:center;border-radius:10px;padding:10px 8px;
+font-size:.9rem;text-decoration:none;line-height:1.3}
+.hero .hsub{background:#F07040;color:#12100e;font-weight:800}
+.hero .hread{border:1px solid #333;color:#d8d2c6;font-weight:700}
+.hero .hlog{display:block;margin-top:10px;font-size:.8rem;color:#F59B75;text-decoration:none;text-align:center;white-space:nowrap}
+.hero .hlog[hidden]{display:none}
 *{margin:0;padding:0;box-sizing:border-box}
 body{background:#111;color:#e8e3da;font-family:'Pretendard',-apple-system,BlinkMacSystemFont,
 'Segoe UI',sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased}
@@ -550,6 +568,19 @@ line-height:1.25;color:#fff;word-break:keep-all}
   .hello-cta span { display: block; }
   .hello-web { text-align: right; }
   .hello-web a { font-size: 11px; color: #bbb; font-weight: 700; text-decoration: underline; letter-spacing: -0.2px; }
+
+
+.ss-story-index{margin:0 0 34px;padding:21px 22px;border:1px solid #e8e8e0;
+border-radius:12px;background:#fafaf7;color:#333}
+.ss-story-index h1{margin:0 0 5px;font-size:18px;line-height:1.45;letter-spacing:-.02em}
+.ss-story-index .ss-index-label{font-size:11px;font-weight:800;color:#E55A00;
+letter-spacing:.08em}.ss-story-index ol{margin:13px 0 0;padding-left:22px}
+.ss-story-index li{margin:7px 0;line-height:1.45}.ss-story-index a{color:#333;
+font-size:14px;font-weight:700;text-decoration:none}.ss-story-index a:hover{text-decoration:underline}
+.ss-story-permalink{display:inline-block;margin:-7px 0 15px;font-size:11px;color:#9a958a;
+text-decoration:none}.ss-story-permalink:hover{color:#E55A00;text-decoration:underline}
+.story,.ss-story-anchor{scroll-margin-top:52px}
+@media(max-width:560px){.ss-story-index{padding:18px 17px}.ss-story-index h1{font-size:17px}}
 </style><style id="soonsal-nav-visibility-v3">
 .nav-menu a.nav-mobile-only{display:none}
 .nav>a.nav-desktop-link.biz{color:#F07040}
@@ -685,10 +716,12 @@ transition:color .18s ease,background .18s ease}
 </style>
 <script>
 (function(){'use strict';var WORKER_URL='https://soonsal-data.kd-d0a.workers.dev/';var COINGECKO_URL='https://api.coingecko.com/api/v3';var TRADFI_ORDER=['S&P 500','NASDAQ','Dow Jones','KOSPI','US 10Y','WTI Oil','Gold','DXY','EUR/USD','USD/JPY','USD/KRW'];var CRYPTO_ORDER=['Bitcoin','Ethereum','Solana','XRP','BNB','Crypto Total'];var CRYPTO_IDS={'Bitcoin':'bitcoin','Ethereum':'ethereum','Solana':'solana','XRP':'ripple','BNB':'binancecoin'};var REFRESH=60000;var container,timer,lastTradfi,lastCrypto;function init(){container=document.getElementById('soonsal-live-ticker');if(!container)return;container.style.display='block';container.innerHTML='<div class="stk-loading"><div class="stk-spin"></div>Loading market data...</div>';fetchAll();timer=setInterval(fetchAll,REFRESH)}function fetchAll(){var p1=fetchTradFi();var p2=fetchCrypto();Promise.allSettled?Promise.allSettled([p1,p2]).then(render):Promise.all([p1.catch(function(){return null}),p2.catch(function(){return null})]).then(render)}function fetchTradFi(){return fetch(WORKER_URL).then(function(r){return r.json()}).then(function(data){if(data.tradfi)lastTradfi=data;return data}).catch(function(e){console.warn('[Ticker] TradFi error:',e.message);return null})}function fetchCrypto(){var ids=Object.values(CRYPTO_IDS).join(',');var url=COINGECKO_URL+'/simple/price?ids='+ids+'&vs_currencies=usd&include_24hr_change=true&include_market_cap=true';var globalUrl=COINGECKO_URL+'/global';return Promise.all([fetch(url).then(function(r){return r.json()}),fetch(globalUrl).then(function(r){return r.json()}).catch(function(){return null})]).then(function(results){var prices=results[0];var global=results[1];var crypto={};for(var name in CRYPTO_IDS){var id=CRYPTO_IDS[name];var d=prices[id];if(!d)continue;var p=d.usd;var ch=d.usd_24h_change||0;crypto[name]={price:'$'+formatNum(p),change:(ch>=0?'+':'')+ch.toFixed(2)+'%',direction:ch>0.01?'up':ch<-0.01?'down':'zero'}}if(global&&global.data){var mc=global.data.total_market_cap&&global.data.total_market_cap.usd;var mch=global.data.market_cap_change_percentage_24h_usd;if(mc){crypto['Crypto Total']={price:'$'+(mc/1e12).toFixed(2)+'T',change:(mch>=0?'+':'')+(mch||0).toFixed(2)+'%',direction:mch>0?'up':mch<0?'down':'zero'}}}lastCrypto=crypto;return crypto}).catch(function(e){console.warn('[Ticker] Crypto error:',e.message);return null})}function render(){var tradfi=lastTradfi?lastTradfi.tradfi:{};var crypto=lastCrypto||{};var kst=lastTradfi?lastTradfi.kst:new Date().toLocaleString('ko-KR',{timeZone:'Asia/Seoul'});var html=[];html.push('<div class="stk-ts"><span class="stk-dot"></span><span class="stk-time">'+esc(kst)+' KST</span></div>');for(var i=0;i<TRADFI_ORDER.length;i++){var name=TRADFI_ORDER[i];var d=tradfi[name];if(d)html.push(makeItem(name,d,false))}html.push('<div class="stk-div"><span></span></div>');for(var j=0;j<CRYPTO_ORDER.length;j++){var cname=CRYPTO_ORDER[j];var cd=crypto[cname];if(cd)html.push(makeItem(cname,cd,true))}var track=html.join('');container.innerHTML='<div class="stk-track">'+track+track+'</div>'}function makeItem(name,d,isCrypto){var dir=d.direction||'zero';var arrow=dir==='up'?'<span class="au"></span>':dir==='down'?'<span class="ad"></span>':'';return'<div class="stk-item"><span class="stk-lbl'+(isCrypto?' crypto':'')+'">'+esc(name)+'</span><span class="stk-prc">'+esc(d.price)+'</span><span class="stk-chg '+dir+'">'+arrow+' '+esc(d.change)+'</span></div>'}function formatNum(n){if(n>=10000)return n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});if(n>=100)return n.toFixed(2);if(n>=1)return n.toFixed(2);return n.toFixed(4)}function esc(s){if(!s)return'';var d=document.createElement('span');d.textContent=String(s);return d.innerHTML}if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',init)}else{init()}})();
-</script><header class="site-header"><a href="/search/" class="search-btn-header" aria-label="검색"><svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.6-3.6"/></svg></a><a class="logo-link" href="/"><img src="/assets/soonsal-logo-white.png" alt="" onerror="this.style.display='none'"><span class="logo-text">순살브리핑 Soonsal</span></a><a href="https://subscribe.soonsal.com/subscribe" target="_blank" rel="noopener" class="sub-btn-header">구독하기</a></header><nav class="nav" aria-label="주요 메뉴"><a href="/newsletters/">뉴스레터</a><a href="/chart/">순살차트</a><a href="/talk/">순살톡</a><a href="/school/" class="nav-desktop-link">스쿨</a><a href="/collab/" class="nav-desktop-link biz">협업 문의</a><details class="nav-more"><summary>더보기 <span aria-hidden="true">⌄</span></summary><section class="nav-menu" aria-label="추가 메뉴"><a href="/topics/">주제별</a><a href="/saved/" rel="nofollow">내가 모은 글</a><a href="/cardnews/">카드뉴스</a><a href="/youtube/">YouTube</a><a href="/school/" class="nav-mobile-only">스쿨</a><a href="/collab/" class="nav-mobile-only biz">협업 문의</a></section></details></nav><div class="wrap">
+</script><header class="site-header"><a href="/search/" class="search-btn-header" aria-label="검색"><svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.6-3.6"/></svg></a><a class="logo-link" href="/"><img src="/assets/soonsal-logo-white.png" alt="" onerror="this.style.display='none'"><span class="logo-text">순살브리핑 Soonsal</span></a><a href="https://subscribe.soonsal.com/subscribe" target="_blank" rel="noopener" class="sub-btn-header">구독하기</a></header><nav class="nav" aria-label="주요 메뉴"><a href="/newsletters/">뉴스레터</a><a href="/chart/">순살차트</a><a href="/cardnews/">카드뉴스</a><a href="/talk/">순살톡</a><script src="/assets/ss-header.js" defer></script></nav><div class="wrap">
 
 
-<h1>오늘자 뉴스레터<span class="issue">10.08</span></h1>
+<section class="hero"><h1 class="hi">글로벌 금융·경제 뉴스, <b>매일 아침 5분</b> 살코기만<small>월~금 무료 뉴스레터 · 순살차트 · 카드뉴스</small></h1><div class="hl">오늘의 순살 <span>10.08</span></div><div class="hlist"><a class="hs" href="/newsletters/2026/1008.html#story-1"><span class="hn">1</span><span class="ht">🇹🇼 AI 수혜 1등 자리, 대만한테 뺏긴 코스피</span></a><a class="hs" href="/newsletters/2026/1008.html#story-2"><span class="hn">2</span><span class="ht">🛒 부자한테는 비싼 표 골라주는 AI 비서</span></a><a class="hs" href="/newsletters/2026/1008.html#story-3"><span class="hn">3</span><span class="ht">🚀 &#x27;우주 어딘가에 데이터센터&#x27;, 빚 400억불</span></a><a class="hs" href="/newsletters/2026/1008.html#story-4"><span class="hn">4</span><span class="ht">⚓ 오큘러스 만든 형, 이번엔 잠수함 공장</span></a><a class="hs" href="/newsletters/2026/1008.html#story-5"><span class="hn">5</span><span class="ht">📉 삼전·닉스 단일종목 ETF, 개미 손실 2.3조</span></a></div><div class="hcta"><a class="hsub" href="https://subscribe.soonsal.com/subscribe" target="_blank" rel="noopener">무료로 받아보기</a><a class="hread" href="#nlwrap">오늘 전문 읽기 ↓</a></div><a class="hlog" id="hlog" href="/account/" rel="nofollow" hidden>🐟 로그인하고 스크랩 모으기 →</a></section>
+
+<h2>오늘자 뉴스레터 전문<span class="issue">10.08</span></h2>
 <div class="nlwrap" id="nlwrap">
   <div class="nl">
 <!-- HEADER -->
@@ -775,9 +808,11 @@ transition:color .18s ease,background .18s ease}
 <div class="killer-chart-caption">항공·보험·대학원 세 분야 모두에서 AI 모델 13개 중 8개가 부자한테 더 비싼 걸 추천. 항공권 웃돈은 <strong>클로드 오퍼스 4.8이 가장 컸음</strong></div>
       <div class="killer-chart-source"><a href="https://arxiv.org/abs/2609.24927" style="color:#aaa;text-decoration:none;">Priyanshu et al., Et Tu, Brute? Economic Misalignment in Personal AI Agents (arXiv 2609.24927), Table 1</a></div>
     </div>
-<!-- STORY 1 -->    <div class="story" id="story-1">
+<!-- STORY 1 -->
+<!-- soonsal:story-fragments:start --><nav class="ss-story-index" aria-label="이 회차 스토리 목차"><div class="ss-index-label">TODAY'S STORIES</div><h1>순살브리핑 2026.10.08</h1><ol><li><a href="#story-1">🇹🇼 AI 수혜 1등 자리, 대만한테 뺏긴 코스피</a></li><li><a href="#story-2">🛒 부자한테는 비싼 표 골라주는 AI 비서</a></li><li><a href="#story-3">🚀 &#x27;우주 어딘가에 데이터센터&#x27;, 빚 400억불</a></li><li><a href="#story-4">⚓ 오큘러스 만든 형, 이번엔 잠수함 공장</a></li><li><a href="#story-5">📉 삼전·닉스 단일종목 ETF, 개미 손실 2.3조</a></li></ol></nav><!-- soonsal:story-fragments:end -->
+<div class="story" id="story-1" role="article" aria-labelledby="story-1-title" data-ss-story="1008-1" data-ss-issue="1008">
       <span class="story-label">MARKETS · KOREA</span>
-      <div class="story-title">🇹🇼 AI 수혜 1등 자리, 대만한테 뺏긴 코스피</div>
+      <div class="story-title" id="story-1-title" role="heading" aria-level="2">🇹🇼 AI 수혜 1등 자리, 대만한테 뺏긴 코스피</div><a class="ss-story-permalink" href="#story-1" aria-label="1번 스토리 영구 링크">🔗 이 스토리 링크</a>
       <div class="story-body">
         <div class="bullet"><span class="dot">◾</span><span>대만 증시가 올해 72% 올라, 세계 90여 개 주요 지수 중 1등 자리를 코스피한테서 가져갔음. 코스피도 7일 종가 기준 올해 61% 올랐으니 못한 성적은 아님. 근데 3분기만 떼어 보면 대만 지수가 코스피를 23%p 앞섰고, 2000년 이후 가장 크게 벌어진 격차. 7일에도 외국인이 하루에 2.6조원어치를 던지며 코스피는 2% 가까이 빠졌음. 대만 지수는 보합으로 버티며 장중 5만 선 바로 아래까지 갔음</span></div>
         <div class="bullet"><span class="dot">◾</span><span>둘이 갈린 건 돈 버는 방식이 다르기 때문. <strong>대만은 물량으로, 한국은 가격으로 버는 중</strong>. 대만 대장주 TSMC는 AI 칩 주문이 밀려 8월 한 달 매출이 처음 5,000억 대만달러 <span class="sub">(약 160억불)</span>를 넘겼고, 1년 전보다 53% 늘었음. 대만 수출도 8월에 41% 늘어 34개월 연속 증가. 한국 반도체 이익은 메모리 값이 끌어올리는 중. PC용 D램 계약가는 9월 개당 26불로 사상 최고였고, 낸드 <span class="sub">(저장용 메모리)</span> 계약가도 21개월 연속 올랐음</span></div>
@@ -787,9 +822,9 @@ transition:color .18s ease,background .18s ease}
       </div>
       <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님</p>
     </div>
-<!-- STORY 2 -->    <div class="story" id="story-2">
+<!-- STORY 2 -->    <div class="story" id="story-2" role="article" aria-labelledby="story-2-title" data-ss-story="1008-2" data-ss-issue="1008">
       <span class="story-label">AI · SHOPPING</span>
-      <div class="story-title">🛒 부자한테는 비싼 표 골라주는 AI 비서</div>
+      <div class="story-title" id="story-2-title" role="heading" aria-level="2">🛒 부자한테는 비싼 표 골라주는 AI 비서</div><a class="ss-story-permalink" href="#story-2" aria-label="2번 스토리 영구 링크">🔗 이 스토리 링크</a>
       <div class="story-body">
         <div class="bullet"><span class="dot">◾</span><span>AI 비서한테 똑같이 항공권을 찾아달라고 했더니, 부자로 보이는 사람한테는 훨씬 비싼 표를 골라줬음. 시스코·카네기멜런대 연구진이 9월 말 낸 논문 <span class="sub">(동료 심사 전 프리프린트)</span>. 오픈AI·앤스로픽·구글 등 AI 모델 13개로 32만 번 넘게 실험했는데, 항공·보험·대학원 세 분야 모두에서 8개가 부자한테 더 비싼 걸 추천했음. 가격 조건 없이 찾아달라고 하자 GPT-5는 저소득층엔 평균 191불, 부자한텐 2.5배인 479불짜리 표를 골라줬음</span></div>
         <div class="bullet"><span class="dot">◾</span><span>AI가 형편을 읽은 곳은 프로필과 받은편지함. 연구진은 가상 인물 '알렉스'에게 프로필과 이메일 10통을 줬음. 부자 버전엔 양도차익 84.7만불 세금 서류와 별장 잔금 메일, 저소득 버전엔 연봉 3.14만불 근로소득 서류와 퇴거 지원 메일. '부자'·'저소득' 같은 꼬리표는 어디에도 없었음. <strong>메일 몇 통으로도 AI가 내 지갑 크기부터 재는 셈</strong>. 받은편지함만 줘도 격차가 프로필을 줬을 때의 3분의 1 정도 남았음</span></div>
@@ -799,9 +834,9 @@ transition:color .18s ease,background .18s ease}
       </div>
       <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
     </div>
-<!-- STORY 3 -->    <div class="story" id="story-3">
+<!-- STORY 3 -->    <div class="story" id="story-3" role="article" aria-labelledby="story-3-title" data-ss-story="1008-3" data-ss-issue="1008">
       <span class="story-label">AI · DEBT</span>
-      <div class="story-title">🚀 '우주 어딘가에 데이터센터', 빚 400억불</div>
+      <div class="story-title" id="story-3-title" role="heading" aria-level="2">🚀 '우주 어딘가에 데이터센터', 빚 400억불</div><a class="ss-story-permalink" href="#story-3" aria-label="3번 스토리 영구 링크">🔗 이 스토리 링크</a>
       <div class="story-body">
         <div class="bullet"><span class="dot">◾</span><span>스페이스X가 엔비디아 칩을 사려고 최대 400억불을 빌리는 중. 은행 대출 100억불에 투자등급 회사채 300억불을 얹는 구조로, 사모펀드 아폴로가 주관하고 핌코도 협의 중. AI 칩을 사려고 내는 빚으로는 손꼽히는 규모. 스페이스X는 6월 상장 때 약 860억불을 모았고, 열흘 뒤 첫 회사채로 250억불을 또 빌렸음. 칩은 스페이스X 품에 들어간 AI 회사 xAI의 데이터센터 콜로서스에 들어감. 넉 달도 안 돼 또 손을 벌리는 셈</span></div>
         <div class="bullet"><span class="dot">◾</span><span>투자자들이 받은 설명서가 화제. 두 쪽짜리 메모에 우주 사진을 깔고, 데이터센터는 '우주 어딘가'에 짓는다고 화살표를 그려놨음. 한 투자자는 이걸 들고 투자위원회에 어떻게 올리냐고 했음. <strong>돈 쓸 곳이 '우주 어딘가'여도 빌려줄 사람은 있는 판</strong>. 상장 첫날 몸값이 약 2.1조불이던 주가는 7월 한때 공모가 135불 아래로 내려가기도 했음. 스페이스X 신용등급은 투자등급이지만, S&amp;P는 2030년까지 현금흐름이 마이너스일 거라 봤음</span></div>
@@ -811,9 +846,9 @@ transition:color .18s ease,background .18s ease}
       </div>
       <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
     </div>
-<!-- STORY 4 -->    <div class="story" id="story-4">
+<!-- STORY 4 -->    <div class="story" id="story-4" role="article" aria-labelledby="story-4-title" data-ss-story="1008-4" data-ss-issue="1008">
       <span class="story-label">DEFENSE · SHIPS</span>
-      <div class="story-title">⚓ 오큘러스 만든 형, 이번엔 잠수함 공장</div>
+      <div class="story-title" id="story-4-title" role="heading" aria-level="2">⚓ 오큘러스 만든 형, 이번엔 잠수함 공장</div><a class="ss-story-permalink" href="#story-4" aria-label="4번 스토리 영구 링크">🔗 이 스토리 링크</a>
       <div class="story-body">
         <div class="bullet"><span class="dot">◾</span><span>미국 방산 스타트업 안두릴이 메릴랜드 볼티모어카운티에 37억불짜리 잠수함 부품 조선소를 짓기로 했음. 6일 트럼프가 현장에서 직접 발표. 미 해군도 부품이 실제로 나오는 만큼 최대 29억불을 주는 계약을 붙였음. 옛 베들레헴스틸 제철소 부지에 축구장 40개 크기 공장을 세워 3,100명을 뽑을 계획. 버지니아급 핵잠수함 <span class="sub">(미 해군 주력 공격 잠수함)</span>의 큰 덩어리 부품을 만드는 곳. 첫 가동은 2030년</span></div>
         <div class="bullet"><span class="dot">◾</span><span>미국이 잠수함을 너무 느리게 짓는게 문제. 해군 목표는 버지니아급을 1년에 2척씩 뽑는 건데, 2022년 이후 실제 속도는 연 1.1~1.2척. 척당 약 50억불짜리를 지을 수 있는 곳은 제너럴다이내믹스의 일렉트릭보트와 HII의 뉴포트뉴스 두 곳밖에 없음. 호주한테도 2032년부터 3~5척을 넘기기로 약속해둔 상태. <strong>잠수함 주문은 밀려 있는데 지을 공장이 모자란 상황</strong>. 미 회계감사원도 민간 조선소들이 목표를 못 맞춘다고 봤음</span></div>
@@ -823,9 +858,9 @@ transition:color .18s ease,background .18s ease}
       </div>
       <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
     </div>
-<!-- STORY 5 -->    <div class="story" id="story-5">
+<!-- STORY 5 -->    <div class="story" id="story-5" role="article" aria-labelledby="story-5-title" data-ss-story="1008-5" data-ss-issue="1008">
       <span class="story-label">ETF · KOREA</span>
-      <div class="story-title">📉 삼전·닉스 단일종목 ETF, 개미 손실 2.3조</div>
+      <div class="story-title" id="story-5-title" role="heading" aria-level="2">📉 삼전·닉스 단일종목 ETF, 개미 손실 2.3조</div><a class="ss-story-permalink" href="#story-5" aria-label="5번 스토리 영구 링크">🔗 이 스토리 링크</a>
       <div class="story-body">
         <div class="bullet"><span class="dot">◾</span><span>삼성전자·SK하이닉스 하루 등락을 2배로 따라가거나 거꾸로 따라가는 단일종목 레버리지·인버스 상품에서 개인투자자가 2조 3,242억원 <span class="sub">(약 17억불)</span>을 잃었음. 국내 상장 첫 단일종목 레버리지라 출시부터 화제였던 상품. 5월 27일 상장부터 8월 14일까지 10대 증권사 고객이 팔아서 확정한 손실만 센 금융감독원 자료. 아직 들고 있는 평가손실은 빠졌으니 실제 손실은 더 큼. 결국 상장 넉 달 만에 국정감사 도마에 올랐음</span></div>
         <div class="bullet"><span class="dot">◾</span><span><strong>출시 때 열기가 손실을 키웠음</strong>. 5월 27일 자산운용사 8곳이 삼성·하이닉스 단일종목 레버리지·인버스 ETF 16개 <span class="sub">(ETN까지 18개)</span>를 한날 동시에 상장시켰음. 첫날 KODEX SK하이닉스 레버리지 한 종목 거래대금만 약 4조 3,900억원. 7월 하순엔 이 상품들 시가총액이 상장 초 4.4조원에서 11.9조원까지 불었음. 그 뒤 반도체 고점 논란에 두 종목이 미끄러지며 손실이 확정됐음</span></div>
@@ -934,6 +969,7 @@ transition:color .18s ease,background .18s ease}
 </div>
 <script>
 (function () {
+  try { if (localStorage.getItem('ss_auth') !== '1') document.getElementById('hlog').hidden = false; } catch (e) {}
   var w = document.getElementById('nlwrap'), b = document.getElementById('expand');
   if (!w || !b) return;
   b.addEventListener('click', function () {

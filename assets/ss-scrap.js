@@ -1,5 +1,5 @@
 
-/* 스토리 스크랩 ☆ — 로그인 전엔 이 브라우저(ss_scrap), 로그인(ss_auth=1)이면 계정에 저장 (KD 2026-10-07) */
+/* 스토리 스크랩 🐟 — 로그인 전엔 이 브라우저(ss_scrap), 로그인(ss_auth=1)이면 계정에 저장 (KD 2026-10-07) */
 (function(){
   var API='https://api.soonsal.com';
   function ls(k,d){try{return JSON.parse(localStorage.getItem(k)||'')||d}catch(e){return d}}
@@ -13,7 +13,7 @@
     '.ss-scrap:hover{color:#E55A00;text-decoration:underline}';
   document.head.appendChild(css);
   var mine=ls('ss_scrap',{});
-  function paint(b,on){b.classList.toggle('on',on);b.textContent=on?'★ 스크랩함':'☆ 스크랩';b.setAttribute('aria-pressed',on)}
+  function paint(b,on){b.classList.toggle('on',on);b.innerHTML=on?'🐟 스크랩함':'<span style="filter:grayscale(1);opacity:.55">🐟</span> 스크랩';b.setAttribute('aria-pressed',on)}
   function hint(){if(authed||sessionStorage.getItem('ss_scrap_hint'))return;try{sessionStorage.setItem('ss_scrap_hint','1')}catch(e){}
     var d=document.createElement('div');d.style.cssText='position:fixed;left:50%;bottom:84px;transform:translateX(-50%);background:#222;'+
     'color:#fff;padding:10px 14px;border-radius:10px;font-size:13px;z-index:99999;max-width:90%';
