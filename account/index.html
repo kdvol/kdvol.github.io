@@ -1,0 +1,365 @@
+<!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>내 계정 — 순살브리핑</title>
+<meta name="robots" content="noindex,follow">
+<link rel="preconnect" href="https://fonts.googleapis.com"/><link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700;800&display=swap" rel="stylesheet"/>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#111;color:#e8e4dc;font-family:'Pretendard',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+line-height:1.6;-webkit-font-smoothing:antialiased}
+.wrap{max-width:720px;margin:0 auto;padding:30px 18px 80px}
+h1{font-size:1.6rem;font-weight:800;letter-spacing:-.03em;margin-bottom:6px}
+h2{font-size:1.05rem;font-weight:800;margin:28px 0 10px}
+.sub{color:#8b8578;font-size:.9rem;margin-bottom:22px;line-height:1.7}
+.card{background:#171717;border:1px solid #262626;border-radius:14px;padding:18px 18px;margin-bottom:12px}
+.consent{font-size:.86rem;color:#b9b3a8;line-height:1.75}
+.consent ul{margin:8px 0 10px 18px}
+.consent label{display:flex;gap:9px;align-items:flex-start;font-weight:700;color:#f0ece4;margin-top:8px;cursor:pointer}
+.consent input{margin-top:5px;width:17px;height:17px;accent-color:#F07040}
+.btns{display:grid;gap:9px;margin-top:14px}
+.lb{display:flex;align-items:center;justify-content:center;gap:9px;border-radius:12px;padding:13px 14px;
+font-weight:800;font-size:.95rem;text-decoration:none;border:1px solid transparent;cursor:pointer;font-family:inherit}
+.lb[aria-disabled=true]{opacity:.35;pointer-events:none}
+.lb.kakao{background:#FEE500;color:#191600}.lb.google{background:#fff;color:#1f1f1f;border-color:#ddd}
+.lb.naver{background:#03C75A;color:#fff}
+.soon{font-size:.72rem;font-weight:700;opacity:.75}
+.row{display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap}
+.pill{display:inline-block;background:#1f1d1a;border:1px solid #2c2c2c;border-radius:999px;padding:3px 10px;
+font-size:.78rem;color:#bcb5a9}
+.ghost{background:none;border:1px solid #333;color:#cfc8bb;border-radius:10px;padding:8px 12px;font-weight:700;
+font-family:inherit;cursor:pointer;font-size:.85rem}
+.ghost.warn{border-color:#5a2a22;color:#f2a08a}
+.it{display:flex;gap:12px;background:#171717;border:1px solid #262626;border-radius:12px;padding:13px 15px;
+margin-bottom:8px;text-decoration:none;color:inherit}
+.it .tt{font-size:.95rem;font-weight:700;color:#f0ece4;line-height:1.45}
+.it .dt{font-size:.76rem;color:#7c756c;margin-top:3px}
+.it .mk{flex:0 0 auto;font-size:1rem}
+.msg{font-size:.86rem;color:#F59B75;margin:6px 0 14px}
+.fine{font-size:.78rem;color:#6f695f;margin-top:26px;line-height:1.75}
+.fine a,.consent a{color:#F59B75}
+
+
+.logo-link{display:flex;align-items:center;gap:10px;text-decoration:none;color:#fff}
+/* 로고 마크 크기는 여기 한 곳에서만 정한다. 26px는 파비콘처럼 묻히고
+   36px는 22px 워드마크를 눌러 헤더가 위로 무거워진다. 32px가 그 사이다. */
+.logo-link img,.logo-icon{height:32px;width:auto}
+.logo-text{font-size:22px;font-weight:800;letter-spacing:-0.5px;font-family:'DM Sans','Apple SD Gothic Neo',sans-serif}
+
+
+
+.crumb{color:#F07040;font-size:.88rem;display:inline-block;margin-bottom:14px;text-decoration:none}
+
+/* 헤더 — 한 축에 셋. 세로 중심이 하나여야 어긋나지 않는다 */
+.site-header{position:relative;display:grid;grid-template-columns:1fr auto 1fr;
+align-items:center;column-gap:12px;padding:20px max(16px, calc(50% - 400px));
+border-bottom:1px solid #222;background:#111}
+/* 칸을 못 박아 마크업 순서와 무관하게 만든다 */
+.site-header>.search-btn-header{grid-area:1/1;justify-self:start}
+.site-header>.logo-link{grid-area:1/2;justify-self:center}
+.site-header>.sub-btn-header{grid-area:1/3;justify-self:end}
+.site-header>.logo-link{display:flex;align-items:center;gap:10px;
+text-decoration:none;color:#fff}
+.logo-text{font-size:22px;font-weight:800;letter-spacing:-.5px;line-height:1.1}
+
+/* 구독 — 이 사이트의 유일한 전환점. 좁은 화면에서도 남는다 */
+.sub-btn-header{position:static;transform:none;display:inline-flex;
+align-items:center;background:#E55A00;color:#fff;padding:9px 18px;
+border-radius:999px;font-size:13px;font-weight:800;line-height:1;
+text-decoration:none;white-space:nowrap;transition:background .18s ease}
+.sub-btn-header:hover{background:#CC4F00}
+
+.search-btn-header{position:static;transform:none;display:flex;
+align-items:center;justify-content:center;width:36px;height:36px;
+border-radius:999px;color:#8a857c;text-decoration:none;
+transition:color .18s ease,background .18s ease}
+.search-btn-header:hover{color:#fff;background:#1e1e1e}
+
+@media(max-width:560px){
+  .site-header{padding:14px 12px;column-gap:8px}
+  .site-header .logo-text{font-size:18px}
+  .site-header .logo-link img,.site-header .logo-icon{height:26px}
+  .sub-btn-header{padding:7px 13px;font-size:11.5px;letter-spacing:-.3px}
+  .search-btn-header{width:32px;height:32px}
+}
+
+
+
+
+
+/* 구독하기가 있는 페이지에서는 그 왼쪽으로 비켜 앉는다 */
+
+
+
+.nav{position:relative;display:flex;justify-content:center;align-items:stretch;overflow:visible;border-bottom:1px solid #222;background:#151515;z-index:100}
+.nav>a,.nav-more>summary{display:flex;align-items:center;padding:12px 18px;font-size:13px;font-weight:700;color:#777;white-space:nowrap;text-decoration:none;border:0;border-bottom:2px solid transparent;cursor:pointer;list-style:none;transition:color .2s,border-color .2s,background .2s}
+.nav-more>summary::-webkit-details-marker{display:none}
+.nav>a:hover,.nav-more>summary:hover{color:#ccc}
+.nav>a.active,.nav-more.active>summary{color:#F07040;border-bottom-color:#F07040}
+/* 데스크톱/모바일 갈래. 이 두 규칙이 없어서 스쿨·광고 문의가 바와 더보기에
+   이중으로 렌더됐고, 가로 스크롤 위치에 따라 보이는 항목이 달라졌다. */
+.nav-mobile-only{display:none}
+.nav-more{position:relative;flex-shrink:0}
+.nav-more[open]>summary{color:#fff;background:#202020}
+.nav-menu{position:absolute;top:100%;right:0;z-index:1001;display:grid;min-width:190px;padding:8px;background:#1b1b1b;border:1px solid #333;border-radius:0 0 8px 8px;box-shadow:0 12px 26px rgba(0,0,0,.28)}
+.nav-menu a{display:block;padding:10px 12px;border-radius:5px;color:#aaa;text-decoration:none;font-size:13px;font-weight:700;white-space:nowrap}
+.nav-menu a:hover,.nav-menu a.active{color:#fff;background:#282828}
+.nav-menu a.active{color:#F07040}
+.nav-menu a.biz{color:#777;border-top:1px solid #303030;margin-top:4px;padding-top:12px}
+@media(max-width:560px){
+.nav>a.nav-desktop-link{display:none}
+.nav-menu a.nav-mobile-only{display:block}
+  /* 칸 수는 항목 수를 따라간다 — 정의 뒤에서 CORE_ITEMS로 채운다 */
+  .nav{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));width:100%}
+  .nav>a,.nav-more>summary{justify-content:center;padding:11px 2px;font-size:11.5px;
+  letter-spacing:-.4px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .nav-more{position:static;min-width:0}
+  .nav-menu{left:10px;right:10px;top:100%;grid-template-columns:repeat(2,minmax(0,1fr));min-width:0;padding:8px}
+  .nav-menu a{text-align:center;padding:11px 6px}
+  .nav-menu a.biz{border-top:0;margin-top:0;padding-top:11px}
+}
+@media(max-width:360px){
+  .nav>a,.nav-more>summary{font-size:10.5px;letter-spacing:-.5px;padding:11px 1px}
+}
+
+
+.sec-head{margin:0 0 26px}
+.sec-kicker{display:flex;align-items:center;gap:9px;margin:0 0 12px;color:#F59B75;
+font-size:11px;font-weight:800;letter-spacing:.08em}
+.sec-kicker::before{content:"";width:22px;height:2px;background:#F07040;border-radius:2px;flex:0 0 auto}
+.sec-head h1{margin:0;font-size:1.62rem;font-weight:800;letter-spacing:-.03em;
+line-height:1.25;color:#fff;word-break:keep-all}
+.sec-head .deck{margin:10px 0 0;color:#8b8578;font-size:.92rem;line-height:1.65;word-break:keep-all}
+@media(max-width:560px){.sec-head h1{font-size:1.42rem}}
+</style><style id="soonsal-nav-visibility-v3">
+.nav-menu a.nav-mobile-only{display:none}
+.nav>a.nav-desktop-link.biz{color:#F07040}
+.nav>a.nav-desktop-link.biz:hover{color:#ff8a52}
+.nav-menu a.biz{color:#F07040}
+@media(max-width:560px){
+  .nav>a.nav-desktop-link{display:none}
+  .nav-menu a.nav-mobile-only{display:block}
+  .nav-more.mobile-active>summary{color:#F07040;border-bottom-color:#F07040}
+  /* 코어 4개 + 더보기 = 5칸. 예전 CSS가 4칸이라 다섯 번째가 다음 줄로 넘어갔다.
+     이 블록은 페이지마다 나중에 주입되므로 안에 박힌 옛 규칙을 덮는다. */
+  .nav{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));width:100%}
+  .nav>a,.nav-more>summary{justify-content:center;padding:11px 2px;font-size:11.5px;
+    letter-spacing:-.4px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+}
+@media(max-width:360px){
+  .nav>a,.nav-more>summary{font-size:10.5px;letter-spacing:-.5px;padding:11px 1px}
+}
+/* ── 눌러보고 싶게 ──────────────────────────────────────
+   탭은 '지금 어디' 말고는 아무것도 알려주지 않는다. 더보기는 특히 그렇다 —
+   안에 뭐가 있는지 모르면 누를 이유가 없다. 세 가지를 바꾼다:
+   (1) 밑줄이 자라며 눌리는 느낌, (2) 화살표가 열림에 반응, (3) 메뉴 안에
+   아이콘을 붙여 목록이 아니라 '갈 곳'으로 보이게. */
+.nav>a,.nav-more>summary{position:relative;transition:color .18s}
+.nav>a:after,.nav-more>summary:after{content:"";position:absolute;left:50%;right:50%;
+bottom:-1px;height:2px;background:#F07040;border-radius:2px;
+transition:left .22s cubic-bezier(.4,0,.2,1),right .22s cubic-bezier(.4,0,.2,1)}
+.nav>a:hover:after,.nav-more>summary:hover:after{left:18%;right:18%}
+.nav>a.active:after,.nav-more.active>summary:after{left:0;right:0}
+
+.nav-more>summary span[aria-hidden]{display:inline-block;transition:transform .22s ease;
+margin-left:2px}
+.nav-more[open]>summary span[aria-hidden]{transform:rotate(180deg)}
+.nav-more[open]>summary{color:#F07040}
+
+.nav-menu{animation:navdrop .18s cubic-bezier(.2,.8,.2,1)}
+@keyframes navdrop{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
+.nav-menu a{transition:background .15s,color .15s,padding-left .15s}
+.nav-menu a:before{margin-right:7px;opacity:.9}
+.nav-menu a[href="/cardnews/"]:before{content:"🎴"}
+.nav-menu a[href="/youtube/"]:before{content:"▶"}
+.nav-menu a[href="/school/"]:before{content:"🎓"}
+.nav-menu a[href="/collab/"]:before{content:"✉"}
+.nav-menu a[href="/talk/"]:before{content:"💬"}
+
+/* 더보기 안에 뭐가 있는지 한 줄로 알려준다 — 열기 전에 궁금해지는 건 이 지점이다 */
+.nav-more>summary:before{content:"";position:absolute;top:9px;right:6px;width:5px;height:5px;
+border-radius:50%;background:#F07040;opacity:0;transition:opacity .2s}
+.nav-more:not([open])>summary:hover:before{opacity:.85}
+@media(max-width:560px){
+  .nav-menu a{text-align:left;padding-left:14px}
+  .nav-more>summary:before{right:3px;top:7px}
+}
+</style>
+<style id="soonsal-search-v1">
+/* 헤더 — 한 축에 셋. 세로 중심이 하나여야 어긋나지 않는다 */
+.site-header{position:relative;display:grid;grid-template-columns:1fr auto 1fr;
+align-items:center;column-gap:12px;padding:20px max(16px, calc(50% - 400px));
+border-bottom:1px solid #222;background:#111}
+/* 칸을 못 박아 마크업 순서와 무관하게 만든다 */
+.site-header>.search-btn-header{grid-area:1/1;justify-self:start}
+.site-header>.logo-link{grid-area:1/2;justify-self:center}
+.site-header>.sub-btn-header{grid-area:1/3;justify-self:end}
+.site-header>.logo-link{display:flex;align-items:center;gap:10px;
+text-decoration:none;color:#fff}
+.logo-text{font-size:22px;font-weight:800;letter-spacing:-.5px;line-height:1.1}
+
+/* 구독 — 이 사이트의 유일한 전환점. 좁은 화면에서도 남는다 */
+.sub-btn-header{position:static;transform:none;display:inline-flex;
+align-items:center;background:#E55A00;color:#fff;padding:9px 18px;
+border-radius:999px;font-size:13px;font-weight:800;line-height:1;
+text-decoration:none;white-space:nowrap;transition:background .18s ease}
+.sub-btn-header:hover{background:#CC4F00}
+
+.search-btn-header{position:static;transform:none;display:flex;
+align-items:center;justify-content:center;width:36px;height:36px;
+border-radius:999px;color:#8a857c;text-decoration:none;
+transition:color .18s ease,background .18s ease}
+.search-btn-header:hover{color:#fff;background:#1e1e1e}
+
+@media(max-width:560px){
+  .site-header{padding:14px 12px;column-gap:8px}
+  .site-header .logo-text{font-size:18px}
+  .site-header .logo-link img,.site-header .logo-icon{height:26px}
+  .sub-btn-header{padding:7px 13px;font-size:11.5px;letter-spacing:-.3px}
+  .search-btn-header{width:32px;height:32px}
+}
+
+
+
+
+
+/* 구독하기가 있는 페이지에서는 그 왼쪽으로 비켜 앉는다 */
+</style>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml"/><link rel="icon" href="/favicon.ico" sizes="any"/><link rel="apple-touch-icon" href="/apple-touch-icon.png"/></head><body>
+<div id="soonsal-live-ticker" style="display:none;"></div>
+<style>
+#soonsal-live-ticker{position:sticky;top:0;width:100%;height:34px;box-sizing:border-box;background:#0a0a0a;border-bottom:1px solid #1a1a1a;overflow:hidden;z-index:99999;user-select:none;-webkit-user-select:none}
+#soonsal-live-ticker::before,#soonsal-live-ticker::after{content:'';position:absolute;top:0;bottom:0;width:48px;z-index:2;pointer-events:none}
+#soonsal-live-ticker::before{left:0;background:linear-gradient(to right,#0a0a0a,transparent)}
+#soonsal-live-ticker::after{right:0;background:linear-gradient(to left,#0a0a0a,transparent)}
+#soonsal-live-ticker .stk-track{display:flex;align-items:center;width:max-content;height:34px;animation:stk-scroll 90s linear infinite}
+#soonsal-live-ticker .stk-track:hover{animation-play-state:paused}
+@keyframes stk-scroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+#soonsal-live-ticker .stk-item{display:inline-flex;align-items:center;gap:7px;padding:0 16px;border-right:1px solid #1a1a1a;white-space:nowrap;flex-shrink:0}
+#soonsal-live-ticker .stk-lbl{font-family:'DM Sans',-apple-system,sans-serif;font-size:11px;font-weight:600;color:#555;letter-spacing:0.3px;text-transform:uppercase}
+#soonsal-live-ticker .stk-lbl.crypto{color:#F07040}
+#soonsal-live-ticker .stk-prc{font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:500;color:#e0ddd8;letter-spacing:-0.3px}
+#soonsal-live-ticker .stk-chg{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:500;display:inline-flex;align-items:center;gap:3px;padding:1px 5px;border-radius:3px}
+#soonsal-live-ticker .stk-chg.up{color:#4ade80;background:rgba(74,222,128,0.08)}
+#soonsal-live-ticker .stk-chg.down{color:#f87171;background:rgba(248,113,113,0.08)}
+#soonsal-live-ticker .stk-chg.zero{color:#777}
+#soonsal-live-ticker .au{display:inline-block;width:0;height:0;border-style:solid;border-width:0 3px 5px;border-color:transparent transparent #4ade80}
+#soonsal-live-ticker .ad{display:inline-block;width:0;height:0;border-style:solid;border-width:5px 3px 0;border-color:#f87171 transparent transparent}
+#soonsal-live-ticker .stk-div{display:inline-flex;align-items:center;padding:0 12px;flex-shrink:0}
+#soonsal-live-ticker .stk-div span{width:3px;height:3px;border-radius:50%;background:#F07040}
+#soonsal-live-ticker .stk-ts{display:inline-flex;align-items:center;gap:5px;padding:0 16px;flex-shrink:0}
+#soonsal-live-ticker .stk-dot{width:5px;height:5px;border-radius:50%;background:#4ade80;animation:stk-pulse 2s ease-in-out infinite}
+@keyframes stk-pulse{0%,100%{opacity:1}50%{opacity:0.3}}
+#soonsal-live-ticker .stk-time{font-family:'JetBrains Mono',monospace;font-size:10px;color:#555;letter-spacing:0.5px}
+#soonsal-live-ticker .stk-loading{display:flex;align-items:center;justify-content:center;height:34px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#555;gap:8px}
+#soonsal-live-ticker .stk-spin{width:10px;height:10px;border:2px solid #222;border-top-color:#F07040;border-radius:50%;animation:stk-sp 0.8s linear infinite}
+@keyframes stk-sp{to{transform:rotate(360deg)}}
+@media(max-width:768px){#soonsal-live-ticker .stk-item{padding:0 12px}#soonsal-live-ticker .stk-lbl{font-size:10px}#soonsal-live-ticker .stk-prc{font-size:11px}#soonsal-live-ticker .stk-chg{font-size:10px}}
+
+  @media (max-width:768px) {
+    .nav a { padding:12px 14px; font-size:12px; }
+    .sub-btn-header { font-size:11px !important; padding:6px 12px !important; }
+  }
+  @media (max-width:480px) {
+    .sub-btn-header { font-size:10px !important; padding:5px 10px !important; right:10px !important; }
+  }
+</style>
+<script>
+(function(){'use strict';var WORKER_URL='https://soonsal-data.kd-d0a.workers.dev/';var COINGECKO_URL='https://api.coingecko.com/api/v3';var TRADFI_ORDER=['S&P 500','NASDAQ','Dow Jones','KOSPI','US 10Y','WTI Oil','Gold','DXY','EUR/USD','USD/JPY','USD/KRW'];var CRYPTO_ORDER=['Bitcoin','Ethereum','Solana','XRP','BNB','Crypto Total'];var CRYPTO_IDS={'Bitcoin':'bitcoin','Ethereum':'ethereum','Solana':'solana','XRP':'ripple','BNB':'binancecoin'};var REFRESH=60000;var container,timer,lastTradfi,lastCrypto;function init(){container=document.getElementById('soonsal-live-ticker');if(!container)return;container.style.display='block';container.innerHTML='<div class="stk-loading"><div class="stk-spin"></div>Loading market data...</div>';fetchAll();timer=setInterval(fetchAll,REFRESH)}function fetchAll(){var p1=fetchTradFi();var p2=fetchCrypto();Promise.allSettled?Promise.allSettled([p1,p2]).then(render):Promise.all([p1.catch(function(){return null}),p2.catch(function(){return null})]).then(render)}function fetchTradFi(){return fetch(WORKER_URL).then(function(r){return r.json()}).then(function(data){if(data.tradfi)lastTradfi=data;return data}).catch(function(e){console.warn('[Ticker] TradFi error:',e.message);return null})}function fetchCrypto(){var ids=Object.values(CRYPTO_IDS).join(',');var url=COINGECKO_URL+'/simple/price?ids='+ids+'&vs_currencies=usd&include_24hr_change=true&include_market_cap=true';var globalUrl=COINGECKO_URL+'/global';return Promise.all([fetch(url).then(function(r){return r.json()}),fetch(globalUrl).then(function(r){return r.json()}).catch(function(){return null})]).then(function(results){var prices=results[0];var global=results[1];var crypto={};for(var name in CRYPTO_IDS){var id=CRYPTO_IDS[name];var d=prices[id];if(!d)continue;var p=d.usd;var ch=d.usd_24h_change||0;crypto[name]={price:'$'+formatNum(p),change:(ch>=0?'+':'')+ch.toFixed(2)+'%',direction:ch>0.01?'up':ch<-0.01?'down':'zero'}}if(global&&global.data){var mc=global.data.total_market_cap&&global.data.total_market_cap.usd;var mch=global.data.market_cap_change_percentage_24h_usd;if(mc){crypto['Crypto Total']={price:'$'+(mc/1e12).toFixed(2)+'T',change:(mch>=0?'+':'')+(mch||0).toFixed(2)+'%',direction:mch>0?'up':mch<0?'down':'zero'}}}lastCrypto=crypto;return crypto}).catch(function(e){console.warn('[Ticker] Crypto error:',e.message);return null})}function render(){var tradfi=lastTradfi?lastTradfi.tradfi:{};var crypto=lastCrypto||{};var kst=lastTradfi?lastTradfi.kst:new Date().toLocaleString('ko-KR',{timeZone:'Asia/Seoul'});var html=[];html.push('<div class="stk-ts"><span class="stk-dot"></span><span class="stk-time">'+esc(kst)+' KST</span></div>');for(var i=0;i<TRADFI_ORDER.length;i++){var name=TRADFI_ORDER[i];var d=tradfi[name];if(d)html.push(makeItem(name,d,false))}html.push('<div class="stk-div"><span></span></div>');for(var j=0;j<CRYPTO_ORDER.length;j++){var cname=CRYPTO_ORDER[j];var cd=crypto[cname];if(cd)html.push(makeItem(cname,cd,true))}var track=html.join('');container.innerHTML='<div class="stk-track">'+track+track+'</div>'}function makeItem(name,d,isCrypto){var dir=d.direction||'zero';var arrow=dir==='up'?'<span class="au"></span>':dir==='down'?'<span class="ad"></span>':'';return'<div class="stk-item"><span class="stk-lbl'+(isCrypto?' crypto':'')+'">'+esc(name)+'</span><span class="stk-prc">'+esc(d.price)+'</span><span class="stk-chg '+dir+'">'+arrow+' '+esc(d.change)+'</span></div>'}function formatNum(n){if(n>=10000)return n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});if(n>=100)return n.toFixed(2);if(n>=1)return n.toFixed(2);return n.toFixed(4)}function esc(s){if(!s)return'';var d=document.createElement('span');d.textContent=String(s);return d.innerHTML}if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',init)}else{init()}})();
+</script>
+<header class="site-header"><a href="/search/" class="search-btn-header" aria-label="검색"><svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.6-3.6"/></svg></a><a class="logo-link" href="/"><img src="/assets/soonsal-logo-white.png" alt="" onerror="this.style.display='none'"><span class="logo-text">순살브리핑 Soonsal</span></a><a href="https://subscribe.soonsal.com/subscribe" target="_blank" rel="noopener" class="sub-btn-header">구독하기</a></header><nav class="nav" aria-label="주요 메뉴"><a href="/newsletters/">뉴스레터</a><a href="/chart/">순살차트</a><a href="/talk/">순살톡</a><a href="/school/" class="nav-desktop-link">스쿨</a><a href="/collab/" class="nav-desktop-link biz">협업 문의</a><details class="nav-more"><summary>더보기 <span aria-hidden="true">⌄</span></summary><section class="nav-menu" aria-label="추가 메뉴"><a href="/topics/">주제별</a><a href="/saved/" rel="nofollow">내가 모은 글</a><a href="/account/" rel="nofollow">내 계정</a><a href="/cardnews/">카드뉴스</a><a href="/youtube/">YouTube</a><a href="/school/" class="nav-mobile-only">스쿨</a><a href="/collab/" class="nav-mobile-only biz">협업 문의</a></section></details></nav><div class="wrap">
+<h1>내 계정</h1>
+<p class="sub">로그인하면 스크랩·반응·한마디가 계정에 모여 폰과 PC 에서 같이 보여요.</p>
+<p class="msg" id="msg"></p>
+<div id="guest" hidden>
+ <div class="card consent">
+  <b>순살이 받는 것은 딱 하나예요.</b>
+  <ul>
+   <li>로그인한 서비스(카카오·구글·네이버)가 주는 <b>고유 번호</b> — 그마저 암호화해 저장해요.</li>
+   <li>이메일·이름·전화번호·프로필 사진은 <b>받지 않아요.</b></li>
+   <li>목적: 스크랩·반응·한마디를 계정에 저장해 여러 기기에서 보여 주기.</li>
+   <li>보관: 탈퇴할 때까지(마지막 로그인 후 1년 지나면 자동 파기). 탈퇴하면 즉시 지워요.</li>
+   <li>저장 위치: Cloudflare(데이터 처리 위탁). 구독 메일 명단과 연결하지 않아요.</li>
+  </ul>
+  <a href="/privacy/#account">개인정보 처리 안내 전체 보기</a>
+  <label><input type="checkbox" id="agree"> [필수] 위 개인정보 수집·이용에 동의합니다.</label>
+ </div>
+ <div class="btns" id="btns"></div>
+</div>
+<div id="member" hidden>
+ <div class="card row"><div id="who"></div><button class="ghost" id="nickbtn">별명 바꾸기</button></div>
+ <button class="ghost" id="merge" hidden></button>
+ <h2>내가 모은 글</h2>
+ <div id="list"><div class="card">불러오는 중…</div></div>
+ <div class="row" style="margin-top:22px"><button class="ghost" id="logout">로그아웃</button>
+ <button class="ghost warn" id="del">탈퇴하기</button></div>
+</div>
+<p class="fine">로그인 없이도 스크랩은 이 브라우저에 저장돼요(<a href="/saved/">내가 모은 글</a>).
+회원 정보 문의: team@soonsal.com</p>
+</div>
+<script src="/soonsal.js" defer></script>
+<script>
+(function(){
+  var API='https://api.soonsal.com', VER='2026-10-07';
+  var $=function(s){return document.querySelector(s)};
+  var q=new URLSearchParams(location.search);
+  var ERR={consent:'필수 동의에 체크해야 로그인할 수 있어요.',unavailable:'그 로그인은 아직 준비 중이에요.',
+    state:'로그인 확인이 만료됐어요. 다시 시도해 주세요.',cancel:'로그인을 취소했어요.',provider:'로그인 서비스 응답이 이상해요. 잠시 뒤 다시 시도해 주세요.'};
+  function ls(k,d){try{return JSON.parse(localStorage.getItem(k)||'')||d}catch(e){return d}}
+  function api(path,opt){opt=opt||{};opt.credentials='include';
+    if(opt.body){opt.method='POST';opt.headers={'content-type':'application/json'};opt.body=JSON.stringify(opt.body)}
+    return fetch(API+path,opt).then(function(r){return r.json().then(function(j){if(!r.ok)throw j;return j})})}
+  if(q.get('err')) $('#msg').textContent=ERR[q.get('err')]||'로그인에 실패했어요.';
+
+  function guest(prov){
+    $('#guest').hidden=false;
+    var ok=$('#agree');
+    var names={kakao:'카카오로 시작하기',google:'구글로 시작하기',naver:'네이버로 시작하기'};
+    var html='';
+    ['kakao','google','naver'].forEach(function(p){
+      var on=prov&&prov[p];
+      html+='<a class="lb '+p+'" data-p="'+p+'" aria-disabled="true" href="#">'+names[p]+
+        (on?'':' <span class="soon">준비 중</span>')+'</a>';
+    });
+    $('#btns').innerHTML=html;
+    function sync(){[].forEach.call(document.querySelectorAll('.lb'),function(a){
+      var on=prov&&prov[a.dataset.p]; a.setAttribute('aria-disabled',(ok.checked&&on)?'false':'true');
+      a.href=(ok.checked&&on)?API+'/auth/'+a.dataset.p+'/start?consent='+VER+'&next='+encodeURIComponent('/account/'):'#';})}
+    ok.addEventListener('change',sync); sync();
+  }
+
+  function render(u){
+    $('#member').hidden=false;
+    try{localStorage.setItem('ss_auth','1')}catch(e){}
+    var PN={kakao:'카카오',google:'구글',naver:'네이버'};
+    $('#who').innerHTML='<b>'+(u.nick?u.nick.replace(/[<>&]/g,''):'순살 독자')+'</b> <span class="pill">'+(PN[u.provider]||u.provider)+' 로그인</span>';
+    var local=[];var r=ls('ss_react',{}),c=ls('ss_cmt',{}),s=ls('ss_scrap',{});
+    Object.keys(s).forEach(function(k){local.push({story:k,kind:'scrap'})});
+    Object.keys(r).forEach(function(k){local.push({story:k,kind:'react'})});
+    Object.keys(c).forEach(function(k){local.push({story:k,kind:'cmt'})});
+    var mb=$('#merge');
+    if(local.length){mb.hidden=false;mb.textContent='이 브라우저 기록 '+local.length+'개 계정으로 옮기기';
+      mb.onclick=function(){api('/me/merge',{body:{items:local}}).then(function(j){mb.textContent=j.merged+'개 옮겼어요';mb.disabled=true;load()})}}
+    $('#logout').onclick=function(){api('/auth/logout',{body:{}}).then(function(){try{localStorage.removeItem('ss_auth')}catch(e){};location.href='/account/'})};
+    $('#nickbtn').onclick=function(){var n=prompt('별명(2~16자)',u.nick||'');if(!n)return;
+      api('/me/nick',{body:{nick:n}}).then(function(){location.reload()}).catch(function(){alert('쓸 수 없는 별명이에요')})};
+    $('#del').onclick=function(){if(!confirm('탈퇴하면 계정과 스크랩이 바로 지워지고 되돌릴 수 없어요. 탈퇴할까요?'))return;
+      api('/me/delete',{body:{}}).then(function(){try{localStorage.removeItem('ss_auth')}catch(e){};alert('탈퇴했어요. 그동안 고마웠어요.');location.href='/'})};
+    load();
+  }
+  function load(){
+    Promise.all([api('/me/scraps'),fetch('/saved/stories.json').then(function(r){return r.json()}).catch(function(){return {}})])
+    .then(function(v){var rows=v[0].scraps||[],m=v[1]||{};var MK={scrap:'☆',react:'👍',cmt:'💬'};
+      if(!rows.length){$('#list').innerHTML='<div class="card">아직 모은 글이 없어요. 스토리 옆 ☆ 스크랩을 눌러 보세요.</div>';return}
+      $('#list').innerHTML=rows.map(function(x){var t=m[x.story]||[x.story,'',''];var iss=x.story.split('-')[0].replace('c','');
+        var href=/^\d{4}c?-\d+$/.test(x.story)?'/newsletters/2026/'+iss+'.html#story-'+x.story.split('-')[1]:'/';
+        return '<a class="it" href="'+href+'"><span class="mk">'+(MK[x.kind]||'☆')+'</span><span><span class="tt">'+
+          String(t[0]).replace(/[<>&]/g,'')+'</span><span class="dt">'+(t[1]||'')+'</span></span></a>'}).join('')});
+  }
+  api('/me').then(function(j){
+    if(j.user){render(j.user);return}
+    try{localStorage.removeItem('ss_auth')}catch(e){}
+    api('/auth/providers').then(function(p){guest(p.providers)}).catch(function(){guest(null)});
+  }).catch(function(){guest(null)});
+})();
+</script>
+</body></html>
