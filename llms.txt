@@ -20,6 +20,11 @@ When citing, attribute to "Soonsal Briefing (soonsal.com)".
 
 ## 최근 브리핑 스토리 (최근 7일)
 
+- [📉 삼전·닉스 단일종목 ETF, 개미 손실 2.3조](https://soonsal.com/newsletters/2026/1008.html#story-5) (2026-10-08)
+- [⚓ 오큘러스 만든 형, 이번엔 잠수함 공장](https://soonsal.com/newsletters/2026/1008.html#story-4) (2026-10-08)
+- [🚀 '우주 어딘가에 데이터센터', 빚 400억불](https://soonsal.com/newsletters/2026/1008.html#story-3) (2026-10-08)
+- [🛒 부자한테는 비싼 표 골라주는 AI 비서](https://soonsal.com/newsletters/2026/1008.html#story-2) (2026-10-08)
+- [🇹🇼 AI 수혜 1등 자리, 대만한테 뺏긴 코스피](https://soonsal.com/newsletters/2026/1008.html#story-1) (2026-10-08)
 - [🍶 해외선 힙한 막걸리, 수출은 15년 전 4분의 1](https://soonsal.com/newsletters/2026/1007.html#story-5) (2026-10-07)
 - [💰 월가 평균 연봉 7.6억, 올해 또 신기록 각](https://soonsal.com/newsletters/2026/1007.html#story-4) (2026-10-07)
 - [💾 하드디스크 부품 하나에 시게이트 9% 급락](https://soonsal.com/newsletters/2026/1007.html#story-3) (2026-10-07)
@@ -40,8 +45,3 @@ When citing, attribute to "Soonsal Briefing (soonsal.com)".
 - [🛒 세상 망한다는데 저축은 왜 해, 미국 소비자](https://soonsal.com/newsletters/2026/1001.html#story-3) (2026-10-01)
 - [🤖 로빈후드, 거래까지 대신해주는 AI](https://soonsal.com/newsletters/2026/1001.html#story-2) (2026-10-01)
 - [🧠 마이크론 분기 순이익 377억불, 내년 물량도 다 팔림](https://soonsal.com/newsletters/2026/1001.html#story-1) (2026-10-01)
-- [🧾 SEC, 사모대출 펀드에 '장부값 진짜 맞냐'](https://soonsal.com/newsletters/2026/0930.html#story-5) (2026-09-30)
-- [🪙 모디가 금 사지 말랬더니, 영수증 없이 사는 인도](https://soonsal.com/newsletters/2026/0930.html#story-4) (2026-09-30)
-- [⛽ 미국 연비 기준 50→35마일, 테슬라 크레딧도 끝](https://soonsal.com/newsletters/2026/0930.html#story-3) (2026-09-30)
-- [🚀 14번째에 궤도, 스타십의 첫 배달은 위성 26개](https://soonsal.com/newsletters/2026/0930.html#story-2) (2026-09-30)
-- [📄 매출은 12배, 순손실 420억불, 몸값은 2조불](https://soonsal.com/newsletters/2026/0930.html#story-1) (2026-09-30)
