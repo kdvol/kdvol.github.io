@@ -30,7 +30,10 @@
       '.ss-hr .sub-btn-header{padding:8px 11px!important;font-size:12.5px!important}.ss-hl{left:6px}.ss-hr{right:6px;gap:4px}}';
     document.head.appendChild(css);
     var tk=document.getElementById('soonsal-live-ticker');
-    h.style.top=(tk&&tk.offsetHeight?tk.offsetHeight:0)+'px';
+    // 시세 띠는 시세를 받아 온 뒤에야 보여서(처음엔 display:none) 재는 순간 높이가 0 일 수 있다 —
+    //   띠가 있으면 34px(띠 높이 고정값) 아래에 붙이고, 띠 크기가 바뀌면 다시 맞춘다.
+    function setTop(){h.style.top=(tk?Math.max(tk.offsetHeight,34):0)+'px'}
+    setTop();if(tk&&window.ResizeObserver)new ResizeObserver(setTop).observe(tk);
     if(!/relative|absolute|sticky|fixed/.test(getComputedStyle(h).position))h.style.position='sticky';
 
     var L=document.createElement('div');L.className='ss-hl';
