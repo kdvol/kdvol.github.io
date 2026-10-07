@@ -7,7 +7,7 @@
     var css=document.createElement('style');css.id='ss-hdr-v1';css.textContent=
       '.site-header{position:sticky!important;z-index:9990;background:#111}'+
       '.ss-hl,.ss-hr{position:absolute;grid-area:auto;top:50%;transform:translateY(-50%);display:flex;align-items:center;gap:4px;z-index:2}'+
-      '.ss-hl{left:10px}.ss-hr{right:10px;gap:8px}'+
+      '.ss-hl{left:max(10px,calc(50% - 400px))}.ss-hr{right:max(10px,calc(50% - 400px));gap:8px}'+
       '.ss-hl .search-btn-header,.ss-hr .sub-btn-header{position:static!important;transform:none!important;margin:0!important;inset:auto!important}'+
       '.ss-burger,.ss-acct{width:36px;height:36px;display:flex;align-items:center;justify-content:center;border-radius:50%;'+
       'background:none;border:0;color:#e8e4dc;cursor:pointer;padding:0;text-decoration:none}'+
@@ -21,7 +21,10 @@
       'padding:14px;margin:6px 0 14px;text-decoration:none;color:inherit}.ss-dr .acc img{width:42px;height:42px;border-radius:50%}'+
       '.ss-dr .acc .ph{width:42px;height:42px;border-radius:50%;background:#262626;display:flex;align-items:center;justify-content:center;font-size:20px}'+
       '.ss-dr .acc b{display:block;font-size:15px}.ss-dr .acc span{font-size:12.5px;color:#9a958a}'+
-      '.ss-dr a.li{display:block;padding:12px 6px;font-size:15.5px;font-weight:700;color:#e8e4dc;text-decoration:none;border-bottom:1px solid #222}'+
+      '.ss-dr .gp{font-size:11.5px;font-weight:800;letter-spacing:.08em;color:#7c756c;margin:18px 6px 2px}'+
+      '.ss-dr a.li{display:block;padding:9px 6px;font-size:15.5px;font-weight:700;color:#e8e4dc;text-decoration:none}'+
+      '.ss-dr a.li.mine{border:1px solid #2a2a2a;border-radius:10px;padding:11px 12px;margin-bottom:4px}'+
+      '.ss-dr .ft{display:block;text-align:center;font-size:12px;color:#7c756c;margin-top:14px;text-decoration:none}'+
       '.ss-dr a.li:hover{color:#F59B75}.ss-dr .sub{display:block;text-align:center;background:#F07040;color:#12100e;border-radius:12px;'+
       'padding:13px;font-weight:800;margin:16px 0 4px;text-decoration:none}'+
       '.ss-dr .x{position:absolute;top:10px;right:10px;width:36px;height:36px;border:0;background:none;color:#aaa;font-size:22px;cursor:pointer}'+
@@ -46,13 +49,14 @@
     ac.innerHTML='<svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg>';
     R.appendChild(ac);var su=h.querySelector('.sub-btn-header');if(su)R.appendChild(su);h.appendChild(R);
 
-    var LINKS=[["/newsletters/", "뉴스레터"], ["/chart/", "순살차트"], ["/cardnews/", "카드뉴스"], ["/talk/", "순살톡"], ["/topics/", "주제별"], ["/search/", "검색"], ["/english/", "금융 영어"], ["/school/", "순살스쿨"], ["/youtube/", "YouTube"], ["/advertise/", "광고 문의"], ["/collab/", "협업 문의"], ["/privacy/", "개인정보 처리 안내"]];
+    var LINKS=[["읽기", [["/newsletters/", "뉴스레터"], ["/chart/", "순살차트"], ["/cardnews/", "카드뉴스"], ["/youtube/", "YouTube"]]], ["찾기", [["/search/", "검색"], ["/topics/", "주제별"], ["/english/", "금융 영어"]]], ["참여", [["/talk/", "순살톡"], ["/school/", "순살스쿨"]]], ["순살과 함께", [["/collab/", "광고·협업 문의"]]]];
     var wrap=document.createElement('div');
     wrap.innerHTML='<div class="ss-ov"></div><aside class="ss-dr" aria-label="전체 메뉴"><button class="x" aria-label="닫기">×</button>'+
       '<a class="acc" href="/account/" rel="nofollow"><span class="ph">🙂</span><span><b>로그인하고 스크랩 모으기</b><span>카카오·구글로 1초 · 폰·PC 에서 같이</span></span></a>'+
-      '<a class="li" href="/saved/" rel="nofollow">☆ 내가 모은 글</a>'+
-      LINKS.map(function(x){return '<a class="li" href="'+x[0]+'">'+x[1]+'</a>'}).join('')+
-      '<a class="sub" href="https://subscribe.soonsal.com/subscribe" target="_blank" rel="noopener">무료 구독하기</a></aside>';
+      '<a class="li mine" href="/saved/" rel="nofollow">☆ 내가 모은 글</a>'+
+      LINKS.map(function(g){return '<div class="gp">'+g[0]+'</div>'+g[1].map(function(x){return '<a class="li" href="'+x[0]+'">'+x[1]+'</a>'}).join('')}).join('')+
+      '<a class="sub" href="https://subscribe.soonsal.com/subscribe" target="_blank" rel="noopener">무료 구독하기</a>'+
+      '<a class="ft" href="/privacy/">개인정보 처리 안내</a></aside>';
     document.body.appendChild(wrap);
     var root=document.documentElement;
     function open(v){root.classList.toggle('ss-open',v);document.body.style.overflow=v?'hidden':''}
