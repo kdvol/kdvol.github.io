@@ -284,7 +284,8 @@ transition:color .18s ease,background .18s ease}
 <a class="kbtn" href="/account/" rel="nofollow">로그인하고 계정에 보관하기 →</a>
 <span class="kfine">카카오·구글로 1초 · 지금 목록은 로그인 후 「계정으로 옮기기」로 그대로 옮겨져요</span></div>
 <p class="fine">수집 항목은 <a href="/privacy/">수집 안내</a>에 정리해 뒀습니다.</p>
-<script>try{if(localStorage.getItem('ss_auth')==='1')document.getElementById('keep').innerHTML=
+<script>try{if(localStorage.getItem('ss_auth')==='1'){location.replace('/account/#saved')}
+/* 로그인했으면 계정 화면 하나로 (KD 2026-10-08 데이터 통일) */ if(localStorage.getItem('ss_auth')==='1')document.getElementById('keep').innerHTML=
 '로그인돼 있어요. 계정에 보관한 글은 <a href="/account/" rel="nofollow">내 계정</a>에서 모든 기기에서 볼 수 있어요.'}catch(e){}</script>
 </div>
 <script src="/soonsal.js" defer></script>

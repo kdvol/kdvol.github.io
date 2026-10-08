@@ -44,7 +44,7 @@ margin-bottom:8px;text-decoration:none;color:inherit}
 .it .hold{color:#F59B75;font-weight:700}
 h2 .more{float:right;font-size:.8rem;font-weight:700;color:#F59B75;text-decoration:none;margin-top:3px}
 .fine{font-size:.78rem;color:#6f695f;margin-top:26px;line-height:1.75}
-.fine a,.consent a{color:#F59B75}
+.fine a,.consent a,.card a{color:#F59B75}
 
 
 .logo-link{display:flex;align-items:center;gap:10px;text-decoration:none;color:#fff}
@@ -297,12 +297,11 @@ transition:color .18s ease,background .18s ease}
 <div id="member" hidden>
  <div class="card row"><div id="who"></div><button class="ghost" id="nickbtn">별명 바꾸기</button></div>
  <div id="link"></div>
- <button class="ghost" id="merge" hidden></button>
  <h2 id="notices">🔔 알림</h2>
  <div id="nts"><div class="card">불러오는 중…</div></div>
  <h2 id="comments">💬 내가 남긴 댓글 <a class="more" href="/talk/">순살톡 가기 →</a></h2>
  <div id="mcs"><div class="card">불러오는 중…</div></div>
- <h2>🐟 내가 모은 글</h2>
+ <h2 id="saved">🐟 내가 모은 글</h2>
  <div id="list"><div class="card">불러오는 중…</div></div>
  <div class="row" style="margin-top:22px"><button class="ghost" id="logout">로그아웃</button>
  <button class="ghost warn" id="del">탈퇴하기</button></div>
@@ -359,17 +358,11 @@ transition:color .18s ease,background .18s ease}
       ['kakao','google','naver'].forEach(function(p){if(have[p]||!(pv.providers||{})[p])return;
         html+='<a class="ghost" style="text-decoration:none;display:inline-block;margin:0 6px 6px 0" href="'+API+'/auth/'+p+'/start?consent='+VER+'&link=1&next='+encodeURIComponent('/account/')+'">'+PN[p]+' 로그인도 연결</a>'});
       $('#link').innerHTML=html?'<p class="sub" style="margin:6px 0 8px">다른 로그인 수단을 연결하면 어느 쪽으로 들어와도 같은 계정이에요. 이미 따로 만든 계정이면 하나로 합쳐져요.</p>'+html:'';});
-    var local=[];var r=ls('ss_react',{}),c=ls('ss_cmt',{}),s=ls('ss_scrap',{});
-    Object.keys(s).forEach(function(k){local.push({story:k,kind:'scrap'})});
-    Object.keys(r).forEach(function(k){local.push({story:k,kind:'react'})});
-    Object.keys(c).forEach(function(k){local.push({story:k,kind:'cmt'})});
-    var mb=$('#merge');
-    // 이미 계정에 있는 글은 빼고 센다 — 옮긴 뒤 새로고침하면 버튼이 다시 뜨던 것(KD 2026-10-08)
-    api('/me/scraps').then(function(j){var onSrv={};(j.scraps||[]).forEach(function(x){onSrv[x.story]=1});
-      local=local.filter(function(x){return !onSrv[x.story]});
-    if(local.length){mb.hidden=false;mb.textContent='이 브라우저 기록 '+local.length+'개 계정으로 옮기기';
-      mb.onclick=function(){api('/me/merge',{body:{items:local}}).then(function(j){mb.textContent=j.merged+'개 옮겼어요';mb.disabled=true;load()})}}
-    });
+    // 이 브라우저 기록은 계정으로 자동으로 올린다(버튼 없음) — 헤더와 같은 규칙, 이미 올린 건 ss_synced 로 건너뜀
+    var syn=ls('ss_synced',{}),local=[];
+    [['ss_scrap','scrap'],['ss_react','react'],['ss_cmt','cmt']].forEach(function(p){Object.keys(ls(p[0],{})).forEach(function(k){if(!syn[k])local.push({story:k,kind:p[1]})})});
+    var mg=local.length?api('/me/merge',{body:{items:local.slice(0,500)}}).then(function(){local.forEach(function(x){syn[x.story]=1});
+      try{localStorage.setItem('ss_synced',JSON.stringify(syn))}catch(e){}}).catch(function(){}):Promise.resolve();
     $('#logout').onclick=function(){api('/auth/logout',{body:{}}).then(function(){try{localStorage.removeItem('ss_auth')}catch(e){};location.href='/account/'})};
     $('#nickbtn').onclick=function(){var n=prompt('별명(2~16자)',u.nick||'');if(!n)return;
       api('/me/nick',{body:{nick:n}}).then(function(){location.reload()}).catch(function(){alert('2~16자 한글·영문·숫자로, 운영자로 오해될 이름(순살 공식·관리자 등)은 빼고 지어 주세요')})};
@@ -377,9 +370,9 @@ transition:color .18s ease,background .18s ease}
       api('/me/delete',{body:{}}).then(function(){try{localStorage.removeItem('ss_auth')}catch(e){};alert('탈퇴했어요. 그동안 고마웠어요.');location.href='/'})};
     // 이 브라우저를 계정에 묶은 뒤 불러온다 — 처음 들어온 날에도 여기서 쓴 댓글이 바로 보이게
     var v='';try{v=localStorage.getItem('ss_vid')||''}catch(e){}
-    var lk=(/^[a-z0-9-]{8,32}$/.test(v)&&v.indexOf('agent-')!==0)?api('/me/vid',{body:{v:v}}).catch(function(){}):Promise.resolve();
+    var lk=(/^[a-z0-9-]{8,32}$/.test(v))?api('/me/vid',{body:{v:v}}).catch(function(){}):Promise.resolve();
     lk.then(social);
-    load();
+    mg.then(load);
   }
   function surl(st){st=String(st||'');var mm=st.match(/^m(\d{4})(\d{2})(\d{2})-([a-z0-9-]+)$/);
     if(mm)return '/chart/'+mm[1]+'/'+mm[2]+mm[3]+'.html#'+mm[4];

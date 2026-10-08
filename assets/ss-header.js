@@ -55,7 +55,7 @@
     var wrap=document.createElement('div');
     wrap.innerHTML='<div class="ss-ov"></div><aside class="ss-dr" aria-label="전체 메뉴"><button class="x" aria-label="닫기">×</button>'+
       '<a class="acc" href="/account/" rel="nofollow"><span class="ph">🙂</span><span><b>로그인하고 스크랩 모으기</b><span>카카오·구글로 1초 · 폰·PC 에서 같이</span></span></a>'+
-      '<a class="li mine" href="/saved/" rel="nofollow">🐟 내가 모은 글</a>'+
+      '<a class="li mine" id="ss-mine" href="/saved/" rel="nofollow">🐟 내가 모은 글</a>'+
       '<a class="li soc" id="ss-nt" href="/account/#notices" rel="nofollow" hidden><span>🔔 알림</span><em hidden></em></a>'+
       '<a class="li soc" id="ss-mc" href="/account/#comments" rel="nofollow" hidden><span>💬 내가 남긴 댓글</span></a>'+
       LINKS.map(function(g){return '<div class="gp">'+g[0]+'</div>'+g[1].map(function(x){return '<a class="li" href="'+x[0]+'">'+x[1]+'</a>'}).join('')}).join('')+
@@ -78,11 +78,20 @@
       var acc=wrap.querySelector('.acc');
       acc.innerHTML=(av?'<img src="'+av+'" alt="">':'<span class="ph">🙂</span>')+'<span><b>'+nm+'</b><span>내 계정 · 스크랩 보기</span></span>';
       // 소셜 (KD 2026-10-08): 알림 배지 · 내 댓글 · 이 브라우저를 계정에 묶기(한 번만) · 댓글 별명을 계정 별명으로
+      // 「내가 모은 글」은 로그인하면 계정 것 하나로 (KD 2026-10-08 「데이터 구조 통일」):
+      //   이 브라우저에만 있던 스크랩·반응·한마디 표시를 계정으로 자동으로 올리고, 링크도 계정 화면으로.
+      wrap.querySelector('#ss-mine').href='/account/#saved';
+      try{var rd=function(k){try{return JSON.parse(localStorage.getItem(k)||'{}')||{}}catch(e){return {}}};
+        var syn=rd('ss_synced'),its=[];
+        [['ss_scrap','scrap'],['ss_react','react'],['ss_cmt','cmt']].forEach(function(p){Object.keys(rd(p[0])).forEach(function(s){if(!syn[s])its.push({story:s,kind:p[1]})})});
+        if(its.length)fetch(API+'/me/merge',{method:'POST',credentials:'include',headers:{'content-type':'application/json'},body:JSON.stringify({items:its.slice(0,500)})})
+          .then(function(r){if(r.ok){its.forEach(function(x){syn[x.story]=1});localStorage.setItem('ss_synced',JSON.stringify(syn))}}).catch(function(){});
+      }catch(e){}
       var un=u.unread|0,nt=wrap.querySelector('#ss-nt');nt.hidden=false;wrap.querySelector('#ss-mc').hidden=false;
       if(un){var em=nt.querySelector('em');em.textContent=un>99?'99+':un;em.hidden=false;
         var bd=document.createElement('span');bd.className='bd';bd.textContent=un>9?'9+':un;ac.appendChild(bd);ac.setAttribute('aria-label','내 계정 · 새 알림 '+un+'개')}
       try{var v=localStorage.getItem('ss_vid')||'';
-        if(/^[a-z0-9-]{8,32}$/.test(v)&&v.indexOf('agent-')!==0&&localStorage.getItem('ss_vlink')!==u.id+':'+v)
+        if(/^[a-z0-9-]{8,32}$/.test(v)&&localStorage.getItem('ss_vlink')!==u.id+':'+v)
           fetch(API+'/me/vid',{method:'POST',credentials:'include',headers:{'content-type':'application/json'},body:JSON.stringify({v:v})})
             .then(function(r){if(r.ok)localStorage.setItem('ss_vlink',u.id+':'+v)}).catch(function(){});
         if(u.nick&&/^[가-힣a-zA-Z0-9._ -]{1,12}$/.test(u.nick)){var pr=JSON.parse(localStorage.getItem('ss_prof')||'null')||{n:'',i:'',c:'',sc:0};
