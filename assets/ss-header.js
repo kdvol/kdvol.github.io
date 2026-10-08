@@ -12,11 +12,17 @@
   function subCard(){
     if(lsg('ss_is_sub')==='1'||lsg('ss_subbed')==='1')return;
     var x=parseInt(lsg('ss_subx')||'0',10);if(x&&Date.now()-x<7*864e5)return;   // 닫으면 일주일 쉰다
-    var all=document.querySelectorAll('[data-ss-story]');if(!all.length)return;
-    var at=null,hm=(location.hash||'').match(/^#story-(\d+)$/);
-    if(hm)at=document.getElementById('story-'+hm[1]);          // 검색으로 그 스토리에 왔다면 그 글 바로 뒤
-    if(!at||!at.hasAttribute('data-ss-story'))at=all[all.length-1];
-    var story=at.getAttribute('data-ss-story');
+    var all=document.querySelectorAll('[data-ss-story]'),at=null,story=null;
+    if(all.length){
+      var hm=(location.hash||'').match(/^#story-(\d+)$/);
+      if(hm)at=document.getElementById('story-'+hm[1]);          // 검색으로 그 스토리에 왔다면 그 글 바로 뒤
+      if(!at||!at.hasAttribute('data-ss-story'))at=all[all.length-1];
+      story=at.getAttribute('data-ss-story');
+    }else if(/^\/(wiki|topics)\/[^/]+\.html$/.test(location.pathname)){
+      // 타임라인(/wiki/)·주제(/topics/) — 검색 유입 착지 페이지. 다섯 번째 줄 뒤(앞부분을 훑어본 자리)
+      var rows=document.querySelectorAll('.wrap .story, .item');if(!rows.length)return;
+      at=rows[Math.min(4,rows.length-1)];
+    }else return;
     var st=document.createElement('style');st.textContent=
       '.ss-subc{margin:22px 0;padding:18px 18px 14px;border-radius:14px;background:#FFF4EC;border:1px solid #F7D3BE;color:#3a2f27;'+
       'font-family:Pretendard,-apple-system,BlinkMacSystemFont,sans-serif;line-height:1.55;box-sizing:border-box;text-align:left}'+
