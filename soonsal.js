@@ -587,7 +587,7 @@
     // 같은 자리에 한 줄 더 둔다 (KD 2026-08-16). 이건 민감정보 판단을 바꾸는
     // 장치가 아니라, 우리 글이 의학적 조언으로 읽히는 걸 막는 줄이다.
     bits.push('정보 제공 목적이며 매매 권유나 의학적 조언이 아닙니다');
-    bits.push('쿠키 없이 익명 통계만 · <a href="/privacy/">수집 안내</a>');
+    bits.push('통계는 쿠키 없이 익명 · 로그인은 선택 · <a href="/privacy/">수집 안내</a>');
     d.innerHTML = (hasTalk ? '' : '<a class="go" href="/talk/">💬 순살톡 — 순살러 한마디</a>') +
       '<p class="ss-legal">' + bits.join(' · ') +
         ' · <span class="biz"><a href="#" class="bz">사업자 정보</a>' +
