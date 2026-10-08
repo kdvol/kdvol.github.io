@@ -187,8 +187,10 @@
         var sm=String(p.story||'').match(/-(\d+)$/);at=(sm&&document.getElementById('story-'+sm[1]))||null;
         if(!at){var all=document.querySelectorAll('[data-ss-story]');at=all[0]||null}}
       if(!at||document.querySelector('.ss-poll'))return;
+      // 밝은 바탕(뉴스레터 본문) 인지 — 어두운 홈 색을 그대로 쓰면 질문 글자가 안 보였다 (KD 2026-10-09)
+      var light=!home&&!!at.closest('.wrapper');
       var st=document.createElement('style');st.textContent=
-        '.ss-poll{margin:26px 0 8px;padding:14px 2px 4px;border-top:1px solid #2a2622;color:#e8e3da;'+
+        '.ss-poll{margin:34px 0 30px;padding:16px 2px 4px;border-top:1px solid #2a2622;color:#e8e3da;'+
         'font-family:Pretendard,-apple-system,BlinkMacSystemFont,sans-serif;line-height:1.5;box-sizing:border-box}'+
         '.ss-poll *{box-sizing:border-box}.ss-poll .k{font-size:12px;font-weight:800;color:#F59B75;letter-spacing:.04em}'+
         '.ss-poll .q{font-size:15.5px;font-weight:800;margin:4px 0 10px;color:#f6f1e8;letter-spacing:-.02em}'+
@@ -197,9 +199,16 @@
         '.ss-poll .rs div{position:relative;height:34px;border-radius:999px;background:#262019;margin-bottom:7px;overflow:hidden;display:flex;align-items:center;padding:0 12px;font-size:14px;font-weight:700}'+
         '.ss-poll .rs i{position:absolute;left:0;top:0;bottom:0;background:#5a3524}.ss-poll .rs .me i{background:#F07040}'+
         '.ss-poll .rs span{position:relative;flex:1}.ss-poll .rs b{position:relative;color:#f6f1e8}.ss-poll .rs .me span{color:#12100e}'+
-        '.ss-poll .n{font-size:12px;color:#8b8578;margin-top:2px}';
+        '.ss-poll .n{font-size:12px;color:#8b8578;margin-top:2px}'+
+        /* 밝은 뉴스레터 본문용 */
+        '.ss-poll.lt{margin:30px 20px 34px;padding:18px 18px 14px;border:1px solid #ece6dc;border-radius:14px;background:#fffaf5;color:#2a2420}'+
+        '.ss-poll.lt .k{color:#C24A00}.ss-poll.lt .q{color:#1f1a16;font-size:16px}'+
+        '.ss-poll.lt .bt button{border-color:#e3d9cc;color:#3a2f27;background:#fff}.ss-poll.lt .bt button:hover{border-color:#F07040;color:#C24A00}'+
+        '.ss-poll.lt .rs div{background:#f1ebe2;color:#3a2f27}.ss-poll.lt .rs i{background:#f6d4c0}.ss-poll.lt .rs .me i{background:#F07040}'+
+        '.ss-poll.lt .rs b{color:#3a2f27}.ss-poll.lt .rs .me span{color:#12100e}.ss-poll.lt .n{color:#9a8f82}.ss-poll.lt .n a{color:#C24A00}'+
+        '@media(max-width:560px){.ss-poll.lt{margin:26px 16px 30px}}';
       document.head.appendChild(st);
-      var c=document.createElement('section');c.className='ss-poll';c.setAttribute('aria-label','오늘의 질문');
+      var c=document.createElement('section');c.className='ss-poll'+(light?' lt':'');c.setAttribute('aria-label','오늘의 질문');
       var key='ss_poll_'+p.day,mine=0;try{mine=parseInt(localStorage.getItem(key)||'0',10)||0}catch(e){}
       var esc=function(v){return String(v||'').replace(/[<>&"]/g,'')};
       function draw(na,nb){
@@ -245,18 +254,49 @@
         link:{mobileWebUrl:url,webUrl:url}},
       buttons:[{title:'순살에서 읽기',link:{mobileWebUrl:url,webUrl:url}}]})});
   }
+  // 반응 줄 정돈 (KD 2026-10-09 「버튼 정렬·모양이 뒤죽박죽, 만들다 만 페이지 같다」):
+  //   왼쪽 반응 3개 = 같은 높이 알약, 오른쪽 = 같은 크기 동그란 아이콘 2개(링크 복사 · 카카오톡).
+  var IC_LINK='<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.07 0l2.83-2.83a5 5 0 0 0-7.07-7.07L11.5 4.43"/><path d="M14 11a5 5 0 0 0-7.07 0L4.1 13.83a5 5 0 0 0 7.07 7.07l1.33-1.33"/></svg>';
+  var IC_KAKAO='<svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 3.5c-5.25 0-9.5 3.3-9.5 7.37 0 2.62 1.76 4.92 4.4 6.23l-.9 3.32c-.08.3.26.54.52.37l3.95-2.6c.5.06 1.01.1 1.53.1 5.25 0 9.5-3.3 9.5-7.42S17.25 3.5 12 3.5z"/></svg>';
+  var rxCss=false;
   function kakaoButtons(){
+    if(!rxCss&&document.querySelector('.ss-react')){rxCss=true;var st=document.createElement('style');st.textContent=
+      '.ss-react{gap:8px!important;align-items:center!important;margin:16px 0 6px!important}.ss-react .ss-rg{gap:8px!important}'+
+      '.ss-react .ss-rb{height:36px;display:inline-flex;align-items:center;justify-content:center;gap:5px;padding:0 14px!important;'+
+      'border-radius:999px!important;font-size:13px!important;font-weight:600;line-height:1!important;box-sizing:border-box;min-height:0!important;min-width:0!important}'+
+      '.ss-react .ss-rb b:empty{display:none}.ss-react .ss-rb svg{flex:0 0 auto}'+
+      '.ss-react .ss-sh,.ss-react .ss-kk{width:36px;padding:0!important;gap:0}'+
+      '.ss-react .ss-sh{margin-left:auto!important}.ss-react .ss-kk{margin-left:0!important}'+
+      '.ss-react .ss-kk:hover{border-color:#E5C800!important;color:#3A1D1D!important;background:#FEE500!important}'+
+      '@media(max-width:430px){.ss-react{gap:6px!important}.ss-react .ss-rg{gap:6px!important}'+
+      '.ss-react .ss-rb{height:34px;padding:0 10px!important;font-size:12.5px!important}.ss-react .ss-sh,.ss-react .ss-kk{width:34px}'+
+      '.ss-react{flex-wrap:nowrap!important}}';
+      document.head.appendChild(st)}
     [].forEach.call(document.querySelectorAll('[data-ss-story]'),function(el){
       if(el.querySelector('.ss-kk'))return;
       var sh=el.querySelector('.ss-sh');if(!sh)return;               // 반응 줄(👍🤔🔥🔗)이 그려진 뒤에 붙인다
-      var b=document.createElement('button');b.type='button';b.className=(sh.className||'')+' ss-kk';b.textContent='💬 카톡';
-      b.setAttribute('aria-label','카카오톡으로 공유');b.onclick=function(e){e.preventDefault();kakaoShare(el)};
+      sh.innerHTML=IC_LINK;sh.setAttribute('aria-label','링크 복사·공유');sh.title='링크 복사·공유';
+      var b=document.createElement('button');b.type='button';b.className='ss-rb ss-kk';b.innerHTML=IC_KAKAO;
+      b.title='카카오톡으로 공유';b.setAttribute('aria-label','카카오톡으로 공유');b.onclick=function(e){e.preventDefault();kakaoShare(el)};
       sh.parentNode.insertBefore(b,sh.nextSibling);
     });
   }
   var kkTries=0;(function kkLoop(){kakaoButtons();if(++kkTries<12)setTimeout(kkLoop,800)})();
+  // ★ 로고 「Soonsal」 = Yeseva One (브랜드 원본 로고 글꼴, KD 2026-10-09 「앞으로 계속 이걸로, 들쭉날쭉 금지」).
+  //   모든 페이지의 헤더 로고를 여기 한 곳에서 맞춘다 — 페이지마다 다른 글꼴이 박혀 있어도 여기서 덮는다.
+  function brandLogo(h){
+    if(!document.getElementById('ss-yeseva')){var lk=document.createElement('link');lk.id='ss-yeseva';lk.rel='stylesheet';
+      lk.href='https://fonts.googleapis.com/css2?family=Yeseva+One&display=swap';document.head.appendChild(lk)}
+    [].forEach.call(h.querySelectorAll('.logo-text'),function(t){
+      if(t.querySelector('.ss-yes'))return;
+      var s=t.textContent||'';if(s.indexOf('Soonsal')<0)return;
+      var ko=s.replace('Soonsal','').trim();
+      t.innerHTML=(ko?'<span class="ss-ko">'+ko.replace(/[<>&]/g,'')+'</span> ':'')+'<span class="ss-yes">Soonsal</span>';
+    });
+  }
   function run(){
     var h=document.querySelector('.site-header');if(!h)return;
+    try{brandLogo(h)}catch(e){}
     var css=document.createElement('style');css.id='ss-hdr-v1';css.textContent=
       '.site-header{position:sticky!important;z-index:9990;background:#111}'+
       '@media(max-width:640px){#soonsal-live-ticker{position:relative!important;top:auto!important}}'+
@@ -265,6 +305,10 @@
       '.ss-hl .search-btn-header,.ss-hr .sub-btn-header{position:static!important;transform:none!important;margin:0!important;inset:auto!important}'+
       '.ss-burger,.ss-acct{width:36px;height:36px;display:flex;align-items:center;justify-content:center;border-radius:50%;'+
       'background:none;border:0;color:#e8e4dc;cursor:pointer;padding:0;text-decoration:none}'+
+      /* 화면 아래 떠 있는 「공유하기」는 뺀다 — 스토리마다 링크·카톡 버튼이 있다 (KD 2026-10-09 버튼 정리) */
+      '.ss-pageshare{display:none!important}'+
+      '.site-header .ss-yes{font-family:"Yeseva One",Georgia,"Times New Roman",serif!important;font-weight:400!important;letter-spacing:.01em}'+
+      '.site-header .ss-ko{font-family:Pretendard,-apple-system,BlinkMacSystemFont,sans-serif;font-weight:800}'+
       '.ss-acct{position:relative}.ss-acct .bd{position:absolute;top:1px;right:1px;min-width:15px;height:15px;padding:0 3px;border-radius:8px;background:#F07040;color:#12100e;font-size:9.5px;font-weight:800;line-height:15px;text-align:center;box-shadow:0 0 0 2px #111}'+
       '.ss-dr a.li.soc{display:flex;justify-content:space-between}.ss-dr a.li.soc em{font-style:normal;background:#F07040;color:#12100e;border-radius:9px;padding:0 7px;font-size:11px;font-weight:800;line-height:18px}'+
       '.ss-burger:hover,.ss-acct:hover{background:#1f1f1f}.ss-acct img{width:30px;height:30px;border-radius:50%;object-fit:cover}'+
