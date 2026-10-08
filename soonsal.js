@@ -182,6 +182,10 @@
     '.ss-cg{font-size:10px;color:#8a8578;background:#f2efe7;border-radius:4px;padding:1px 6px}' +
     '.ss-chold{font-size:10px;color:#c08a3a;margin-left:6px}' +
     '.ss-cop .ss-cnm b{color:#E55A00}' +
+    '.ss-cmb{font-size:9px;font-weight:700;color:#C24A00;border:1px solid #F0C3A8;border-radius:4px;padding:0 4px;margin-left:5px}' +
+    '.ss-clog{display:flex;justify-content:space-between;gap:8px;align-items:center;margin:10px 0 4px;padding:9px 11px;border-radius:10px;' +
+      'background:#FFF4EC;border:1px solid #F7D3BE;color:#5a4a3e;font-size:12px;line-height:1.5;text-decoration:none}' +
+    '.ss-clog b{color:#C24A00;white-space:nowrap}.ss-clog.on{background:none;border-color:#eee;color:#8a8378}' +
     '.ss-cob{font-size:9px;font-weight:700;color:#fff;background:#E55A00;border-radius:4px;' +
     'padding:1px 6px}' +
     '.ss-cob.bot{background:#5a6b7a}' +
@@ -921,6 +925,10 @@
       (pr.i ? '<i>· ' + esc(pr.i) + '</i>' : '') + '<em>✎ 바꾸기</em>';
   }
 
+  function authed() {
+    try { return localStorage.getItem('ss_auth') === '1'; } catch (e) { return false; }
+  }
+
   function profOf() {
     var p = null;
     try { p = JSON.parse(localStorage.getItem('ss_prof') || 'null'); } catch (e) {}
@@ -1007,6 +1015,10 @@
         '</label>' +
         '<div class="ss-cpn">이 브라우저에만 저장돼요.</div>' +
       '</div>' +
+      // 로그인 유도 — 회원이면 알림 받는다는 안내, 아니면 로그인하러 (KD 2026-10-08)
+      (authed()
+        ? '<a class="ss-clog on" href="/account/#notices" rel="nofollow">✓ 회원으로 남겨요 · 답글이 달리면 🔔 알림으로 알려드려요</a>'
+        : '<a class="ss-clog" href="/account/" rel="nofollow"><span>로그인하면 내 댓글에 달린 답글을 <b>폰·PC 어디서든</b> 알림으로 받아요</span><b>카카오·구글 1초 →</b></a>') +
       '<div class="ss-clist"></div>' +
       '<a class="ss-call" href="/talk/">💬 순살톡에서 다른 이야기도 →</a>' +
       '<div class="ss-cnote">투자 권유·광고·비방은 ' +
@@ -1089,6 +1101,8 @@
         '<div class="ss-cnm"><b>' + esc(c.k) + '</b>' +
           (c.o ? '<span class="ss-cob' + (c.o === 2 ? ' bot' : '') + '">' +
             (c.o === 2 ? '🤖 봇' : '순살 팀') + '</span>' : '') +
+          // 로그인한 회원이 쓴 글 (KD 2026-10-08 소셜 v1)
+          (c.m && !c.o ? '<span class="ss-cmb">✓ 회원</span>' : '') +
           (c.g ? '<span class="ss-cg">' + esc(c.g) + '</span>' : '') +
           '<span class="ss-ct">' + cAgo(c.t) + '</span></div>' +
         '<div class="ss-cbx">' + atHTML(c.b, toNick) +
