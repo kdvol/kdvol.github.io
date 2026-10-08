@@ -188,6 +188,19 @@ border-radius:50%;background:#F07040;opacity:0;transition:opacity .2s}
   .nav-menu a{text-align:left;padding-left:14px}
   .nav-more>summary:before{right:3px;top:7px}
 }
+
+/* ── 탭을 더 잘 보이게 (KD 2026-10-09 「nav 탭이 아예 안 보인다 — 튀지 않게, 지금보다 눈에 띄게」) ──
+   고정(sticky)하지 않는다 — 스크롤 흐름은 그대로. 대신 글자 대비·크기를 올리고, 지금 위치는 주황 밑줄. */
+.nav{background:#141414;border-bottom:1px solid #262626}
+.nav>a,.nav-more>summary{color:#cfc8bc;font-size:14px;letter-spacing:-.01em;padding:13px 22px}
+.nav>a:hover,.nav-more>summary:hover{color:#fff;background:#1b1b1b}
+.nav>a.active,.nav-more.active>summary{color:#F07040}
+@media(max-width:560px){
+  .nav>a,.nav-more>summary{font-size:13px;padding:12px 2px;letter-spacing:-.3px}
+}
+@media(max-width:360px){
+  .nav>a,.nav-more>summary{font-size:12px;padding:12px 1px}
+}
 </style>
 <style id="soonsal-search-v1">
 /* 헤더 — 한 축에 셋. 세로 중심이 하나여야 어긋나지 않는다 */
@@ -356,6 +369,19 @@ transition:color .18s ease,background .18s ease}
 }
 
 
+/* ── 탭을 더 잘 보이게 (KD 2026-10-09 「nav 탭이 아예 안 보인다 — 튀지 않게, 지금보다 눈에 띄게」) ──
+   고정(sticky)하지 않는다 — 스크롤 흐름은 그대로. 대신 글자 대비·크기를 올리고, 지금 위치는 주황 밑줄. */
+.nav{background:#141414;border-bottom:1px solid #262626}
+.nav>a,.nav-more>summary{color:#cfc8bc;font-size:14px;letter-spacing:-.01em;padding:13px 22px}
+.nav>a:hover,.nav-more>summary:hover{color:#fff;background:#1b1b1b}
+.nav>a.active,.nav-more.active>summary{color:#F07040}
+@media(max-width:560px){
+  .nav>a,.nav-more>summary{font-size:13px;padding:12px 2px;letter-spacing:-.3px}
+}
+@media(max-width:360px){
+  .nav>a,.nav-more>summary{font-size:12px;padding:12px 1px}
+}
+
 .sec-head{margin:0 0 26px}
 .sec-kicker{display:flex;align-items:center;gap:9px;margin:0 0 12px;color:#F59B75;
 font-size:11px;font-weight:800;letter-spacing:.08em}
@@ -364,7 +390,7 @@ font-size:11px;font-weight:800;letter-spacing:.08em}
 line-height:1.25;color:#fff;word-break:keep-all}
 .sec-head .deck{margin:10px 0 0;color:#8b8578;font-size:.92rem;line-height:1.65;word-break:keep-all}
 @media(max-width:560px){.sec-head h1{font-size:1.42rem}}
-</style><header class="site-header"><a href="/search/" class="search-btn-header" aria-label="검색"><svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.6-3.6"/></svg></a><a class="logo-link" href="/"><img src="/assets/soonsal-logo-white.png" alt="" onerror="this.style.display='none'"><span class="logo-text">순살브리핑 Soonsal</span></a><a href="https://subscribe.soonsal.com/subscribe" target="_blank" rel="noopener" class="sub-btn-header">구독하기</a></header><nav class="nav" aria-label="주요 메뉴"><a href="/newsletters/">뉴스레터</a><a href="/chart/">순살차트</a><a href="/cardnews/">카드뉴스</a><a href="/talk/">순살톡</a><script src="/assets/ss-header.js" defer></script></nav>
+.logo-text .ss-yes{font-family:"Yeseva One",Georgia,"Times New Roman",serif;font-weight:400;letter-spacing:.01em}.logo-text .ss-ko{font-weight:800}</style><header class="site-header"><a href="/search/" class="search-btn-header" aria-label="검색"><svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.6-3.6"/></svg></a><a class="logo-link" href="/"><img src="/assets/soonsal-logo-white.png" alt="" onerror="this.style.display='none'"><span class="logo-text"><span class="ss-ko">순살브리핑</span> <span class="ss-yes">Soonsal</span></span></a><a href="https://subscribe.soonsal.com/subscribe" target="_blank" rel="noopener" class="sub-btn-header">구독하기</a></header><nav class="nav" aria-label="주요 메뉴"><a href="/newsletters/">뉴스레터</a><a href="/chart/">순살차트</a><a href="/cardnews/">카드뉴스</a><a href="/talk/">순살톡</a><script src="/assets/ss-header.js" defer></script></nav>
 <div class="sc"><div class="ph">
 <div class="ey">순살 스쿨</div>
 <h1>현업에 있는 사람에게<br>직접 듣는 금융 커리어</h1>

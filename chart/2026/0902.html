@@ -105,6 +105,19 @@ border-radius:50%;background:#F07040;opacity:0;transition:opacity .2s}
   .nav-menu a{text-align:left;padding-left:14px}
   .nav-more>summary:before{right:3px;top:7px}
 }
+
+/* ── 탭을 더 잘 보이게 (KD 2026-10-09 「nav 탭이 아예 안 보인다 — 튀지 않게, 지금보다 눈에 띄게」) ──
+   고정(sticky)하지 않는다 — 스크롤 흐름은 그대로. 대신 글자 대비·크기를 올리고, 지금 위치는 주황 밑줄. */
+.nav{background:#141414;border-bottom:1px solid #262626}
+.nav>a,.nav-more>summary{color:#cfc8bc;font-size:14px;letter-spacing:-.01em;padding:13px 22px}
+.nav>a:hover,.nav-more>summary:hover{color:#fff;background:#1b1b1b}
+.nav>a.active,.nav-more.active>summary{color:#F07040}
+@media(max-width:560px){
+  .nav>a,.nav-more>summary{font-size:13px;padding:12px 2px;letter-spacing:-.3px}
+}
+@media(max-width:360px){
+  .nav>a,.nav-more>summary{font-size:12px;padding:12px 1px}
+}
 </style>
   <!-- soonsal:seo -->
 <link rel="canonical" href="https://soonsal.com/chart/2026/0902.html">
