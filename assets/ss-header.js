@@ -169,6 +169,35 @@
     }).catch(function(){});
   }
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',pollCard);else pollCard();
+  // ── 카카오톡 공유 (KD 2026-10-09 개선 5번) — 스토리마다 「💬 카톡」 버튼, 카드 이미지는 /share/<id>.jpg ──
+  //   JavaScript 키는 원래 웹페이지에 공개되는 키다(앱 479808, JS SDK 도메인 soonsal.com 등록됨). SDK 는 누를 때만 받는다.
+  var KAKAO_JS='d0bec18d3bfd804f9d714e562a93ae70';
+  function kakaoSdk(cb){
+    if(window.Kakao&&window.Kakao.Share){if(!Kakao.isInitialized())Kakao.init(KAKAO_JS);return cb()}
+    var sc=document.createElement('script');sc.src='https://t1.kakaocdn.net/kakao_js_sdk/2.7.4/kakao.min.js';sc.crossOrigin='anonymous';
+    sc.onload=function(){try{if(!Kakao.isInitialized())Kakao.init(KAKAO_JS);cb()}catch(e){}};document.head.appendChild(sc);
+  }
+  function kakaoShare(el){
+    var sid=el.getAttribute('data-ss-story')||'',m=sid.match(/-(\d+)$/);
+    var t=el.querySelector('[id$="-title"],.story-title,h2,h3');var title=(t?t.textContent:document.title).replace(/\s+/g,' ').trim();
+    var li=el.querySelector('.bullet')||el.querySelector('li');var desc=(li?li.textContent:'').replace(/\s+/g,' ').trim().slice(0,90);
+    var url=location.origin+location.pathname+(m?'#story-'+m[1]:'');
+    var img=/^\d{4}c?-\d{1,2}$/.test(sid)?location.origin+'/share/'+sid+'.jpg':(document.querySelector('meta[property="og:image"]')||{}).content;
+    kakaoSdk(function(){Kakao.Share.sendDefault({objectType:'feed',
+      content:{title:title,description:desc||'글로벌 금융·경제 뉴스, 매일 아침 5분 살코기만',imageUrl:img,imageWidth:1200,imageHeight:630,
+        link:{mobileWebUrl:url,webUrl:url}},
+      buttons:[{title:'순살에서 읽기',link:{mobileWebUrl:url,webUrl:url}}]})});
+  }
+  function kakaoButtons(){
+    [].forEach.call(document.querySelectorAll('[data-ss-story]'),function(el){
+      if(el.querySelector('.ss-kk'))return;
+      var sh=el.querySelector('.ss-sh');if(!sh)return;               // 반응 줄(👍🤔🔥🔗)이 그려진 뒤에 붙인다
+      var b=document.createElement('button');b.type='button';b.className=(sh.className||'')+' ss-kk';b.textContent='💬 카톡';
+      b.setAttribute('aria-label','카카오톡으로 공유');b.onclick=function(e){e.preventDefault();kakaoShare(el)};
+      sh.parentNode.insertBefore(b,sh.nextSibling);
+    });
+  }
+  var kkTries=0;(function kkLoop(){kakaoButtons();if(++kkTries<12)setTimeout(kkLoop,800)})();
   function run(){
     var h=document.querySelector('.site-header');if(!h)return;
     var css=document.createElement('style');css.id='ss-hdr-v1';css.textContent=
