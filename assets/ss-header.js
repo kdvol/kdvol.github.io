@@ -191,7 +191,7 @@
     var authed=false;try{authed=localStorage.getItem('ss_auth')==='1'}catch(e){}
     if(!authed)try{followBtn(null)}catch(e){}
     if(authed)fetch(API+'/me',{credentials:'include'}).then(function(r){return r.json()}).then(function(j){
-      var u=j&&j.user;if(!u){try{localStorage.removeItem('ss_auth')}catch(e){}return}
+      var u=j&&j.user;if(!u){try{localStorage.removeItem('ss_auth')}catch(e){}try{followBtn(null)}catch(e){}return}
       window.ssMe=u;try{document.dispatchEvent(new CustomEvent('ss-me',{detail:u}))}catch(e){}  // 페이지가 /me 를 또 부르지 않게 나눠 준다
       try{followBtn(u)}catch(e){}
       var nm=String(u.nick||u.name||'순살 독자').replace(/[<>&"]/g,'');
