@@ -30,6 +30,63 @@
           .then(function(r){if(r.ok){on=nx;paint()}}).catch(function(){}).then(function(){b.disabled=false})};}
     h1.parentNode.insertBefore(b,h1.nextSibling);
   }
+  // ── 알림 패널 (KD 2026-10-09 「사이트 알림을 깔끔한 UX로」) — 로그인하면 계정 아이콘이 패널을 연다 ──
+  function notiPanel(u,ac){
+    var st=document.createElement('style');st.textContent=
+      '.ss-np{position:fixed;z-index:10050;top:64px;right:max(10px,calc(50% - 400px));width:min(380px,calc(100vw - 20px));max-height:min(72vh,560px);'+
+      'display:flex;flex-direction:column;background:#161616;border:1px solid #2c2c2c;border-radius:16px;box-shadow:0 18px 50px rgba(0,0,0,.55);'+
+      'font-family:Pretendard,-apple-system,BlinkMacSystemFont,sans-serif;color:#ece7de;overflow:hidden;opacity:0;transform:translateY(-6px);transition:opacity .16s,transform .16s}'+
+      '.ss-np.on{opacity:1;transform:none}.ss-np[hidden]{display:none}'+
+      '.ss-np .hd{display:flex;align-items:center;gap:10px;padding:14px 16px 10px;border-bottom:1px solid #232323}'+
+      '.ss-np .hd img,.ss-np .hd .ph{width:34px;height:34px;border-radius:50%;object-fit:cover;background:#2a2a2a;display:flex;align-items:center;justify-content:center}'+
+      '.ss-np .hd b{display:block;font-size:14.5px}.ss-np .hd small{display:block;font-size:12px;color:#F59B75;margin-top:1px}'+
+      '.ss-np .tl{display:flex;justify-content:space-between;align-items:baseline;padding:12px 16px 6px;font-size:13px;font-weight:800;color:#bdb6aa}'+
+      '.ss-np .tl span{font-weight:600;color:#7d776e;font-size:12px}'+
+      '.ss-np .ls{overflow-y:auto;padding:0 8px 6px}'+
+      '.ss-np .it{display:flex;gap:11px;padding:10px 9px;border-radius:12px;text-decoration:none;color:inherit;position:relative}'+
+      '.ss-np .it:hover{background:#1f1f1f}.ss-np .it .ic{flex:0 0 32px;height:32px;border-radius:50%;background:#262019;display:flex;align-items:center;justify-content:center;font-size:15px}'+
+      '.ss-np .it .tx{flex:1;min-width:0}.ss-np .it .m{font-size:13.5px;line-height:1.45;color:#ece7de}.ss-np .it .m b{color:#fff}'+
+      '.ss-np .it .s{font-size:12.5px;color:#9b958b;line-height:1.45;margin-top:2px;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}'+
+      '.ss-np .it .t{font-size:11.5px;color:#6f695f;margin-top:3px}'+
+      '.ss-np .it.new::after{content:"";position:absolute;right:10px;top:16px;width:7px;height:7px;border-radius:50%;background:#F07040}'+
+      '.ss-np .em{padding:22px 16px 24px;text-align:center;font-size:13px;color:#8b8578;line-height:1.7}'+
+      '.ss-np .ft{display:flex;border-top:1px solid #232323}.ss-np .ft a{flex:1;text-align:center;padding:12px 4px;font-size:12.5px;font-weight:700;color:#cfc8bb;text-decoration:none}'+
+      '.ss-np .ft a+a{border-left:1px solid #232323}.ss-np .ft a:hover{color:#F59B75}';
+    document.head.appendChild(st);
+    var esc=function(v){return String(v||'').replace(/[<>&"]/g,'')};
+    var nm=esc(u.nick||u.name||'순살 독자'),av=u.avatar?esc(u.avatar):'',sk=u.streak|0;
+    var pn=document.createElement('div');pn.className='ss-np';pn.hidden=true;pn.setAttribute('role','dialog');pn.setAttribute('aria-label','알림');
+    pn.innerHTML='<div class="hd">'+(av?'<img src="'+av+'" alt="">':'<span class="ph">🙂</span>')+'<div><b>'+nm+'</b><small>'+(sk>=2?'🐟 '+sk+'일 연속 읽음':'오늘도 반가워요')+'</small></div></div>'+
+      '<div class="tl">알림<span class="cn"></span></div><div class="ls"><div class="em">불러오는 중…</div></div>'+
+      '<div class="ft"><a href="/account/" rel="nofollow">내 계정</a><a href="/account/#comments" rel="nofollow">내 댓글</a><a href="/account/#follows" rel="nofollow">팔로우</a></div>';
+    document.body.appendChild(pn);
+    function surl(stry){stry=String(stry||'');var mm=stry.match(/^m(\d{4})(\d{2})(\d{2})-([a-z0-9-]+)$/);
+      if(mm)return '/chart/'+mm[1]+'/'+mm[2]+mm[3]+'.html#'+mm[4];var m=stry.match(/^(\d{4})(c?)-(\d+)$/);
+      return m?'/newsletters/2026/'+m[1]+m[2]+'.html#story-'+m[3]:'/talk/'}
+    function ago(t){var d=Math.floor(Date.now()/1000)-t;return d<60?'방금':d<3600?Math.floor(d/60)+'분 전':d<86400?Math.floor(d/3600)+'시간 전':Math.floor(d/86400)+'일 전'}
+    var loaded=false;
+    function load(){if(loaded)return;loaded=true;
+      Promise.all([fetch(API+'/me/notices',{credentials:'include'}).then(function(r){return r.json()}),
+                   fetch('/saved/stories.json').then(function(r){return r.json()}).catch(function(){return {}})]).then(function(v){
+        var it=(v[0]&&v[0].items)||[],SM=v[1]||{},ls=pn.querySelector('.ls');
+        pn.querySelector('.cn').textContent=(v[0]&&v[0].n)?'새 알림 '+v[0].n+'개':'';
+        if(!it.length){ls.innerHTML='<div class="em">아직 알림이 없어요.<br>내 댓글에 답글·좋아요가 달리거나<br>팔로우한 회사·주제가 브리핑에 나오면 여기 떠요.</div>';return}
+        ls.innerHTML=it.slice(0,12).map(function(x){
+          var ic=x.kind==='reply'?'💬':x.kind==='follow'?'📌':'❤️',m,sub;
+          if(x.kind==='reply'){m='<b>'+esc(x.who||'누군가')+'</b>님이 내 댓글에 답글을 남겼어요';sub=x.reply?'“'+esc(x.reply)+'”':esc(x.mine)}
+          else if(x.kind==='follow'){m='팔로우한 <b>'+esc(x.who)+'</b> 새 이야기';sub=esc((SM[x.story]||[])[0]||'')}
+          else{m='내 댓글이 좋아요를 받았어요';sub=esc(x.mine)}
+          return '<a class="it'+(x.seen?'':' new')+'" href="'+surl(x.story)+'"><span class="ic">'+ic+'</span><span class="tx"><span class="m">'+m+'</span>'+
+            (sub?'<span class="s">'+sub+'</span>':'')+'<span class="t">'+ago(x.ts)+'</span></span></a>'}).join('');
+        if(v[0]&&v[0].n)fetch(API+'/me/notices',{method:'POST',credentials:'include',headers:{'content-type':'application/json'},body:'{}'}).catch(function(){});
+      }).catch(function(){pn.querySelector('.ls').innerHTML='<div class="em">알림을 불러오지 못했어요. 잠시 뒤 다시 열어 주세요.</div>'})}
+    function open(v){if(v){var hh=ac.closest('.site-header');pn.style.top=Math.max(8,(hh?hh.getBoundingClientRect().bottom:56)+8)+'px';pn.hidden=false;requestAnimationFrame(function(){pn.classList.add('on')});load();
+        var bd=ac.querySelector('.bd');if(bd)bd.parentNode.removeChild(bd);}
+      else{pn.classList.remove('on');setTimeout(function(){pn.hidden=true},160)}}
+    ac.addEventListener('click',function(e){e.preventDefault();open(pn.hidden)});
+    document.addEventListener('click',function(e){if(!pn.hidden&&!pn.contains(e.target)&&!ac.contains(e.target))open(false)});
+    document.addEventListener('keydown',function(e){if(e.key==='Escape'&&!pn.hidden)open(false)});
+  }
   function subCard(){
     if(lsg('ss_is_sub')==='1'||lsg('ss_subbed')==='1')return;
     var x=parseInt(lsg('ss_subx')||'0',10);if(x&&Date.now()-x<7*864e5)return;   // 닫으면 일주일 쉰다
@@ -292,6 +349,7 @@
           .then(function(r){if(r.ok){its.forEach(function(x){syn[x.story]=1});localStorage.setItem('ss_synced',JSON.stringify(syn))}}).catch(function(){});
       }catch(e){}
       var un=u.unread|0,nt=wrap.querySelector('#ss-nt');nt.hidden=false;wrap.querySelector('#ss-mc').hidden=false;
+      try{notiPanel(u,ac)}catch(e){}
       if(un){var em=nt.querySelector('em');em.textContent=un>99?'99+':un;em.hidden=false;
         var bd=document.createElement('span');bd.className='bd';bd.textContent=un>9?'9+':un;ac.appendChild(bd);ac.setAttribute('aria-label','내 계정 · 새 알림 '+un+'개')}
       try{var v=localStorage.getItem('ss_vid')||'';
