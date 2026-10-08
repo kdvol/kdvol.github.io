@@ -7,6 +7,13 @@
 <link rel="canonical" href="https://soonsal.com/saved/">
 <link rel="preconnect" href="https://fonts.googleapis.com"/><link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700;800&display=swap" rel="stylesheet"/>
 <style>
+.keep{margin-top:26px;background:#1a1512;border:1px solid #3a2a20;border-radius:12px;padding:14px 16px;
+font-size:.88rem;line-height:1.7;color:#cfc8bb}
+.keep b{color:#f0ece4}.keep a{color:#F59B75}
+.keep .kbtn{display:block;margin-top:10px;text-align:center;background:#F07040;color:#12100e;border-radius:10px;
+padding:10px;font-weight:800;text-decoration:none}
+.keep .kfine{display:block;margin-top:6px;font-size:.76rem;color:#8b8578;text-align:center}
+
 *{margin:0;padding:0;box-sizing:border-box}
 /* 이 페이지만 밝은 배경이라 사이트 전반과 따로 놀았고, 공통 섹션 머리가
    흰 글자를 쓰면서 제목이 아예 안 보였다. 다른 섹션과 같은 어두운 판으로 맞춘다. */
@@ -272,9 +279,13 @@ transition:color .18s ease,background .18s ease}
 <div class="sec-head"><div class="sec-kicker">이 브라우저에만 저장됨</div><h1>내가 모은 글</h1><p class="deck">반응을 남기거나 한마디를 쓴 스토리가 여기 쌓임</p></div>
 <div class="bar" id="bar"></div>
 <div id="app"><div class="empty">불러오는 중…</div></div>
-<p class="fine">로그인이 없어서 <b>이 브라우저에만</b> 저장됩니다.
-기록을 지우거나 다른 기기로 옮기면 목록도 사라져요.
-수집 항목은 <a href="/privacy/">수집 안내</a>에 정리해 뒀습니다.</p>
+<div class="keep" id="keep"><b>로그인하지 않으면 이 브라우저에만</b> 저장돼요.
+브라우저 기록을 지우거나 폰↔PC, 다른 브라우저로 가면 이 목록은 <b>사라집니다.</b>
+<a class="kbtn" href="/account/" rel="nofollow">로그인하고 계정에 보관하기 →</a>
+<span class="kfine">카카오·구글로 1초 · 지금 목록은 로그인 후 「계정으로 옮기기」로 그대로 옮겨져요</span></div>
+<p class="fine">수집 항목은 <a href="/privacy/">수집 안내</a>에 정리해 뒀습니다.</p>
+<script>try{if(localStorage.getItem('ss_auth')==='1')document.getElementById('keep').innerHTML=
+'로그인돼 있어요. 계정에 보관한 글은 <a href="/account/" rel="nofollow">내 계정</a>에서 모든 기기에서 볼 수 있어요.'}catch(e){}</script>
 </div>
 <script src="/soonsal.js" defer></script>
 <script>
