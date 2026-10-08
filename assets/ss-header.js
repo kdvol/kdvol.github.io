@@ -9,6 +9,27 @@
   function lss(k,v){try{localStorage.setItem(k,v)}catch(e){}}
   try{var qs=location.search;
     if(/[?&]ss=[a-f0-9]{16}\.|[?&]s=[a-f0-9]{16}\b|utm_source=mail|utm_medium=email|[?&]m=1\b/.test(qs))lss('ss_is_sub','1')}catch(e){}
+  // ── 팔로우 버튼 (KD 2026-10-09 개선 3번) — /wiki/<slug>.html(회사·인물)·/topics/<slug>.html(주제) 제목 아래 ──
+  function followBtn(u){
+    var m=location.pathname.match(/^\/(wiki|topics)\/([a-z0-9-]+)\.html$/);if(!m||m[2]==='index')return;
+    var h1=document.querySelector('h1');if(!h1||document.querySelector('.ss-fol'))return;
+    var kind=m[1]==='wiki'?'e':'t',slug=m[2],key=kind+':'+slug;
+    var name=(h1.textContent||'').replace(/\s*타임라인\s*$/,'').replace(/\s*관련.*$/,'').trim();
+    var st=document.createElement('style');st.textContent=
+      '.ss-fol{display:inline-flex;align-items:center;gap:6px;margin:8px 0 4px;padding:8px 14px;border-radius:999px;border:1px solid #F07040;'+
+      'background:#F07040;color:#12100e;font:700 13.5px/1.2 Pretendard,-apple-system,sans-serif;cursor:pointer;text-decoration:none}'+
+      '.ss-fol.on{background:transparent;color:#F59B75}.ss-fol small{font-weight:400;opacity:.8}';
+    document.head.appendChild(st);
+    var on=!!(u&&(u.follows||[]).indexOf(key)>=0);
+    var b=document.createElement(u?'button':'a');b.className='ss-fol'+(on?' on':'');
+    if(!u){b.href='/account/';b.rel='nofollow';b.innerHTML='＋ '+name+' 팔로우 <small>· 새 소식 알림</small>';}
+    else{b.type='button';
+      var paint=function(){b.className='ss-fol'+(on?' on':'');b.innerHTML=on?'✓ 팔로우 중 <small>· 새 브리핑에 나오면 알림</small>':'＋ '+name+' 팔로우 <small>· 새 소식 알림</small>'};paint();
+      b.onclick=function(){var nx=!on;b.disabled=true;
+        fetch(API+'/me/follow',{method:'POST',credentials:'include',headers:{'content-type':'application/json'},body:JSON.stringify({kind:kind,slug:slug,on:nx})})
+          .then(function(r){if(r.ok){on=nx;paint()}}).catch(function(){}).then(function(){b.disabled=false})};}
+    h1.parentNode.insertBefore(b,h1.nextSibling);
+  }
   function subCard(){
     if(lsg('ss_is_sub')==='1'||lsg('ss_subbed')==='1')return;
     var x=parseInt(lsg('ss_subx')||'0',10);if(x&&Date.now()-x<7*864e5)return;   // 닫으면 일주일 쉰다
@@ -168,9 +189,11 @@
     document.addEventListener('keydown',function(e){if(e.key==='Escape')open(false)});
 
     var authed=false;try{authed=localStorage.getItem('ss_auth')==='1'}catch(e){}
+    if(!authed)try{followBtn(null)}catch(e){}
     if(authed)fetch(API+'/me',{credentials:'include'}).then(function(r){return r.json()}).then(function(j){
       var u=j&&j.user;if(!u){try{localStorage.removeItem('ss_auth')}catch(e){}return}
       window.ssMe=u;try{document.dispatchEvent(new CustomEvent('ss-me',{detail:u}))}catch(e){}  // 페이지가 /me 를 또 부르지 않게 나눠 준다
+      try{followBtn(u)}catch(e){}
       var nm=String(u.nick||u.name||'순살 독자').replace(/[<>&"]/g,'');
       var av=u.avatar?String(u.avatar).replace(/["<>]/g,''):'';
       if(av)ac.innerHTML='<img src="'+av+'" alt="">';
