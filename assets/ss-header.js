@@ -182,19 +182,19 @@
     fetch(API+'/poll').then(function(r){return r.json()}).then(function(j){
       var p=j&&j.poll;if(!p)return;
       var at=null;
-      if(home)at=document.querySelector('.hero');
+      if(home)at=document.getElementById('expand')||document.querySelector('.hero');   // 홈: 뉴스레터 전문 아래(첫 화면은 비운다)
       else{ if(iss.getAttribute('data-ss-issue')!==p.day.slice(5,7)+p.day.slice(8,10))return;   // 그날 회차에서만
         var sm=String(p.story||'').match(/-(\d+)$/);at=(sm&&document.getElementById('story-'+sm[1]))||null;
         if(!at){var all=document.querySelectorAll('[data-ss-story]');at=all[0]||null}}
       if(!at||document.querySelector('.ss-poll'))return;
       var st=document.createElement('style');st.textContent=
-        '.ss-poll{margin:18px 0;padding:16px 16px 14px;border-radius:14px;border:1px solid #3a2a20;background:#1a1512;color:#e8e3da;'+
+        '.ss-poll{margin:26px 0 8px;padding:14px 2px 4px;border-top:1px solid #2a2622;color:#e8e3da;'+
         'font-family:Pretendard,-apple-system,BlinkMacSystemFont,sans-serif;line-height:1.5;box-sizing:border-box}'+
         '.ss-poll *{box-sizing:border-box}.ss-poll .k{font-size:12px;font-weight:800;color:#F59B75;letter-spacing:.04em}'+
-        '.ss-poll .q{font-size:16.5px;font-weight:800;margin:5px 0 12px;color:#f6f1e8;letter-spacing:-.02em}'+
-        '.ss-poll .bt{display:flex;gap:8px}.ss-poll .bt button{flex:1;height:46px;border-radius:10px;border:1px solid #F07040;background:transparent;color:#F59B75;font:800 15px Pretendard,sans-serif;cursor:pointer}'+
-        '.ss-poll .bt button:hover{background:#F07040;color:#12100e}'+
-        '.ss-poll .rs div{position:relative;height:40px;border-radius:10px;background:#262019;margin-bottom:7px;overflow:hidden;display:flex;align-items:center;padding:0 12px;font-size:14px;font-weight:700}'+
+        '.ss-poll .q{font-size:15.5px;font-weight:800;margin:4px 0 10px;color:#f6f1e8;letter-spacing:-.02em}'+
+        '.ss-poll .bt{display:flex;gap:8px}.ss-poll .bt button{flex:1;height:40px;border-radius:999px;border:1px solid #3a332c;background:transparent;color:#e8e3da;font:700 14px Pretendard,sans-serif;cursor:pointer}'+
+        '.ss-poll .bt button:hover{border-color:#F07040;color:#F59B75}'+
+        '.ss-poll .rs div{position:relative;height:34px;border-radius:999px;background:#262019;margin-bottom:7px;overflow:hidden;display:flex;align-items:center;padding:0 12px;font-size:14px;font-weight:700}'+
         '.ss-poll .rs i{position:absolute;left:0;top:0;bottom:0;background:#5a3524}.ss-poll .rs .me i{background:#F07040}'+
         '.ss-poll .rs span{position:relative;flex:1}.ss-poll .rs b{position:relative;color:#f6f1e8}.ss-poll .rs .me span{color:#12100e}'+
         '.ss-poll .n{font-size:12px;color:#8b8578;margin-top:2px}';
@@ -261,11 +261,11 @@
       '.site-header{position:sticky!important;z-index:9990;background:#111}'+
       '@media(max-width:640px){#soonsal-live-ticker{position:relative!important;top:auto!important}}'+
       '.ss-hl,.ss-hr{position:absolute;grid-area:auto;top:50%;transform:translateY(-50%);display:flex;align-items:center;gap:4px;z-index:2}'+
-      '.ss-hl{left:max(10px,calc(50% - 400px))}.ss-hr{right:max(10px,calc(50% - 400px));gap:8px}'+
+      '.ss-hl{left:max(10px,calc(50% - 400px))}.ss-hr{right:max(10px,calc(50% - 400px));gap:14px}'+
       '.ss-hl .search-btn-header,.ss-hr .sub-btn-header{position:static!important;transform:none!important;margin:0!important;inset:auto!important}'+
       '.ss-burger,.ss-acct{width:36px;height:36px;display:flex;align-items:center;justify-content:center;border-radius:50%;'+
       'background:none;border:0;color:#e8e4dc;cursor:pointer;padding:0;text-decoration:none}'+
-      '.ss-acct{position:relative}.ss-acct .bd{position:absolute;top:-2px;right:-4px;min-width:17px;height:17px;padding:0 4px;border-radius:9px;background:#F07040;color:#12100e;font-size:10.5px;font-weight:800;line-height:17px;text-align:center}'+
+      '.ss-acct{position:relative}.ss-acct .bd{position:absolute;top:1px;right:1px;min-width:15px;height:15px;padding:0 3px;border-radius:8px;background:#F07040;color:#12100e;font-size:9.5px;font-weight:800;line-height:15px;text-align:center;box-shadow:0 0 0 2px #111}'+
       '.ss-dr a.li.soc{display:flex;justify-content:space-between}.ss-dr a.li.soc em{font-style:normal;background:#F07040;color:#12100e;border-radius:9px;padding:0 7px;font-size:11px;font-weight:800;line-height:18px}'+
       '.ss-burger:hover,.ss-acct:hover{background:#1f1f1f}.ss-acct img{width:30px;height:30px;border-radius:50%;object-fit:cover}'+
       '.ss-ov{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:100000;opacity:0;pointer-events:none;transition:opacity .2s}'+
@@ -285,8 +285,9 @@
       'padding:13px;font-weight:800;margin:16px 0 4px;text-decoration:none}'+
       '.ss-dr .x{position:absolute;top:10px;right:10px;width:36px;height:36px;border:0;background:none;color:#aaa;font-size:22px;cursor:pointer}'+
       '@media(max-width:420px){.site-header>.logo-link{position:absolute!important;grid-area:auto!important;left:50%;top:50%;transform:translate(-50%,-50%);margin:0!important}'+
-      '.site-header .logo-text{font-size:14.5px!important}.site-header .logo-link img{height:22px!important}.site-header .logo-link{gap:6px!important}'+
-      '.ss-hr .sub-btn-header{padding:8px 11px!important;font-size:12.5px!important}.ss-hl{left:6px}.ss-hr{right:6px;gap:4px}}';
+      '.site-header .logo-text{font-size:13.5px!important}.site-header .logo-link img{height:20px!important}.site-header .logo-link{gap:5px!important}'+
+      '.ss-acct{width:32px;height:32px}'+
+      '.ss-hr .sub-btn-header{padding:8px 11px!important;font-size:12.5px!important}.ss-hl{left:6px}.ss-hr{right:6px;gap:8px}}';
     document.head.appendChild(css);
     var tk=document.getElementById('soonsal-live-ticker');
     // 시세 띠는 시세를 받아 온 뒤에야 보여서(처음엔 display:none) 재는 순간 높이가 0 일 수 있다 —
