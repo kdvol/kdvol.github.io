@@ -6,6 +6,7 @@
     var h=document.querySelector('.site-header');if(!h)return;
     var css=document.createElement('style');css.id='ss-hdr-v1';css.textContent=
       '.site-header{position:sticky!important;z-index:9990;background:#111}'+
+      '@media(max-width:640px){#soonsal-live-ticker{position:relative!important;top:auto!important}}'+
       '.ss-hl,.ss-hr{position:absolute;grid-area:auto;top:50%;transform:translateY(-50%);display:flex;align-items:center;gap:4px;z-index:2}'+
       '.ss-hl{left:max(10px,calc(50% - 400px))}.ss-hr{right:max(10px,calc(50% - 400px));gap:8px}'+
       '.ss-hl .search-btn-header,.ss-hr .sub-btn-header{position:static!important;transform:none!important;margin:0!important;inset:auto!important}'+
@@ -37,7 +38,11 @@
     var tk=document.getElementById('soonsal-live-ticker');
     // 시세 띠는 시세를 받아 온 뒤에야 보여서(처음엔 display:none) 재는 순간 높이가 0 일 수 있다 —
     //   띠가 있으면 34px(띠 높이 고정값) 아래에 붙이고, 띠 크기가 바뀌면 다시 맞춘다.
-    function setTop(){h.style.top=(tk?Math.max(tk.offsetHeight,34):0)+'px'}
+    // 폰에서는 시세 띠가 같이 붙어 있으면 화면 위 100px 가까이를 늘 차지한다 → 띠는 스크롤과 함께 올라가고
+    //   헤더(☰·구독하기)만 맨 위에 남긴다 (KD 2026-10-08 개선 7번). PC 는 그대로 띠 아래 고정.
+    var MOB=window.matchMedia('(max-width:640px)');
+    function setTop(){h.style.top=(tk&&!MOB.matches?Math.max(tk.offsetHeight,34):0)+'px'}
+    try{MOB.addEventListener('change',setTop)}catch(e){}
     setTop();if(tk&&window.ResizeObserver)new ResizeObserver(setTop).observe(tk);
     if(!/relative|absolute|sticky|fixed/.test(getComputedStyle(h).position))h.style.position='sticky';
 
