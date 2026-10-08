@@ -117,6 +117,58 @@
       .catch(function(){go.disabled=false;go.textContent='구독하기';er.textContent='연결이 불안정해요. 잠시 뒤 다시 시도해 주세요.'})};
   }
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',subCard);else subCard();
+  // ── 오늘의 질문 투표 (KD 2026-10-09 개선 4번) — 홈(히어로 아래)·그날 뉴스레터(질문이 나온 스토리 뒤) ──
+  function pollCard(){
+    var home=location.pathname==='/'||location.pathname==='/index.html';
+    var iss=document.querySelector('[data-ss-issue]');
+    if(!home&&!iss)return;
+    fetch(API+'/poll').then(function(r){return r.json()}).then(function(j){
+      var p=j&&j.poll;if(!p)return;
+      var at=null;
+      if(home)at=document.querySelector('.hero');
+      else{ if(iss.getAttribute('data-ss-issue')!==p.day.slice(5,7)+p.day.slice(8,10))return;   // 그날 회차에서만
+        var sm=String(p.story||'').match(/-(\d+)$/);at=(sm&&document.getElementById('story-'+sm[1]))||null;
+        if(!at){var all=document.querySelectorAll('[data-ss-story]');at=all[0]||null}}
+      if(!at||document.querySelector('.ss-poll'))return;
+      var st=document.createElement('style');st.textContent=
+        '.ss-poll{margin:18px 0;padding:16px 16px 14px;border-radius:14px;border:1px solid #3a2a20;background:#1a1512;color:#e8e3da;'+
+        'font-family:Pretendard,-apple-system,BlinkMacSystemFont,sans-serif;line-height:1.5;box-sizing:border-box}'+
+        '.ss-poll *{box-sizing:border-box}.ss-poll .k{font-size:12px;font-weight:800;color:#F59B75;letter-spacing:.04em}'+
+        '.ss-poll .q{font-size:16.5px;font-weight:800;margin:5px 0 12px;color:#f6f1e8;letter-spacing:-.02em}'+
+        '.ss-poll .bt{display:flex;gap:8px}.ss-poll .bt button{flex:1;height:46px;border-radius:10px;border:1px solid #F07040;background:transparent;color:#F59B75;font:800 15px Pretendard,sans-serif;cursor:pointer}'+
+        '.ss-poll .bt button:hover{background:#F07040;color:#12100e}'+
+        '.ss-poll .rs div{position:relative;height:40px;border-radius:10px;background:#262019;margin-bottom:7px;overflow:hidden;display:flex;align-items:center;padding:0 12px;font-size:14px;font-weight:700}'+
+        '.ss-poll .rs i{position:absolute;left:0;top:0;bottom:0;background:#5a3524}.ss-poll .rs .me i{background:#F07040}'+
+        '.ss-poll .rs span{position:relative;flex:1}.ss-poll .rs b{position:relative;color:#f6f1e8}.ss-poll .rs .me span{color:#12100e}'+
+        '.ss-poll .n{font-size:12px;color:#8b8578;margin-top:2px}';
+      document.head.appendChild(st);
+      var c=document.createElement('section');c.className='ss-poll';c.setAttribute('aria-label','오늘의 질문');
+      var key='ss_poll_'+p.day,mine=0;try{mine=parseInt(localStorage.getItem(key)||'0',10)||0}catch(e){}
+      var esc=function(v){return String(v||'').replace(/[<>&"]/g,'')};
+      function draw(na,nb){
+        var tot=na+nb;
+        if(!mine){c.innerHTML='<div class="k">🗳️ 오늘의 질문</div><div class="q">'+esc(p.q)+'</div>'+
+          '<div class="bt"><button type="button" data-c="1">'+esc(p.a)+'</button><button type="button" data-c="2">'+esc(p.b)+'</button></div>'+
+          '<div class="n">누르면 다른 독자들 선택이 보여요'+(tot?' · '+tot+'명 참여':'')+'</div>';
+          [].forEach.call(c.querySelectorAll('.bt button'),function(b){b.onclick=function(){vote(parseInt(b.getAttribute('data-c'),10))}});return}
+        var pa=tot?Math.round(na*100/tot):0,pb=tot?100-pa:0;
+        c.innerHTML='<div class="k">🗳️ 오늘의 질문</div><div class="q">'+esc(p.q)+'</div><div class="rs">'+
+          '<div class="'+(mine===1?'me':'')+'"><i style="width:'+pa+'%"></i><span>'+esc(p.a)+(mine===1?' ✓':'')+'</span><b>'+pa+'%</b></div>'+
+          '<div class="'+(mine===2?'me':'')+'"><i style="width:'+pb+'%"></i><span>'+esc(p.b)+(mine===2?' ✓':'')+'</span><b>'+pb+'%</b></div></div>'+
+          '<div class="n">'+tot+'명 참여 · 결과는 다음 브리핑에서 이야기해요 · <a href="#" class="ch" style="color:#F59B75">다시 고르기</a></div>';
+        c.querySelector('.ch').onclick=function(e){e.preventDefault();mine=0;draw(na,nb)};
+      }
+      function vote(v){var vid='';try{vid=localStorage.getItem('ss_vid')||''}catch(e){}
+        mine=v;try{localStorage.setItem(key,String(v))}catch(e){}
+        draw((p.na||0)+(v===1?1:0),(p.nb||0)+(v===2?1:0));   // 낙관적 표시 → 서버 값으로 맞춤
+        if(!/^[a-z0-9-]{8,32}$/.test(vid))return;
+        fetch(API+'/poll',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({day:p.day,v:vid,c:v})})
+          .then(function(r){return r.json()}).then(function(j){if(j&&j.ok){p.na=j.na;p.nb=j.nb;draw(j.na,j.nb)}}).catch(function(){})}
+      draw(p.na||0,p.nb||0);
+      at.parentNode.insertBefore(c,at.nextSibling);
+    }).catch(function(){});
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',pollCard);else pollCard();
   function run(){
     var h=document.querySelector('.site-header');if(!h)return;
     var css=document.createElement('style');css.id='ss-hdr-v1';css.textContent=
@@ -198,7 +250,8 @@
       var av=u.avatar?String(u.avatar).replace(/["<>]/g,''):'';
       if(av)ac.innerHTML='<img src="'+av+'" alt="">';
       var acc=wrap.querySelector('.acc');
-      acc.innerHTML=(av?'<img src="'+av+'" alt="">':'<span class="ph">🙂</span>')+'<span><b>'+nm+'</b><span>내 계정 · 스크랩 보기</span></span>';
+      var sk=u.streak|0;   // 연속 읽기(평일 기준) — KD 2026-10-09 개선 4번
+      acc.innerHTML=(av?'<img src="'+av+'" alt="">':'<span class="ph">🙂</span>')+'<span><b>'+nm+'</b><span>'+(sk>=2?'🐟 '+sk+'일 연속 읽음':'내 계정 · 스크랩 보기')+'</span></span>';
       // 소셜 (KD 2026-10-08): 알림 배지 · 내 댓글 · 이 브라우저를 계정에 묶기(한 번만) · 댓글 별명을 계정 별명으로
       // 「내가 모은 글」은 로그인하면 계정 것 하나로 (KD 2026-10-08 「데이터 구조 통일」):
       //   이 브라우저에만 있던 스크랩·반응·한마디 표시를 계정으로 자동으로 올리고, 링크도 계정 화면으로.

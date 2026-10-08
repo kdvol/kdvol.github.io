@@ -359,7 +359,7 @@ transition:color .18s ease,background .18s ease}
     var esc=function(v){return String(v||'').replace(/[<>&"]/g,'')};
     var ids=u.identities||[];
     $('#who').innerHTML=(u.avatar?'<img src="'+esc(u.avatar)+'" alt="" style="width:34px;height:34px;border-radius:50%;vertical-align:middle;margin-right:8px">':'')+
-      '<b>'+esc(u.nick||u.name||'순살 독자')+'</b> '+
+      '<b>'+esc(u.nick||u.name||'순살 독자')+'</b> '+((u.streak|0)>=1?'<span class="pill" style="border-color:#5a3524;color:#F59B75">🐟 '+(u.streak|0)+'일 연속 읽음</span> ':'')+
       ids.map(function(i){return '<span class="pill">'+(PN[i.provider]||i.provider)+(i.email?' · '+esc(i.email):'')+'</span>'}).join(' ');
     var have={};ids.forEach(function(i){have[i.provider]=1});
     api('/auth/providers').then(function(pv){var html='';
