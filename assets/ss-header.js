@@ -28,10 +28,15 @@
       'font-family:Pretendard,-apple-system,BlinkMacSystemFont,sans-serif;line-height:1.55;box-sizing:border-box;text-align:left}'+
       '.ss-subc *{box-sizing:border-box}.ss-subc b.t{display:block;font-size:16.5px;font-weight:800;color:#1f1a16;letter-spacing:-.02em}'+
       '.ss-subc .d{font-size:13px;color:#7a6a5c;margin:3px 0 11px}'+
-      '.ss-subc form{display:flex;gap:7px}.ss-subc input[type=email]{flex:1;min-width:0;height:44px;border:1px solid #E8C4AE;border-radius:10px;padding:0 12px;font-size:15px;background:#fff;color:#1f1a16}'+
-      '.ss-subc button.go{height:44px;padding:0 15px;border:0;border-radius:10px;background:#F07040;color:#12100e;font-weight:800;font-size:14.5px;white-space:nowrap;cursor:pointer}'+
-      '.ss-subc button.go:disabled{opacity:.55}.ss-subc label{display:flex;gap:7px;align-items:flex-start;font-size:12px;color:#5a4a3e;margin-top:9px;cursor:pointer}'+
-      '.ss-subc label input{margin-top:2px;accent-color:#F07040;flex:0 0 auto}.ss-subc .more{font-size:11.5px;color:#9a8878;margin-top:4px}'+
+      '.ss-subc .fl{display:block;font-size:13px;font-weight:700;color:#3a2f27;margin:12px 0 5px}.ss-subc .fl i{color:#E55A00;font-style:normal;margin-left:2px}'+
+      '.ss-subc .ob{font-size:11px;font-weight:400;color:#9a8878;margin-left:3px}'+
+      '.ss-subc .in{display:block;width:100%;height:44px;border:1px solid #E8C4AE;border-radius:10px;padding:0 12px;font-size:15px;background:#fff;color:#1f1a16;font-family:inherit}'+
+      '.ss-subc .pl{display:flex;gap:7px;align-items:center;font-size:13px;color:#3a2f27;margin-top:14px;cursor:pointer}.ss-subc .pl input{width:17px;height:17px;accent-color:#F07040}'+
+      '.ss-subc .ad{font-size:11.5px;color:#9a8878;margin-top:10px;line-height:1.6}.ss-subc .ad summary{cursor:pointer;margin-top:3px}.ss-subc .ad div{margin-top:4px}'+
+      '.ss-subc button.go{display:block;width:100%;height:48px;margin-top:12px;border:0;border-radius:10px;background:#F07040;color:#12100e;font-weight:800;font-size:15.5px;cursor:pointer}'+
+      '.ss-subc button.go:disabled{opacity:.55}'+
+      '.ss-subc .more{font-size:11.5px;color:#9a8878;margin:5px 0 0 24px}'+
+      '.ss-subc summary{list-style:none}.ss-subc summary::-webkit-details-marker{display:none}'+
       '.ss-subc details summary{cursor:pointer;color:#9a8878}.ss-subc details div{margin-top:5px;font-size:11.5px;color:#7a6a5c;line-height:1.65}'+
       '.ss-subc .x{float:right;border:0;background:none;color:#b8a898;font-size:16px;cursor:pointer;margin:-8px -6px 0 0}'+
       '.ss-subc .ok{font-size:15px;font-weight:800;color:#1f1a16}.ss-subc .er{font-size:12.5px;color:#C24A00;margin-top:6px;min-height:1px}'+
@@ -44,29 +49,39 @@
       '.ss-subc .tg.on{background:#F07040;border-color:#F07040;color:#12100e;font-weight:700}';
     document.head.appendChild(st);
     var c=document.createElement('section');c.className='ss-subc';c.setAttribute('aria-label','뉴스레터 무료 구독');
+    // ★ 기존 구독 화면(subscribe.soonsal.com)과 같은 칸·순서·문구를 처음부터 다 보여 준다 (KD 2026-10-09
+    //   「이메일만 받으면 의미가 적다 — 기존 구독 화면을 재현」). 이메일 → 이름 → 출생연도 → 관심분야 → 하는 일 → 동의 → 구독하기 → 광고 안내.
+    var yrs='<option value="">선택</option>';for(var y=2010;y>=1960;y--)yrs+='<option value="'+y+'">'+y+'</option>';
     c.innerHTML='<button type="button" class="x" aria-label="닫기">×</button>'+
-      '<b class="t">🐟 이런 글, 매일 아침 5분 메일로</b>'+
-      '<div class="d">글로벌 금융·경제 뉴스의 살코기만 · 월~금 무료</div>'+
-      '<form novalidate><input type="email" name="email" placeholder="이메일 주소" autocomplete="email" required aria-label="이메일 주소">'+
-      '<input class="hp" name="website" tabindex="-1" aria-hidden="true"><button class="go" type="submit">무료 구독</button></form>'+
-      '<details class="opt"><summary>＋ 이름·관심분야도 알려 주기 <span>(선택 · 더 맞는 이야기를 골라요)</span></summary>'+
-        '<div class="r2"><input class="nm" placeholder="이름 또는 닉네임" maxlength="30" aria-label="이름">'+
-        '<select class="by" aria-label="출생연도"><option value="">출생연도</option>'+(function(){var o='';for(var y=2010;y>=1950;y--)o+='<option>'+y+'</option>';return o})()+'</select></div>'+
-        '<div class="tags">'+['주식','크립토','부동산','경제·매크로','취업·이직','창업·사업','정보습득','기타'].map(function(x){return '<button type="button" class="tg" data-v="'+x+'">'+x+'</button>'}).join('')+'</div>'+
-        '<input class="cu" placeholder="현재 하는 일 (예: 증권사 리서치, 대학생)" maxlength="40" aria-label="현재 하는 일"></details>'+
-      '<label><input type="checkbox" class="ag"> (필수) 개인정보 수집·이용 및 광고성 정보 수신에 동의합니다</label>'+
-      '<details class="more"><summary>내용 보기</summary><div>수집 항목: 이메일 주소(필수), 이름·출생연도·관심분야·하는 일(선택, 적은 경우만) · 목적: 뉴스레터 발송과 구독자 관리, 구독자 통계, 제휴 콘텐츠·프로모션 등 광고성 정보 제공 · '+
-      '보관: 구독 해지 시까지(해지하면 지체 없이 파기) · 메일 속 링크로 웹을 열면 구독 기간 동안 열람 기록을 남깁니다. '+
-      '동의하지 않으면 구독할 수 없습니다. 자세한 내용은 <a href="/privacy/" style="color:#C24A00">수집 안내</a>.</div></details>'+
-      '<div class="er" role="status"></div>';
+      '<b class="t">🐟 순살브리핑 뉴스레터 구독</b>'+
+      '<div class="d">월~금 매일 아침, 글로벌 금융·경제·크립토 소식을 살코기만 발라드립니다</div>'+
+      '<form novalidate>'+
+      '<label class="fl">이메일 주소<i>*</i></label><input type="email" class="in em" placeholder="example@email.com" autocomplete="email" required>'+
+      '<label class="fl">이름 (또는 닉네임) <span class="ob">선택</span></label><input class="in nm" placeholder="이름 또는 닉네임" maxlength="30" autocomplete="nickname">'+
+      '<label class="fl">출생연도 <span class="ob">선택</span></label><select class="in by">'+yrs+'</select>'+
+      '<label class="fl">관심분야 <span class="ob">선택, 복수 가능</span></label><div class="tags">'+
+        ['주식','크립토','부동산','경제·매크로','취업·이직','창업·사업','정보습득','기타'].map(function(x){return '<button type="button" class="tg" data-v="'+x+'">'+x+'</button>'}).join('')+'</div>'+
+      '<label class="fl">현재 하는일 <span class="ob">선택</span></label><input class="in cu" placeholder="예: 소속 기관, 업무, 산업분야 등" maxlength="40">'+
+      '<input class="hp" name="website" tabindex="-1" aria-hidden="true">'+
+      '<label class="pl"><input type="checkbox" class="ag"> <b>(필수)</b> 개인정보 수집 및 이용에 동의합니다.</label>'+
+      '<details class="more"><summary>내용 보기 ▾</summary><div>뉴스레터 발송을 위한 최소한의 개인정보를 수집하고 이용합니다. 수집된 정보는 더 나은 뉴스레터 제작 및 구독자 통계 작성 등, 아래 서술된 목적으로 사용됩니다.<br><br>'+
+        '<b>- 구독자 관리:</b> 구독자 본인의 구독 의사 확인, 피싱/스팸성 구독자의 접근 방지, 구독신청 회수 제한, 불만처리 등 민원처리, 공지사항 전달 등<br><br>'+
+        '<b>- 서비스 개선 및 마케팅, 광고에의 활용:</b> 구독자의 순살브리핑 서비스 이용에 대한 통계 확인, 서비스의 유효성 확인, 이벤트 및 광고성 정보 제공, 접속 빈도 파악 등<br><br>'+
+        '<b>- 뉴스레터 링크를 통한 웹 열람 기록:</b> 메일 안의 링크에는 회차 번호와 되돌릴 수 없게 처리한 구독자 표시가 붙어, 어느 회차의 어떤 글이 언제 열렸는지를 구독자 단위로 셉니다(읽은 사람 수·재방문, 글·주제별 분석, 구독자군별 경향, 재안내 판단, 광고주용 집계 지표, 오류 확인, 구성·발송 시각 조정). 저장소는 Cloudflare(미국)이며 국외에 저장될 수 있습니다. 열람·정정·삭제·처리정지를 언제든 요구하실 수 있고, <b>제3자에게 제공하지 않습니다.</b> 낱개 기록은 구독 기간 동안 보관하고, 해지하시거나 연결 끄기를 요청하시면 지웁니다. 자세한 내용은 <a href="/privacy/" style="color:#C24A00">수집 안내</a>에 있습니다.<br><br>'+
+        '구독자 개인정보는 원칙적으로 서비스가 종료되거나 구독을 해지할 경우 지체없이 파기합니다.</div></details>'+
+      '<button class="go" type="submit">구독하기</button>'+
+      '</form>'+
+      '<div class="er" role="status"></div>'+
+      '<div class="ad">순살 뉴스레터를 구독하면 제휴 콘텐츠, 프로모션 등 광고성 정보 수신에 동의한 것으로 간주됩니다.'+
+      '<details><summary>광고성 정보 수신 ▾</summary><div>순살 뉴스레터에는 가끔 제휴 콘텐츠나 프로모션이 포함될 수 있습니다. 광고가 포함된 콘텐츠에는 항상 (광고) 표시를 합니다. 원하지 않을 경우 뉴스레터 하단의 수신 거부를 통해 언제든지 구독을 해지할 수 있습니다.</div></details></div>';
     at.parentNode.insertBefore(c,at.nextSibling);
-    var f=c.querySelector('form'),em=f.querySelector('input[type=email]'),go=f.querySelector('.go'),ag=c.querySelector('.ag'),er=c.querySelector('.er');
+    var f=c.querySelector('form'),em=f.querySelector('.em'),go=f.querySelector('.go'),ag=c.querySelector('.ag'),er=c.querySelector('.er');
     c.querySelector('.x').onclick=function(){lss('ss_subx',String(Date.now()));c.parentNode.removeChild(c)};
     [].forEach.call(c.querySelectorAll('.tg'),function(b){b.onclick=function(){b.classList.toggle('on')}});
     f.onsubmit=function(e){e.preventDefault();er.textContent='';
       var v=(em.value||'').trim();
       if(!/^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}$/.test(v)){er.textContent='이메일 주소를 확인해 주세요.';em.focus();return}
-      if(!ag.checked){er.textContent='위 동의에 체크해 주세요.';ag.focus();return}
+      if(!ag.checked){er.textContent='개인정보 수집 및 이용 동의에 체크해 주세요.';ag.focus();return}
       go.disabled=true;go.textContent='보내는 중…';
       fetch(API+'/subscribe',{method:'POST',headers:{'content-type':'application/json'},
         body:JSON.stringify({email:v,agree:true,story:story,path:location.pathname,v:lsg('ss_vid')||'',hp:f.querySelector('.hp').value,
@@ -76,9 +91,9 @@
         if(j&&j.ok){lss('ss_subbed','1');lss('ss_is_sub','1');
           c.innerHTML='<div class="ok">'+(j.already?'이미 구독 중이에요 🐟 내일 아침에 만나요.':'구독 완료! 🐟 내일 아침 메일함에서 만나요.')+'</div>'+
             '<div class="d" style="margin:6px 0 0">첫 메일이 안 보이면 스팸함·프로모션함도 확인해 주세요.</div>';return}
-        go.disabled=false;go.textContent='무료 구독';
+        go.disabled=false;go.textContent='구독하기';
         er.textContent=j&&j.error==='email'?'이메일 주소를 확인해 주세요.':j&&j.error==='too many'?'잠시 뒤 다시 시도해 주세요.':'지금은 구독을 못 받았어요. 잠시 뒤 다시 시도해 주세요.'})
-      .catch(function(){go.disabled=false;go.textContent='무료 구독';er.textContent='연결이 불안정해요. 잠시 뒤 다시 시도해 주세요.'})};
+      .catch(function(){go.disabled=false;go.textContent='구독하기';er.textContent='연결이 불안정해요. 잠시 뒤 다시 시도해 주세요.'})};
   }
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',subCard);else subCard();
   function run(){
