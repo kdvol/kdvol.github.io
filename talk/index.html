@@ -73,6 +73,10 @@ justify-content:center;font-size:.78rem;font-weight:800;color:#111;letter-spacin
    쓰는 색이라 여기 쓰면 본문보다 태그가 먼저 읽힌다. 한 톤 낮추고 굵기만 준다. */
 .tx .at{color:#8f8578;font-weight:600}
 .c.op .nm .k{color:#F5A481}
+.mb{font-size:.62rem;font-weight:700;color:#F5A481;border:1px solid #5a3524;border-radius:999px;padding:0 6px}
+.tkme{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:0 16px 14px;padding:11px 14px;border:1px solid #3a2a20;
+background:#1a1512;border-radius:12px;font-size:.84rem;color:#cfc8bb;text-decoration:none;line-height:1.5}
+.tkme b{color:#F5A481;white-space:nowrap}.tkme em{font-style:normal;background:#F07040;color:#12100e;border-radius:9px;padding:0 7px;font-weight:800;font-size:.75rem}
 .ob{font-size:.62rem;font-weight:700;color:#fff;background:#C24A00;border-radius:999px;padding:1px 6px}
 .ob.bot{background:#5a6b7a}
 
@@ -353,6 +357,12 @@ line-height:1.25;color:#fff;word-break:keep-all}
 <div class="hd">
 <div class="sec-head"><div class="sec-kicker">독자들이 남긴 한 줄</div><h1>순살톡<span class="live"><b></b>실시간</span></h1><p class="deck">브리핑을 읽다 남긴 한마디가 회차 상관없이 여기 모임</p></div>
 </div>
+<a class="tkme" id="tkme" href="/account/" rel="nofollow"><span>로그인하면 내 댓글에 달린 답글을 <b>폰·PC 어디서든</b> 알림으로 받아요</span><b>카카오·구글 1초 →</b></a>
+<script>(function(){try{if(localStorage.getItem('ss_auth')!=='1')return}catch(e){return}
+var a=document.getElementById('tkme');a.href='/account/#notices';
+a.innerHTML='<span>🔔 내 알림 · 💬 내가 남긴 댓글</span><b>내 계정에서 보기 →</b>';
+function f(u){var n=u&&u.unread;if(n)a.innerHTML='<span>🔔 새 알림 <em>'+n+'</em> · 💬 내가 남긴 댓글</span><b>보기 →</b>'}
+if(window.ssMe)f(window.ssMe);else document.addEventListener('ss-me',function(e){f(e.detail)})})()</script>
 <div id="app"><div class="empty">불러오는 중…</div></div>
 </div>
 <div class="fab"><a href="/"><span aria-hidden="true">💬</span>
@@ -524,6 +534,7 @@ function one(c, isRep) {
     avatar(c.nick, c.op) +
     '<div class="bd">' +
       '<div class="nm"><span class="k">' + esc(c.nick) + '</span>' +
+        (c.m && !c.op ? '<span class="mb" title="로그인한 회원">✓ 회원</span>' : '') +
         (c.op ? '<span class="ob' + (c.op === 2 ? ' bot' : '') + '">' +
           (c.op === 2 ? '🤖 봇' : '순살 팀') + '</span>' : '') +
         (tag ? '<span class="g">' + esc(tag) + '</span>' : '') +

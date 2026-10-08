@@ -11,6 +11,8 @@
       '.ss-hl .search-btn-header,.ss-hr .sub-btn-header{position:static!important;transform:none!important;margin:0!important;inset:auto!important}'+
       '.ss-burger,.ss-acct{width:36px;height:36px;display:flex;align-items:center;justify-content:center;border-radius:50%;'+
       'background:none;border:0;color:#e8e4dc;cursor:pointer;padding:0;text-decoration:none}'+
+      '.ss-acct{position:relative}.ss-acct .bd{position:absolute;top:-2px;right:-4px;min-width:17px;height:17px;padding:0 4px;border-radius:9px;background:#F07040;color:#12100e;font-size:10.5px;font-weight:800;line-height:17px;text-align:center}'+
+      '.ss-dr a.li.soc{display:flex;justify-content:space-between}.ss-dr a.li.soc em{font-style:normal;background:#F07040;color:#12100e;border-radius:9px;padding:0 7px;font-size:11px;font-weight:800;line-height:18px}'+
       '.ss-burger:hover,.ss-acct:hover{background:#1f1f1f}.ss-acct img{width:30px;height:30px;border-radius:50%;object-fit:cover}'+
       '.ss-ov{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:100000;opacity:0;pointer-events:none;transition:opacity .2s}'+
       '.ss-dr{position:fixed;top:0;bottom:0;left:0;width:min(84vw,320px);background:#151515;z-index:100001;transform:translateX(-102%);'+
@@ -54,6 +56,8 @@
     wrap.innerHTML='<div class="ss-ov"></div><aside class="ss-dr" aria-label="전체 메뉴"><button class="x" aria-label="닫기">×</button>'+
       '<a class="acc" href="/account/" rel="nofollow"><span class="ph">🙂</span><span><b>로그인하고 스크랩 모으기</b><span>카카오·구글로 1초 · 폰·PC 에서 같이</span></span></a>'+
       '<a class="li mine" href="/saved/" rel="nofollow">🐟 내가 모은 글</a>'+
+      '<a class="li soc" id="ss-nt" href="/account/#notices" rel="nofollow" hidden><span>🔔 알림</span><em hidden></em></a>'+
+      '<a class="li soc" id="ss-mc" href="/account/#comments" rel="nofollow" hidden><span>💬 내가 남긴 댓글</span></a>'+
       LINKS.map(function(g){return '<div class="gp">'+g[0]+'</div>'+g[1].map(function(x){return '<a class="li" href="'+x[0]+'">'+x[1]+'</a>'}).join('')}).join('')+
       '<a class="sub" href="https://subscribe.soonsal.com/subscribe" target="_blank" rel="noopener">무료 구독하기</a>'+
       '<a class="ft" href="/privacy/">개인정보 처리 안내</a></aside>';
@@ -67,11 +71,23 @@
     var authed=false;try{authed=localStorage.getItem('ss_auth')==='1'}catch(e){}
     if(authed)fetch(API+'/me',{credentials:'include'}).then(function(r){return r.json()}).then(function(j){
       var u=j&&j.user;if(!u){try{localStorage.removeItem('ss_auth')}catch(e){}return}
+      window.ssMe=u;try{document.dispatchEvent(new CustomEvent('ss-me',{detail:u}))}catch(e){}  // 페이지가 /me 를 또 부르지 않게 나눠 준다
       var nm=String(u.nick||u.name||'순살 독자').replace(/[<>&"]/g,'');
       var av=u.avatar?String(u.avatar).replace(/["<>]/g,''):'';
       if(av)ac.innerHTML='<img src="'+av+'" alt="">';
       var acc=wrap.querySelector('.acc');
       acc.innerHTML=(av?'<img src="'+av+'" alt="">':'<span class="ph">🙂</span>')+'<span><b>'+nm+'</b><span>내 계정 · 스크랩 보기</span></span>';
+      // 소셜 (KD 2026-10-08): 알림 배지 · 내 댓글 · 이 브라우저를 계정에 묶기(한 번만) · 댓글 별명을 계정 별명으로
+      var un=u.unread|0,nt=wrap.querySelector('#ss-nt');nt.hidden=false;wrap.querySelector('#ss-mc').hidden=false;
+      if(un){var em=nt.querySelector('em');em.textContent=un>99?'99+':un;em.hidden=false;
+        var bd=document.createElement('span');bd.className='bd';bd.textContent=un>9?'9+':un;ac.appendChild(bd);ac.setAttribute('aria-label','내 계정 · 새 알림 '+un+'개')}
+      try{var v=localStorage.getItem('ss_vid')||'';
+        if(/^[a-z0-9-]{8,32}$/.test(v)&&v.indexOf('agent-')!==0&&localStorage.getItem('ss_vlink')!==u.id+':'+v)
+          fetch(API+'/me/vid',{method:'POST',credentials:'include',headers:{'content-type':'application/json'},body:JSON.stringify({v:v})})
+            .then(function(r){if(r.ok)localStorage.setItem('ss_vlink',u.id+':'+v)}).catch(function(){});
+        if(u.nick&&/^[가-힣a-zA-Z0-9._ -]{1,12}$/.test(u.nick)){var pr=JSON.parse(localStorage.getItem('ss_prof')||'null')||{n:'',i:'',c:'',sc:0};
+          if(pr.n!==u.nick){pr.n=u.nick;localStorage.setItem('ss_prof',JSON.stringify(pr));localStorage.setItem('ss_nick',u.nick)}}
+      }catch(e){}
     }).catch(function(){});
   }
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',run);else run();

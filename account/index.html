@@ -39,6 +39,10 @@ margin-bottom:8px;text-decoration:none;color:inherit}
 .it .dt{font-size:.76rem;color:#7c756c;margin-top:3px}
 .it .mk{flex:0 0 auto;font-size:1rem}
 .msg{font-size:.86rem;color:#F59B75;margin:6px 0 14px}
+.it.nt.new{border-color:#5a3524;background:#1d1612}
+.it .q{display:block;font-size:.88rem;color:#d8d2c6;margin-top:3px;line-height:1.5}
+.it .hold{color:#F59B75;font-weight:700}
+h2 .more{float:right;font-size:.8rem;font-weight:700;color:#F59B75;text-decoration:none;margin-top:3px}
 .fine{font-size:.78rem;color:#6f695f;margin-top:26px;line-height:1.75}
 .fine a,.consent a{color:#F59B75}
 
@@ -294,7 +298,11 @@ transition:color .18s ease,background .18s ease}
  <div class="card row"><div id="who"></div><button class="ghost" id="nickbtn">별명 바꾸기</button></div>
  <div id="link"></div>
  <button class="ghost" id="merge" hidden></button>
- <h2>내가 모은 글</h2>
+ <h2 id="notices">🔔 알림</h2>
+ <div id="nts"><div class="card">불러오는 중…</div></div>
+ <h2 id="comments">💬 내가 남긴 댓글 <a class="more" href="/talk/">순살톡 가기 →</a></h2>
+ <div id="mcs"><div class="card">불러오는 중…</div></div>
+ <h2>🐟 내가 모은 글</h2>
  <div id="list"><div class="card">불러오는 중…</div></div>
  <div class="row" style="margin-top:22px"><button class="ghost" id="logout">로그아웃</button>
  <button class="ghost warn" id="del">탈퇴하기</button></div>
@@ -367,7 +375,33 @@ transition:color .18s ease,background .18s ease}
       api('/me/nick',{body:{nick:n}}).then(function(){location.reload()}).catch(function(){alert('2~16자 한글·영문·숫자로, 운영자로 오해될 이름(순살 공식·관리자 등)은 빼고 지어 주세요')})};
     $('#del').onclick=function(){if(!confirm('탈퇴하면 계정과 스크랩이 바로 지워지고 되돌릴 수 없어요. 탈퇴할까요?'))return;
       api('/me/delete',{body:{}}).then(function(){try{localStorage.removeItem('ss_auth')}catch(e){};alert('탈퇴했어요. 그동안 고마웠어요.');location.href='/'})};
+    // 이 브라우저를 계정에 묶은 뒤 불러온다 — 처음 들어온 날에도 여기서 쓴 댓글이 바로 보이게
+    var v='';try{v=localStorage.getItem('ss_vid')||''}catch(e){}
+    var lk=(/^[a-z0-9-]{8,32}$/.test(v)&&v.indexOf('agent-')!==0)?api('/me/vid',{body:{v:v}}).catch(function(){}):Promise.resolve();
+    lk.then(social);
     load();
+  }
+  function surl(st){st=String(st||'');var mm=st.match(/^m(\d{4})(\d{2})(\d{2})-([a-z0-9-]+)$/);
+    if(mm)return '/chart/'+mm[1]+'/'+mm[2]+mm[3]+'.html#'+mm[4];
+    var m=st.match(/^(\d{4})(c?)-(\d+)$/);return m?'/newsletters/2026/'+m[1]+m[2]+'.html#story-'+m[3]:'/talk/'}
+  function ago(t){var d=Math.floor(Date.now()/1000)-t;return d<3600?Math.max(1,Math.floor(d/60))+'분 전':d<86400?Math.floor(d/3600)+'시간 전':Math.floor(d/86400)+'일 전'}
+  function social(){
+    var e=function(v){return String(v||'').replace(/[<>&"]/g,'')};
+    api('/me/notices').then(function(j){var it=j.items||[];
+      $('#nts').innerHTML=it.length?it.map(function(x){
+        var head=x.kind==='reply'?'<b>'+e(x.who||'누군가')+'</b>님이 답글을 남겼어요':'내 댓글이 좋아요를 받았어요';
+        return '<a class="it nt'+(x.seen?'':' new')+'" href="'+surl(x.story)+'"><span class="mk">'+(x.kind==='reply'?'💬':'❤️')+'</span><span>'+
+          '<span class="tt">'+head+'</span>'+(x.reply?'<span class="q">“'+e(x.reply)+'”</span>':'')+
+          '<span class="dt">내 글: '+e(x.mine)+' · '+ago(x.ts)+'</span></span></a>'}).join('')
+        :'<div class="card">아직 알림이 없어요. 내 댓글에 답글이나 좋아요가 달리면 여기 모여요 — 폰·PC 어디서 쓴 댓글이든.</div>';
+      if(j.n)api('/me/notices',{body:{}}).catch(function(){});
+    }).catch(function(){$('#nts').innerHTML=''});
+    api('/me/comments').then(function(j){var cs=j.comments||[];
+      $('#mcs').innerHTML=cs.length?cs.map(function(c){
+        return '<a class="it" href="'+surl(c.story)+'"><span class="mk">💬</span><span><span class="tt">'+e(c.body)+'</span>'+
+          '<span class="dt">'+ago(c.ts)+(c.state===0?' · <b class="hold">검토 중</b>':'')+(c.replies?' · 답글 '+c.replies:'')+(c.likes?' · ❤️ '+c.likes:'')+'</span></span></a>'}).join('')
+        :'<div class="card">아직 남긴 댓글이 없어요. <a href="/talk/">순살톡</a>에서 다른 독자들 이야기에 한마디 얹어 보세요.</div>';
+    }).catch(function(){$('#mcs').innerHTML=''});
   }
   function load(){
     Promise.all([api('/me/scraps'),fetch('/saved/stories.json').then(function(r){return r.json()}).catch(function(){return {}})])
