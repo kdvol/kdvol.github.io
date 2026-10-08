@@ -287,9 +287,9 @@ transition:color .18s ease,background .18s ease}
    <li>로그인한 서비스(카카오·구글·네이버)가 주는 <b>고유 번호</b>(암호화해 저장), <b>이메일</b>, <b>이름(별명)</b>, <b>프로필 사진 주소</b>.</li>
    <li>전화번호·생년월일·주소는 <b>받지 않아요.</b></li>
    <li>목적: 어느 계정으로 로그인했는지 보여 주기, 카카오·구글·네이버 로그인을 한 계정으로 묶기,
-       스크랩·반응·한마디를 계정에 저장해 여러 기기에서 보여 주기, 계정 문의 응대.</li>
+       스크랩·반응·한마디를 계정에 저장해 여러 기기에서 보여 주기, 내 댓글에 답글이 달리면 알림(사이트·이메일, 내 계정에서 끌 수 있음), 계정 문의 응대.</li>
    <li>보관: 탈퇴할 때까지. 탈퇴하면 즉시 지워요.</li>
-   <li>저장 위치: Cloudflare(데이터 처리 위탁).</li>
+   <li>저장·발송: Cloudflare(데이터 저장), Amazon Web Services(알림 메일 발송) — 처리 위탁·미국.</li>
   </ul>
   <a href="/privacy/#account">개인정보 처리 안내 전체 보기</a>
  </details>
@@ -299,6 +299,8 @@ transition:color .18s ease,background .18s ease}
  <div id="link"></div>
  <h2 id="notices">🔔 알림</h2>
  <div id="nts"><div class="card">불러오는 중…</div></div>
+ <label class="card row" id="mail" style="cursor:pointer"><span>📮 <b>답글 메일 알림</b><br><span class="dt" style="font-size:.8rem;color:#8b8578">내 댓글에 답글이 달리면 로그인한 이메일로 알려 드려요</span></span>
+  <input type="checkbox" id="mailcb" style="width:20px;height:20px;accent-color:#F07040"></label>
  <h2 id="comments">💬 내가 남긴 댓글 <a class="more" href="/talk/">순살톡 가기 →</a></h2>
  <div id="mcs"><div class="card">불러오는 중…</div></div>
  <h2 id="saved">🐟 내가 모은 글</h2>
@@ -312,7 +314,7 @@ transition:color .18s ease,background .18s ease}
 <script src="/soonsal.js" defer></script>
 <script>
 (function(){
-  var API='https://api.soonsal.com', VER='2026-10-09';
+  var API='https://api.soonsal.com', VER='2026-10-09m';
   var $=function(s){return document.querySelector(s)};
   var q=new URLSearchParams(location.search);
   var ERR={login:'먼저 로그인해 주세요.',consent:'필수 동의에 체크해야 로그인할 수 있어요.',unavailable:'그 로그인은 아직 준비 중이에요.',
@@ -371,6 +373,8 @@ transition:color .18s ease,background .18s ease}
     // 이 브라우저를 계정에 묶은 뒤 불러온다 — 처음 들어온 날에도 여기서 쓴 댓글이 바로 보이게
     var v='';try{v=localStorage.getItem('ss_vid')||''}catch(e){}
     var lk=(/^[a-z0-9-]{8,32}$/.test(v))?api('/me/vid',{body:{v:v}}).catch(function(){}):Promise.resolve();
+    var mc=$('#mailcb');mc.checked=!!u.mail_reply;
+    mc.onchange=function(){api('/me/mail',{body:{on:mc.checked}}).catch(function(){mc.checked=!mc.checked;alert('잠시 뒤 다시 시도해 주세요')})};
     lk.then(social);
     mg.then(load);
   }
