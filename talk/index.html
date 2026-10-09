@@ -386,10 +386,8 @@ line-height:1.25;color:#fff;word-break:keep-all}
 </div>
 <a class="tkme" id="tkme" href="/account/" rel="nofollow"><span>로그인하면 내 댓글에 달린 답글을 <b>폰·PC 어디서든</b> 알림으로 받아요</span><b>카카오·구글 1초 →</b></a>
 <script>(function(){try{if(localStorage.getItem('ss_auth')!=='1')return}catch(e){return}
-var a=document.getElementById('tkme');a.href='/account/#notices';
-a.innerHTML='<span>🔔 내 알림 · 💬 내가 남긴 댓글</span><b>내 계정에서 보기 →</b>';
-function f(u){var n=u&&u.unread;if(n)a.innerHTML='<span>🔔 새 알림 <em>'+n+'</em> · 💬 내가 남긴 댓글</span><b>보기 →</b>'}
-if(window.ssMe)f(window.ssMe);else document.addEventListener('ss-me',function(e){f(e.detail)})})()</script>
+// 회원이면 띠를 거둔다 — 알림은 헤더 계정 아이콘(배지·패널)에 이미 있다 (KD 2026-10-09 「중복 streamline」)
+var a=document.getElementById('tkme');a.parentNode.removeChild(a)})()</script>
 <div id="app"><div class="empty">불러오는 중…</div></div>
 </div>
 <div class="fab"><a href="/"><span aria-hidden="true">💬</span>

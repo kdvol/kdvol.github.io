@@ -59,7 +59,7 @@
     var pn=document.createElement('div');pn.className='ss-np';pn.hidden=true;pn.setAttribute('role','dialog');pn.setAttribute('aria-label','알림');
     pn.innerHTML='<div class="hd">'+(av?'<img src="'+av+'" alt="">':'<span class="ph">🙂</span>')+'<div><b>'+nm+'</b><small>'+(sk>=2?'🐟 '+sk+'일 연속 읽음':'오늘도 반가워요')+'</small></div></div>'+
       '<div class="tl">알림<span class="cn"></span></div><div class="ls"><div class="em">불러오는 중…</div></div>'+
-      '<div class="ft"><a href="/account/" rel="nofollow">내 계정</a><a href="/account/#comments" rel="nofollow">내 댓글</a><a href="/account/#follows" rel="nofollow">팔로우</a></div>';
+      '<div class="ft"><a href="/account/" rel="nofollow">내 계정 · 모은 글 · 댓글 · 팔로우 →</a></div>';
     document.body.appendChild(pn);
     function surl(stry){stry=String(stry||'');var mm=stry.match(/^m(\d{4})(\d{2})(\d{2})-([a-z0-9-]+)$/);
       if(mm)return '/chart/'+mm[1]+'/'+mm[2]+mm[3]+'.html#'+mm[4];var m=stry.match(/^(\d{4})(c?)-(\d+)$/);
@@ -341,6 +341,7 @@
       'padding:14px;margin:6px 0 14px;text-decoration:none;color:inherit}.ss-dr .acc img{width:42px;height:42px;border-radius:50%}'+
       '.ss-dr .acc .ph{width:42px;height:42px;border-radius:50%;background:#262626;display:flex;align-items:center;justify-content:center;font-size:20px}'+
       '.ss-dr .acc b{display:block;font-size:15px}.ss-dr .acc span{font-size:12.5px;color:#9a958a}'+
+      '.ss-dr .acc em.nb{font-style:normal;font-weight:800;color:#F59B75}.ss-dr [hidden]{display:none!important}'+
       '.ss-dr .gp{font-size:11.5px;font-weight:800;letter-spacing:.08em;color:#7c756c;margin:18px 6px 2px}'+
       '.ss-dr a.li{display:block;padding:9px 6px;font-size:15.5px;font-weight:700;color:#e8e4dc;text-decoration:none}'+
       '.ss-dr a.li.mine{border:1px solid #2a2a2a;border-radius:10px;padding:11px 12px;margin-bottom:4px}'+
@@ -378,9 +379,7 @@
     var wrap=document.createElement('div');
     wrap.innerHTML='<div class="ss-ov"></div><aside class="ss-dr" aria-label="전체 메뉴"><button class="x" aria-label="닫기">×</button>'+
       '<a class="acc" href="/account/" rel="nofollow"><span class="ph">🙂</span><span><b>로그인하고 스크랩 모으기</b><span>카카오·구글로 1초 · 폰·PC 에서 같이</span></span></a>'+
-      '<a class="li mine" id="ss-mine" href="/saved/" rel="nofollow">🐟 내가 모은 글</a>'+
-      '<a class="li soc" id="ss-nt" href="/account/#notices" rel="nofollow" hidden><span>🔔 알림</span><em hidden></em></a>'+
-      '<a class="li soc" id="ss-mc" href="/account/#comments" rel="nofollow" hidden><span>💬 내가 남긴 댓글</span></a>'+
+      '<a class="li mine" id="ss-mine" href="/saved/" rel="nofollow" hidden>🐟 이 브라우저에 모은 글</a>'+
       LINKS.map(function(g){return '<div class="gp">'+g[0]+'</div>'+g[1].map(function(x){return '<a class="li" href="'+x[0]+'">'+x[1]+'</a>'}).join('')}).join('')+
       '<a class="sub" href="https://subscribe.soonsal.com/subscribe" target="_blank" rel="noopener">무료 구독하기</a>'+
       '<a class="ft" href="/privacy/">개인정보 처리 안내</a></aside>';
@@ -392,10 +391,16 @@
     document.addEventListener('keydown',function(e){if(e.key==='Escape')open(false)});
 
     var authed=false;try{authed=localStorage.getItem('ss_auth')==='1'}catch(e){}
+    // 메뉴 중복 정리 (KD 2026-10-09 「중복 streamline」): 회원 메뉴는 계정 카드 하나 — 알림·모은 글·댓글은 카드 너머 내 계정에,
+    //   손님은 이 브라우저에 모은 게 있을 때만 「모은 글」 줄을 보인다. 구독 중이면 구독 버튼(헤더·메뉴)을 거둔다.
+    function hideSub(){var a=wrap.querySelector('.sub');if(a)a.hidden=true;if(su)su.style.display='none'}
+    if(lsg('ss_is_sub')==='1'||lsg('ss_subbed')==='1')hideSub();
+    if(!authed)try{var hasL=['ss_scrap','ss_react'].some(function(k){try{return Object.keys(JSON.parse(localStorage.getItem(k)||'{}')||{}).length>0}catch(e){return false}});
+      wrap.querySelector('#ss-mine').hidden=!hasL}catch(e){}
     if(!authed)try{followBtn(null)}catch(e){}
     if(authed)fetch(API+'/me',{credentials:'include'}).then(function(r){return r.json()}).then(function(j){
       var u=j&&j.user;if(!u){try{localStorage.removeItem('ss_auth')}catch(e){}try{followBtn(null)}catch(e){}return}
-      if(u.is_sub===1)lss('ss_is_sub','1');   // 뉴스레터 구독 중인 회원엔 구독칸을 띄우지 않는다
+      if(u.is_sub===1){lss('ss_is_sub','1');hideSub()}   // 뉴스레터 구독 중인 회원엔 구독칸·구독 버튼을 띄우지 않는다
       window.ssMe=u;try{document.dispatchEvent(new CustomEvent('ss-me',{detail:u}))}catch(e){}  // 페이지가 /me 를 또 부르지 않게 나눠 준다
       try{followBtn(u)}catch(e){}
       var nm=String(u.nick||u.name||'순살 독자').replace(/[<>&"]/g,'');
@@ -403,21 +408,20 @@
       if(av)ac.innerHTML='<img src="'+av+'" alt="">';
       var acc=wrap.querySelector('.acc');
       var sk=u.streak|0;   // 연속 읽기(평일 기준) — KD 2026-10-09 개선 4번
-      acc.innerHTML=(av?'<img src="'+av+'" alt="">':'<span class="ph">🙂</span>')+'<span><b>'+nm+'</b><span>'+(sk>=2?'🐟 '+sk+'일 연속 읽음':'내 계정 · 스크랩 보기')+'</span></span>';
+      var un=u.unread|0;
+      acc.innerHTML=(av?'<img src="'+av+'" alt="">':'<span class="ph">🙂</span>')+'<span><b>'+nm+'</b><span>'+
+        (un?'<em class="nb">새 알림 '+(un>99?'99+':un)+'</em>':sk>=2?'🐟 '+sk+'일 연속 읽음':'알림 · 모은 글 · 댓글 · 팔로우')+'</span></span>';
       // 소셜 (KD 2026-10-08): 알림 배지 · 내 댓글 · 이 브라우저를 계정에 묶기(한 번만) · 댓글 별명을 계정 별명으로
       // 「내가 모은 글」은 로그인하면 계정 것 하나로 (KD 2026-10-08 「데이터 구조 통일」):
       //   이 브라우저에만 있던 스크랩·반응·한마디 표시를 계정으로 자동으로 올리고, 링크도 계정 화면으로.
-      wrap.querySelector('#ss-mine').href='/account/#saved';
       try{var rd=function(k){try{return JSON.parse(localStorage.getItem(k)||'{}')||{}}catch(e){return {}}};
         var syn=rd('ss_synced'),its=[];
         [['ss_scrap','scrap'],['ss_react','react'],['ss_cmt','cmt']].forEach(function(p){Object.keys(rd(p[0])).forEach(function(s){if(!syn[s])its.push({story:s,kind:p[1]})})});
         if(its.length)fetch(API+'/me/merge',{method:'POST',credentials:'include',headers:{'content-type':'application/json'},body:JSON.stringify({items:its.slice(0,500)})})
           .then(function(r){if(r.ok){its.forEach(function(x){syn[x.story]=1});localStorage.setItem('ss_synced',JSON.stringify(syn))}}).catch(function(){});
       }catch(e){}
-      var un=u.unread|0,nt=wrap.querySelector('#ss-nt');nt.hidden=false;wrap.querySelector('#ss-mc').hidden=false;
       try{notiPanel(u,ac)}catch(e){}
-      if(un){var em=nt.querySelector('em');em.textContent=un>99?'99+':un;em.hidden=false;
-        var bd=document.createElement('span');bd.className='bd';bd.textContent=un>9?'9+':un;ac.appendChild(bd);ac.setAttribute('aria-label','내 계정 · 새 알림 '+un+'개')}
+      if(un){var bd=document.createElement('span');bd.className='bd';bd.textContent=un>9?'9+':un;ac.appendChild(bd);ac.setAttribute('aria-label','내 계정 · 새 알림 '+un+'개')}
       try{var v=localStorage.getItem('ss_vid')||'';
         if(/^[a-z0-9-]{8,32}$/.test(v)&&localStorage.getItem('ss_vlink')!==u.id+':'+v)
           fetch(API+'/me/vid',{method:'POST',credentials:'include',headers:{'content-type':'application/json'},body:JSON.stringify({v:v})})
