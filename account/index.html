@@ -22,7 +22,7 @@ h2{font-size:1.05rem;font-weight:800;margin:28px 0 10px}
 .btns{display:grid;gap:9px;margin:12px 0 0}
 .lb{display:flex;align-items:center;justify-content:center;gap:9px;border-radius:12px;padding:13px 14px;
 font-weight:800;font-size:.95rem;text-decoration:none;border:1px solid transparent;cursor:pointer;font-family:inherit}
-.lb[aria-disabled=true]{opacity:.55}
+.lb[aria-disabled=true]{opacity:1}   /* 흐리게 하면 카카오 노랑이 탁해진다 — 색은 그대로, 체크 없이 누르면 체크 칸을 짚어 준다 */
 .lb.off{opacity:.3;pointer-events:none}
 .lb.kakao{background:#FEE500;color:#191600}.lb.google{background:#fff;color:#1f1f1f;border-color:#ddd}
 .lb.naver{background:#03C75A;color:#fff}
@@ -453,11 +453,15 @@ transition:color .18s ease,background .18s ease}
         return '<a class="it" href="'+href+'"><span class="mk">'+(MK[x.kind]||'🐟')+'</span><span><span class="tt">'+
           String(t[0]).replace(/[<>&]/g,'')+'</span><span class="dt">'+(t[1]||'')+'</span></span></a>'}).join('')});
   }
+  // 로그인 안 한 브라우저는 /me 를 기다리지 않고 로그인 화면부터 — 두 요청을 차례로 기다리느라 빈 화면이 1~2초 떴다 (KD 2026-10-09 검수)
+  var authed=false;try{authed=localStorage.getItem('ss_auth')==='1'}catch(e){}
+  var prov=api('/auth/providers').then(function(p){return p.providers}).catch(function(){return null});
+  if(!authed)prov.then(guest);
   api('/me').then(function(j){
-    if(j.user){render(j.user);return}
+    if(j.user){$('#guest').hidden=true;render(j.user);return}
     try{localStorage.removeItem('ss_auth')}catch(e){}
-    api('/auth/providers').then(function(p){guest(p.providers)}).catch(function(){guest(null)});
-  }).catch(function(){guest(null)});
+    if(authed)prov.then(guest);
+  }).catch(function(){if(authed)prov.then(guest)});
 })();
 </script>
 </body></html>
