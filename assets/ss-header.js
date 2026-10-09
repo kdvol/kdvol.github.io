@@ -307,8 +307,14 @@
       'background:none;border:0;color:#e8e4dc;cursor:pointer;padding:0;text-decoration:none}'+
       /* 화면 아래 떠 있는 「공유하기」는 뺀다 — 스토리마다 링크·카톡 버튼이 있다 (KD 2026-10-09 버튼 정리) */
       '.ss-pageshare{display:none!important}'+
+      /* 💬 순살톡 배지 — 버튼 밖으로 파랗게 삐져나오던 숫자를 계정 배지와 같은 꼴로 */
+      '.ss-fab .ss-fabn{position:absolute!important;top:-3px!important;right:-3px!important;min-width:20px;height:20px;padding:0 5px;border-radius:10px;'+
+      'background:#fff!important;color:#C24A00!important;font:800 11px/20px Pretendard,-apple-system,sans-serif!important;text-align:center;box-shadow:0 0 0 2px #F07040}'+
+      '.ss-fab{position:fixed}'+
       '.site-header .ss-yes{font-family:"Yeseva One",Georgia,"Times New Roman",serif!important;font-weight:400!important;letter-spacing:.01em}'+
       '.site-header .ss-ko{font-family:Pretendard,-apple-system,BlinkMacSystemFont,sans-serif;font-weight:800}'+
+      /* 폰에선 깡통 로고 + Soonsal 만 — Yeseva 가 넓어 한글까지 넣으면 계정 아이콘을 덮었다 */
+      '@media(max-width:420px){.site-header .ss-ko{display:none}.site-header .ss-yes{font-size:20px}}'+
       '.ss-acct{position:relative}.ss-acct .bd{position:absolute;top:1px;right:1px;min-width:15px;height:15px;padding:0 3px;border-radius:8px;background:#F07040;color:#12100e;font-size:9.5px;font-weight:800;line-height:15px;text-align:center;box-shadow:0 0 0 2px #111}'+
       '.ss-dr a.li.soc{display:flex;justify-content:space-between}.ss-dr a.li.soc em{font-style:normal;background:#F07040;color:#12100e;border-radius:9px;padding:0 7px;font-size:11px;font-weight:800;line-height:18px}'+
       '.ss-burger:hover,.ss-acct:hover{background:#1f1f1f}.ss-acct img{width:30px;height:30px;border-radius:50%;object-fit:cover}'+
