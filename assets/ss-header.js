@@ -420,6 +420,7 @@
         if(its.length)fetch(API+'/me/merge',{method:'POST',credentials:'include',headers:{'content-type':'application/json'},body:JSON.stringify({items:its.slice(0,500)})})
           .then(function(r){if(r.ok){its.forEach(function(x){syn[x.story]=1});localStorage.setItem('ss_synced',JSON.stringify(syn))}}).catch(function(){});
       }catch(e){}
+      wrap.querySelector('#ss-mine').hidden=true;
       try{notiPanel(u,ac)}catch(e){}
       if(un){var bd=document.createElement('span');bd.className='bd';bd.textContent=un>9?'9+':un;ac.appendChild(bd);ac.setAttribute('aria-label','내 계정 · 새 알림 '+un+'개')}
       try{var v=localStorage.getItem('ss_vid')||'';
