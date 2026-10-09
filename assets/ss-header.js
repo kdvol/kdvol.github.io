@@ -177,19 +177,20 @@
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',subCard);else subCard();
   // ── 오늘의 질문 투표 (KD 2026-10-09 개선 4번) — 홈(히어로 아래)·그날 뉴스레터(질문이 나온 스토리 뒤) ──
   function pollCard(){
-    var home=location.pathname==='/'||location.pathname==='/index.html';
+    var home=!!(document.getElementById('nlwrap')&&document.querySelector('.hero'));   // 홈 구조로 판별
     var iss=document.querySelector('[data-ss-issue]');
     if(!home&&!iss)return;
     fetch(API+'/poll').then(function(r){return r.json()}).then(function(j){
       var p=j&&j.poll;if(!p)return;
-      var at=null;
-      if(home)at=document.getElementById('expand')||document.querySelector('.hero');   // 홈: 뉴스레터 전문 아래(첫 화면은 비운다)
-      else{ if(iss.getAttribute('data-ss-issue')!==p.day.slice(5,7)+p.day.slice(8,10))return;   // 그날 회차에서만
-        var sm=String(p.story||'').match(/-(\d+)$/);at=(sm&&document.getElementById('story-'+sm[1]))||null;
-        if(!at){var all=document.querySelectorAll('[data-ss-story]');at=all[0]||null}}
+      // ★ 질문은 그 질문이 나온 스토리 안(끝)에 — 맥락 없이 따로 떠 있으면 와닿지 않았다 (KD 2026-10-09).
+      //   노출은 맥락을 붙인 채로 더한다: 홈 「오늘의 순살」 목록의 그 스토리 바로 아래 한 줄, 뉴스레터 목차의 그 스토리 옆 🗳️.
+      var sm=String(p.story||'').match(/-(\d+)$/),sn=sm&&sm[1];if(!sn)return;
+      var scope=home?document.getElementById('nlwrap'):document;
+      if(!home&&iss.getAttribute('data-ss-issue')!==p.day.slice(5,7)+p.day.slice(8,10))return;   // 그날 회차에서만
+      if(!scope)return;
+      var at=scope.querySelector('#story-'+sn);
       if(!at||document.querySelector('.ss-poll'))return;
-      // 밝은 바탕(뉴스레터 본문) 인지 — 어두운 홈 색을 그대로 쓰면 질문 글자가 안 보였다 (KD 2026-10-09)
-      var light=!home&&!!at.closest('.wrapper');
+      var light=!!at.closest('.wrapper,.nl');
       var st=document.createElement('style');st.textContent=
         '.ss-poll{margin:34px 0 30px;padding:16px 2px 4px;border-top:1px solid #2a2622;color:#e8e3da;'+
         'font-family:Pretendard,-apple-system,BlinkMacSystemFont,sans-serif;line-height:1.5;box-sizing:border-box}'+
@@ -202,24 +203,26 @@
         '.ss-poll .rs span{position:relative;flex:1}.ss-poll .rs b{position:relative;color:#f6f1e8}.ss-poll .rs .me span{color:#12100e}'+
         '.ss-poll .n{font-size:12px;color:#8b8578;margin-top:2px}'+
         /* 밝은 뉴스레터 본문용 */
-        '.ss-poll.lt{margin:30px 20px 34px;padding:18px 18px 14px;border:1px solid #ece6dc;border-radius:14px;background:#fffaf5;color:#2a2420}'+
+        '.ss-poll.lt{margin:24px 0 8px;padding:18px 18px 14px;border:1px solid #ece6dc;border-radius:14px;background:#fffaf5;color:#2a2420}'+
         '.ss-poll.lt .k{color:#C24A00}.ss-poll.lt .q{color:#1f1a16;font-size:16px}'+
         '.ss-poll.lt .bt button{border-color:#e3d9cc;color:#3a2f27;background:#fff}.ss-poll.lt .bt button:hover{border-color:#F07040;color:#C24A00}'+
         '.ss-poll.lt .rs div{background:#f1ebe2;color:#3a2f27}.ss-poll.lt .rs i{background:#f6d4c0}.ss-poll.lt .rs .me i{background:#F07040}'+
         '.ss-poll.lt .rs b{color:#3a2f27}.ss-poll.lt .rs .me span{color:#12100e}.ss-poll.lt .n{color:#9a8f82}.ss-poll.lt .n a{color:#C24A00}'+
-        '@media(max-width:560px){.ss-poll.lt{margin:26px 16px 30px}}';
+        '.ss-pt{display:block;margin:-6px 0 10px 30px;padding:10px 12px;border-radius:10px;background:#1a1512;border:1px solid #3a2a20;color:#e8e3da;font-size:13.5px;line-height:1.5;text-decoration:none}'+
+        '.ss-pt span{color:#F59B75;font-weight:800}.ss-pt b{color:#F07040}.ss-pt:hover{border-color:#F07040}'+
+        '.ss-pi{font-size:.8em;font-weight:700;color:#C24A00;white-space:nowrap}';
       document.head.appendChild(st);
-      var c=document.createElement('section');c.className='ss-poll'+(light?' lt':'');c.setAttribute('aria-label','오늘의 질문');
+      var c=document.createElement('section');c.className='ss-poll'+(light?' lt':'');c.id='ss-poll';c.setAttribute('aria-label','오늘의 질문');
       var key='ss_poll_'+p.day,mine=0;try{mine=parseInt(localStorage.getItem(key)||'0',10)||0}catch(e){}
       var esc=function(v){return String(v||'').replace(/[<>&"]/g,'')};
       function draw(na,nb){
         var tot=na+nb;
-        if(!mine){c.innerHTML='<div class="k">🗳️ 오늘의 질문</div><div class="q">'+esc(p.q)+'</div>'+
+        if(!mine){c.innerHTML='<div class="k">🗳️ 오늘의 질문 · 이 이야기, 어떻게 보세요?</div><div class="q">'+esc(p.q)+'</div>'+
           '<div class="bt"><button type="button" data-c="1">'+esc(p.a)+'</button><button type="button" data-c="2">'+esc(p.b)+'</button></div>'+
           '<div class="n">누르면 다른 독자들 선택이 보여요'+(tot?' · '+tot+'명 참여':'')+'</div>';
           [].forEach.call(c.querySelectorAll('.bt button'),function(b){b.onclick=function(){vote(parseInt(b.getAttribute('data-c'),10))}});return}
         var pa=tot?Math.round(na*100/tot):0,pb=tot?100-pa:0;
-        c.innerHTML='<div class="k">🗳️ 오늘의 질문</div><div class="q">'+esc(p.q)+'</div><div class="rs">'+
+        c.innerHTML='<div class="k">🗳️ 오늘의 질문 · 이 이야기, 어떻게 보세요?</div><div class="q">'+esc(p.q)+'</div><div class="rs">'+
           '<div class="'+(mine===1?'me':'')+'"><i style="width:'+pa+'%"></i><span>'+esc(p.a)+(mine===1?' ✓':'')+'</span><b>'+pa+'%</b></div>'+
           '<div class="'+(mine===2?'me':'')+'"><i style="width:'+pb+'%"></i><span>'+esc(p.b)+(mine===2?' ✓':'')+'</span><b>'+pb+'%</b></div></div>'+
           '<div class="n">'+tot+'명 참여 · 결과는 다음 브리핑에서 이야기해요 · <a href="#" class="ch" style="color:#F59B75">다시 고르기</a></div>';
@@ -232,7 +235,17 @@
         fetch(API+'/poll',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({day:p.day,v:vid,c:v})})
           .then(function(r){return r.json()}).then(function(j){if(j&&j.ok){p.na=j.na;p.nb=j.nb;draw(j.na,j.nb)}}).catch(function(){})}
       draw(p.na||0,p.nb||0);
-      at.parentNode.insertBefore(c,at.nextSibling);
+      // 스토리 안쪽 끝 — 반응 줄·한마디 칸이 그려진 뒤에 오도록 조금 기다렸다 붙인다
+      setTimeout(function(){at.appendChild(c)},600);
+      // 맥락 붙은 추가 노출
+      var go=function(e){e.preventDefault();var w=document.getElementById('nlwrap'),bx=document.getElementById('expand');
+        if(w&&!w.classList.contains('open')){w.classList.add('open');if(bx)bx.textContent='접기 ↑'}
+        setTimeout(function(){var y=c.getBoundingClientRect().top+window.scrollY-90;window.scrollTo({top:y,behavior:'smooth'})},80)};
+      if(home){var row=document.querySelector('.hero .hs[data-n="'+sn+'"]');
+        if(row){var t=document.createElement('a');t.className='ss-pt';t.href='#ss-poll';
+          t.innerHTML='<span>🗳️ 오늘의 질문</span> '+esc(p.q)+' <b>→</b>';t.onclick=go;row.parentNode.insertBefore(t,row.nextSibling)}}
+      else{var li=document.querySelector('.ss-story-index a[href$="#story-'+sn+'"]');
+        if(li&&!li.querySelector('.ss-pi')){var m=document.createElement('span');m.className='ss-pi';m.textContent=' 🗳️ 투표';li.appendChild(m)}}
     }).catch(function(){});
   }
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',pollCard);else pollCard();
