@@ -12,6 +12,8 @@
     'align-items:center;justify-content:center;text-decoration:none;font-size:26px;line-height:1;' +
     'transition:transform .15s}.ss-fab:hover,.ss-fab:active{transform:scale(1.08)}' +
     '@media(min-width:640px){.ss-fab{width:58px;height:58px;right:24px;bottom:24px;font-size:28px}}' +
+    '.ss-fab .ss-fabn{position:absolute;top:-3px;right:-3px;min-width:20px;height:20px;padding:0 5px;border-radius:10px;' +
+    'background:#fff;color:#C24A00;font:800 11px/20px Pretendard,-apple-system,sans-serif;text-align:center;box-shadow:0 0 0 2px #F07040}' +
     '.ss-pageshare{position:fixed;left:16px;bottom:16px;z-index:9999;background:var(--ss-ink);color:#fff;border:none;' +
     'border-radius:var(--ss-r);padding:12px 22px;font-size:14px;font-weight:800;cursor:pointer;font-family:inherit;' +
     'box-shadow:0 4px 14px rgba(0,0,0,.35);display:flex;align-items:center;gap:7px;transition:transform .15s}' +
@@ -579,7 +581,11 @@
     // 이미 있으면 안 붙인다 — 푸터가 아예 없는 생성 페이지에서만 길을 낸다.
     var hasTalk = !!document.querySelector('a[href$="/talk/"], a[href*="soonsal.com/talk/"]');
     // 뉴스레터 푸터에는 저작권 줄이 이미 있다. 또 넣으면 한 화면에 두 번 나온다.
-    var hasCr = /©\s*\d{4}\s*순살브리핑/.test(document.body.textContent || '');
+    // 「Copyright © 2026. All rights reserved.」 꼴(뉴스레터·영어 페이지 푸터)도 같은 줄로 본다 (KD 2026-10-09 중복 점검)
+    var ftx = '';
+    var fts = document.querySelectorAll('.footer-inner, .footer, footer');
+    for (var ti = 0; ti < fts.length; ti++) ftx += ' ' + (fts[ti].textContent || '');
+    var hasCr = /©\s*\d{4}\s*순살브리핑/.test(document.body.textContent || '') || /©\s*\d{4}/.test(ftx);
     // 사업자 정보는 접어 둔다. 필요한 사람은 펴서 보고, 읽으러 온 사람의
     // 눈에는 안 걸리게. 전화번호·통신판매업 신고번호는 확인 전이라 넣지 않았다 —
     // 틀린 번호를 싣는 건 안 싣는 것보다 나쁘다.
