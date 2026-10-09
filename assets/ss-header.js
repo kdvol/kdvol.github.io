@@ -14,11 +14,12 @@
     var m=location.pathname.match(/^\/(wiki|topics)\/([a-z0-9-]+)\.html$/);if(!m||m[2]==='index')return;
     var h1=document.querySelector('h1');if(!h1||document.querySelector('.ss-fol'))return;
     var kind=m[1]==='wiki'?'e':'t',slug=m[2],key=kind+':'+slug;
-    var name=(h1.textContent||'').replace(/\s*타임라인\s*$/,'').replace(/\s*관련.*$/,'').trim();
+    var name=(h1.textContent||'').replace(/\s*타임라인\s*$/,'').replace(/\s*관련.*$/,'').replace(/^[^0-9A-Za-z가-힣]+/,'').trim();   // 앞 이모지 떼기
     var st=document.createElement('style');st.textContent=
-      '.ss-fol{display:inline-flex;align-items:center;gap:6px;margin:8px 0 4px;padding:8px 14px;border-radius:999px;border:1px solid #F07040;'+
-      'background:#F07040;color:#12100e;font:700 13.5px/1.2 Pretendard,-apple-system,sans-serif;cursor:pointer;text-decoration:none}'+
-      '.ss-fol.on{background:transparent;color:#F59B75}.ss-fol small{font-weight:400;opacity:.8}';
+      /* 팔로우는 보조 동작 — 꽉 찬 주황(구독하기 몫) 대신 테두리 버튼 (KD 2026-10-09 검수) */
+      '.ss-fol{display:inline-flex;align-items:center;gap:6px;margin:14px 0 6px;padding:7px 13px;min-height:0;border-radius:999px;border:1px solid #5a3524;'+
+      'background:transparent;color:#F59B75;font:700 13px/1.2 Pretendard,-apple-system,sans-serif;cursor:pointer;text-decoration:none}'+
+      '.ss-fol:hover{border-color:#F07040}.ss-fol.on{background:#2a1a12;border-color:#5a3524;color:#F59B75}.ss-fol small{font-weight:500;color:#8a8378;font-size:12px}';
     document.head.appendChild(st);
     var on=!!(u&&(u.follows||[]).indexOf(key)>=0);
     var b=document.createElement(u?'button':'a');b.className='ss-fol'+(on?' on':'');
