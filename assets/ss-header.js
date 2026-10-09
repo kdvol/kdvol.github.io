@@ -194,7 +194,7 @@
       var st=document.createElement('style');st.textContent=
         '.ss-poll{margin:34px 0 30px;padding:16px 2px 4px;border-top:1px solid #2a2622;color:#e8e3da;'+
         'font-family:Pretendard,-apple-system,BlinkMacSystemFont,sans-serif;line-height:1.5;box-sizing:border-box}'+
-        '.ss-poll *{box-sizing:border-box}.ss-poll .k{font-size:12px;font-weight:800;color:#F59B75;letter-spacing:.04em}'+
+        '.ss-poll *{box-sizing:border-box}.ss-poll .k{font-size:12px;font-weight:800;color:#bdb6aa;letter-spacing:.04em}'+
         '.ss-poll .q{font-size:15.5px;font-weight:800;margin:4px 0 10px;color:#f6f1e8;letter-spacing:-.02em}'+
         '.ss-poll .bt{display:flex;gap:8px}.ss-poll .bt button{flex:1;height:40px;border-radius:999px;border:1px solid #3a332c;background:transparent;color:#e8e3da;font:700 14px Pretendard,sans-serif;cursor:pointer}'+
         '.ss-poll .bt button:hover{border-color:#F07040;color:#F59B75}'+
@@ -204,12 +204,12 @@
         '.ss-poll .n{font-size:12px;color:#8b8578;margin-top:2px}'+
         /* 밝은 뉴스레터 본문용 */
         '.ss-poll.lt{margin:24px 0 8px;padding:18px 18px 14px;border:1px solid #ece6dc;border-radius:14px;background:#fffaf5;color:#2a2420}'+
-        '.ss-poll.lt .k{color:#C24A00}.ss-poll.lt .q{color:#1f1a16;font-size:16px}'+
+        '.ss-poll.lt .k{color:#6f695f}.ss-poll.lt .q{color:#1f1a16;font-size:16px}'+
         '.ss-poll.lt .bt button{border-color:#e3d9cc;color:#3a2f27;background:#fff}.ss-poll.lt .bt button:hover{border-color:#F07040;color:#C24A00}'+
         '.ss-poll.lt .rs div{background:#f1ebe2;color:#3a2f27}.ss-poll.lt .rs i{background:#f6d4c0}.ss-poll.lt .rs .me i{background:#F07040}'+
         '.ss-poll.lt .rs b{color:#3a2f27}.ss-poll.lt .rs .me span{color:#12100e}.ss-poll.lt .n{color:#9a8f82}.ss-poll.lt .n a{color:#C24A00}'+
         '.ss-pt{display:block;margin:-6px 0 10px 30px;padding:10px 12px;border-radius:10px;background:#1a1512;border:1px solid #3a2a20;color:#e8e3da;font-size:13.5px;line-height:1.5;text-decoration:none}'+
-        '.ss-pt span{color:#F59B75;font-weight:800}.ss-pt b{color:#F07040}.ss-pt:hover{border-color:#F07040}'+
+        '.ss-pt span{color:#bdb6aa;font-weight:800}.ss-pt b{color:#F07040}.ss-pt:hover{border-color:#F07040}'+
         '.ss-pi{font-size:.8em;font-weight:700;color:#C24A00;white-space:nowrap}';
       document.head.appendChild(st);
       var c=document.createElement('section');c.className='ss-poll'+(light?' lt':'');c.id='ss-poll';c.setAttribute('aria-label','오늘의 질문');

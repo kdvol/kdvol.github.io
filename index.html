@@ -102,6 +102,14 @@ h1,h2{font-size:13px;font-weight:800;letter-spacing:.08em;color:#F07040;margin:5
 .chart .go{font-size:14px;padding:14px 16px}
 .iss{padding:14px 16px 12px}
 .arch .iss .issd{display:block;padding:0 0 6px;background:none}
+/* 색 역할 (KD 2026-10-09 「버튼과 타이틀이 같은 색이라 구분 안 됨」): 주황 = 누를 수 있는 것만. 구역 표시·번호는 무채색. */
+.wrap>h1,.wrap>h2,.hero .hk b{color:#d6d0c5}
+.hero .hk{border-bottom:1px solid #2e2b27}
+.hero .hn{color:#6f695f}
+/* 대표 행동 하나는 모양으로도 버튼 — 테두리 알약 (글자 링크와 구분) */
+.hero .hm a{display:inline-flex;align-items:center;gap:6px;padding:9px 16px;min-height:0!important;border:1px solid #F07040;border-radius:999px;color:#F59B75}
+.hero .hm a:hover{background:#F07040;color:#12100e;text-decoration:none}
+.more,.chart .go{color:#F59B75}
 .arch .iss .issd:hover{background:none}
 .iss .issd .d{font-size:12px}
 .iss .st{font-size:15px;line-height:1.5;padding:6px 0 6px 12px}
@@ -215,7 +223,7 @@ transition:color .18s ease,background .18s ease}
 }
 
 .sec-head{margin:0 0 26px}
-.sec-kicker{display:flex;align-items:center;gap:9px;margin:0 0 12px;color:#F59B75;
+.sec-kicker{display:flex;align-items:center;gap:9px;margin:0 0 12px;color:#bdb6aa;
 font-size:11px;font-weight:800;letter-spacing:.08em}
 .sec-kicker::before{content:"";width:22px;height:2px;background:#F07040;border-radius:2px;flex:0 0 auto}
 .sec-head h1{margin:0;font-size:1.62rem;font-weight:800;letter-spacing:-.03em;
@@ -1026,7 +1034,7 @@ transition:color .18s ease,background .18s ease}
 <a class="more" href="/newsletters/">뉴스레터 전체 보기 →</a>
 
 <h2>더 많은 순살 둘러보기</h2>
-<div class="ch"><a href="https://t.me/soonsal" target="_blank" rel="noopener"><b>순살 텔레그램</b><span>발행 알림부터 짧은 생각, 가끔 투표까지</span></a><a href="/talk/"><b>순살톡</b><span>브리핑 읽고 남긴 한 줄이 모이는 곳</span></a><a href="/cardnews/"><b>카드뉴스</b><span>인스타에서 한 장씩 넘겨 보기</span></a><a href="/school/"><b>순살스쿨</b><span>현직자가 여는 IBD·IPO·M&amp;A 클래스</span></a></div>
+<div class="ch"><a href="https://t.me/soonsal" target="_blank" rel="noopener"><b>순살 텔레그램</b><span>발행 알림부터 짧은 생각, 가끔 투표까지</span></a><a href="/topics/"><b>주제별 타임라인</b><span>회사·주제별로 지난 이야기 이어 보기</span></a><a href="/youtube/"><b>YouTube</b><span>순살 영상 모아 보기</span></a><a href="/school/"><b>순살스쿨</b><span>현직자가 여는 IBD·IPO·M&amp;A 클래스</span></a></div>
 
 </div>
 <script>
