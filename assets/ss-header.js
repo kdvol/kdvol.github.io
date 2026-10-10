@@ -43,10 +43,10 @@
       var spread=(i/(n-1)-.5)*2,vx=(spread*170+(Math.random()*60-30))*(big?1.5:1),vy=-(330+Math.random()*170)*(big?1.25:1);
       var dur=1150+Math.random()*350,delay=300+i*45+Math.random()*60,fr=[],steps=18,s0=.75+Math.random()*.35;
       for(var k=0;k<=steps;k++){var t=k/steps*dur/1000,px=vx*t,py=vy*t+.5*g*t*t,ang=Math.atan2(vy+g*t,vx)*180/Math.PI;
-        if(vx<0)ang+=180;                                        // 왼쪽으로 가는 놈은 머리도 왼쪽
         var wig=Math.sin(k*1.9+i)*22*(1-k/steps*.6);              // 꼬리 꿈틀
-        var flip=vx<0?' scaleX(-1)':'';
-        fr.push({transform:'translate('+px.toFixed(1)+'px,'+py.toFixed(1)+'px) rotate('+(ang+wig).toFixed(1)+'deg) scale('+(k===0?.3:s0*(big?1.2:1)).toFixed(2)+')'+flip,
+        // 그림의 머리는 왼쪽 → scaleX(-1) 로 오른쪽을 보게 한 뒤 진행 방향으로 돌린다. 왼쪽으로 가는 놈은 배가 아래로 오게 위아래 뒤집기
+        var face=' scaleX(-1)'+(vx<0?' scaleY(-1)':'');
+        fr.push({transform:'translate('+px.toFixed(1)+'px,'+py.toFixed(1)+'px) rotate('+(ang+wig).toFixed(1)+'deg) scale('+(k===0?.3:s0*(big?1.2:1)).toFixed(2)+')'+face,
           opacity:k===0?0:(k>steps*.78?Math.max(0,1-(k-steps*.78)/(steps*.22)):1)})}
       f.animate(fr,{duration:dur,delay:delay,easing:'linear',fill:'forwards'})})(i);
     // 물방울 몇 개 — 기름 튀는 느낌
