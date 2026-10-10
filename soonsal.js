@@ -691,6 +691,13 @@
   // 튀는 걸로는 부족해서, 화면 위에서 쏟아진다.
   function confetti() {
     if (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    if (window.ssCan) {                       // 완주 — 큰 통조림 세 개가 차례로 (KD 2026-10-11)
+      var w = window.innerWidth, h = window.innerHeight;
+      [[.5, .55, 0], [.22, .7, 260], [.78, .7, 480]].forEach(function (q) {
+        setTimeout(function () { window.ssCan(w * q[0], h * q[1], { big: true }); }, q[2]);
+      });
+      return;
+    }
     var host = document.createElement('div');
     host.className = 'ss-conf';
     var bits = ['🎉', '🎊', '✨', '🐟', '🥳'];
@@ -1445,6 +1452,12 @@
   function burst(btn, emoji) {
     if (!btn || !btn.getBoundingClientRect) return;
     if (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    // 순살 통조림 팡 (ss-header.js 의 window.ssCan) — 있으면 그걸로, 없는 페이지에선 예전 폭죽 (KD 2026-10-11)
+    if (window.ssCanAt) {
+      window.ssCanAt(btn);
+      btn.classList.remove('pop'); void btn.offsetWidth; btn.classList.add('pop');
+      return;
+    }
     var r = btn.getBoundingClientRect();
     var host = document.createElement('div');
     host.className = 'ss-burst';
