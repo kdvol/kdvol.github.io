@@ -421,7 +421,10 @@ background:#f3efe8;color:#8a857c}
 /* 「같은 흐름」은 제목이 길어 한 줄에 하나씩 세운다. 라벨은 왼쪽에 고정 */
 .story-links .flows{display:flex;align-items:flex-start}
 .story-links .flow-list{display:flex;flex-direction:column;gap:2px;min-width:0}
-.story-links .flow{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.story-links .flow{display:block;min-width:0}
+.story-links .flow a{display:inline-block;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;vertical-align:top}
+/* 왜 이어지는지 한 줄 — 폰에선 마우스를 못 올리니 글로 보여 준다 (KD 2026-10-10) */
+.story-links .fw{display:block;font-size:10.5px;line-height:1.5;color:#b5b0a4;margin:0 0 3px 33px}
 .story-links .flow b{font-weight:600;color:#b5b0a4;margin-right:3px}
 @media(max-width:560px){.story-links .flows{display:block}
   .story-links .flow-list{margin-top:2px;padding-left:1px}}
@@ -753,7 +756,7 @@ line-height:1.25;color:#fff;word-break:keep-all}
         <div class="bullet"><span class="dot">◾</span><span>다만 이 과정에서 선주들은 "이 배가 누구 거냐"뿐 아니라 "미국이 애초에 이 배를 잡을 권리가 있었냐"까지 다툴 수 있음. 특히 중립국 선박에 실린 화물까지 미국 재산으로 가져가려 하면, 봉쇄 자체가 국제법상 적법했는지가 쟁점으로 올라올 수 있음. 배를 빨리 팔려고 만든 절차가 오히려 나포의 법적 근거를 검증받는 자리로 커지는 셈. 해운사·보험사 입장에서도 어느 항로의 배까지 나포될 수 있는지 다시 계산해야 함 <span class="note">(금융의 진화?)</span></span></div>
         <div class="bullet"><span class="dot">◾</span><span>그 사이 바다의 물리적 병목은 조금씩 풀리는 중. 쿠웨이트+카타르 원유 수출은 전쟁 전의 70% 수준까지 회복했고, 호르무즈 원유 흐름도 7월 중순 하루 400만배럴→최근 700~800만배럴로 늘었음. 이라크는 8월 27일 오만 연안에서 원유를 넘겨받는 우회 옵션도 열었음. 배가 못 지나가던 문제가 완화되니 시장의 질문도 바뀜. 이제는 잡힌 배를 누가 소유하고, 누가 팔아 돈을 가져가느냐가 새 병목</span></div>
       </div>
-      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/oil.html">원유</a><span class="sep">·</span><a class="topic" href="/topics/energy.html">에너지·원자재</a><span class="sep">·</span><a class="topic" href="/topics/trump-politics.html">트럼프·정책</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0410.html#story-1" title="유조선 관련 이란 수익모델 전편"><b>04-10</b> 이란, 호르무즈에서 통행료 장사 시작</a></span><span class="flow"><a href="/newsletters/2026/0317.html#story-1" title="제재회피 유조선망의 배경"><b>03-17</b> 이란 전쟁의 숨은 승자, 러시아</a></span></span></div></div>
+      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/oil.html">원유</a><span class="sep">·</span><a class="topic" href="/topics/energy.html">에너지·원자재</a><span class="sep">·</span><a class="topic" href="/topics/trump-politics.html">트럼프·정책</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0410.html#story-1" title="유조선 관련 이란 수익모델 전편"><b>04-10</b> 이란, 호르무즈에서 통행료 장사 시작</a><span class="fw">유조선 관련 이란 수익모델 전편</span></span><span class="flow"><a href="/newsletters/2026/0317.html#story-1" title="제재회피 유조선망의 배경"><b>03-17</b> 이란 전쟁의 숨은 승자, 러시아</a><span class="fw">제재회피 유조선망의 배경</span></span></span></div></div>
     </div>
     <div class="story" id="story-5" role="article" aria-labelledby="story-5-title" data-ss-story="0828-5" data-ss-issue="0828">
 <!-- STORY 5 -->
@@ -766,7 +769,7 @@ line-height:1.25;color:#fff;word-break:keep-all}
         <div class="bullet"><span class="dot">◾</span><span>반론은 토큰세에서 가장 세게 붙었음. 오렌 에치오니 <span class="sub">(워싱턴대 명예교수, AI 연구기관 AI2 초대 CEO)</span>는 로봇세엔 동의하면서도 토큰세는 '키보드 칠 때마다 세금 매기는 것'과 비슷하다고 깠음. 토큰은 일자리 대체가 아니라 사용량을 재는 단위라 해외 서버·로컬 기기로 빠지면 걷기도 어렵다는 것. 새 국제기구보다 FDA·FTC 같은 기존 규제기관부터 쓰자는 쪽. 같은 문제에 대해서 새로운 세금 vs. 기존 규제로 처방이 갈림</span></div>
         <div class="bullet"><span class="dot">◾</span><span>빌 게이츠는 로봇세 얘기를 9년 전에도 했던 이력. 2017년에도 공장 로봇이 사람 일을 가져가면 세금을 매겨야 한다고 주장, 한국은 같은 해 자동화 설비 세액공제를 줄여 '준로봇세'로 불렸음. 다만 로봇 소득에 직접 세금을 매긴 나라는 아직 없음. 이번엔 대상이 공장 기계→사무실 AI 사용량으로 넓어짐. 2017년엔 로봇 한 대가 사람 한 명을 밀어내는 그림이었다면, 지금은 소프트웨어가 화이트칼라 업무 전체를 건드리는 판</span></div>
       </div>
-      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/ftc.html">FTC</a><span class="sep">·</span><a class="topic" href="/topics/ai.html">AI</a><span class="sep">·</span><a class="topic" href="/topics/labor-jobs.html">노동·고용</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0408.html#story-3" title="같은 로봇세 제안의 발화점"><b>04-08</b> OpenAI, 우리 제품 위험해요</a></span><span class="flow"><a href="/newsletters/2026/0526.html#story-3" title="AI실직 대응 정책의 다른 사례"><b>05-26</b> AI한테 잘리면 주식으로 보상?</a></span></span></div></div>
+      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/ftc.html">FTC</a><span class="sep">·</span><a class="topic" href="/topics/ai.html">AI</a><span class="sep">·</span><a class="topic" href="/topics/labor-jobs.html">노동·고용</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0408.html#story-3" title="같은 로봇세 제안의 발화점"><b>04-08</b> OpenAI, 우리 제품 위험해요</a><span class="fw">같은 로봇세 제안의 발화점</span></span><span class="flow"><a href="/newsletters/2026/0526.html#story-3" title="AI실직 대응 정책의 다른 사례"><b>05-26</b> AI한테 잘리면 주식으로 보상?</a><span class="fw">AI실직 대응 정책의 다른 사례</span></span></span></div></div>
     </div>
   </div>
 <!-- /content -->

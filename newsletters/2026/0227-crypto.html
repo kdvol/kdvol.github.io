@@ -472,7 +472,10 @@ background:#f3efe8;color:#8a857c}
 /* 「같은 흐름」은 제목이 길어 한 줄에 하나씩 세운다. 라벨은 왼쪽에 고정 */
 .story-links .flows{display:flex;align-items:flex-start}
 .story-links .flow-list{display:flex;flex-direction:column;gap:2px;min-width:0}
-.story-links .flow{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.story-links .flow{display:block;min-width:0}
+.story-links .flow a{display:inline-block;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;vertical-align:top}
+/* 왜 이어지는지 한 줄 — 폰에선 마우스를 못 올리니 글로 보여 준다 (KD 2026-10-10) */
+.story-links .fw{display:block;font-size:10.5px;line-height:1.5;color:#b5b0a4;margin:0 0 3px 33px}
 .story-links .flow b{font-weight:600;color:#b5b0a4;margin-right:3px}
 @media(max-width:560px){.story-links .flows{display:block}
   .story-links .flow-list{margin-top:2px;padding-left:1px}}

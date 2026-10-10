@@ -492,7 +492,10 @@ background:#f3efe8;color:#8a857c}
 /* 「같은 흐름」은 제목이 길어 한 줄에 하나씩 세운다. 라벨은 왼쪽에 고정 */
 .story-links .flows{display:flex;align-items:flex-start}
 .story-links .flow-list{display:flex;flex-direction:column;gap:2px;min-width:0}
-.story-links .flow{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.story-links .flow{display:block;min-width:0}
+.story-links .flow a{display:inline-block;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;vertical-align:top}
+/* 왜 이어지는지 한 줄 — 폰에선 마우스를 못 올리니 글로 보여 준다 (KD 2026-10-10) */
+.story-links .fw{display:block;font-size:10.5px;line-height:1.5;color:#b5b0a4;margin:0 0 3px 33px}
 .story-links .flow b{font-weight:600;color:#b5b0a4;margin-right:3px}
 @media(max-width:560px){.story-links .flows{display:block}
   .story-links .flow-list{margin-top:2px;padding-left:1px}}
@@ -829,7 +832,7 @@ line-height:1.25;color:#fff;word-break:keep-all}
         </div>
 
         <div class="bullet"><span class="dot">◾</span><span>이 사건의 의미 — AI 산업에서 "누가 윤리를 정하느냐"가 국가 안보 문제와 직결된다는 선례. 크립토의 "코드가 법이다" 철학이 AI 거버넌스에서도 시험대에 오를 전망</span></div>
-      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/anthropic.html">앤스로픽</a><span class="sep">·</span><a href="/wiki/openai.html">오픈AI</a><span class="sep">·</span><a href="/wiki/bitcoin.html">비트코인</a><span class="sep">·</span><a class="topic" href="/topics/ai.html">AI</a><span class="sep">·</span><a class="topic" href="/topics/crypto.html">크립토</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0227.html#story-4" title="전날 거부 선언이 낳은 결과"><b>02-27</b> Anthropic &quot;양심상 따를 수 없다&qu</a></span></span></div></div></div>
+      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/anthropic.html">앤스로픽</a><span class="sep">·</span><a href="/wiki/openai.html">오픈AI</a><span class="sep">·</span><a href="/wiki/bitcoin.html">비트코인</a><span class="sep">·</span><a class="topic" href="/topics/ai.html">AI</a><span class="sep">·</span><a class="topic" href="/topics/crypto.html">크립토</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0227.html#story-4" title="전날 거부 선언이 낳은 결과"><b>02-27</b> Anthropic &quot;양심상 따를 수 없다&qu</a><span class="fw">전날 거부 선언이 낳은 결과</span></span></span></div></div></div>
     </div>
 
     <!-- STORY 2 -->
@@ -847,7 +850,7 @@ line-height:1.25;color:#fff;word-break:keep-all}
 
         <div class="bullet"><span class="dot">◾</span><span>이 뉴스의 핵심 의미: "크립토 네이티브 기업이 TradFi를 흉내 내는" 시대에서 "TradFi가 크립토 전용 인프라를 직접 구축하는" 시대로 전환. Coinbase보다 Morgan Stanley가 크립토 은행을 더 잘할 수 있을까? 규제 관계에서는 확실히 유리</span></div>
         <div class="bullet"><span class="dot">◾</span><span>향후 전망 — OCC 차터 승인까지 6~12개월 소요 예상. 승인되면 미국 최초의 "Big Bank 계열 크립토 전문 신탁은행"이 탄생. 다른 대형 은행들의 유사한 움직임을 촉발할 가능성이 높음. 크립토 시장의 "기관화(institutionalization)" 다음 레벨</span></div>
-      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/morgan-stanley.html">모건스탠리</a><span class="sep">·</span><a href="/wiki/occ.html">미국 OCC</a><span class="sep">·</span><a href="/wiki/goldman.html">골드만삭스</a><span class="sep">·</span><a href="/wiki/jpmorgan.html">JP모건</a><span class="sep">·</span><a href="/wiki/coinbase.html">코인베이스</a><span class="sep">·</span><a class="topic" href="/topics/crypto.html">크립토</a><span class="sep">·</span><a class="topic" href="/topics/banks-wallst.html">월가·은행</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0227-crypto.html#story-1" title="같은 크립토 진입 선언의 구체화"><b>02-27</b> 모건스탠리, 드디어 크립토 시장에 전면 진입한다</a></span></span></div></div></div>
+      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/morgan-stanley.html">모건스탠리</a><span class="sep">·</span><a href="/wiki/occ.html">미국 OCC</a><span class="sep">·</span><a href="/wiki/goldman.html">골드만삭스</a><span class="sep">·</span><a href="/wiki/jpmorgan.html">JP모건</a><span class="sep">·</span><a href="/wiki/coinbase.html">코인베이스</a><span class="sep">·</span><a class="topic" href="/topics/crypto.html">크립토</a><span class="sep">·</span><a class="topic" href="/topics/banks-wallst.html">월가·은행</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0227-crypto.html#story-1" title="같은 크립토 진입 선언의 구체화"><b>02-27</b> 모건스탠리, 드디어 크립토 시장에 전면 진입한다</a><span class="fw">같은 크립토 진입 선언의 구체화</span></span></span></div></div></div>
     </div>
 
     <!-- STORY 3 -->
