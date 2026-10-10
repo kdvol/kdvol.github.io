@@ -417,6 +417,27 @@
 <meta property="og:image:width" content="1200"/>
 <meta property="og:image:height" content="630"/>
 <meta name="twitter:card" content="summary_large_image"/>
+<style id="soonsal-story-links">
+/* 스토리 끝 — 다 읽은 사람만 본다. 본문 흐름을 끊지 않는다 */
+.story-links{margin:14px 0 0;padding:11px 0 0;border-top:1px solid #ece8e0;
+font-size:11.5px;line-height:1.8;color:#9a958a;word-break:keep-all}
+.story-links .k{color:#b5b0a4;margin-right:5px}
+.story-links a{color:#8a857c;text-decoration:none;border-bottom:1px solid #e6e1d8}
+.story-links a:hover{color:#C24A00;border-bottom-color:#C24A00}
+.story-links .sep{opacity:.4;margin:0 4px}
+/* 주제는 개별 이름이 아니라 묶음이다 — 테두리로 구분한다 */
+.story-links a.topic{border-bottom:0;padding:1px 7px;border-radius:999px;
+background:#f3efe8;color:#8a857c}
+.story-links a.topic:hover{background:#C24A00;color:#fff}
+.story-links .row + .row{margin-top:4px}
+/* 「같은 흐름」은 제목이 길어 한 줄에 하나씩 세운다. 라벨은 왼쪽에 고정 */
+.story-links .flows{display:flex;align-items:flex-start}
+.story-links .flow-list{display:flex;flex-direction:column;gap:2px;min-width:0}
+.story-links .flow{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.story-links .flow b{font-weight:600;color:#b5b0a4;margin-right:3px}
+@media(max-width:560px){.story-links .flows{display:block}
+  .story-links .flow-list{margin-top:2px;padding-left:1px}}
+</style>
 <!-- soonsal:story-fragments-style:start --><style>
 .ss-story-index{margin:0 0 34px;padding:21px 22px;border:1px solid #e8e8e0;
 border-radius:12px;background:#fafaf7;color:#333}
@@ -705,7 +726,7 @@ line-height:1.25;color:#fff;word-break:keep-all}
         <div class="bullet"><span class="dot">◾</span><span>2016년엔 브라질 국채로 1년 동안 번 돈이 70%까지 나오면서 한국 돈 7조 원이 몰렸음. 근데 2018년 헤알이 30% 깨졌고 2019년엔 원금이 반토막 가까이 난 사람도 나왔음. 이자를 아무리 받아도 환율이 크게 흔들리면 몇 년 치가 날아감. 지금 증권사가 파는 2037년 만기 채권은 표면이자 10%, 사는 시점 금리는 14%대. 이번 랠리로 헤알과 채권값이 같이 올랐으니 지금 들어가면 그만큼 비싸게 사는 셈 <span class="note">(비과세는 세금 얘기지 환율 얘기가 아님)</span></span></div>
         <div class="bullet"><span class="dot">◾</span><span>이번 선거는 중남미 우파 바람의 연장선. 플라비우가 결선까지 이기면 지난 1년 새 중남미 대선에서 우파가 7연승. 칠레 카스트, 볼리비아 파스가 앞서 이겼음. 트럼프는 서반구를 미국 영향권으로 다지는 중. 룰라는 여기에 맞서왔고, 플라비우는 미국과 가깝게 가자는 쪽. 예측시장이 매긴 플라비우 결선 승률은 83%. 채권·헤알 값엔 이미 플라비우 승리가 들어가 있어서, 결선에서 뒤집히면 되돌림도 같은 크기로 올 수 있음</span></div>
       </div>
-      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님</p>
+      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/trump.html">트럼프</a><span class="sep">·</span><a class="topic" href="/topics/trump-politics.html">트럼프·정책</a><span class="sep">·</span><a class="topic" href="/topics/fx.html">환율·달러</a></div></div>
     </div>
 <!-- STORY 2 -->    <div class="story" id="story-2" role="article" aria-labelledby="story-2-title" data-ss-story="1006-2" data-ss-issue="1006">
       <span class="story-label">AI · ANTITRUST</span>
@@ -717,7 +738,7 @@ line-height:1.25;color:#fff;word-break:keep-all}
         <div class="bullet"><span class="dot">◾</span><span>원고들이 따지는 건 돈을 나눈 방식. 엔비디아가 낸 170억불은 그록 주주들이 지분만큼 나눠 가졌음. 작년 9월 그록 몸값 69억불의 두 배 넘는 값. 근데 로스 같은 내부자는 지분 몫에 엔비디아 주식 30억불 몫까지 따로 챙겼음. 남은 직원은 지분 몫만 받고 텅 빈 회사에 남았음 <span class="note">(돈은 지분이 아니라 사람을 따라감)</span>. 이사회와 연결된 투자 펀드들도 일반 주주와 안 나눈 몫을 챙겼다는 게 원고 측 주장. 미국 법무부도 신고 회피 여부를 따로 조사 중</span></div>
         <div class="bullet"><span class="dot">◾</span><span>한국도 이 딜과 엮여 있음. 삼성전자는 2024년과 2025년 그록 투자 라운드에 들어간 주주. 2023년엔 삼성 파운드리 텍사스 테일러 공장이 그록 차세대 4나노 칩을 첫 고객 물량으로 따냈음. 그 칩을 설계한 핵심 인력이 이제 엔비디아 직원. 삼성은 주주로선 소송 결과에, 파운드리로선 그록 물량이 이어질지에 걸려 있음. 법원이 이 구조를 사실상 인수로 보면 빅테크가 AI 인재를 통째로 사오던 지름길이 막힐 수 있음</span></div>
       </div>
-      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
+      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/nvidia.html">엔비디아</a><span class="sep">·</span><a href="/wiki/google.html">구글</a><span class="sep">·</span><a href="/wiki/softbank.html">소프트뱅크</a><span class="sep">·</span><a href="/wiki/meta.html">메타</a><span class="sep">·</span><a href="/wiki/samsung.html">삼성전자</a><span class="sep">·</span><a class="topic" href="/topics/semiconductor.html">반도체</a><span class="sep">·</span><a class="topic" href="/topics/ai.html">AI</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0709.html#story-3"><b>07-09</b> 엔비디아, 무거운 왕관</a></span><span class="flow"><a href="/newsletters/2026/0521.html#story-1"><b>05-21</b> 엔비디아, 이겼는데 졌음</a></span></span></div></div>
     </div>
 <!-- STORY 3 -->    <div class="story" id="story-3" role="article" aria-labelledby="story-3-title" data-ss-story="1006-3" data-ss-issue="1006">
       <span class="story-label">INDUSTRY · M&amp;A</span>
@@ -729,7 +750,7 @@ line-height:1.25;color:#fff;word-break:keep-all}
         <div class="bullet"><span class="dot">◾</span><span>장비·설계 회사들이 너도나도 소프트웨어 회사를 사들이는 중. 독일 지멘스는 2025년 시뮬레이션 소프트웨어 회사 알테어를 106억불에 샀고, 미국 반도체 설계 SW 회사 시놉시스는 시뮬레이션 회사 앤시스를 350억불에 샀음. 슈나이더도 2023년 산업 SW 회사 아베바를 100% 자회사로 만들었음. 공장 장비는 중국산과 가격 경쟁을 해야 하지만, 설계 데이터를 쥔 소프트웨어는 한 번 깔면 바꾸기 어려움 <span class="note">(장비는 값으로, SW는 습관으로 팔림)</span></span></div>
         <div class="bullet"><span class="dot">◾</span><span>한국 전력기기 회사들한테는 경쟁 판이 달라진다는 뜻. 슈나이더는 AI 데이터센터 전력 설비에서 LS일렉트릭·HD현대일렉트릭과 붙는 상대. LS일렉트릭은 8월 북미 빅테크 데이터센터에서 2,309억 원어치 배전 설비를 따냈음. 한국 회사들은 장비 단품으로 수주를 따는 중. 슈나이더는 장비에 설계·운영 소프트웨어까지 묶어 파는 쪽. 발주처가 둘을 한 번에 사면 단품으로 붙는 쪽은 견적 낼 자리부터 줄어들 수 있음</span></div>
       </div>
-      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
+      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/samsung.html">삼성전자</a><span class="sep">·</span><a href="/wiki/hyundai.html">현대차</a><span class="sep">·</span><a class="topic" href="/topics/semiconductor.html">반도체</a><span class="sep">·</span><a class="topic" href="/topics/deals.html">딜·M&amp;A</a></div></div>
     </div>
 <!-- STORY 4 -->    <div class="story" id="story-4" role="article" aria-labelledby="story-4-title" data-ss-story="1006-4" data-ss-issue="1006">
       <span class="story-label">WEALTH · TAX</span>
@@ -741,7 +762,7 @@ line-height:1.25;color:#fff;word-break:keep-all}
         <div class="bullet"><span class="dot">◾</span><span>부자들이 떠나면 영국 세수엔 바로 구멍이 남. 폐지 직전 회계연도에 논돔·간주 거주자 8만 1,900명이 낸 세금이 136억 파운드였음. 그래서 레이철 리브스 재무장관은 한발 물러섰음. 작년 11월 예산에서 20%까지 거론되던 출국세를 뺐고 부유세도 넣지 않았음. 옛 논돔 신탁에 붙는 상속세도 10년에 500만 파운드로 상한을 걸었음. 그래도 제도 뼈대는 그대로라 떠나는 사람이 계속 나오는 중</span></div>
         <div class="bullet"><span class="dot">◾</span><span>한국이 이 얘기를 남 일로 못 듣는 건 상속세 때문. 한국 상속세 최고세율은 50%, 최대주주 할증이 붙으면 60%로 영국 40%보다 높음. 2024년 말 40%로 낮추는 안은 국회에서 부결됐고, 올해 세법개정안도 세율은 안 건드렸음. 한국 백만장자가 한 해 2,400명 순유출된다는 숫자도 많이 돌았음. 근데 이 숫자를 낸 헨리앤파트너스 <span class="sub">(투자이민 컨설팅사)</span>는 데이터 조작 의혹에 올해 국가별 인원수를 뺐음. 영국은 숫자가 아니라 실명으로 나가는 중</span></div>
       </div>
-      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님</p>
+      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a class="topic" href="/topics/banks-wallst.html">월가·은행</a></div></div>
     </div>
 <!-- STORY 5 -->    <div class="story" id="story-5" role="article" aria-labelledby="story-5-title" data-ss-story="1006-5" data-ss-issue="1006">
       <span class="story-label">MEDIA · HOLLYWOOD</span>
@@ -753,7 +774,7 @@ line-height:1.25;color:#fff;word-break:keep-all}
         <div class="bullet"><span class="dot">◾</span><span>파라마운트는 이 스튜디오를 빚으로 샀음. 인수 자금으로 은행 대출 95억불과 채권 425억불, 합쳐서 520억불을 조달했는데, 그중 정크본드 10년물 금리가 9%대. 12개 주 법무장관 소송으로 딜이 늦어지는 사이 금리가 올라, 몇 달 전에 빌렸을 때보다 이자를 1년에 4억불 더 내게 됐음. 파라마운트는 합친 뒤 비용 60억불을 줄이겠다는 계획. 새 주인 입장에선 디거 같은 대작 손실이 첫 성적표부터 깎아먹는 셈</span></div>
         <div class="bullet"><span class="dot">◾</span><span>한국에선 분위기가 다름. 톰 크루즈는 디거 홍보차 2일 13번째로 한국을 찾았음. 할리우드 배우 중 최다 방한. 한국 개봉은 3일로, 이틀 만에 관객 2만 8,551명이 들었고 네이버 관객 평점은 8.7. 작년 '미션 임파서블: 파이널 레코닝'은 한국에서만 2,410만불을 벌어 전 세계 흥행의 4%를 가져갔음. 미국에선 19년 만의 바닥인데, 한국에선 아직 톰 아저씨 약발이 도는 중 <span class="note">(톰 아저씨는 한국 오면 늘 진심)</span></span></div>
       </div>
-      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
+      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/warner.html">워너브라더스디스커버리</a><span class="sep">·</span><a href="/wiki/paramount.html">파라마운트</a><span class="sep">·</span><a href="/wiki/oracle.html">오라클</a><span class="sep">·</span><a href="/wiki/naver.html">네이버</a><span class="sep">·</span><a class="topic" href="/topics/media-content.html">미디어·콘텐츠</a></div></div>
     </div>
 <!-- /content -->
   </div><!-- DEAL -->

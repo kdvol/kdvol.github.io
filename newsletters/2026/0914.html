@@ -417,6 +417,27 @@
 <meta property="og:image:width" content="1200"/>
 <meta property="og:image:height" content="630"/>
 <meta name="twitter:card" content="summary_large_image"/>
+<style id="soonsal-story-links">
+/* 스토리 끝 — 다 읽은 사람만 본다. 본문 흐름을 끊지 않는다 */
+.story-links{margin:14px 0 0;padding:11px 0 0;border-top:1px solid #ece8e0;
+font-size:11.5px;line-height:1.8;color:#9a958a;word-break:keep-all}
+.story-links .k{color:#b5b0a4;margin-right:5px}
+.story-links a{color:#8a857c;text-decoration:none;border-bottom:1px solid #e6e1d8}
+.story-links a:hover{color:#C24A00;border-bottom-color:#C24A00}
+.story-links .sep{opacity:.4;margin:0 4px}
+/* 주제는 개별 이름이 아니라 묶음이다 — 테두리로 구분한다 */
+.story-links a.topic{border-bottom:0;padding:1px 7px;border-radius:999px;
+background:#f3efe8;color:#8a857c}
+.story-links a.topic:hover{background:#C24A00;color:#fff}
+.story-links .row + .row{margin-top:4px}
+/* 「같은 흐름」은 제목이 길어 한 줄에 하나씩 세운다. 라벨은 왼쪽에 고정 */
+.story-links .flows{display:flex;align-items:flex-start}
+.story-links .flow-list{display:flex;flex-direction:column;gap:2px;min-width:0}
+.story-links .flow{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.story-links .flow b{font-weight:600;color:#b5b0a4;margin-right:3px}
+@media(max-width:560px){.story-links .flows{display:block}
+  .story-links .flow-list{margin-top:2px;padding-left:1px}}
+</style>
 <!-- soonsal:story-fragments-style:start --><style>
 .ss-story-index{margin:0 0 34px;padding:21px 22px;border:1px solid #e8e8e0;
 border-radius:12px;background:#fafaf7;color:#333}
@@ -699,7 +720,7 @@ line-height:1.25;color:#fff;word-break:keep-all}
         <div class="bullet"><span class="dot">◾</span><span>채권시장은 일단 선반영. 30년물 금리 5.37%로 2004년 이후 최고, 10년물은 5% 문턱, 30년 주택담보대출은 1년 만에 7% 재돌파. 베센트 재무장관이 금리 찍어 누르려고 꺼낸 장기채 되사기는 첫 회차에 예정 60억불 중 52억불만 샀고, 금리는 더 올랐음. 블룸버그 설문 결과, 투자자 30%는 10년물 금리가 5~5.25% 수준에서 맴돌면 주식엔 10% 조정 올 거라고 답함</span></div>
         <div class="bullet"><span class="dot">◾</span><span>한 번 올리는 건 오히려 약이 될 수 있음. 연준이 물가와 싸운다는 신호가 서면 장기 금리 압력은 되레 풀린다는 게 시장 계산, 금요일 주식이 반등한 이유. 문제는 이게 한 번이 아니라 사이클일 때. 과거 데이터에서 강세장을 꺾은 건 단발 인상이 아니라 연속 인상이었음. 부채 40조불에 은퇴 세대 저축까지 빠지는 구조라, 전쟁이 끝나도 싼 돈의 시대는 안 돌아온다는 게 이번 주말 월가의 결론</span></div>
       </div>
-      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님</p>
+      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/fed.html">미국 연준</a><span class="sep">·</span><a href="/wiki/trump.html">트럼프</a><span class="sep">·</span><a href="/wiki/oil.html">원유</a><span class="sep">·</span><a href="/wiki/powell.html">제롬 파월</a><span class="sep">·</span><a class="topic" href="/topics/fed-rates.html">연준·금리</a></div></div>
     </div>
 <!-- STORY 2 -->    <div class="story" id="story-2" role="article" aria-labelledby="story-2-title" data-ss-story="0914-2" data-ss-issue="0914">
       <span class="story-label">IPO · ACCOUNTING</span>
@@ -711,7 +732,7 @@ line-height:1.25;color:#fff;word-break:keep-all}
         <div class="bullet"><span class="dot">◾</span><span>회사 쪽 논리도 있음. 상장은 시장 상황에 달려 마지막 순간까지 뒤집힐 수 있으니 미리 비용을 잡을 수 없다는 게 회계법인 설명이고, SEC도 S-1 심사에서 이 관행을 그대로 뒀음. 옵션 대신 RSU를 쓰는 이유도 팔 수 없는 비상장 주식에 세금부터 내는 일을 막으려는 것. 다만 루브릭처럼 S-1엔 6.2억불만 적고 이후 분기에 더 나올 4.8억불은 상장 뒤에야 밝히는 식이라, 투자자가 후불 인건비 전체를 미리 볼 방법이 없음</span></div>
         <div class="bullet"><span class="dot">◾</span><span>결국 이 후불 인건비를 누가 떠안느냐의 문제. 상장 전 투자자와 직원은 깔끔한 실적표로 값을 받고, 후불 인건비는 공모주를 산 쪽이 떠안음. SEC가 추진하는 분기→반기 공시 전환이 되면 그 비용은 더 늦게 드러남. 지금 S-1엔 예상 금액이 각주 수준으로만 실리고, 앤스로픽·오픈AI 모두 자기 RSU 구조에 대한 질문엔 답이 없었음 <span class="note">(개미들은 청약 전에 S-1의 RSU 각주부터 확실히 파악 필요)</span></span></div>
       </div>
-      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
+      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/anthropic.html">앤스로픽</a><span class="sep">·</span><a href="/wiki/nasdaq.html">나스닥</a><span class="sep">·</span><a href="/wiki/openai.html">오픈AI</a><span class="sep">·</span><a href="/wiki/robinhood.html">로빈후드</a><span class="sep">·</span><a class="topic" href="/topics/ipo.html">IPO·상장</a><span class="sep">·</span><a class="topic" href="/topics/ai.html">AI</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0825.html#story-1"><b>08-25</b> 앤스로픽, 상장도 전에 스페이스X 추월?</a></span></span></div></div>
     </div>
 <!-- STORY 3 -->    <div class="story" id="story-3" role="article" aria-labelledby="story-3-title" data-ss-story="0914-3" data-ss-issue="0914">
       <span class="story-label">AI · SAFETY</span>
@@ -723,7 +744,7 @@ line-height:1.25;color:#fff;word-break:keep-all}
         <div class="bullet"><span class="dot">◾</span><span>백악관은 반대편. 트럼프는 속도 조절 요구에 중국에 뒤지는 게 더 걱정이라고 일축했고, 같은 주말 시진핑은 인도 브릭스 정상회의에서 중국 주도의 오픈소스 AI 공동체를 제안. 실리콘밸리 안에서도 골드만 테크 콘퍼런스 참석자 다수는 종말론이 과장됐다고 봤음. But 사실 이건 반쯤 걸러 들어야 하는게, 이들의 진짜 걱정은 이 분위기가 앤스로픽 공모 흥행을 식히는 것 <span class="sub">(공모 규모 1,000억불 이상 거론)</span></span></div>
         <div class="bullet"><span class="dot">◾</span><span>다시 보면 규제 제안이 아니라 진입장벽 제안. 아모데이가 던진 안건의 첫 항목인 외부 평가 의무화는 돈과 시간이 드는 절차라, 이미 앞선 셋은 감당하고 후발 주자는 못 넘는 문턱이 됨. 아모데이 본인도 상업적 우위와 미국의 선두를 희생하지 않는 방안이라고 못 박았음. 브레이크를 밟자는 쪽이 하필 맨 앞에서 달리는 셋. 늦추자는 제안이 곧 심사 기준을 먼저 세우자는 제안 <span class="note">(토큰이나 좀 넉넉히 주면..)</span></span></div>
       </div>
-      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
+      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/anthropic.html">앤스로픽</a><span class="sep">·</span><a href="/wiki/musk.html">일론 머스크</a><span class="sep">·</span><a href="/wiki/openai.html">오픈AI</a><span class="sep">·</span><a href="/wiki/google.html">구글</a><span class="sep">·</span><a href="/wiki/oil.html">원유</a><span class="sep">·</span><a class="topic" href="/topics/ai.html">AI</a><span class="sep">·</span><a class="topic" href="/topics/trump-politics.html">트럼프·정책</a></div></div>
     </div>
 <!-- STORY 4 -->    <div class="story" id="story-4" role="article" aria-labelledby="story-4-title" data-ss-story="0914-4" data-ss-issue="0914">
       <span class="story-label">KRX · MARKET STRUCTURE</span>
@@ -735,7 +756,7 @@ line-height:1.25;color:#fff;word-break:keep-all}
         <div class="bullet"><span class="dot">◾</span><span>우려는 두 가지. 하나는 유동성 분산으로, 같은 주문이 KRX·넥스트레이드 두 곳에 갈리면 체결 가격이 나빠질 수 있음 <span class="sub">(투자자가 시장을 안 고르면 증권사가 최선집행기준으로 배분)</span>. 다른 하나는 변동성. 가격제한 ±30%와 변동성완화장치는 정규장과 같지만 사이드카·서킷브레이커는 안 걸림. ETF를 뺀 이유도 업계가 저녁 변동성을 키울 수 있다고 봤기 때문</span></div>
         <div class="bullet"><span class="dot">◾</span><span>KRX 입장에선 시간이 곧 상품. 정규장 6시간 30분이던 거래 시간을 13시간으로 늘리면 수수료를 받는 시간이 두 배가 되고, 넥스트레이드에 넘어간 물량도 돌아옴. 미국 실적 발표나 연준 결정이 한국 저녁에 터질 때 다음 날 아침까지 기다리던 개인도 그날 밤 대응 가능. 대신 밤 8시까지 열린 창을 보고 잠 못 드는 건 투자자 몫 <span class="note">(애프터마켓 시황은 다음 날 아침 순살에)</span></span></div>
       </div>
-      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
+      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/kospi.html">코스피</a><span class="sep">·</span><a href="/wiki/nasdaq.html">나스닥</a><span class="sep">·</span><a href="/wiki/nyse.html">뉴욕증권거래소</a><span class="sep">·</span><a href="/wiki/samsung.html">삼성전자</a><span class="sep">·</span><a href="/wiki/sk-hynix.html">SK하이닉스</a><span class="sep">·</span><a class="topic" href="/topics/korea-market.html">국내 증시</a><span class="sep">·</span><a class="topic" href="/topics/semiconductor.html">반도체</a></div></div>
     </div>
 <!-- STORY 5 -->    <div class="story" id="story-5" role="article" aria-labelledby="story-5-title" data-ss-story="0914-5" data-ss-issue="0914">
       <span class="story-label">REAL ESTATE · CONVERSION</span>
@@ -747,7 +768,7 @@ line-height:1.25;color:#fff;word-break:keep-all}
         <div class="bullet"><span class="dot">◾</span><span>But 빈 건물이 다 아파트가 되진 않음. 주거용은 배관·냉난방·엘리베이터·채광이 사무실과 달라서, 넓은 무기둥 평면이 자랑이던 2010년대 오피스가 오히려 개조엔 최악. 개발사들은 공실과 전환 가능을 시장이 혼동한다고 말함. 맥킨지 계산으로 남는 사무실을 전부 집으로 바꿔도 대도시 주택은 3% 늘어나는 데 그치고, 뉴욕은 10년 안에 70만 가구가 필요한데 전환 파이프라인은 2만 가구</span></div>
         <div class="bullet"><span class="dot">◾</span><span>뉴욕에선 사실 정례 행사. 1980년대 오피스 과잉 뒤 1990년대 세제로 한 번, 금융위기 뒤 또 한 번 사무실을 집으로 돌렸고 이번이 세 번째. 다른 점은 이번엔 품질보다 가구 수를 세는 물량 게임이라는 것. 맨해튼 사무실에서 일하는 사람은 비싼 집세와 긴 통근 중 하나를 골라야 하고, 그 사이 사무실 건물은 헐값에 주인이 바뀌는 중. 시카고 루프엔 다음 전환 건물 다섯 채가 대기</span></div>
       </div>
-      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
+      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a class="topic" href="/topics/deals.html">딜·M&amp;A</a></div></div>
     </div>
 <!-- /content -->
   </div><!-- DEAL -->
