@@ -88,21 +88,9 @@
     document.addEventListener('click',function(e){if(!pn.hidden&&!pn.contains(e.target)&&!ac.contains(e.target))open(false)});
     document.addEventListener('keydown',function(e){if(e.key==='Escape'&&!pn.hidden)open(false)});
   }
-  function subCard(){
-    if(lsg('ss_is_sub')==='1'||lsg('ss_subbed')==='1')return;
-    var x=parseInt(lsg('ss_subx')||'0',10);if(x&&Date.now()-x<7*864e5)return;   // 닫으면 일주일 쉰다
-    var all=document.querySelectorAll('[data-ss-story]'),at=null,story=null;
-    if(all.length){
-      var hm=(location.hash||'').match(/^#story-(\d+)$/);
-      if(hm)at=document.getElementById('story-'+hm[1]);          // 검색으로 그 스토리에 왔다면 그 글 바로 뒤
-      if(!at||!at.hasAttribute('data-ss-story'))at=all[all.length-1];
-      story=at.getAttribute('data-ss-story');
-    }else if(/^\/(wiki|topics)\/[^/]+\.html$/.test(location.pathname)){
-      // 타임라인(/wiki/)·주제(/topics/) — 검색 유입 착지 페이지. 다섯 번째 줄 뒤(앞부분을 훑어본 자리)
-      var rows=document.querySelectorAll('.wrap .story, .item');if(!rows.length)return;
-      at=rows[Math.min(4,rows.length-1)];
-    }else return;
-    var st=document.createElement('style');st.textContent=
+  // ── 구독 양식 — 페이지 안 칸과 팝업이 같은 부품을 쓴다 (KD 2026-10-11) ──────────────────────────────
+  function subCss(){if(document.getElementById('ss-subc-css'))return;
+  var st=document.createElement('style');st.id='ss-subc-css';st.textContent=
       '.ss-subc{margin:22px 0;padding:18px 18px 14px;border-radius:14px;background:#FFF4EC;border:1px solid #F7D3BE;color:#3a2f27;'+
       'font-family:Pretendard,-apple-system,BlinkMacSystemFont,sans-serif;line-height:1.55;box-sizing:border-box;text-align:left}'+
       '.ss-subc *{box-sizing:border-box}.ss-subc b.t{display:block;font-size:16.5px;font-weight:800;color:#1f1a16;letter-spacing:-.02em}'+
@@ -127,6 +115,8 @@
       '.ss-subc .tg{border:1px solid #E8C4AE;background:#fff;color:#5a4a3e;border-radius:999px;padding:5px 11px;font-size:12.5px;cursor:pointer}'+
       '.ss-subc .tg.on{background:#F07040;border-color:#F07040;color:#12100e;font-weight:700}';
     document.head.appendChild(st);
+  }
+  function subForm(story,onClose){subCss();
     var c=document.createElement('section');c.className='ss-subc';c.setAttribute('aria-label','뉴스레터 무료 구독');
     // ★ 기존 구독 화면(subscribe.soonsal.com)과 같은 칸·순서·문구를 처음부터 다 보여 준다 (KD 2026-10-09
     //   「이메일만 받으면 의미가 적다 — 기존 구독 화면을 재현」). 이메일 → 이름 → 출생연도 → 관심분야 → 하는 일 → 동의 → 구독하기 → 광고 안내.
@@ -153,9 +143,8 @@
       '<div class="er" role="status"></div>'+
       '<div class="ad">순살 뉴스레터를 구독하면 제휴 콘텐츠, 프로모션 등 광고성 정보 수신에 동의한 것으로 간주됩니다.'+
       '<details><summary>광고성 정보 수신 ▾</summary><div>순살 뉴스레터에는 가끔 제휴 콘텐츠나 프로모션이 포함될 수 있습니다. 광고가 포함된 콘텐츠에는 항상 (광고) 표시를 합니다. 원하지 않을 경우 뉴스레터 하단의 수신 거부를 통해 언제든지 구독을 해지할 수 있습니다.</div></details></div>';
-    at.parentNode.insertBefore(c,at.nextSibling);
     var f=c.querySelector('form'),em=f.querySelector('.em'),go=f.querySelector('.go'),ag=c.querySelector('.ag'),er=c.querySelector('.er');
-    c.querySelector('.x').onclick=function(){lss('ss_subx',String(Date.now()));c.parentNode.removeChild(c)};
+    c.querySelector('.x').onclick=function(){onClose&&onClose()};
     [].forEach.call(c.querySelectorAll('.tg'),function(b){b.onclick=function(){b.classList.toggle('on')}});
     f.onsubmit=function(e){e.preventDefault();er.textContent='';
       var v=(em.value||'').trim();
@@ -173,7 +162,51 @@
         go.disabled=false;go.textContent='구독하기';
         er.textContent=j&&j.error==='email'?'이메일 주소를 확인해 주세요.':j&&j.error==='too many'?'잠시 뒤 다시 시도해 주세요.':'지금은 구독을 못 받았어요. 잠시 뒤 다시 시도해 주세요.'})
       .catch(function(){go.disabled=false;go.textContent='구독하기';er.textContent='연결이 불안정해요. 잠시 뒤 다시 시도해 주세요.'})};
+    return c;
   }
+  // 페이지 안 칸 — **뉴스레터 회차 페이지에만, 한 번** (KD 2026-10-11 「검색·타임라인 등 여기저기 난무」).
+  //   홈은 첫 화면 「매일 아침 메일로 받기」, 다른 페이지는 우측 상단 「구독하기」(팝업)가 맡는다.
+  function subCard(){
+    if(lsg('ss_is_sub')==='1'||lsg('ss_subbed')==='1')return;
+    var x=parseInt(lsg('ss_subx')||'0',10);if(x&&Date.now()-x<7*864e5)return;   // 닫으면 일주일 쉰다
+    if(!/^\/newsletters\/\d{4}\/[^/]+\.html$/.test(location.pathname))return;
+    var all=document.querySelectorAll('[data-ss-story]');if(!all.length)return;
+    var hm=(location.hash||'').match(/^#story-(\d+)$/),at=null;
+    if(hm)at=document.getElementById('story-'+hm[1]);          // 검색으로 그 스토리에 왔다면 그 글 바로 뒤
+    if(!at||!at.hasAttribute('data-ss-story'))at=all[all.length-1];
+    var c=subForm(at.getAttribute('data-ss-story'),function(){lss('ss_subx',String(Date.now()));c.parentNode.removeChild(c)});
+    at.parentNode.insertBefore(c,at.nextSibling);
+  }
+  // 팝업 — 사이트 버튼(우측 상단·메뉴·홈 첫 화면)은 새 페이지로 보내지 않고 이 자리에서 바로 받는다.
+  //   뉴스레터 본문(메일 원본) 안의 구독 링크는 그대로 subscribe.soonsal.com 으로 간다.
+  function subModal(){
+    if(document.getElementById('ss-subm'))return;subCss();
+    var st=document.getElementById('ss-subm-css');
+    if(!st){st=document.createElement('style');st.id='ss-subm-css';st.textContent=
+      '#ss-subm{position:fixed;inset:0;z-index:100010;display:flex;align-items:center;justify-content:center;padding:16px;background:rgba(0,0,0,.6);opacity:0;transition:opacity .18s}'+
+      '#ss-subm.on{opacity:1}#ss-subm .ss-subc{margin:0;width:100%;max-width:440px;max-height:calc(100vh - 32px);overflow-y:auto;'+
+      'box-shadow:0 18px 50px rgba(0,0,0,.45);transform:translateY(12px);transition:transform .2s}#ss-subm.on .ss-subc{transform:none}'+
+      '#ss-subm .ss-subc .x{font-size:22px;margin:-10px -8px 0 0;width:40px;height:40px}'+
+      '@media(max-width:560px){#ss-subm{align-items:flex-end;padding:0}#ss-subm .ss-subc{max-width:none;border-radius:16px 16px 0 0;max-height:92vh;padding-bottom:max(18px,env(safe-area-inset-bottom))}}';
+      document.head.appendChild(st)}
+    var ov=document.createElement('div');ov.id='ss-subm';ov.setAttribute('role','dialog');ov.setAttribute('aria-modal','true');ov.setAttribute('aria-label','뉴스레터 무료 구독');
+    var prev=document.body.style.overflow;
+    function close(){ov.classList.remove('on');document.body.style.overflow=prev;document.removeEventListener('keydown',esc);setTimeout(function(){if(ov.parentNode)ov.parentNode.removeChild(ov)},180)}
+    function esc(e){if(e.key==='Escape')close()}
+    ov.appendChild(subForm(null,close));
+    ov.addEventListener('click',function(e){if(e.target===ov)close()});
+    document.addEventListener('keydown',esc);
+    document.body.appendChild(ov);document.body.style.overflow='hidden';
+    requestAnimationFrame(function(){ov.classList.add('on');var em=ov.querySelector('.em');if(em&&window.matchMedia('(min-width:561px)').matches)em.focus()});
+  }
+  document.addEventListener('click',function(e){
+    var a=e.target.closest&&e.target.closest('a[href*="subscribe.soonsal.com"]');if(!a)return;
+    if(!a.closest('.site-header, .ss-dr, .hero'))return;          // 사이트 버튼만 — 본문 링크는 원래대로
+    if(e.metaKey||e.ctrlKey||e.shiftKey||e.button===1)return;      // 새 탭으로 열려는 클릭은 막지 않는다
+    e.preventDefault();
+    if(document.documentElement.classList.contains('ss-open')){document.documentElement.classList.remove('ss-open');document.body.style.overflow=''}
+    subModal();
+  });
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',subCard);else subCard();
   // ── 오늘의 질문 투표 (KD 2026-10-09 개선 4번) — 홈(히어로 아래)·그날 뉴스레터(질문이 나온 스토리 뒤) ──
   function pollCard(){
