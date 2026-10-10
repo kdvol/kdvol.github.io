@@ -23,15 +23,20 @@
       '<path d="M7.5 10C14 .8 31 .4 38.6 10 31 19.6 14 19.2 7.5 10z" fill="'+FC+'"/>'+
       '<ellipse cx="27" cy="12.6" rx="2" ry="1.2" fill="#ff6a55" opacity=".45"/>'+face+'</svg>';
   }
-  function canSvg(dark){
-    var C=dark?'#fafaf7':'#000',IN=dark?'#2b2b2b':'#fafaf7';
-    return '<svg viewBox="0 0 64 46" width="64" height="46" style="display:block;overflow:visible">'+
-      '<path d="M3 17v16c0 6 13 10.5 29 10.5S61 39 61 33V17z" fill="'+C+'"/>'+
-      '<ellipse cx="32" cy="17" rx="29" ry="9.5" fill="'+C+'"/><ellipse cx="32" cy="17.6" rx="25.5" ry="7.2" fill="'+IN+'"/>'+
-      '<g transform="translate(23 28) scale(.48)">'+'<path d="M9.5 10C3.6 3 1.8 2.6 1 3.3c1.6 2.2 2.4 4.4 2.4 6.7S2.6 14.5 1 16.7c.8.7 2.6.3 8.5-6.7z" fill="'+FC+'"/><path d="M7.5 10C14 .8 31 .4 38.6 10 31 19.6 14 19.2 7.5 10z" fill="'+FC+'"/></g></svg>';
-  }
-  function lidSvg(dark){var C=dark?'#fafaf7':'#000';
-    return '<svg viewBox="0 0 64 22" width="64" height="22" style="display:block;overflow:visible"><ellipse cx="32" cy="11" rx="29.5" ry="9.8" fill="'+C+'"/></svg>'}
+  // 로고(180px 아이콘) 실측 그대로 — 몸통 x33~148·바닥 타원 ry17, 테 타원 rx57.5/ry17, 입구(흰) rx50/ry12.5,
+  //   뚜껑 = 테와 같은 타원을 왼쪽 경첩(33,80)에서 -27° 젖힌 것, 몸통 물고기는 45px·살짝 위로 (KD 2026-10-11 「로고와 정확히 같은 비율」)
+  var CAN_VB='30 28 122 124',FISHP='<path d="M9.5 10C3.6 3 1.8 2.6 1 3.3c1.6 2.2 2.4 4.4 2.4 6.7S2.6 14.5 1 16.7c.8.7 2.6.3 8.5-6.7z" fill="'+FC+'"/><path d="M7.5 10C14 .8 31 .4 38.6 10 31 19.6 14 19.2 7.5 10z" fill="'+FC+'"/>';
+  function canBack(dark){var C=dark?'#fafaf7':'#000',IN=dark?'#262626':'#fafaf7';
+    return '<svg viewBox="'+CAN_VB+'" width="64" height="65" style="display:block;overflow:visible"><ellipse cx="90.5" cy="80" rx="57.5" ry="17" fill="'+C+'"/>'+
+      '<ellipse cx="92" cy="82" rx="50" ry="12.5" fill="'+IN+'"/></svg>'}
+  function canFront(dark){var C=dark?'#fafaf7':'#000';   // 앞판 — 입구 아래 테두리 + 몸통 (물고기를 가린다)
+    return '<svg viewBox="'+CAN_VB+'" width="64" height="65" style="display:block;overflow:visible">'+
+      '<path d="M33 80L33 130A57.5 17 0 0 0 148 130L148 80A57.5 17 0 0 1 145.6 85.8L142 82A50 12.5 0 0 1 42 82L35 85.4A57.5 17 0 0 1 33 80z" fill="'+C+'"/>'+
+      '<g transform="translate(67 110) rotate(-10 22 11) scale(1.12)">'+FISHP+'</g></svg>'}
+  function canLid(dark){var C=dark?'#fafaf7':'#000',E=dark?'#d6d6d0':'#2a2a2a';
+    return '<svg viewBox="'+CAN_VB+'" width="64" height="65" style="display:block;overflow:visible"><ellipse cx="90.5" cy="80" rx="57.5" ry="17" fill="'+C+'"/>'+
+      '<ellipse cx="90.5" cy="80" rx="49" ry="12.8" fill="none" stroke="'+E+'" stroke-width="1.6"/>'+          // 뚜껑 홈(닫혀 있을 때만 보임)
+      '<path d="M139 76.5q7.5-1 9 3.5q-1.5 4.5-9 3.5" fill="none" stroke="'+E+'" stroke-width="2.2" stroke-linecap="round"/></svg>'}   // 따개 고리
   function darkAt(x,y){   // 누른 자리 뒤 배경이 어두우면 흰 로고 버전
     try{var el=document.elementFromPoint(x,y);
       while(el&&el!==document.documentElement){var c=getComputedStyle(el).backgroundColor,m=c&&c.match(/[\d.]+/g);
@@ -44,24 +49,25 @@
     var big=!!o.big,dark=darkAt(x,y),sc=big?1.3:1,T=1900;
     var host=document.createElement('div');
     host.style.cssText='position:fixed;left:'+x+'px;top:'+y+'px;width:0;height:0;z-index:2147483000;pointer-events:none';
-    // 통조림(뒤판) · 물고기 · 통조림 앞판(물고기가 캔 안에서 올라오게 앞을 가린다) · 뚜껑
-    var can=document.createElement('div');can.style.cssText='position:absolute;left:-32px;top:-23px;transform-origin:32px 40px';can.innerHTML=canSvg(dark);
-    var front=document.createElement('div');front.style.cssText='position:absolute;left:-32px;top:-6px;width:64px;height:30px;overflow:hidden;transform-origin:32px 23px';
-    front.innerHTML='<div style="margin-top:-17px">'+canSvg(dark)+'</div>';
-    var lid=document.createElement('div');lid.style.cssText='position:absolute;left:-32px;top:-17px;transform-origin:3px 11px';lid.innerHTML=lidSvg(dark);
-    var fishes=document.createElement('div');fishes.style.cssText='position:absolute;left:0;top:0';
-    host.appendChild(can);host.appendChild(fishes);host.appendChild(front);host.appendChild(lid);document.body.appendChild(host);
+    // 층: 뒤판(테·입구) → 물고기 → 앞판(몸통·앞 테두리) → 뚜껑. 앞판이 입구 아래를 가려 물고기가 캔 「안」에서 올라온다.
+    //   좌표: 캔 64×65px, 입구 중심이 (33, 28) 근처 → 누른 점에 입구가 오게 놓는다.
+    var K=64/122,OX=(92-30)*K,OY=(82-28)*K,HX=(33-30)*K,HY=(80-28)*K;
+    var canw=document.createElement('div');canw.style.cssText='position:absolute;left:'+(-OX)+'px;top:'+(-OY)+'px;width:64px;height:65px;transform-origin:'+OX+'px '+(OY+20)+'px';
+    var back=document.createElement('div');back.style.cssText='position:absolute;left:0;top:0';back.innerHTML=canBack(dark);
+    var front=document.createElement('div');front.style.cssText='position:absolute;left:0;top:0';front.innerHTML=canFront(dark);
+    var lid=document.createElement('div');lid.style.cssText='position:absolute;left:0;top:0;transform-origin:'+HX+'px '+HY+'px';lid.innerHTML=canLid(dark);
+    var fishes=document.createElement('div');fishes.style.cssText='position:absolute;left:'+OX+'px;top:'+OY+'px';
+    canw.appendChild(back);canw.appendChild(fishes);canw.appendChild(front);canw.appendChild(lid);host.appendChild(canw);document.body.appendChild(host);
     var A=function(el,k,d,dl,e){return el.animate(k,{duration:d,delay:dl||0,easing:e||'linear',fill:'both'})};
-    // 통조림: 퐁 튀어나옴 → (물고기 움찔할 때) 덜덜 → 발사 순간 꿀렁 → 가라앉으며 사라짐
-    var canK=[{transform:'scale(0) translateY(16px)',opacity:0},{transform:'scale('+sc*1.15+') translateY(-3px)',opacity:1,offset:.1},{transform:'scale('+sc+')',offset:.16},
-      {transform:'scale('+sc+') rotate(-3deg)',offset:.2},{transform:'scale('+sc+') rotate(3deg)',offset:.23},{transform:'scale('+sc+') rotate(-2deg)',offset:.26},{transform:'scale('+sc+') rotate(0)',offset:.29},
-      {transform:'scale('+sc*1.08+','+sc*.9+')',offset:.32},{transform:'scale('+sc+')',offset:.38},{transform:'scale('+sc+')',opacity:1,offset:.8},{transform:'scale('+sc*.5+') translateY(22px)',opacity:0}];
-    A(can,canK,T,0,'ease-out');A(front,canK,T,0,'ease-out');
-    // 뚜껑: 닫혀 있다가 발사 순간 로고처럼 왼쪽 위로 젖혀짐
-    A(lid,[{transform:'scale(0) translateY(16px)',opacity:0},{transform:'scale('+sc*1.15+') translateY(-3px)',opacity:1,offset:.1},{transform:'scale('+sc+') rotate(0)',offset:.16},
-      {transform:'scale('+sc+') rotate(-4deg)',offset:.22},{transform:'scale('+sc+') rotate(2deg)',offset:.26},{transform:'scale('+sc+') rotate(0)',offset:.29},
-      {transform:'scale('+sc+') translate(-2px,-6px) rotate(-62deg)',offset:.34},{transform:'scale('+sc+') translate(-2px,-6px) rotate(-48deg)',offset:.4},
-      {transform:'scale('+sc+') translate(-2px,-6px) rotate(-52deg)',opacity:1,offset:.8},{transform:'scale('+sc*.5+') translateY(22px) rotate(-52deg)',opacity:0}],T,0,'ease-out');
+    // 통조림: 퐁 → (물고기 움찔할 때) 덜덜 → 뚜껑 따는 순간 꿀렁 → 물고기 다 나간 뒤 가라앉으며 사라짐
+    A(canw,[{transform:'scale(0) translateY(14px)',opacity:0},{transform:'scale('+sc*1.12+') translateY(-3px)',opacity:1,offset:.09},{transform:'scale('+sc+')',offset:.15},
+      {transform:'scale('+sc+') rotate(-2.5deg)',offset:.2},{transform:'scale('+sc+') rotate(2.5deg)',offset:.23},{transform:'scale('+sc+') rotate(-1.5deg)',offset:.26},{transform:'scale('+sc+') rotate(0)',offset:.29},
+      {transform:'scale('+sc*1.06+','+sc*.92+')',offset:.31},{transform:'scale('+sc+')',offset:.37},{transform:'scale('+sc+')',opacity:1,offset:.84},
+      {transform:'scale('+sc*.55+') translateY(20px)',opacity:0}],T,0,'ease-out');
+    // 뚜껑 따기: 고리 걸림(살짝 들림) → 멈칫 → 오른쪽부터 쭉 벗겨지며 젖힘 → 살짝 넘어갔다 → 로고 각도(-27°)에 안착
+    A(lid,[{transform:'rotate(0)',offset:0},{transform:'rotate(0)',offset:.16},{transform:'rotate(-4deg)',offset:.2,easing:'ease-out'},
+      {transform:'rotate(-3deg)',offset:.25},{transform:'rotate(-5deg)',offset:.28,easing:'cubic-bezier(.3,.0,.2,1)'},
+      {transform:'rotate(-33deg)',offset:.35,easing:'ease-in-out'},{transform:'rotate(-25deg)',offset:.4,easing:'ease-in-out'},{transform:'rotate(-27deg)',offset:.44}],T,0);
     var n=big?8:5,g=1600;
     for(var i=0;i<n;i++)(function(i){
       // 3겹: 경로(pos) · 방향·회전(rot) · 몸짓(body: 움찔·찌그러짐·꼬리 파닥)
@@ -74,10 +80,11 @@
       var spread=n>1?(i/(n-1)-.5)*2:0,vx=(spread*150+(Math.random()*50-25))*(big?1.45:1),vy=-(380+Math.random()*180)*(big?1.2:1);
       var peek=380+Math.random()*120,launch=600+i*40+Math.random()*60,fly=950+Math.random()*350,end=launch+fly;
       var face=vx<0?' scaleX(-1)':'';       // 왼쪽으로 가는 놈은 좌우 뒤집어 머리가 진행 방향
-      var mx=Math.max(-14,Math.min(14,spread*12)),fr=[],steps=20;
-      fr.push({transform:'translate('+mx+'px,14px)',offset:0});                          // 캔 안
-      fr.push({transform:'translate('+mx+'px,-4px)',offset:peek/end*0.55});               // 고개 빼꼼
-      fr.push({transform:'translate('+mx+'px,-1px)',offset:launch/end*0.97});             // 웅크림
+      var mx=Math.max(-16,Math.min(16,spread*15)),fr=[],steps=20;
+      fr.push({transform:'translate('+mx+'px,30px)',offset:0});                          // 캔 안(앞판 뒤에 숨어 있음)
+      fr.push({transform:'translate('+mx+'px,30px)',offset:.3*peek/end});
+      fr.push({transform:'translate('+mx+'px,-6px)',offset:peek/end*0.75,easing:'ease-out'});   // 고개 빼꼼 — 입구 위로
+      fr.push({transform:'translate('+mx+'px,2px)',offset:launch/end*0.97});              // 움찔하며 다시 웅크림
       for(var k=0;k<=steps;k++){var t=k/steps*fly/1000;
         fr.push({transform:'translate('+(mx+vx*t).toFixed(1)+'px,'+(-1+vy*t+.5*g*t*t).toFixed(1)+'px)',offset:Math.min(1,(launch+k/steps*fly)/end)})}
       A(pos,fr,end,0);
@@ -198,7 +205,7 @@
       '.ss-subc{margin:28px 0;padding:24px 20px 18px;border-radius:16px;background:#111;border:1px solid #2a2a2a;color:#fff;'+
       'font-family:Pretendard,-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo",sans-serif;line-height:1.55;box-sizing:border-box;text-align:left;position:relative}'+
       '.ss-subc *{box-sizing:border-box}'+
-      '.ss-subc div,.ss-subc span,.ss-subc label,.ss-subc b,.ss-subc summary{white-space:normal;padding-top:0;font-variant-numeric:normal}'+
+      '.ss-subc div,.ss-subc span,.ss-subc label,.ss-subc b,.ss-subc summary{white-space:normal;padding-top:0;font-variant-numeric:normal;background:transparent;box-shadow:none;max-width:none}'+
       '.ss-subc .hd{text-align:center;margin:0 0 18px}'+
       '.ss-subc .lg{width:46px;height:46px;margin:0 auto 12px;background:#E55A00;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:24px}'+
       '.ss-subc b.t{display:block;font-size:21px;font-weight:800;color:#fff;letter-spacing:-.03em}.ss-subc b.t em{font-style:normal;color:#E55A00}'+
@@ -219,7 +226,7 @@
       '.ss-subc button.go{display:block;width:100%;height:50px;margin-top:16px;border:0;border-radius:10px;background:#E55A00;color:#fff;font-weight:800;font-size:16px;cursor:pointer;font-family:inherit;letter-spacing:-.01em}'+
       '.ss-subc button.go:hover{background:#F07040}.ss-subc button.go:disabled{opacity:.55}'+
       '.ss-subc .ad{font-size:11.5px;color:#777;margin-top:12px;line-height:1.6}.ss-subc .ad summary{margin-top:3px}'+
-      '.ss-subc .nl{font-size:11.5px;color:#888;margin-top:12px;padding-top:12px;border-top:1px solid #222;line-height:1.7}.ss-subc .nl b{color:#ddd}'+
+      '.ss-subc .ss-sbnl{font-size:11.5px;color:#888;margin-top:12px;padding:12px 0 0;border-top:1px solid #222;line-height:1.7}.ss-subc .ss-sbnl b{color:#ddd}'+
       '.ss-subc .x{position:absolute;top:10px;right:10px;width:36px;height:36px;border:0;background:none;color:#888;font-size:22px;cursor:pointer;min-height:0!important}'+
       '.ss-subc .ok{font-size:17px;font-weight:800;color:#fff;text-align:center;margin-top:6px}.ss-subc .er{font-size:12.5px;color:#ff8a5c;margin-top:8px;min-height:1px}'+
       '.ss-subc .hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}';
@@ -253,7 +260,7 @@
       '<div class="er" role="status"></div>'+
       '<div class="ad">순살 뉴스레터를 구독하면 제휴 콘텐츠, 프로모션 등 광고성 정보 수신에 동의한 것으로 간주됩니다.'+
       '<details><summary>광고성 정보 수신 ▾</summary><div>순살 뉴스레터에는 가끔 제휴 콘텐츠나 프로모션이 포함될 수 있습니다. 광고가 포함된 콘텐츠에는 항상 (광고) 표시를 합니다. 원하지 않을 경우 뉴스레터 하단의 수신 거부를 통해 언제든지 구독을 해지할 수 있습니다.</div></details></div>'+
-      '<div class="nl">구독할 뉴스레터 — <b>순살브리핑</b> 글로벌 시장·경제 핵심 뉴스를 매일 5분 안에 · <b>순살크립토</b> 크립토 시장 흐름과 온체인 인사이트<br>구독 후 환경설정에서 개별 선택 가능합니다.</div>';
+      '<div class="ss-sbnl">구독할 뉴스레터 — <b>순살브리핑</b> 글로벌 시장·경제 핵심 뉴스를 매일 5분 안에 · <b>순살크립토</b> 크립토 시장 흐름과 온체인 인사이트<br>구독 후 환경설정에서 개별 선택 가능합니다.</div>';
     var f=c.querySelector('form'),em=f.querySelector('.em'),go=f.querySelector('.go'),ag=c.querySelector('.ag'),er=c.querySelector('.er');
     c.querySelector('.x').onclick=function(){onClose&&onClose()};
     [].forEach.call(c.querySelectorAll('.tg'),function(b){b.onclick=function(){b.classList.toggle('on')}});
