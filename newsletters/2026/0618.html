@@ -435,28 +435,19 @@ transition:color .18s ease,background .18s ease}
 }
 </style>
 <style id="soonsal-story-links">
-/* 스토리 끝 — 다 읽은 사람만 본다. 본문 흐름을 끊지 않는다 */
-.story-links{margin:14px 0 0;padding:11px 0 0;border-top:1px solid #ece8e0;
-font-size:11.5px;line-height:1.8;color:#9a958a;word-break:keep-all}
-.story-links .k{color:#b5b0a4;margin-right:5px}
-.story-links a{color:#8a857c;text-decoration:none;border-bottom:1px solid #e6e1d8}
-.story-links a:hover{color:#C24A00;border-bottom-color:#C24A00}
-.story-links .sep{opacity:.4;margin:0 4px}
-/* 주제는 개별 이름이 아니라 묶음이다 — 테두리로 구분한다 */
-.story-links a.topic{border-bottom:0;padding:1px 7px;border-radius:999px;
-background:#f3efe8;color:#8a857c}
-.story-links a.topic:hover{background:#C24A00;color:#fff}
-.story-links .row + .row{margin-top:4px}
-/* 「같은 흐름」은 제목이 길어 한 줄에 하나씩 세운다. 라벨은 왼쪽에 고정 */
-.story-links .flows{display:flex;align-items:flex-start}
-.story-links .flow-list{display:flex;flex-direction:column;gap:2px;min-width:0}
-.story-links .flow{display:block;min-width:0}
-.story-links .flow a{display:inline-block;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;vertical-align:top}
-/* 왜 이어지는지 한 줄 — 폰에선 마우스를 못 올리니 글로 보여 준다 (KD 2026-10-10) */
-.story-links .fw{display:block;font-size:10.5px;line-height:1.5;color:#b5b0a4;margin:0 0 3px 33px}
-.story-links .flow b{font-weight:600;color:#b5b0a4;margin-right:3px}
-@media(max-width:560px){.story-links .flows{display:block}
-  .story-links .flow-list{margin-top:2px;padding-left:1px}}
+/* 스토리 끝 — 다 읽은 사람만 본다. 본문 흐름을 끊지 않는다.
+   ★ 간결하게 (KD 2026-10-10 「텍스트 너무 길고 난잡 — 줄을 무작위로 늘리지 말고」):
+     항목마다 **딱 한 줄**(넘치면 …), 라벨은 왼쪽 고정 칸, 밑줄·알약·이유 줄 없음 → 최대 3줄로 끝난다.
+     이어지는 이유는 링크에 마우스를 올리면(title) 보인다. */
+.story-links{margin:14px 0 0;padding:10px 0 0;border-top:1px solid #ece8e0;
+font-size:12px;line-height:1.75;color:#9a958a;word-break:keep-all}
+.story-links .row{display:flex;gap:10px;min-width:0}
+.story-links .k{flex:0 0 52px;color:#b5b0a4}
+.story-links .v{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.story-links a{color:#7d786f;text-decoration:none}
+.story-links a:hover{color:#C24A00;text-decoration:underline}
+.story-links .sep{color:#d3cec4;margin:0 5px}
+.story-links .v b{font-weight:600;color:#b5b0a4;margin-right:5px;font-variant-numeric:tabular-nums}
 </style>
 <!-- soonsal:story-fragments-style:start --><style>
 .ss-story-index{margin:0 0 34px;padding:21px 22px;border:1px solid #e8e8e0;
@@ -761,7 +752,7 @@ line-height:1.25;color:#fff;word-break:keep-all}
         <div class="bullet"><span class="dot">◾</span><p>진짜 포인트는 SpaceX 주가의 힘. 장중 시총 3조불을 터치하며 아마존·마이크로소프트를 잠깐 넘어서기도 했을 정도. 주가가 오를수록 주식교환을 통한 인수의 실질 비용은 줄어드는 구조. IPO 때 투자자들한테 약속한 TAM 28조불 중 26조불이 AI 관련 — 그 약속의 첫 이행이 바로 이 딜. 골드만삭스는 SpaceX 매출이 2030년까지 4,740억불로 뛸 거라 보는데, 그중 AI가 3,220억불 — 지금은 적자지만 주가가 그 미래를 선반영하는 중</p></div>
       </div>
       <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">* 매수매도 추천 아님, 순살도 주주 아님</p>
-    <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/spacex.html">스페이스X</a><span class="sep">·</span><a href="/wiki/dollar.html">달러(환율)</a><span class="sep">·</span><a href="/wiki/musk.html">일론 머스크</a><span class="sep">·</span><a href="/wiki/anthropic.html">앤스로픽</a><span class="sep">·</span><a href="/wiki/openai.html">오픈AI</a><span class="sep">·</span><a class="topic" href="/topics/deals.html">딜·M&amp;A</a><span class="sep">·</span><a class="topic" href="/topics/ipo.html">IPO·상장</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0423.html#story-2" title="콜옵션 확보 당시 그 거래"><b>04-23</b> 스페이스X, 커서 삼키나?</a><span class="fw">콜옵션 확보 당시 그 거래</span></span><span class="flow"><a href="/newsletters/2026/0422.html#story-1" title="1인독재 구조가 가능케 한 결정"><b>04-22</b> 스페이스X IPO, 돈만 내고 조용히 올라탈 사람만?</a><span class="fw">1인독재 구조가 가능케 한 결정</span></span></span></div></div></div>
+    <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">나온 것</span><span class="v"><a href="/wiki/spacex.html">스페이스X</a><span class="sep">·</span><a href="/wiki/dollar.html">달러(환율)</a><span class="sep">·</span><a href="/wiki/musk.html">일론 머스크</a><span class="sep">·</span><a href="/wiki/anthropic.html">앤스로픽</a><span class="sep">·</span><a href="/topics/deals.html">딜·M&amp;A</a></span></div><div class="row"><span class="k">같은 흐름</span><span class="v"><a href="/newsletters/2026/0423.html#story-2" title="콜옵션 확보 당시 그 거래"><b>04-23</b>스페이스X, 커서 삼키나?</a></span></div><div class="row"><span class="k"></span><span class="v"><a href="/newsletters/2026/0422.html#story-1" title="1인독재 구조가 가능케 한 결정"><b>04-22</b>스페이스X IPO, 돈만 내고 조용히 올라탈 사람만?</a></span></div></div></div>
 
     <!-- STORY 2 -->
     <div class="story" id="story-2" role="article" aria-labelledby="story-2-title" data-ss-story="0618-2" data-ss-issue="0618">
@@ -775,7 +766,7 @@ line-height:1.25;color:#fff;word-break:keep-all}
         <div class="bullet"><span class="dot">◾</span><p>AR 시장 자체는 달아오르는 중. Acer가 299~499불짜리 보급형 안경을 내놨고, 화웨이도 AI안경으로 중국 시장 공략 중. 스마트안경 출하량이 VR 헤드셋을 3:1로 앞서기 시작하면서 시장 방향은 안경 쪽으로 굳어지는 분위기. Snap이 1세대 고가 전략으로 선점하느냐, 가격 장벽에 막히느냐가 갈림. Apple도 2027년 스마트안경 출시를 준비 중이라 시간이 많지 않음 <span class="note">(스마트폰도 첫 아이폰은 600불이었는데, 그때도 다들 미쳤다고 했음)</span></p></div>
       </div>
       <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">* 매수매도 추천 아님, 순살도 주주 아님</p>
-    <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/qualcomm.html">퀄컴</a><span class="sep">·</span><a href="/wiki/apple.html">애플</a><span class="sep">·</span><a href="/wiki/meta.html">메타</a><span class="sep">·</span><a class="topic" href="/topics/bigtech.html">빅테크</a><span class="sep">·</span><a class="topic" href="/topics/ipo.html">IPO·상장</a></div></div></div>
+    <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">나온 것</span><span class="v"><a href="/wiki/qualcomm.html">퀄컴</a><span class="sep">·</span><a href="/wiki/apple.html">애플</a><span class="sep">·</span><a href="/wiki/meta.html">메타</a><span class="sep">·</span><a href="/topics/bigtech.html">빅테크</a></span></div></div></div>
 
     <!-- STORY 3 -->
     <div class="story" id="story-3" role="article" aria-labelledby="story-3-title" data-ss-story="0618-3" data-ss-issue="0618">
@@ -789,7 +780,7 @@ line-height:1.25;color:#fff;word-break:keep-all}
         <div class="bullet"><span class="dot">◾</span><p>소비자보호단체 CFA <span class="sub">(Consumer Federation of America)</span>에서도 맹공, "역사상 처음으로, 대통령이 본인의 사기업에 연방 정부의 암묵적 보증을 내주도록 은행 규제기관을 밀어붙이는 상황." 은행법 교수 Phillips도 "대통령이 자기 행정부가 규제하는 사업을 운영하는 건 소름 끼치는 역학"이라고 분석. 크립토 시장구조법 최종 투표가 다음 주로 예정된 가운데, 가드레일 없이 통과시키면 안 된다는 목소리가 큼</p></div>
       </div>
       <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">* 매수매도 추천 아님, 순살도 주주 아님</p>
-    <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/trump.html">트럼프</a><span class="sep">·</span><a href="/wiki/world-liberty.html">월드리버티(WLFI)</a><span class="sep">·</span><a href="/wiki/occ.html">미국 OCC</a><span class="sep">·</span><a href="/wiki/biden.html">조 바이든</a><span class="sep">·</span><a href="/wiki/paypal.html">페이팔</a><span class="sep">·</span><a class="topic" href="/topics/trump-politics.html">트럼프·정책</a><span class="sep">·</span><a class="topic" href="/topics/crypto.html">크립토</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0511-crypto.html#story-5" title="연방 트러스트 인가 경로의 선례"><b>05-11</b> Kraken이 &quot;크립토 연방 은행&quot;이</a><span class="fw">연방 트러스트 인가 경로의 선례</span></span><span class="flow"><a href="/newsletters/2026/0415-crypto.html#story-2" title="같은 회사 내부 신뢰 문제 전조"><b>04-15</b> WLFI, 투자자 반란 시작</a><span class="fw">같은 회사 내부 신뢰 문제 전조</span></span></span></div></div></div>
+    <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">나온 것</span><span class="v"><a href="/wiki/trump.html">트럼프</a><span class="sep">·</span><a href="/wiki/world-liberty.html">월드리버티(WLFI)</a><span class="sep">·</span><a href="/wiki/occ.html">미국 OCC</a><span class="sep">·</span><a href="/wiki/biden.html">조 바이든</a><span class="sep">·</span><a href="/topics/trump-politics.html">트럼프·정책</a></span></div><div class="row"><span class="k">같은 흐름</span><span class="v"><a href="/newsletters/2026/0511-crypto.html#story-5" title="연방 트러스트 인가 경로의 선례"><b>05-11</b>Kraken이 &quot;크립토 연방 은행&quot;이 되겠다고 신청서를 냈다</a></span></div><div class="row"><span class="k"></span><span class="v"><a href="/newsletters/2026/0415-crypto.html#story-2" title="같은 회사 내부 신뢰 문제 전조"><b>04-15</b>WLFI, 투자자 반란 시작</a></span></div></div></div>
 
     <!-- STORY 4 -->
     <div class="story" id="story-4" role="article" aria-labelledby="story-4-title" data-ss-story="0618-4" data-ss-issue="0618">
@@ -802,7 +793,7 @@ line-height:1.25;color:#fff;word-break:keep-all}
         <div class="bullet"><span class="dot">◾</span><p>Warsh는 dot plot에서 본인 점을 아예 빼버림 — 전임 파월과는 완전히 다른 스타일. 정치적으로 읽히는 걸 피하려는 계산. 기자회견에서 "인플레를 확실히 잡겠다"는 매파 기조를 보이면서도, 성명서는 전임보다 짧고 단순하게 바꿈. 포워드 가이던스를 없애고 데이터 의존적 접근을 강조. 5개 태스크포스 <span class="sub">(인플레·통신·생산성·노동시장·데이터)</span>도 신설하면서 연준 운영 자체를 뜯어고치려는 의지</p></div>
         <div class="bullet"><span class="dot">◾</span><p>미국-이란 평화협정 서명이 금요일로 예정되면서 유가가 급락 중이고, 에너지발 인플레 압력은 빠지는 중. But, 핵심 서비스 물가는 여전히 안 내려가는 중. 시장은 "금리 인하는 물 건너갔고, 인상까지 가느냐"의 싸움으로 넘어간 분위기. 듀크대 설문에서 전직 연준 인사 34명 중 17명이 올해 인상이 적절하다고 답한 것도 이 분위기를 보여줌. 올 초만 해도 인하를 2회 이상 기대하던 시장이 완전히 뒤집힌 것</p></div>
       </div>
-    <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/fed.html">미국 연준</a><span class="sep">·</span><a href="/wiki/warsh.html">케빈 워시</a><span class="sep">·</span><a href="/wiki/sp500.html">S&amp;P 500</a><span class="sep">·</span><a href="/wiki/nasdaq.html">나스닥</a><span class="sep">·</span><a href="/wiki/cme.html">CME</a><span class="sep">·</span><a class="topic" href="/topics/fed-rates.html">연준·금리</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0518.html#story-3" title="워시 취임 직전 전조"><b>05-18</b> Warsh 첫날, 불바다</a><span class="fw">워시 취임 직전 전조</span></span><span class="flow"><a href="/newsletters/2026/0416.html#story-1" title="워시 지명으로 이어진 앞 단계"><b>04-16</b> 트럼프, &quot;안 나가면 짤라버린다&quot;</a><span class="fw">워시 지명으로 이어진 앞 단계</span></span></span></div></div></div>
+    <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">나온 것</span><span class="v"><a href="/wiki/fed.html">미국 연준</a><span class="sep">·</span><a href="/wiki/warsh.html">케빈 워시</a><span class="sep">·</span><a href="/wiki/sp500.html">S&amp;P 500</a><span class="sep">·</span><a href="/wiki/nasdaq.html">나스닥</a><span class="sep">·</span><a href="/topics/fed-rates.html">연준·금리</a></span></div><div class="row"><span class="k">같은 흐름</span><span class="v"><a href="/newsletters/2026/0518.html#story-3" title="워시 취임 직전 전조"><b>05-18</b>Warsh 첫날, 불바다</a></span></div><div class="row"><span class="k"></span><span class="v"><a href="/newsletters/2026/0416.html#story-1" title="워시 지명으로 이어진 앞 단계"><b>04-16</b>트럼프, &quot;안 나가면 짤라버린다&quot;</a></span></div></div></div>
 
     <!-- STORY 5 -->
     <div class="story" id="story-5" role="article" aria-labelledby="story-5-title" data-ss-story="0618-5" data-ss-issue="0618">
@@ -815,7 +806,7 @@ line-height:1.25;color:#fff;word-break:keep-all}
         <div class="bullet"><span class="dot">◾</span><p>엔화는 강세 전환 — BOJ가 올릴 거라는 건 다 알았지만, "추가 인상도 계속하겠다"는 메시지가 시장을 흔듦. 블룸버그 설문에서는 연말까지 1.25%로 한 번 더 올릴 거라는 전망이 대세. 유럽·아시아 시장 반응은 비교적 온건, 유럽 지수 소폭 상승에 아시아는 보합. But, 중국 경기 부진 데이터와 맞물려 뚜렷한 방향성은 없었음. 이번 회의엔 총재 우에다가 간낭종 치료로 입원 중이라 불참 — 1998년 현 체제 이후 총재 없이 결정한 건 처음</p></div>
         <div class="bullet"><span class="dot">◾</span><p>투자자 입장에서 핵심 변수는, BOJ가 1% 이후에도 금리를 더 올릴 수 있다는 것. 엔캐리 포지션 청산이 본격화되면, 글로벌 유동성에도 파급. 블룸버그 설문 51명 중 49명이 이번 인상을 예상했을 정도로 시장이 선반영했지만, 추가 인상 속도가 빨라지면 이야기가 달라짐. 약 71%의 이코노미스트가 BOJ의 인상 주기를 6개월에 1회로 보는데, 인플레가 더 고착화되면 10월에 또 인상으로 당겨질 수 있음 <span class="note">(2024년 여름 BOJ 인상 때 글로벌 증시가 흔들렸던 기억이 아직 생생)</span></p></div>
       </div>
-    <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/boj.html">일본은행</a><span class="sep">·</span><a href="/wiki/yen.html">엔화</a><span class="sep">·</span><a href="/wiki/oil.html">원유</a><span class="sep">·</span><a class="topic" href="/topics/japan.html">일본</a><span class="sep">·</span><a class="topic" href="/topics/banks-wallst.html">월가·은행</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0611.html#story-2" title="인상 코앞 총재 입원 전조"><b>06-11</b> BOJ 총재 입원, 30년래 인상 코앞에</a><span class="fw">인상 코앞 총재 입원 전조</span></span><span class="flow"><a href="/newsletters/2026/0521.html#story-2" title="캐리트레이드 갭이 인상 배경"><b>05-21</b> 엔화 방어전, 바주카로도 안 됨</a><span class="fw">캐리트레이드 갭이 인상 배경</span></span></span></div></div></div>
+    <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">나온 것</span><span class="v"><a href="/wiki/boj.html">일본은행</a><span class="sep">·</span><a href="/wiki/yen.html">엔화</a><span class="sep">·</span><a href="/wiki/oil.html">원유</a><span class="sep">·</span><a href="/topics/japan.html">일본</a></span></div><div class="row"><span class="k">같은 흐름</span><span class="v"><a href="/newsletters/2026/0611.html#story-2" title="인상 코앞 총재 입원 전조"><b>06-11</b>BOJ 총재 입원, 30년래 인상 코앞에</a></span></div><div class="row"><span class="k"></span><span class="v"><a href="/newsletters/2026/0521.html#story-2" title="캐리트레이드 갭이 인상 배경"><b>05-21</b>엔화 방어전, 바주카로도 안 됨</a></span></div></div></div>
 
   </div><!-- /content -->
 

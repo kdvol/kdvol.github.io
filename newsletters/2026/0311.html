@@ -434,28 +434,19 @@ transition:color .18s ease,background .18s ease}
 }
 </style>
 <style id="soonsal-story-links">
-/* 스토리 끝 — 다 읽은 사람만 본다. 본문 흐름을 끊지 않는다 */
-.story-links{margin:14px 0 0;padding:11px 0 0;border-top:1px solid #ece8e0;
-font-size:11.5px;line-height:1.8;color:#9a958a;word-break:keep-all}
-.story-links .k{color:#b5b0a4;margin-right:5px}
-.story-links a{color:#8a857c;text-decoration:none;border-bottom:1px solid #e6e1d8}
-.story-links a:hover{color:#C24A00;border-bottom-color:#C24A00}
-.story-links .sep{opacity:.4;margin:0 4px}
-/* 주제는 개별 이름이 아니라 묶음이다 — 테두리로 구분한다 */
-.story-links a.topic{border-bottom:0;padding:1px 7px;border-radius:999px;
-background:#f3efe8;color:#8a857c}
-.story-links a.topic:hover{background:#C24A00;color:#fff}
-.story-links .row + .row{margin-top:4px}
-/* 「같은 흐름」은 제목이 길어 한 줄에 하나씩 세운다. 라벨은 왼쪽에 고정 */
-.story-links .flows{display:flex;align-items:flex-start}
-.story-links .flow-list{display:flex;flex-direction:column;gap:2px;min-width:0}
-.story-links .flow{display:block;min-width:0}
-.story-links .flow a{display:inline-block;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;vertical-align:top}
-/* 왜 이어지는지 한 줄 — 폰에선 마우스를 못 올리니 글로 보여 준다 (KD 2026-10-10) */
-.story-links .fw{display:block;font-size:10.5px;line-height:1.5;color:#b5b0a4;margin:0 0 3px 33px}
-.story-links .flow b{font-weight:600;color:#b5b0a4;margin-right:3px}
-@media(max-width:560px){.story-links .flows{display:block}
-  .story-links .flow-list{margin-top:2px;padding-left:1px}}
+/* 스토리 끝 — 다 읽은 사람만 본다. 본문 흐름을 끊지 않는다.
+   ★ 간결하게 (KD 2026-10-10 「텍스트 너무 길고 난잡 — 줄을 무작위로 늘리지 말고」):
+     항목마다 **딱 한 줄**(넘치면 …), 라벨은 왼쪽 고정 칸, 밑줄·알약·이유 줄 없음 → 최대 3줄로 끝난다.
+     이어지는 이유는 링크에 마우스를 올리면(title) 보인다. */
+.story-links{margin:14px 0 0;padding:10px 0 0;border-top:1px solid #ece8e0;
+font-size:12px;line-height:1.75;color:#9a958a;word-break:keep-all}
+.story-links .row{display:flex;gap:10px;min-width:0}
+.story-links .k{flex:0 0 52px;color:#b5b0a4}
+.story-links .v{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.story-links a{color:#7d786f;text-decoration:none}
+.story-links a:hover{color:#C24A00;text-decoration:underline}
+.story-links .sep{color:#d3cec4;margin:0 5px}
+.story-links .v b{font-weight:600;color:#b5b0a4;margin-right:5px;font-variant-numeric:tabular-nums}
 </style>
 <!-- soonsal:story-fragments-style:start --><style>
 .ss-story-index{margin:0 0 34px;padding:21px 22px;border:1px solid #e8e8e0;
@@ -748,7 +739,7 @@ S&P 500이 외교정책을 좌우한다 — TACO 트레이드 귀환, G7 비축�
       <div class="bullet"><span class="dot">◾</span><p>트럼프는 푸틴과 통화 후 "곧 끝난다"고 했지만, 백악관 내부에서는 엇갈린 메시지가 나옴. 에너지 장관이 "해협 장악"을 언급했다가 게시물을 삭제하고, 국방부는 "아직 해군 호위가 시작되지 않았다"고 정정. 말과 행동 사이 갭이 시장 불확실성의 핵심</p></div>
       <div class="bullet"><span class="dot">◾</span><p>Ed Yardeni <span class="sub">(Yardeni Research)</span>는 미 증시 급락 확률을 20%에서 35%로 상향. Point72 <span class="sub">(Steve Cohen)</span>, Balyasny 등 대형 헤지펀드들이 개전 이후 상당한 손실을 기록 중. 변동성 <span class="sub">(VIX 35+)</span>이 수그러들 기미가 없음 <span class="note">(결국 TACO의 타이머를 누르는 건 전황이 아니라 증시 차트)</span></p></div>
     </div>
-  <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/sp500.html">S&amp;P 500</a><span class="sep">·</span><a href="/wiki/oil.html">원유</a><span class="sep">·</span><a href="/wiki/trump.html">트럼프</a><span class="sep">·</span><a href="/wiki/fed.html">미국 연준</a><span class="sep">·</span><a href="/wiki/vix.html">VIX지수</a><span class="sep">·</span><a class="topic" href="/topics/trump-politics.html">트럼프·정책</a><span class="sep">·</span><a class="topic" href="/topics/energy.html">에너지·원자재</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0309.html#story-1" title="유가 급등 정점, 급락 전 배경"><b>03-09</b> 유가 $90, 역대급 일주일의 기록</a><span class="fw">유가 급등 정점, 급락 전 배경</span></span><span class="flow"><a href="/newsletters/2026/0304.html#story-1" title="트럼프 발언 유가 좌우 전조"><b>03-04</b> &quot;Whatever It Takes&quot; </a><span class="fw">트럼프 발언 유가 좌우 전조</span></span></span></div></div></div>
+  <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">나온 것</span><span class="v"><a href="/wiki/sp500.html">S&amp;P 500</a><span class="sep">·</span><a href="/wiki/oil.html">원유</a><span class="sep">·</span><a href="/wiki/trump.html">트럼프</a><span class="sep">·</span><a href="/wiki/fed.html">미국 연준</a><span class="sep">·</span><a href="/topics/trump-politics.html">트럼프·정책</a></span></div><div class="row"><span class="k">같은 흐름</span><span class="v"><a href="/newsletters/2026/0309.html#story-1" title="유가 급등 정점, 급락 전 배경"><b>03-09</b>유가 $90, 역대급 일주일의 기록</a></span></div><div class="row"><span class="k"></span><span class="v"><a href="/newsletters/2026/0304.html#story-1" title="트럼프 발언 유가 좌우 전조"><b>03-04</b>&quot;Whatever It Takes&quot; — 유가 $84 급등 뒤에 숨은 진짜 위험</a></span></div></div></div>
 
   <!-- STORY 2 -->
   <div class="story" id="story-2" role="article" aria-labelledby="story-2-title" data-ss-story="0311-2" data-ss-issue="0311">
@@ -761,7 +752,7 @@ S&P 500이 외교정책을 좌우한다 — TACO 트레이드 귀환, G7 비축�
       <div class="bullet"><span class="dot">◾</span><p>GLP-1 비만약 시장 전체로 보면 전환점. 그동안 제약사들은 텔레헬스 플랫폼을 "불법 복제약 유통 채널"로 적대시했지만, 이번 합의로 "공식 유통 파트너"로 지위가 격상됨. Hims의 온라인 처방 인프라 + 노보의 브랜드 약물이 결합되면 비만약 접근성이 획기적으로 개선</p></div>
       <div class="bullet"><span class="dot">◾</span><p>환자 입장에서도 큰 변화. 병원을 거치지 않고 GLP-1을 처방받을 수 있는 경로가 열린 것 — 미국 의료 시스템의 비효율을 텔레헬스가 깨는 첫 대형 사례 <span class="note">(적에게 소송을 걸다가 파트너십을 맺은 노보. 역시 돈 앞에서는 다 친구)</span></p></div>
     </div>
-  <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/eli-lilly.html">일라이릴리</a><span class="sep">·</span><a href="/wiki/goldman.html">골드만삭스</a><span class="sep">·</span><a class="topic" href="/topics/healthcare.html">헬스케어·제약</a></div></div></div>
+  <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">나온 것</span><span class="v"><a href="/wiki/eli-lilly.html">일라이릴리</a><span class="sep">·</span><a href="/wiki/goldman.html">골드만삭스</a><span class="sep">·</span><a href="/topics/healthcare.html">헬스케어·제약</a></span></div></div></div>
 
   <!-- STORY 3 -->
   <div class="story" id="story-3" role="article" aria-labelledby="story-3-title" data-ss-story="0311-3" data-ss-issue="0311">
@@ -774,7 +765,7 @@ S&P 500이 외교정책을 좌우한다 — TACO 트레이드 귀환, G7 비축�
       <div class="bullet"><span class="dot">◾</span><p>그래도 방향은 확실 — 탈중국 공급망은 가속 중. 이란 전쟁이 에너지 공급망을 흔들고 있는 지금, 제조 공급망의 지정학 리스크도 함께 부각되는 타이밍. 호르무즈가 막히니 공장도 다변화해야 한다는 교훈이 동시에 터진 셈</p></div>
       <div class="bullet"><span class="dot">◾</span><p>트럼프 2기 들어 "리쇼어링" <span class="sub">(reshoring, 자국 복귀)</span>과 "프렌드쇼어링" <span class="sub">(friendshoring, 우방국 이전)</span>이 구호가 아닌 실행 단계로 넘어가고 있다는 신호. 2026년은 "어디서 만드느냐"가 "뭘 만드느냐"만큼 중요해진 해 <span class="note">(에너지도 공장도 한 바구니에 담지 말 것 — 2026년의 교훈)</span></p></div>
     </div>
-  <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/apple.html">애플</a><span class="sep">·</span><a href="/wiki/trump.html">트럼프</a><span class="sep">·</span><a class="topic" href="/topics/bigtech.html">빅테크</a><span class="sep">·</span><a class="topic" href="/topics/china.html">중국</a></div></div></div>
+  <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">나온 것</span><span class="v"><a href="/wiki/apple.html">애플</a><span class="sep">·</span><a href="/wiki/trump.html">트럼프</a><span class="sep">·</span><a href="/topics/bigtech.html">빅테크</a></span></div></div></div>
 
   <!-- STORY 4 -->
   <div class="story" id="story-4" role="article" aria-labelledby="story-4-title" data-ss-story="0311-4" data-ss-issue="0311">
@@ -787,7 +778,7 @@ S&P 500이 외교정책을 좌우한다 — TACO 트레이드 귀환, G7 비축�
       <div class="bullet"><span class="dot">◾</span><p>Goldman Sachs는 헤지펀드들에게 AI 때문에 위기에 처한 기업용 소프트웨어 회사의 대출을 공매도 <span class="sub">(total return swap 활용)</span>하는 전략을 제안 중. 사모 대출 시장 전체에 디폴트 우려 + AI 파괴 + 투자자 환매 삼중고가 동시에 터지는 중 — 애크먼의 IPO는 이 구조적 약점에 대한 선제적 방어</p></div>
       <div class="bullet"><span class="dot">◾</span><p>퍼싱스퀘어가 상장에 성공하면 "영구 자본" 모델이 업계 표준이 될 수 있음. 투자자가 팔고 싶을 때 펀드에 환매를 요청하는 게 아니라 주식시장에서 주식을 파는 구조 — 펀드 매니저는 환매 압력에서 해방되고, 투자자는 유동성을 얻는 윈윈 <span class="note">(전쟁이 터지면 투자자가 도망가는 구조를 바꾸겠다는 것. 매우 애크먼다운 발상)</span></p></div>
     </div>
-  <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/bill-ackman.html">빌 애크먼</a><span class="sep">·</span><a href="/wiki/blackstone.html">블랙스톤</a><span class="sep">·</span><a href="/wiki/kkr.html">KKR</a><span class="sep">·</span><a href="/wiki/goldman.html">골드만삭스</a><span class="sep">·</span><a class="topic" href="/topics/etf-funds.html">ETF·펀드</a><span class="sep">·</span><a class="topic" href="/topics/ipo.html">IPO·상장</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0309.html#story-5" title="사모시장 유동성 경색 배경"><b>03-09</b> 블랙록이 출금을 막았다는 의미</a><span class="fw">사모시장 유동성 경색 배경</span></span><span class="flow"><a href="/newsletters/2026/0302.html#story-3" title="사모대출 유동성화의 다른 사례"><b>03-02</b> Apollo, xAI 부채 투자로 $2.5억 수익 — </a><span class="fw">사모대출 유동성화의 다른 사례</span></span></span></div></div></div>
+  <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">나온 것</span><span class="v"><a href="/wiki/bill-ackman.html">빌 애크먼</a><span class="sep">·</span><a href="/wiki/blackstone.html">블랙스톤</a><span class="sep">·</span><a href="/wiki/kkr.html">KKR</a><span class="sep">·</span><a href="/wiki/goldman.html">골드만삭스</a><span class="sep">·</span><a href="/topics/etf-funds.html">ETF·펀드</a></span></div><div class="row"><span class="k">같은 흐름</span><span class="v"><a href="/newsletters/2026/0309.html#story-5" title="사모시장 유동성 경색 배경"><b>03-09</b>블랙록이 출금을 막았다는 의미</a></span></div><div class="row"><span class="k"></span><span class="v"><a href="/newsletters/2026/0302.html#story-3" title="사모대출 유동성화의 다른 사례"><b>03-02</b>Apollo, xAI 부채 투자로 $2.5억 수익 — Private Credit의 새 게임</a></span></div></div></div>
 
   <!-- STORY 5 -->
   <div class="story" id="story-5" role="article" aria-labelledby="story-5-title" data-ss-story="0311-5" data-ss-issue="0311">
@@ -800,7 +791,7 @@ S&P 500이 외교정책을 좌우한다 — TACO 트레이드 귀환, G7 비축�
       <div class="bullet"><span class="dot">◾</span><p>미국 내 상황도 급박함. 휘발유 전국 평균 갤런당 $3.54로 1년 반 만에 최고 — AAA 기준 한 주 만에 50센트 상승. 이 속도라면 3월 내 $4 돌파도 현실적. 에너지 비용 상승은 저·중산층부터 직격하는 K자형 인플레의 전형 — 트럼프에게 가장 정치적 부담이 큰 숫자</p></div>
       <div class="bullet"><span class="dot">◾</span><p>트럼프는 Truth Social에 "해협을 장악하겠다"고 올렸지만, 같은 날 에너지 장관의 해협 관련 게시물이 삭제됐고, 국방부는 "아직 해군 호위가 시행되지 않았다"고 정정. 행정부가 $200억 규모 선박 보험 보증 + 해군 호위를 검토 중이라는 보도도 있지만 구체적인 내용은 없음. 말과 행동 사이 갭이 커질수록 시장 불확실성도 확대 — G7 비축유 방출이 유일한 단기 처방 <span class="note">(비축유는 진통제. 해협이 열리지 않는 한 수술이 필요)</span></p></div>
     </div>
-  <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/oil.html">원유</a><span class="sep">·</span><a href="/wiki/iea.html">국제에너지기구</a><span class="sep">·</span><a href="/wiki/biden.html">조 바이든</a><span class="sep">·</span><a href="/wiki/trump.html">트럼프</a><span class="sep">·</span><a class="topic" href="/topics/energy.html">에너지·원자재</a><span class="sep">·</span><a class="topic" href="/topics/trump-politics.html">트럼프·정책</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0302.html#story-1" title="호르무즈 봉쇄 사태의 발단"><b>03-02</b> Operation Epic Fury — 이란 전면 공습</a><span class="fw">호르무즈 봉쇄 사태의 발단</span></span><span class="flow"><a href="/newsletters/2026/0305-crypto.html#story-1" title="유가 급등 정점, 대응 배경"><b>03-05</b> BTC $67K 하회 — 달러 강세 + 유가 쇼크의 이</a><span class="fw">유가 급등 정점, 대응 배경</span></span></span></div></div></div>
+  <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">나온 것</span><span class="v"><a href="/wiki/oil.html">원유</a><span class="sep">·</span><a href="/wiki/iea.html">국제에너지기구</a><span class="sep">·</span><a href="/wiki/biden.html">조 바이든</a><span class="sep">·</span><a href="/wiki/trump.html">트럼프</a><span class="sep">·</span><a href="/topics/energy.html">에너지·원자재</a></span></div><div class="row"><span class="k">같은 흐름</span><span class="v"><a href="/newsletters/2026/0302.html#story-1" title="호르무즈 봉쇄 사태의 발단"><b>03-02</b>Operation Epic Fury — 이란 전면 공습, 하메네이 사망, 호르무즈 봉쇄</a></span></div><div class="row"><span class="k"></span><span class="v"><a href="/newsletters/2026/0305-crypto.html#story-1" title="유가 급등 정점, 대응 배경"><b>03-05</b>BTC $67K 하회 — 달러 강세 + 유가 쇼크의 이중 타격</a></span></div></div></div>
 
   </div><!-- /content -->
 

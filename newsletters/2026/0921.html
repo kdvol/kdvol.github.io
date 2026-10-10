@@ -418,28 +418,19 @@
 <meta property="og:image:height" content="630"/>
 <meta name="twitter:card" content="summary_large_image"/>
 <style id="soonsal-story-links">
-/* 스토리 끝 — 다 읽은 사람만 본다. 본문 흐름을 끊지 않는다 */
-.story-links{margin:14px 0 0;padding:11px 0 0;border-top:1px solid #ece8e0;
-font-size:11.5px;line-height:1.8;color:#9a958a;word-break:keep-all}
-.story-links .k{color:#b5b0a4;margin-right:5px}
-.story-links a{color:#8a857c;text-decoration:none;border-bottom:1px solid #e6e1d8}
-.story-links a:hover{color:#C24A00;border-bottom-color:#C24A00}
-.story-links .sep{opacity:.4;margin:0 4px}
-/* 주제는 개별 이름이 아니라 묶음이다 — 테두리로 구분한다 */
-.story-links a.topic{border-bottom:0;padding:1px 7px;border-radius:999px;
-background:#f3efe8;color:#8a857c}
-.story-links a.topic:hover{background:#C24A00;color:#fff}
-.story-links .row + .row{margin-top:4px}
-/* 「같은 흐름」은 제목이 길어 한 줄에 하나씩 세운다. 라벨은 왼쪽에 고정 */
-.story-links .flows{display:flex;align-items:flex-start}
-.story-links .flow-list{display:flex;flex-direction:column;gap:2px;min-width:0}
-.story-links .flow{display:block;min-width:0}
-.story-links .flow a{display:inline-block;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;vertical-align:top}
-/* 왜 이어지는지 한 줄 — 폰에선 마우스를 못 올리니 글로 보여 준다 (KD 2026-10-10) */
-.story-links .fw{display:block;font-size:10.5px;line-height:1.5;color:#b5b0a4;margin:0 0 3px 33px}
-.story-links .flow b{font-weight:600;color:#b5b0a4;margin-right:3px}
-@media(max-width:560px){.story-links .flows{display:block}
-  .story-links .flow-list{margin-top:2px;padding-left:1px}}
+/* 스토리 끝 — 다 읽은 사람만 본다. 본문 흐름을 끊지 않는다.
+   ★ 간결하게 (KD 2026-10-10 「텍스트 너무 길고 난잡 — 줄을 무작위로 늘리지 말고」):
+     항목마다 **딱 한 줄**(넘치면 …), 라벨은 왼쪽 고정 칸, 밑줄·알약·이유 줄 없음 → 최대 3줄로 끝난다.
+     이어지는 이유는 링크에 마우스를 올리면(title) 보인다. */
+.story-links{margin:14px 0 0;padding:10px 0 0;border-top:1px solid #ece8e0;
+font-size:12px;line-height:1.75;color:#9a958a;word-break:keep-all}
+.story-links .row{display:flex;gap:10px;min-width:0}
+.story-links .k{flex:0 0 52px;color:#b5b0a4}
+.story-links .v{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.story-links a{color:#7d786f;text-decoration:none}
+.story-links a:hover{color:#C24A00;text-decoration:underline}
+.story-links .sep{color:#d3cec4;margin:0 5px}
+.story-links .v b{font-weight:600;color:#b5b0a4;margin-right:5px;font-variant-numeric:tabular-nums}
 </style>
 <!-- soonsal:story-fragments-style:start --><style>
 .ss-story-index{margin:0 0 34px;padding:21px 22px;border:1px solid #e8e8e0;
@@ -718,7 +709,7 @@ line-height:1.25;color:#fff;word-break:keep-all}
         <div class="bullet"><span class="dot">◾</span><span>버핏 체제 61년의 누적 수익률은 609만%, 같은 기간 S&amp;P500은 4만6,000%. 연 19.7%를 61년 굴린 결과라 이 기록을 이을 사람은 없음. 대신 남긴 건 사람 배치. 에이블은 에너지 자회사를 키운 경영자, 하워드는 농부이자 자선재단 대표이고 일리노이 카운티 보안관까지 지낸 인물. 한 사람이 다 하던 판단을 ①경영 ②문화 ③투자로 나눠 맡긴 것. 작년 영업이익 445억불, 직원 40만 명짜리 회사의 새 조직도</span></div>
         <div class="bullet"><span class="dot">◾</span><span>큰 그림은 승계를 셋으로 쪼갠 것. 경영은 외부인, 문화는 아들, 투자 기록은 아무도 안 잇는 쪽. 지분은 안 물려줌. ①2006년부터 매년 주식을 기부해 600억불 넘게 냈고 ②남은 A주 18만8,290주는 2034년까지 가족 재단 4곳에 전부 넘길 계획 ③사후 잔여분은 세 자녀가 만장일치로 10년 안에 나누는 자선신탁행. 아들이 받은 건 권한이 아니라 거부권이라 세습 논란도 피함 <span class="note">(버핏 표현으론 하워드는 주주가 들어 두고 청구할 일 없길 바라는 보험)</span></span></div>
       </div>
-      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/buffett.html">워런 버핏</a><span class="sep">·</span><a href="/wiki/berkshire.html">버크셔</a><span class="sep">·</span><a class="topic" href="/topics/banks-wallst.html">월가·은행</a><span class="sep">·</span><a class="topic" href="/topics/bigtech.html">빅테크</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0811.html#story-3" title="버크셔 61년만 CEO교체 그 자체"><b>08-11</b> 버크셔 현금, 4년 만에 처음 줄었음</a><span class="fw">버크셔 61년만 CEO교체 그 자체</span></span><span class="flow"><a href="/newsletters/2026/0504.html#story-1" title="같은 시기 동시 리더십 교체"><b>05-04</b> 교체의 계절 — 애플과 버크셔, 동시에 바뀐 왕좌</a><span class="fw">같은 시기 동시 리더십 교체</span></span></span></div></div>
+      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">나온 것</span><span class="v"><a href="/wiki/buffett.html">워런 버핏</a><span class="sep">·</span><a href="/wiki/berkshire.html">버크셔</a><span class="sep">·</span><a href="/topics/banks-wallst.html">월가·은행</a></span></div><div class="row"><span class="k">같은 흐름</span><span class="v"><a href="/newsletters/2026/0811.html#story-3" title="버크셔 61년만 CEO교체 그 자체"><b>08-11</b>버크셔 현금, 4년 만에 처음 줄었음</a></span></div><div class="row"><span class="k"></span><span class="v"><a href="/newsletters/2026/0504.html#story-1" title="같은 시기 동시 리더십 교체"><b>05-04</b>교체의 계절 — 애플과 버크셔, 동시에 바뀐 왕좌</a></span></div></div>
     </div>
 <!-- STORY 2 -->    <div class="story" id="story-2" role="article" aria-labelledby="story-2-title" data-ss-story="0921-2" data-ss-issue="0921">
       <span class="story-label">ENERGY · EUROPE</span>
@@ -730,7 +721,7 @@ line-height:1.25;color:#fff;word-break:keep-all}
         <div class="bullet"><span class="dot">◾</span><span>사우디 쪽 답은 곧 고친다는 것. 며칠 안에 송유관 절반을 돌리고 6주 뒤 전량 복구가 목표이고, 그 사이 약 6,000만 배럴을 걸프 라스타누라항에서 호르무즈를 거쳐 오만 앞바다에서 배끼리 옮겨 싣는 방식으로 내보냄. 받는 쪽은 중국·한국·인도·일본이고 걸프 항로 추가 수출은 하루 100만~150만 배럴. 한국 정유사는 배정이 유지돼 오히려 유리한 자리. 베선트 재무장관은 전쟁이 끝나면 유가가 40~50불까지 갈 수 있다고 봄</span></div>
         <div class="bullet"><span class="dot">◾</span><span>정리하면 이 사건의 손해는 전쟁 당사자가 아니라 유럽에 떨어짐. 미국은 자국 기름이 있고 아시아는 걸프 항로가 살아 있음. 유럽은 러시아를 끊은 뒤 사우디에 기댔는데 그 관 하나가 끊기자 배럴당 30불을 더 주고 5주짜리 항로로 받는 처지. 채권시장이 유가를 보고 금리를 정하는 요즘엔 그 30불이 그대로 물가와 금리로 감. 다음 관전점은 송유관이 6주 안에 진짜 돌아오는지 여부 <span class="note">(전쟁은 중동, 청구서는 유럽)</span></span></div>
       </div>
-      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/oil.html">원유</a><span class="sep">·</span><a href="/wiki/aramco.html">아람코</a><span class="sep">·</span><a class="topic" href="/topics/energy.html">에너지·원자재</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0305.html#story-1" title="같은 호르무즈발 공급충격 앞 장면"><b>03-05</b> 호르무즈 봉쇄 5일차 — 이라크까지 원유 수출 중단</a><span class="fw">같은 호르무즈발 공급충격 앞 장면</span></span><span class="flow"><a href="/newsletters/2026/0615.html#story-1" title="그 충격이 끝났다던 반전"><b>06-15</b> 3개월 전쟁, 끝 중에 진짜 끝?</a><span class="fw">그 충격이 끝났다던 반전</span></span></span></div></div>
+      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님</p><div class="story-links"><div class="row"><span class="k">나온 것</span><span class="v"><a href="/wiki/oil.html">원유</a><span class="sep">·</span><a href="/wiki/aramco.html">아람코</a><span class="sep">·</span><a href="/topics/energy.html">에너지·원자재</a></span></div><div class="row"><span class="k">같은 흐름</span><span class="v"><a href="/newsletters/2026/0305.html#story-1" title="같은 호르무즈발 공급충격 앞 장면"><b>03-05</b>호르무즈 봉쇄 5일차 — 이라크까지 원유 수출 중단</a></span></div><div class="row"><span class="k"></span><span class="v"><a href="/newsletters/2026/0615.html#story-1" title="그 충격이 끝났다던 반전"><b>06-15</b>3개월 전쟁, 끝 중에 진짜 끝?</a></span></div></div>
     </div>
 <!-- STORY 3 -->    <div class="story" id="story-3" role="article" aria-labelledby="story-3-title" data-ss-story="0921-3" data-ss-issue="0921">
       <span class="story-label">AI · LIABILITY</span>
@@ -742,7 +733,7 @@ line-height:1.25;color:#fff;word-break:keep-all}
         <div class="bullet"><span class="dot">◾</span><span>속도를 늦추자고 했더니 이번엔 반대편에서 소송이 옴. 앤스로픽 CEO가 9월 12일 개발 감속을 제안했고 올트먼 <span class="sub">(오픈AI CEO)</span>·머스크 <span class="sub">(스페이스X AI)</span>·하사비스 <span class="sub">(구글 딥마인드)</span>가 같은 날 동의. 금요일엔 유료 구독자 4명이 전체 유료 구독자를 대신해 앤스로픽·오픈AI·스페이스X AI·구글을 담합 혐의로 집단소송. 각자 늦추는 건 자유지만 넷이 합의해 늦추면 소비자 손해라는 담합 논리. 빨리 가면 불법행위법, 같이 늦추면 반독점법</span></div>
         <div class="bullet"><span class="dot">◾</span><span>결국 이건 기술 리스크가 아니라 상장 서류 리스크. 상장 회사는 위험 요인을 적어야 하고, AI 회사의 위험 요인은 상한이 없음. 보험이 없으면 그 상한 없는 비용은 주주 몫. 트럼프는 안전 규제 요구를 헛소리라 했다가 토요일 AI 차르 임명을 예고했고, 공화당 홀리 상원의원은 반독점 면제는 절대 없다는 입장. 정부가 판단을 안 해주면 법원이 사고 뒤에 정함. 첫 IPO 투자설명서가 그 답을 어떻게 적는지가 관전점 <span class="note">(위험 요인 항목이 재무제표보다 길어질 예정)</span></span></div>
       </div>
-      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/openai.html">오픈AI</a><span class="sep">·</span><a href="/wiki/anthropic.html">앤스로픽</a><span class="sep">·</span><a href="/wiki/meta.html">메타</a><span class="sep">·</span><a href="/wiki/musk.html">일론 머스크</a><span class="sep">·</span><a href="/wiki/spacex.html">스페이스X</a><span class="sep">·</span><a class="topic" href="/topics/ai.html">AI</a><span class="sep">·</span><a class="topic" href="/topics/ipo.html">IPO·상장</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0604.html#story-1" title="규제 공백이 보험 공백으로"><b>06-04</b> 트럼프의 딜레마, AI 규제했다간 GDP도 날아감</a><span class="fw">규제 공백이 보험 공백으로</span></span><span class="flow"><a href="/newsletters/2026/0914.html#story-3" title="같은 AI사 리스크 공조 논란"><b>09-14</b> AI 3사 ‘같이 천천히’, 걸림돌은 담합법</a><span class="fw">같은 AI사 리스크 공조 논란</span></span></span></div></div>
+      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">나온 것</span><span class="v"><a href="/wiki/openai.html">오픈AI</a><span class="sep">·</span><a href="/wiki/anthropic.html">앤스로픽</a><span class="sep">·</span><a href="/wiki/meta.html">메타</a><span class="sep">·</span><a href="/wiki/musk.html">일론 머스크</a><span class="sep">·</span><a href="/topics/ai.html">AI</a></span></div><div class="row"><span class="k">같은 흐름</span><span class="v"><a href="/newsletters/2026/0604.html#story-1" title="규제 공백이 보험 공백으로"><b>06-04</b>트럼프의 딜레마, AI 규제했다간 GDP도 날아감</a></span></div><div class="row"><span class="k"></span><span class="v"><a href="/newsletters/2026/0914.html#story-3" title="같은 AI사 리스크 공조 논란"><b>09-14</b>AI 3사 ‘같이 천천히’, 걸림돌은 담합법</a></span></div></div>
     </div>
 <!-- STORY 4 -->    <div class="story" id="story-4" role="article" aria-labelledby="story-4-title" data-ss-story="0921-4" data-ss-issue="0921">
       <span class="story-label">BRAND · SPORTS</span>
@@ -754,7 +745,7 @@ line-height:1.25;color:#fff;word-break:keep-all}
         <div class="bullet"><span class="dot">◾</span><span>나이키엔 순서가 잘못 걸린 이별. 주가는 1년 새 절반 가까이 빠져 12년 최저 부근이고, 중국 부진에 힐 CEO의 재건 작업이 아직 성과를 못 냄. 홀란드·비니시우스 같은 스타는 여전히 나이키 소속인데, 하필 아디다스가 월드컵 결승 두 팀을 입혀 사상 최대 매출을 찍은 직후의 이별. 금요일 나이키 주가는 2.3% 하락. 제프리스는 축구가 가장 비싼 카테고리이고 성능 신뢰는 돈으로 못 산다고 온에 경고</span></div>
         <div class="bullet"><span class="dot">◾</span><span>다시 보면 이건 후원 계약이 광고비에서 자본 거래로 바뀌는 이야기. 나이키는 연 2,000만유로 비용으로 계산했고, 온은 지분을 주는 대신 그 선수를 제품 개발자이자 브랜드 주주로 만듦. 회사가 커지면 선수가 벌고 선수가 뜨면 회사가 커지는 구조라 광고료 재협상이 필요 없음. 다음 관전점은 화요일 온의 투자자 설명회에서 축구 매출 목표를 얼마로 내놓는지 여부 <span class="note">(이젠 광고료 대신 지분 달라는 선수가 늘 예정)</span></span></div>
       </div>
-      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/nike.html">나이키</a><span class="sep">·</span><a class="topic" href="/topics/sports-biz.html">스포츠 비즈니스</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0826.html#story-2" title="나이키 스폰서십 담보대출 다른 사례"><b>08-26</b> 나이키 평생계약 걸고 3억불 미리 땡김</a><span class="fw">나이키 스폰서십 담보대출 다른 사례</span></span><span class="flow"><a href="/newsletters/2026/0402.html#story-2" title="나이키 이탈 배경, 실적 타격"><b>04-02</b> 나이키는 때려맞고, Allbirds는 굿바이</a><span class="fw">나이키 이탈 배경, 실적 타격</span></span></span></div></div>
+      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">나온 것</span><span class="v"><a href="/wiki/nike.html">나이키</a><span class="sep">·</span><a href="/topics/sports-biz.html">스포츠 비즈니스</a></span></div><div class="row"><span class="k">같은 흐름</span><span class="v"><a href="/newsletters/2026/0826.html#story-2" title="나이키 스폰서십 담보대출 다른 사례"><b>08-26</b>나이키 평생계약 걸고 3억불 미리 땡김</a></span></div><div class="row"><span class="k"></span><span class="v"><a href="/newsletters/2026/0402.html#story-2" title="나이키 이탈 배경, 실적 타격"><b>04-02</b>나이키는 때려맞고, Allbirds는 굿바이</a></span></div></div>
     </div>
 <!-- STORY 5 -->    <div class="story" id="story-5" role="article" aria-labelledby="story-5-title" data-ss-story="0921-5" data-ss-issue="0921">
       <span class="story-label">BETTING · TRIBES</span>
@@ -766,7 +757,7 @@ line-height:1.25;color:#fff;word-break:keep-all}
         <div class="bullet"><span class="dot">◾</span><span>정치 라인도 겹침. 칼시 자문이자 주주는 트럼프 주니어, 이 부족은 트럼프를 노벨평화상 후보로 추천한 곳. 부족장은 트럼프 쪽 소개는 없었다고 했지만 워싱턴이 예측시장을 밀어주는 흐름과 같은 방향. 칼시는 3월 220억불 밸류에 10억불을 모았고 지금은 400억불에 추가 조달 협의, 30일 거래대금이 141억불로 폴리마켓의 4배가 넘음. 이 속도면 부족 카지노가 아니라 주 정부 복권·경마 세수가 다음 피해자</span></div>
         <div class="bullet"><span class="dot">◾</span><span>이 사건의 본질은 부족 주권이 두 방향으로 쓰이기 시작했다는 것. 지금까지 부족 땅은 카지노 독점권의 근거였는데, 같은 주권으로 규제 밖 사업을 먼저 열 수도 있음. 한 부족이 앱을 내면 규제당국이 부족 전체를 막기 어렵고, 칼시는 소송 상대 안에서 동맹을 만든 셈. 부족 게임협회 회장은 CFTC에 서한 철회와 정부 대 정부 협의를 요구 중. 다음 관전점은 다른 부족의 항의로 CFTC가 조건부 서한을 거둬들이는지 여부 <span class="note">(못 이길거면 같은 편 먹기)</span></span></div>
       </div>
-      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/kalshi.html">칼시(Kalshi)</a><span class="sep">·</span><a href="/wiki/ftc.html">FTC</a><span class="sep">·</span><a href="/wiki/trump.html">트럼프</a><span class="sep">·</span><a href="/wiki/polymarket.html">폴리마켓</a><span class="sep">·</span><a class="topic" href="/topics/prediction-markets.html">예측시장</a><span class="sep">·</span><a class="topic" href="/topics/trump-politics.html">트럼프·정책</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0915.html#story-3" title="같은 칼시, 다른 헤지 사례"><b>09-15</b> 우승하면 좋은 건데, 왜 헤지를 걸어?</a><span class="fw">같은 칼시, 다른 헤지 사례</span></span><span class="flow"><a href="/newsletters/2026/0814.html#story-3" title="예측시장을 보험처럼 쓴 앞선 사례"><b>08-14</b> 염소 목장이 산불 보험 드는 방식</a><span class="fw">예측시장을 보험처럼 쓴 앞선 사례</span></span></span></div></div>
+      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">나온 것</span><span class="v"><a href="/wiki/kalshi.html">칼시(Kalshi)</a><span class="sep">·</span><a href="/wiki/ftc.html">FTC</a><span class="sep">·</span><a href="/wiki/trump.html">트럼프</a><span class="sep">·</span><a href="/wiki/polymarket.html">폴리마켓</a><span class="sep">·</span><a href="/topics/prediction-markets.html">예측시장</a></span></div><div class="row"><span class="k">같은 흐름</span><span class="v"><a href="/newsletters/2026/0915.html#story-3" title="같은 칼시, 다른 헤지 사례"><b>09-15</b>우승하면 좋은 건데, 왜 헤지를 걸어?</a></span></div><div class="row"><span class="k"></span><span class="v"><a href="/newsletters/2026/0814.html#story-3" title="예측시장을 보험처럼 쓴 앞선 사례"><b>08-14</b>염소 목장이 산불 보험 드는 방식</a></span></div></div>
     </div>
 <!-- /content -->
   </div><!-- DEAL -->

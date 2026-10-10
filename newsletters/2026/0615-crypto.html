@@ -457,28 +457,19 @@ transition:color .18s ease,background .18s ease}
 }
 </style>
 <style id="soonsal-story-links">
-/* 스토리 끝 — 다 읽은 사람만 본다. 본문 흐름을 끊지 않는다 */
-.story-links{margin:14px 0 0;padding:11px 0 0;border-top:1px solid #ece8e0;
-font-size:11.5px;line-height:1.8;color:#9a958a;word-break:keep-all}
-.story-links .k{color:#b5b0a4;margin-right:5px}
-.story-links a{color:#8a857c;text-decoration:none;border-bottom:1px solid #e6e1d8}
-.story-links a:hover{color:#C24A00;border-bottom-color:#C24A00}
-.story-links .sep{opacity:.4;margin:0 4px}
-/* 주제는 개별 이름이 아니라 묶음이다 — 테두리로 구분한다 */
-.story-links a.topic{border-bottom:0;padding:1px 7px;border-radius:999px;
-background:#f3efe8;color:#8a857c}
-.story-links a.topic:hover{background:#C24A00;color:#fff}
-.story-links .row + .row{margin-top:4px}
-/* 「같은 흐름」은 제목이 길어 한 줄에 하나씩 세운다. 라벨은 왼쪽에 고정 */
-.story-links .flows{display:flex;align-items:flex-start}
-.story-links .flow-list{display:flex;flex-direction:column;gap:2px;min-width:0}
-.story-links .flow{display:block;min-width:0}
-.story-links .flow a{display:inline-block;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;vertical-align:top}
-/* 왜 이어지는지 한 줄 — 폰에선 마우스를 못 올리니 글로 보여 준다 (KD 2026-10-10) */
-.story-links .fw{display:block;font-size:10.5px;line-height:1.5;color:#b5b0a4;margin:0 0 3px 33px}
-.story-links .flow b{font-weight:600;color:#b5b0a4;margin-right:3px}
-@media(max-width:560px){.story-links .flows{display:block}
-  .story-links .flow-list{margin-top:2px;padding-left:1px}}
+/* 스토리 끝 — 다 읽은 사람만 본다. 본문 흐름을 끊지 않는다.
+   ★ 간결하게 (KD 2026-10-10 「텍스트 너무 길고 난잡 — 줄을 무작위로 늘리지 말고」):
+     항목마다 **딱 한 줄**(넘치면 …), 라벨은 왼쪽 고정 칸, 밑줄·알약·이유 줄 없음 → 최대 3줄로 끝난다.
+     이어지는 이유는 링크에 마우스를 올리면(title) 보인다. */
+.story-links{margin:14px 0 0;padding:10px 0 0;border-top:1px solid #ece8e0;
+font-size:12px;line-height:1.75;color:#9a958a;word-break:keep-all}
+.story-links .row{display:flex;gap:10px;min-width:0}
+.story-links .k{flex:0 0 52px;color:#b5b0a4}
+.story-links .v{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.story-links a{color:#7d786f;text-decoration:none}
+.story-links a:hover{color:#C24A00;text-decoration:underline}
+.story-links .sep{color:#d3cec4;margin:0 5px}
+.story-links .v b{font-weight:600;color:#b5b0a4;margin-right:5px;font-variant-numeric:tabular-nums}
 </style>
 <!-- soonsal:story-fragments-style:start --><style>
 .ss-story-index{margin:0 0 34px;padding:21px 22px;border:1px solid #e8e8e0;
@@ -777,7 +768,7 @@ line-height:1.25;color:#fff;word-break:keep-all}
     <div style="background:#f5f5f0; border-radius:8px; padding:14px 16px; margin-top:16px;">
       <div style="font-size:12px; color:#888; font-weight:700; margin-bottom:6px;">🏛 전통 금융 대비 현재 위치</div>
       <div style="font-size:13px; color:#444; line-height:1.6;">전통 금융에서 주식 거래는 거래소 영업시간에만 가능하고, 해외 주식은 별도 계좌·환전·수수료가 필요. 토큰화 주식은 이 모든 마찰을 없애고 24시간·무국적·저비용 거래를 지향. 아직 규제가 따라오지 못하고 있지만, 스페이스X 상장일에 전통·크립토 양쪽에서 동시에 거래가 이뤄진 건 구조적 전환의 첫 신호</div>
-    <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/spacex.html">스페이스X</a><span class="sep">·</span><a href="/wiki/nasdaq.html">나스닥</a><span class="sep">·</span><a href="/wiki/solana.html">솔라나</a><span class="sep">·</span><a href="/wiki/binance.html">바이낸스</a><span class="sep">·</span><a href="/wiki/hyperliquid.html">하이퍼리퀴드</a><span class="sep">·</span><a class="topic" href="/topics/crypto.html">크립토</a><span class="sep">·</span><a class="topic" href="/topics/space-aero.html">우주·항공</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0609-crypto.html#story-2" title="Bybit 토큰화의 시작 단계"><b>06-09</b> Bybit, 스페이스X IPO를 크립토로 사게 해줌</a><span class="fw">Bybit 토큰화의 시작 단계</span></span><span class="flow"><a href="/newsletters/2026/0601-crypto.html#story-3" title="토큰화를 가능케한 SEC 규제완화"><b>06-01</b> SEC 토큰화 주식 면제, 6/2 발표 임박</a><span class="fw">토큰화를 가능케한 SEC 규제완화</span></span></span></div></div></div>
+    <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">나온 것</span><span class="v"><a href="/wiki/spacex.html">스페이스X</a><span class="sep">·</span><a href="/wiki/nasdaq.html">나스닥</a><span class="sep">·</span><a href="/wiki/solana.html">솔라나</a><span class="sep">·</span><a href="/wiki/binance.html">바이낸스</a><span class="sep">·</span><a href="/topics/crypto.html">크립토</a></span></div><div class="row"><span class="k">같은 흐름</span><span class="v"><a href="/newsletters/2026/0609-crypto.html#story-2" title="Bybit 토큰화의 시작 단계"><b>06-09</b>Bybit, 스페이스X IPO를 크립토로 사게 해줌</a></span></div><div class="row"><span class="k"></span><span class="v"><a href="/newsletters/2026/0601-crypto.html#story-3" title="토큰화를 가능케한 SEC 규제완화"><b>06-01</b>SEC 토큰화 주식 면제, 6/2 발표 임박</a></span></div></div></div>
   </div>
 </div>
 
@@ -795,7 +786,7 @@ line-height:1.25;color:#fff;word-break:keep-all}
     <div style="background:#f5f5f0; border-radius:8px; padding:14px 16px; margin-top:16px;">
       <div style="font-size:12px; color:#888; font-weight:700; margin-bottom:6px;">🏛 전통 금융 대비 현재 위치</div>
       <div style="font-size:13px; color:#444; line-height:1.6;">전통 주식 시장에서도 가격이 오르는데 기관 자금이 빠지는 현상은 존재 — 보통 숏커버 랠리 또는 리테일 주도 반등일 때 나타남. S&P 500에서도 2022년 베어마켓 중 +10~15% 기술적 반등이 여러 차례 있었지만, 기관 자금이 돌아오기 전까지는 전부 되돌림. BTC ETF 유출이 유입으로 전환되는 시점이 진짜 추세 전환의 핵심 지표</div>
-    <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/bitcoin.html">비트코인</a><span class="sep">·</span><a href="/wiki/ftx.html">FTX</a><span class="sep">·</span><a href="/wiki/spacex.html">스페이스X</a><span class="sep">·</span><a href="/wiki/ethereum.html">이더리움</a><span class="sep">·</span><a href="/wiki/solana.html">솔라나</a><span class="sep">·</span><a class="topic" href="/topics/crypto.html">크립토</a><span class="sep">·</span><a class="topic" href="/topics/fed-rates.html">연준·금리</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0519-crypto.html#story-5" title="같은 ETF 유출 흐름의 전편"><b>05-19</b> ETF 돈줄, 6주 만에 끊김</a><span class="fw">같은 ETF 유출 흐름의 전편</span></span><span class="flow"><a href="/newsletters/2026/0521-crypto.html#story-1" title="같은 ETF 유출, 금리공포 버전"><b>05-21</b> BTC ETF, 기관이 빠져나간다</a><span class="fw">같은 ETF 유출, 금리공포 버전</span></span></span></div></div></div>
+    <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">나온 것</span><span class="v"><a href="/wiki/bitcoin.html">비트코인</a><span class="sep">·</span><a href="/wiki/ftx.html">FTX</a><span class="sep">·</span><a href="/wiki/spacex.html">스페이스X</a><span class="sep">·</span><a href="/wiki/ethereum.html">이더리움</a><span class="sep">·</span><a href="/topics/crypto.html">크립토</a></span></div><div class="row"><span class="k">같은 흐름</span><span class="v"><a href="/newsletters/2026/0519-crypto.html#story-5" title="같은 ETF 유출 흐름의 전편"><b>05-19</b>ETF 돈줄, 6주 만에 끊김</a></span></div><div class="row"><span class="k"></span><span class="v"><a href="/newsletters/2026/0521-crypto.html#story-1" title="같은 ETF 유출, 금리공포 버전"><b>05-21</b>BTC ETF, 기관이 빠져나간다</a></span></div></div></div>
   </div>
 </div>
 
@@ -813,7 +804,7 @@ line-height:1.25;color:#fff;word-break:keep-all}
     <div style="background:#f5f5f0; border-radius:8px; padding:14px 16px; margin-top:16px;">
       <div style="font-size:12px; color:#888; font-weight:700; margin-bottom:6px;">🏛 전통 금융 대비 현재 위치</div>
       <div style="font-size:13px; color:#444; line-height:1.6;">전통 금융에서 SWIFT 결제 시스템이 러시아를 차단한 것과 유사한 구도. 글로벌 인프라라고 믿었던 시스템이 국가 안보를 이유로 특정 국가를 배제할 수 있다는 전례를 만들었음. AI 모델에 이어 크립토 프로토콜에도 같은 논리가 적용되면, '무국적 인프라'라는 크립토의 핵심 가치가 시험대에 오르는 것</div>
-    <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/anthropic.html">앤스로픽</a><span class="sep">·</span><a href="/wiki/swift.html">SWIFT(국제결제망)</a><span class="sep">·</span><a class="topic" href="/topics/crypto.html">크립토</a><span class="sep">·</span><a class="topic" href="/topics/ai.html">AI</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0413-crypto.html#story-2" title="AI규제 공포, DeFi로 번진 전조"><b>04-13</b> AI가 은행을 겁먹게 했는데, DeFi는 더 위험하다</a><span class="fw">AI규제 공포, DeFi로 번진 전조</span></span><span class="flow"><a href="/newsletters/2026/0604.html#story-1" title="트럼프 규제 톤다운과 반대 흐름"><b>06-04</b> 트럼프의 딜레마, AI 규제했다간 GDP도 날아감</a><span class="fw">트럼프 규제 톤다운과 반대 흐름</span></span></span></div></div></div>
+    <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">나온 것</span><span class="v"><a href="/wiki/anthropic.html">앤스로픽</a><span class="sep">·</span><a href="/wiki/swift.html">SWIFT(국제결제망)</a><span class="sep">·</span><a href="/topics/crypto.html">크립토</a></span></div><div class="row"><span class="k">같은 흐름</span><span class="v"><a href="/newsletters/2026/0413-crypto.html#story-2" title="AI규제 공포, DeFi로 번진 전조"><b>04-13</b>AI가 은행을 겁먹게 했는데, DeFi는 더 위험하다</a></span></div><div class="row"><span class="k"></span><span class="v"><a href="/newsletters/2026/0604.html#story-1" title="트럼프 규제 톤다운과 반대 흐름"><b>06-04</b>트럼프의 딜레마, AI 규제했다간 GDP도 날아감</a></span></div></div></div>
   </div>
 </div>
 
@@ -844,7 +835,7 @@ line-height:1.25;color:#fff;word-break:keep-all}
     <div class="bullet"><span class="dot">◾</span><span><strong>Prometheus</strong> <span class="sub">(제프 베이조스 공동창업 AI 스타트업)</span>, $120억 Series B 투자유치 — 기업가치 $410억. JPMorgan·블랙록·골드만삭스 참여 <a href="https://techcrunch.com/2026/06/11/jeff-bezoss-prometheus-raises-12b-to-build-an-artificial-general-engineer-for-the-physical-world/" style="color:#888; font-size:12px;"><span class="sub">(원문)</span></a></span></div>
     <div class="bullet"><span class="dot">◾</span><span><strong>씨티그룹</strong>, 비상장 기업 지분 토큰화 거래 플랫폼 출시 — 스위스 SIX 블록체인 인프라 기반, 스페이스X·앤트로픽 등과 논의 중 <a href="https://finance.yahoo.com/markets/crypto/articles/citigroup-offers-tokenized-shares-private-132100639.html" style="color:#888; font-size:12px;"><span class="sub">(원문)</span></a></span></div>
     <div class="bullet"><span class="dot">◾</span><span><strong>파라마운트-워너브러더스디스커버리</strong> $1,110억 합병, 미 법무부 무조건부 승인 <a href="https://www.hollywoodreporter.com/business/business-news/justice-department-signs-off-on-paramount-warner-bros-deal-1236620844/" style="color:#888; font-size:12px;"><span class="sub">(원문)</span></a></span></div>
-  <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/softbank.html">소프트뱅크</a><span class="sep">·</span><a href="/wiki/boj.html">일본은행</a><span class="sep">·</span><a href="/wiki/yen.html">엔화</a><span class="sep">·</span><a href="/wiki/bitcoin.html">비트코인</a><span class="sep">·</span><a href="/wiki/jpmorgan.html">JP모건</a><span class="sep">·</span><a class="topic" href="/topics/japan.html">일본</a><span class="sep">·</span><a class="topic" href="/topics/crypto.html">크립토</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0521.html#story-2" title="같은 일본 통화정책 압박"><b>05-21</b> 엔화 방어전, 바주카로도 안 됨</a><span class="fw">같은 일본 통화정책 압박</span></span><span class="flow"><a href="/newsletters/2026/0413.html#story-4" title="부채로 AI 올인한 앞선 사례"><b>04-13</b> 싸늘하다, AI가 날아와 꽂힌다</a><span class="fw">부채로 AI 올인한 앞선 사례</span></span></span></div></div></div>
+  <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">나온 것</span><span class="v"><a href="/wiki/softbank.html">소프트뱅크</a><span class="sep">·</span><a href="/wiki/boj.html">일본은행</a><span class="sep">·</span><a href="/wiki/yen.html">엔화</a><span class="sep">·</span><a href="/wiki/bitcoin.html">비트코인</a><span class="sep">·</span><a href="/topics/japan.html">일본</a></span></div><div class="row"><span class="k">같은 흐름</span><span class="v"><a href="/newsletters/2026/0521.html#story-2" title="같은 일본 통화정책 압박"><b>05-21</b>엔화 방어전, 바주카로도 안 됨</a></span></div><div class="row"><span class="k"></span><span class="v"><a href="/newsletters/2026/0413.html#story-4" title="부채로 AI 올인한 앞선 사례"><b>04-13</b>싸늘하다, AI가 날아와 꽂힌다</a></span></div></div></div>
 </div>
 
 <!-- HEADLINE ROUNDUP -->

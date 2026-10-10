@@ -418,28 +418,19 @@
 <meta property="og:image:height" content="630"/>
 <meta name="twitter:card" content="summary_large_image"/>
 <style id="soonsal-story-links">
-/* 스토리 끝 — 다 읽은 사람만 본다. 본문 흐름을 끊지 않는다 */
-.story-links{margin:14px 0 0;padding:11px 0 0;border-top:1px solid #ece8e0;
-font-size:11.5px;line-height:1.8;color:#9a958a;word-break:keep-all}
-.story-links .k{color:#b5b0a4;margin-right:5px}
-.story-links a{color:#8a857c;text-decoration:none;border-bottom:1px solid #e6e1d8}
-.story-links a:hover{color:#C24A00;border-bottom-color:#C24A00}
-.story-links .sep{opacity:.4;margin:0 4px}
-/* 주제는 개별 이름이 아니라 묶음이다 — 테두리로 구분한다 */
-.story-links a.topic{border-bottom:0;padding:1px 7px;border-radius:999px;
-background:#f3efe8;color:#8a857c}
-.story-links a.topic:hover{background:#C24A00;color:#fff}
-.story-links .row + .row{margin-top:4px}
-/* 「같은 흐름」은 제목이 길어 한 줄에 하나씩 세운다. 라벨은 왼쪽에 고정 */
-.story-links .flows{display:flex;align-items:flex-start}
-.story-links .flow-list{display:flex;flex-direction:column;gap:2px;min-width:0}
-.story-links .flow{display:block;min-width:0}
-.story-links .flow a{display:inline-block;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;vertical-align:top}
-/* 왜 이어지는지 한 줄 — 폰에선 마우스를 못 올리니 글로 보여 준다 (KD 2026-10-10) */
-.story-links .fw{display:block;font-size:10.5px;line-height:1.5;color:#b5b0a4;margin:0 0 3px 33px}
-.story-links .flow b{font-weight:600;color:#b5b0a4;margin-right:3px}
-@media(max-width:560px){.story-links .flows{display:block}
-  .story-links .flow-list{margin-top:2px;padding-left:1px}}
+/* 스토리 끝 — 다 읽은 사람만 본다. 본문 흐름을 끊지 않는다.
+   ★ 간결하게 (KD 2026-10-10 「텍스트 너무 길고 난잡 — 줄을 무작위로 늘리지 말고」):
+     항목마다 **딱 한 줄**(넘치면 …), 라벨은 왼쪽 고정 칸, 밑줄·알약·이유 줄 없음 → 최대 3줄로 끝난다.
+     이어지는 이유는 링크에 마우스를 올리면(title) 보인다. */
+.story-links{margin:14px 0 0;padding:10px 0 0;border-top:1px solid #ece8e0;
+font-size:12px;line-height:1.75;color:#9a958a;word-break:keep-all}
+.story-links .row{display:flex;gap:10px;min-width:0}
+.story-links .k{flex:0 0 52px;color:#b5b0a4}
+.story-links .v{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.story-links a{color:#7d786f;text-decoration:none}
+.story-links a:hover{color:#C24A00;text-decoration:underline}
+.story-links .sep{color:#d3cec4;margin:0 5px}
+.story-links .v b{font-weight:600;color:#b5b0a4;margin-right:5px;font-variant-numeric:tabular-nums}
 </style>
 <!-- soonsal:story-fragments-style:start --><style>
 .ss-story-index{margin:0 0 34px;padding:21px 22px;border:1px solid #e8e8e0;
@@ -741,7 +732,7 @@ line-height:1.25;color:#fff;word-break:keep-all}
         <div class="bullet"><span class="dot">◾</span><span>미국도 일본이 미 국채를 한꺼번에 파는 건 싫음. 일본발 매도가 커지면 이미 높은 미국 장기금리에 추가 상승 압력이 붙을 수 있어서임. FIMA를 쓰면 일본은 국채를 연준에 맡긴 채 달러를 빌리고 시장에 내놓는 미 국채는 줄일 수 있음. 일본은 개입용 달러 확보, 미국은 추가 국채 매도 억제. 양쪽 모두 직접 얻는 게 있음 <span class="note">(공짜 점심은 없음)</span>. 미국이 직접 엔화를 산 것도 1998년 이후 처음</span></div>
         <div class="bullet"><span class="dot">◾</span><span>다만 달러를 더 쉽게 마련한다고 엔화 약세 원인까지 없어지는 건 아님. 최근 엔화가 154엔대까지 강해진 데도 일본 금리인상 기대+해외자금 복귀+엔캐리 청산이 같이 작용 <span class="sub">(엔캐리; 금리 싼 엔화를 빌려 금리 높은 자산에 투자하는 거래)</span>. 미국 금리가 일본보다 훨씬 높으면 달러를 들고 있으려는 수요도 계속 생김. 개입할 돈이 늘어난 것과 엔화가 계속 강해지는 건 별개. 환율 방향은 금리차와 투자자 포지션까지 같이 움직여야 바뀜</span></div>
       </div>
-      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/yen.html">엔화</a><span class="sep">·</span><a href="/wiki/fed.html">미국 연준</a><span class="sep">·</span><a class="topic" href="/topics/japan.html">일본</a><span class="sep">·</span><a class="topic" href="/topics/fx.html">환율·달러</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0624.html#story-3" title="이전 개입 실패, 규모만 키움"><b>06-24</b> 엔화 40년 바닥, 730억불 써도 못 막음</a><span class="fw">이전 개입 실패, 규모만 키움</span></span><span class="flow"><a href="/newsletters/2026/0804.html#story-2" title="더 작은 규모의 선행 개입 작전"><b>08-04</b> 메모지 한 장에서 시작된 엔화 구출 작전</a><span class="fw">더 작은 규모의 선행 개입 작전</span></span></span></div></div>
+      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">나온 것</span><span class="v"><a href="/wiki/yen.html">엔화</a><span class="sep">·</span><a href="/wiki/fed.html">미국 연준</a><span class="sep">·</span><a href="/topics/japan.html">일본</a></span></div><div class="row"><span class="k">같은 흐름</span><span class="v"><a href="/newsletters/2026/0624.html#story-3" title="이전 개입 실패, 규모만 키움"><b>06-24</b>엔화 40년 바닥, 730억불 써도 못 막음</a></span></div><div class="row"><span class="k"></span><span class="v"><a href="/newsletters/2026/0804.html#story-2" title="더 작은 규모의 선행 개입 작전"><b>08-04</b>메모지 한 장에서 시작된 엔화 구출 작전</a></span></div></div>
     </div><!-- STORY 2 -->    <div class="story" id="story-2" role="article" aria-labelledby="story-2-title" data-ss-story="0908-2" data-ss-issue="0908">
       <span class="story-label">COMMODITIES · TRADE</span>
       <div class="story-title" id="story-2-title" role="heading" aria-level="2">🚢 구리 신고가, 미국이 빨아들이는 중</div><a class="ss-story-permalink" href="#story-2" aria-label="2번 스토리 영구 링크">🔗 이 스토리 링크</a>
@@ -752,7 +743,7 @@ line-height:1.25;color:#fff;word-break:keep-all}
         <div class="bullet"><span class="dot">◾</span><span>근데 또 관세만 탓하기엔 실제 광산 공급도 빡빡해지는 중. 상반기 글로벌 구리 광산 생산은 -1.1%, 제련 전 원료인 정광은 -2.6%. 칠레·인도네시아·콩고 생산이 줄었는데, 중국에선 전력망·건설용 구리 구매가 계속 이어졌고 6월 정련구리 수입도 9개월 최고. 정련 구리 총량은 남아돌긴 하지만, 새로 캐서 들어오는 원료는 줄어드는 상황. 여기에 미국까지 웃돈을 주니 미국 밖 시장이 체감하는 공급 부족은 더 세질 수 있음</span></div>
         <div class="bullet"><span class="dot">◾</span><span>미국 웃돈이 커지자 공장들이 구리 고르는 기준까지 바뀌는 중. 원래 뉴욕 선물시장에서 인도 인증 <span class="sub">(COMEX 인증; 뉴욕 구리 선물 만기에 실물을 넘길 수 있다는 규격 승인)</span>도 못 받은 콩고산 구리를, 미국 전선·동관 업체들이 톤당 550~800불 싸다는 이유로 직접 사기 시작. 7월 콩고산 수입은 사상 최대, 미국 전체 수입의 24% 가까이 차지. 미국 가격이 비싸지다 보니, 그동안 덜 쓰던 공급처까지 끌어들인 셈</span></div>
       </div>
-      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a class="topic" href="/topics/energy.html">에너지·원자재</a><span class="sep">·</span><a class="topic" href="/topics/trump-politics.html">트럼프·정책</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0826.html#story-4" title="관세로 벌어진 미국 원자재값 격차"><b>08-26</b> 같은 철강인데 값이 2.5배 차이 남</a><span class="fw">관세로 벌어진 미국 원자재값 격차</span></span></span></div></div>
+      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">나온 것</span><span class="v"><a href="/topics/energy.html">에너지·원자재</a></span></div><div class="row"><span class="k">같은 흐름</span><span class="v"><a href="/newsletters/2026/0826.html#story-4" title="관세로 벌어진 미국 원자재값 격차"><b>08-26</b>같은 철강인데 값이 2.5배 차이 남</a></span></div></div>
     </div><!-- STORY 3 -->    <div class="story" id="story-3" role="article" aria-labelledby="story-3-title" data-ss-story="0908-3" data-ss-issue="0908">
       <span class="story-label">MEDIA · TAX WRITE-OFF</span>
       <div class="story-title" id="story-3-title" role="heading" aria-level="2">🎬 세금 털려고 죽인 영화, 살아 돌아옴</div><a class="ss-story-permalink" href="#story-3" aria-label="3번 스토리 영구 링크">🔗 이 스토리 링크</a>
@@ -763,7 +754,7 @@ line-height:1.25;color:#fff;word-break:keep-all}
         <div class="bullet"><span class="dot">◾</span><span>케첩이 바꾼 건 영화 내용보다 파는 방식. 마케팅비 약 1,000만불 <span class="sub">(워너 예상 광고비의 3분의 1 수준)</span>만 쓰면서 '아크메가 보여주기 싫어한 영화'라는 마케팅, 폐기될 뻔 한 논란 자체를 광고로 써먹었음. 작품 내용도 코요테가 불량 제품 때문에 아크메를 고소하는 이야기라 현실 논란과 묘하게 겹침. 로튼토마토 95%·CinemaScore A까지 붙었고, 첫 주말은 직전 케첩 최고 오프닝 310만불의 거의 5배. 워너가 숨기려던 이력이 케첩에선 가성비 쩌는 마케팅 자산이 된 셈</span></div>
         <div class="bullet"><span class="dot">◾</span><span>결국 이건 워너가 멍청했고 케첩이 천재였다는 단순 승부가 아님. 같은 영화도 누가 얼마에 들고 있느냐, 앞으로 광고에 얼마를 더 써야 하느냐, 어떤 방식으로 관객을 모으느냐에 따라 경제성이 달라짐. 워너 장부에선 더 돈 넣기 싫은 7,000만불짜리 자산이었지만, 케첩에겐 5,000만불에 사서 논란까지 공짜 홍보로 쓸 수 있는 상품. 같은 필름인데 주인이 바뀌자 비용표·마케팅·회수 경로가 전부 달라지며 결과가 달라진 것</span></div>
       </div>
-      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/warner.html">워너브라더스디스커버리</a><span class="sep">·</span><a href="/wiki/netflix.html">넷플릭스</a><span class="sep">·</span><a href="/wiki/amazon.html">아마존</a><span class="sep">·</span><a href="/wiki/paramount.html">파라마운트</a><span class="sep">·</span><a class="topic" href="/topics/bigtech.html">빅테크</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0304-crypto.html#story-5" title="영화 폐기 배경된 WBD 합병 구조조정"><b>03-04</b> Paramount + WBD = $110B — 콘텐츠 </a><span class="fw">영화 폐기 배경된 WBD 합병 구조조정</span></span><span class="flow"><a href="/newsletters/2026/0415.html#story-4" title="합병 후 콘텐츠 희생된 또다른 사례"><b>04-15</b> 할리우드, 월가에 반기 들다</a><span class="fw">합병 후 콘텐츠 희생된 또다른 사례</span></span></span></div></div>
+      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">나온 것</span><span class="v"><a href="/wiki/warner.html">워너브라더스디스커버리</a><span class="sep">·</span><a href="/wiki/netflix.html">넷플릭스</a><span class="sep">·</span><a href="/wiki/amazon.html">아마존</a><span class="sep">·</span><a href="/wiki/paramount.html">파라마운트</a><span class="sep">·</span><a href="/topics/bigtech.html">빅테크</a></span></div><div class="row"><span class="k">같은 흐름</span><span class="v"><a href="/newsletters/2026/0304-crypto.html#story-5" title="영화 폐기 배경된 WBD 합병 구조조정"><b>03-04</b>Paramount + WBD = $110B — 콘텐츠 산업 역대 최대 합병</a></span></div><div class="row"><span class="k"></span><span class="v"><a href="/newsletters/2026/0415.html#story-4" title="합병 후 콘텐츠 희생된 또다른 사례"><b>04-15</b>할리우드, 월가에 반기 들다</a></span></div></div>
     </div><!-- STORY 4 -->    <div class="story" id="story-4" role="article" aria-labelledby="story-4-title" data-ss-story="0908-4" data-ss-issue="0908">
       <span class="story-label">CREDIT · MARKETS</span>
       <div class="story-title" id="story-4-title" role="heading" aria-level="2">💳 사모대출도 중고거래가 인기</div><a class="ss-story-permalink" href="#story-4" aria-label="4번 스토리 영구 링크">🔗 이 스토리 링크</a>
@@ -774,7 +765,7 @@ line-height:1.25;color:#fff;word-break:keep-all}
         <div class="bullet"><span class="dot">◾</span><span>팔 물건이 늘어난 것도 대출이 줄줄이 터져서라기보다 오래된 펀드가 한꺼번에 현금을 돌려줄 나이가 됐기 때문. 지금 거래의 중심은 2018~2021년에 만든 폐쇄형 펀드들. 원래라면 대출이 갚힐 때까지 기다려야 하지만, 펀드 만기를 더 늘리기 전에 중간 매각으로 투자자에게 돈을 돌려주는 중. 2020년엔 연간 24억불에 불과했던 시장이 지금은 반년 만에 200억불을 넘겼고, 최근 부도율도 5~6%대에서 크게 튀지 않았음</span></div>
         <div class="bullet"><span class="dot">◾</span><span>진짜 시험대는 중고시장이 개인용 사모대출 펀드의 환매창구까지 맡을 수 있느냐임. 9월 대형 상품 2곳엔 지분의 10%·16%를 빼달라는 요청이 몰렸는데, 둘 다 실제 받아주는 한도는 5%. 대출은 오늘 바로 팔기 어렵지만 고객은 분기마다 현금을 요구하는 구조라, 운용사들도 세컨더리 매각을 유동성 카드로 들여다보는 중. 아직 환매 압력이 큰 중고 매물로 넘어오진 않았음. 중고시장이 커진 것과 환매창구가 넓어진 건 아직 다른 얘기</span></div>
       </div>
-      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a class="topic" href="/topics/etf-funds.html">ETF·펀드</a><span class="sep">·</span><a class="topic" href="/topics/banks-wallst.html">월가·은행</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0302-crypto.html#story-4" title="사모대출 거래화의 앞선 사례"><b>03-02</b> Apollo의 xAI 부채 트레이딩 — Private </a><span class="fw">사모대출 거래화의 앞선 사례</span></span><span class="flow"><a href="/newsletters/2026/0313.html#story-2" title="사모대출 리스크 구조의 배경"><b>03-13</b> 프라이빗 크레딧보다 PE가 먼저 물에 빠지는 구조</a><span class="fw">사모대출 리스크 구조의 배경</span></span></span></div></div>
+      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">나온 것</span><span class="v"><a href="/topics/etf-funds.html">ETF·펀드</a></span></div><div class="row"><span class="k">같은 흐름</span><span class="v"><a href="/newsletters/2026/0302-crypto.html#story-4" title="사모대출 거래화의 앞선 사례"><b>03-02</b>Apollo의 xAI 부채 트레이딩 — Private Credit, DeFi와 닮아가는 중</a></span></div><div class="row"><span class="k"></span><span class="v"><a href="/newsletters/2026/0313.html#story-2" title="사모대출 리스크 구조의 배경"><b>03-13</b>프라이빗 크레딧보다 PE가 먼저 물에 빠지는 구조</a></span></div></div>
     </div><!-- STORY 5 -->    <div class="story" id="story-5" role="article" aria-labelledby="story-5-title" data-ss-story="0908-5" data-ss-issue="0908">
       <span class="story-label">LABOR · ECONOMY</span>
       <div class="story-title" id="story-5-title" role="heading" aria-level="2">🧑‍💼 안 잘리는데, 옮기기도 힘든 시장</div><a class="ss-story-permalink" href="#story-5" aria-label="5번 스토리 영구 링크">🔗 이 스토리 링크</a>
@@ -785,7 +776,7 @@ line-height:1.25;color:#fff;word-break:keep-all}
         <div class="bullet"><span class="dot">◾</span><span>충격은 연차별로 다른데, 일단 경력 없는 쪽부터 먼저 막힘. 미국에서도 전문·비즈니스 서비스업 채용이 7월 한 달 새 18.8만명 빠졌고 업종마다 온도 차가 큼. 한국은 청년이 더 빡빡한데, 20~24세 고용률이 2022년 46.0%에서 올 7월 42.6%로, 25~29세도 72.5%→71.4%로 하락. 전체 일자리보다 첫 취업이 필요한 나이대가 먼저 약해지는 구조. 경력이 없는 사람일수록 바깥 선택지가 더 적음</span></div>
         <div class="bullet"><span class="dot">◾</span><span>한국 정부, 8월 청년 일자리 대책에서 아예 '첫 일자리 진입'을 별도 과제로 꺼냈음. 7월 전체 취업자가 전년보다 10.8만명 늘었는데도 청년 쪽은 부진이 이어졌기 때문. 전체 고용이 플러스여도 신입이 들어가는 문은 따로 좁은 상태. '쉬었음' 인구도 36.7만명. 해고보다 채용 약화가 먼저 오는 시장에선, 첫 경력을 쌓아야 하는 쪽이 가장 먼저 체감하는 건 글로벌 공통 이슈</span></div>
       </div>
-      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a class="topic" href="/topics/labor-jobs.html">노동·고용</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0605.html#story-4" title="채용·해고 미스매치의 앞선 신호"><b>06-05</b> AI가 자르는데 구인은 느는 미스터리</a><span class="fw">채용·해고 미스매치의 앞선 신호</span></span><span class="flow"><a href="/newsletters/2026/0703.html#story-2" title="노동시장 둔화의 연속 지표"><b>07-03</b> 57K, 고용보고서가 절반도 안 나옴</a><span class="fw">노동시장 둔화의 연속 지표</span></span></span></div></div>
+      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">나온 것</span><span class="v"><a href="/topics/labor-jobs.html">노동·고용</a></span></div><div class="row"><span class="k">같은 흐름</span><span class="v"><a href="/newsletters/2026/0605.html#story-4" title="채용·해고 미스매치의 앞선 신호"><b>06-05</b>AI가 자르는데 구인은 느는 미스터리</a></span></div><div class="row"><span class="k"></span><span class="v"><a href="/newsletters/2026/0703.html#story-2" title="노동시장 둔화의 연속 지표"><b>07-03</b>57K, 고용보고서가 절반도 안 나옴</a></span></div></div>
     </div>
 
 <!-- /content -->

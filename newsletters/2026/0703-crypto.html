@@ -453,28 +453,19 @@ transition:color .18s ease,background .18s ease}
 }
 </style>
 <style id="soonsal-story-links">
-/* 스토리 끝 — 다 읽은 사람만 본다. 본문 흐름을 끊지 않는다 */
-.story-links{margin:14px 0 0;padding:11px 0 0;border-top:1px solid #ece8e0;
-font-size:11.5px;line-height:1.8;color:#9a958a;word-break:keep-all}
-.story-links .k{color:#b5b0a4;margin-right:5px}
-.story-links a{color:#8a857c;text-decoration:none;border-bottom:1px solid #e6e1d8}
-.story-links a:hover{color:#C24A00;border-bottom-color:#C24A00}
-.story-links .sep{opacity:.4;margin:0 4px}
-/* 주제는 개별 이름이 아니라 묶음이다 — 테두리로 구분한다 */
-.story-links a.topic{border-bottom:0;padding:1px 7px;border-radius:999px;
-background:#f3efe8;color:#8a857c}
-.story-links a.topic:hover{background:#C24A00;color:#fff}
-.story-links .row + .row{margin-top:4px}
-/* 「같은 흐름」은 제목이 길어 한 줄에 하나씩 세운다. 라벨은 왼쪽에 고정 */
-.story-links .flows{display:flex;align-items:flex-start}
-.story-links .flow-list{display:flex;flex-direction:column;gap:2px;min-width:0}
-.story-links .flow{display:block;min-width:0}
-.story-links .flow a{display:inline-block;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;vertical-align:top}
-/* 왜 이어지는지 한 줄 — 폰에선 마우스를 못 올리니 글로 보여 준다 (KD 2026-10-10) */
-.story-links .fw{display:block;font-size:10.5px;line-height:1.5;color:#b5b0a4;margin:0 0 3px 33px}
-.story-links .flow b{font-weight:600;color:#b5b0a4;margin-right:3px}
-@media(max-width:560px){.story-links .flows{display:block}
-  .story-links .flow-list{margin-top:2px;padding-left:1px}}
+/* 스토리 끝 — 다 읽은 사람만 본다. 본문 흐름을 끊지 않는다.
+   ★ 간결하게 (KD 2026-10-10 「텍스트 너무 길고 난잡 — 줄을 무작위로 늘리지 말고」):
+     항목마다 **딱 한 줄**(넘치면 …), 라벨은 왼쪽 고정 칸, 밑줄·알약·이유 줄 없음 → 최대 3줄로 끝난다.
+     이어지는 이유는 링크에 마우스를 올리면(title) 보인다. */
+.story-links{margin:14px 0 0;padding:10px 0 0;border-top:1px solid #ece8e0;
+font-size:12px;line-height:1.75;color:#9a958a;word-break:keep-all}
+.story-links .row{display:flex;gap:10px;min-width:0}
+.story-links .k{flex:0 0 52px;color:#b5b0a4}
+.story-links .v{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.story-links a{color:#7d786f;text-decoration:none}
+.story-links a:hover{color:#C24A00;text-decoration:underline}
+.story-links .sep{color:#d3cec4;margin:0 5px}
+.story-links .v b{font-weight:600;color:#b5b0a4;margin-right:5px;font-variant-numeric:tabular-nums}
 </style>
 <!-- soonsal:story-fragments-style:start --><style>
 .ss-story-index{margin:0 0 34px;padding:21px 22px;border:1px solid #e8e8e0;
@@ -771,7 +762,7 @@ line-height:1.25;color:#fff;word-break:keep-all}
       <p style="font-size:12px; font-weight:700; color:#888; margin:0 0 6px;">🏛 전통 금융 대비 현재 위치</p>
       <p style="font-size:13px; color:#444; margin:0; line-height:1.65;">전통 금융에서 S&P 500도 같은 발언에 반응했지만, BTC의 24시간 변동폭 <span class="sub">(+5%)</span>이 S&P <span class="sub">(+0.3%)</span>의 15배 이상. 전통 자산은 연준 발언에 0.x% 움직이는 게 일상이지만, 크립토는 수% 단위로 반응 — 레버리지 포지션이 양방향으로 청산되면서 변동성이 증폭되는 구조. "같은 뉴스, 다른 진폭"이 크립토와 전통 금융의 핵심 차이</p>
     </div>
-  <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/bitcoin.html">비트코인</a><span class="sep">·</span><a href="/wiki/fed.html">미국 연준</a><span class="sep">·</span><a href="/wiki/ecb.html">유럽중앙은행</a><span class="sep">·</span><a href="/wiki/blackrock.html">블랙록</a><span class="sep">·</span><a href="/wiki/sp500.html">S&amp;P 500</a><span class="sep">·</span><a class="topic" href="/topics/crypto.html">크립토</a><span class="sep">·</span><a class="topic" href="/topics/fed-rates.html">연준·금리</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0702-crypto.html#story-2" title="반등 직전 저점, 바로 앞 장면"><b>07-02</b> BTC $57,950 — 21개월 최저, 6월은 역대 </a><span class="fw">반등 직전 저점, 바로 앞 장면</span></span><span class="flow"><a href="/newsletters/2026/0622-crypto.html#story-2" title="매파 워시에서 톤 반전"><b>06-22</b> 워시 매파 연준, 크립토엔 더 아픈 이유</a><span class="fw">매파 워시에서 톤 반전</span></span></span></div></div>
+  <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">나온 것</span><span class="v"><a href="/wiki/bitcoin.html">비트코인</a><span class="sep">·</span><a href="/wiki/fed.html">미국 연준</a><span class="sep">·</span><a href="/wiki/ecb.html">유럽중앙은행</a><span class="sep">·</span><a href="/wiki/blackrock.html">블랙록</a><span class="sep">·</span><a href="/topics/crypto.html">크립토</a></span></div><div class="row"><span class="k">같은 흐름</span><span class="v"><a href="/newsletters/2026/0702-crypto.html#story-2" title="반등 직전 저점, 바로 앞 장면"><b>07-02</b>BTC $57,950 — 21개월 최저, 6월은 역대 최악</a></span></div><div class="row"><span class="k"></span><span class="v"><a href="/newsletters/2026/0622-crypto.html#story-2" title="매파 워시에서 톤 반전"><b>06-22</b>워시 매파 연준, 크립토엔 더 아픈 이유</a></span></div></div>
 </div>
 
 <!-- STORY 2 -->
@@ -788,7 +779,7 @@ line-height:1.25;color:#fff;word-break:keep-all}
     <div style="background:#f5f5f0; border-radius:8px; padding:14px 16px; margin-top:16px;">
       <p style="font-size:12px; font-weight:700; color:#888; margin:0 0 6px;">🏛 전통 금융 대비 현재 위치</p>
       <p style="font-size:13px; color:#444; margin:0; line-height:1.65;">전통 금융의 증권법은 1933~1934년에 만들어져 90년간 수정·보완을 거쳤음. 크립토는 2009년부터 16년간 존재했는데 연방 차원의 포괄 법률이 단 하나도 없는 상태. Clarity Act가 통과되면 "크립토를 위한 1933 증권법" 역할 — SEC가 일일이 소송으로 규제하던 시대에서 "명문법에 따라 운영하는 시대"로 전환하는 구조적 전환점</p>
-    <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/sec.html">미국 SEC</a><span class="sep">·</span><a href="/wiki/ftc.html">FTC</a><span class="sep">·</span><a href="/wiki/trump.html">트럼프</a><span class="sep">·</span><a href="/wiki/polymarket.html">폴리마켓</a><span class="sep">·</span><a class="topic" href="/topics/trump-politics.html">트럼프·정책</a><span class="sep">·</span><a class="topic" href="/topics/crypto.html">크립토</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0518-crypto.html#story-1" title="법안 통과의 바로 앞 관문"><b>05-18</b> Clarity Act, 첫 관문 돌파</a><span class="fw">법안 통과의 바로 앞 관문</span></span><span class="flow"><a href="/newsletters/2026/0619-crypto.html#story-3" title="상원 일정 확정 단계"><b>06-19</b> CLARITY Act — 크립토 규제의 분수령</a><span class="fw">상원 일정 확정 단계</span></span></span></div></div></div>
+    <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">나온 것</span><span class="v"><a href="/wiki/sec.html">미국 SEC</a><span class="sep">·</span><a href="/wiki/ftc.html">FTC</a><span class="sep">·</span><a href="/wiki/trump.html">트럼프</a><span class="sep">·</span><a href="/wiki/polymarket.html">폴리마켓</a><span class="sep">·</span><a href="/topics/trump-politics.html">트럼프·정책</a></span></div><div class="row"><span class="k">같은 흐름</span><span class="v"><a href="/newsletters/2026/0518-crypto.html#story-1" title="법안 통과의 바로 앞 관문"><b>05-18</b>Clarity Act, 첫 관문 돌파</a></span></div><div class="row"><span class="k"></span><span class="v"><a href="/newsletters/2026/0619-crypto.html#story-3" title="상원 일정 확정 단계"><b>06-19</b>CLARITY Act — 크립토 규제의 분수령</a></span></div></div></div>
 </div>
 
 <!-- STORY 3 -->
@@ -805,7 +796,7 @@ line-height:1.25;color:#fff;word-break:keep-all}
     <div style="background:#f5f5f0; border-radius:8px; padding:14px 16px; margin-top:16px;">
       <p style="font-size:12px; font-weight:700; color:#888; margin:0 0 6px;">🏛 전통 금융 대비 현재 위치</p>
       <p style="font-size:13px; color:#444; margin:0; line-height:1.65;">전통 금융에서 주식 거래 시간은 월~금 9:30~16:00 ET. 이 시간 제약을 깨려는 시도는 계속 있었지만 <span class="sub">(NYSE 24시간 제안 등)</span>, 청산·결제 인프라 때문에 실현이 안 됐음. 블록체인이 이 문제를 우회 — 토큰화 주식은 체인 위에서 T+0 결제가 가능하기 때문. 다만 토큰 보유자는 기초 주식의 "법적 소유권"이 아닌 "경제적 노출"만 갖는 한계가 있음</p>
-    <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/robinhood.html">로빈후드</a><span class="sep">·</span><a href="/wiki/ethereum.html">이더리움</a><span class="sep">·</span><a href="/wiki/chainlink.html">체인링크</a><span class="sep">·</span><a href="/wiki/oracle.html">오라클</a><span class="sep">·</span><a href="/wiki/binance.html">바이낸스</a><span class="sep">·</span><a class="topic" href="/topics/crypto.html">크립토</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0520-crypto.html#story-2" title="토큰화 허용한 규제적 전제조건"><b>05-20</b> SEC, 주식을 블록체인에 올린다</a><span class="fw">토큰화 허용한 규제적 전제조건</span></span><span class="flow"><a href="/newsletters/2026/0522-crypto.html#story-1" title="24/7 거래 허용의 직접 전신"><b>05-22</b> SEC, 크립토에서 주식 사게 해준다</a><span class="fw">24/7 거래 허용의 직접 전신</span></span></span></div></div></div>
+    <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">나온 것</span><span class="v"><a href="/wiki/robinhood.html">로빈후드</a><span class="sep">·</span><a href="/wiki/ethereum.html">이더리움</a><span class="sep">·</span><a href="/wiki/chainlink.html">체인링크</a><span class="sep">·</span><a href="/wiki/oracle.html">오라클</a><span class="sep">·</span><a href="/topics/crypto.html">크립토</a></span></div><div class="row"><span class="k">같은 흐름</span><span class="v"><a href="/newsletters/2026/0520-crypto.html#story-2" title="토큰화 허용한 규제적 전제조건"><b>05-20</b>SEC, 주식을 블록체인에 올린다</a></span></div><div class="row"><span class="k"></span><span class="v"><a href="/newsletters/2026/0522-crypto.html#story-1" title="24/7 거래 허용의 직접 전신"><b>05-22</b>SEC, 크립토에서 주식 사게 해준다</a></span></div></div></div>
 </div>
 
 <!-- STORY 4 -->
@@ -822,7 +813,7 @@ line-height:1.25;color:#fff;word-break:keep-all}
     <div style="background:#f5f5f0; border-radius:8px; padding:14px 16px; margin-top:16px;">
       <p style="font-size:12px; font-weight:700; color:#888; margin:0 0 6px;">🏛 전통 금융 대비 현재 위치</p>
       <p style="font-size:13px; color:#444; margin:0; line-height:1.65;">전통 금융에서 증권을 담보로 대출받을 때 <span class="sub">(마진 대출)</span>, 담보 가치는 거래소 종가 기반으로 산정되고 중간에 조작이 불가능함. DeFi에서는 담보 가치 산정에 여러 중간 레이어 <span class="sub">(오라클, 래퍼, 볼트)</span>가 끼면서 각각이 공격 가능 지점. "전통 금융의 마진콜"과 "DeFi의 청산"은 같은 기능이지만, 뒤에 깔린 인프라 안전성은 아직 격차가 큼</p>
-    <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/google.html">구글</a><span class="sep">·</span><a href="/wiki/oracle.html">오라클</a><span class="sep">·</span><a href="/wiki/chainlink.html">체인링크</a><span class="sep">·</span><a href="/wiki/robinhood.html">로빈후드</a><span class="sep">·</span><a class="topic" href="/topics/crypto.html">크립토</a><span class="sep">·</span><a class="topic" href="/topics/bigtech.html">빅테크</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0630-crypto.html#story-5" title="같은 분기 DeFi 해킹 급증세"><b>06-30</b> DeFi 해킹, Q2 분기 사상 최다 89건</a><span class="fw">같은 분기 DeFi 해킹 급증세</span></span><span class="flow"><a href="/newsletters/2026/0512-crypto.html#story-1" title="토큰화 자산 확대가 공격면 키움"><b>05-12</b> BlackRock, 토큰화 MMF 2종 출시</a><span class="fw">토큰화 자산 확대가 공격면 키움</span></span></span></div></div></div>
+    <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">나온 것</span><span class="v"><a href="/wiki/google.html">구글</a><span class="sep">·</span><a href="/wiki/oracle.html">오라클</a><span class="sep">·</span><a href="/wiki/chainlink.html">체인링크</a><span class="sep">·</span><a href="/wiki/robinhood.html">로빈후드</a><span class="sep">·</span><a href="/topics/crypto.html">크립토</a></span></div><div class="row"><span class="k">같은 흐름</span><span class="v"><a href="/newsletters/2026/0630-crypto.html#story-5" title="같은 분기 DeFi 해킹 급증세"><b>06-30</b>DeFi 해킹, Q2 분기 사상 최다 89건</a></span></div><div class="row"><span class="k"></span><span class="v"><a href="/newsletters/2026/0512-crypto.html#story-1" title="토큰화 자산 확대가 공격면 키움"><b>05-12</b>BlackRock, 토큰화 MMF 2종 출시</a></span></div></div></div>
 </div>
 
 <!-- STORY 5 -->
@@ -839,7 +830,7 @@ line-height:1.25;color:#fff;word-break:keep-all}
     <div style="background:#f5f5f0; border-radius:8px; padding:14px 16px; margin-top:16px;">
       <p style="font-size:12px; font-weight:700; color:#888; margin:0 0 6px;">🏛 전통 금융 대비 현재 위치</p>
       <p style="font-size:13px; color:#444; margin:0; line-height:1.65;">전통 금융에서 국제 규제 조율은 바젤 위원회·IOSCO 등이 최소 기준을 정하고 각국이 따르는 "탑다운" 구조. 크립토는 반대 — 각국이 경쟁적으로 자기 규제를 만들고, 글로벌 조율은 뒤따르는 "바텀업" 구조. 결과적으로 기업들은 "레귤러토리 아비트라지" <span class="sub">(규제 차익거래)</span>를 하게 됨. 브렉시트 후 런던 금융사들이 프랑크푸르트·더블린으로 이동한 패턴이 크립토에서 전 세계적으로 벌어지는 중</p>
-    <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/fca.html">영국 금융행위감독청</a><span class="sep">·</span><a href="/wiki/robinhood.html">로빈후드</a><span class="sep">·</span><a class="topic" href="/topics/crypto.html">크립토</a><span class="sep">·</span><a class="topic" href="/topics/japan.html">일본</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0702-crypto.html#story-4" title="같은 글로벌 규제 러시 흐름"><b>07-02</b> 영국 FCA, 크립토 규제 룰북 확정 — &quot;글</a><span class="fw">같은 글로벌 규제 러시 흐름</span></span><span class="flow"><a href="/newsletters/2026/0701-crypto.html#story-3" title="MiCA발 규제 도미노의 앞 장면"><b>07-01</b> MiCA D-Day — 유럽 크립토 기업 80%가 오늘</a><span class="fw">MiCA발 규제 도미노의 앞 장면</span></span></span></div></div></div>
+    <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">나온 것</span><span class="v"><a href="/wiki/fca.html">영국 금융행위감독청</a><span class="sep">·</span><a href="/wiki/robinhood.html">로빈후드</a><span class="sep">·</span><a href="/topics/crypto.html">크립토</a></span></div><div class="row"><span class="k">같은 흐름</span><span class="v"><a href="/newsletters/2026/0702-crypto.html#story-4" title="같은 글로벌 규제 러시 흐름"><b>07-02</b>영국 FCA, 크립토 규제 룰북 확정 — &quot;글로벌 허브&quot;</a></span></div><div class="row"><span class="k"></span><span class="v"><a href="/newsletters/2026/0701-crypto.html#story-3" title="MiCA발 규제 도미노의 앞 장면"><b>07-01</b>MiCA D-Day — 유럽 크립토 기업 80%가 오늘 불법이 됨</a></span></div></div></div>
 </div>
 
 

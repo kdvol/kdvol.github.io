@@ -455,28 +455,19 @@ transition:color .18s ease,background .18s ease}
 }
 </style>
 <style id="soonsal-story-links">
-/* 스토리 끝 — 다 읽은 사람만 본다. 본문 흐름을 끊지 않는다 */
-.story-links{margin:14px 0 0;padding:11px 0 0;border-top:1px solid #ece8e0;
-font-size:11.5px;line-height:1.8;color:#9a958a;word-break:keep-all}
-.story-links .k{color:#b5b0a4;margin-right:5px}
-.story-links a{color:#8a857c;text-decoration:none;border-bottom:1px solid #e6e1d8}
-.story-links a:hover{color:#C24A00;border-bottom-color:#C24A00}
-.story-links .sep{opacity:.4;margin:0 4px}
-/* 주제는 개별 이름이 아니라 묶음이다 — 테두리로 구분한다 */
-.story-links a.topic{border-bottom:0;padding:1px 7px;border-radius:999px;
-background:#f3efe8;color:#8a857c}
-.story-links a.topic:hover{background:#C24A00;color:#fff}
-.story-links .row + .row{margin-top:4px}
-/* 「같은 흐름」은 제목이 길어 한 줄에 하나씩 세운다. 라벨은 왼쪽에 고정 */
-.story-links .flows{display:flex;align-items:flex-start}
-.story-links .flow-list{display:flex;flex-direction:column;gap:2px;min-width:0}
-.story-links .flow{display:block;min-width:0}
-.story-links .flow a{display:inline-block;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;vertical-align:top}
-/* 왜 이어지는지 한 줄 — 폰에선 마우스를 못 올리니 글로 보여 준다 (KD 2026-10-10) */
-.story-links .fw{display:block;font-size:10.5px;line-height:1.5;color:#b5b0a4;margin:0 0 3px 33px}
-.story-links .flow b{font-weight:600;color:#b5b0a4;margin-right:3px}
-@media(max-width:560px){.story-links .flows{display:block}
-  .story-links .flow-list{margin-top:2px;padding-left:1px}}
+/* 스토리 끝 — 다 읽은 사람만 본다. 본문 흐름을 끊지 않는다.
+   ★ 간결하게 (KD 2026-10-10 「텍스트 너무 길고 난잡 — 줄을 무작위로 늘리지 말고」):
+     항목마다 **딱 한 줄**(넘치면 …), 라벨은 왼쪽 고정 칸, 밑줄·알약·이유 줄 없음 → 최대 3줄로 끝난다.
+     이어지는 이유는 링크에 마우스를 올리면(title) 보인다. */
+.story-links{margin:14px 0 0;padding:10px 0 0;border-top:1px solid #ece8e0;
+font-size:12px;line-height:1.75;color:#9a958a;word-break:keep-all}
+.story-links .row{display:flex;gap:10px;min-width:0}
+.story-links .k{flex:0 0 52px;color:#b5b0a4}
+.story-links .v{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.story-links a{color:#7d786f;text-decoration:none}
+.story-links a:hover{color:#C24A00;text-decoration:underline}
+.story-links .sep{color:#d3cec4;margin:0 5px}
+.story-links .v b{font-weight:600;color:#b5b0a4;margin-right:5px;font-variant-numeric:tabular-nums}
 </style>
 <!-- soonsal:story-fragments-style:start --><style>
 .ss-story-index{margin:0 0 34px;padding:21px 22px;border:1px solid #e8e8e0;
@@ -786,7 +777,7 @@ BTC $70K 유지하나 세이프헤이븐 서사 흔들림 — 브렌트 $100 돌
       <div class="bullet"><span class="dot">◾</span><span>
         언론과의 법적 전쟁은 크립토 업계에서 이례적. 대부분의 기업은 보도에 대해 침묵하거나 반박 성명을 내는 데 그치지만, Binance는 소송이라는 가장 공격적인 카드를 선택. 결과에 관계없이 "무고하다"는 메시지를 시장에 강하게 심겠다는 의도 <span class="note">(입증은 Binance가 해야 함)</span>
       </span></div>
-    <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/binance.html">바이낸스</a><span class="sep">·</span><a href="/wiki/hsbc.html">HSBC</a><span class="sep">·</span><a href="/wiki/coinbase.html">코인베이스</a><span class="sep">·</span><a class="topic" href="/topics/crypto.html">크립토</a><span class="sep">·</span><a class="topic" href="/topics/trump-politics.html">트럼프·정책</a></div></div></div>
+    <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">나온 것</span><span class="v"><a href="/wiki/binance.html">바이낸스</a><span class="sep">·</span><a href="/wiki/hsbc.html">HSBC</a><span class="sep">·</span><a href="/wiki/coinbase.html">코인베이스</a><span class="sep">·</span><a href="/topics/crypto.html">크립토</a></span></div></div></div>
   </div>
 
   <!-- STORY 2 -->
@@ -811,7 +802,7 @@ BTC $70K 유지하나 세이프헤이븐 서사 흔들림 — 브렌트 $100 돌
       <div class="bullet"><span class="dot">◾</span><span>
         Wells Fargo도 WFUSD 상표를 출원 — 미국 대형 은행의 스테이블코인 진출 신호. 전통 금융이 크립토 인프라를 "이용"하는 단계에서 "직접 만드는" 단계로 넘어가는 과정 <span class="note">(어차피 결제방식 대세 전환기, 빨리 올라타야 함)</span>
       </span></div>
-    <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/mastercard.html">마스터카드</a><span class="sep">·</span><a href="/wiki/binance.html">바이낸스</a><span class="sep">·</span><a href="/wiki/ripple.html">리플</a><span class="sep">·</span><a href="/wiki/paypal.html">페이팔</a><span class="sep">·</span><a href="/wiki/visa.html">비자(Visa)</a><span class="sep">·</span><a class="topic" href="/topics/crypto.html">크립토</a><span class="sep">·</span><a class="topic" href="/topics/banks-wallst.html">월가·은행</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0305-crypto.html#story-5" title="Visa도 같은 크립토 제휴 확대"><b>03-05</b> Visa·Stripe 스테이블코인 카드 글로벌 확대</a><span class="fw">Visa도 같은 크립토 제휴 확대</span></span><span class="flow"><a href="/newsletters/2026/0306-crypto.html#story-2" title="크립토의 전통금융 편입 같은 흐름"><b>03-06</b> Kraken, 연준 결제 시스템에 첫 발을 디딘 크립토</a><span class="fw">크립토의 전통금융 편입 같은 흐름</span></span></span></div></div></div>
+    <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">나온 것</span><span class="v"><a href="/wiki/mastercard.html">마스터카드</a><span class="sep">·</span><a href="/wiki/binance.html">바이낸스</a><span class="sep">·</span><a href="/wiki/ripple.html">리플</a><span class="sep">·</span><a href="/wiki/paypal.html">페이팔</a><span class="sep">·</span><a href="/topics/crypto.html">크립토</a></span></div><div class="row"><span class="k">같은 흐름</span><span class="v"><a href="/newsletters/2026/0305-crypto.html#story-5" title="Visa도 같은 크립토 제휴 확대"><b>03-05</b>Visa·Stripe 스테이블코인 카드 글로벌 확대</a></span></div><div class="row"><span class="k"></span><span class="v"><a href="/newsletters/2026/0306-crypto.html#story-2" title="크립토의 전통금융 편입 같은 흐름"><b>03-06</b>Kraken, 연준 결제 시스템에 첫 발을 디딘 크립토 기업</a></span></div></div></div>
   </div>
 
   <!-- STORY 3 -->
@@ -836,7 +827,7 @@ BTC $70K 유지하나 세이프헤이븐 서사 흔들림 — 브렌트 $100 돌
       <div class="bullet"><span class="dot">◾</span><span>
         Ripple은 $500억 밸류에이션으로 자사주 매입을 시작. 비상장 크립토 기업이 전통 기업의 자사주 매입 전략을 채택한 것은 시장 성숙의 또 다른 지표. 규제 명확성이 높아질수록 크립토 기업들의 행동 양식이 전통 기업에 수렴하는 패턴
       </span></div>
-    <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/sec.html">미국 SEC</a><span class="sep">·</span><a href="/wiki/cftc.html">미국 CFTC</a><span class="sep">·</span><a href="/wiki/ftc.html">FTC</a><span class="sep">·</span><a href="/wiki/polymarket.html">폴리마켓</a><span class="sep">·</span><a href="/wiki/tron.html">트론(TRX)</a><span class="sep">·</span><a class="topic" href="/topics/prediction-markets.html">예측시장</a><span class="sep">·</span><a class="topic" href="/topics/crypto.html">크립토</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0305-crypto.html#story-4" title="CFTC 크립토 정책의 또 다른 승인"><b>03-05</b> CFTC &quot;크립토 퍼페추얼 선물 곧 나온다&q</a><span class="fw">CFTC 크립토 정책의 또 다른 승인</span></span></span></div></div></div>
+    <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">나온 것</span><span class="v"><a href="/wiki/sec.html">미국 SEC</a><span class="sep">·</span><a href="/wiki/cftc.html">미국 CFTC</a><span class="sep">·</span><a href="/wiki/ftc.html">FTC</a><span class="sep">·</span><a href="/wiki/polymarket.html">폴리마켓</a><span class="sep">·</span><a href="/topics/prediction-markets.html">예측시장</a></span></div><div class="row"><span class="k">같은 흐름</span><span class="v"><a href="/newsletters/2026/0305-crypto.html#story-4" title="CFTC 크립토 정책의 또 다른 승인"><b>03-05</b>CFTC &quot;크립토 퍼페추얼 선물 곧 나온다&quot;</a></span></div></div></div>
   </div>
 
   <!-- STORY 4 -->
@@ -861,7 +852,7 @@ BTC $70K 유지하나 세이프헤이븐 서사 흔들림 — 브렌트 $100 돌
       <div class="bullet"><span class="dot">◾</span><span>
         프라임 브로커들도 월가에 이벤트 베팅 접근권을 제공하기 위한 경쟁에 돌입. 예측시장이 소매 투자자의 놀이터에서 기관 시장으로 진화하는 초기 단계 <span class="note">(모든 것의 금융화는 멈추지 않음)</span>
       </span></div>
-    <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/coinbase.html">코인베이스</a><span class="sep">·</span><a href="/wiki/nyse.html">뉴욕증권거래소</a><span class="sep">·</span><a href="/wiki/cme.html">CME</a><span class="sep">·</span><a href="/wiki/hyperliquid.html">하이퍼리퀴드</a><span class="sep">·</span><a href="/wiki/oil.html">원유</a><span class="sep">·</span><a class="topic" href="/topics/crypto.html">크립토</a><span class="sep">·</span><a class="topic" href="/topics/prediction-markets.html">예측시장</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0310-crypto.html#story-2" title="예측시장 성장세가 다각화 배경"><b>03-10</b> Kalshi·Polymarket, $200억짜리 베팅 </a><span class="fw">예측시장 성장세가 다각화 배경</span></span><span class="flow"><a href="/newsletters/2026/0305-crypto.html#story-4" title="규제 완화가 거래소 진입 열어줌"><b>03-05</b> CFTC &quot;크립토 퍼페추얼 선물 곧 나온다&q</a><span class="fw">규제 완화가 거래소 진입 열어줌</span></span></span></div></div></div>
+    <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">나온 것</span><span class="v"><a href="/wiki/coinbase.html">코인베이스</a><span class="sep">·</span><a href="/wiki/nyse.html">뉴욕증권거래소</a><span class="sep">·</span><a href="/wiki/cme.html">CME</a><span class="sep">·</span><a href="/wiki/hyperliquid.html">하이퍼리퀴드</a><span class="sep">·</span><a href="/topics/crypto.html">크립토</a></span></div><div class="row"><span class="k">같은 흐름</span><span class="v"><a href="/newsletters/2026/0310-crypto.html#story-2" title="예측시장 성장세가 다각화 배경"><b>03-10</b>Kalshi·Polymarket, $200억짜리 베팅 플랫폼</a></span></div><div class="row"><span class="k"></span><span class="v"><a href="/newsletters/2026/0305-crypto.html#story-4" title="규제 완화가 거래소 진입 열어줌"><b>03-05</b>CFTC &quot;크립토 퍼페추얼 선물 곧 나온다&quot;</a></span></div></div></div>
   </div>
 
   <!-- STORY 5 -->
@@ -886,7 +877,7 @@ BTC $70K 유지하나 세이프헤이븐 서사 흔들림 — 브렌트 $100 돌
       <div class="bullet"><span class="dot">◾</span><span>
         크립토와 전통 은행의 경계가 양방향에서 무너지는 중. Wells Fargo의 WFUSD 상표 출원, 모건스탠리의 크립토 커스터디 확대, 그리고 Revolut의 은행 라이선스 — 2026년은 "크립토가 은행이 되고, 은행이 크립토를 하는" 원년이 될 수 있음
       </span></div>
-    <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/jpmorgan.html">JP모건</a><span class="sep">·</span><a href="/wiki/goldman.html">골드만삭스</a><span class="sep">·</span><a href="/wiki/morgan-stanley.html">모건스탠리</a><span class="sep">·</span><a class="topic" href="/topics/banks-wallst.html">월가·은행</a><span class="sep">·</span><a class="topic" href="/topics/crypto.html">크립토</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0306-crypto.html#story-2" title="크립토기업의 전통금융 편입 다른 사례"><b>03-06</b> Kraken, 연준 결제 시스템에 첫 발을 디딘 크립토</a><span class="fw">크립토기업의 전통금융 편입 다른 사례</span></span><span class="flow"><a href="/newsletters/2026/0228-crypto.html#story-2" title="TradFi의 크립토 진입 반대 방향"><b>02-28</b> Morgan Stanley, 디지털자산 뱅킹 차터 신청</a><span class="fw">TradFi의 크립토 진입 반대 방향</span></span></span></div></div></div>
+    <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">나온 것</span><span class="v"><a href="/wiki/jpmorgan.html">JP모건</a><span class="sep">·</span><a href="/wiki/goldman.html">골드만삭스</a><span class="sep">·</span><a href="/wiki/morgan-stanley.html">모건스탠리</a><span class="sep">·</span><a href="/topics/banks-wallst.html">월가·은행</a></span></div><div class="row"><span class="k">같은 흐름</span><span class="v"><a href="/newsletters/2026/0306-crypto.html#story-2" title="크립토기업의 전통금융 편입 다른 사례"><b>03-06</b>Kraken, 연준 결제 시스템에 첫 발을 디딘 크립토 기업</a></span></div><div class="row"><span class="k"></span><span class="v"><a href="/newsletters/2026/0228-crypto.html#story-2" title="TradFi의 크립토 진입 반대 방향"><b>02-28</b>Morgan Stanley, 디지털자산 뱅킹 차터 신청 — TradFi 진입의 새로운 레벨</a></span></div></div></div>
   </div>
 
   </div><!-- /content -->

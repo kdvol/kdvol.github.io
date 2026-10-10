@@ -418,28 +418,19 @@
 <meta property="og:image:height" content="630"/>
 <meta name="twitter:card" content="summary_large_image"/>
 <style id="soonsal-story-links">
-/* 스토리 끝 — 다 읽은 사람만 본다. 본문 흐름을 끊지 않는다 */
-.story-links{margin:14px 0 0;padding:11px 0 0;border-top:1px solid #ece8e0;
-font-size:11.5px;line-height:1.8;color:#9a958a;word-break:keep-all}
-.story-links .k{color:#b5b0a4;margin-right:5px}
-.story-links a{color:#8a857c;text-decoration:none;border-bottom:1px solid #e6e1d8}
-.story-links a:hover{color:#C24A00;border-bottom-color:#C24A00}
-.story-links .sep{opacity:.4;margin:0 4px}
-/* 주제는 개별 이름이 아니라 묶음이다 — 테두리로 구분한다 */
-.story-links a.topic{border-bottom:0;padding:1px 7px;border-radius:999px;
-background:#f3efe8;color:#8a857c}
-.story-links a.topic:hover{background:#C24A00;color:#fff}
-.story-links .row + .row{margin-top:4px}
-/* 「같은 흐름」은 제목이 길어 한 줄에 하나씩 세운다. 라벨은 왼쪽에 고정 */
-.story-links .flows{display:flex;align-items:flex-start}
-.story-links .flow-list{display:flex;flex-direction:column;gap:2px;min-width:0}
-.story-links .flow{display:block;min-width:0}
-.story-links .flow a{display:inline-block;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;vertical-align:top}
-/* 왜 이어지는지 한 줄 — 폰에선 마우스를 못 올리니 글로 보여 준다 (KD 2026-10-10) */
-.story-links .fw{display:block;font-size:10.5px;line-height:1.5;color:#b5b0a4;margin:0 0 3px 33px}
-.story-links .flow b{font-weight:600;color:#b5b0a4;margin-right:3px}
-@media(max-width:560px){.story-links .flows{display:block}
-  .story-links .flow-list{margin-top:2px;padding-left:1px}}
+/* 스토리 끝 — 다 읽은 사람만 본다. 본문 흐름을 끊지 않는다.
+   ★ 간결하게 (KD 2026-10-10 「텍스트 너무 길고 난잡 — 줄을 무작위로 늘리지 말고」):
+     항목마다 **딱 한 줄**(넘치면 …), 라벨은 왼쪽 고정 칸, 밑줄·알약·이유 줄 없음 → 최대 3줄로 끝난다.
+     이어지는 이유는 링크에 마우스를 올리면(title) 보인다. */
+.story-links{margin:14px 0 0;padding:10px 0 0;border-top:1px solid #ece8e0;
+font-size:12px;line-height:1.75;color:#9a958a;word-break:keep-all}
+.story-links .row{display:flex;gap:10px;min-width:0}
+.story-links .k{flex:0 0 52px;color:#b5b0a4}
+.story-links .v{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.story-links a{color:#7d786f;text-decoration:none}
+.story-links a:hover{color:#C24A00;text-decoration:underline}
+.story-links .sep{color:#d3cec4;margin:0 5px}
+.story-links .v b{font-weight:600;color:#b5b0a4;margin-right:5px;font-variant-numeric:tabular-nums}
 </style>
 <!-- soonsal:story-fragments-style:start --><style>
 .ss-story-index{margin:0 0 34px;padding:21px 22px;border:1px solid #e8e8e0;
@@ -727,7 +718,7 @@ line-height:1.25;color:#fff;word-break:keep-all}
         <div class="bullet"><span class="dot">◾</span><span>시장은 바로 금리 인상 쪽으로 움직였음. 워시 연설 뒤 미국 2년물 국채금리는 +13bp, 10년물은 +5bp 상승 <span class="sub">(1bp=0.01%포인트)</span>. 단기금리인 2년물은 다음 연준 결정을, 장기금리인 10년물은 물가·성장·재정 부담을 함께 반영함. 금리가 오르면 성장주와 빚 많은 기업부터 부담. 이날 나스닥은 -0.52%, 중소형주 러셀2000은 -1.4%. 주가보다 채권시장이 먼저 워시의 속내를 읽은 셈</span></div>
         <div class="bullet"><span class="dot">◾</span><span>앞으로 연준 회의는 ‘힌트 맞히기’보다 시나리오 관리가 중요해짐. 워시는 금리 인상을 확정한 게 아니라, 데이터가 바뀌면 같이 태세전환할 명분을 미리 확보했음. 월가 입장에서 적응해야 할 건, 숫자 하나가 아니라 답안지를 덜 주겠다는 운영방식. 물가가 높게 남으면 금리 인상 가능성이 빠르게 커지고, 반대로 고용이 꺾이면 시장이 스스로 전망을 다시 짜야 함. 연준 인터뷰보다는 물가의 폭·고용·신용조건을 함께 봐야 하는 장</span></div>
       </div>
-    <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/fed.html">미국 연준</a><span class="sep">·</span><a href="/wiki/warsh.html">케빈 워시</a><span class="sep">·</span><a href="/wiki/nasdaq.html">나스닥</a><span class="sep">·</span><a class="topic" href="/topics/fed-rates.html">연준·금리</a><span class="sep">·</span><a class="topic" href="/topics/banks-wallst.html">월가·은행</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0526.html#story-1" title="같은 워시 체제의 전 단계"><b>05-26</b> 연준 워시 시대, 첫날부터 지뢰밭</a><span class="fw">같은 워시 체제의 전 단계</span></span><span class="flow"><a href="/newsletters/2026/0416.html#story-1" title="워시 지명이라는 기원 장면"><b>04-16</b> 트럼프, &quot;안 나가면 짤라버린다&quot;</a><span class="fw">워시 지명이라는 기원 장면</span></span></span></div></div></div><!-- STORY 2 -->    <div class="story" id="story-2" role="article" aria-labelledby="story-2-title" data-ss-story="0831-2" data-ss-issue="0831">
+    <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">나온 것</span><span class="v"><a href="/wiki/fed.html">미국 연준</a><span class="sep">·</span><a href="/wiki/warsh.html">케빈 워시</a><span class="sep">·</span><a href="/wiki/nasdaq.html">나스닥</a><span class="sep">·</span><a href="/topics/fed-rates.html">연준·금리</a></span></div><div class="row"><span class="k">같은 흐름</span><span class="v"><a href="/newsletters/2026/0526.html#story-1" title="같은 워시 체제의 전 단계"><b>05-26</b>연준 워시 시대, 첫날부터 지뢰밭</a></span></div><div class="row"><span class="k"></span><span class="v"><a href="/newsletters/2026/0416.html#story-1" title="워시 지명이라는 기원 장면"><b>04-16</b>트럼프, &quot;안 나가면 짤라버린다&quot;</a></span></div></div></div><!-- STORY 2 -->    <div class="story" id="story-2" role="article" aria-labelledby="story-2-title" data-ss-story="0831-2" data-ss-issue="0831">
       <span class="story-label">AI · MUSIC</span>
       <div class="story-title" id="story-2-title" role="heading" aria-level="2">🎵 AI 음악 전쟁, 삭제 대신 로열티표 짜는 중</div><a class="ss-story-permalink" href="#story-2" aria-label="2번 스토리 영구 링크">🔗 이 스토리 링크</a>
       <div class="story-body">
@@ -737,7 +728,7 @@ line-height:1.25;color:#fff;word-break:keep-all}
         <div class="bullet"><span class="dot">◾</span><span>AI가 히트 가능성을 먼저 증명하고, 돈 버는 상업판은 사람이 다시 만드는 사례도 등장. 크리에이터 빌 스티텔러가 가사를 쓰고 수노로 음악·보컬을 만든 「The Puerto Rico Song」이 SNS에서 틱톡에서 먼저 대박남. 이후 Xploded Music이 정식 발매하고 Universal Music Operations에 독점 라이선스. 실제 연주자·보컬로 곡 전체를 다시 녹음했고, 스포티파이 스트리밍도 2,000만회를 넘김</span></div>
         <div class="bullet"><span class="dot">◾</span><span>이 사례가 보여주는 건 AI가 사람을 통째로 없애기보다 음악 제작의 앞단을 바꿀 수 있다는 것. 처음부터 작곡가·가수·세션을 모아 완성곡을 찍는 대신, AI로 싼 데모를 먼저 던져 대중 반응부터 확인. 잘 먹힌 곡에만 사람·레이블·유통망이 붙어 상업판을 다시 만드는 구조. 예전엔 음반사 담당자가 데모를 듣고 감으로 골랐다면, 이제 AI 데모를 대중에게 던져 조회수로 히트 후보를 거르는 길까지 생긴 셈. AI가 데모+시장조사까지 맡는 구조</span></div>
       </div>
-      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/sony.html">소니</a><span class="sep">·</span><a class="topic" href="/topics/ai.html">AI</a><span class="sep">·</span><a class="topic" href="/topics/media-content.html">미디어·콘텐츠</a></div></div>
+      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">나온 것</span><span class="v"><a href="/wiki/sony.html">소니</a><span class="sep">·</span><a href="/topics/ai.html">AI</a></span></div></div>
     </div><!-- STORY 3 -->    <div class="story" id="story-3" role="article" aria-labelledby="story-3-title" data-ss-story="0831-3" data-ss-issue="0831">
       <span class="story-label">FINTECH · M&A</span>
       <div class="story-title" id="story-3-title" role="heading" aria-level="2">💳 페이팔 인수전, 일단 보류</div><a class="ss-story-permalink" href="#story-3" aria-label="3번 스토리 영구 링크">🔗 이 스토리 링크</a>
@@ -748,7 +739,7 @@ line-height:1.25;color:#fff;word-break:keep-all}
         <div class="bullet"><span class="dot">◾</span><span>페이팔 새 CEO가 꺼낸 해법은 먼저 살 빼기. 페이팔은 비용을 연간 4억달러씩 덜 쓰는 걸 연말까지의 목표로 하고, 하반기에 전환 비용 1.2억~1.4억달러를 반영할 예정. 2분기 영업이익은 -5%, 영업이익률도 18.1%에서 16.4%로 하락했음. 비용은 줄이되 상당 부분을 성장사업에 다시 넣는 계획. HP출신의 새 CEO는, 3월 취임 후 사업을 체크아웃·소비자금융/벤모·결제서비스/크립토 3축으로 다시 짰음</span></div>
         <div class="bullet"><span class="dot">◾</span><span>이제 페이팔 주가는 ‘누가 사줄까’가 아니라 ‘혼자서 다시 클 수 있나’로 평가받음. 거래액 증가를 매출·마진으로 바꾸고, 벤모를 단순 송금앱보다 돈 되는 결제수단으로 키워야 함. 대형 인수는 실패했지만 현금창출력과 4억개 넘는 계정은 남아 있음. 문제는 자산이 아니라 실행 속도. 다음 분기부터 볼 숫자는 인수설이 붙인 가격이 아니라, 계정당 거래·거래마진·비용 절감이 함께 좋아지는지 여부 <span class="note">(근데 솔직히 수수료가 너무 비쌈)</span></span></div>
       </div>
-      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/paypal.html">페이팔</a><span class="sep">·</span><a href="/wiki/stripe.html">스트라이프</a><span class="sep">·</span><a href="/wiki/apple.html">애플</a><span class="sep">·</span><a href="/wiki/visa.html">비자(Visa)</a><span class="sep">·</span><a class="topic" href="/topics/deals.html">딜·M&amp;A</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0716.html#story-2" title="인수 제안 자체가 이 보류의 전신"><b>07-16</b> 스트라이프가 페이팔을 집어삼키려는 이유</a><span class="fw">인수 제안 자체가 이 보류의 전신</span></span></span></div></div>
+      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">나온 것</span><span class="v"><a href="/wiki/paypal.html">페이팔</a><span class="sep">·</span><a href="/wiki/stripe.html">스트라이프</a><span class="sep">·</span><a href="/wiki/apple.html">애플</a><span class="sep">·</span><a href="/wiki/visa.html">비자(Visa)</a><span class="sep">·</span><a href="/topics/deals.html">딜·M&amp;A</a></span></div><div class="row"><span class="k">같은 흐름</span><span class="v"><a href="/newsletters/2026/0716.html#story-2" title="인수 제안 자체가 이 보류의 전신"><b>07-16</b>스트라이프가 페이팔을 집어삼키려는 이유</a></span></div></div>
     </div><!-- STORY 4 -->    <div class="story" id="story-4" role="article" aria-labelledby="story-4-title" data-ss-story="0831-4" data-ss-issue="0831">
       <span class="story-label">FOOD · REGULATION</span>
       <div class="story-title" id="story-4-title" role="heading" aria-level="2">🌈 칙칙해서 욕먹었던 천연색 시리얼, 강제 재도전</div><a class="ss-story-permalink" href="#story-4" aria-label="4번 스토리 영구 링크">🔗 이 스토리 링크</a>
@@ -759,7 +750,7 @@ line-height:1.25;color:#fff;word-break:keep-all}
         <div class="bullet"><span class="dot">◾</span><span>제너럴밀스는 현재 미국 소매제품의 90%에서 인공색소를 없앴고, 경쟁사 WK켈로그도 프루트룹스·애플잭스까지 같은 방향. 이제 어려운 건 빼는 것보다 똑같이 보이게 만드는 일. 합성색소는 싸고 선명한 데다 오래 버티지만, 과일·채소에서 뽑은 색은 열·빛·산도에 따라 흐려지거나 색이 달라질 수 있음. 결국 시리얼 한 알의 색을 바꾸는 일이 원료만 교체하는 게 아니라 배합·생산·보관까지 다시 맞추는 식품공학 숙제가 됨</span></div>
         <div class="bullet"><span class="dot">◾</span><span>관건은 천연색 전환 자체보다, 예전처럼 색깔 때문에 팬을 둘로 갈라놓지 않는 것. 2016년 자연색 트릭스도 판매는 기대를 웃돌았지만, 원래의 쨍한 색을 찾는 고객이 남아 결국 클래식 버전까지 다시 내놨음. 이번엔 대형마트와 규제까지 같은 방향이라 두 버전을 오래 끌고 가기도 어려움. 맛·색은 최대한 그대로 두면서 원료와 생산방식만 바꾸는 게 숙제. 결국 건강 이미지보다 소비자가 매대에서 “원래 먹던 거랑 똑같네”라고 느끼게 만드는지가 승부처</span></div>
       </div>
-      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/walmart.html">월마트</a><span class="sep">·</span><a href="/wiki/apple.html">애플</a><span class="sep">·</span><a class="topic" href="/topics/healthcare.html">헬스케어·제약</a></div></div>
+      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">나온 것</span><span class="v"><a href="/wiki/walmart.html">월마트</a><span class="sep">·</span><a href="/wiki/apple.html">애플</a><span class="sep">·</span><a href="/topics/healthcare.html">헬스케어·제약</a></span></div></div>
     </div><!-- STORY 5 -->    <div class="story" id="story-5" role="article" aria-labelledby="story-5-title" data-ss-story="0831-5" data-ss-issue="0831">
       <span class="story-label">ENERGY · GEOPOLITICS</span>
       <div class="story-title" id="story-5-title" role="heading" aria-level="2">🛢️ 일단 던지고 보는 역사상 최대 석유딜</div><a class="ss-story-permalink" href="#story-5" aria-label="5번 스토리 영구 링크">🔗 이 스토리 링크</a>
@@ -770,7 +761,7 @@ line-height:1.25;color:#fff;word-break:keep-all}
         <div class="bullet"><span class="dot">◾</span><span>양국이 제시한 그림은 투자 1,000억달러와 베네수엘라 세수 2,090억달러. 미국도 급함. 이란 전쟁 뒤 호르무즈 원유 운송이 줄면서 휘발유 평균은 갤런당 4.09달러, 1년 전 3.21달러보다 높아졌음. 전략비축유는 연초보다 1억배럴 넘게 줄어 3억배럴 아래. 당장 꺼내 쓸 원유가 부족하니, 장기 개발권까지 묶어 공급원을 확보해야 하는 상황. 외교 합의가 에너지 안보 계약으로 바로 이어진 배경</span></div>
         <div class="bullet"><span class="dot">◾</span><span>유가에 당장 미치는 영향은 제한적. 650억배럴은 개발 잠재력이고, 실제 생산 확대엔 자본·기술·정치적 신뢰가 모두 필요함. 미국 석유회사들이 들어가도 중질유를 처리할 정유시설과 운송망을 다시 맞춰야 함. 투자자 입장에선 발표 규모보다 첫 투자금이 언제 들어가고 생산량이 얼마나 늘어나는지를 봐야 함. 이번 거래가 바꾼 건 오늘 공급량보다, 미국이 베네수엘라 원유를 장기 공급망 안으로 다시 끌어들였다는 점</span></div>
       </div>
-    <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/trump.html">트럼프</a><span class="sep">·</span><a href="/wiki/oil.html">원유</a><span class="sep">·</span><a href="/wiki/bok.html">한국은행</a><span class="sep">·</span><a href="/wiki/exxon.html">엑슨모빌</a><span class="sep">·</span><a class="topic" href="/topics/energy.html">에너지·원자재</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0304.html#story-1" title="트럼프 오일 지정학 레버리지 전편"><b>03-04</b> &quot;Whatever It Takes&quot; </a><span class="fw">트럼프 오일 지정학 레버리지 전편</span></span><span class="flow"><a href="/newsletters/2026/0323.html#story-1" title="같은 트럼프식 원유 압박 패턴"><b>03-23</b> 트럼프, 이란에 48시간 최후통첩</a><span class="fw">같은 트럼프식 원유 압박 패턴</span></span></span></div></div></div>
+    <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">나온 것</span><span class="v"><a href="/wiki/trump.html">트럼프</a><span class="sep">·</span><a href="/wiki/oil.html">원유</a><span class="sep">·</span><a href="/wiki/bok.html">한국은행</a><span class="sep">·</span><a href="/wiki/exxon.html">엑슨모빌</a><span class="sep">·</span><a href="/topics/energy.html">에너지·원자재</a></span></div><div class="row"><span class="k">같은 흐름</span><span class="v"><a href="/newsletters/2026/0304.html#story-1" title="트럼프 오일 지정학 레버리지 전편"><b>03-04</b>&quot;Whatever It Takes&quot; — 유가 $84 급등 뒤에 숨은 진짜 위험</a></span></div><div class="row"><span class="k"></span><span class="v"><a href="/newsletters/2026/0323.html#story-1" title="같은 트럼프식 원유 압박 패턴"><b>03-23</b>트럼프, 이란에 48시간 최후통첩</a></span></div></div></div>
 
 <!-- /content -->
   </div><!-- DEAL -->

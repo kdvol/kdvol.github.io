@@ -453,28 +453,19 @@ transition:color .18s ease,background .18s ease}
 }
 </style>
 <style id="soonsal-story-links">
-/* 스토리 끝 — 다 읽은 사람만 본다. 본문 흐름을 끊지 않는다 */
-.story-links{margin:14px 0 0;padding:11px 0 0;border-top:1px solid #ece8e0;
-font-size:11.5px;line-height:1.8;color:#9a958a;word-break:keep-all}
-.story-links .k{color:#b5b0a4;margin-right:5px}
-.story-links a{color:#8a857c;text-decoration:none;border-bottom:1px solid #e6e1d8}
-.story-links a:hover{color:#C24A00;border-bottom-color:#C24A00}
-.story-links .sep{opacity:.4;margin:0 4px}
-/* 주제는 개별 이름이 아니라 묶음이다 — 테두리로 구분한다 */
-.story-links a.topic{border-bottom:0;padding:1px 7px;border-radius:999px;
-background:#f3efe8;color:#8a857c}
-.story-links a.topic:hover{background:#C24A00;color:#fff}
-.story-links .row + .row{margin-top:4px}
-/* 「같은 흐름」은 제목이 길어 한 줄에 하나씩 세운다. 라벨은 왼쪽에 고정 */
-.story-links .flows{display:flex;align-items:flex-start}
-.story-links .flow-list{display:flex;flex-direction:column;gap:2px;min-width:0}
-.story-links .flow{display:block;min-width:0}
-.story-links .flow a{display:inline-block;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;vertical-align:top}
-/* 왜 이어지는지 한 줄 — 폰에선 마우스를 못 올리니 글로 보여 준다 (KD 2026-10-10) */
-.story-links .fw{display:block;font-size:10.5px;line-height:1.5;color:#b5b0a4;margin:0 0 3px 33px}
-.story-links .flow b{font-weight:600;color:#b5b0a4;margin-right:3px}
-@media(max-width:560px){.story-links .flows{display:block}
-  .story-links .flow-list{margin-top:2px;padding-left:1px}}
+/* 스토리 끝 — 다 읽은 사람만 본다. 본문 흐름을 끊지 않는다.
+   ★ 간결하게 (KD 2026-10-10 「텍스트 너무 길고 난잡 — 줄을 무작위로 늘리지 말고」):
+     항목마다 **딱 한 줄**(넘치면 …), 라벨은 왼쪽 고정 칸, 밑줄·알약·이유 줄 없음 → 최대 3줄로 끝난다.
+     이어지는 이유는 링크에 마우스를 올리면(title) 보인다. */
+.story-links{margin:14px 0 0;padding:10px 0 0;border-top:1px solid #ece8e0;
+font-size:12px;line-height:1.75;color:#9a958a;word-break:keep-all}
+.story-links .row{display:flex;gap:10px;min-width:0}
+.story-links .k{flex:0 0 52px;color:#b5b0a4}
+.story-links .v{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.story-links a{color:#7d786f;text-decoration:none}
+.story-links a:hover{color:#C24A00;text-decoration:underline}
+.story-links .sep{color:#d3cec4;margin:0 5px}
+.story-links .v b{font-weight:600;color:#b5b0a4;margin-right:5px;font-variant-numeric:tabular-nums}
 </style>
 <!-- soonsal:story-fragments-style:start --><style>
 .ss-story-index{margin:0 0 34px;padding:21px 22px;border:1px solid #e8e8e0;
@@ -778,7 +769,7 @@ line-height:1.25;color:#fff;word-break:keep-all}
       <div class="tradfi-label">🏦 전통 금융 대비 현재 위치</div>
       전통 금융에서 S&P 500이 6개월 연속 하락한 건 2008년 금융위기 때가 마지막. BTC가 이 기록을 피하느냐 마느냐는 단순한 숫자 이상 — 기관 투자자들이 크립토의 사이클 구조를 어떻게 읽는지에 영향을 줌. 6개월 연속 적자면 "반감기 사이클 무효" 내러티브가 강해질 수 있음
     </div>
-  <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/bitcoin.html">비트코인</a><span class="sep">·</span><a href="/wiki/trump.html">트럼프</a><span class="sep">·</span><a href="/wiki/sp500.html">S&amp;P 500</a><span class="sep">·</span><a class="topic" href="/topics/crypto.html">크립토</a><span class="sep">·</span><a class="topic" href="/topics/trump-politics.html">트럼프·정책</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0323.html#story-1" title="BTC 급락 배경이 된 최후통첩 긴장"><b>03-23</b> 트럼프, 이란에 48시간 최후통첩</a><span class="fw">BTC 급락 배경이 된 최후통첩 긴장</span></span><span class="flow"><a href="/newsletters/2026/0302-crypto.html#story-1" title="디지털골드 서사 붕괴의 시작점"><b>03-02</b> 이란 공습과 BTC — &quot;디지털 골드&quot</a><span class="fw">디지털골드 서사 붕괴의 시작점</span></span></span></div></div></div>
+  <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">나온 것</span><span class="v"><a href="/wiki/bitcoin.html">비트코인</a><span class="sep">·</span><a href="/wiki/trump.html">트럼프</a><span class="sep">·</span><a href="/wiki/sp500.html">S&amp;P 500</a><span class="sep">·</span><a href="/topics/crypto.html">크립토</a></span></div><div class="row"><span class="k">같은 흐름</span><span class="v"><a href="/newsletters/2026/0323.html#story-1" title="BTC 급락 배경이 된 최후통첩 긴장"><b>03-23</b>트럼프, 이란에 48시간 최후통첩</a></span></div><div class="row"><span class="k"></span><span class="v"><a href="/newsletters/2026/0302-crypto.html#story-1" title="디지털골드 서사 붕괴의 시작점"><b>03-02</b>이란 공습과 BTC — &quot;디지털 골드&quot;는 전쟁 앞에서 위험자산으로 판별</a></span></div></div></div>
 </div>
 
 <div class="story" id="story-2" role="article" aria-labelledby="story-2-title" data-ss-story="0324c-2" data-ss-issue="0324c">
@@ -807,7 +798,7 @@ line-height:1.25;color:#fff;word-break:keep-all}
     <div class="bullet"><span class="dot">◾</span><span><strong>Ecolab</strong>, AI 데이터센터 냉각 전문업체 CoolIT Systems를 47.5억불에 인수 — KKR이 2023년에 2.7억불에 산 걸 17배에 되판 셈 (<a href="https://www.businesswire.com/news/home/20260319353197/en/Ecolab-to-Acquire-CoolIT-Systems-a-Global-Leader-in-Advanced-Liquid-Cooling-for-Next-Gen-AI-Data-Centers" style="color:#888;font-size:12px;">BusinessWire</a>)</span></div>
     <div class="bullet"><span class="dot">◾</span><span><strong>Blue Pool Capital</strong> <span class="sub">(알리바바 연계 홍콩 패밀리오피스)</span>, 첫 PE 펀드로 10억불 조성 (<a href="https://www.bloomberg.com/news/articles/2026-03-23/alibaba-linked-blue-pool-raises-1-billion-for-first-pe-fund" style="color:#888;font-size:12px;">BBG</a>)</span></div>
     <div class="bullet"><span class="dot">◾</span><span><strong>Coatue Management</strong>, AI·테크 롱 바이어스 크로스오버 펀드 신규 런칭 계획 — 퍼블릭+프라이빗 AI 기업 동시 베팅</span></div>
-  <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/larry-fink.html">래리 핑크</a><span class="sep">·</span><a href="/wiki/blackrock.html">블랙록</a><span class="sep">·</span><a href="/wiki/oil.html">원유</a><span class="sep">·</span><a href="/wiki/trump.html">트럼프</a><span class="sep">·</span><a href="/wiki/sp500.html">S&amp;P 500</a><span class="sep">·</span><a class="topic" href="/topics/crypto.html">크립토</a><span class="sep">·</span><a class="topic" href="/topics/etf-funds.html">ETF·펀드</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0323-crypto.html#story-3" title="UBIFO 수익모델과 맞물리는 스테이킹ETF"><b>03-23</b> BlackRock 스테이킹 ETF, ETH 게임체인저?</a><span class="fw">UBIFO 수익모델과 맞물리는 스테이킹ETF</span></span><span class="flow"><a href="/newsletters/2026/0309.html#story-5" title="블랙록 유동성 리스크의 다른 사례"><b>03-09</b> 블랙록이 출금을 막았다는 의미</a><span class="fw">블랙록 유동성 리스크의 다른 사례</span></span></span></div></div></div>
+  <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">나온 것</span><span class="v"><a href="/wiki/larry-fink.html">래리 핑크</a><span class="sep">·</span><a href="/wiki/blackrock.html">블랙록</a><span class="sep">·</span><a href="/wiki/oil.html">원유</a><span class="sep">·</span><a href="/wiki/trump.html">트럼프</a><span class="sep">·</span><a href="/topics/crypto.html">크립토</a></span></div><div class="row"><span class="k">같은 흐름</span><span class="v"><a href="/newsletters/2026/0323-crypto.html#story-3" title="UBIFO 수익모델과 맞물리는 스테이킹ETF"><b>03-23</b>BlackRock 스테이킹 ETF, ETH 게임체인저?</a></span></div><div class="row"><span class="k"></span><span class="v"><a href="/newsletters/2026/0309.html#story-5" title="블랙록 유동성 리스크의 다른 사례"><b>03-09</b>블랙록이 출금을 막았다는 의미</a></span></div></div></div>
 </div>
 
 <!-- HEADLINE ROUNDUP -->
