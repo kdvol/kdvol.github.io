@@ -93,6 +93,9 @@
   var st=document.createElement('style');st.id='ss-subc-css';st.textContent=
       '.ss-subc{margin:22px 0;padding:18px 18px 14px;border-radius:14px;background:#FFF4EC;border:1px solid #F7D3BE;color:#3a2f27;'+
       'font-family:Pretendard,-apple-system,BlinkMacSystemFont,sans-serif;line-height:1.55;box-sizing:border-box;text-align:left}'+
+      /* 페이지 쪽 같은 이름 클래스(.d 날짜·.t 등)가 새어 들지 않게 — 위키 .d 의 nowrap 이 설명 줄을 잘랐다 */
+      '.ss-subc div,.ss-subc span,.ss-subc label,.ss-subc b,.ss-subc summary{white-space:normal;padding-top:0;font-variant-numeric:normal}'+
+      '.ss-subc .d{display:block;text-align:left}'+
       '.ss-subc *{box-sizing:border-box}.ss-subc b.t{display:block;font-size:16.5px;font-weight:800;color:#1f1a16;letter-spacing:-.02em}'+
       '.ss-subc .d{font-size:13px;color:#7a6a5c;margin:3px 0 11px}'+
       '.ss-subc .fl{display:block;font-size:13px;font-weight:700;color:#3a2f27;margin:12px 0 5px}.ss-subc .fl i{color:#E55A00;font-style:normal;margin-left:2px}'+
