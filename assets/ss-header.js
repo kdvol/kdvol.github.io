@@ -14,11 +14,11 @@
   //   window.ssCan(x, y, {big}) · window.ssCanAt(el, {big}). 움직임 줄이기 설정이면 아무것도 안 한다.
   // 로고 그대로 — 통조림은 로고의 검정 캔(어두운 화면에선 흰 로고 버전), 물고기는 로고 연어색 #F88C62 + 단순한 표정 (KD 2026-10-11)
   var FC='#F88C62',INK='#1a1a1a';
-  function fishSvg(mood){
+  function fishSvg(mood,W){W=W||40;
     var face=mood===1?'<path d="M29.3 8.6q1.9-2.3 3.8 0" fill="none" stroke="'+INK+'" stroke-width="1.5" stroke-linecap="round"/><path d="M33.6 12.2q1.6 1.5 3.2 0" fill="none" stroke="'+INK+'" stroke-width="1.3" stroke-linecap="round"/>'
       :mood===2?'<circle cx="31.2" cy="8.2" r="2.5" fill="#fff"/><circle cx="31.6" cy="8.2" r="1.35" fill="'+INK+'"/><ellipse cx="35.3" cy="12.4" rx="1.2" ry="1.5" fill="'+INK+'"/>'
       :'<circle cx="31.2" cy="8.4" r="2.4" fill="#fff"/><circle cx="31.7" cy="8.6" r="1.3" fill="'+INK+'"/><path d="M33.4 12.3q1.7 1.4 3.4 0" fill="none" stroke="'+INK+'" stroke-width="1.3" stroke-linecap="round"/>';
-    return '<svg viewBox="0 0 40 20" width="40" height="20" style="display:block;overflow:visible">'+
+    return '<svg viewBox="0 0 40 20" width="'+W+'" height="'+(W/2)+'" style="display:block;overflow:visible">'+
       '<path d="M9.5 10C3.6 3 1.8 2.6 1 3.3c1.6 2.2 2.4 4.4 2.4 6.7S2.6 14.5 1 16.7c.8.7 2.6.3 8.5-6.7z" fill="'+FC+'"/>'+
       '<path d="M7.5 10C14 .8 31 .4 38.6 10 31 19.6 14 19.2 7.5 10z" fill="'+FC+'"/>'+
       '<ellipse cx="27" cy="12.6" rx="2" ry="1.2" fill="#ff6a55" opacity=".45"/>'+face+'</svg>';
@@ -62,12 +62,14 @@
       {transform:'scale('+sc+') rotate(-4deg)',offset:.22},{transform:'scale('+sc+') rotate(2deg)',offset:.26},{transform:'scale('+sc+') rotate(0)',offset:.29},
       {transform:'scale('+sc+') translate(-2px,-6px) rotate(-62deg)',offset:.34},{transform:'scale('+sc+') translate(-2px,-6px) rotate(-48deg)',offset:.4},
       {transform:'scale('+sc+') translate(-2px,-6px) rotate(-52deg)',opacity:1,offset:.8},{transform:'scale('+sc*.5+') translateY(22px) rotate(-52deg)',opacity:0}],T,0,'ease-out');
-    var n=big?9:6,g=1600;
+    var n=big?8:5,g=1600;
     for(var i=0;i<n;i++)(function(i){
       // 3겹: 경로(pos) · 방향·회전(rot) · 몸짓(body: 움찔·찌그러짐·꼬리 파닥)
       var pos=document.createElement('div'),rot=document.createElement('div'),body=document.createElement('div');
-      pos.style.cssText='position:absolute;left:0;top:0';rot.style.cssText='position:absolute;left:-20px;top:-10px;transform-origin:20px 10px';
-      body.style.cssText='transform-origin:12px 10px';body.innerHTML=fishSvg(i%3);
+      // 표정이 보이게 크게 — 보통 54px, 큰 버전 62px
+      var FW=big?62:54;
+      pos.style.cssText='position:absolute;left:0;top:0';rot.style.cssText='position:absolute;left:-'+(FW/2)+'px;top:-'+(FW/4)+'px;transform-origin:'+(FW/2)+'px '+(FW/4)+'px';
+      body.style.cssText='transform-origin:'+(FW*.3)+'px '+(FW/4)+'px';body.innerHTML=fishSvg(i%3,FW);
       rot.appendChild(body);pos.appendChild(rot);fishes.appendChild(pos);
       var spread=n>1?(i/(n-1)-.5)*2:0,vx=(spread*150+(Math.random()*50-25))*(big?1.45:1),vy=-(380+Math.random()*180)*(big?1.2:1);
       var peek=380+Math.random()*120,launch=600+i*40+Math.random()*60,fly=950+Math.random()*350,end=launch+fly;
