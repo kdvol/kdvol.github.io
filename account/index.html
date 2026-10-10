@@ -54,6 +54,15 @@ h2 .more{float:right;font-size:.8rem;font-weight:700;color:#F59B75;text-decorati
 .srow input{width:20px;height:20px;flex:0 0 auto;accent-color:#F07040}
 .srow.end{justify-content:flex-start;gap:8px;cursor:default}
 #link:not(:empty){padding:14px 0 8px}
+.tabs{position:sticky;top:0;z-index:5;display:flex;gap:4px;margin:20px -18px 16px;padding:0 14px;background:#111;
+border-bottom:1px solid #262626;overflow-x:auto;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tabs button{flex:1 0 auto;background:none;border:0;border-bottom:2px solid transparent;margin-bottom:-1px;padding:13px 8px 11px;
+font:700 14px/1 inherit;font-family:inherit;color:#8b8578;cursor:pointer;white-space:nowrap;min-height:0!important}
+.tabs button[aria-selected=true]{color:#f0ece4;border-bottom-color:#F07040}
+.tabs em{font-style:normal;font-weight:700;font-size:12px;color:#6f695f;margin-left:5px}
+.tabs em.new{background:#F07040;color:#12100e;border-radius:9px;padding:1px 6px}
+.tph{display:flex;justify-content:flex-end;margin:0 0 10px}.tph .more{font-size:.84rem;font-weight:700;color:#F59B75;text-decoration:none}
 
 
 .logo-link{display:flex;align-items:center;gap:10px;text-decoration:none;color:#fff}
@@ -332,15 +341,22 @@ transition:color .18s ease,background .18s ease}
 </div>
 <div id="member" hidden>
  <div class="card row"><div id="who"></div><button class="ghost" id="nickbtn">별명 바꾸기</button></div>
- <h2 id="notices">🔔 알림</h2>
- <div id="nts"><div class="card">불러오는 중…</div></div>
- <h2 id="saved">🐟 내가 모은 글</h2>
- <div id="list"><div class="card">불러오는 중…</div></div>
- <h2 id="comments">💬 내가 남긴 댓글 <a class="more" href="/talk/">순살톡 가기 →</a></h2>
- <div id="mcs"><div class="card">불러오는 중…</div></div>
- <h2 id="follows">📌 팔로우 <a class="more" href="/topics/">주제·회사 찾기 →</a></h2>
- <div id="fls"><div class="card">불러오는 중…</div></div>
- <h2 id="settings">설정</h2>
+ <!-- 탭으로 나눈다 (KD 2026-10-10 「다른 종류의 데이터가 위에서부터 줄줄이 — 아래 것은 찾기 어렵다」):
+      다시 찾아와 보는 것(알림·모은 글·댓글·팔로우)이 앞, 한 번 정하면 끝인 설정은 맨 끝 탭. 주소 #saved 등으로 바로 열린다 -->
+ <nav class="tabs" id="tabs" role="tablist">
+  <button role="tab" data-t="notices">알림<em id="c-notices"></em></button>
+  <button role="tab" data-t="saved">모은 글<em id="c-saved"></em></button>
+  <button role="tab" data-t="comments">댓글<em id="c-comments"></em></button>
+  <button role="tab" data-t="follows">팔로우<em id="c-follows"></em></button>
+  <button role="tab" data-t="settings">설정</button>
+ </nav>
+ <section class="tp" id="notices" role="tabpanel"><div id="nts"><div class="card">불러오는 중…</div></div></section>
+ <section class="tp" id="saved" role="tabpanel" hidden><div id="list"><div class="card">불러오는 중…</div></div></section>
+ <section class="tp" id="comments" role="tabpanel" hidden><div class="tph"><a class="more" href="/talk/">순살톡 가기 →</a></div>
+  <div id="mcs"><div class="card">불러오는 중…</div></div></section>
+ <section class="tp" id="follows" role="tabpanel" hidden><div class="tph"><a class="more" href="/topics/">주제·회사 찾기 →</a></div>
+  <div id="fls"><div class="card">불러오는 중…</div></div></section>
+ <section class="tp" id="settings" role="tabpanel" hidden>
  <div class="card set">
   <label class="srow" id="mail"><span><b>답글 메일</b><small>내 댓글에 답글이 달리면 이메일로</small></span>
    <input type="checkbox" id="mailcb"></label>
@@ -349,10 +365,11 @@ transition:color .18s ease,background .18s ease}
   <div id="link"></div>
   <div class="srow end"><button class="ghost" id="logout">로그아웃</button><button class="ghost warn" id="del">탈퇴하기</button></div>
  </div>
+ </section>
 </div>
 </div>
 <script src="/soonsal.js" defer></script>
-<script>var FN={"e:nvidia": "엔비디아", "e:tsmc": "TSMC", "e:samsung": "삼성전자", "e:sk-hynix": "SK하이닉스", "e:intel": "인텔", "e:amd": "AMD", "e:qualcomm": "퀄컴", "e:asml": "ASML", "e:apple": "애플", "e:google": "구글", "e:amazon": "아마존", "e:meta": "메타", "e:microsoft": "마이크로소프트", "e:netflix": "넷플릭스", "e:openai": "오픈AI", "e:anthropic": "앤스로픽", "e:palantir": "팔란티어", "e:softbank": "소프트뱅크", "e:alibaba": "알리바바", "e:tencent": "텐센트", "e:byd": "BYD", "e:tesla": "테슬라", "e:spacex": "스페이스X", "e:blue-origin": "블루오리진", "e:boeing": "보잉", "e:stripe": "스트라이프", "e:jpmorgan": "JP모건", "e:goldman": "골드만삭스", "e:morgan-stanley": "모건스탠리", "e:blackrock": "블랙록", "e:berkshire": "버크셔", "e:coinbase": "코인베이스", "e:binance": "바이낸스", "e:kraken": "크라켄", "e:circle": "서클(Circle)", "e:microstrategy": "마이크로스트래티지", "e:jensen-huang": "젠슨 황", "e:musk": "일론 머스크", "e:powell": "제롬 파월", "e:trump": "트럼프", "e:bezos": "제프 베조스", "e:masayoshi-son": "손정의", "e:tim-cook": "팀 쿡", "e:nadella": "사티아 나델라", "e:buffett": "워런 버핏", "e:sam-altman": "샘 알트먼", "e:zuckerberg": "저커버그", "e:xi-jinping": "시진핑", "e:bitcoin": "비트코인", "e:ethereum": "이더리움", "e:solana": "솔라나", "e:xrp": "리플(XRP)", "e:gold": "금", "e:oil": "원유", "e:dollar": "달러(환율)", "e:yen": "엔화", "e:fed": "미국 연준", "e:ecb": "유럽중앙은행", "e:boj": "일본은행", "e:bok": "한국은행", "e:sec": "미국 SEC", "e:opec": "OPEC", "e:nasdaq": "나스닥", "e:sp500": "S&P 500", "e:kospi": "코스피", "e:visa": "비자(Visa)", "e:mastercard": "마스터카드", "e:amex": "아메리칸익스프레스", "e:paypal": "페이팔", "e:robinhood": "로빈후드", "e:polymarket": "폴리마켓", "e:kalshi": "칼시(Kalshi)", "e:ftx": "FTX", "e:hyperliquid": "하이퍼리퀴드", "e:world-liberty": "월드리버티(WLFI)", "e:tron": "트론(TRX)", "e:fidelity": "피델리티", "e:oracle": "오라클", "e:broadcom": "브로드컴", "e:micron": "마이크론", "e:cisco": "시스코", "e:ibm": "IBM", "e:apollo": "아폴로글로벌", "e:blackstone": "블랙스톤", "e:kkr": "KKR", "e:citadel": "시타델", "e:eli-lilly": "일라이릴리", "e:nike": "나이키", "e:disney": "디즈니", "e:walmart": "월마트", "e:costco": "코스트코", "e:starbucks": "스타벅스", "e:uber": "우버", "e:shopify": "쇼피파이", "e:telegram": "텔레그램", "e:twitter-x": "트위터(X)", "e:naver": "네이버", "e:kakao": "카카오", "e:hyundai": "현대차", "e:kia": "기아", "e:lg-energy": "LG에너지솔루션", "e:sbf": "샘 뱅크먼-프리드(SBF)", "e:dimon": "제이미 다이먼", "e:biden": "조 바이든", "e:cz": "창펑 자오(CZ)", "e:vitalik": "비탈릭 부테린", "e:tether": "테더(USDT)", "e:cftc": "미국 CFTC", "e:cme": "CME", "e:nyse": "뉴욕증권거래소", "e:occ": "미국 OCC", "e:fdic": "미국 FDIC", "e:bis": "국제결제은행(BIS)", "e:world-bank": "세계은행", "e:imf": "IMF", "e:coreweave": "코어위브", "e:dtcc": "DTCC(예탁결제)", "e:swift": "SWIFT(국제결제망)", "e:block-inc": "블록(Block/캐시앱)", "e:riot": "라이엇 플랫폼", "e:ford": "포드", "e:gm": "제너럴모터스(GM)", "e:comcast": "컴캐스트", "e:warner": "워너브라더스디스커버리", "e:paramount": "파라마운트", "e:gamestop": "게임스탑", "e:ebay": "이베이", "e:aramco": "아람코", "e:nio": "니오", "e:ferrari": "페라리", "e:sofi": "소파이", "e:pdd": "핀둬둬(PDD)", "e:sony": "소니", "e:lockheed": "록히드마틴", "e:cocacola": "코카콜라", "e:jd": "징둥(JD)", "e:exxon": "엑슨모빌", "e:klarna": "클라르나", "e:doordash": "도어대시", "e:lyft": "리프트", "e:honda": "혼다", "e:pg": "프록터앤갬블", "e:hilton": "힐튼", "e:michael-burry": "마이클 버리", "e:michael-saylor": "마이클 세일러", "e:cathie-wood": "캐시 우드", "e:brian-armstrong": "브라이언 암스트롱", "e:larry-fink": "래리 핑크", "e:bill-ackman": "빌 애크먼", "e:peter-thiel": "피터 틸", "e:marc-andreessen": "마크 안드레센", "e:ark-invest": "아크 인베스트", "e:ice": "인터콘티넨탈거래소", "e:bofa": "뱅크오브아메리카", "e:fifa": "국제축구연맹", "e:vix": "VIX지수", "e:ripple": "리플", "e:iren": "아이렌", "e:iea": "국제에너지기구", "e:arm": "암홀딩스", "e:simon-property": "사이먼 프로퍼티", "e:millennium": "밀레니엄 매니지먼트", "e:mansour": "만수르", "e:tdk": "TDK", "e:samsung-electro-mechanics": "삼성전기", "e:mcdonalds": "맥도날드", "e:allbirds": "올버즈", "e:fca": "영국 금융행위감독청", "e:pjm": "PJM", "t:crypto": "크립토", "t:ai": "AI", "t:semiconductor": "반도체", "t:fed-rates": "연준·금리", "t:fx": "환율·달러", "t:china": "중국", "t:japan": "일본", "t:deals": "딜·M&A", "t:ipo": "IPO·상장", "t:trump-politics": "트럼프·정책", "t:energy": "에너지·원자재", "t:tesla-ev": "테슬라·전기차", "t:bigtech": "빅테크", "t:korea-market": "국내 증시", "t:etf-funds": "ETF·펀드", "t:banks-wallst": "월가·은행", "t:prediction-markets": "예측시장", "t:space-aero": "우주·항공", "t:labor-jobs": "노동·고용", "t:real-estate": "부동산", "t:consumer-retail": "소비·리테일", "t:sports-biz": "스포츠 비즈니스", "t:insurance": "보험", "t:defense": "방산·안보", "t:media-content": "미디어·콘텐츠", "t:healthcare": "헬스케어·제약"};
+<script>var FN={"e:nvidia": "엔비디아", "e:tsmc": "TSMC", "e:samsung": "삼성전자", "e:sk-hynix": "SK하이닉스", "e:intel": "인텔", "e:amd": "AMD", "e:qualcomm": "퀄컴", "e:asml": "ASML", "e:apple": "애플", "e:google": "구글", "e:amazon": "아마존", "e:meta": "메타", "e:microsoft": "마이크로소프트", "e:netflix": "넷플릭스", "e:openai": "오픈AI", "e:anthropic": "앤스로픽", "e:palantir": "팔란티어", "e:softbank": "소프트뱅크", "e:alibaba": "알리바바", "e:tencent": "텐센트", "e:byd": "BYD", "e:tesla": "테슬라", "e:spacex": "스페이스X", "e:blue-origin": "블루오리진", "e:boeing": "보잉", "e:stripe": "스트라이프", "e:jpmorgan": "JP모건", "e:goldman": "골드만삭스", "e:morgan-stanley": "모건스탠리", "e:blackrock": "블랙록", "e:berkshire": "버크셔", "e:coinbase": "코인베이스", "e:binance": "바이낸스", "e:kraken": "크라켄", "e:circle": "서클(Circle)", "e:microstrategy": "마이크로스트래티지", "e:jensen-huang": "젠슨 황", "e:musk": "일론 머스크", "e:powell": "제롬 파월", "e:trump": "트럼프", "e:bezos": "제프 베조스", "e:masayoshi-son": "손정의", "e:tim-cook": "팀 쿡", "e:nadella": "사티아 나델라", "e:buffett": "워런 버핏", "e:sam-altman": "샘 알트먼", "e:zuckerberg": "저커버그", "e:xi-jinping": "시진핑", "e:bitcoin": "비트코인", "e:ethereum": "이더리움", "e:solana": "솔라나", "e:xrp": "리플(XRP)", "e:gold": "금", "e:oil": "원유", "e:dollar": "달러(환율)", "e:yen": "엔화", "e:fed": "미국 연준", "e:ecb": "유럽중앙은행", "e:boj": "일본은행", "e:bok": "한국은행", "e:sec": "미국 SEC", "e:opec": "OPEC", "e:nasdaq": "나스닥", "e:sp500": "S&P 500", "e:kospi": "코스피", "e:visa": "비자(Visa)", "e:mastercard": "마스터카드", "e:amex": "아메리칸익스프레스", "e:paypal": "페이팔", "e:robinhood": "로빈후드", "e:polymarket": "폴리마켓", "e:kalshi": "칼시(Kalshi)", "e:ftx": "FTX", "e:hyperliquid": "하이퍼리퀴드", "e:world-liberty": "월드리버티(WLFI)", "e:tron": "트론(TRX)", "e:fidelity": "피델리티", "e:oracle": "오라클", "e:broadcom": "브로드컴", "e:micron": "마이크론", "e:cisco": "시스코", "e:ibm": "IBM", "e:apollo": "아폴로글로벌", "e:blackstone": "블랙스톤", "e:kkr": "KKR", "e:citadel": "시타델", "e:eli-lilly": "일라이릴리", "e:nike": "나이키", "e:disney": "디즈니", "e:walmart": "월마트", "e:costco": "코스트코", "e:starbucks": "스타벅스", "e:uber": "우버", "e:shopify": "쇼피파이", "e:telegram": "텔레그램", "e:twitter-x": "트위터(X)", "e:naver": "네이버", "e:kakao": "카카오", "e:hyundai": "현대차", "e:kia": "기아", "e:lg-energy": "LG에너지솔루션", "e:sbf": "샘 뱅크먼-프리드(SBF)", "e:dimon": "제이미 다이먼", "e:biden": "조 바이든", "e:cz": "창펑 자오(CZ)", "e:vitalik": "비탈릭 부테린", "e:tether": "테더(USDT)", "e:cftc": "미국 CFTC", "e:cme": "CME", "e:nyse": "뉴욕증권거래소", "e:occ": "미국 OCC", "e:fdic": "미국 FDIC", "e:bis": "국제결제은행(BIS)", "e:world-bank": "세계은행", "e:imf": "IMF", "e:coreweave": "코어위브", "e:dtcc": "DTCC(예탁결제)", "e:swift": "SWIFT(국제결제망)", "e:block-inc": "블록(Block/캐시앱)", "e:riot": "라이엇 플랫폼", "e:ford": "포드", "e:gm": "제너럴모터스(GM)", "e:comcast": "컴캐스트", "e:warner": "워너브라더스디스커버리", "e:paramount": "파라마운트", "e:gamestop": "게임스탑", "e:ebay": "이베이", "e:aramco": "아람코", "e:nio": "니오", "e:ferrari": "페라리", "e:sofi": "소파이", "e:pdd": "핀둬둬(PDD)", "e:sony": "소니", "e:lockheed": "록히드마틴", "e:cocacola": "코카콜라", "e:jd": "징둥(JD)", "e:exxon": "엑슨모빌", "e:klarna": "클라르나", "e:doordash": "도어대시", "e:lyft": "리프트", "e:honda": "혼다", "e:pg": "프록터앤갬블", "e:hilton": "힐튼", "e:michael-burry": "마이클 버리", "e:michael-saylor": "마이클 세일러", "e:cathie-wood": "캐시 우드", "e:brian-armstrong": "브라이언 암스트롱", "e:larry-fink": "래리 핑크", "e:bill-ackman": "빌 애크먼", "e:peter-thiel": "피터 틸", "e:marc-andreessen": "마크 안드레센", "e:ark-invest": "아크 인베스트", "e:ice": "인터콘티넨탈거래소", "e:bofa": "뱅크오브아메리카", "e:fifa": "국제축구연맹", "e:vix": "VIX지수", "e:ripple": "리플", "e:iren": "아이렌", "e:iea": "국제에너지기구", "e:arm": "암홀딩스", "e:simon-property": "사이먼 프로퍼티", "e:millennium": "밀레니엄 매니지먼트", "e:mansour": "만수르", "e:tdk": "TDK", "e:samsung-electro-mechanics": "삼성전기", "e:mcdonalds": "맥도날드", "e:allbirds": "올버즈", "e:fca": "영국 금융행위감독청", "e:pjm": "PJM", "e:warsh": "케빈 워시", "e:nasa": "NASA", "e:ftc": "FTC", "e:nfl": "NFL", "e:barry-diller": "배리 딜러", "e:iac": "IAC", "e:mgm-resorts": "MGM 리조트", "e:lvmh": "LVMH", "e:ralph-lauren": "랄프로렌", "e:irs": "국세청(IRS)", "e:tinder": "틴더", "t:crypto": "크립토", "t:ai": "AI", "t:semiconductor": "반도체", "t:fed-rates": "연준·금리", "t:fx": "환율·달러", "t:china": "중국", "t:japan": "일본", "t:deals": "딜·M&A", "t:ipo": "IPO·상장", "t:trump-politics": "트럼프·정책", "t:energy": "에너지·원자재", "t:tesla-ev": "테슬라·전기차", "t:bigtech": "빅테크", "t:korea-market": "국내 증시", "t:etf-funds": "ETF·펀드", "t:banks-wallst": "월가·은행", "t:prediction-markets": "예측시장", "t:space-aero": "우주·항공", "t:labor-jobs": "노동·고용", "t:real-estate": "부동산", "t:consumer-retail": "소비·리테일", "t:sports-biz": "스포츠 비즈니스", "t:insurance": "보험", "t:defense": "방산·안보", "t:media-content": "미디어·콘텐츠", "t:healthcare": "헬스케어·제약"};
 (function(){
   var API='https://api.soonsal.com', VER='2026-10-09f';
   var $=function(s){return document.querySelector(s)};
@@ -388,6 +405,9 @@ transition:color .18s ease,background .18s ease}
 
   function render(u){
     $('#member').hidden=false;
+    var h0=location.hash.slice(1);if(h0==='mail')h0='settings';
+    tab(TABS.indexOf(h0)>=0?h0:((u.unread|0)?'notices':'saved'));setTimeout(stick,50);
+    cnt('notices',u.unread|0,true);cnt('follows',(u.follows||[]).length);
     try{localStorage.setItem('ss_auth','1')}catch(e){}
     var PN={kakao:'카카오',google:'구글',naver:'네이버'};
     var esc=function(v){return String(v||'').replace(/[<>&"]/g,'')};
@@ -419,7 +439,7 @@ transition:color .18s ease,background .18s ease}
         return '<span class="fchip"><a href="'+href+'">'+(k[0]==='e'?'🏷️ ':'🗂️ ')+(FN[k]||sl)+'</a><button type="button" data-k="'+k+'" aria-label="팔로우 끊기">×</button></span>'}).join('')+'</div>'
       :'<div class="card">아직 팔로우한 게 없어요. <a href="/topics/">주제별</a>에서 회사·주제 페이지를 열고 「＋ 팔로우」를 누르면, 새 브리핑에 나올 때 알려 드려요.</div>';
     [].forEach.call(document.querySelectorAll('.fchip button'),function(bt){bt.onclick=function(){var k=bt.getAttribute('data-k');
-      api('/me/follow',{body:{kind:k[0],slug:k.slice(2),on:false}}).then(function(){bt.parentNode.parentNode.removeChild(bt.parentNode)}).catch(function(){})}});
+      api('/me/follow',{body:{kind:k[0],slug:k.slice(2),on:false}}).then(function(){bt.parentNode.parentNode.removeChild(bt.parentNode);cnt('follows',document.querySelectorAll('.fchip').length)}).catch(function(){})}});
     var mf=$('#mailfol');mf.checked=!!u.mail_follow;
     mf.onchange=function(){api('/me/mail',{body:{which:'follow',on:mf.checked}}).catch(function(){mf.checked=!mf.checked;alert('잠시 뒤 다시 시도해 주세요')})};
     var mc=$('#mailcb');mc.checked=!!u.mail_reply;
@@ -445,7 +465,7 @@ transition:color .18s ease,background .18s ease}
         :'<div class="card">아직 알림이 없어요. 내 댓글에 답글·좋아요가 달리거나, 팔로우한 회사·주제가 브리핑에 나오면 여기 모여요.</div>';
       if(j.n)api('/me/notices',{body:{}}).catch(function(){});
     }).catch(function(){$('#nts').innerHTML=''});
-    api('/me/comments').then(function(j){var cs=j.comments||[];
+    api('/me/comments').then(function(j){var cs=j.comments||[];cnt('comments',cs.length);
       $('#mcs').innerHTML=cs.length?cs.map(function(c){
         return '<a class="it" href="'+surl(c.story)+'"><span class="mk">💬</span><span><span class="tt">'+e(c.body)+'</span>'+
           '<span class="dt">'+ago(c.ts)+(c.state===0?' · <b class="hold">검토 중</b>':'')+(c.replies?' · 답글 '+c.replies:'')+(c.likes?' · ❤️ '+c.likes:'')+'</span></span></a>'}).join('')
@@ -459,12 +479,26 @@ transition:color .18s ease,background .18s ease}
       var seen={},rows=[];(v[0].scraps||[]).forEach(function(x){if(x.kind==='cmt')return;
         if(seen[x.story]){if(x.kind==='scrap')seen[x.story].kind='scrap';return}
         seen[x.story]={story:x.story,kind:x.kind};rows.push(seen[x.story])});
+      cnt('saved',rows.length);
       if(!rows.length){$('#list').innerHTML='<div class="card">아직 모은 글이 없어요. 스토리 옆 🐟 를 누르거나 👍 반응을 남기면 여기 모여요.</div>';return}
       $('#list').innerHTML=rows.map(function(x){var t=m[x.story]||[x.story,'',''];var iss=x.story.split('-')[0].replace('c','');
         var href=/^\d{4}c?-\d+$/.test(x.story)?'/newsletters/2026/'+iss+'.html#story-'+x.story.split('-')[1]:'/';
         return '<a class="it" href="'+href+'"><span class="mk">'+(MK[x.kind]||'🐟')+'</span><span><span class="tt">'+
           String(t[0]).replace(/[<>&]/g,'')+'</span><span class="dt">'+(t[1]||'')+'</span></span></a>'}).join('')});
   }
+  // ── 탭 ──
+  var TABS=['notices','saved','comments','follows','settings'];
+  function tab(t,push){if(TABS.indexOf(t)<0)return;
+    [].forEach.call(document.querySelectorAll('#tabs button'),function(b){b.setAttribute('aria-selected',b.dataset.t===t?'true':'false')});
+    TABS.forEach(function(k){var el=document.getElementById(k);if(el)el.hidden=k!==t});
+    if(push){try{history.replaceState(null,'','#'+t)}catch(e){}}
+    var tb=$('#tabs');if(tb&&tb.getBoundingClientRect().top<0)tb.scrollIntoView()}
+  function stick(){var h=document.querySelector('.site-header'),tb=$('#tabs');if(!h||!tb)return;
+    var cs=getComputedStyle(h);tb.style.top=(/sticky|fixed/.test(cs.position)?Math.max(0,h.getBoundingClientRect().bottom):0)+'px'}
+  function cnt(k,n,isNew){var e=document.getElementById('c-'+k);if(!e)return;e.textContent=n?(n>99?'99+':n):'';e.className=isNew&&n?'new':''}
+  window.addEventListener('resize',stick);window.addEventListener('scroll',function(){if(!stick.d){stick.d=1;stick()}},{passive:true});
+  document.addEventListener('click',function(e){var b=e.target.closest&&e.target.closest('#tabs button');if(b)tab(b.dataset.t,true)});
+  window.addEventListener('hashchange',function(){var h=location.hash.slice(1);tab(h==='mail'?'settings':h)});
   // 로그인 안 한 브라우저는 /me 를 기다리지 않고 로그인 화면부터 — 두 요청을 차례로 기다리느라 빈 화면이 1~2초 떴다 (KD 2026-10-09 검수)
   var authed=false;try{authed=localStorage.getItem('ss_auth')==='1'}catch(e){}
   var prov=api('/auth/providers').then(function(p){return p.providers}).catch(function(){return null});
