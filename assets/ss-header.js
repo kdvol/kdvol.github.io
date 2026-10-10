@@ -7,6 +7,61 @@
   //   구독자 표시(?ss=16hex.회차 / ?s=)·메일 유입 표시는 soonsal.js 가 주소에서 지우기 전에 여기서 먼저 본다(문서 순서상 먼저 실행).
   function lsg(k){try{return localStorage.getItem(k)}catch(e){return null}}
   function lss(k,v){try{localStorage.setItem(k,v)}catch(e){}}
+
+  // ── 순살 통조림 팡 (KD 2026-10-11 「통조림 속 물고기가 꿈틀대며 뛰어오르는 — confetti 같은 효과를 우리만의 브랜딩으로」) ──
+  //   주요 버튼(구독·스크랩·반응·팔로우·투표·완주)을 누른 자리에서 통조림 뚜껑이 젖혀지고, 물고기들이 꼬리를 흔들며
+  //   포물선으로 튀어 올랐다 떨어진다. 그림은 SVG 몇 줄, 움직임은 Web Animations — 외부 파일 없음.
+  //   window.ssCan(x, y, {big}) · window.ssCanAt(el, {big}). 움직임 줄이기 설정이면 아무것도 안 한다.
+  var FISH='<svg viewBox="0 0 34 16" width="34" height="16"><path d="M3 8c4-6 15-7 22-1 1 .6 1 1.4 0 2-7 6-18 5-22-1z" fill="#F07040"/>'+
+    '<path d="M6 9.4c5 2.6 12 2.6 18-.6-6 1.6-12 1.6-18 .6z" fill="#FFC9A8"/><path d="M24.5 8L33 2.2v11.6z" fill="#E55A00"/>'+
+    '<path d="M12 4.3c1.8-1 4-1.4 6-1.2-1.8.6-3.6 1.6-4.8 2.8z" fill="#FFB085"/><circle cx="7.4" cy="7" r="1.5" fill="#fff"/><circle cx="7.1" cy="7" r=".75" fill="#1a1a1a"/></svg>';
+  var CAN='<svg viewBox="0 0 64 40" width="64" height="40"><ellipse cx="32" cy="30" rx="30" ry="9" fill="#9a9a9a"/>'+
+    '<path d="M2 18v12c0 5 13.4 9 30 9s30-4 30-9V18z" fill="#d9d9d9"/><path d="M2 22v5c0 5 13.4 9 30 9s30-4 30-9v-5c0 5-13.4 9-30 9S2 27 2 22z" fill="#E55A00"/>'+
+    '<ellipse cx="32" cy="18" rx="30" ry="9" fill="#f2f2f2"/><ellipse cx="32" cy="18" rx="25" ry="6.6" fill="#3a2a22"/>'+
+    '<ellipse cx="32" cy="18.6" rx="22" ry="5" fill="#F07040" opacity=".55"/></svg>';
+  var LID='<svg viewBox="0 0 64 22" width="64" height="22"><ellipse cx="32" cy="11" rx="30" ry="9" fill="#f7f7f7" stroke="#bdbdbd" stroke-width="1.2"/>'+
+    '<ellipse cx="32" cy="11" rx="22" ry="5.6" fill="none" stroke="#cfcfcf" stroke-width="1.2"/><circle cx="57" cy="11" r="3.2" fill="none" stroke="#9a9a9a" stroke-width="1.6"/></svg>';
+  function ssCan(x,y,o){
+    o=o||{};
+    try{if(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches)return}catch(e){}
+    if(!document.body||!document.body.animate)return;
+    var big=!!o.big,host=document.createElement('div');
+    host.style.cssText='position:fixed;left:'+x+'px;top:'+y+'px;width:0;height:0;z-index:2147483000;pointer-events:none';
+    var can=document.createElement('div');can.innerHTML=CAN;can.style.cssText='position:absolute;left:-32px;top:-20px';
+    var lid=document.createElement('div');lid.innerHTML=LID;lid.style.cssText='position:absolute;left:-32px;top:-13px;transform-origin:4px 11px';
+    host.appendChild(can);host.appendChild(lid);document.body.appendChild(host);
+    var sc=big?1.35:1;
+    can.animate([{transform:'scale(0) translateY(20px)',opacity:0},{transform:'scale('+(sc*1.18)+') translateY(-4px)',opacity:1,offset:.22},
+      {transform:'scale('+sc+') rotate(-6deg)',offset:.32},{transform:'scale('+sc+') rotate(5deg)',offset:.4},{transform:'scale('+sc+') rotate(0)',offset:.48},
+      {transform:'scale('+sc+')',opacity:1,offset:.82},{transform:'scale('+(sc*.6)+') translateY(18px)',opacity:0}],{duration:1500,easing:'ease-out',fill:'forwards'});
+    lid.animate([{transform:'scale('+sc+') rotate(0)',opacity:0},{transform:'scale('+sc+') rotate(0)',opacity:1,offset:.2},
+      {transform:'scale('+sc+') rotate(-128deg) translate(-6px,-4px)',opacity:1,offset:.36},{transform:'scale('+sc+') rotate(-118deg) translate(-6px,-4px)',opacity:1,offset:.82},
+      {transform:'scale('+(sc*.6)+') rotate(-118deg)',opacity:0}],{duration:1500,easing:'ease-out',fill:'forwards'});
+    var n=big?9:6,g=1500;
+    for(var i=0;i<n;i++)(function(i){
+      var f=document.createElement('div');f.innerHTML=FISH;f.style.cssText='position:absolute;left:-17px;top:-8px;opacity:0';host.appendChild(f);
+      var spread=(i/(n-1)-.5)*2,vx=(spread*170+(Math.random()*60-30))*(big?1.5:1),vy=-(330+Math.random()*170)*(big?1.25:1);
+      var dur=1150+Math.random()*350,delay=300+i*45+Math.random()*60,fr=[],steps=18,s0=.75+Math.random()*.35;
+      for(var k=0;k<=steps;k++){var t=k/steps*dur/1000,px=vx*t,py=vy*t+.5*g*t*t,ang=Math.atan2(vy+g*t,vx)*180/Math.PI;
+        if(vx<0)ang+=180;                                        // 왼쪽으로 가는 놈은 머리도 왼쪽
+        var wig=Math.sin(k*1.9+i)*22*(1-k/steps*.6);              // 꼬리 꿈틀
+        var flip=vx<0?' scaleX(-1)':'';
+        fr.push({transform:'translate('+px.toFixed(1)+'px,'+py.toFixed(1)+'px) rotate('+(ang+wig).toFixed(1)+'deg) scale('+(k===0?.3:s0*(big?1.2:1)).toFixed(2)+')'+flip,
+          opacity:k===0?0:(k>steps*.78?Math.max(0,1-(k-steps*.78)/(steps*.22)):1)})}
+      f.animate(fr,{duration:dur,delay:delay,easing:'linear',fill:'forwards'})})(i);
+    // 물방울 몇 개 — 기름 튀는 느낌
+    for(var j=0;j<(big?10:6);j++)(function(){var d=document.createElement('div');
+      d.style.cssText='position:absolute;left:-3px;top:-3px;width:6px;height:6px;border-radius:50%;background:'+(Math.random()<.5?'#F5A481':'#FFD7BF');host.appendChild(d);
+      var a=-Math.PI/2+(Math.random()-.5)*2.2,r=40+Math.random()*60;
+      d.animate([{transform:'translate(0,0) scale(.4)',opacity:0},{transform:'translate('+(Math.cos(a)*r*.6)+'px,'+(Math.sin(a)*r*.6)+'px) scale(1)',opacity:1,offset:.4},
+        {transform:'translate('+(Math.cos(a)*r)+'px,'+(Math.sin(a)*r+30)+'px) scale(.6)',opacity:0}],{duration:800,delay:320+Math.random()*120,easing:'ease-out',fill:'forwards'})})();
+    setTimeout(function(){if(host.parentNode)host.parentNode.removeChild(host)},2400);
+  }
+  function ssCanAt(el,o){try{var r=el.getBoundingClientRect();ssCan(r.left+r.width/2,r.top+r.height/2,o)}catch(e){}}
+  window.ssCan=ssCan;window.ssCanAt=ssCanAt;
+  // 스크랩 🐟 — 켜질 때만 (ss-scrap.js 는 따로 도는 스크립트라 클릭을 여기서 받는다)
+  document.addEventListener('click',function(e){var b=e.target.closest&&e.target.closest('.ss-scrap');if(!b)return;
+    setTimeout(function(){if(b.classList.contains('on'))ssCanAt(b)},0)});
   try{var qs=location.search;
     if(/[?&]ss=[a-f0-9]{16}\.|[?&]s=[a-f0-9]{16}\b|utm_source=mail|utm_medium=email|[?&]m=1\b/.test(qs))lss('ss_is_sub','1')}catch(e){}
   // ── 팔로우 버튼 (KD 2026-10-09 개선 3번) — /wiki/<slug>.html(회사·인물)·/topics/<slug>.html(주제) 제목 아래 ──
@@ -28,7 +83,7 @@
       var paint=function(){b.className='ss-fol'+(on?' on':'');b.innerHTML=on?'✓ 팔로우 중 <small>· 새 브리핑에 나오면 알림</small>':'＋ '+name+' 팔로우 <small>· 새 소식 알림</small>'};paint();
       b.onclick=function(){var nx=!on;b.disabled=true;
         fetch(API+'/me/follow',{method:'POST',credentials:'include',headers:{'content-type':'application/json'},body:JSON.stringify({kind:kind,slug:slug,on:nx})})
-          .then(function(r){if(r.ok){on=nx;paint()}}).catch(function(){}).then(function(){b.disabled=false})};}
+          .then(function(r){if(r.ok){on=nx;paint();if(on)ssCanAt(b)}}).catch(function(){}).then(function(){b.disabled=false})};}
     h1.parentNode.insertBefore(b,h1.nextSibling);
   }
   // ── 알림 패널 (KD 2026-10-09 「사이트 알림을 깔끔한 UX로」) — 로그인하면 계정 아이콘이 패널을 연다 ──
@@ -90,33 +145,36 @@
   }
   // ── 구독 양식 — 페이지 안 칸과 팝업이 같은 부품을 쓴다 (KD 2026-10-11) ──────────────────────────────
   function subCss(){if(document.getElementById('ss-subc-css'))return;
-  var st=document.createElement('style');st.id='ss-subc-css';st.textContent=
-      '.ss-subc{margin:22px 0;padding:18px 18px 14px;border-radius:14px;background:#FFF4EC;border:1px solid #F7D3BE;color:#3a2f27;'+
-      'font-family:Pretendard,-apple-system,BlinkMacSystemFont,sans-serif;line-height:1.55;box-sizing:border-box;text-align:left}'+
-      /* 페이지 쪽 같은 이름 클래스(.d 날짜·.t 등)가 새어 들지 않게 — 위키 .d 의 nowrap 이 설명 줄을 잘랐다 */
+    // 기존 구독 화면(subscribe.soonsal.com)과 같은 색·글꼴 — 검정 바탕·흰 글씨·진한 주황 (KD 2026-10-11 「연한 살색 애매, 더 진하고 강렬하게」)
+    var st=document.createElement('style');st.id='ss-subc-css';st.textContent=
+      '.ss-subc{margin:28px 0;padding:24px 20px 18px;border-radius:16px;background:#111;border:1px solid #2a2a2a;color:#fff;'+
+      'font-family:Pretendard,-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo",sans-serif;line-height:1.55;box-sizing:border-box;text-align:left;position:relative}'+
+      '.ss-subc *{box-sizing:border-box}'+
       '.ss-subc div,.ss-subc span,.ss-subc label,.ss-subc b,.ss-subc summary{white-space:normal;padding-top:0;font-variant-numeric:normal}'+
-      '.ss-subc .d{display:block;text-align:left}'+
-      '.ss-subc *{box-sizing:border-box}.ss-subc b.t{display:block;font-size:16.5px;font-weight:800;color:#1f1a16;letter-spacing:-.02em}'+
-      '.ss-subc .d{font-size:13px;color:#7a6a5c;margin:3px 0 11px}'+
-      '.ss-subc .fl{display:block;font-size:13px;font-weight:700;color:#3a2f27;margin:12px 0 5px}.ss-subc .fl i{color:#E55A00;font-style:normal;margin-left:2px}'+
-      '.ss-subc .ob{font-size:11px;font-weight:400;color:#9a8878;margin-left:3px}'+
-      '.ss-subc .in{display:block;width:100%;height:44px;border:1px solid #E8C4AE;border-radius:10px;padding:0 12px;font-size:15px;background:#fff;color:#1f1a16;font-family:inherit}'+
-      '.ss-subc .pl{display:flex;gap:7px;align-items:center;font-size:13px;color:#3a2f27;margin-top:14px;cursor:pointer}.ss-subc .pl input{width:17px;height:17px;accent-color:#F07040}'+
-      '.ss-subc .ad{font-size:11.5px;color:#9a8878;margin-top:10px;line-height:1.6}.ss-subc .ad summary{cursor:pointer;margin-top:3px}.ss-subc .ad div{margin-top:4px}'+
-      '.ss-subc button.go{display:block;width:100%;height:48px;margin-top:12px;border:0;border-radius:10px;background:#F07040;color:#12100e;font-weight:800;font-size:15.5px;cursor:pointer}'+
-      '.ss-subc button.go:disabled{opacity:.55}'+
-      '.ss-subc .more{font-size:11.5px;color:#9a8878;margin:5px 0 0 24px}'+
-      '.ss-subc summary{list-style:none}.ss-subc summary::-webkit-details-marker{display:none}'+
-      '.ss-subc details summary{cursor:pointer;color:#9a8878}.ss-subc details div{margin-top:5px;font-size:11.5px;color:#7a6a5c;line-height:1.65}'+
-      '.ss-subc .x{float:right;border:0;background:none;color:#b8a898;font-size:16px;cursor:pointer;margin:-8px -6px 0 0}'+
-      '.ss-subc .ok{font-size:15px;font-weight:800;color:#1f1a16}.ss-subc .er{font-size:12.5px;color:#C24A00;margin-top:6px;min-height:1px}'+
-      '.ss-subc .hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}'+
-      '.ss-subc .opt{margin-top:9px;font-size:12.5px}.ss-subc .opt summary{cursor:pointer;color:#C24A00;font-weight:700;list-style:none}'+
-      '.ss-subc .opt summary::-webkit-details-marker{display:none}.ss-subc .opt summary span{color:#9a8878;font-weight:400}'+
-      '.ss-subc .r2{display:flex;gap:7px;margin-top:9px}.ss-subc .r2 input,.ss-subc .r2 select,.ss-subc .cu{flex:1;min-width:0;height:40px;border:1px solid #E8C4AE;border-radius:10px;padding:0 10px;font-size:14px;background:#fff;color:#1f1a16}'+
-      '.ss-subc .cu{width:100%;margin-top:8px}.ss-subc .tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:9px}'+
-      '.ss-subc .tg{border:1px solid #E8C4AE;background:#fff;color:#5a4a3e;border-radius:999px;padding:5px 11px;font-size:12.5px;cursor:pointer}'+
-      '.ss-subc .tg.on{background:#F07040;border-color:#F07040;color:#12100e;font-weight:700}';
+      '.ss-subc .hd{text-align:center;margin:0 0 18px}'+
+      '.ss-subc .lg{width:46px;height:46px;margin:0 auto 12px;background:#E55A00;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:24px}'+
+      '.ss-subc b.t{display:block;font-size:21px;font-weight:800;color:#fff;letter-spacing:-.03em}.ss-subc b.t em{font-style:normal;color:#E55A00}'+
+      '.ss-subc .d{display:block;font-size:13px;color:#a8a8a8;margin:6px 0 0;text-align:center}.ss-subc .d2{display:block;font-size:12px;color:#7a7a7a;margin:2px 0 0;text-align:center}'+
+      '.ss-subc .fl{display:block;font-size:13px;font-weight:700;color:#ddd;margin:14px 0 6px}.ss-subc .fl i{color:#E55A00;font-style:normal;margin-left:2px}'+
+      '.ss-subc .ob{font-size:11.5px;font-weight:400;color:#777;margin-left:4px}'+
+      '.ss-subc .in{display:block;width:100%;height:44px;border:1px solid #333;border-radius:9px;padding:0 13px;font-size:15px;background:#1a1a1a;color:#fff;font-family:inherit;outline:none;-webkit-appearance:none;appearance:none}'+
+      '.ss-subc select.in{background-image:linear-gradient(45deg,transparent 50%,#888 50%),linear-gradient(135deg,#888 50%,transparent 50%);background-position:calc(100% - 18px) 19px,calc(100% - 13px) 19px;background-size:5px 5px;background-repeat:no-repeat}'+
+      '.ss-subc .in:focus{border-color:#E55A00}.ss-subc .in::placeholder{color:#555}'+
+      '.ss-subc .tags{display:flex;flex-wrap:wrap;gap:7px}'+
+      '.ss-subc .tg{border:1px solid #333;background:transparent;color:#bbb;border-radius:20px;padding:6px 13px;font-size:13px;cursor:pointer;min-height:0!important;font-family:inherit}'+
+      '.ss-subc .tg.on{background:#E55A00;border-color:#E55A00;color:#fff;font-weight:700}'+
+      '.ss-subc .pl{display:flex;gap:8px;align-items:center;font-size:13px;color:#ddd;margin-top:18px;padding-top:16px;border-top:1px solid #222;cursor:pointer}.ss-subc .pl input{width:18px;height:18px;accent-color:#E55A00;flex:0 0 auto}'+
+      '.ss-subc .pl b{color:#E55A00}'+
+      '.ss-subc .more{font-size:12px;color:#777;margin:6px 0 0 26px}'+
+      '.ss-subc summary{list-style:none;cursor:pointer}.ss-subc summary::-webkit-details-marker{display:none}'+
+      '.ss-subc details div{margin-top:6px;font-size:11.5px;color:#999;line-height:1.65}.ss-subc details a{color:#F07040}'+
+      '.ss-subc button.go{display:block;width:100%;height:50px;margin-top:16px;border:0;border-radius:10px;background:#E55A00;color:#fff;font-weight:800;font-size:16px;cursor:pointer;font-family:inherit;letter-spacing:-.01em}'+
+      '.ss-subc button.go:hover{background:#F07040}.ss-subc button.go:disabled{opacity:.55}'+
+      '.ss-subc .ad{font-size:11.5px;color:#777;margin-top:12px;line-height:1.6}.ss-subc .ad summary{margin-top:3px}'+
+      '.ss-subc .nl{font-size:11.5px;color:#888;margin-top:12px;padding-top:12px;border-top:1px solid #222;line-height:1.7}.ss-subc .nl b{color:#ddd}'+
+      '.ss-subc .x{position:absolute;top:10px;right:10px;width:36px;height:36px;border:0;background:none;color:#888;font-size:22px;cursor:pointer;min-height:0!important}'+
+      '.ss-subc .ok{font-size:17px;font-weight:800;color:#fff;text-align:center;margin-top:6px}.ss-subc .er{font-size:12.5px;color:#ff8a5c;margin-top:8px;min-height:1px}'+
+      '.ss-subc .hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}';
     document.head.appendChild(st);
   }
   function subForm(story,onClose){subCss();
@@ -125,8 +183,9 @@
     //   「이메일만 받으면 의미가 적다 — 기존 구독 화면을 재현」). 이메일 → 이름 → 출생연도 → 관심분야 → 하는 일 → 동의 → 구독하기 → 광고 안내.
     var yrs='<option value="">선택</option>';for(var y=2010;y>=1960;y--)yrs+='<option value="'+y+'">'+y+'</option>';
     c.innerHTML='<button type="button" class="x" aria-label="닫기">×</button>'+
-      '<b class="t">🐟 순살브리핑 뉴스레터 구독</b>'+
-      '<div class="d">월~금 매일 아침, 글로벌 금융·경제·크립토 소식을 살코기만 발라드립니다</div>'+
+      '<div class="hd"><div class="lg">🐟</div><b class="t"><em>순살브리핑</em> 뉴스레터 구독</b>'+
+      '<span class="d">모건스탠리 홍콩 출신 금융인의 글로벌 금융·경제·크립토 뉴스 살코기</span>'+
+      '<span class="d2">월~금 매일 아침 10시, 살코기만 발라드립니다</span></div>'+
       '<form novalidate>'+
       '<label class="fl">이메일 주소<i>*</i></label><input type="email" class="in em" placeholder="example@email.com" autocomplete="email" required>'+
       '<label class="fl">이름 (또는 닉네임) <span class="ob">선택</span></label><input class="in nm" placeholder="이름 또는 닉네임" maxlength="30" autocomplete="nickname">'+
@@ -145,7 +204,8 @@
       '</form>'+
       '<div class="er" role="status"></div>'+
       '<div class="ad">순살 뉴스레터를 구독하면 제휴 콘텐츠, 프로모션 등 광고성 정보 수신에 동의한 것으로 간주됩니다.'+
-      '<details><summary>광고성 정보 수신 ▾</summary><div>순살 뉴스레터에는 가끔 제휴 콘텐츠나 프로모션이 포함될 수 있습니다. 광고가 포함된 콘텐츠에는 항상 (광고) 표시를 합니다. 원하지 않을 경우 뉴스레터 하단의 수신 거부를 통해 언제든지 구독을 해지할 수 있습니다.</div></details></div>';
+      '<details><summary>광고성 정보 수신 ▾</summary><div>순살 뉴스레터에는 가끔 제휴 콘텐츠나 프로모션이 포함될 수 있습니다. 광고가 포함된 콘텐츠에는 항상 (광고) 표시를 합니다. 원하지 않을 경우 뉴스레터 하단의 수신 거부를 통해 언제든지 구독을 해지할 수 있습니다.</div></details></div>'+
+      '<div class="nl">구독할 뉴스레터 — <b>순살브리핑</b> 글로벌 시장·경제 핵심 뉴스를 매일 5분 안에 · <b>순살크립토</b> 크립토 시장 흐름과 온체인 인사이트<br>구독 후 환경설정에서 개별 선택 가능합니다.</div>';
     var f=c.querySelector('form'),em=f.querySelector('.em'),go=f.querySelector('.go'),ag=c.querySelector('.ag'),er=c.querySelector('.er');
     c.querySelector('.x').onclick=function(){onClose&&onClose()};
     [].forEach.call(c.querySelectorAll('.tg'),function(b){b.onclick=function(){b.classList.toggle('on')}});
@@ -161,7 +221,8 @@
       .then(function(r){return r.json()}).then(function(j){
         if(j&&j.ok){lss('ss_subbed','1');lss('ss_is_sub','1');
           c.innerHTML='<div class="ok">'+(j.already?'이미 구독 중이에요 🐟 내일 아침에 만나요.':'구독 완료! 🐟 내일 아침 메일함에서 만나요.')+'</div>'+
-            '<div class="d" style="margin:6px 0 0">첫 메일이 안 보이면 스팸함·프로모션함도 확인해 주세요.</div>';return}
+            '<div class="d" style="margin:8px 0 0">첫 메일이 안 보이면 스팸함·프로모션함도 확인해 주세요.</div>';
+          try{var rr=c.getBoundingClientRect();window.ssCan&&window.ssCan(rr.left+rr.width/2,rr.top+Math.min(rr.height/2,160),{big:true})}catch(_){}return}
         go.disabled=false;go.textContent='구독하기';
         er.textContent=j&&j.error==='email'?'이메일 주소를 확인해 주세요.':j&&j.error==='too many'?'잠시 뒤 다시 시도해 주세요.':'지금은 구독을 못 받았어요. 잠시 뒤 다시 시도해 주세요.'})
       .catch(function(){go.disabled=false;go.textContent='구독하기';er.textContent='연결이 불안정해요. 잠시 뒤 다시 시도해 주세요.'})};
@@ -186,11 +247,11 @@
     if(document.getElementById('ss-subm'))return;subCss();
     var st=document.getElementById('ss-subm-css');
     if(!st){st=document.createElement('style');st.id='ss-subm-css';st.textContent=
-      '#ss-subm{position:fixed;inset:0;z-index:100010;display:flex;align-items:center;justify-content:center;padding:16px;background:rgba(0,0,0,.6);opacity:0;transition:opacity .18s}'+
-      '#ss-subm.on{opacity:1}#ss-subm .ss-subc{margin:0;width:100%;max-width:440px;max-height:calc(100vh - 32px);overflow-y:auto;'+
-      'box-shadow:0 18px 50px rgba(0,0,0,.45);transform:translateY(12px);transition:transform .2s}#ss-subm.on .ss-subc{transform:none}'+
-      '#ss-subm .ss-subc .x{font-size:22px;margin:-10px -8px 0 0;width:40px;height:40px}'+
-      '@media(max-width:560px){#ss-subm{align-items:flex-end;padding:0}#ss-subm .ss-subc{max-width:none;border-radius:16px 16px 0 0;max-height:92vh;padding-bottom:max(18px,env(safe-area-inset-bottom))}}';
+      '#ss-subm{position:fixed;inset:0;z-index:100010;display:flex;align-items:center;justify-content:center;padding:20px 14px;background:rgba(0,0,0,.72);opacity:0;transition:opacity .18s}'+
+      '#ss-subm.on{opacity:1}#ss-subm .ss-subc{margin:0;width:100%;max-width:420px;max-height:calc(100vh - 40px);max-height:calc(100dvh - 40px);overflow-y:auto;overscroll-behavior:contain;'+
+      'box-shadow:0 24px 60px rgba(0,0,0,.6);transform:translateY(14px) scale(.98);transition:transform .22s cubic-bezier(.2,.9,.3,1.2)}#ss-subm.on .ss-subc{transform:none}'+
+      '@media(max-width:560px){#ss-subm .ss-subc{padding:20px 16px 16px;border-radius:16px}#ss-subm .ss-subc .hd{margin-bottom:12px}#ss-subm .ss-subc .lg{width:40px;height:40px;font-size:21px;margin-bottom:8px}'+
+      '#ss-subm .ss-subc b.t{font-size:19px}#ss-subm .ss-subc .fl{margin:11px 0 5px}#ss-subm .ss-subc .in{height:42px}}';
       document.head.appendChild(st)}
     var ov=document.createElement('div');ov.id='ss-subm';ov.setAttribute('role','dialog');ov.setAttribute('aria-modal','true');ov.setAttribute('aria-label','뉴스레터 무료 구독');
     var prev=document.body.style.overflow;
@@ -265,6 +326,7 @@
         c.querySelector('.ch').onclick=function(e){e.preventDefault();mine=0;draw(na,nb)};
       }
       function vote(v){var vid='';try{vid=localStorage.getItem('ss_vid')||''}catch(e){}
+        try{var vb=c.querySelector('.bt button[data-c="'+v+'"]');if(vb)ssCanAt(vb)}catch(e){}
         mine=v;try{localStorage.setItem(key,String(v))}catch(e){}
         draw((p.na||0)+(v===1?1:0),(p.nb||0)+(v===2?1:0));   // 낙관적 표시 → 서버 값으로 맞춤
         if(!/^[a-z0-9-]{8,32}$/.test(vid))return;
