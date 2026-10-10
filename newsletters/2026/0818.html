@@ -418,6 +418,27 @@
 <meta property="og:image:width" content="1200"/>
 <meta property="og:image:height" content="630"/>
 <meta name="twitter:card" content="summary_large_image"/>
+<style id="soonsal-story-links">
+/* 스토리 끝 — 다 읽은 사람만 본다. 본문 흐름을 끊지 않는다 */
+.story-links{margin:14px 0 0;padding:11px 0 0;border-top:1px solid #ece8e0;
+font-size:11.5px;line-height:1.8;color:#9a958a;word-break:keep-all}
+.story-links .k{color:#b5b0a4;margin-right:5px}
+.story-links a{color:#8a857c;text-decoration:none;border-bottom:1px solid #e6e1d8}
+.story-links a:hover{color:#C24A00;border-bottom-color:#C24A00}
+.story-links .sep{opacity:.4;margin:0 4px}
+/* 주제는 개별 이름이 아니라 묶음이다 — 테두리로 구분한다 */
+.story-links a.topic{border-bottom:0;padding:1px 7px;border-radius:999px;
+background:#f3efe8;color:#8a857c}
+.story-links a.topic:hover{background:#C24A00;color:#fff}
+.story-links .row + .row{margin-top:4px}
+/* 「같은 흐름」은 제목이 길어 한 줄에 하나씩 세운다. 라벨은 왼쪽에 고정 */
+.story-links .flows{display:flex;align-items:flex-start}
+.story-links .flow-list{display:flex;flex-direction:column;gap:2px;min-width:0}
+.story-links .flow{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.story-links .flow b{font-weight:600;color:#b5b0a4;margin-right:3px}
+@media(max-width:560px){.story-links .flows{display:block}
+  .story-links .flow-list{margin-top:2px;padding-left:1px}}
+</style>
 <!-- soonsal:story-fragments-style:start --><style>
 .ss-story-index{margin:0 0 34px;padding:21px 22px;border:1px solid #e8e8e0;
 border-radius:12px;background:#fafaf7;color:#333}
@@ -710,7 +731,7 @@ line-height:1.25;color:#fff;word-break:keep-all}
         <div class="bullet"><span class="dot">◾</span><span>회사채 만기가 길어진 건 데이터센터 수명이 수십 년이기 때문. 심지어 칩까지 담보로 잡는 조달구조가 이번 달 열렸음. 엔비디아는 8월 10일 아폴로·블랙록·블랙스톤·브룩필드·골드만삭스·KKR 6곳과 5,000억불짜리 양해각서를 맺음. 마치 비행기 리스처럼, GPU의 남은 수명을 계산해 오랜 기간 담보로 받아주는 구조. 일부 딜엔 엔비디아가 잔존가치를 최대 25%까지 받쳐준다는 조건도 붙음 <span class="sub">(건별 심사)</span></span></div>
         <div class="bullet"><span class="dot">◾</span><span>이게 남 얘기가 아닌 건, 10년물을 비롯한 미국 장기 국채금리가 주택담보대출·회사 대출 금리의 기준선이기 때문. 같은 날 독일 10년물은 2011년, 프랑스 10년물은 2009년 이후 최고치 찍음. 연방정부 부채가 39.8조불까지 불면서, 이번 회계연도 9개월 동안 이자로만 8,570억불이 나갔음. 같은 기간 국방비보다도 메디케어보다도 큰 돈이고, 연방 예산에서 이보다 큰 건 사회보장연금 뿐. 물가가 식어도 금리는 치솟는 판이 글로벌 트렌드</span></div>
       </div>
-      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
+      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/nvidia.html">엔비디아</a><span class="sep">·</span><a href="/wiki/apollo.html">아폴로글로벌</a><span class="sep">·</span><a href="/wiki/blackrock.html">블랙록</a><span class="sep">·</span><a href="/wiki/blackstone.html">블랙스톤</a><span class="sep">·</span><a href="/wiki/goldman.html">골드만삭스</a><span class="sep">·</span><a class="topic" href="/topics/ai.html">AI</a><span class="sep">·</span><a class="topic" href="/topics/banks-wallst.html">월가·은행</a></div></div>
     </div>
 
 <!-- STORY 2 -->
@@ -724,7 +745,7 @@ line-height:1.25;color:#fff;word-break:keep-all}
         <div class="bullet"><span class="dot">◾</span><span>타이밍도 안 좋았던게, 마침 회사는 146억불짜리 채권을 찍는 중이었어서, 쩐주한테 최근 실적을 직접 설명해야 했음. 하락에 대비해 걸어둔 헤지도 별 도움이 안 됐다고 회사 스스로 인정. 그런데도 핌코·캐피털그룹·피델리티가 채권을 사줬고, 만기별로 금리를 최대 8.088%까지 얹고서야 소화됐음. 그 돈으로 기존 텀론 55억불을 포함한 빚 111억불을 갚기로 함. S&amp;P가 이 채권에 매긴 등급은 투기등급 <span class="sub">(BB)</span></span></div>
         <div class="bullet"><span class="dot">◾</span><span>회사가 직원들한테 보낸 메모의 요지는, 잃은 쪽 포지션을 상당 부분 정리했고 다른 전략에서도 위험을 줄였다는 것. 문제의 헤지펀드 지분은 연초 대비 본전 수준으로 돌아왔다고 설명. 눈에 띄는 건 이번 돌려막기의 방향인데, 공모채를 사모로 옮긴다는 것. 이자를 더 얹어주는 대신, 실적 공개는 덜 하겠다는 것. 차환에 드는 일회성 비용만 수억불. 안 하던 투자로 롤러코스터 탄 회사가, 이제는 내부정보 단속에 더 신경쓰는 중</span></div>
       </div>
-      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
+      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/goldman.html">골드만삭스</a><span class="sep">·</span><a href="/wiki/jpmorgan.html">JP모건</a><span class="sep">·</span><a href="/wiki/openai.html">오픈AI</a><span class="sep">·</span><a href="/wiki/citadel.html">시타델</a><span class="sep">·</span><a href="/wiki/anthropic.html">앤스로픽</a><span class="sep">·</span><a class="topic" href="/topics/etf-funds.html">ETF·펀드</a><span class="sep">·</span><a class="topic" href="/topics/ai.html">AI</a></div></div>
     </div>
 
 <!-- STORY 3 -->
@@ -738,7 +759,7 @@ line-height:1.25;color:#fff;word-break:keep-all}
         <div class="bullet"><span class="dot">◾</span><span>전공은 줄었는데 컴공과 교수들은 더 바빠졌음. 음대생·심리학과 학생까지 AI 수업을 들으러 몰려와 강의실이 모자란 탓. 노스웨스턴대 컴공과는 교원을 2배로 늘려놓고도 3명을 더 뽑는 중이고, 다른 과 학생이 AI 수업을 들으려면 먼저 통과해야 했던 선수과목 문턱도 낮추는 중. 인기 있던 AI 부전공에 더해 AI 전공까지 새로 여는 것도 같은 흐름. <strong>학과가 죽는 게 아니라 전공에서 교양으로 옮기는 그림</strong></span></div>
         <div class="bullet"><span class="dot">◾</span><span>정작 뭘 배워야 하는지는 아무도 확답을 못 하는 상황. 오픈AI 교육 총괄은 기업이 결국 비판적 사고·리더십·협업처럼 어디든 들고 갈 수 있는 능력을 볼 거라고 함. 세인트루이스 연준에선 AI가 갓 졸업한 사람들 취업에 역풍을 하나 더 얹었다면서도, 2023년부터 이어진 채용 둔화에 비하면 영향은 아직 작다고 봤음. 20년 가까이 늘어나던 컴공과 등록이 꺾인 첫 해가 올해. 어느 쪽이 맞았는지는 지금 신입생이 졸업하는 2030년쯤 드러날 예정</span></div>
       </div>
-      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
+      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/openai.html">오픈AI</a><span class="sep">·</span><a href="/wiki/fed.html">미국 연준</a><span class="sep">·</span><a class="topic" href="/topics/ai.html">AI</a></div></div>
     </div>
 
 <!-- STORY 4 -->
@@ -752,7 +773,7 @@ line-height:1.25;color:#fff;word-break:keep-all}
         <div class="bullet"><span class="dot">◾</span><span>방어주 명단에 이름이 오르니 돈이 알아서 따라붙음. 케이시스는 4개월 전 S&amp;P 500에 편입, 지수를 따라가는 돈이 자동으로 붙었음. 소득이 늘든 줄든 휴먼이 방문할 수밖에 없는 업종이라, AI 관련주가 흔들릴 때마다 여기로 자금이 도는 그림. AI 쏠림을 피하려고 만든 ETF도 편의점 종목으로 케이시스를 골라담음. 4월 상장한 편의점 체인 예스웨이는 청약이 10배 몰렸고, 컴벌랜드팜스도 상장을 준비 중</span></div>
         <div class="bullet"><span class="dot">◾</span><span>업계가 진짜 걱정하는 건 내년임. 올해 실적에 유가 변동성이 크게 보탰던 만큼, 중동이 잠잠해지면 같은 마진이 안 나올 수 있음. 머피USA는 지난주 2026년 전망을 일부러 보수적으로 내면서 지금은 예측 자체가 어렵다는 말을 덧붙였음. 시장에선 동일 점포 매출·기름 마진이 버티는지를 보겠다고 함. 7-일레븐이 미국 법인 상장을 내년으로 미룬 것도 같은 맥락. 업계에선 2027년이 다 같이 꺾이는 해가 될지를 놓고 논쟁 중</span></div>
       </div>
-      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
+      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/oil.html">원유</a><span class="sep">·</span><a class="topic" href="/topics/ai.html">AI</a><span class="sep">·</span><a class="topic" href="/topics/consumer-retail.html">소비·리테일</a></div></div>
     </div>
 
 <!-- STORY 5 -->
@@ -766,7 +787,7 @@ line-height:1.25;color:#fff;word-break:keep-all}
         <div class="bullet"><span class="dot">◾</span><span>이 싸움이 11월 중간선거의 최전선. 법안을 올린 건 의료 노조라 표밭이 넓고, 서명도 필요한 87만건의 2배 가까운 160만건을 걷었음. 캘리포니아 민주당은 찬성으로 정리했는데, 주지사 뉴섬과 유력한 후임 후보는 둘 다 반대. UC버클리 조사에선 찬성 48%·반대 41%인데, 조사 책임자는 주민투표에서 찬성이 50%를 못 넘기면 위험 신호라고 짚었음. 반대 광고가 본격적으로 붙는 건 가을부터라, 지금 숫자는 아직 절반만 그려진 판</span></div>
         <div class="bullet"><span class="dot">◾</span><span>통과돼도 돈이 바로 들어오진 않음. 2026년 1월 1일에 캘리포니아에 살았는지로 대상을 가르고, 실제로 걷는 건 2027년. 5년에 나눠 낼 수 있지만 미납분에 연 7.5%가 붙음. 같은 투표용지에 40호와 충돌할 수 있는 41·42호가 같이 올라 있어, 이쪽이 표를 더 받으면 40호가 과반을 넘겨도 법원 판단에 따라 막힐 수 있음. 억만장자 6명이 1월 1일 전에 캘리포니아를 떠났다고 알려졌고 브린도 네바다로 옮겼지만, 세법상 거주지 인정은 별개 문제</span></div>
       </div>
-      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p>
+      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/google.html">구글</a><span class="sep">·</span><a class="topic" href="/topics/bigtech.html">빅테크</a></div></div>
     </div>
 
 <!-- /content -->
