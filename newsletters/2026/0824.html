@@ -406,28 +406,19 @@
 <meta property="og:image:height" content="630"/>
 <meta name="twitter:card" content="summary_large_image"/>
 <style id="soonsal-story-links">
-/* 스토리 끝 — 다 읽은 사람만 본다. 본문 흐름을 끊지 않는다 */
-.story-links{margin:14px 0 0;padding:11px 0 0;border-top:1px solid #ece8e0;
-font-size:11.5px;line-height:1.8;color:#9a958a;word-break:keep-all}
-.story-links .k{color:#b5b0a4;margin-right:5px}
-.story-links a{color:#8a857c;text-decoration:none;border-bottom:1px solid #e6e1d8}
-.story-links a:hover{color:#C24A00;border-bottom-color:#C24A00}
-.story-links .sep{opacity:.4;margin:0 4px}
-/* 주제는 개별 이름이 아니라 묶음이다 — 테두리로 구분한다 */
-.story-links a.topic{border-bottom:0;padding:1px 7px;border-radius:999px;
-background:#f3efe8;color:#8a857c}
-.story-links a.topic:hover{background:#C24A00;color:#fff}
-.story-links .row + .row{margin-top:4px}
-/* 「같은 흐름」은 제목이 길어 한 줄에 하나씩 세운다. 라벨은 왼쪽에 고정 */
-.story-links .flows{display:flex;align-items:flex-start}
-.story-links .flow-list{display:flex;flex-direction:column;gap:2px;min-width:0}
-.story-links .flow{display:block;min-width:0}
-.story-links .flow a{display:inline-block;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;vertical-align:top}
-/* 왜 이어지는지 한 줄 — 폰에선 마우스를 못 올리니 글로 보여 준다 (KD 2026-10-10) */
-.story-links .fw{display:block;font-size:10.5px;line-height:1.5;color:#b5b0a4;margin:0 0 3px 33px}
-.story-links .flow b{font-weight:600;color:#b5b0a4;margin-right:3px}
-@media(max-width:560px){.story-links .flows{display:block}
-  .story-links .flow-list{margin-top:2px;padding-left:1px}}
+/* 스토리 끝 — 다 읽은 사람만 본다. 본문 흐름을 끊지 않는다.
+   ★ 간결하게 (KD 2026-10-10 「텍스트 너무 길고 난잡 — 줄을 무작위로 늘리지 말고」):
+     항목마다 **딱 한 줄**(넘치면 …), 라벨은 왼쪽 고정 칸, 밑줄·알약·이유 줄 없음 → 최대 3줄로 끝난다.
+     이어지는 이유는 링크에 마우스를 올리면(title) 보인다. */
+.story-links{margin:14px 0 0;padding:10px 0 0;border-top:1px solid #ece8e0;
+font-size:12px;line-height:1.75;color:#9a958a;word-break:keep-all}
+.story-links .row{display:flex;gap:10px;min-width:0}
+.story-links .k{flex:0 0 52px;color:#b5b0a4}
+.story-links .v{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.story-links a{color:#7d786f;text-decoration:none}
+.story-links a:hover{color:#C24A00;text-decoration:underline}
+.story-links .sep{color:#d3cec4;margin:0 5px}
+.story-links .v b{font-weight:600;color:#b5b0a4;margin-right:5px;font-variant-numeric:tabular-nums}
 </style>
 <!-- soonsal:story-fragments-style:start --><style>
 .ss-story-index{margin:0 0 34px;padding:21px 22px;border:1px solid #e8e8e0;
@@ -737,7 +728,7 @@ line-height:1.25;color:#fff;word-break:keep-all}
         <div class="bullet"><span class="dot">◾</span><span>양쪽 다 뒷수습이 어려움. 캐나다 수출의 약 72%가 미국행이라 보복관세는 자국 물가를 올리는 부메랑. 카니 본인도 "보복관세가 자국 물가를 올리고 선택이 줄어드는 건 안다"고 인정. 미국 쪽은 25개 주가 연방정부를 상대로 관세 소송을 걸어둔 상태. 7월 1일에 열린 CUSMA <span class="sub">(캐나다-미국-멕시코 자유무역협정)</span> 첫 공동 재검토에서 미국이 현 상태로 갱신을 거부한 뒤라 무역 프레임이 통째로 흔들리는 상황</span></div>
         <div class="bullet"><span class="dot">◾</span><span>현재 원유는 관세 대상에서 빠졌고 캐나다도 공급 축소를 배제한 상태. 그래도 미국 최대 원유 공급축이 무역전쟁의 잠재 카드로 거론된다는 것 자체가 에너지 수입국엔 체크포인트. 한국은 원유를 전량 수입하는 만큼 국제유가 변동이 정유·운송비로 이어지는 구조. 미-캐 관세전이 에너지까지 번질지는 아직 열린 문제지만, 무역 갈등이 에너지 경로를 정치화하는 추세 자체가 에너지 수입국에겐 이미 리스크 <span class="note">(제발 그만 좀)</span></span></div>
       </div>
-      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/trump.html">트럼프</a><span class="sep">·</span><a href="/wiki/oil.html">원유</a><span class="sep">·</span><a class="topic" href="/topics/trump-politics.html">트럼프·정책</a><span class="sep">·</span><a class="topic" href="/topics/energy.html">에너지·원자재</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0703.html#story-4" title="캐나다 무역갈등의 직접 전조"><b>07-03</b> USMCA 갱신 안함, 2조불 무역판 흔들기</a><span class="fw">캐나다 무역갈등의 직접 전조</span></span><span class="flow"><a href="/newsletters/2026/0724.html#story-3" title="같은 관세 확전 흐름"><b>07-24</b> 트럼프, 관세 법 갈아끼움</a><span class="fw">같은 관세 확전 흐름</span></span></span></div></div>
+      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">나온 것</span><span class="v"><a href="/wiki/trump.html">트럼프</a><span class="sep">·</span><a href="/wiki/oil.html">원유</a><span class="sep">·</span><a href="/topics/trump-politics.html">트럼프·정책</a></span></div><div class="row"><span class="k">같은 흐름</span><span class="v"><a href="/newsletters/2026/0703.html#story-4" title="캐나다 무역갈등의 직접 전조"><b>07-03</b>USMCA 갱신 안함, 2조불 무역판 흔들기</a></span></div><div class="row"><span class="k"></span><span class="v"><a href="/newsletters/2026/0724.html#story-3" title="같은 관세 확전 흐름"><b>07-24</b>트럼프, 관세 법 갈아끼움</a></span></div></div>
     </div>
     <div class="story" id="story-2" role="article" aria-labelledby="story-2-title" data-ss-story="0824-2" data-ss-issue="0824">
 <!-- STORY 2 -->
@@ -750,7 +741,7 @@ line-height:1.25;color:#fff;word-break:keep-all}
         <div class="bullet"><span class="dot">◾</span><span>디젤값은 결국 장바구니값으로 옮겨감. 디젤이 트럭 운송비 변동분의 46%를 차지하는데, 생산자물가가 이미 전년 대비 4.7% 올라 있음. 5월에 미국 평균 디젤 소매가는 갤런당 5.64불로 전년 대비 62% 올랐고 시카고는 갤런당 6.30불. 미 농무부는 2026년 쇠고기 가격 11% 상승을 예고. 식료품 전체 물가는 안정된 것처럼 보여도 품목별 격차가 크게 벌어지는 중 <span class="note">(마트에서 소고기값은 폭등, 계란만 싸진 세상)</span></span></div>
         <div class="bullet"><span class="dot">◾</span><span>정치판에서도 해결이 필요. 하원 공화당이 만든 950억불 예산 패키지에 농업 구제금 최대 120억불이 끼어 있는데 상원 전망은 불투명. 5년짜리 농업법안도 8월 상원 농업위에서 막힘. 핵심은 호르무즈 하나가 디젤과 비료를 동시에 밀어올리고, 둘이 각각 운송비·농업 원가를 통해 식탁으로 번지는 구조라는 것. 한국도 원유 100% 수입국이라 디젤값 고공행진이 운송비→내수 물가로 바로 전이되는 판</span></div>
       </div>
-      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/oil.html">원유</a><span class="sep">·</span><a class="topic" href="/topics/energy.html">에너지·원자재</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0713.html#story-1" title="호르무즈 봉쇄가 만든 유가 급등 원인"><b>07-13</b> 호르무즈, 또 닫혔다</a><span class="fw">호르무즈 봉쇄가 만든 유가 급등 원인</span></span><span class="flow"><a href="/newsletters/2026/0527.html#story-2" title="유가 변동성 지속된 앞 장면"><b>05-27</b> &quot;평화 가깝다&quot;면서 폭격, 유가 다시</a><span class="fw">유가 변동성 지속된 앞 장면</span></span></span></div></div>
+      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">나온 것</span><span class="v"><a href="/wiki/oil.html">원유</a><span class="sep">·</span><a href="/topics/energy.html">에너지·원자재</a></span></div><div class="row"><span class="k">같은 흐름</span><span class="v"><a href="/newsletters/2026/0713.html#story-1" title="호르무즈 봉쇄가 만든 유가 급등 원인"><b>07-13</b>호르무즈, 또 닫혔다</a></span></div><div class="row"><span class="k"></span><span class="v"><a href="/newsletters/2026/0527.html#story-2" title="유가 변동성 지속된 앞 장면"><b>05-27</b>&quot;평화 가깝다&quot;면서 폭격, 유가 다시 꿈틀</a></span></div></div>
     </div>
     <div class="story" id="story-3" role="article" aria-labelledby="story-3-title" data-ss-story="0824-3" data-ss-issue="0824">
 <!-- STORY 3 -->
@@ -763,7 +754,7 @@ line-height:1.25;color:#fff;word-break:keep-all}
         <div class="bullet"><span class="dot">◾</span><span>중국 AI 투자의 마진 압축 국면이 본격화된 신호. 미국 4대 하이퍼스케일러가 올해 설비투자에 수천억불을 쏟고 있는데, 중국 빅테크도 같은 판에 뛰어들면서 돈 태우는 속도를 따라가는 중. 알리바바 ADR은 금요일 하루에 8.6% 빠졌고 올해 들어 18.6% 하락. 유증 가격 112.70홍콩달러는 ADR 종가 대비 3.6% 할인인데, 시장이 이미 반영한 악재 위에 추가 희석을 얹는 모양새</span></div>
         <div class="bullet"><span class="dot">◾</span><span>AI가 돈을 벌어다 줄 거라는 약속과, 그 약속을 지키기 전에 먼저 돈을 쏟아야 하는 현실의 간극. 클라우드 45% 성장이라는 실제 수요와, 그 수요를 잡으려면 기존 주주가 희석까지 감수해야 하는 자본전쟁이 동시에 벌어지는 중. 2026년에 투입한 돈이 2028년 경쟁력이 된다는 건, 일단 살아남았다는 전제로 아직까진 믿음의 영역. 그 믿음에 102억불을 더 얹은 셈이고, 시장은 그 값어치를 따지는 중 <span class="note">(올인 아니면 올아웃)</span></span></div>
       </div>
-      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/alibaba.html">알리바바</a><span class="sep">·</span><a href="/wiki/michael-burry.html">마이클 버리</a><span class="sep">·</span><a class="topic" href="/topics/china.html">중국</a><span class="sep">·</span><a class="topic" href="/topics/ai.html">AI</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0605.html#story-3" title="같은 빅테크 AI 자금조달 경쟁"><b>06-05</b> 빅테크, AI 돈줄 전쟁</a><span class="fw">같은 빅테크 AI 자금조달 경쟁</span></span><span class="flow"><a href="/newsletters/2026/0708.html#story-2" title="알리바바 AI 모델 논란의 배경"><b>07-08</b> Anthropic, &quot;중국은 AI 베껴서 날로</a><span class="fw">알리바바 AI 모델 논란의 배경</span></span></span></div></div>
+      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">나온 것</span><span class="v"><a href="/wiki/alibaba.html">알리바바</a><span class="sep">·</span><a href="/wiki/michael-burry.html">마이클 버리</a><span class="sep">·</span><a href="/topics/china.html">중국</a></span></div><div class="row"><span class="k">같은 흐름</span><span class="v"><a href="/newsletters/2026/0605.html#story-3" title="같은 빅테크 AI 자금조달 경쟁"><b>06-05</b>빅테크, AI 돈줄 전쟁</a></span></div><div class="row"><span class="k"></span><span class="v"><a href="/newsletters/2026/0708.html#story-2" title="알리바바 AI 모델 논란의 배경"><b>07-08</b>Anthropic, &quot;중국은 AI 베껴서 날로 먹는 중&quot;</a></span></div></div>
     </div>
     <div class="story" id="story-4" role="article" aria-labelledby="story-4-title" data-ss-story="0824-4" data-ss-issue="0824">
 <!-- STORY 4 -->
@@ -776,7 +767,7 @@ line-height:1.25;color:#fff;word-break:keep-all}
         <div class="bullet"><span class="dot">◾</span><span>규모가 커지는 동안 경로가 복잡해지고 있음. 올 상반기 SRT <span class="sub">(대출 위험 이전, 은행이 대출 위험을 펀드에 넘기는 별도 시장)</span> 규모가 6년 연속 사상 최대 행진. 브로드컴 <span class="sub">(반도체 회사)</span>은 AI 칩 금융 구조에 아폴로·블랙스톤 등과 600억불 넘는 대출을 논의 중인데, AI 인프라 투자가 사모 대출 시장으로 빨려 들어가는 경로. BIS는 이 연결이 빠르게 커지고 있는 것 맞음, but 현재 위험은 "modest"라고 평가</span></div>
         <div class="bullet"><span class="dot">◾</span><span>2008년과 겹치는 부분은, 등급이 규제자본을 좌우한다는 인센티브 + 낮은 투명성. But 같은 판이라고 단정하긴 어려움. 바젤위원회는 올해 2월 보고서에서 최근 SRT가 금융위기 전보다 더 신중하게 구조화됐고 규제·감독도 강해졌다고 명시. 지금 경고등은 이미 터질 화약고라기보다, 사모등급·보험사·은행-펀드 연결이 커지는 동안 실제 위험이 얼마나 제대로 보이느냐에 있음 <span class="note">(투명성이 관건)</span></span></div>
       </div>
-      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/broadcom.html">브로드컴</a><span class="sep">·</span><a href="/wiki/apollo.html">아폴로글로벌</a><span class="sep">·</span><a href="/wiki/blackstone.html">블랙스톤</a><span class="sep">·</span><a class="topic" href="/topics/insurance.html">보험</a><span class="sep">·</span><a class="topic" href="/topics/banks-wallst.html">월가·은행</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0626-crypto.html#story-5" title="같은 사모신용 붕괴 베팅 흐름"><b>06-26</b> 사모신용 Big Short — 2008 영웅 재등장</a><span class="fw">같은 사모신용 붕괴 베팅 흐름</span></span><span class="flow"><a href="/newsletters/2026/0304-crypto.html#story-3" title="사모크레딧 불안의 앞선 신호"><b>03-04</b> Blackstone BCRED에서 $3.8B 빠짐 — </a><span class="fw">사모크레딧 불안의 앞선 신호</span></span></span></div></div>
+      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">나온 것</span><span class="v"><a href="/wiki/broadcom.html">브로드컴</a><span class="sep">·</span><a href="/wiki/apollo.html">아폴로글로벌</a><span class="sep">·</span><a href="/wiki/blackstone.html">블랙스톤</a><span class="sep">·</span><a href="/topics/insurance.html">보험</a></span></div><div class="row"><span class="k">같은 흐름</span><span class="v"><a href="/newsletters/2026/0626-crypto.html#story-5" title="같은 사모신용 붕괴 베팅 흐름"><b>06-26</b>사모신용 Big Short — 2008 영웅 재등장</a></span></div><div class="row"><span class="k"></span><span class="v"><a href="/newsletters/2026/0304-crypto.html#story-3" title="사모크레딧 불안의 앞선 신호"><b>03-04</b>Blackstone BCRED에서 $3.8B 빠짐 — 사모 크레딧의 뱅크런?</a></span></div></div>
     </div>
     <div class="story" id="story-5" role="article" aria-labelledby="story-5-title" data-ss-story="0824-5" data-ss-issue="0824">
 <!-- STORY 5 -->
@@ -789,7 +780,7 @@ line-height:1.25;color:#fff;word-break:keep-all}
         <div class="bullet"><span class="dot">◾</span><span><strong>문제는 투자자들이 이미 올라탄 상태에서 벌어지는 일이란 것</strong>. 뱅크오브아메리카 설문에서 펀드매니저들의 주식 비중이 2021년 11월 이후 최고인데, 동시에 최대 tail risk <span class="sub">(확률은 낮지만 터지면 큰일나는 위험)</span> 1위로 꼽은 게 AI 버블 <span class="sub">(32%)</span>. 금리 무질서 상승 <span class="sub">(27%)</span>이 2위, 인플레 재상승이 3위. 주식을 사면서도 최대 공포가 AI 버블이란 건 지금 포지션과 걱정이 정면으로 부딪치는 구간</span></div>
         <div class="bullet"><span class="dot">◾</span><span>이번 주 바이너리 <span class="sub">(결과에 따라 시장이 크게 한 쪽으로 쏠리는 이벤트)</span>는 잭슨홀. 워시 연준의장의 첫 잭슨홀 연설이 금요일에 잡혀 있는데, 그가 전에 '백지'라 불렀던 자리. 재무부가 장기 금리를 인위적으로 누르면, 시장의 가격신호를 중시해온 워시의 프레임과 정면으로 충돌. 금요일 S&P글로벌 PMI 예비치는 미국 기업 활동이 약 4년래 가장 빠른 성장이라고 나왔는데, 적어도 금리 인하 명분을 약하게 만드는 쪽</span></div>
       </div>
-      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/bitcoin.html">비트코인</a><span class="sep">·</span><a href="/wiki/gold.html">금</a><span class="sep">·</span><a href="/wiki/fed.html">미국 연준</a><span class="sep">·</span><a href="/wiki/dollar.html">달러(환율)</a><span class="sep">·</span><a href="/wiki/bofa.html">뱅크오브아메리카</a><span class="sep">·</span><a class="topic" href="/topics/crypto.html">크립토</a><span class="sep">·</span><a class="topic" href="/topics/fed-rates.html">연준·금리</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0820.html#story-1" title="같은 달러 신뢰 흔들림의 다른 모습"><b>08-20</b> 금리 무서워서 자기 국채 사는 미국</a><span class="fw">같은 달러 신뢰 흔들림의 다른 모습</span></span><span class="flow"><a href="/newsletters/2026/0713.html#story-2" title="달러약세 베팅의 또 다른 축"><b>07-13</b> 캐리트레이드, 2000년 이후 최고 환경</a><span class="fw">달러약세 베팅의 또 다른 축</span></span></span></div></div>
+      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">나온 것</span><span class="v"><a href="/wiki/bitcoin.html">비트코인</a><span class="sep">·</span><a href="/wiki/gold.html">금</a><span class="sep">·</span><a href="/wiki/fed.html">미국 연준</a><span class="sep">·</span><a href="/wiki/dollar.html">달러(환율)</a><span class="sep">·</span><a href="/topics/crypto.html">크립토</a></span></div><div class="row"><span class="k">같은 흐름</span><span class="v"><a href="/newsletters/2026/0820.html#story-1" title="같은 달러 신뢰 흔들림의 다른 모습"><b>08-20</b>금리 무서워서 자기 국채 사는 미국</a></span></div><div class="row"><span class="k"></span><span class="v"><a href="/newsletters/2026/0713.html#story-2" title="달러약세 베팅의 또 다른 축"><b>07-13</b>캐리트레이드, 2000년 이후 최고 환경</a></span></div></div>
     </div>
   </div>
 <!-- /content -->

@@ -436,28 +436,19 @@ transition:color .18s ease,background .18s ease}
 }
 </style>
 <style id="soonsal-story-links">
-/* 스토리 끝 — 다 읽은 사람만 본다. 본문 흐름을 끊지 않는다 */
-.story-links{margin:14px 0 0;padding:11px 0 0;border-top:1px solid #ece8e0;
-font-size:11.5px;line-height:1.8;color:#9a958a;word-break:keep-all}
-.story-links .k{color:#b5b0a4;margin-right:5px}
-.story-links a{color:#8a857c;text-decoration:none;border-bottom:1px solid #e6e1d8}
-.story-links a:hover{color:#C24A00;border-bottom-color:#C24A00}
-.story-links .sep{opacity:.4;margin:0 4px}
-/* 주제는 개별 이름이 아니라 묶음이다 — 테두리로 구분한다 */
-.story-links a.topic{border-bottom:0;padding:1px 7px;border-radius:999px;
-background:#f3efe8;color:#8a857c}
-.story-links a.topic:hover{background:#C24A00;color:#fff}
-.story-links .row + .row{margin-top:4px}
-/* 「같은 흐름」은 제목이 길어 한 줄에 하나씩 세운다. 라벨은 왼쪽에 고정 */
-.story-links .flows{display:flex;align-items:flex-start}
-.story-links .flow-list{display:flex;flex-direction:column;gap:2px;min-width:0}
-.story-links .flow{display:block;min-width:0}
-.story-links .flow a{display:inline-block;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;vertical-align:top}
-/* 왜 이어지는지 한 줄 — 폰에선 마우스를 못 올리니 글로 보여 준다 (KD 2026-10-10) */
-.story-links .fw{display:block;font-size:10.5px;line-height:1.5;color:#b5b0a4;margin:0 0 3px 33px}
-.story-links .flow b{font-weight:600;color:#b5b0a4;margin-right:3px}
-@media(max-width:560px){.story-links .flows{display:block}
-  .story-links .flow-list{margin-top:2px;padding-left:1px}}
+/* 스토리 끝 — 다 읽은 사람만 본다. 본문 흐름을 끊지 않는다.
+   ★ 간결하게 (KD 2026-10-10 「텍스트 너무 길고 난잡 — 줄을 무작위로 늘리지 말고」):
+     항목마다 **딱 한 줄**(넘치면 …), 라벨은 왼쪽 고정 칸, 밑줄·알약·이유 줄 없음 → 최대 3줄로 끝난다.
+     이어지는 이유는 링크에 마우스를 올리면(title) 보인다. */
+.story-links{margin:14px 0 0;padding:10px 0 0;border-top:1px solid #ece8e0;
+font-size:12px;line-height:1.75;color:#9a958a;word-break:keep-all}
+.story-links .row{display:flex;gap:10px;min-width:0}
+.story-links .k{flex:0 0 52px;color:#b5b0a4}
+.story-links .v{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.story-links a{color:#7d786f;text-decoration:none}
+.story-links a:hover{color:#C24A00;text-decoration:underline}
+.story-links .sep{color:#d3cec4;margin:0 5px}
+.story-links .v b{font-weight:600;color:#b5b0a4;margin-right:5px;font-variant-numeric:tabular-nums}
 </style>
 <!-- soonsal:story-fragments-style:start --><style>
 .ss-story-index{margin:0 0 34px;padding:21px 22px;border:1px solid #e8e8e0;
@@ -755,7 +746,7 @@ line-height:1.25;color:#fff;word-break:keep-all}
     <div class="bullet"><span class="dot">◾</span><span>오늘 수천 명의 임직원이 한꺼번에 백만장자로 등극. 임원부터 엔지니어, 구내식당 직원까지 스톡옵션 제공. 머스크 본인은 순자산이 1조불을 넘기며 사실상 세계 첫 '조만장자' 반열에 오르는데, 상장 뒤에도 차등의결권으로 의결권 82% 이상을 쥐고 회사를 통째로 컨트롤. 시장에서는 '첫날 시초가가 얼마냐'보다 이 속도의 AI 투자를 끝까지 버텨줄 수 있느냐를 더 지켜보는 분위기</span></div>
   </div>
   <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">* 매수매도 추천 아님, 순살도 주주 아님</p>
-<div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/spacex.html">스페이스X</a><span class="sep">·</span><a href="/wiki/musk.html">일론 머스크</a><span class="sep">·</span><a href="/wiki/nasdaq.html">나스닥</a><span class="sep">·</span><a href="/wiki/aramco.html">아람코</a><span class="sep">·</span><a href="/wiki/goldman.html">골드만삭스</a><span class="sep">·</span><a class="topic" href="/topics/space-aero.html">우주·항공</a><span class="sep">·</span><a class="topic" href="/topics/ipo.html">IPO·상장</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0609.html#story-3" title="밸류 논쟁의 직전 단계"><b>06-09</b> 스페이스X IPO, 적정가는 아무도 모름</a><span class="fw">밸류 논쟁의 직전 단계</span></span><span class="flow"><a href="/newsletters/2026/0526.html#story-4" title="S-1 매출구조 상세 배경"><b>05-26</b> SpaceX S-1, 숫자가 말하는 것들</a><span class="fw">S-1 매출구조 상세 배경</span></span></span></div></div></div>
+<div class="story-links"><div class="row"><span class="k">나온 것</span><span class="v"><a href="/wiki/spacex.html">스페이스X</a><span class="sep">·</span><a href="/wiki/musk.html">일론 머스크</a><span class="sep">·</span><a href="/wiki/nasdaq.html">나스닥</a><span class="sep">·</span><a href="/wiki/aramco.html">아람코</a><span class="sep">·</span><a href="/topics/space-aero.html">우주·항공</a></span></div><div class="row"><span class="k">같은 흐름</span><span class="v"><a href="/newsletters/2026/0609.html#story-3" title="밸류 논쟁의 직전 단계"><b>06-09</b>스페이스X IPO, 적정가는 아무도 모름</a></span></div><div class="row"><span class="k"></span><span class="v"><a href="/newsletters/2026/0526.html#story-4" title="S-1 매출구조 상세 배경"><b>05-26</b>SpaceX S-1, 숫자가 말하는 것들</a></span></div></div></div>
 
 <!-- STORY 2 -->
 <div class="story" id="story-2" role="article" aria-labelledby="story-2-title" data-ss-story="0612-2" data-ss-issue="0612">
@@ -769,7 +760,7 @@ line-height:1.25;color:#fff;word-break:keep-all}
     <div class="bullet"><span class="dot">◾</span><span>더 큰 그림은 워싱턴과의 관계. 트럼프 정부는 인텔 10%를 시작으로 전략 기업 지분을 줄줄이 사들이는 중. 이제 AI 기업까지 노리는데, OpenAI는 지분 일부를 떼주겠다며 먼저 줄을 섬. 반면 앤트로픽은 백악관 AI 차르 출신에게 겁줘서 규제 깔고 그 판을 자기가 먹으려는 수작이라고 저격당하는 처지. 남들은 지분 바쳐 정부를 파트너로 모시는데 앤트로픽은 규제자로 부르자는 격이라, '소신이냐 다른 노림수냐'는 시선이 붙는 중</span></div>
   </div>
   <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">* 매수매도 추천 아님, 순살도 주주 아님</p>
-<div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/anthropic.html">앤스로픽</a><span class="sep">·</span><a href="/wiki/trump.html">트럼프</a><span class="sep">·</span><a href="/wiki/intel.html">인텔</a><span class="sep">·</span><a href="/wiki/openai.html">오픈AI</a><span class="sep">·</span><a class="topic" href="/topics/ai.html">AI</a><span class="sep">·</span><a class="topic" href="/topics/trump-politics.html">트럼프·정책</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0608.html#story-3" title="같은 앤트로픽의 규제 신중론"><b>06-08</b> IPO 앞두고 &#x27;AI 멈추자&#x27;는 앤트</a><span class="fw">같은 앤트로픽의 규제 신중론</span></span><span class="flow"><a href="/newsletters/2026/0604.html#story-1" title="정부 규제완화 흐름과 대립"><b>06-04</b> 트럼프의 딜레마, AI 규제했다간 GDP도 날아감</a><span class="fw">정부 규제완화 흐름과 대립</span></span></span></div></div></div>
+<div class="story-links"><div class="row"><span class="k">나온 것</span><span class="v"><a href="/wiki/anthropic.html">앤스로픽</a><span class="sep">·</span><a href="/wiki/trump.html">트럼프</a><span class="sep">·</span><a href="/wiki/intel.html">인텔</a><span class="sep">·</span><a href="/wiki/openai.html">오픈AI</a><span class="sep">·</span><a href="/topics/ai.html">AI</a></span></div><div class="row"><span class="k">같은 흐름</span><span class="v"><a href="/newsletters/2026/0608.html#story-3" title="같은 앤트로픽의 규제 신중론"><b>06-08</b>IPO 앞두고 &#x27;AI 멈추자&#x27;는 앤트로픽</a></span></div><div class="row"><span class="k"></span><span class="v"><a href="/newsletters/2026/0604.html#story-1" title="정부 규제완화 흐름과 대립"><b>06-04</b>트럼프의 딜레마, AI 규제했다간 GDP도 날아감</a></span></div></div></div>
 
 <!-- STORY 3 -->
 <div class="story" id="story-3" role="article" aria-labelledby="story-3-title" data-ss-story="0612-3" data-ss-issue="0612">
@@ -781,7 +772,7 @@ line-height:1.25;color:#fff;word-break:keep-all}
     <div class="bullet"><span class="dot">◾</span><span><strong>심지어 에너지 차질이 더 심해지면 성장률이 1.3%까지 추락할 수 있다고 경고</strong>. 기준 시나리오조차 브렌트유 연평균 94불에 글로벌 물가 4%를 깔고 있어 여유가 없는데, 한때 하루 1,400만 배럴 <span class="sub">(국제에너지기구 추산)</span> 원유가 호르무즈에서 막혔던 걸 감안하면 결코 과장이 아님. 세계은행은 "세계 경제의 회복력이 2008년이나 2018년 대비 훨씬 떨어진다"고 진단</span></div>
     <div class="bullet"><span class="dot">◾</span><span>미국은 2.2% 전망을 그대로 유지. 정작 전쟁을 시작한 당사자인데 가장 덜 맞는 아이러니. 에너지 자급이 되는 데다, AI 투자 붐+감세가 경기를 떠받치는 덕. 그 사이 유럽·아시아 개도국은 에너지 비용 직격탄을 훨씬 크게 맞아, 개도국 성장률이 3.6%로 팬데믹 이후 최저까지 밀림. 2027~28년 반등 전망 <span class="sub">(2.8%)</span>도 2010년대 평균보다 0.4%p 낮은 수준</span></div>
     <div class="bullet"><span class="dot">◾</span><span>다만 오늘 트럼프의 평화 시그널이 현실이 되면 이 그림이 통째로 바뀔 수 있음. 호르무즈가 열리고 유가가 70불대로 내려오면 하반기부터 반등 여지가 생기는 것. 반대로 딜이 또 무산되면 세계은행 예측 그대로 "2020년대 = 너무 많은 개도국들 입장에서 잃어버린 10년" <span class="sub">(Lost Decade)</span>이 더 또렷해짐. 결국 워싱턴과 테헤란의 서명 한 장에 세계 성장률이 걸린 상황</span></div>
-  <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/world-bank.html">세계은행</a><span class="sep">·</span><a href="/wiki/oil.html">원유</a><span class="sep">·</span><a href="/wiki/iea.html">국제에너지기구</a><span class="sep">·</span><a href="/wiki/trump.html">트럼프</a><span class="sep">·</span><a class="topic" href="/topics/banks-wallst.html">월가·은행</a><span class="sep">·</span><a class="topic" href="/topics/energy.html">에너지·원자재</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0611.html#story-1" title="에너지 인플레가 성장둔화 원인"><b>06-11</b> 인플레 4.2%, 진짜 범인은 따로</a><span class="fw">에너지 인플레가 성장둔화 원인</span></span><span class="flow"><a href="/newsletters/2026/0522.html#story-1" title="AI 투자비용이 물가압력 기여"><b>05-22</b> AI가 물가를 올리는 중</a><span class="fw">AI 투자비용이 물가압력 기여</span></span></span></div></div></div>
+  <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">나온 것</span><span class="v"><a href="/wiki/world-bank.html">세계은행</a><span class="sep">·</span><a href="/wiki/oil.html">원유</a><span class="sep">·</span><a href="/wiki/iea.html">국제에너지기구</a><span class="sep">·</span><a href="/wiki/trump.html">트럼프</a><span class="sep">·</span><a href="/topics/banks-wallst.html">월가·은행</a></span></div><div class="row"><span class="k">같은 흐름</span><span class="v"><a href="/newsletters/2026/0611.html#story-1" title="에너지 인플레가 성장둔화 원인"><b>06-11</b>인플레 4.2%, 진짜 범인은 따로</a></span></div><div class="row"><span class="k"></span><span class="v"><a href="/newsletters/2026/0522.html#story-1" title="AI 투자비용이 물가압력 기여"><b>05-22</b>AI가 물가를 올리는 중</a></span></div></div></div>
 </div>
 
 <!-- STORY 4 -->
@@ -796,7 +787,7 @@ line-height:1.25;color:#fff;word-break:keep-all}
     <div class="bullet"><span class="dot">◾</span><span>지금 AI 투자 경쟁은 '하느냐 마느냐'가 아니라 '누가 더 빨리 더 많이 태우느냐'의 싸움. 골드만 전망대로면 웬만한 나라 GDP와 맞먹는 돈이 매년 AI 인프라에만 들어간다는 뜻. 정작 1분기 실적에서 AI 생산성 효과를 숫자로 입증한 기업은 2%뿐, 돈은 쏟는데 수익 증명은 아직이라는 긴장도 깔려 있음. 돈 벌기 전에 돈부터 쓰는 게 이 산업의 새 문법 <span class="note">(이기면 혁명, 실패하면 사라짐)</span></span></div>
   </div>
   <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">* 매수매도 추천 아님, 순살도 주주 아님</p>
-<div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/goldman.html">골드만삭스</a><span class="sep">·</span><a href="/wiki/amazon.html">아마존</a><span class="sep">·</span><a href="/wiki/openai.html">오픈AI</a><span class="sep">·</span><a href="/wiki/nvidia.html">엔비디아</a><span class="sep">·</span><a href="/wiki/anthropic.html">앤스로픽</a><span class="sep">·</span><a class="topic" href="/topics/ai.html">AI</a><span class="sep">·</span><a class="topic" href="/topics/banks-wallst.html">월가·은행</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0611.html#story-4" title="같은 AI투자-현금적자 패턴"><b>06-11</b> 오라클, 매출은 굿 현금은 마이너스</a><span class="fw">같은 AI투자-현금적자 패턴</span></span><span class="flow"><a href="/newsletters/2026/0520.html#story-3" title="AI 투자 자금조달의 빚더미 버전"><b>05-20</b> AI 빚더미, 회사채 시장을 접수 중</a><span class="fw">AI 투자 자금조달의 빚더미 버전</span></span></span></div></div></div>
+<div class="story-links"><div class="row"><span class="k">나온 것</span><span class="v"><a href="/wiki/goldman.html">골드만삭스</a><span class="sep">·</span><a href="/wiki/amazon.html">아마존</a><span class="sep">·</span><a href="/wiki/openai.html">오픈AI</a><span class="sep">·</span><a href="/wiki/nvidia.html">엔비디아</a><span class="sep">·</span><a href="/topics/ai.html">AI</a></span></div><div class="row"><span class="k">같은 흐름</span><span class="v"><a href="/newsletters/2026/0611.html#story-4" title="같은 AI투자-현금적자 패턴"><b>06-11</b>오라클, 매출은 굿 현금은 마이너스</a></span></div><div class="row"><span class="k"></span><span class="v"><a href="/newsletters/2026/0520.html#story-3" title="AI 투자 자금조달의 빚더미 버전"><b>05-20</b>AI 빚더미, 회사채 시장을 접수 중</a></span></div></div></div>
 
 <!-- STORY 5 -->
 <div class="story" id="story-5" role="article" aria-labelledby="story-5-title" data-ss-story="0612-5" data-ss-issue="0612">
@@ -810,7 +801,7 @@ line-height:1.25;color:#fff;word-break:keep-all}
     <div class="bullet"><span class="dot">◾</span><span>상장으로 땡기는 돈 <span class="sub">(15억불 안팎 추정)</span>은 다음 인수 실탄. 차등의결권 구조라 경영권은 창업자 4인방이 꽉 쥐고 감. 마침 SpaceX <span class="sub">(1.77조불)</span>부터 Anthropic <span class="sub">(9,650억불)</span>까지 줄선 IPO 슈퍼사이클에 올라탄 타이밍. 다만 성장이 인수에서 나오는 롤업 구조라, 쇼핑이 멈추면 성장도 멈추는 거 아니냐는 게 월가가 따져보는 포인트. 쥐어짜기 모델이 분기마다 실적 까야되는 무대에서도 굴러가는지, 시장에서는 첫 성적표를 기다리는 중</span></div>
   </div>
   <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">* 매수매도 추천 아님, 순살도 주주 아님</p>
-<p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/nasdaq.html">나스닥</a><span class="sep">·</span><a href="/wiki/klarna.html">클라르나</a><span class="sep">·</span><a href="/wiki/ferrari.html">페라리</a><span class="sep">·</span><a href="/wiki/google.html">구글</a><span class="sep">·</span><a href="/wiki/spacex.html">스페이스X</a><span class="sep">·</span><a class="topic" href="/topics/deals.html">딜·M&amp;A</a><span class="sep">·</span><a class="topic" href="/topics/ipo.html">IPO·상장</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0429.html#story-4" title="레거시 인터넷자산 재편의 유사 사례"><b>04-29</b> 배리 딜러, &quot;다시 처음부터&quot;</a><span class="fw">레거시 인터넷자산 재편의 유사 사례</span></span></span></div></div></div>
+<p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">나온 것</span><span class="v"><a href="/wiki/nasdaq.html">나스닥</a><span class="sep">·</span><a href="/wiki/klarna.html">클라르나</a><span class="sep">·</span><a href="/wiki/ferrari.html">페라리</a><span class="sep">·</span><a href="/wiki/google.html">구글</a><span class="sep">·</span><a href="/topics/deals.html">딜·M&amp;A</a></span></div><div class="row"><span class="k">같은 흐름</span><span class="v"><a href="/newsletters/2026/0429.html#story-4" title="레거시 인터넷자산 재편의 유사 사례"><b>04-29</b>배리 딜러, &quot;다시 처음부터&quot;</a></span></div></div></div>
 
 </div><!-- /content -->
 

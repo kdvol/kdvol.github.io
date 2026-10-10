@@ -418,28 +418,19 @@
 <meta property="og:image:height" content="630"/>
 <meta name="twitter:card" content="summary_large_image"/>
 <style id="soonsal-story-links">
-/* 스토리 끝 — 다 읽은 사람만 본다. 본문 흐름을 끊지 않는다 */
-.story-links{margin:14px 0 0;padding:11px 0 0;border-top:1px solid #ece8e0;
-font-size:11.5px;line-height:1.8;color:#9a958a;word-break:keep-all}
-.story-links .k{color:#b5b0a4;margin-right:5px}
-.story-links a{color:#8a857c;text-decoration:none;border-bottom:1px solid #e6e1d8}
-.story-links a:hover{color:#C24A00;border-bottom-color:#C24A00}
-.story-links .sep{opacity:.4;margin:0 4px}
-/* 주제는 개별 이름이 아니라 묶음이다 — 테두리로 구분한다 */
-.story-links a.topic{border-bottom:0;padding:1px 7px;border-radius:999px;
-background:#f3efe8;color:#8a857c}
-.story-links a.topic:hover{background:#C24A00;color:#fff}
-.story-links .row + .row{margin-top:4px}
-/* 「같은 흐름」은 제목이 길어 한 줄에 하나씩 세운다. 라벨은 왼쪽에 고정 */
-.story-links .flows{display:flex;align-items:flex-start}
-.story-links .flow-list{display:flex;flex-direction:column;gap:2px;min-width:0}
-.story-links .flow{display:block;min-width:0}
-.story-links .flow a{display:inline-block;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;vertical-align:top}
-/* 왜 이어지는지 한 줄 — 폰에선 마우스를 못 올리니 글로 보여 준다 (KD 2026-10-10) */
-.story-links .fw{display:block;font-size:10.5px;line-height:1.5;color:#b5b0a4;margin:0 0 3px 33px}
-.story-links .flow b{font-weight:600;color:#b5b0a4;margin-right:3px}
-@media(max-width:560px){.story-links .flows{display:block}
-  .story-links .flow-list{margin-top:2px;padding-left:1px}}
+/* 스토리 끝 — 다 읽은 사람만 본다. 본문 흐름을 끊지 않는다.
+   ★ 간결하게 (KD 2026-10-10 「텍스트 너무 길고 난잡 — 줄을 무작위로 늘리지 말고」):
+     항목마다 **딱 한 줄**(넘치면 …), 라벨은 왼쪽 고정 칸, 밑줄·알약·이유 줄 없음 → 최대 3줄로 끝난다.
+     이어지는 이유는 링크에 마우스를 올리면(title) 보인다. */
+.story-links{margin:14px 0 0;padding:10px 0 0;border-top:1px solid #ece8e0;
+font-size:12px;line-height:1.75;color:#9a958a;word-break:keep-all}
+.story-links .row{display:flex;gap:10px;min-width:0}
+.story-links .k{flex:0 0 52px;color:#b5b0a4}
+.story-links .v{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.story-links a{color:#7d786f;text-decoration:none}
+.story-links a:hover{color:#C24A00;text-decoration:underline}
+.story-links .sep{color:#d3cec4;margin:0 5px}
+.story-links .v b{font-weight:600;color:#b5b0a4;margin-right:5px;font-variant-numeric:tabular-nums}
 </style>
 <!-- soonsal:story-fragments-style:start --><style>
 .ss-story-index{margin:0 0 34px;padding:21px 22px;border:1px solid #e8e8e0;
@@ -699,7 +690,7 @@ line-height:1.25;color:#fff;word-break:keep-all}
         <div class="bullet"><span class="dot">◾</span><span>동네 가게 사장 입장에선 ‘최대 이만큼’이라고 적어둔 숫자가 할인 없이 그대로 결제된 셈. 작은 판매자도 대기업과 같은 경매판에 들어가니, 계산법을 모르면 입찰 예산부터 잘못 잡게 됨. 2024년 아마존 상품광고  <span class="sub">(Sponsored Products)</span> 낙찰의 약 80%가 이 경우. FTC는 숨은 문턱이 가끔 튀어나온 예외가 아니라 경매의 일상처럼 작동했다는 증거로 이 숫자를 제시. 다만 소장 속 주장일 뿐, 법원이 위법성을 인정한 결론은 아직 없음</span></div>
         <div class="bullet"><span class="dot">◾</span><span>아마존과 FTC는 같은 경매를 완전히 다르게 설명함. 아마존은 최대 입찰액보다 더 받은 적이 없다고 반박. 광고 자리에 기준 금액을 두는 일도 업계에서 흔하고, 광고주는 판매 성과를 보며 입찰액을 조정한다는 입장임. FTC는 계산법을 미리 알았다면 광고주가 최대 금액부터 낮췄을 거라고 맞섬. 결국 법원이 가릴 건 ‘상한을 넘겨 받았나’보다 ‘상한을 적기 전에 규칙을 충분히 알렸나’. 경매표보다 설명서가 본게임인 소송</span></div>
       </div>
-      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/amazon.html">아마존</a><span class="sep">·</span><a href="/wiki/ftc.html">FTC</a><span class="sep">·</span><a class="topic" href="/topics/bigtech.html">빅테크</a></div></div>
+      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">나온 것</span><span class="v"><a href="/wiki/amazon.html">아마존</a><span class="sep">·</span><a href="/wiki/ftc.html">FTC</a><span class="sep">·</span><a href="/topics/bigtech.html">빅테크</a></span></div></div>
     </div><!-- STORY 2 -->    <div class="story" id="story-2" role="article" aria-labelledby="story-2-title" data-ss-story="0902-2" data-ss-issue="0902">
       <span class="story-label">BIOTECH · CONSUMER</span>
       <div class="story-title" id="story-2-title" role="heading" aria-level="2">🧑‍🦲 살 빼는 약 다음, 머리 나는 약</div><a class="ss-story-permalink" href="#story-2" aria-label="2번 스토리 영구 링크">🔗 이 스토리 링크</a>
@@ -710,7 +701,7 @@ line-height:1.25;color:#fff;word-break:keep-all}
         <div class="bullet"><span class="dot">◾</span><span>앱사이 <span class="sub">(AI 신약개발사)</span>는 아예 매일 약 먹고 바르는 귀찮음부터 없애려는 쪽. AI로 만든 항체가 모낭 성장을 방해하는 신호를 막아 다시 자라게 만드는 방식 <span class="sub">(ABS-201; 프로락틴 수용체 차단 항체)</span>. 지금은 사람에게 처음 투여해 안전성+초기 효과를 보는 단계 <span class="sub">(임상 1/2a상)</span>. 회사가 공개한 중간 데이터에선 약이 몸속에서 절반으로 줄어드는 데 추정 65일+ 걸려 <span class="sub">(반감기)</span>, 6개월에 2~3번 주사도 가능하다고 보는 중. 릴리도 6월 4,000만불 지분 투자</span></div>
         <div class="bullet"><span class="dot">◾</span><span>돈 되는 방식은 다이어트약과 닮았지만 보험 구조는 정반대. 비만약 <span class="sub">(GLP-1 계열)</span>은 치료제로 보험 적용까지 일부 들어왔지만, 탈모는 대부분 본인 돈으로 살 가능성이 큼. 탈모약은 보험보다 본인 돈이 먼저 붙을 가능성이 큰 시장. <strong>보험사 대신 소비자 지갑을 직접 열어야 한다는 뜻</strong>. 이미 모발이식 받으러 해외까지 가고 여러 약을 같이 쓰는 수요도 존재. 셋 다 탈모 치료제로는 승인 전이라, 임상·승인에서 삐끗하면 지금 붙은 몸값도 크게 흔들릴 수 있는 판</span></div>
       </div>
-      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a class="topic" href="/topics/healthcare.html">헬스케어·제약</a><span class="sep">·</span><a class="topic" href="/topics/ipo.html">IPO·상장</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0522.html#story-3" title="비만약 붐 다음 단계의 서사"><b>05-22</b> 릴리 다이어트 약 신작, 위절제급 효과</a><span class="fw">비만약 붐 다음 단계의 서사</span></span></span></div></div>
+      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">나온 것</span><span class="v"><a href="/topics/healthcare.html">헬스케어·제약</a></span></div><div class="row"><span class="k">같은 흐름</span><span class="v"><a href="/newsletters/2026/0522.html#story-3" title="비만약 붐 다음 단계의 서사"><b>05-22</b>릴리 다이어트 약 신작, 위절제급 효과</a></span></div></div>
     </div><!-- STORY 3 -->    <div class="story" id="story-3" role="article" aria-labelledby="story-3-title" data-ss-story="0902-3" data-ss-issue="0902">
       <span class="story-label">ENERGY · AUTOMATION</span>
       <div class="story-title" id="story-3-title" role="heading" aria-level="2">🛢 엑슨, 900kg 파이프도 로봇에게</div><a class="ss-story-permalink" href="#story-3" aria-label="3번 스토리 영구 링크">🔗 이 스토리 링크</a>
@@ -721,7 +712,7 @@ line-height:1.25;color:#fff;word-break:keep-all}
         <div class="bullet"><span class="dot">◾</span><span>엑슨 목표는 퍼미안 생산량을 2030년까지 거의 40% 늘려 하루 250만 석유환산배럴까지 끌어올리는 것. 반면 셰브론은 하루 100만 석유환산배럴 안팎을 유지하며 현금 창출에 집중. 성장 속도에서 방향이 갈림. 엑슨이 강조하는 또 다른 숫자는 배럴당 약 30불의 '공급원가'. 단순 채굴비가 아니라, 그 정도 유가에서도 프로젝트가 목표 수익을 낼 수 있느냐를 보는 경제성 문턱에 가까운 개념</span></div>
         <div class="bullet"><span class="dot">◾</span><span>자동화까지 묶인 큰 그림은 결국 유가가 내려갈 때 버티는 힘. 퍼미안 공급원가가 30불 안팎이면 낮은 유가에서도 투자 수익을 지킬 여지가 커짐. 화요일 브렌트유는 미국·이란 교전 재개로 정규 거래 기준 4.6% 올라 배럴당 94.65달러에 마감. 지정학 뉴스 하나에 하루 가격이 크게 흔들리는 시장에서, 엑슨은 유가를 맞히는 대신 자기가 통제할 수 있는 시추 속도·회수율·경제성 문턱을 계속 낮추는 쪽에 베팅하는 중</span></div>
       </div>
-      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/exxon.html">엑슨모빌</a><span class="sep">·</span><a href="/wiki/oil.html">원유</a><span class="sep">·</span><a class="topic" href="/topics/energy.html">에너지·원자재</a></div></div>
+      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">나온 것</span><span class="v"><a href="/wiki/exxon.html">엑슨모빌</a><span class="sep">·</span><a href="/wiki/oil.html">원유</a><span class="sep">·</span><a href="/topics/energy.html">에너지·원자재</a></span></div></div>
     </div><!-- STORY 4 -->    <div class="story" id="story-4" role="article" aria-labelledby="story-4-title" data-ss-story="0902-4" data-ss-issue="0902">
       <span class="story-label">WORK · AI</span>
       <div class="story-title" id="story-4-title" role="heading" aria-level="2">🧠 AI가 일할수록 비싸지는 휴먼 능력치</div><a class="ss-story-permalink" href="#story-4" aria-label="4번 스토리 영구 링크">🔗 이 스토리 링크</a>
@@ -732,7 +723,7 @@ line-height:1.25;color:#fff;word-break:keep-all}
         <div class="bullet"><span class="dot">◾</span><span>비슷한 변화는 채용시장에서도 보임. PwC가 미국 채용공고를 분석했더니, AI 영향을 많이 받는 업종의 경우, 리더십·창의성·대면 소통 같은 ‘선임급 능력’을 신입에게 요구할 확률이 여타 신입직 대비 7배 높았음. 반복업무는 AI가 가져가니, 회사는 막내에게 예전보다 빨리 판단하고 설명하고 책임지는 역할까지 요구하는 중. 예전엔 몇 년 일하며 배우던 능력을 입사 첫날부터 들고 오라는 셈 <span class="note">(신입 뽑음, 경력 필수)</span></span></div>
         <div class="bullet"><span class="dot">◾</span><span>실제로 AI 쓰는 모두가 일을 더 잘하는 것도 아니었음. KPMG·텍사스대가 신입급 직원 523명에게 같은 AI 에이전트 써서 고객업무 비슷한 과제를 시켰더니, 절반가량만 AI 완전 자동화의 결과를 넘어섰음. 4명 중 1명은 오히려 AI보다 퀄리티 낮은 결과. 갈린 건 정답 외우기가 아니라, 문제를 잘 던지고 답을 의심하고 여러 번 고쳐 쓰는 능력. 도구가 평준화될수록 진짜 사람 차이는 오히려 벌어지는 중</span></div>
       </div>
-    <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a class="topic" href="/topics/ai.html">AI</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0521.html#story-4" title="AI에도 인간 몸값 급등 사례"><b>05-21</b> 트레이더 몸값 700억 시대의 머니볼</a><span class="fw">AI에도 인간 몸값 급등 사례</span></span><span class="flow"><a href="/newsletters/2026/0605.html#story-4" title="AI해고·인간수요 공존 역설"><b>06-05</b> AI가 자르는데 구인은 느는 미스터리</a><span class="fw">AI해고·인간수요 공존 역설</span></span></span></div></div></div><!-- STORY 5 -->    <div class="story" id="story-5" role="article" aria-labelledby="story-5-title" data-ss-story="0902-5" data-ss-issue="0902">
+    <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">나온 것</span><span class="v"><a href="/topics/ai.html">AI</a></span></div><div class="row"><span class="k">같은 흐름</span><span class="v"><a href="/newsletters/2026/0521.html#story-4" title="AI에도 인간 몸값 급등 사례"><b>05-21</b>트레이더 몸값 700억 시대의 머니볼</a></span></div><div class="row"><span class="k"></span><span class="v"><a href="/newsletters/2026/0605.html#story-4" title="AI해고·인간수요 공존 역설"><b>06-05</b>AI가 자르는데 구인은 느는 미스터리</a></span></div></div></div><!-- STORY 5 -->    <div class="story" id="story-5" role="article" aria-labelledby="story-5-title" data-ss-story="0902-5" data-ss-issue="0902">
       <span class="story-label">TECH · STRATEGY</span>
       <div class="story-title" id="story-5-title" role="heading" aria-level="2">📷 고프로, 액션캠 다음 액션은 AI 데이터센터</div><a class="ss-story-permalink" href="#story-5" aria-label="5번 스토리 영구 링크">🔗 이 스토리 링크</a>
       <div class="story-body">
@@ -742,7 +733,7 @@ line-height:1.25;color:#fff;word-break:keep-all}
         <div class="bullet"><span class="dot">◾</span><span>AI 데이터센터에 들어가는 건 고프로 카메라가 아니라 스타맨의 광송수신기  <span class="sub">(서버 데이터를 빛 신호로 바꿔 광섬유로 보내는 장비)</span>임. 고프로는 여기에 미국 특허 2500개 이상과 광학·영상 기술을 보탤 계획. 국방·정부·로봇·항공우주 시장도 함께 노림. 액션캠 기술을 그대로 서버에 꽂는다는 뜻은 아니고, 합병회사가 두 회사의 기술과 미국 생산기반을 묶어 새 제품을 만들겠다는 구상. 렌즈 회사가 고객 명단부터 갈아끼우는 중</span></div>
         <div class="bullet"><span class="dot">◾</span><span>시장은 현금 1.14달러보다 합병 뒤 남는 지분에도 값을 붙였음. 고프로 주가는 발표 당일 40% 올라 1.23달러에 마감. 현금 지급액보다 주가가 높았던 건 합병회사 지분의 미래 가치까지 기대했다는 뜻. 다만 스타맨은 비상장사  <span class="sub">(주식시장에 상장되지 않은 회사)</span>이고, AI 데이터센터 사업의 실제 계약과 매출은 아직 공개된 게 제한적. 주주 승인과 거래 종결도 남아 있음. 새 고객과 매출로 이어질지는 합병 뒤 숫자가 답할 차례  <span class="note">(AI 간판보다 매출표가 본게임)</span></span></div>
       </div>
-      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/nasdaq.html">나스닥</a><span class="sep">·</span><a class="topic" href="/topics/deals.html">딜·M&amp;A</a><span class="sep">·</span><a class="topic" href="/topics/ai.html">AI</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0413.html#story-3" title="이색 업종의 GPU냉각 피봇"><b>04-13</b> 세제 만들던 회사의 47.5억불짜리 반전</a><span class="fw">이색 업종의 GPU냉각 피봇</span></span><span class="flow"><a href="/newsletters/2026/0729.html#story-5" title="비전형 업종 데이터센터 피봇"><b>07-29</b> AI 피봇 끝판왕, 치킨집 등판</a><span class="fw">비전형 업종 데이터센터 피봇</span></span></span></div></div>
+      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">나온 것</span><span class="v"><a href="/wiki/nasdaq.html">나스닥</a><span class="sep">·</span><a href="/topics/deals.html">딜·M&amp;A</a></span></div><div class="row"><span class="k">같은 흐름</span><span class="v"><a href="/newsletters/2026/0413.html#story-3" title="이색 업종의 GPU냉각 피봇"><b>04-13</b>세제 만들던 회사의 47.5억불짜리 반전</a></span></div><div class="row"><span class="k"></span><span class="v"><a href="/newsletters/2026/0729.html#story-5" title="비전형 업종 데이터센터 피봇"><b>07-29</b>AI 피봇 끝판왕, 치킨집 등판</a></span></div></div>
     </div>
 
 <!-- /content -->

@@ -418,28 +418,19 @@
 <meta property="og:image:height" content="630"/>
 <meta name="twitter:card" content="summary_large_image"/>
 <style id="soonsal-story-links">
-/* 스토리 끝 — 다 읽은 사람만 본다. 본문 흐름을 끊지 않는다 */
-.story-links{margin:14px 0 0;padding:11px 0 0;border-top:1px solid #ece8e0;
-font-size:11.5px;line-height:1.8;color:#9a958a;word-break:keep-all}
-.story-links .k{color:#b5b0a4;margin-right:5px}
-.story-links a{color:#8a857c;text-decoration:none;border-bottom:1px solid #e6e1d8}
-.story-links a:hover{color:#C24A00;border-bottom-color:#C24A00}
-.story-links .sep{opacity:.4;margin:0 4px}
-/* 주제는 개별 이름이 아니라 묶음이다 — 테두리로 구분한다 */
-.story-links a.topic{border-bottom:0;padding:1px 7px;border-radius:999px;
-background:#f3efe8;color:#8a857c}
-.story-links a.topic:hover{background:#C24A00;color:#fff}
-.story-links .row + .row{margin-top:4px}
-/* 「같은 흐름」은 제목이 길어 한 줄에 하나씩 세운다. 라벨은 왼쪽에 고정 */
-.story-links .flows{display:flex;align-items:flex-start}
-.story-links .flow-list{display:flex;flex-direction:column;gap:2px;min-width:0}
-.story-links .flow{display:block;min-width:0}
-.story-links .flow a{display:inline-block;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;vertical-align:top}
-/* 왜 이어지는지 한 줄 — 폰에선 마우스를 못 올리니 글로 보여 준다 (KD 2026-10-10) */
-.story-links .fw{display:block;font-size:10.5px;line-height:1.5;color:#b5b0a4;margin:0 0 3px 33px}
-.story-links .flow b{font-weight:600;color:#b5b0a4;margin-right:3px}
-@media(max-width:560px){.story-links .flows{display:block}
-  .story-links .flow-list{margin-top:2px;padding-left:1px}}
+/* 스토리 끝 — 다 읽은 사람만 본다. 본문 흐름을 끊지 않는다.
+   ★ 간결하게 (KD 2026-10-10 「텍스트 너무 길고 난잡 — 줄을 무작위로 늘리지 말고」):
+     항목마다 **딱 한 줄**(넘치면 …), 라벨은 왼쪽 고정 칸, 밑줄·알약·이유 줄 없음 → 최대 3줄로 끝난다.
+     이어지는 이유는 링크에 마우스를 올리면(title) 보인다. */
+.story-links{margin:14px 0 0;padding:10px 0 0;border-top:1px solid #ece8e0;
+font-size:12px;line-height:1.75;color:#9a958a;word-break:keep-all}
+.story-links .row{display:flex;gap:10px;min-width:0}
+.story-links .k{flex:0 0 52px;color:#b5b0a4}
+.story-links .v{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.story-links a{color:#7d786f;text-decoration:none}
+.story-links a:hover{color:#C24A00;text-decoration:underline}
+.story-links .sep{color:#d3cec4;margin:0 5px}
+.story-links .v b{font-weight:600;color:#b5b0a4;margin-right:5px;font-variant-numeric:tabular-nums}
 </style>
 <!-- soonsal:story-fragments-style:start --><style>
 .ss-story-index{margin:0 0 34px;padding:21px 22px;border:1px solid #e8e8e0;
@@ -733,7 +724,7 @@ line-height:1.25;color:#fff;word-break:keep-all}
         <div class="bullet"><span class="dot">◾</span><span>엔비디아는 칩 주문이 나오기 전, 데이터센터 건설을 막는 신용 문제부터 풀어주는 중임. 대형 시설은 오랫동안 임대료를 낼 세입자가 있어야 건물주와 대출기관도 돈을 댐. 오픈AI의 약속만으로 부족한 신용을 엔비디아가 보태면 건설이 시작되고, 완공된 시설에는 엔비디아 GPU와 네트워크 장비가 들어감. 임대료 보증이 미래 칩 주문을 앞당기는 장치인 셈</span></div>
         <div class="bullet"><span class="dot">◾</span><span>엔비디아 수요의 질은 이제 고객 주머니까지 봐야 함. AI 서비스가 돈을 벌고 데이터센터가 차면 보증은 쓰이지 않고 칩 판매만 남음. 반대로 시설이 비면 GPU 주문이 줄고, 보유한 투자자산의 손실과 임대료 보증 부담까지 한꺼번에 튀어나올 수 있음. 고객 현금으로 시작된 주문과 엔비디아 지원으로 만들어진 주문을 나눠 봐야 하는 이유. 매출이 똑같이 늘어도, 고객이 자기 돈으로 주문했을 때 수요가 더 튼튼함</span></div>
       </div>
-      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/nvidia.html">엔비디아</a><span class="sep">·</span><a href="/wiki/openai.html">오픈AI</a><span class="sep">·</span><a class="topic" href="/topics/semiconductor.html">반도체</a><span class="sep">·</span><a class="topic" href="/topics/real-estate.html">부동산</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0728.html#story-1" title="같은 엔비디아 벤더파이낸싱 전례"><b>07-28</b> 칩 팔려고 고객 빚보증까지 서려는 엔비디아</a><span class="fw">같은 엔비디아 벤더파이낸싱 전례</span></span></span></div></div>
+      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">나온 것</span><span class="v"><a href="/wiki/nvidia.html">엔비디아</a><span class="sep">·</span><a href="/wiki/openai.html">오픈AI</a><span class="sep">·</span><a href="/topics/semiconductor.html">반도체</a></span></div><div class="row"><span class="k">같은 흐름</span><span class="v"><a href="/newsletters/2026/0728.html#story-1" title="같은 엔비디아 벤더파이낸싱 전례"><b>07-28</b>칩 팔려고 고객 빚보증까지 서려는 엔비디아</a></span></div></div>
     </div><!-- STORY 2 -->    <div class="story" id="story-2" role="article" aria-labelledby="story-2-title" data-ss-story="0901-2" data-ss-issue="0901">
       <span class="story-label">INSURANCE · UTILITIES</span>
       <div class="story-title" id="story-2-title" role="heading" aria-level="2">🔥 산불 책임은 남고, 전력회사 주가만 태움</div><a class="ss-story-permalink" href="#story-2" aria-label="2번 스토리 영구 링크">🔗 이 스토리 링크</a>
@@ -744,7 +735,7 @@ line-height:1.25;color:#fff;word-break:keep-all}
         <div class="bullet"><span class="dot">◾</span><span>산불 비용은 없어지지 않고 다른 사람 지갑으로 옮겨갈 뿐임. 전력회사 책임을 줄이면 주주는 한숨 돌리지만, 부족한 돈은 전기요금이나 보험료로 넘어갈 수 있음. 보험사의 청구권을 그대로 두면 전력회사가 산불기금에서 더 많은 돈을 꺼내고, 그 기금은 다시 주주와 전기 소비자가 채움. 법이 정하는 건 피해액의 크기보다 누가 먼저 돈을 낼지. 결국 전력회사·보험사·소비자 사이의 비용 나누기 문제</span></div>
         <div class="bullet"><span class="dot">◾</span><span>전력회사의 진짜 원가에는 발전비뿐 아니라 산불을 막고 보상하는 돈까지 들어감. 낡은 전선을 미리 바꾸면 설비투자가 늘고, 미루면 사고 뒤 산불 보상금이 한꺼번에 붙음. 보험사도 집 상태만이 아니라 주변 전력망을 보고 보험료를 매겨야 함. 전력회사를 볼 때 산불 건수와 함께 전기요금·보험료·기금 잔액을 봐야 하는 이유. 기후위험이 전기와 보험 가격에 동시에 붙으면서, 안전비용을 미리 낼지 사고 뒤에 낼지만 남음</span></div>
       </div>
-      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a class="topic" href="/topics/insurance.html">보험</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0805.html#story-3" title="산불 리스크 금융화의 다른 형태"><b>08-05</b> 산불 날 확률에 돈을 거는 채권</a><span class="fw">산불 리스크 금융화의 다른 형태</span></span><span class="flow"><a href="/newsletters/2026/0602.html#story-5" title="기후재난 비용 전가의 다른 버전"><b>06-02</b> 미국 집보험, 보험금은 거부하고 보험료만 올림</a><span class="fw">기후재난 비용 전가의 다른 버전</span></span></span></div></div>
+      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">나온 것</span><span class="v"><a href="/topics/insurance.html">보험</a></span></div><div class="row"><span class="k">같은 흐름</span><span class="v"><a href="/newsletters/2026/0805.html#story-3" title="산불 리스크 금융화의 다른 형태"><b>08-05</b>산불 날 확률에 돈을 거는 채권</a></span></div><div class="row"><span class="k"></span><span class="v"><a href="/newsletters/2026/0602.html#story-5" title="기후재난 비용 전가의 다른 버전"><b>06-02</b>미국 집보험, 보험금은 거부하고 보험료만 올림</a></span></div></div>
     </div><!-- STORY 3 -->    <div class="story" id="story-3" role="article" aria-labelledby="story-3-title" data-ss-story="0901-3" data-ss-issue="0901">
       <span class="story-label">INSURANCE · M&A</span>
       <div class="story-title" id="story-3-title" role="heading" aria-level="2">🤝 에이온, 보험중개사에 170억달러 씀</div><a class="ss-story-permalink" href="#story-3" aria-label="3번 스토리 영구 링크">🔗 이 스토리 링크</a>
@@ -755,7 +746,7 @@ line-height:1.25;color:#fff;word-break:keep-all}
         <div class="bullet"><span class="dot">◾</span><span>인수 뒤 첫 과제는 빚을 줄이는 동안 사람까지 붙잡는 일. 에이온은 170억달러 인수대금을 전부 빚으로 마련하고, 에이온과 USI를 합치는 비용 5.5억달러와 핵심 직원 잔류비용 최대 4억달러도 따로 잡음. USI CEO를 남겨 중견기업 사업을 맡김. 고객관계가 영업사원을 따라 빠져나가는 걸 막기 위함. 비용절감도 중요한데, 일단 직원과 고객 이탈을 먼저 막아야 약속한 속도로 빚을 줄일 수 있음 <span class="note">(회사보다 사람이 먼저 빠지면 곤란)</span></span></div>
         <div class="bullet"><span class="dot">◾</span><span>에이온이 산 건 200개 지역 사무소가 쌓은 신뢰와 고객관계. 중견기업은 대형 본사보다 가까운 중개사를 믿는 경우가 많아 시장도 잘게 쪼개져 있음. 큰 중개사는 지역업체를 사서 고객을 모은 뒤, 더 많은 계약을 앞세워 보험사와 가격을 협상하고 다른 상품까지 함께 파는 게 업계 트렌드. 심지어 USI의 기존 소유주도 사모펀드 KKR. 2017년에 사들였던 회사의 규모를 키워서 에이온에 넘김. 보험중개업에선 고객관계가 상품이자 M&A 재료가 된 셈</span></div>
       </div>
-      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/kkr.html">KKR</a><span class="sep">·</span><a class="topic" href="/topics/deals.html">딜·M&amp;A</a><span class="sep">·</span><a class="topic" href="/topics/insurance.html">보험</a></div></div>
+      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">나온 것</span><span class="v"><a href="/wiki/kkr.html">KKR</a><span class="sep">·</span><a href="/topics/deals.html">딜·M&amp;A</a></span></div></div>
     </div><!-- STORY 4 -->    <div class="story" id="story-4" role="article" aria-labelledby="story-4-title" data-ss-story="0901-4" data-ss-issue="0901">
       <span class="story-label">AI · REGULATION</span>
       <div class="story-title" id="story-4-title" role="heading" aria-level="2">🛂 검색GPT, 이제 검색엔진 책임도 짐</div><a class="ss-story-permalink" href="#story-4" aria-label="4번 스토리 영구 링크">🔗 이 스토리 링크</a>
@@ -766,7 +757,7 @@ line-height:1.25;color:#fff;word-break:keep-all}
         <div class="bullet"><span class="dot">◾</span><span>규제비용은 모델 개발보다 기록·신고·감사 체계에서 더 커질 수 있음. 어떤 답이 누구에게 나갔는지 남기고, 신고가 들어오면 같은 문제를 다시 찾아내며, 새 기능을 내기 전 아동·선거·정신건강 위험도 점검해야 함. 사용자마다 다른 답을 내놓는 챗GPT는 모두가 같은 화면을 보는 기존 검색엔진보다 문제를 재현하기도 어려움. AI회사는 개발 속도뿐 아니라 사고 뒤 설명하고 고치는 능력으로도 경쟁하게 됨</span></div>
         <div class="bullet"><span class="dot">◾</span><span>EU의 핵심은 AI 전용 규제가 완성될 때까지 기다리지 않는 것. 서비스 이름이 챗봇이어도 사람들이 검색처럼 쓰면 기존 플랫폼법을 바로 적용함. 이제 AI회사 경쟁력에는 모델 성능뿐 아니라 잘못된 답을 찾아내고, 왜 나왔는지 설명하고, 다시 나오지 않게 고치는 운영 능력까지 들어감. 챗GPT가 실험도구를 넘어 정보 인프라가 됐다는 신호 <span class="note">(어느새 검색한다는 인지 자체가 없는 채로 검색하는 단계)</span></span></div>
       </div>
-    <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/openai.html">오픈AI</a><span class="sep">·</span><a class="topic" href="/topics/ai.html">AI</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0615.html#story-5" title="AI 모델 규제 개입의 다른 사례"><b>06-15</b> 칩 다음 타깃은 AI 모델 자체</a><span class="fw">AI 모델 규제 개입의 다른 사례</span></span><span class="flow"><a href="/newsletters/2026/0612.html#story-2" title="AI 안전규제 요구의 연장선"><b>06-12</b> 아모데이, AI 규제 판의 타짜</a><span class="fw">AI 안전규제 요구의 연장선</span></span></span></div></div></div><!-- STORY 5 -->    <div class="story" id="story-5" role="article" aria-labelledby="story-5-title" data-ss-story="0901-5" data-ss-issue="0901">
+    <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">나온 것</span><span class="v"><a href="/wiki/openai.html">오픈AI</a><span class="sep">·</span><a href="/topics/ai.html">AI</a></span></div><div class="row"><span class="k">같은 흐름</span><span class="v"><a href="/newsletters/2026/0615.html#story-5" title="AI 모델 규제 개입의 다른 사례"><b>06-15</b>칩 다음 타깃은 AI 모델 자체</a></span></div><div class="row"><span class="k"></span><span class="v"><a href="/newsletters/2026/0612.html#story-2" title="AI 안전규제 요구의 연장선"><b>06-12</b>아모데이, AI 규제 판의 타짜</a></span></div></div></div><!-- STORY 5 -->    <div class="story" id="story-5" role="article" aria-labelledby="story-5-title" data-ss-story="0901-5" data-ss-issue="0901">
       <span class="story-label">MARKETS · DERIVATIVES</span>
       <div class="story-title" id="story-5-title" role="heading" aria-level="2">📊 실적에 직접 걸면, 주식은 뭐가 됨?</div><a class="ss-story-permalink" href="#story-5" aria-label="5번 스토리 영구 링크">🔗 이 스토리 링크</a>
       <div class="story-body">
@@ -776,7 +767,7 @@ line-height:1.25;color:#fff;word-break:keep-all}
         <div class="bullet"><span class="dot">◾</span><span>완전히 새 베팅판은 아님. CFTC 규제 예측시장 칼시는 이미 '테슬라 분기 인도량 36만대 넘나' 같은 계약을 거래해왔음. 로빈후드도 고객에게 이벤트계약 거래를 붙여놨음. 같은 베팅을 누가 감독하냐가 문제. Cboe가 비슷한 경제적 노출을 '증권 옵션'으로 들고오자 규제 밥그릇도 충돌. Kalshi·패러다임 <span class="sub">(Kalshi의 쩐주)</span>은 SEC와 CFTC가 어느 쪽 소관인지 먼저 정리하라며 제동, 로빈후드는 특정 실적 위험만 따로 헤지할 수 있다며 찬성</span></div>
         <div class="bullet"><span class="dot">◾</span><span>진짜 골치아픈 건 결과를 회사 내부 사람들이 먼저 안다는 점. SEC 쪽에선 2008년에도 기업 실적 이벤트 계약이 내부자거래를 부르고, 경영진에게 EPS를 건드릴 유인을 줄 수 있다고 경고한 적 있음. Cboe는 발표 전 거래를 끊고 내부자거래·조작은 기존 증권법 감시망으로 잡겠다는 입장. 결국 주식은 회사 전체를 묶어 사는 종합상품으로 남고, 실적 발표는 매출·가입자·생산량별 별도 시장으로 갈라지는 구조 <span class="note">(사고 한번 크게 터질 듯)</span></span></div>
       </div>
-      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/nvidia.html">엔비디아</a><span class="sep">·</span><a href="/wiki/apple.html">애플</a><span class="sep">·</span><a href="/wiki/meta.html">메타</a><span class="sep">·</span><a href="/wiki/tesla.html">테슬라</a><span class="sep">·</span><a href="/wiki/palantir.html">팔란티어</a><span class="sep">·</span><a class="topic" href="/topics/prediction-markets.html">예측시장</a><span class="sep">·</span><a class="topic" href="/topics/bigtech.html">빅테크</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0506-crypto.html#story-2" title="SEC·CFTC 신상품 규제 갈등 전례"><b>05-06</b> 예측시장 ETF, 출시 직전에 SEC가 제동</a><span class="fw">SEC·CFTC 신상품 규제 갈등 전례</span></span><span class="flow"><a href="/newsletters/2026/0313-crypto.html#story-3" title="예측시장 규제 공조의 연장선"><b>03-13</b> 일단 걍 하지마! SEC·CFTC 손잡고, 예측시장엔 </a><span class="fw">예측시장 규제 공조의 연장선</span></span></span></div></div>
+      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">나온 것</span><span class="v"><a href="/wiki/nvidia.html">엔비디아</a><span class="sep">·</span><a href="/wiki/apple.html">애플</a><span class="sep">·</span><a href="/wiki/meta.html">메타</a><span class="sep">·</span><a href="/wiki/tesla.html">테슬라</a><span class="sep">·</span><a href="/topics/prediction-markets.html">예측시장</a></span></div><div class="row"><span class="k">같은 흐름</span><span class="v"><a href="/newsletters/2026/0506-crypto.html#story-2" title="SEC·CFTC 신상품 규제 갈등 전례"><b>05-06</b>예측시장 ETF, 출시 직전에 SEC가 제동</a></span></div><div class="row"><span class="k"></span><span class="v"><a href="/newsletters/2026/0313-crypto.html#story-3" title="예측시장 규제 공조의 연장선"><b>03-13</b>일단 걍 하지마! SEC·CFTC 손잡고, 예측시장엔 금지법 나오고</a></span></div></div>
     </div>
 
 <!-- /content -->

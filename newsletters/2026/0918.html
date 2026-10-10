@@ -418,28 +418,19 @@
 <meta property="og:image:height" content="630"/>
 <meta name="twitter:card" content="summary_large_image"/>
 <style id="soonsal-story-links">
-/* 스토리 끝 — 다 읽은 사람만 본다. 본문 흐름을 끊지 않는다 */
-.story-links{margin:14px 0 0;padding:11px 0 0;border-top:1px solid #ece8e0;
-font-size:11.5px;line-height:1.8;color:#9a958a;word-break:keep-all}
-.story-links .k{color:#b5b0a4;margin-right:5px}
-.story-links a{color:#8a857c;text-decoration:none;border-bottom:1px solid #e6e1d8}
-.story-links a:hover{color:#C24A00;border-bottom-color:#C24A00}
-.story-links .sep{opacity:.4;margin:0 4px}
-/* 주제는 개별 이름이 아니라 묶음이다 — 테두리로 구분한다 */
-.story-links a.topic{border-bottom:0;padding:1px 7px;border-radius:999px;
-background:#f3efe8;color:#8a857c}
-.story-links a.topic:hover{background:#C24A00;color:#fff}
-.story-links .row + .row{margin-top:4px}
-/* 「같은 흐름」은 제목이 길어 한 줄에 하나씩 세운다. 라벨은 왼쪽에 고정 */
-.story-links .flows{display:flex;align-items:flex-start}
-.story-links .flow-list{display:flex;flex-direction:column;gap:2px;min-width:0}
-.story-links .flow{display:block;min-width:0}
-.story-links .flow a{display:inline-block;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;vertical-align:top}
-/* 왜 이어지는지 한 줄 — 폰에선 마우스를 못 올리니 글로 보여 준다 (KD 2026-10-10) */
-.story-links .fw{display:block;font-size:10.5px;line-height:1.5;color:#b5b0a4;margin:0 0 3px 33px}
-.story-links .flow b{font-weight:600;color:#b5b0a4;margin-right:3px}
-@media(max-width:560px){.story-links .flows{display:block}
-  .story-links .flow-list{margin-top:2px;padding-left:1px}}
+/* 스토리 끝 — 다 읽은 사람만 본다. 본문 흐름을 끊지 않는다.
+   ★ 간결하게 (KD 2026-10-10 「텍스트 너무 길고 난잡 — 줄을 무작위로 늘리지 말고」):
+     항목마다 **딱 한 줄**(넘치면 …), 라벨은 왼쪽 고정 칸, 밑줄·알약·이유 줄 없음 → 최대 3줄로 끝난다.
+     이어지는 이유는 링크에 마우스를 올리면(title) 보인다. */
+.story-links{margin:14px 0 0;padding:10px 0 0;border-top:1px solid #ece8e0;
+font-size:12px;line-height:1.75;color:#9a958a;word-break:keep-all}
+.story-links .row{display:flex;gap:10px;min-width:0}
+.story-links .k{flex:0 0 52px;color:#b5b0a4}
+.story-links .v{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.story-links a{color:#7d786f;text-decoration:none}
+.story-links a:hover{color:#C24A00;text-decoration:underline}
+.story-links .sep{color:#d3cec4;margin:0 5px}
+.story-links .v b{font-weight:600;color:#b5b0a4;margin-right:5px;font-variant-numeric:tabular-nums}
 </style>
 <!-- soonsal:story-fragments-style:start --><style>
 .ss-story-index{margin:0 0 34px;padding:21px 22px;border:1px solid #e8e8e0;
@@ -719,7 +710,7 @@ line-height:1.25;color:#fff;word-break:keep-all}
         <div class="bullet"><span class="dot">◾</span><span>인도가 없앤 그 구조를 미국은 오히려 키우는 중. 당일 만기 옵션이 월간 옵션을 밀어냈고 수수료는 0, 하루 수백 번 자동으로 사고파는 에이전트 트레이딩이 다음 단계. 스포츠 베팅은 신흥 자산군이라는 이름으로 증권앱에 들어왔고, 그 베팅의 반대편엔 옵션 트레이딩으로 유명한 퀀트 회사가 앉아 있음. 인도가 3배 올린 문턱을 미국은 계속 내리는 중 <span class="note">(한국 개인의 해외 옵션 거래도 같은 구조 위에 있음)</span></span></div>
         <div class="bullet"><span class="dot">◾</span><span>큰 그림에서 이건 투자 접근성 확대가 아니라 개인 돈을 빼내는 사업 모델. ①자주 걸게 하고 ②싸게 걸게 하고 ③실력이라고 느끼게 하고 ④고급 금융이라고 불러주면 카지노가 증권시장처럼 보임. 여기에 국립증권거래소 자체가 상장 진행 중, 24억불짜리 IPO 청약 시작. 영업수익의 60%가 옵션에서 나오는 순이익률 62%짜리 미친 회사인데, 규제당국은 정확히 그 옵션 시장을 박살내는 중. 일단 거래소는 이익의 43배 값을 쳐달라고 하는 중</span></div>
       </div>
-      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a class="topic" href="/topics/trump-politics.html">트럼프·정책</a><span class="sep">·</span><a class="topic" href="/topics/ipo.html">IPO·상장</a></div></div>
+      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">나온 것</span><span class="v"><a href="/topics/trump-politics.html">트럼프·정책</a></span></div></div>
     </div>
 <!-- STORY 2 -->    <div class="story" id="story-2" role="article" aria-labelledby="story-2-title" data-ss-story="0918-2" data-ss-issue="0918">
       <span class="story-label">CREDIT · AI</span>
@@ -731,7 +722,7 @@ line-height:1.25;color:#fff;word-break:keep-all}
         <div class="bullet"><span class="dot">◾</span><span>이 숫자가 지금 나온 이유는 협상 테이블. 에메리아의 소유주인 파트너스그룹·TA는 3.5억유로를 새로 넣는 조건을 놓고 대형 채권단과 협상 중이고, 채권단은 비밀유지계약을 맺고 회사 장부를 들여다보는 중. 여기서 EBITDA가 2,000만유로 커지면 부채비율이 내려가고 소유주 쪽 발언권이 커짐. 코로나 조항은 손실이 일시적이었다는 게 나중에 증명됐지만, AI 절감은 시작도 안 한 상태라 채권단이 안 받아주면 그 자리에서 약정 위반</span></div>
         <div class="bullet"><span class="dot">◾</span><span>정리하면 이건 회계 꼼수라기보다, 대출시장이 AI 기대를 담보로 인정하기 시작한 첫 사례. 주식시장이 AI 기대를 밸류에 넣은 지는 3년 됐고 이제 채권시장 차례. 다음 후보는 유럽·미국의 부채 많은 사모펀드 소유 회사들이고 다들 AI 도입 계획서는 있음. 채권단이 한 번 받아주면 그 뒤로는 다른 회사를 거절할 명분이 사라짐 <span class="note">(증권계에는 pro-forma라고 쓰고, 내 맘대로 기준 정하는 마법의 단어가 있음)</span></span></div>
       </div>
-      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a class="topic" href="/topics/ai.html">AI</a><span class="sep">·</span><a class="topic" href="/topics/deals.html">딜·M&amp;A</a></div></div>
+      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">나온 것</span><span class="v"><a href="/topics/ai.html">AI</a></span></div></div>
     </div>
 <!-- STORY 3 -->    <div class="story" id="story-3" role="article" aria-labelledby="story-3-title" data-ss-story="0918-3" data-ss-issue="0918">
       <span class="story-label">TURKEY · FUNDS</span>
@@ -743,7 +734,7 @@ line-height:1.25;color:#fff;word-break:keep-all}
         <div class="bullet"><span class="dot">◾</span><span>한국 독자에게 낯설지 않은 그림. 사기까지 섞였던 라임·옵티머스와 달리 아직 사기 혐의는 없지만, 유동성 없는 자산에 넣은 펀드가 환매를 못 막은 구조는 같고, 개인 자금이 펀드로 몰린 속도가 시장의 깊이보다 빨랐다는 점도 같음. 터키는 물가가 높아 예금 대신 주식펀드로 돈이 밀려온 지 몇 년 됐고, 그 돈이 소형주 몇 개에 쌓였음. 차이는 규모. 문제가 된 두 운용사가 굴리던 돈만 270억불이라 한국 사태보다 자릿수가 하나 더 큼</span></div>
         <div class="bullet"><span class="dot">◾</span><span>이 사건의 본질은 규제가 만든 폭락. 집중 보유를 줄이라는 규칙은 맞는 방향이었는데, 시한을 주자 모두가 동시에 팔았음. 다음 관전점은 청산되는 130개 펀드가 보유 소형주를 어떻게 처분하는지 여부와, 그 매물이 지수를 다시 누르는지 여부. 물가 30%대 나라라서 예금으로 돌아갈 돈은 아님. 이 돈이 어디로 가야 할지도 문제. 부동산이나 달러로 가면 다른 시장이 흔들림 <span class="note">(규칙의 옳고 그름을 떠나, 출구가 하나면 사고 위험)</span></span></div>
       </div>
-      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a class="topic" href="/topics/etf-funds.html">ETF·펀드</a><span class="sep">·</span><a class="topic" href="/topics/banks-wallst.html">월가·은행</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0813.html#story-2" title="레버리지 복귀 베팅의 결말"><b>08-13</b> 시타델, 빚투는 다시 온다</a><span class="fw">레버리지 복귀 베팅의 결말</span></span><span class="flow"><a href="/newsletters/2026/0810.html#story-2" title="한국판 빚투 청산 유턴 사례"><b>08-10</b> 빚투 청산 끝났다더니 하루 만에 유턴</a><span class="fw">한국판 빚투 청산 유턴 사례</span></span></span></div></div>
+      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님</p><div class="story-links"><div class="row"><span class="k">나온 것</span><span class="v"><a href="/topics/etf-funds.html">ETF·펀드</a></span></div><div class="row"><span class="k">같은 흐름</span><span class="v"><a href="/newsletters/2026/0813.html#story-2" title="레버리지 복귀 베팅의 결말"><b>08-13</b>시타델, 빚투는 다시 온다</a></span></div><div class="row"><span class="k"></span><span class="v"><a href="/newsletters/2026/0810.html#story-2" title="한국판 빚투 청산 유턴 사례"><b>08-10</b>빚투 청산 끝났다더니 하루 만에 유턴</a></span></div></div>
     </div>
 <!-- STORY 4 -->    <div class="story" id="story-4" role="article" aria-labelledby="story-4-title" data-ss-story="0918-4" data-ss-issue="0918">
       <span class="story-label">CONSUMER · PHARMA</span>
@@ -755,7 +746,7 @@ line-height:1.25;color:#fff;word-break:keep-all}
         <div class="bullet"><span class="dot">◾</span><span>살 빼는 약 부작용이 다 나쁜 건 아님. 위궤양·대장암 위험을 낮춘다는 연구도 있고, 부작용 대부분은 복용 초기에 집중됨. But, 초기 몇 달이 제산제·진통제를 제일 많이 사는 시기라 진열 전략엔 오히려 유리. 약이 식욕을 줄이면 식품회사는 손해, 배를 달래는 회사는 이익이라는 계산이 이제 소비재 전반에 퍼지는 중. 단백질 보충제·섬유질 식품·작은 포장 제품이 같은 선반에 올라올 다음 후보</span></div>
         <div class="bullet"><span class="dot">◾</span><span>결국 이건 신약이 아니라 유통 이야기. 비만약 한 알이 만드는 수요 연쇄가 약국 선반 배치까지 바꿨고, 선반을 먼저 잡은 회사가 매장당 매출 24% 증가를 가져감. 특허가 풀리는 2030년대 중반까지 비만약 시장 밖에서 돈 벌 자리는 부작용·식단·포장 같은 주변부이고, 그 자리는 먼저 잡는 쪽이 임자. 다음 관전점은 위고비가 팔리는 한국 약국·편의점에도 같은 코너가 생기는지 여부 <span class="note">(위고비 옆에 겔포스)</span></span></div>
       </div>
-      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/walmart.html">월마트</a><span class="sep">·</span><a class="topic" href="/topics/healthcare.html">헬스케어·제약</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0630.html#story-3" title="메디케어 커버로 사용자 확대"><b>06-30</b> 미국 메디케어, 다이어트 약 보험 시대 개막</a><span class="fw">메디케어 커버로 사용자 확대</span></span><span class="flow"><a href="/newsletters/2026/0504.html#story-2" title="릴리 매출 2배, 부작용 시장 커짐"><b>05-04</b> 릴리, 다이어트 약으로 매출 2배</a><span class="fw">릴리 매출 2배, 부작용 시장 커짐</span></span></span></div></div>
+      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">나온 것</span><span class="v"><a href="/wiki/walmart.html">월마트</a><span class="sep">·</span><a href="/topics/healthcare.html">헬스케어·제약</a></span></div><div class="row"><span class="k">같은 흐름</span><span class="v"><a href="/newsletters/2026/0630.html#story-3" title="메디케어 커버로 사용자 확대"><b>06-30</b>미국 메디케어, 다이어트 약 보험 시대 개막</a></span></div><div class="row"><span class="k"></span><span class="v"><a href="/newsletters/2026/0504.html#story-2" title="릴리 매출 2배, 부작용 시장 커짐"><b>05-04</b>릴리, 다이어트 약으로 매출 2배</a></span></div></div>
     </div>
 <!-- STORY 5 -->    <div class="story" id="story-5" role="article" aria-labelledby="story-5-title" data-ss-story="0918-5" data-ss-issue="0918">
       <span class="story-label">INDUSTRY · AI SUPPLY CHAIN</span>
@@ -767,7 +758,7 @@ line-height:1.25;color:#fff;word-break:keep-all}
         <div class="bullet"><span class="dot">◾</span><span>다만 독점은 고객이 만든 것이라 고객이 없앨 수도 있음. 엔비디아는 대체 레일 공급사 인증을 진행 중이고, 시장은 내년 점유율이 75%로 내려갈 걸로 봄. 미국 관세를 피하려 지은 휴스턴 공장은 이번 분기에야 생산 시작. 매출 대부분이 엔비디아 랙 설계 한 세대에 걸려 있어, 다음 세대 랙 규격이 바뀌면 인증을 처음부터 다시 받는 구조. 주가가 1년에 3.7배 오른 회사가 감당해야 할 기대치도 그만큼 큼</span></div>
         <div class="bullet"><span class="dot">◾</span><span>이 회사가 보여주는 건 AI 붐의 돈이 새는 자리. 칩·모델을 만드는 쪽은 경쟁이 붙어 마진이 눌리고, 아무도 안 쳐다보던 부품 하나가 병목이 되면 마진이 그쪽으로 몰림. 골드러시에서 곡괭이 판 사람이 부자 된 얘기의 2026년판이고, 다음 병목 후보는 냉각·전력·랙 부품 회사들. 이미 대만 부품사들 주가에 그 기대가 먼저 들어가 있음 <span class="note">(순살러들 책상 서랍 레일도 알고보면 이 회사 제품일 확률 있음)</span></span></div>
       </div>
-      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/nvidia.html">엔비디아</a><span class="sep">·</span><a href="/wiki/tsmc.html">TSMC</a><span class="sep">·</span><a href="/wiki/ibm.html">IBM</a><span class="sep">·</span><a class="topic" href="/topics/ai.html">AI</a><span class="sep">·</span><a class="topic" href="/topics/semiconductor.html">반도체</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0917.html#story-3" title="하드웨어 쏠림의 다른 사례"><b>09-17</b> 소프트웨어 버린 실리콘밸리, 쇠를 만지기 시작</a><span class="fw">하드웨어 쏠림의 다른 사례</span></span><span class="flow"><a href="/newsletters/2026/0528.html#story-4" title="대만 AI하드웨어 생태계 수혜"><b>05-28</b> 대만 증시, 인도 제치고 세계 5위</a><span class="fw">대만 AI하드웨어 생태계 수혜</span></span></span></div></div>
+      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">나온 것</span><span class="v"><a href="/wiki/nvidia.html">엔비디아</a><span class="sep">·</span><a href="/wiki/tsmc.html">TSMC</a><span class="sep">·</span><a href="/wiki/ibm.html">IBM</a><span class="sep">·</span><a href="/topics/ai.html">AI</a></span></div><div class="row"><span class="k">같은 흐름</span><span class="v"><a href="/newsletters/2026/0917.html#story-3" title="하드웨어 쏠림의 다른 사례"><b>09-17</b>소프트웨어 버린 실리콘밸리, 쇠를 만지기 시작</a></span></div><div class="row"><span class="k"></span><span class="v"><a href="/newsletters/2026/0528.html#story-4" title="대만 AI하드웨어 생태계 수혜"><b>05-28</b>대만 증시, 인도 제치고 세계 5위</a></span></div></div>
     </div>
 <!-- /content -->
   </div><!-- DEAL -->

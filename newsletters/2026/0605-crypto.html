@@ -457,28 +457,19 @@ transition:color .18s ease,background .18s ease}
 }
 </style>
 <style id="soonsal-story-links">
-/* 스토리 끝 — 다 읽은 사람만 본다. 본문 흐름을 끊지 않는다 */
-.story-links{margin:14px 0 0;padding:11px 0 0;border-top:1px solid #ece8e0;
-font-size:11.5px;line-height:1.8;color:#9a958a;word-break:keep-all}
-.story-links .k{color:#b5b0a4;margin-right:5px}
-.story-links a{color:#8a857c;text-decoration:none;border-bottom:1px solid #e6e1d8}
-.story-links a:hover{color:#C24A00;border-bottom-color:#C24A00}
-.story-links .sep{opacity:.4;margin:0 4px}
-/* 주제는 개별 이름이 아니라 묶음이다 — 테두리로 구분한다 */
-.story-links a.topic{border-bottom:0;padding:1px 7px;border-radius:999px;
-background:#f3efe8;color:#8a857c}
-.story-links a.topic:hover{background:#C24A00;color:#fff}
-.story-links .row + .row{margin-top:4px}
-/* 「같은 흐름」은 제목이 길어 한 줄에 하나씩 세운다. 라벨은 왼쪽에 고정 */
-.story-links .flows{display:flex;align-items:flex-start}
-.story-links .flow-list{display:flex;flex-direction:column;gap:2px;min-width:0}
-.story-links .flow{display:block;min-width:0}
-.story-links .flow a{display:inline-block;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;vertical-align:top}
-/* 왜 이어지는지 한 줄 — 폰에선 마우스를 못 올리니 글로 보여 준다 (KD 2026-10-10) */
-.story-links .fw{display:block;font-size:10.5px;line-height:1.5;color:#b5b0a4;margin:0 0 3px 33px}
-.story-links .flow b{font-weight:600;color:#b5b0a4;margin-right:3px}
-@media(max-width:560px){.story-links .flows{display:block}
-  .story-links .flow-list{margin-top:2px;padding-left:1px}}
+/* 스토리 끝 — 다 읽은 사람만 본다. 본문 흐름을 끊지 않는다.
+   ★ 간결하게 (KD 2026-10-10 「텍스트 너무 길고 난잡 — 줄을 무작위로 늘리지 말고」):
+     항목마다 **딱 한 줄**(넘치면 …), 라벨은 왼쪽 고정 칸, 밑줄·알약·이유 줄 없음 → 최대 3줄로 끝난다.
+     이어지는 이유는 링크에 마우스를 올리면(title) 보인다. */
+.story-links{margin:14px 0 0;padding:10px 0 0;border-top:1px solid #ece8e0;
+font-size:12px;line-height:1.75;color:#9a958a;word-break:keep-all}
+.story-links .row{display:flex;gap:10px;min-width:0}
+.story-links .k{flex:0 0 52px;color:#b5b0a4}
+.story-links .v{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.story-links a{color:#7d786f;text-decoration:none}
+.story-links a:hover{color:#C24A00;text-decoration:underline}
+.story-links .sep{color:#d3cec4;margin:0 5px}
+.story-links .v b{font-weight:600;color:#b5b0a4;margin-right:5px;font-variant-numeric:tabular-nums}
 </style>
 <!-- soonsal:story-fragments-style:start --><style>
 .ss-story-index{margin:0 0 34px;padding:21px 22px;border:1px solid #e8e8e0;
@@ -779,7 +770,7 @@ line-height:1.25;color:#fff;word-break:keep-all}
     <div style="background:#f5f5f0; border-radius:8px; padding:14px 16px; margin-top:16px;">
       <div style="font-size:12px; color:#888; font-weight:700; margin-bottom:6px;">🏛 전통 금융 대비 현재 위치</div>
       <div style="font-size:13px; color:#444; line-height:1.6;">S&P 500이 사상 최고를 계속 갈아치우는데 BTC는 -52%. 주식-크립토 괴리가 61%p→70%p로 더 벌어지는 중. 전통 시장에서는 '리스크온'인데 크립토만 '리스크오프' — 크립토가 위험 자산 카테고리에서 아예 이탈하는 형국</div>
-    <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/bitcoin.html">비트코인</a><span class="sep">·</span><a href="/wiki/blackrock.html">블랙록</a><span class="sep">·</span><a href="/wiki/ethereum.html">이더리움</a><span class="sep">·</span><a href="/wiki/solana.html">솔라나</a><span class="sep">·</span><a href="/wiki/xrp.html">리플(XRP)</a><span class="sep">·</span><a class="topic" href="/topics/crypto.html">크립토</a><span class="sep">·</span><a class="topic" href="/topics/etf-funds.html">ETF·펀드</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0604-crypto.html#story-1" title="같은 BTC추락 시퀀스 앞 장면"><b>06-04</b> 7만불이 깨졌다 — BTC 폭락의 해부</a><span class="fw">같은 BTC추락 시퀀스 앞 장면</span></span><span class="flow"><a href="/newsletters/2026/0527-crypto.html#story-1" title="ETF유출 트렌드의 직전 단계"><b>05-27</b> BTC ETF 6일 연속 유출, 올해 번 돈 거의 다 </a><span class="fw">ETF유출 트렌드의 직전 단계</span></span></span></div></div></div>
+    <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">나온 것</span><span class="v"><a href="/wiki/bitcoin.html">비트코인</a><span class="sep">·</span><a href="/wiki/blackrock.html">블랙록</a><span class="sep">·</span><a href="/wiki/ethereum.html">이더리움</a><span class="sep">·</span><a href="/wiki/solana.html">솔라나</a><span class="sep">·</span><a href="/topics/crypto.html">크립토</a></span></div><div class="row"><span class="k">같은 흐름</span><span class="v"><a href="/newsletters/2026/0604-crypto.html#story-1" title="같은 BTC추락 시퀀스 앞 장면"><b>06-04</b>7만불이 깨졌다 — BTC 폭락의 해부</a></span></div><div class="row"><span class="k"></span><span class="v"><a href="/newsletters/2026/0527-crypto.html#story-1" title="ETF유출 트렌드의 직전 단계"><b>05-27</b>BTC ETF 6일 연속 유출, 올해 번 돈 거의 다 토해냄</a></span></div></div></div>
 </div>
 
 <!-- STORY 2 -->
@@ -795,7 +786,7 @@ line-height:1.25;color:#fff;word-break:keep-all}
     <div style="background:#f5f5f0; border-radius:8px; padding:14px 16px; margin-top:16px;">
       <div style="font-size:12px; color:#888; font-weight:700; margin-bottom:6px;">🏛 전통 금융 대비 현재 위치</div>
       <div style="font-size:13px; color:#444; line-height:1.6;">2000년 닷컴 버블 때 '구경제' 주식에서 인터넷 주식으로 돈이 몰렸던 것과 정반대 방향. 지금은 '신경제(크립토)'에서 '더 새로운 경제(AI)'로 자금이 이동 중. 크립토 ETF 12일 유출 vs 뱅가드 VOO $1조 돌파 — 같은 기간에 벌어진 대조적 사건</div>
-    <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/spacex.html">스페이스X</a><span class="sep">·</span><a href="/wiki/musk.html">일론 머스크</a><span class="sep">·</span><a href="/wiki/anthropic.html">앤스로픽</a><span class="sep">·</span><a href="/wiki/openai.html">오픈AI</a><span class="sep">·</span><a href="/wiki/oil.html">원유</a><span class="sep">·</span><a class="topic" href="/topics/crypto.html">크립토</a><span class="sep">·</span><a class="topic" href="/topics/ipo.html">IPO·상장</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0604.html#story-3" title="크립토→AI자본 이동, 같은 메커니즘"><b>06-04</b> 비트코인, AI한테 자리 뺏긴 이유</a><span class="fw">크립토→AI자본 이동, 같은 메커니즘</span></span><span class="flow"><a href="/newsletters/2026/0526.html#story-4" title="IPO S-1 공개, 자본유입 직전 단계"><b>05-26</b> SpaceX S-1, 숫자가 말하는 것들</a><span class="fw">IPO S-1 공개, 자본유입 직전 단계</span></span></span></div></div></div>
+    <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">나온 것</span><span class="v"><a href="/wiki/spacex.html">스페이스X</a><span class="sep">·</span><a href="/wiki/musk.html">일론 머스크</a><span class="sep">·</span><a href="/wiki/anthropic.html">앤스로픽</a><span class="sep">·</span><a href="/wiki/openai.html">오픈AI</a><span class="sep">·</span><a href="/topics/crypto.html">크립토</a></span></div><div class="row"><span class="k">같은 흐름</span><span class="v"><a href="/newsletters/2026/0604.html#story-3" title="크립토→AI자본 이동, 같은 메커니즘"><b>06-04</b>비트코인, AI한테 자리 뺏긴 이유</a></span></div><div class="row"><span class="k"></span><span class="v"><a href="/newsletters/2026/0526.html#story-4" title="IPO S-1 공개, 자본유입 직전 단계"><b>05-26</b>SpaceX S-1, 숫자가 말하는 것들</a></span></div></div></div>
 </div>
 
 <!-- STORY 3 -->
@@ -811,7 +802,7 @@ line-height:1.25;color:#fff;word-break:keep-all}
     <div style="background:#f5f5f0; border-radius:8px; padding:14px 16px; margin-top:16px;">
       <div style="font-size:12px; color:#888; font-weight:700; margin-bottom:6px;">🏛 전통 금융 대비 현재 위치</div>
       <div style="font-size:13px; color:#444; line-height:1.6;">스테이블코인이 결제 인프라로 자리잡는 건 '인터넷 버블 때 닷컴 주가는 터졌지만 인터넷 자체는 살아남은 것'과 같은 패턴. 토큰 투기는 죽어가도 블록체인 기술은 금융 인프라에 스며드는 중. 문제는 이 전환이 기존 토큰 보유자에게는 돈이 안 된다는 것</div>
-    <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/bitcoin.html">비트코인</a><span class="sep">·</span><a href="/wiki/solana.html">솔라나</a><span class="sep">·</span><a href="/wiki/block-inc.html">블록(Block/캐시앱)</a><span class="sep">·</span><a href="/wiki/circle.html">서클(Circle)</a><span class="sep">·</span><a href="/wiki/hyperliquid.html">하이퍼리퀴드</a><span class="sep">·</span><a class="topic" href="/topics/crypto.html">크립토</a><span class="sep">·</span><a class="topic" href="/topics/banks-wallst.html">월가·은행</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0521-crypto.html#story-3" title="가격과 무관한 실사용 인프라 성장"><b>05-21</b> 스테이블코인 3,000억불, 조용한 지각변동</a><span class="fw">가격과 무관한 실사용 인프라 성장</span></span><span class="flow"><a href="/newsletters/2026/0529-crypto.html#story-3" title="스테이블코인 실결제 확산 증거"><b>05-29</b> 비자가 스테이블코인 결제의 진짜 승자?</a><span class="fw">스테이블코인 실결제 확산 증거</span></span></span></div></div></div>
+    <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">나온 것</span><span class="v"><a href="/wiki/bitcoin.html">비트코인</a><span class="sep">·</span><a href="/wiki/solana.html">솔라나</a><span class="sep">·</span><a href="/wiki/block-inc.html">블록(Block/캐시앱)</a><span class="sep">·</span><a href="/wiki/circle.html">서클(Circle)</a><span class="sep">·</span><a href="/topics/crypto.html">크립토</a></span></div><div class="row"><span class="k">같은 흐름</span><span class="v"><a href="/newsletters/2026/0521-crypto.html#story-3" title="가격과 무관한 실사용 인프라 성장"><b>05-21</b>스테이블코인 3,000억불, 조용한 지각변동</a></span></div><div class="row"><span class="k"></span><span class="v"><a href="/newsletters/2026/0529-crypto.html#story-3" title="스테이블코인 실결제 확산 증거"><b>05-29</b>비자가 스테이블코인 결제의 진짜 승자?</a></span></div></div></div>
 </div>
 
 <!-- STORY 4 -->
@@ -841,7 +832,7 @@ line-height:1.25;color:#fff;word-break:keep-all}
     <div class="bullet"><span class="dot">◾</span><span><strong>앤트로픽</strong>, 모건스탠리·골드만삭스 주관 IPO 비밀 신청. 몸값 9,650억불 (<a href="https://www.pymnts.com/news/ipo/2026/morgan-stanley-and-goldman-sachs-land-anthropic-ipo/" style="color:#888;font-size:12px;">PYMNTS</a>)</span></div>
     <div class="bullet"><span class="dot">◾</span><span><strong>뱅가드</strong> S&P 500 ETF <span class="sub">(VOO)</span>, 운용자산 1조불 돌파 — ETF 역사상 최초 (<a href="https://www.bloomberg.com/news/articles/2026-06-03/vanguard-s-voo-hits-1-trillion-of-assets-in-etf-industry-first" style="color:#888;font-size:12px;">BBG</a>)</span></div>
     <div class="bullet"><span class="dot">◾</span><span><strong>SoFi</strong>, 솔라나 기반 스테이블코인 <span class="sub">(SoFiUSD)</span> 발행 — 미국 은행 중 최초 (<a href="https://www.coindesk.com/business/2026/05/27/sofi-brings-bank-issued-stablecoin-to-15-million-users-in-crypto-push" style="color:#888;font-size:12px;">CoinDesk</a>)</span></div>
-  <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/iren.html">아이렌</a><span class="sep">·</span><a href="/wiki/bitcoin.html">비트코인</a><span class="sep">·</span><a href="/wiki/riot.html">라이엇 플랫폼</a><span class="sep">·</span><a href="/wiki/spacex.html">스페이스X</a><span class="sep">·</span><a href="/wiki/nasdaq.html">나스닥</a><span class="sep">·</span><a class="topic" href="/topics/ai.html">AI</a><span class="sep">·</span><a class="topic" href="/topics/crypto.html">크립토</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0401-crypto.html#story-3" title="같은 전환 흐름의 앞선 보도"><b>04-01</b> 채굴기 끄고 AI 서버 켜는 중 — 해시레이트 6년 만</a><span class="fw">같은 전환 흐름의 앞선 보도</span></span><span class="flow"><a href="/newsletters/2026/0512-crypto.html#story-4" title="채굴기→AI전환 구체 계약 사례"><b>05-12</b> BTC 마이너 IREN, Nvidia와 34억불 AI </a><span class="fw">채굴기→AI전환 구체 계약 사례</span></span></span></div></div></div>
+  <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">나온 것</span><span class="v"><a href="/wiki/iren.html">아이렌</a><span class="sep">·</span><a href="/wiki/bitcoin.html">비트코인</a><span class="sep">·</span><a href="/wiki/riot.html">라이엇 플랫폼</a><span class="sep">·</span><a href="/wiki/spacex.html">스페이스X</a><span class="sep">·</span><a href="/topics/ai.html">AI</a></span></div><div class="row"><span class="k">같은 흐름</span><span class="v"><a href="/newsletters/2026/0401-crypto.html#story-3" title="같은 전환 흐름의 앞선 보도"><b>04-01</b>채굴기 끄고 AI 서버 켜는 중 — 해시레이트 6년 만에 첫 분기 감소</a></span></div><div class="row"><span class="k"></span><span class="v"><a href="/newsletters/2026/0512-crypto.html#story-4" title="채굴기→AI전환 구체 계약 사례"><b>05-12</b>BTC 마이너 IREN, Nvidia와 34억불 AI 딜</a></span></div></div></div>
 </div>
 
 <!-- HEADLINE ROUNDUP -->

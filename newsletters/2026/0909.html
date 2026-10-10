@@ -418,28 +418,19 @@
 <meta property="og:image:height" content="630"/>
 <meta name="twitter:card" content="summary_large_image"/>
 <style id="soonsal-story-links">
-/* 스토리 끝 — 다 읽은 사람만 본다. 본문 흐름을 끊지 않는다 */
-.story-links{margin:14px 0 0;padding:11px 0 0;border-top:1px solid #ece8e0;
-font-size:11.5px;line-height:1.8;color:#9a958a;word-break:keep-all}
-.story-links .k{color:#b5b0a4;margin-right:5px}
-.story-links a{color:#8a857c;text-decoration:none;border-bottom:1px solid #e6e1d8}
-.story-links a:hover{color:#C24A00;border-bottom-color:#C24A00}
-.story-links .sep{opacity:.4;margin:0 4px}
-/* 주제는 개별 이름이 아니라 묶음이다 — 테두리로 구분한다 */
-.story-links a.topic{border-bottom:0;padding:1px 7px;border-radius:999px;
-background:#f3efe8;color:#8a857c}
-.story-links a.topic:hover{background:#C24A00;color:#fff}
-.story-links .row + .row{margin-top:4px}
-/* 「같은 흐름」은 제목이 길어 한 줄에 하나씩 세운다. 라벨은 왼쪽에 고정 */
-.story-links .flows{display:flex;align-items:flex-start}
-.story-links .flow-list{display:flex;flex-direction:column;gap:2px;min-width:0}
-.story-links .flow{display:block;min-width:0}
-.story-links .flow a{display:inline-block;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;vertical-align:top}
-/* 왜 이어지는지 한 줄 — 폰에선 마우스를 못 올리니 글로 보여 준다 (KD 2026-10-10) */
-.story-links .fw{display:block;font-size:10.5px;line-height:1.5;color:#b5b0a4;margin:0 0 3px 33px}
-.story-links .flow b{font-weight:600;color:#b5b0a4;margin-right:3px}
-@media(max-width:560px){.story-links .flows{display:block}
-  .story-links .flow-list{margin-top:2px;padding-left:1px}}
+/* 스토리 끝 — 다 읽은 사람만 본다. 본문 흐름을 끊지 않는다.
+   ★ 간결하게 (KD 2026-10-10 「텍스트 너무 길고 난잡 — 줄을 무작위로 늘리지 말고」):
+     항목마다 **딱 한 줄**(넘치면 …), 라벨은 왼쪽 고정 칸, 밑줄·알약·이유 줄 없음 → 최대 3줄로 끝난다.
+     이어지는 이유는 링크에 마우스를 올리면(title) 보인다. */
+.story-links{margin:14px 0 0;padding:10px 0 0;border-top:1px solid #ece8e0;
+font-size:12px;line-height:1.75;color:#9a958a;word-break:keep-all}
+.story-links .row{display:flex;gap:10px;min-width:0}
+.story-links .k{flex:0 0 52px;color:#b5b0a4}
+.story-links .v{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.story-links a{color:#7d786f;text-decoration:none}
+.story-links a:hover{color:#C24A00;text-decoration:underline}
+.story-links .sep{color:#d3cec4;margin:0 5px}
+.story-links .v b{font-weight:600;color:#b5b0a4;margin-right:5px;font-variant-numeric:tabular-nums}
 </style>
 <!-- soonsal:story-fragments-style:start --><style>
 .ss-story-index{margin:0 0 34px;padding:21px 22px;border:1px solid #e8e8e0;
@@ -720,7 +711,7 @@ line-height:1.25;color:#fff;word-break:keep-all}
         <div class="bullet"><span class="dot">◾</span><span>지수 내 나머지 기업들 이익도 동시에 살아났음. 나머지 493곳의 2분기 이익은 +31.8%, 2021년 말 이후 가장 높은 성장률. 팩트셋은 4분기엔 이 그룹이 26.8% 성장해 7대 기술주의 23.2%를 앞설 것으로 예상. 이미 2분기 이익 기여 상위 5곳에도 반도체·에너지 회사들이 함께 들어왔음. 7개 기술주만 보던 실적 시즌 → 다른 업종의 이익이 실제로 얼마나 넓게 번지는지까지 같이 봐야 하는 구간</span></div>
         <div class="bullet"><span class="dot">◾</span><span>아마존에선 본업 현금이 늘었는데도 투자 뒤 남는 현금은 마이너스로 돌아섰음. 2분기 영업이익 +43%, 최근 12개월 영업현금흐름 +33%. But 데이터센터·AI 설비에 쓰는 돈이 더 빨리 불며 잉여현금흐름은 182억불 유입→76억불 유출로 뒤집힘. 사업에서 현금을 더 벌어도, 그보다 더 큰돈을 서버와 데이터센터에 다시 넣으면 주주 손에 바로 남는 돈은 줄어들 수 있음. AI 실적에선 ‘얼마 벌었나’와 ‘얼마 다시 넣나’를 동시에 확인해야 함</span></div>
       </div>
-      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/amazon.html">아마존</a><span class="sep">·</span><a href="/wiki/anthropic.html">앤스로픽</a><span class="sep">·</span><a href="/wiki/nvidia.html">엔비디아</a><span class="sep">·</span><a class="topic" href="/topics/ai.html">AI</a><span class="sep">·</span><a class="topic" href="/topics/bigtech.html">빅테크</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0727.html#story-2" title="지분이익이 순이익 견인한 실제 사례"><b>07-27</b> 9억불이 940억불 된 알파벳의 숨은 장부</a><span class="fw">지분이익이 순이익 견인한 실제 사례</span></span><span class="flow"><a href="/newsletters/2026/0416.html#story-2" title="지분가치 첫 공시로 드러난 선례"><b>04-16</b> 구글이 숨겨둔 1,000억불짜리 로켓</a><span class="fw">지분가치 첫 공시로 드러난 선례</span></span></span></div></div>
+      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">나온 것</span><span class="v"><a href="/wiki/amazon.html">아마존</a><span class="sep">·</span><a href="/wiki/anthropic.html">앤스로픽</a><span class="sep">·</span><a href="/wiki/nvidia.html">엔비디아</a><span class="sep">·</span><a href="/topics/ai.html">AI</a></span></div><div class="row"><span class="k">같은 흐름</span><span class="v"><a href="/newsletters/2026/0727.html#story-2" title="지분이익이 순이익 견인한 실제 사례"><b>07-27</b>9억불이 940억불 된 알파벳의 숨은 장부</a></span></div><div class="row"><span class="k"></span><span class="v"><a href="/newsletters/2026/0416.html#story-2" title="지분가치 첫 공시로 드러난 선례"><b>04-16</b>구글이 숨겨둔 1,000억불짜리 로켓</a></span></div></div>
     </div><!-- STORY 2 -->    
 
 
@@ -734,7 +725,7 @@ line-height:1.25;color:#fff;word-break:keep-all}
         <div class="bullet"><span class="dot">◾</span><span>중국이 내세운 명분은 자국 소재업체 피해. 1월 시작한 조사 끝에 일본산 제품이 덤핑됐고 중국 산업이 실질 피해를 입었으며 둘 사이 인과도 있다고 예비판정. 조사 자체도 정부가 먼저 특정 소재를 찍은 게 아니라 중국 국내 산업의 신청에서 시작. 일본은 자국 기업에 부당한 피해가 가지 않게 대응하겠다는 입장. 국가안보를 앞세운 장비 수출통제와 달리, 이번엔 기업의 덤핑 피해 주장이 무역구제 절차를 타고 국경 비용으로 바뀐 것</span></div>
         <div class="bullet"><span class="dot">◾</span><span>반도체용 디클로로실란은 불순물 수준까지 따로 관리하는 업계 규격이 존재. 같은 화학식이라고 아무 제품이나 바로 공정에 넣는 시장이 아니라, 공급품의 순도·품질이 기존 제조 조건을 맞는지도 확인해야 함. 중국 고객이 일본산을 줄이려 해도 가격표만 비교하고 바로 갈아끼우는 문제로 끝나지 않는 이유. 동시에 이해관계자 의견 제출과 최종판정도 남아 있음. 무역전쟁이 소재까지 내려오자 구매팀의 숙제가 관세 계산+공정 적합성 확인으로 같이 늘어난 것</span></div>
       </div>
-    <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a class="topic" href="/topics/semiconductor.html">반도체</a><span class="sep">·</span><a class="topic" href="/topics/china.html">중국</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0608.html#story-4" title="반도체 공급망 긴장의 또다른 충격"><b>06-08</b> 반도체 대학살, 한국 직격탄</a><span class="fw">반도체 공급망 긴장의 또다른 충격</span></span><span class="flow"><a href="/newsletters/2026/0724.html#story-3" title="무역규제 강화의 선행 조치"><b>07-24</b> 트럼프, 관세 법 갈아끼움</a><span class="fw">무역규제 강화의 선행 조치</span></span></span></div></div></div><!-- STORY 3 -->    
+    <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">나온 것</span><span class="v"><a href="/topics/semiconductor.html">반도체</a></span></div><div class="row"><span class="k">같은 흐름</span><span class="v"><a href="/newsletters/2026/0608.html#story-4" title="반도체 공급망 긴장의 또다른 충격"><b>06-08</b>반도체 대학살, 한국 직격탄</a></span></div><div class="row"><span class="k"></span><span class="v"><a href="/newsletters/2026/0724.html#story-3" title="무역규제 강화의 선행 조치"><b>07-24</b>트럼프, 관세 법 갈아끼움</a></span></div></div></div><!-- STORY 3 -->    
 
 
 <div class="story" id="story-3" role="article" aria-labelledby="story-3-title" data-ss-story="0909-3" data-ss-issue="0909">
@@ -747,7 +738,7 @@ line-height:1.25;color:#fff;word-break:keep-all}
         <div class="bullet"><span class="dot">◾</span><span>미스트랄은 고객이 모델·컴퓨팅을 고객 환경 안에서 직접 통제하고 수정할 수 있게 제공, 이미 125곳 넘는 기업의 AI 업무를 지원 중. 새로 받은 30억유로는 모델 훈련용 컴퓨팅과 인프라·해외 확장에 투입 예정. 미국 AI회사들과 붙으려면 모델만 잘 만드는 것보다 서버와 기업 고객을 계속 늘려야 함. 삼성은 큰돈을 대는 투자자이면서, 민감한 제조 데이터를 밖에 안 내놓고 <strong>모델을 실제 현장에 맞춰볼 대형 적용처</strong> 역할도 맡게 됨</span></div>
         <div class="bullet"><span class="dot">◾</span><span>삼성은 적용 범위를 메모리·파운드리·로직으로 넓힌 뒤 향후 고객·파트너사까지 연결하는 AI 반도체 생태계를 만들겠다고 밝혔음. 지금은 내부 적용 계획이지만, 현실화되면 미스트랄은 삼성 공장 한 곳을 넘어 삼성 반도체 생태계를 타고 다른 기업과 만날 유통경로를 얻음. 삼성도 단순 AI 구매자가 아니라 어떤 모델을 반도체 업무에 붙이고, 그 사용법을 고객·파트너에게 퍼뜨릴지 정하는 채널 역할까지 노리는 그림 <span class="note">(기승전유통채널인 세상)</span></span></div>
       </div>
-      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/samsung.html">삼성전자</a><span class="sep">·</span><a class="topic" href="/topics/semiconductor.html">반도체</a><span class="sep">·</span><a class="topic" href="/topics/ai.html">AI</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0629.html#story-5" title="삼성 대규모 투자 발표의 연속선"><b>06-29</b> 반도체, 역대급 투자 선언</a><span class="fw">삼성 대규모 투자 발표의 연속선</span></span><span class="flow"><a href="/newsletters/2026/0708.html#story-4" title="AI기업 인수로 자체기술 확보"><b>07-08</b> 퀄컴, 엔비디아 성벽을 부숴볼까</a><span class="fw">AI기업 인수로 자체기술 확보</span></span></span></div></div>
+      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">나온 것</span><span class="v"><a href="/wiki/samsung.html">삼성전자</a><span class="sep">·</span><a href="/topics/semiconductor.html">반도체</a></span></div><div class="row"><span class="k">같은 흐름</span><span class="v"><a href="/newsletters/2026/0629.html#story-5" title="삼성 대규모 투자 발표의 연속선"><b>06-29</b>반도체, 역대급 투자 선언</a></span></div><div class="row"><span class="k"></span><span class="v"><a href="/newsletters/2026/0708.html#story-4" title="AI기업 인수로 자체기술 확보"><b>07-08</b>퀄컴, 엔비디아 성벽을 부숴볼까</a></span></div></div>
     </div><!-- STORY 4 -->    
 
 
@@ -761,7 +752,7 @@ line-height:1.25;color:#fff;word-break:keep-all}
         <div class="bullet"><span class="dot">◾</span><span>미 SEC도 토큰을 볼 때 블록체인보다 권리의 주인을 먼저 가름. 회사가 직접 주주명부와 연결한 토큰, 제3자가 맡아둔 주식 권리를 토큰으로 옮긴 방식, 제3자가 자기 증권을 찍어 남의 주가만 따라가게 한 방식을 따로 설명. 마지막 방식은 원래 회사에 대한 권리가 없는 별도 증권. 로빈후드가 공개한 권리관계도 이쪽과 닮았지만, 이 문서는 아직 SEC의 법적 판정이 아니라 직원들의 설명. 체인에 올렸다는 기술보다, 계약서에 권리가 어떻게 적혔는지가 더 중요</span></div>
         <div class="bullet"><span class="dot">◾</span><span>AMC가 들고 일어난 이유도 여기서 나옴. 회사가 직접 관리하는 건 주주명부·의결권·배당·신주 발행인데, 로빈후드는 그 장부 밖에서 AMC 주가를 따라가는 별도 증권을 만들었음. AMC는 중단·법률 검토를 요구했고, <span class="note">(당연히)</span> 로빈후드는 뭐가 문제냐는 입장. 기업 입장에선 이제 본인들 주주만 관리하면 끝이 아니라, 본인들 주가를 재료로 별도 권리를 만들어 파는 제3자까지 상대해야 하는 장면. 아직 거래 중단이나 위법 판정이 나온 건 없음</span></div>
       </div>
-      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/robinhood.html">로빈후드</a><span class="sep">·</span><a class="topic" href="/topics/etf-funds.html">ETF·펀드</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0520-crypto.html#story-2" title="SEC 허용이 만든 토큰화주식 등장"><b>05-20</b> SEC, 주식을 블록체인에 올린다</a><span class="fw">SEC 허용이 만든 토큰화주식 등장</span></span><span class="flow"><a href="/newsletters/2026/0703-crypto.html#story-3" title="같은 토큰화주식, 주주권 쟁점"><b>07-03</b> 로빈후드, 자체 블록체인으로 주식시장을 24/7로</a><span class="fw">같은 토큰화주식, 주주권 쟁점</span></span></span></div></div>
+      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">나온 것</span><span class="v"><a href="/wiki/robinhood.html">로빈후드</a><span class="sep">·</span><a href="/topics/etf-funds.html">ETF·펀드</a></span></div><div class="row"><span class="k">같은 흐름</span><span class="v"><a href="/newsletters/2026/0520-crypto.html#story-2" title="SEC 허용이 만든 토큰화주식 등장"><b>05-20</b>SEC, 주식을 블록체인에 올린다</a></span></div><div class="row"><span class="k"></span><span class="v"><a href="/newsletters/2026/0703-crypto.html#story-3" title="같은 토큰화주식, 주주권 쟁점"><b>07-03</b>로빈후드, 자체 블록체인으로 주식시장을 24/7로</a></span></div></div>
     </div><!-- STORY 5 -->    
 
 
@@ -775,7 +766,7 @@ line-height:1.25;color:#fff;word-break:keep-all}
         <div class="bullet"><span class="dot">◾</span><span>LVMH는 이 판에서 덜 팔고 더 비싸게를 택했음. 모에&amp;샹동·뵈브클리코·크뤼그를 거느린 샴페인 출하량은 2년 새 13% 줄었음. But 전략적 가격 인상으로 올 상반기 와인&amp;스피릿 유기적 매출과 영업이익은 모두 올랐음. 시장 점유율도 유지. 하지만 프리미엄화가 먹히려면 브랜드가 대체 불가능해야 함. 프랑스 매장에서 샴페인은 프로세코·크레망의 2배 이상 가격, 값을 올릴수록 일상 소비에서는 밀려나는 구조</span></div>
         <div class="bullet"><span class="dot">◾</span><span><strong>샴페인을 지키는 울타리가 동시에 적응을 막는 중</strong>. 샴페인 AOC <span class="sub">(이 지역에서 이 방식으로 만든 와인만 '샴페인'이라 부를 수 있게 하는 원산지 규정)</span>는 포도밭을 34,000헥타르로 제한, 면적을 늘릴 수 없음. 같은 프랑스 내에서도 정 반대의 상황, 보르도는 공급 과잉에 시달리며 수만 헥타르의 포도밭을 뽑아내는 중 vs. 샴페인은 폭염에 수확이 줄어도 포도밭을 늘릴 수 없는 구조. 프랑스에서 땅값이 가장 비싼 와인 산지이기도 해서, 가진 땅에서 답을 찾는 수밖에 없음</span></div>
       </div>
-      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/lvmh.html">LVMH</a><span class="sep">·</span><a class="topic" href="/topics/fx.html">환율·달러</a></div></div>
+      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">나온 것</span><span class="v"><a href="/wiki/lvmh.html">LVMH</a><span class="sep">·</span><a href="/topics/fx.html">환율·달러</a></span></div></div>
     </div>
 
 <!-- /content -->

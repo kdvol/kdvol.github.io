@@ -435,28 +435,19 @@ transition:color .18s ease,background .18s ease}
 }
 </style>
 <style id="soonsal-story-links">
-/* 스토리 끝 — 다 읽은 사람만 본다. 본문 흐름을 끊지 않는다 */
-.story-links{margin:14px 0 0;padding:11px 0 0;border-top:1px solid #ece8e0;
-font-size:11.5px;line-height:1.8;color:#9a958a;word-break:keep-all}
-.story-links .k{color:#b5b0a4;margin-right:5px}
-.story-links a{color:#8a857c;text-decoration:none;border-bottom:1px solid #e6e1d8}
-.story-links a:hover{color:#C24A00;border-bottom-color:#C24A00}
-.story-links .sep{opacity:.4;margin:0 4px}
-/* 주제는 개별 이름이 아니라 묶음이다 — 테두리로 구분한다 */
-.story-links a.topic{border-bottom:0;padding:1px 7px;border-radius:999px;
-background:#f3efe8;color:#8a857c}
-.story-links a.topic:hover{background:#C24A00;color:#fff}
-.story-links .row + .row{margin-top:4px}
-/* 「같은 흐름」은 제목이 길어 한 줄에 하나씩 세운다. 라벨은 왼쪽에 고정 */
-.story-links .flows{display:flex;align-items:flex-start}
-.story-links .flow-list{display:flex;flex-direction:column;gap:2px;min-width:0}
-.story-links .flow{display:block;min-width:0}
-.story-links .flow a{display:inline-block;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;vertical-align:top}
-/* 왜 이어지는지 한 줄 — 폰에선 마우스를 못 올리니 글로 보여 준다 (KD 2026-10-10) */
-.story-links .fw{display:block;font-size:10.5px;line-height:1.5;color:#b5b0a4;margin:0 0 3px 33px}
-.story-links .flow b{font-weight:600;color:#b5b0a4;margin-right:3px}
-@media(max-width:560px){.story-links .flows{display:block}
-  .story-links .flow-list{margin-top:2px;padding-left:1px}}
+/* 스토리 끝 — 다 읽은 사람만 본다. 본문 흐름을 끊지 않는다.
+   ★ 간결하게 (KD 2026-10-10 「텍스트 너무 길고 난잡 — 줄을 무작위로 늘리지 말고」):
+     항목마다 **딱 한 줄**(넘치면 …), 라벨은 왼쪽 고정 칸, 밑줄·알약·이유 줄 없음 → 최대 3줄로 끝난다.
+     이어지는 이유는 링크에 마우스를 올리면(title) 보인다. */
+.story-links{margin:14px 0 0;padding:10px 0 0;border-top:1px solid #ece8e0;
+font-size:12px;line-height:1.75;color:#9a958a;word-break:keep-all}
+.story-links .row{display:flex;gap:10px;min-width:0}
+.story-links .k{flex:0 0 52px;color:#b5b0a4}
+.story-links .v{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.story-links a{color:#7d786f;text-decoration:none}
+.story-links a:hover{color:#C24A00;text-decoration:underline}
+.story-links .sep{color:#d3cec4;margin:0 5px}
+.story-links .v b{font-weight:600;color:#b5b0a4;margin-right:5px;font-variant-numeric:tabular-nums}
 </style>
 <!-- soonsal:story-fragments-style:start --><style>
 .ss-story-index{margin:0 0 34px;padding:21px 22px;border:1px solid #e8e8e0;
@@ -766,7 +757,7 @@ line-height:1.25;color:#fff;word-break:keep-all}
         <div class="bullet"><span class="dot">◾</span><span>PE 업계한테도 한마디. "회사 13,000개 들고 있으면서 IPO는 왜 안 하냐." SpaceX가 2조불 IPO판을 벌이는 와중에 나머지 PE들은 아직 눈치게임 중. 매수매도 호가 간극이 커서 거래 자체가 잘 안 되는 시장 <span class="note">(딜 던 되면 오히려 손실 확정될수도)</span></span></div>
       </div>
       <div style="font-size:12px;color:#999;margin-top:8px;">매수매도 추천 아님, 순살도 주주 아님</div>
-    <div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/dimon.html">제이미 다이먼</a><span class="sep">·</span><a href="/wiki/jpmorgan.html">JP모건</a><span class="sep">·</span><a href="/wiki/spacex.html">스페이스X</a><span class="sep">·</span><a class="topic" href="/topics/banks-wallst.html">월가·은행</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0406.html#story-2" title="인플레 재점화 우려의 직접 계기"><b>04-06</b> 고용 터짐, 시장은 잠김</a><span class="fw">인플레 재점화 우려의 직접 계기</span></span><span class="flow"><a href="/newsletters/2026/0331.html#story-1" title="같은 금리정책 긴장의 전단계"><b>03-31</b> 파월, &quot;내버려 둘게&quot;. 채권, &q</a><span class="fw">같은 금리정책 긴장의 전단계</span></span></span></div></div></div>
+    <div class="story-links"><div class="row"><span class="k">나온 것</span><span class="v"><a href="/wiki/dimon.html">제이미 다이먼</a><span class="sep">·</span><a href="/wiki/jpmorgan.html">JP모건</a><span class="sep">·</span><a href="/wiki/spacex.html">스페이스X</a><span class="sep">·</span><a href="/topics/banks-wallst.html">월가·은행</a></span></div><div class="row"><span class="k">같은 흐름</span><span class="v"><a href="/newsletters/2026/0406.html#story-2" title="인플레 재점화 우려의 직접 계기"><b>04-06</b>고용 터짐, 시장은 잠김</a></span></div><div class="row"><span class="k"></span><span class="v"><a href="/newsletters/2026/0331.html#story-1" title="같은 금리정책 긴장의 전단계"><b>03-31</b>파월, &quot;내버려 둘게&quot;. 채권, &quot;뒤집어 질게&quot;</a></span></div></div></div>
 
     <!-- STORY 2 -->
     <div class="story" id="story-2" role="article" aria-labelledby="story-2-title" data-ss-story="0407-2" data-ss-issue="0407">
@@ -780,7 +771,7 @@ line-height:1.25;color:#fff;word-break:keep-all}
         <div class="bullet"><span class="dot">◾</span><span>호르무즈가 당장 열려도 석유화학 공급 정상화까지 최소 9개월. 비료·의약품 같은 필수 산업이 우선 배정받기 때문에 플라스틱 소비재는 더 오래 걸림. 전쟁이 끝나도 "미국산이 더 안전하다"는 인식이 한번 박히면 — 공급망 재편은 이미 시작된 것</span></div>
       </div>
       <div style="font-size:12px;color:#999;margin-top:8px;">매수매도 추천 아님, 순살도 주주 아님</div>
-    <div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a class="topic" href="/topics/energy.html">에너지·원자재</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0325.html#story-5" title="같은 호르무즈 공급망 충격 사례"><b>03-25</b> 비닐봉투가 비싸진 진짜 이유</a><span class="fw">같은 호르무즈 공급망 충격 사례</span></span><span class="flow"><a href="/newsletters/2026/0311.html#story-5" title="호르무즈 대응 정책의 전단계"><b>03-11</b> G7의 유가 통제 작전 — 비축유 4억 배럴</a><span class="fw">호르무즈 대응 정책의 전단계</span></span></span></div></div></div>
+    <div class="story-links"><div class="row"><span class="k">나온 것</span><span class="v"><a href="/topics/energy.html">에너지·원자재</a></span></div><div class="row"><span class="k">같은 흐름</span><span class="v"><a href="/newsletters/2026/0325.html#story-5" title="같은 호르무즈 공급망 충격 사례"><b>03-25</b>비닐봉투가 비싸진 진짜 이유</a></span></div><div class="row"><span class="k"></span><span class="v"><a href="/newsletters/2026/0311.html#story-5" title="호르무즈 대응 정책의 전단계"><b>03-11</b>G7의 유가 통제 작전 — 비축유 4억 배럴</a></span></div></div></div>
 
     <!-- STORY 3 -->
     <div class="story" id="story-3" role="article" aria-labelledby="story-3-title" data-ss-story="0407-3" data-ss-issue="0407">
@@ -794,7 +785,7 @@ line-height:1.25;color:#fff;word-break:keep-all}
         <div class="bullet"><span class="dot">◾</span><span>투자자에게 진짜 문제는 파이 자체가 줄어들고 있다는 것. 글로벌 비만약 시장 매출 전망이 1,200억불 수준으로 하향 — 불과 1~2년 전 예측 대비 최소 300억불 축소. 가격 인하 + 제네릭 + 트럼프 행정부의 약가 정책까지 겹치면서, 월가에서는 오히려 본인들이 너무 일라이 릴리 좋게만 봤다는 반성 <span class="note">(?)</span> 시전 중. 비만은 8.8억 명의 문제인데, 이 문제를 푸는 회사들의 수익성은 오히려 악화되는 구조. 소비자에겐 좋은 뉴스, 투자자에겐 나쁜 뉴스</span></div>
       </div>
       <div style="font-size:12px;color:#999;margin-top:8px;">매수매도 추천 아님, 순살도 주주 아님</div>
-    <div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/costco.html">코스트코</a><span class="sep">·</span><a href="/wiki/eli-lilly.html">일라이릴리</a><span class="sep">·</span><a href="/wiki/trump.html">트럼프</a><span class="sep">·</span><a class="topic" href="/topics/healthcare.html">헬스케어·제약</a><span class="sep">·</span><a class="topic" href="/topics/china.html">중국</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0311.html#story-2" title="같은 비만약 경쟁구도의 전환점"><b>03-11</b> Hims &amp; Hers +49%, 비만약 전쟁이 </a><span class="fw">같은 비만약 경쟁구도의 전환점</span></span></span></div></div></div>
+    <div class="story-links"><div class="row"><span class="k">나온 것</span><span class="v"><a href="/wiki/costco.html">코스트코</a><span class="sep">·</span><a href="/wiki/eli-lilly.html">일라이릴리</a><span class="sep">·</span><a href="/wiki/trump.html">트럼프</a><span class="sep">·</span><a href="/topics/healthcare.html">헬스케어·제약</a></span></div><div class="row"><span class="k">같은 흐름</span><span class="v"><a href="/newsletters/2026/0311.html#story-2" title="같은 비만약 경쟁구도의 전환점"><b>03-11</b>Hims &amp; Hers +49%, 비만약 전쟁이 끝났다</a></span></div></div></div>
 
     <!-- STORY 4 -->
     <div class="story" id="story-4" role="article" aria-labelledby="story-4-title" data-ss-story="0407-4" data-ss-issue="0407">
@@ -808,7 +799,7 @@ line-height:1.25;color:#fff;word-break:keep-all}
         <div class="bullet"><span class="dot">◾</span><span>결국 AI 신약의 베팅 논리는 물량 공세. "성공률은 그대로여도, 싸게 많이 쏘면 골이 더 많이 들어간다"는 마인드로, 일단 시도 횟수를 높이는 전략. 이 전략이 맞는지 틀리는지를 2026~2027년 Phase 3 결과들이 처음으로 보여줄 예정. 이 딜의 구조가 그 현실을 그대로 담고 있음. 1.15억불은 현금, 26억불은 희망 <span class="sub">(아직 FDA 승인 0건인 분야에 거는 희망)</span></span></div>
       </div>
       <div style="font-size:12px;color:#999;margin-top:8px;">매수매도 추천 아님, 순살도 주주 아님</div>
-    <div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/eli-lilly.html">일라이릴리</a><span class="sep">·</span><a href="/wiki/nvidia.html">엔비디아</a><span class="sep">·</span><a class="topic" href="/topics/ai.html">AI</a><span class="sep">·</span><a class="topic" href="/topics/healthcare.html">헬스케어·제약</a></div></div></div>
+    <div class="story-links"><div class="row"><span class="k">나온 것</span><span class="v"><a href="/wiki/eli-lilly.html">일라이릴리</a><span class="sep">·</span><a href="/wiki/nvidia.html">엔비디아</a><span class="sep">·</span><a href="/topics/ai.html">AI</a></span></div></div></div>
 
     <!-- STORY 5 -->
     <div class="story" id="story-5" role="article" aria-labelledby="story-5-title" data-ss-story="0407-5" data-ss-issue="0407">
@@ -820,7 +811,7 @@ line-height:1.25;color:#fff;word-break:keep-all}
         <div class="bullet"><span class="dot">◾</span><span>작동 원리는 단순. 머신러닝 + ECMWF 과거 예보 변경 패턴의 통계모델을 결합해서 다음 예보가 어느 방향으로 움직일지만 맞히면 됨. 정확한 온도 X, 방향성 O. 2주 전망 중 중반~후반 구간을 타깃으로 잡는데, 변동성이 가장 크고 수익 기회도 가장 큰 구간</span></div>
         <div class="bullet"><span class="dot">◾</span><span>시장은 현실이 아니라 '현실에 대한 남들의 인식'에 반응한다는 케인즈의 미인대회 이론, 그 자체를 상품화한 것. 날씨가 실제로 어떤지보다 ECMWF가 뭐라고 발표하는지가 가격을 움직이니까, 날씨를 잘 맞히는 것보다 예보를 잘 맞히는 게 더 직접적이고 수익성도 높음</span></div>
         <div class="bullet"><span class="dot">◾</span><span>AI 강화학습의 '리워드 해킹'과 같은 구조. 진짜 과제를 푸는 대신 점수판을 해킹하는 더 쉬운 과제를 학습하는 것 — 청소 로봇에 충돌 회피를 가르쳤더니 센서가 없는 뒤쪽으로만 달리는 식. 날씨를 맞히는 대신 예보를 맞히는 AI도 본질적으로 같은 최적화 <span class="note">(진짜를 맞히는 것보다 남들이 진짜라고 믿을 것을 맞히는 게 더 쉽고, 더 돈이 됨)</span></span></div>
-      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a class="topic" href="/topics/ai.html">AI</a></div></div></div>
+      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">나온 것</span><span class="v"><a href="/topics/ai.html">AI</a></span></div></div></div>
     </div>
 
   </div>

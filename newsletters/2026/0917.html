@@ -418,28 +418,19 @@
 <meta property="og:image:height" content="630"/>
 <meta name="twitter:card" content="summary_large_image"/>
 <style id="soonsal-story-links">
-/* 스토리 끝 — 다 읽은 사람만 본다. 본문 흐름을 끊지 않는다 */
-.story-links{margin:14px 0 0;padding:11px 0 0;border-top:1px solid #ece8e0;
-font-size:11.5px;line-height:1.8;color:#9a958a;word-break:keep-all}
-.story-links .k{color:#b5b0a4;margin-right:5px}
-.story-links a{color:#8a857c;text-decoration:none;border-bottom:1px solid #e6e1d8}
-.story-links a:hover{color:#C24A00;border-bottom-color:#C24A00}
-.story-links .sep{opacity:.4;margin:0 4px}
-/* 주제는 개별 이름이 아니라 묶음이다 — 테두리로 구분한다 */
-.story-links a.topic{border-bottom:0;padding:1px 7px;border-radius:999px;
-background:#f3efe8;color:#8a857c}
-.story-links a.topic:hover{background:#C24A00;color:#fff}
-.story-links .row + .row{margin-top:4px}
-/* 「같은 흐름」은 제목이 길어 한 줄에 하나씩 세운다. 라벨은 왼쪽에 고정 */
-.story-links .flows{display:flex;align-items:flex-start}
-.story-links .flow-list{display:flex;flex-direction:column;gap:2px;min-width:0}
-.story-links .flow{display:block;min-width:0}
-.story-links .flow a{display:inline-block;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;vertical-align:top}
-/* 왜 이어지는지 한 줄 — 폰에선 마우스를 못 올리니 글로 보여 준다 (KD 2026-10-10) */
-.story-links .fw{display:block;font-size:10.5px;line-height:1.5;color:#b5b0a4;margin:0 0 3px 33px}
-.story-links .flow b{font-weight:600;color:#b5b0a4;margin-right:3px}
-@media(max-width:560px){.story-links .flows{display:block}
-  .story-links .flow-list{margin-top:2px;padding-left:1px}}
+/* 스토리 끝 — 다 읽은 사람만 본다. 본문 흐름을 끊지 않는다.
+   ★ 간결하게 (KD 2026-10-10 「텍스트 너무 길고 난잡 — 줄을 무작위로 늘리지 말고」):
+     항목마다 **딱 한 줄**(넘치면 …), 라벨은 왼쪽 고정 칸, 밑줄·알약·이유 줄 없음 → 최대 3줄로 끝난다.
+     이어지는 이유는 링크에 마우스를 올리면(title) 보인다. */
+.story-links{margin:14px 0 0;padding:10px 0 0;border-top:1px solid #ece8e0;
+font-size:12px;line-height:1.75;color:#9a958a;word-break:keep-all}
+.story-links .row{display:flex;gap:10px;min-width:0}
+.story-links .k{flex:0 0 52px;color:#b5b0a4}
+.story-links .v{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.story-links a{color:#7d786f;text-decoration:none}
+.story-links a:hover{color:#C24A00;text-decoration:underline}
+.story-links .sep{color:#d3cec4;margin:0 5px}
+.story-links .v b{font-weight:600;color:#b5b0a4;margin-right:5px;font-variant-numeric:tabular-nums}
 </style>
 <!-- soonsal:story-fragments-style:start --><style>
 .ss-story-index{margin:0 0 34px;padding:21px 22px;border:1px solid #e8e8e0;
@@ -724,7 +715,7 @@ line-height:1.25;color:#fff;word-break:keep-all}
         <div class="bullet"><span class="dot">◾</span><span>주식이 빠진 건 인상 자체가 아니라 워시가 예고한 다음 인상 때문. 발표 전엔 3대 지수가 다 올랐는데 기자회견 뒤 다우는 631포인트 빠졌고, 대출 부실 걱정이 붙는 은행주는 2월 이후 최악의 하루. 2년물 금리는 2024년 이후 최고인데 10년물은 발표 직후엔 오히려 내렸음. 장기 금리는 시장이 이미 5%로 올려놓은 상태라, 이번 인상은 연준이 시장을 따라간 셈</span></div>
         <div class="bullet"><span class="dot">◾</span><span>다시 보면 이건 금리 결정이 아니라 재정과 통화의 충돌. 통화정책은 긴축으로 돌아섰는데 재정은 선거용 현금 지급으로 완화 쪽. 2022년 영국이 감세안으로 국채시장을 무너뜨렸을 때와 같은 조합 <span class="sub">(당시 영국 총리는 취임 44일 만에 사퇴)</span>. 다음 관전점은 11월 중간선거 전에 5,000불이 실제로 나가는지, 그때 연준이 두 번째 인상을 하는지 여부 <span class="note">(한쪽은 브레이크, 한쪽은 액셀)</span></span></div>
       </div>
-      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/fed.html">미국 연준</a><span class="sep">·</span><a href="/wiki/trump.html">트럼프</a><span class="sep">·</span><a class="topic" href="/topics/fed-rates.html">연준·금리</a><span class="sep">·</span><a class="topic" href="/topics/trump-politics.html">트럼프·정책</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0916.html#story-1" title="채권시장이 먼저 올린 금리"><b>09-16</b> 10년물 5%, 연준보다 먼저 올린 채권시장</a><span class="fw">채권시장이 먼저 올린 금리</span></span><span class="flow"><a href="/newsletters/2026/0914.html#story-1" title="워시 인상압박 직전 단계"><b>09-14</b> 3년 만의 인상, 대통령이 뽑은 의장 손으로?</a><span class="fw">워시 인상압박 직전 단계</span></span></span></div></div>
+      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님</p><div class="story-links"><div class="row"><span class="k">나온 것</span><span class="v"><a href="/wiki/fed.html">미국 연준</a><span class="sep">·</span><a href="/wiki/trump.html">트럼프</a><span class="sep">·</span><a href="/topics/fed-rates.html">연준·금리</a></span></div><div class="row"><span class="k">같은 흐름</span><span class="v"><a href="/newsletters/2026/0916.html#story-1" title="채권시장이 먼저 올린 금리"><b>09-16</b>10년물 5%, 연준보다 먼저 올린 채권시장</a></span></div><div class="row"><span class="k"></span><span class="v"><a href="/newsletters/2026/0914.html#story-1" title="워시 인상압박 직전 단계"><b>09-14</b>3년 만의 인상, 대통령이 뽑은 의장 손으로?</a></span></div></div>
     </div>
 <!-- STORY 2 -->    <div class="story" id="story-2" role="article" aria-labelledby="story-2-title" data-ss-story="0917-2" data-ss-issue="0917">
       <span class="story-label">RETIREMENT · ASSET MGMT</span>
@@ -736,7 +727,7 @@ line-height:1.25;color:#fff;word-break:keep-all}
         <div class="bullet"><span class="dot">◾</span><span>그래서 나온 답이 '연금처럼'. 개인 계좌를 회사 단위로 묶고 종신연금을 붙이면 돈이 오래 머물고, 오래 머물면 안 팔리는 자산을 담고 수수료를 받을 수 있음. 뱅가드·피델리티도 최근 연금 옵션이 붙은 펀드를 냈고, 지금은 401k 플랜의 4%만 그런 상품이 있음. 미국은 40년 전 회사가 굴려주는 연금을 버리고 각자 굴리는 401k로 갈아탔는데, 운용사가 그걸 다시 회사 단위로 묶는 중</span></div>
         <div class="bullet"><span class="dot">◾</span><span>결국 이건 은퇴 상품이 아니라 유동성 프리미엄의 재분배. 30년 안 쓸 돈에 붙는 웃돈을 누가 가져가느냐의 문제이고, 운용사는 그 웃돈의 상당 부분을 수수료로 가져갈 설계. 가입자는 수익률 몇 %p를 더 받는 대신 급할 때 못 빼는 조건을 받음. 한국 퇴직연금도 디폴트옵션 뒤 같은 상품이 들어올 차례 <span class="note">(결국 제도 바뀌는 덴 경제 논리가 있음)</span></span></div>
       </div>
-      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/blackrock.html">블랙록</a><span class="sep">·</span><a href="/wiki/trump.html">트럼프</a><span class="sep">·</span><a href="/wiki/fidelity.html">피델리티</a><span class="sep">·</span><a class="topic" href="/topics/etf-funds.html">ETF·펀드</a><span class="sep">·</span><a class="topic" href="/topics/trump-politics.html">트럼프·정책</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0309.html#story-5" title="사모신용 유동성 경고 전조"><b>03-09</b> 블랙록이 출금을 막았다는 의미</a><span class="fw">사모신용 유동성 경고 전조</span></span><span class="flow"><a href="/newsletters/2026/0519.html#story-3" title="같은 자산군 검찰수사 리스크"><b>05-19</b> 사모 크레딧에 검찰이 등장</a><span class="fw">같은 자산군 검찰수사 리스크</span></span></span></div></div>
+      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">나온 것</span><span class="v"><a href="/wiki/blackrock.html">블랙록</a><span class="sep">·</span><a href="/wiki/trump.html">트럼프</a><span class="sep">·</span><a href="/wiki/fidelity.html">피델리티</a><span class="sep">·</span><a href="/topics/etf-funds.html">ETF·펀드</a></span></div><div class="row"><span class="k">같은 흐름</span><span class="v"><a href="/newsletters/2026/0309.html#story-5" title="사모신용 유동성 경고 전조"><b>03-09</b>블랙록이 출금을 막았다는 의미</a></span></div><div class="row"><span class="k"></span><span class="v"><a href="/newsletters/2026/0519.html#story-3" title="같은 자산군 검찰수사 리스크"><b>05-19</b>사모 크레딧에 검찰이 등장</a></span></div></div>
     </div>
 <!-- STORY 3 -->    <div class="story" id="story-3" role="article" aria-labelledby="story-3-title" data-ss-story="0917-3" data-ss-issue="0917">
       <span class="story-label">VENTURE · HARDWARE</span>
@@ -748,7 +739,7 @@ line-height:1.25;color:#fff;word-break:keep-all}
         <div class="bullet"><span class="dot">◾</span><span>다만 안 좋은 전례가 있긴 함. 2000년대 벤처는 청정에너지에 몰려갔다가 태양광·배터리 회사가 줄줄이 망했음. 하드웨어는 공장·재고·인증이 필요해 소프트웨어처럼 1년에 10배 성장이 안 나오고, 실패하면 남는 게 설비뿐. 매터 창업자도 오래 해본 사람은 쉽지 않다는 걸 안다고 말함. 돈이 몰릴수록 밸류는 오르고 실패했을 때 손실은 커짐</span></div>
         <div class="bullet"><span class="dot">◾</span><span>큰 그림은 벤처 트렌드가 아니라 방어 자산 찾기. AI가 소프트웨어의 해자를 지우자 돈이 물리적 해자 <span class="sub">(공장·특허·공급망)</span>로 이동하는 것이고, TSMC·ASML이 출자자로 들어온 건 그 해자를 쓸 고객이 직접 씨를 뿌리는 것. 다음 시험은 900억불이 들어간 회사들이 2~3년 뒤 팔 물건을 내놓는지 여부 <span class="note">(일단 고객사가 직접 쩐주로 들어오는 건 안심 요인)</span></span></div>
       </div>
-      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/tsmc.html">TSMC</a><span class="sep">·</span><a href="/wiki/apple.html">애플</a><span class="sep">·</span><a href="/wiki/intel.html">인텔</a><span class="sep">·</span><a class="topic" href="/topics/semiconductor.html">반도체</a><span class="sep">·</span><a class="topic" href="/topics/etf-funds.html">ETF·펀드</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0710.html#story-4" title="반대 흐름, SaaS로 자금 복귀"><b>07-10</b> 올해 최악의 단어 SaaSpocalypse, 끝나가는 </a><span class="fw">반대 흐름, SaaS로 자금 복귀</span></span><span class="flow"><a href="/newsletters/2026/0915.html#story-1" title="반도체-빅테크 로테이션 반대축"><b>09-15</b> AI 감속 첫날, 반도체 팔고 빅테크 삼</a><span class="fw">반도체-빅테크 로테이션 반대축</span></span></span></div></div>
+      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">나온 것</span><span class="v"><a href="/wiki/tsmc.html">TSMC</a><span class="sep">·</span><a href="/wiki/apple.html">애플</a><span class="sep">·</span><a href="/wiki/intel.html">인텔</a><span class="sep">·</span><a href="/topics/semiconductor.html">반도체</a></span></div><div class="row"><span class="k">같은 흐름</span><span class="v"><a href="/newsletters/2026/0710.html#story-4" title="반대 흐름, SaaS로 자금 복귀"><b>07-10</b>올해 최악의 단어 SaaSpocalypse, 끝나가는 걸까?</a></span></div><div class="row"><span class="k"></span><span class="v"><a href="/newsletters/2026/0915.html#story-1" title="반도체-빅테크 로테이션 반대축"><b>09-15</b>AI 감속 첫날, 반도체 팔고 빅테크 삼</a></span></div></div>
     </div>
 <!-- STORY 4 -->    <div class="story" id="story-4" role="article" aria-labelledby="story-4-title" data-ss-story="0917-4" data-ss-issue="0917">
       <span class="story-label">ARGENTINA · CURRENCY</span>
@@ -760,7 +751,7 @@ line-height:1.25;color:#fff;word-break:keep-all}
         <div class="bullet"><span class="dot">◾</span><span>밀레이 입장에선 최악의 타이밍. 자유시장으로 바뀌었다고 투자자를 설득하는 중에 야당 주지사가 페론주의식 <span class="sub">(페론주의; 국가가 돈을 풀어 노동자·빈곤층을 챙기는 아르헨티나 전통 정치 노선)</span> 돈 찍기를 재개했고, 밀레이는 페론주의 지출 습관이라고 비난했음. 라리오하는 헌법상 주의 재정 자치를 방패로 삼음. 미국 재무부와의 통화스왑으로 페소 환율 버티기 중인 중앙정부가, 정작 지방의 사설 화폐엔 손을 못 대는 구조</span></div>
         <div class="bullet"><span class="dot">◾</span><span>이 사건의 본질은 지방 정치가 아니라 통화 주권의 균열. 긴축이 페소를 살렸는데 페소가 안 도는 지역에선 대체 화폐가 생기고, 그 화폐로 세금을 받는 순간 사실상 법정통화가 됨. 다음 관전점은 다른 야당 주가 따라오는지와, 차초 환전 창구가 페소 부족으로 막히는지 여부. 막히는 순간 차초는 화폐가 아니라 지방정부 부채가 됨 <span class="note">(한국 지역사랑상품권은 최소한 원화 주고 사긴 함)</span></span></div>
       </div>
-      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a class="topic" href="/topics/fx.html">환율·달러</a></div></div>
+      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님</p><div class="story-links"><div class="row"><span class="k">나온 것</span><span class="v"><a href="/topics/fx.html">환율·달러</a></span></div></div>
     </div>
 <!-- STORY 5 -->    <div class="story" id="story-5" role="article" aria-labelledby="story-5-title" data-ss-story="0917-5" data-ss-issue="0917">
       <span class="story-label">CRYPTO · POLITICS</span>
@@ -772,7 +763,7 @@ line-height:1.25;color:#fff;word-break:keep-all}
         <div class="bullet"><span class="dot">◾</span><span>남은 길은 규제기관. SEC는 지난달 토큰 발행사의 자금조달 규칙을 처음 제안했고, CFTC도 자체 규칙을 짜는 중. But, SEC 위원장부터 규제 확실성을 오래 보장하려면 의회 입법이 꼭 필요하다고 인정했음. 기관 규칙은 위원장이 바뀌면 같이 바뀜. 업계가 원한 건 규칙이 아니라 정권이 바뀌어도 안 바뀌는 법이었고, 그게 2027년으로 밀린 것</span></div>
         <div class="bullet"><span class="dot">◾</span><span>정리하면 이건 규제 실패가 아니라 이해충돌 비용의 청구서. 트럼프가 크립토로 번 14억불이 업계 전체의 법을 막았고, 그 손실은 코인베이스 시총 하루 10%로 계산됐음. 중간선거에서 민주당이 상원을 가져가면 윤리 조항은 더 세질 예정이고, 공화당이 지켜도 60표까진 역부족. 크립토 업계는 대통령 편에 서서 떡상했다가, 이번엔 같은 이유로 힘이 빠지는 중 <span class="note">(후원금 낼 땐 몰랐던 옵션 프리미엄)</span></span></div>
       </div>
-      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/sec.html">미국 SEC</a><span class="sep">·</span><a href="/wiki/cftc.html">미국 CFTC</a><span class="sep">·</span><a href="/wiki/ftc.html">FTC</a><span class="sep">·</span><a href="/wiki/trump.html">트럼프</a><span class="sep">·</span><a href="/wiki/bitcoin.html">비트코인</a><span class="sep">·</span><a class="topic" href="/topics/crypto.html">크립토</a><span class="sep">·</span><a class="topic" href="/topics/trump-politics.html">트럼프·정책</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0715-crypto.html#story-2" title="클래리티법 통과 압박 전편"><b>07-15</b> 트럼프, Clarity Act 밀어붙이기 — &quot</a><span class="fw">클래리티법 통과 압박 전편</span></span><span class="flow"><a href="/newsletters/2026/0707.html#story-4" title="트럼프 이익충돌의 다른 사례"><b>07-07</b> 트럼프 밈코인, 대통령만 돈 번 구조</a><span class="fw">트럼프 이익충돌의 다른 사례</span></span></span></div></div>
+      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">나온 것</span><span class="v"><a href="/wiki/sec.html">미국 SEC</a><span class="sep">·</span><a href="/wiki/cftc.html">미국 CFTC</a><span class="sep">·</span><a href="/wiki/ftc.html">FTC</a><span class="sep">·</span><a href="/wiki/trump.html">트럼프</a><span class="sep">·</span><a href="/topics/crypto.html">크립토</a></span></div><div class="row"><span class="k">같은 흐름</span><span class="v"><a href="/newsletters/2026/0715-crypto.html#story-2" title="클래리티법 통과 압박 전편"><b>07-15</b>트럼프, Clarity Act 밀어붙이기 — &quot;그레이엄을 위해 통과시켜라&quot;</a></span></div><div class="row"><span class="k"></span><span class="v"><a href="/newsletters/2026/0707.html#story-4" title="트럼프 이익충돌의 다른 사례"><b>07-07</b>트럼프 밈코인, 대통령만 돈 번 구조</a></span></div></div>
     </div>
 <!-- /content -->
   </div><!-- DEAL -->

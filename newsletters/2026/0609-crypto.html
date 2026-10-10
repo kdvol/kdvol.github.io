@@ -457,28 +457,19 @@ transition:color .18s ease,background .18s ease}
 }
 </style>
 <style id="soonsal-story-links">
-/* 스토리 끝 — 다 읽은 사람만 본다. 본문 흐름을 끊지 않는다 */
-.story-links{margin:14px 0 0;padding:11px 0 0;border-top:1px solid #ece8e0;
-font-size:11.5px;line-height:1.8;color:#9a958a;word-break:keep-all}
-.story-links .k{color:#b5b0a4;margin-right:5px}
-.story-links a{color:#8a857c;text-decoration:none;border-bottom:1px solid #e6e1d8}
-.story-links a:hover{color:#C24A00;border-bottom-color:#C24A00}
-.story-links .sep{opacity:.4;margin:0 4px}
-/* 주제는 개별 이름이 아니라 묶음이다 — 테두리로 구분한다 */
-.story-links a.topic{border-bottom:0;padding:1px 7px;border-radius:999px;
-background:#f3efe8;color:#8a857c}
-.story-links a.topic:hover{background:#C24A00;color:#fff}
-.story-links .row + .row{margin-top:4px}
-/* 「같은 흐름」은 제목이 길어 한 줄에 하나씩 세운다. 라벨은 왼쪽에 고정 */
-.story-links .flows{display:flex;align-items:flex-start}
-.story-links .flow-list{display:flex;flex-direction:column;gap:2px;min-width:0}
-.story-links .flow{display:block;min-width:0}
-.story-links .flow a{display:inline-block;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;vertical-align:top}
-/* 왜 이어지는지 한 줄 — 폰에선 마우스를 못 올리니 글로 보여 준다 (KD 2026-10-10) */
-.story-links .fw{display:block;font-size:10.5px;line-height:1.5;color:#b5b0a4;margin:0 0 3px 33px}
-.story-links .flow b{font-weight:600;color:#b5b0a4;margin-right:3px}
-@media(max-width:560px){.story-links .flows{display:block}
-  .story-links .flow-list{margin-top:2px;padding-left:1px}}
+/* 스토리 끝 — 다 읽은 사람만 본다. 본문 흐름을 끊지 않는다.
+   ★ 간결하게 (KD 2026-10-10 「텍스트 너무 길고 난잡 — 줄을 무작위로 늘리지 말고」):
+     항목마다 **딱 한 줄**(넘치면 …), 라벨은 왼쪽 고정 칸, 밑줄·알약·이유 줄 없음 → 최대 3줄로 끝난다.
+     이어지는 이유는 링크에 마우스를 올리면(title) 보인다. */
+.story-links{margin:14px 0 0;padding:10px 0 0;border-top:1px solid #ece8e0;
+font-size:12px;line-height:1.75;color:#9a958a;word-break:keep-all}
+.story-links .row{display:flex;gap:10px;min-width:0}
+.story-links .k{flex:0 0 52px;color:#b5b0a4}
+.story-links .v{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.story-links a{color:#7d786f;text-decoration:none}
+.story-links a:hover{color:#C24A00;text-decoration:underline}
+.story-links .sep{color:#d3cec4;margin:0 5px}
+.story-links .v b{font-weight:600;color:#b5b0a4;margin-right:5px;font-variant-numeric:tabular-nums}
 </style>
 <!-- soonsal:story-fragments-style:start --><style>
 .ss-story-index{margin:0 0 34px;padding:21px 22px;border:1px solid #e8e8e0;
@@ -777,7 +768,7 @@ line-height:1.25;color:#fff;word-break:keep-all}
     <div style="background:#f5f5f0; border-radius:8px; padding:14px 16px; margin-top:16px;">
       <div style="font-size:12px; color:#888; font-weight:700; margin-bottom:6px;">🏛 전통 금융 대비 현재 위치</div>
       <div style="font-size:13px; color:#444; line-height:1.6;">CNN Fear & Greed Index <span class="sub">(주식)</span>는 현재 28로 Fear 구간. 크립토 8과 3배 이상 차이. 같은 악재 <span class="sub">(고용·금리·전쟁)</span>인데 크립토 공포가 훨씬 강한 건 레버리지 구조와 24/7 시장, 그리고 유동성 깊이 차이 때문</div>
-    <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/ftx.html">FTX</a><span class="sep">·</span><a href="/wiki/bitcoin.html">비트코인</a><span class="sep">·</span><a class="topic" href="/topics/crypto.html">크립토</a><span class="sep">·</span><a class="topic" href="/topics/fed-rates.html">연준·금리</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0408-crypto.html#story-1" title="같은 박스권 괴리 패턴의 전조"><b>04-08</b> 7만불 터치하고 다시 빠졌다 — 이 횡보가 의미하는 것</a><span class="fw">같은 박스권 괴리 패턴의 전조</span></span><span class="flow"><a href="/newsletters/2026/0605-crypto.html#story-1" title="바로 직전 가격 붕괴 국면"><b>06-05</b> $60K가 보인다 — BTC 추락 2막</a><span class="fw">바로 직전 가격 붕괴 국면</span></span></span></div></div></div>
+    <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">나온 것</span><span class="v"><a href="/wiki/ftx.html">FTX</a><span class="sep">·</span><a href="/wiki/bitcoin.html">비트코인</a><span class="sep">·</span><a href="/topics/crypto.html">크립토</a></span></div><div class="row"><span class="k">같은 흐름</span><span class="v"><a href="/newsletters/2026/0408-crypto.html#story-1" title="같은 박스권 괴리 패턴의 전조"><b>04-08</b>7만불 터치하고 다시 빠졌다 — 이 횡보가 의미하는 것</a></span></div><div class="row"><span class="k"></span><span class="v"><a href="/newsletters/2026/0605-crypto.html#story-1" title="바로 직전 가격 붕괴 국면"><b>06-05</b>$60K가 보인다 — BTC 추락 2막</a></span></div></div></div>
 </div>
 
 <!-- STORY 2 -->
@@ -793,7 +784,7 @@ line-height:1.25;color:#fff;word-break:keep-all}
     <div style="background:#f5f5f0; border-radius:8px; padding:14px 16px; margin-top:16px;">
       <div style="font-size:12px; color:#888; font-weight:700; margin-bottom:6px;">🏛 전통 금융 대비 현재 위치</div>
       <div style="font-size:13px; color:#444; line-height:1.6;">전통 금융에서 스페이스X IPO 리테일 배정은 30%지만, 실제론 대형 증권사 고객만 접근 가능. Bybit·크라켄이 이 장벽을 허무는 건 IPO 시장의 민주화인 동시에 규제 사각지대의 확장. 두 얼굴을 다 가진 실험</div>
-    <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/spacex.html">스페이스X</a><span class="sep">·</span><a href="/wiki/kraken.html">크라켄</a><span class="sep">·</span><a href="/wiki/sec.html">미국 SEC</a><span class="sep">·</span><a href="/wiki/solana.html">솔라나</a><span class="sep">·</span><a class="topic" href="/topics/space-aero.html">우주·항공</a><span class="sep">·</span><a class="topic" href="/topics/crypto.html">크립토</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0605.html#story-1" title="토큰이 추종하는 실제 IPO 확정가"><b>06-05</b> 스페이스X, 가격은 주시는대로 받아야 함</a><span class="fw">토큰이 추종하는 실제 IPO 확정가</span></span><span class="flow"><a href="/newsletters/2026/0526-crypto.html#story-2" title="같은 합성주식 흐름의 앞 사례"><b>05-26</b> Hyperliquid, &quot;그림자 주식시장&qu</a><span class="fw">같은 합성주식 흐름의 앞 사례</span></span></span></div></div></div>
+    <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">나온 것</span><span class="v"><a href="/wiki/spacex.html">스페이스X</a><span class="sep">·</span><a href="/wiki/kraken.html">크라켄</a><span class="sep">·</span><a href="/wiki/sec.html">미국 SEC</a><span class="sep">·</span><a href="/wiki/solana.html">솔라나</a><span class="sep">·</span><a href="/topics/space-aero.html">우주·항공</a></span></div><div class="row"><span class="k">같은 흐름</span><span class="v"><a href="/newsletters/2026/0605.html#story-1" title="토큰이 추종하는 실제 IPO 확정가"><b>06-05</b>스페이스X, 가격은 주시는대로 받아야 함</a></span></div><div class="row"><span class="k"></span><span class="v"><a href="/newsletters/2026/0526-crypto.html#story-2" title="같은 합성주식 흐름의 앞 사례"><b>05-26</b>Hyperliquid, &quot;그림자 주식시장&quot;을 만들고 있다</a></span></div></div></div>
 </div>
 
 <!-- STORY 3 -->
@@ -809,7 +800,7 @@ line-height:1.25;color:#fff;word-break:keep-all}
     <div style="background:#f5f5f0; border-radius:8px; padding:14px 16px; margin-top:16px;">
       <div style="font-size:12px; color:#888; font-weight:700; margin-bottom:6px;">🏛 전통 금융 대비 현재 위치</div>
       <div style="font-size:13px; color:#444; line-height:1.6;">BofA가 주식시장에 '차익실현하라'고 경고하는 동안, 크립토 고래들은 반대로 매수 중. 주식은 고점에서 팔라는 신호, 크립토는 저점에서 사라는 신호 — 두 시장의 사이클이 정반대로 돌아가는 중</div>
-    <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/microstrategy.html">마이크로스트래티지</a><span class="sep">·</span><a href="/wiki/bitcoin.html">비트코인</a><span class="sep">·</span><a href="/wiki/ethereum.html">이더리움</a><span class="sep">·</span><a href="/wiki/bofa.html">뱅크오브아메리카</a><span class="sep">·</span><a class="topic" href="/topics/crypto.html">크립토</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0513-crypto.html#story-3" title="매각 시사 이후에도 매수 지속"><b>05-13</b> 마이클 세일러도 처음 매각 시사 — 비트코인 트레저리 </a><span class="fw">매각 시사 이후에도 매수 지속</span></span><span class="flow"><a href="/newsletters/2026/0604.html#story-3" title="고래가 버티는 공포장의 원인"><b>06-04</b> 비트코인, AI한테 자리 뺏긴 이유</a><span class="fw">고래가 버티는 공포장의 원인</span></span></span></div></div></div>
+    <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">나온 것</span><span class="v"><a href="/wiki/microstrategy.html">마이크로스트래티지</a><span class="sep">·</span><a href="/wiki/bitcoin.html">비트코인</a><span class="sep">·</span><a href="/wiki/ethereum.html">이더리움</a><span class="sep">·</span><a href="/wiki/bofa.html">뱅크오브아메리카</a><span class="sep">·</span><a href="/topics/crypto.html">크립토</a></span></div><div class="row"><span class="k">같은 흐름</span><span class="v"><a href="/newsletters/2026/0513-crypto.html#story-3" title="매각 시사 이후에도 매수 지속"><b>05-13</b>마이클 세일러도 처음 매각 시사 — 비트코인 트레저리 모델의 첫 시험대</a></span></div><div class="row"><span class="k"></span><span class="v"><a href="/newsletters/2026/0604.html#story-3" title="고래가 버티는 공포장의 원인"><b>06-04</b>비트코인, AI한테 자리 뺏긴 이유</a></span></div></div></div>
 </div>
 
 <!-- STORY 4 -->
@@ -839,7 +830,7 @@ line-height:1.25;color:#fff;word-break:keep-all}
     <div class="bullet"><span class="dot">◾</span><span><strong>Bybit</strong>, 스페이스X 토큰화 IPO 주식 공모가 제공 — xStocks 기반, 6/12 거래 시작 (<a href="https://www.coindesk.com/markets/2026/06/08/bybit-launches-tokenized-ipo-service-starting-with-elon-musk-s-spacex" style="color:#888;font-size:12px;">CoinDesk</a>)</span></div>
     <div class="bullet"><span class="dot">◾</span><span><strong>크라켄</strong>, 110개국 대상 스페이스X 토큰화 IPO 접근 개방 — Bybit과 함께 최초 2개 거래소 (<a href="https://www.globalbankingandfinance.com/cryptocurrency-exchange-bybit-open-spacex-tokenized-ipo/" style="color:#888;font-size:12px;">Global Banking & Finance</a>)</span></div>
     <div class="bullet"><span class="dot">◾</span><span><strong>BTC 숏 포지션</strong> $5.04억 청산 — Strategy 매수 발표 + 반등에 공매도 세력 압사 (<a href="https://www.techtimes.com/articles/317995/20260608/strategy-buys-1550-btc-below-average-cost-short-sellers-lose-504m-bitcoin-rebound.htm" style="color:#888;font-size:12px;">TechTimes</a>)</span></div>
-  <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">이 이야기에 나온 것</span><a href="/wiki/bitcoin.html">비트코인</a><span class="sep">·</span><a href="/wiki/sp500.html">S&amp;P 500</a><span class="sep">·</span><a href="/wiki/ethereum.html">이더리움</a><span class="sep">·</span><a href="/wiki/spacex.html">스페이스X</a><span class="sep">·</span><a href="/wiki/kraken.html">크라켄</a><span class="sep">·</span><a class="topic" href="/topics/crypto.html">크립토</a><span class="sep">·</span><a class="topic" href="/topics/fed-rates.html">연준·금리</a></div><div class="row flows"><span class="k">같은 흐름</span><span class="flow-list"><span class="flow"><a href="/newsletters/2026/0529-crypto.html#story-1" title="바닥론 촉발한 ETF 유출 직전 단계"><b>05-29</b> BTC ETF 9일 연속 유출 — 블랙록도 들고 나가는</a><span class="fw">바닥론 촉발한 ETF 유출 직전 단계</span></span><span class="flow"><a href="/newsletters/2026/0519-crypto.html#story-5" title="같은 유출 흐름의 더 앞 단계"><b>05-19</b> ETF 돈줄, 6주 만에 끊김</a><span class="fw">같은 유출 흐름의 더 앞 단계</span></span></span></div></div></div>
+  <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">나온 것</span><span class="v"><a href="/wiki/bitcoin.html">비트코인</a><span class="sep">·</span><a href="/wiki/sp500.html">S&amp;P 500</a><span class="sep">·</span><a href="/wiki/ethereum.html">이더리움</a><span class="sep">·</span><a href="/wiki/spacex.html">스페이스X</a><span class="sep">·</span><a href="/topics/crypto.html">크립토</a></span></div><div class="row"><span class="k">같은 흐름</span><span class="v"><a href="/newsletters/2026/0529-crypto.html#story-1" title="바닥론 촉발한 ETF 유출 직전 단계"><b>05-29</b>BTC ETF 9일 연속 유출 — 블랙록도 들고 나가는 중</a></span></div><div class="row"><span class="k"></span><span class="v"><a href="/newsletters/2026/0519-crypto.html#story-5" title="같은 유출 흐름의 더 앞 단계"><b>05-19</b>ETF 돈줄, 6주 만에 끊김</a></span></div></div></div>
 </div>
 
 <!-- HEADLINE ROUNDUP -->
