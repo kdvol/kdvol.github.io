@@ -228,7 +228,10 @@
       '.ss-subc button.go{display:block;width:100%;height:50px;margin-top:16px;border:0;border-radius:10px;background:#E55A00;color:#fff;font-weight:800;font-size:16px;cursor:pointer;font-family:inherit;letter-spacing:-.01em}'+
       '.ss-subc button.go:hover{background:#F07040}.ss-subc button.go:disabled{opacity:.55}'+
       '.ss-subc .ad{font-size:11.5px;color:#777;margin-top:12px;line-height:1.6}.ss-subc .ad summary{margin-top:3px}'+
-      '.ss-subc .ss-sbnl{font-size:11.5px;color:#888;margin-top:12px;padding:12px 0 0;border-top:1px solid #222;line-height:1.7}.ss-subc .ss-sbnl b{color:#ddd}'+
+      '.ss-subc .ss-sbnl{font-size:12px;color:#888;margin-top:12px;padding:12px 0 0;border-top:1px solid #222;line-height:1.6}'+
+      '.ss-subc .ss-sbnl span{display:block}.ss-subc .ss-sbnl .hh{font-weight:700;color:#aaa;margin-bottom:6px}'+
+      '.ss-subc .ss-sbnl .li{position:relative;padding-left:12px;margin:3px 0}.ss-subc .ss-sbnl .li:before{content:"";position:absolute;left:2px;top:.62em;width:4px;height:4px;border-radius:50%;background:#E55A00}'+
+      '.ss-subc .ss-sbnl b{color:#eee;font-weight:700;margin-right:5px}.ss-subc .ss-sbnl .ft{margin-top:8px;color:#777;font-size:11.5px}'+
       '.ss-subc .x{position:absolute;top:10px;right:10px;width:36px;height:36px;border:0;background:none;color:#888;font-size:22px;cursor:pointer;min-height:0!important}'+
       '.ss-subc .ok{font-size:17px;font-weight:800;color:#fff;text-align:center;margin-top:6px}.ss-subc .er{font-size:12.5px;color:#ff8a5c;margin-top:8px;min-height:1px}'+
       '.ss-subc .hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}';
@@ -262,7 +265,10 @@
       '<div class="er" role="status"></div>'+
       '<div class="ad">순살 뉴스레터를 구독하면 제휴 콘텐츠, 프로모션 등 광고성 정보 수신에 동의한 것으로 간주됩니다.'+
       '<details><summary>광고성 정보 수신 ▾</summary><div>순살 뉴스레터에는 가끔 제휴 콘텐츠나 프로모션이 포함될 수 있습니다. 광고가 포함된 콘텐츠에는 항상 (광고) 표시를 합니다. 원하지 않을 경우 뉴스레터 하단의 수신 거부를 통해 언제든지 구독을 해지할 수 있습니다.</div></details></div>'+
-      '<div class="ss-sbnl">구독할 뉴스레터 — <b>순살브리핑</b> 글로벌 시장·경제 핵심 뉴스를 매일 5분 안에 · <b>순살크립토</b> 크립토 시장 흐름과 온체인 인사이트<br>구독 후 환경설정에서 개별 선택 가능합니다.</div>';
+      '<div class="ss-sbnl"><span class="hh">구독할 뉴스레터</span>'+
+        '<span class="li"><b>순살브리핑</b> 글로벌 시장·경제 핵심 뉴스를 매일 5분 안에</span>'+
+        '<span class="li"><b>순살크립토</b> 크립토 시장 흐름과 온체인 인사이트</span>'+
+        '<span class="ft">구독 후 환경설정에서 개별 선택 가능합니다.</span></div>';
     var f=c.querySelector('form'),em=f.querySelector('.em'),go=f.querySelector('.go'),ag=c.querySelector('.ag'),er=c.querySelector('.er');
     c.querySelector('.x').onclick=function(){onClose&&onClose()};
     [].forEach.call(c.querySelectorAll('.tg'),function(b){b.onclick=function(){b.classList.toggle('on')}});
