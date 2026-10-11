@@ -67,9 +67,10 @@
       {transform:'scale('+sc+') rotate(-2deg)',offset:.4},{transform:'scale('+sc+') rotate(2deg)',offset:.43},{transform:'scale('+sc+')',offset:.46},   // 물고기 움찔할 때 같이 덜덜
       {transform:'scale('+sc+')',opacity:1,offset:.86},{transform:'scale('+sc*.55+') translateY(20px)',opacity:0}],T,0,'ease-out');
     // 뚜껑 따기: 고리 걸림(살짝 들림) → 멈칫 → 오른쪽부터 쭉 벗겨지며 젖힘 → 살짝 넘어갔다 → 로고 각도(-27°)에 안착
-    A(lid,[{transform:'rotate(0)',offset:0},{transform:'rotate(0)',offset:.15},{transform:'rotate(-4deg)',offset:.19,easing:'ease-out'},
-      {transform:'rotate(-3deg)',offset:.24},{transform:'rotate(-5deg)',offset:.27,easing:'cubic-bezier(.3,0,.2,1)'},
-      {transform:'rotate(-33deg)',offset:.33,easing:'ease-in-out'},{transform:'rotate(-25deg)',offset:.37,easing:'ease-in-out'},{transform:'rotate(-27deg)',offset:.41}],T,0);
+    // 뚜껑: 걸림은 짧게, 벗겨짐은 빠르게(KD 2026-10-11 「뚜껑 열리는 속도만 좀 더 빠르게」) — 0.2~0.3 구간에 끝냄
+    A(lid,[{transform:'rotate(0)',offset:0},{transform:'rotate(0)',offset:.13},{transform:'rotate(-4deg)',offset:.16,easing:'ease-out'},
+      {transform:'rotate(-5deg)',offset:.19,easing:'cubic-bezier(.4,0,.2,1)'},
+      {transform:'rotate(-34deg)',offset:.235,easing:'ease-out'},{transform:'rotate(-25deg)',offset:.27,easing:'ease-in-out'},{transform:'rotate(-27deg)',offset:.3}],T,0);
     var n=big?8:5,g=1600;
     for(var i=0;i<n;i++)(function(i){
       // 3겹: 경로(pos) · 방향·회전(rot) · 몸짓(body: 움찔·찌그러짐·꼬리 파닥)
