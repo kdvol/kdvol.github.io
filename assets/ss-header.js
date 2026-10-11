@@ -46,7 +46,8 @@
     o=o||{};
     try{if(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches)return}catch(e){}
     if(!document.body||!document.body.animate)return;
-    var big=!!o.big,dark=darkAt(x,y),sc=big?1.3:1,T=2400;
+    // SP: 전체 빠르기(1=원래). 궤적 모양은 그대로 두고 시간만 줄인다 (KD 2026-10-11 「조금 더 빨리」)
+    var SP=.68,big=!!o.big,dark=darkAt(x,y),sc=big?1.3:1,T=Math.round(2400*SP);
     var host=document.createElement('div');
     host.style.cssText='position:fixed;left:'+x+'px;top:'+y+'px;width:0;height:0;z-index:2147483000;pointer-events:none';
     // 층: 뒤판(테·입구) → 물고기 → 앞판(몸통·앞 테두리) → 뚜껑. 앞판이 입구 아래를 가려 물고기가 캔 「안」에서 올라온다.
@@ -80,19 +81,19 @@
       rot.appendChild(body);pos.appendChild(rot);fishes.appendChild(pos);
       var spread=n>1?(i/(n-1)-.5)*2:0,vx=(spread*150+(Math.random()*50-25))*(big?1.45:1),vy=-(380+Math.random()*180)*(big?1.2:1);
       // 순서: 뚜껑 걸림(0.4s)→벗겨져 열림(~0.75s)→그 뒤에야 빼꼼→움찔→발사
-      var peek=800+Math.random()*120,launch=1080+i*45+Math.random()*70,fly=950+Math.random()*350,end=launch+fly;
+      var peek=(800+Math.random()*120)*SP,launch=(1080+i*45+Math.random()*70)*SP,flyV=950+Math.random()*350,fly=flyV*SP,end=launch+fly;
       var face=vx<0?' scaleX(-1)':'';       // 왼쪽으로 가는 놈은 좌우 뒤집어 머리가 진행 방향
       var mx=Math.max(-16,Math.min(16,spread*15)),fr=[],steps=20;
       fr.push({transform:'translate('+mx+'px,16px)',offset:0});                          // 캔 안(작게 접혀 앞판 뒤에 숨어 있음)
       fr.push({transform:'translate('+mx+'px,16px)',offset:.82*peek/end,easing:'ease-out'});
       fr.push({transform:'translate('+mx+'px,-6px)',offset:peek/end,easing:'ease-out'});   // 고개 빼꼼 — 입구 위로
       fr.push({transform:'translate('+mx+'px,2px)',offset:launch/end*0.97});              // 움찔하며 다시 웅크림
-      for(var k=0;k<=steps;k++){var t=k/steps*fly/1000;
+      for(var k=0;k<=steps;k++){var t=k/steps*flyV/1000;
         fr.push({transform:'translate('+(mx+vx*t).toFixed(1)+'px,'+(-1+vy*t+.5*g*t*t).toFixed(1)+'px)',offset:Math.min(1,(launch+k/steps*fly)/end)})}
       A(pos,fr,end,0);
       // 방향: 빼꼼할 땐 위를 보고 → 날아가며 진행 방향, 일부는 공중제비(360°)·스핀
       var trick=Math.random(),rk=[{transform:'rotate(-90deg)'+face,offset:0},{transform:'rotate(-90deg)'+face,offset:launch/end*.97}];
-      for(var k2=0;k2<=10;k2++){var t2=k2/10*fly/1000,vyt=vy+g*t2,ang=Math.atan2(vyt,Math.abs(vx)||1)*180/Math.PI;
+      for(var k2=0;k2<=10;k2++){var t2=k2/10*flyV/1000,vyt=vy+g*t2,ang=Math.atan2(vyt,Math.abs(vx)||1)*180/Math.PI;
         if(vx<0)ang=-ang;                                     // 뒤집힌 놈은 각도도 거울로
         var extra=trick<.25?(vx<0?-1:1)*360*k2/10:(trick<.4?Math.sin(k2/10*Math.PI)*40:0);
         rk.push({transform:'rotate('+(ang+extra).toFixed(1)+'deg)'+face,offset:Math.min(1,(launch+k2/10*fly)/end)})}
@@ -111,10 +112,14 @@
       d.style.cssText='position:absolute;left:-3px;top:-6px;width:6px;height:6px;border-radius:50%;background:'+(Math.random()<.5?'#F88C62':'#ffc4a8');host.appendChild(d);
       var a=-Math.PI/2+(Math.random()-.5)*2.4,r=34+Math.random()*50;
       A(d,[{transform:'translate(0,0) scale(.3)',opacity:0},{transform:'translate('+(Math.cos(a)*r*.6)+'px,'+(Math.sin(a)*r*.6)+'px) scale(1)',opacity:1,offset:.4},
-        {transform:'translate('+(Math.cos(a)*r)+'px,'+(Math.sin(a)*r+28)+'px) scale(.5)',opacity:0}],720,1080+Math.random()*140,'ease-out')})();
+        {transform:'translate('+(Math.cos(a)*r)+'px,'+(Math.sin(a)*r+28)+'px) scale(.5)',opacity:0}],720*SP,(1080+Math.random()*140)*SP,'ease-out')})();
     setTimeout(function(){if(host.parentNode)host.parentNode.removeChild(host)},T+600);
   }
-  function ssCanAt(el,o){try{var r=el.getBoundingClientRect();ssCan(r.left+r.width/2,r.top+r.height/2,o)}catch(e){}}
+  // 버튼을 덮지 않게 바로 위에 살짝 띄워 띄운다 — 위 공간이 모자라면 아래로. 좌우는 화면 안쪽으로 (KD 2026-10-11)
+  function ssCanAt(el,o){try{var r=el.getBoundingClientRect(),big=o&&o.big,gap=big?58:44,
+    x=Math.max(48,Math.min(window.innerWidth-48,r.left+r.width/2)),
+    y=r.top-gap>130?r.top-gap:r.bottom+gap+8;
+    ssCan(x,y,o)}catch(e){}}
   window.ssCan=ssCan;window.ssCanAt=ssCanAt;
   // 스크랩 🐟 — 켜질 때만 (ss-scrap.js 는 따로 도는 스크립트라 클릭을 여기서 받는다)
   document.addEventListener('click',function(e){var b=e.target.closest&&e.target.closest('.ss-scrap');if(!b)return;
