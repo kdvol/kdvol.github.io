@@ -84,8 +84,8 @@
       var face=vx<0?' scaleX(-1)':'';       // 왼쪽으로 가는 놈은 좌우 뒤집어 머리가 진행 방향
       var mx=Math.max(-16,Math.min(16,spread*15)),fr=[],steps=20;
       fr.push({transform:'translate('+mx+'px,16px)',offset:0});                          // 캔 안(작게 접혀 앞판 뒤에 숨어 있음)
-      fr.push({transform:'translate('+mx+'px,16px)',offset:.82*peek/end});
-      fr.push({transform:'translate('+mx+'px,-6px)',offset:peek/end*0.75,easing:'ease-out'});   // 고개 빼꼼 — 입구 위로
+      fr.push({transform:'translate('+mx+'px,16px)',offset:.82*peek/end,easing:'ease-out'});
+      fr.push({transform:'translate('+mx+'px,-6px)',offset:peek/end,easing:'ease-out'});   // 고개 빼꼼 — 입구 위로
       fr.push({transform:'translate('+mx+'px,2px)',offset:launch/end*0.97});              // 움찔하며 다시 웅크림
       for(var k=0;k<=steps;k++){var t=k/steps*fly/1000;
         fr.push({transform:'translate('+(mx+vx*t).toFixed(1)+'px,'+(-1+vy*t+.5*g*t*t).toFixed(1)+'px)',offset:Math.min(1,(launch+k/steps*fly)/end)})}
