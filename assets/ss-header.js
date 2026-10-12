@@ -356,6 +356,10 @@
       if(!scope)return;
       var at=scope.querySelector('#story-'+sn);
       if(!at||document.querySelector('.ss-poll'))return;
+      // ★ 질문이 **바로 이 스토리** 것일 때만 (KD 2026-10-12 「지난 질문이 오늘 스토리에 붙음」): 번호만 맞추면 홈에선
+      //   오늘 질문이 아직 없을 때 지난 회차 질문이 오늘 같은 번호 스토리에 붙었다. 스토리 id(예 1012-3)까지 같아야 한다.
+      var sid=at.getAttribute('data-ss-story')||'';if(sid&&sid!==p.story)return;
+      if(!sid&&home)return;
       var light=!!at.closest('.wrapper,.nl');
       var st=document.createElement('style');st.textContent=
         '.ss-poll{margin:34px 0 30px;padding:16px 2px 4px;border-top:1px solid #2a2622;color:#e8e3da;'+
