@@ -243,7 +243,7 @@
       '.ss-subc .hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}';
     document.head.appendChild(st);
   }
-  function subForm(story,onClose){subCss();
+  function subForm(story,onClose,src){subCss();
     var c=document.createElement('section');c.className='ss-subc';c.setAttribute('aria-label','뉴스레터 무료 구독');
     // ★ 기존 구독 화면(subscribe.soonsal.com)과 같은 칸·순서·문구를 처음부터 다 보여 준다 (KD 2026-10-09
     //   「이메일만 받으면 의미가 적다 — 기존 구독 화면을 재현」). 이메일 → 이름 → 출생연도 → 관심분야 → 하는 일 → 동의 → 구독하기 → 광고 안내.
@@ -284,7 +284,7 @@
       if(!ag.checked){er.textContent='개인정보 수집 및 이용 동의에 체크해 주세요.';ag.focus();return}
       go.disabled=true;go.textContent='보내는 중…';
       fetch(API+'/subscribe',{method:'POST',headers:{'content-type':'application/json'},
-        body:JSON.stringify({email:v,agree:true,story:story,path:location.pathname,v:lsg('ss_vid')||'',hp:f.querySelector('.hp').value,
+        body:JSON.stringify({email:v,agree:true,story:story,src:src||'inline',path:location.pathname,v:lsg('ss_vid')||'',hp:f.querySelector('.hp').value,
           name:c.querySelector('.nm').value,birthyear:c.querySelector('.by').value,current:c.querySelector('.cu').value,
           interest:[].map.call(c.querySelectorAll('.tg.on'),function(b){return b.getAttribute('data-v')}).join(',')})})
       .then(function(r){return r.json()}).then(function(j){
@@ -312,7 +312,7 @@
   }
   // 팝업 — 사이트 버튼(우측 상단·메뉴·홈 첫 화면)은 새 페이지로 보내지 않고 이 자리에서 바로 받는다.
   //   뉴스레터 본문(메일 원본) 안의 구독 링크는 그대로 subscribe.soonsal.com 으로 간다.
-  function subModal(){
+  function subModal(src){
     if(document.getElementById('ss-subm'))return;subCss();
     var st=document.getElementById('ss-subm-css');
     if(!st){st=document.createElement('style');st.id='ss-subm-css';st.textContent=
@@ -326,7 +326,7 @@
     var prev=document.body.style.overflow;
     function close(){ov.classList.remove('on');document.body.style.overflow=prev;document.removeEventListener('keydown',esc);setTimeout(function(){if(ov.parentNode)ov.parentNode.removeChild(ov)},180)}
     function esc(e){if(e.key==='Escape')close()}
-    ov.appendChild(subForm(null,close));
+    ov.appendChild(subForm(null,close,src));
     ov.addEventListener('click',function(e){if(e.target===ov)close()});
     document.addEventListener('keydown',esc);
     document.body.appendChild(ov);document.body.style.overflow='hidden';
@@ -338,7 +338,8 @@
     if(e.metaKey||e.ctrlKey||e.shiftKey||e.button===1)return;      // 새 탭으로 열려는 클릭은 막지 않는다
     e.preventDefault();
     if(document.documentElement.classList.contains('ss-open')){document.documentElement.classList.remove('ss-open');document.body.style.overflow=''}
-    subModal();
+    // 어느 버튼으로 들어왔는지 — 새 구독 알림에 찍힌다 (KD 2026-10-13)
+    subModal(a.closest('.site-header')?'header':a.closest('.ss-dr')?'drawer':'hero');
   });
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',subCard);else subCard();
   // ── 오늘의 질문 투표 (KD 2026-10-09 개선 4번) — 홈(히어로 아래)·그날 뉴스레터(질문이 나온 스토리 뒤) ──
