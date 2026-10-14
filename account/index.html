@@ -20,12 +20,21 @@ h2{font-size:1.05rem;font-weight:800;margin:28px 0 10px}
 .consent summary::before{content:'▸ ';color:#6f695f}.consent[open] summary::before{content:'▾ '}
 .consent ul{margin:8px 0 8px 18px}
 .btns{display:grid;gap:9px;margin:12px 0 0}
-.lb{display:flex;align-items:center;justify-content:center;gap:9px;border-radius:12px;padding:13px 14px;
-font-weight:800;font-size:.95rem;text-decoration:none;border:1px solid transparent;cursor:pointer;font-family:inherit}
+/* 간편 로그인 — 같은 높이·모양·글씨에 각 서비스 로고만 다르게(Scouty 와 같은 방식).
+   카카오는 가이드상 노랑 배경이 필수라 그대로, 구글·네이버는 사이트 바탕에 맞춘 무채색 + 공식 로고 색 */
+.lb{display:flex;align-items:center;justify-content:center;gap:9px;border-radius:12px;height:48px;padding:0 14px;
+font-weight:700;font-size:.95rem;letter-spacing:-.01em;text-decoration:none;border:1px solid transparent;cursor:pointer;font-family:inherit}
+.lb svg{flex:none;width:18px;height:18px}
 .lb[aria-disabled=true]{opacity:1}   /* 흐리게 하면 카카오 노랑이 탁해진다 — 색은 그대로, 체크 없이 누르면 체크 칸을 짚어 준다 */
 .lb.off{opacity:.3;pointer-events:none}
-.lb.kakao{background:#FEE500;color:#191600}.lb.google{background:#fff;color:#1f1f1f;border-color:#ddd}
-.lb.naver{background:#03C75A;color:#fff}
+.lb.kakao{background:#FEE500;border-color:#FEE500;color:rgba(0,0,0,.85)}
+.lb.google,.lb.naver{background:#1a1a1a;border-color:#3a3a3a;color:#ece8e1}
+.lb.google:hover,.lb.naver:hover{border-color:#5a5a5a}
+.lb.naver svg{width:15px;height:15px}
+.brand{display:flex;gap:12px;align-items:center;margin-bottom:22px}.brand .can{flex:none}.brand .sub{margin:0}
+.ghost.lk{text-decoration:none;display:inline-flex;align-items:center;gap:7px;margin:0 6px 6px 0}
+.ghost.lk svg{width:14px;height:14px;flex:none}
+.ghost.lk path[fill="#000"]{fill:#FEE500}
 .soon{font-size:.72rem;font-weight:700;opacity:.75}
 .row{display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap}
 .pill{display:inline-block;background:#1f1d1a;border:1px solid #2c2c2c;border-radius:999px;padding:3px 10px;
@@ -330,7 +339,7 @@ transition:color .18s ease,background .18s ease}
 <h1 id="acc-h1">내 계정</h1>
 <p class="msg" id="msg"></p>
 <div id="guest" hidden>
- <p class="sub">로그인하면 스크랩·댓글·알림이 폰과 PC 에서 같이 보여요.</p>
+ <div class="brand"><svg class="can" viewBox="30 28 122 124" width="40" height="41" aria-hidden="true"><path d="M33 80L33 130A57.5 17 0 0 0 148 130L148 80A57.5 17 0 0 1 145.6 85.8L142 82A50 12.5 0 0 1 42 82L35 85.4A57.5 17 0 0 1 33 80z" fill="#fafaf7"/><g transform="translate(67 110) rotate(-10 22 11) scale(1.12)"><path d="M9.5 10C3.6 3 1.8 2.6 1 3.3c1.6 2.2 2.4 4.4 2.4 6.7S2.6 14.5 1 16.7c.8.7 2.6.3 8.5-6.7z" fill="#F88C62"/><path d="M7.5 10C14 .8 31 .4 38.6 10 31 19.6 14 19.2 7.5 10z" fill="#F88C62"/></g><ellipse cx="90.5" cy="80" rx="57.5" ry="17" fill="#fafaf7"/><ellipse cx="90.5" cy="80" rx="49" ry="12.8" fill="none" stroke="#d6d6d0" stroke-width="1.6"/><path d="M139 76.5q7.5-1 9 3.5q-1.5 4.5-9 3.5" fill="none" stroke="#d6d6d0" stroke-width="2.2" stroke-linecap="round"/></svg><p class="sub">로그인하면 스크랩·댓글·알림이 폰과 PC 에서 같이 보여요.</p></div>
  <label class="agree" id="agreel"><input type="checkbox" id="agree"> [필수] 개인정보 수집·이용에 동의합니다</label>
  <div class="btns" id="btns"></div>
  <details class="consent">
@@ -393,6 +402,9 @@ transition:color .18s ease,background .18s ease}
     return fetch(API+path,opt).then(function(r){return r.json().then(function(j){if(!r.ok)throw j;return j})})}
   if(q.get('err')) $('#msg').textContent=ERR[q.get('err')]||'로그인에 실패했어요.';
 
+  var LOGO={kakao:'<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#000" d="M12 3C6.48 3 2 6.58 2 11c0 2.86 1.88 5.37 4.71 6.79l-.96 3.52c-.08.3.26.54.52.37l4.2-2.78c.5.06 1.01.1 1.53.1 5.52 0 10-3.58 10-8S17.52 3 12 3z"/></svg>',
+    google:'<svg viewBox="0 0 48 48" aria-hidden="true"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>',
+    naver:'<svg viewBox="0 0 16 16" aria-hidden="true"><path fill="#03C75A" d="M10.85 8.56 4.97 0H0v16h5.15V7.44L11.03 16H16V0h-5.15z"/></svg>'};
   function guest(prov){
     $('#guest').hidden=false;
     var ok=$('#agree');
@@ -401,7 +413,7 @@ transition:color .18s ease,background .18s ease}
     ['kakao','google','naver'].forEach(function(p){
       var on=prov&&prov[p];
       if(prov&&!on)return;   // 아직 안 켜진 로그인은 자리만 차지한다 — 켜지면 저절로 나온다
-      html+='<a class="lb '+p+(on?'':' off')+'" data-p="'+p+'" aria-disabled="true" href="#">'+names[p]+
+      html+='<a class="lb '+p+(on?'':' off')+'" data-p="'+p+'" aria-disabled="true" href="#">'+LOGO[p]+'<span>'+names[p]+'</span>'+
         (on?'':' <span class="soon">준비 중</span>')+'</a>';
     });
     $('#btns').innerHTML=html;
@@ -431,7 +443,7 @@ transition:color .18s ease,background .18s ease}
     var have={};ids.forEach(function(i){have[i.provider]=1});
     api('/auth/providers').then(function(pv){var html='';
       ['kakao','google','naver'].forEach(function(p){if(have[p]||!(pv.providers||{})[p])return;
-        html+='<a class="ghost" style="text-decoration:none;display:inline-block;margin:0 6px 6px 0" href="'+API+'/auth/'+p+'/start?consent='+VER+'&link=1&next='+encodeURIComponent('/account/')+'">'+PN[p]+' 로그인도 연결</a>'});
+        html+='<a class="ghost lk" href="'+API+'/auth/'+p+'/start?consent='+VER+'&link=1&next='+encodeURIComponent('/account/')+'">'+LOGO[p]+PN[p]+' 로그인도 연결</a>'});
       $('#link').innerHTML=html?'<b style="display:block;font-size:.92rem;color:#f0ece4">로그인 수단 연결</b><p style="font-size:.8rem;color:#8b8578;margin:2px 0 10px">어느 쪽으로 들어와도 같은 계정이 돼요</p>'+html:'';});
     // 이 브라우저 기록은 계정으로 자동으로 올린다(버튼 없음) — 헤더와 같은 규칙, 이미 올린 건 ss_synced 로 건너뜀
     var syn=ls('ss_synced',{}),local=[];
