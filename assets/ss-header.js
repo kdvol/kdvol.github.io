@@ -10,33 +10,44 @@
 
   // ── 순살 통조림 팡 (KD 2026-10-11 「통조림 속 물고기가 꿈틀대며 뛰어오르는 — confetti 같은 효과를 우리만의 브랜딩으로」) ──
   //   주요 버튼(구독·스크랩·반응·팔로우·투표·완주)을 누른 자리에서 통조림 뚜껑이 젖혀지고, 물고기들이 꼬리를 흔들며
-  //   포물선으로 튀어 올랐다 떨어진다. 그림은 SVG 몇 줄, 움직임은 Web Animations — 외부 파일 없음.
+  //   포물선으로 튀어 올랐다 떨어진다. 그림은 공식 로고 PNG(아래 LOGOS), 움직임은 Web Animations.
   //   window.ssCan(x, y, {big}) · window.ssCanAt(el, {big}). 움직임 줄이기 설정이면 아무것도 안 한다.
-  // 로고 그대로 — 통조림은 로고의 검정 캔(어두운 화면에선 흰 로고 버전), 물고기는 로고 연어색 #F88C62 + 단순한 표정 (KD 2026-10-11)
-  var FC='#F88C62',INK='#1a1a1a';
-  function fishSvg(mood,W){W=W||40;
-    var face=mood===1?'<path d="M29.3 8.6q1.9-2.3 3.8 0" fill="none" stroke="'+INK+'" stroke-width="1.5" stroke-linecap="round"/><path d="M33.6 12.2q1.6 1.5 3.2 0" fill="none" stroke="'+INK+'" stroke-width="1.3" stroke-linecap="round"/>'
-      :mood===2?'<circle cx="31.2" cy="8.2" r="2.5" fill="#fff"/><circle cx="31.6" cy="8.2" r="1.35" fill="'+INK+'"/><ellipse cx="35.3" cy="12.4" rx="1.2" ry="1.5" fill="'+INK+'"/>'
-      :'<circle cx="31.2" cy="8.4" r="2.4" fill="#fff"/><circle cx="31.7" cy="8.6" r="1.3" fill="'+INK+'"/><path d="M33.4 12.3q1.7 1.4 3.4 0" fill="none" stroke="'+INK+'" stroke-width="1.3" stroke-linecap="round"/>';
-    return '<svg viewBox="0 0 40 20" width="'+W+'" height="'+(W/2)+'" style="display:block;overflow:visible">'+
-      '<path d="M9.5 10C3.6 3 1.8 2.6 1 3.3c1.6 2.2 2.4 4.4 2.4 6.7S2.6 14.5 1 16.7c.8.7 2.6.3 8.5-6.7z" fill="'+FC+'"/>'+
-      '<path d="M7.5 10C14 .8 31 .4 38.6 10 31 19.6 14 19.2 7.5 10z" fill="'+FC+'"/>'+
-      '<ellipse cx="27" cy="12.6" rx="2" ry="1.2" fill="#ff6a55" opacity=".45"/>'+face+'</svg>';
-  }
-  // 로고(180px 아이콘) 실측 그대로 — 몸통 x33~148·바닥 타원 ry17, 테 타원 rx57.5/ry17, 입구(흰) rx50/ry12.5,
-  //   뚜껑 = 테와 같은 타원을 왼쪽 경첩(33,80)에서 -27° 젖힌 것, 몸통 물고기는 45px·살짝 위로 (KD 2026-10-11 「로고와 정확히 같은 비율」)
-  var CAN_VB='30 28 122 124',FISHP='<path d="M9.5 10C3.6 3 1.8 2.6 1 3.3c1.6 2.2 2.4 4.4 2.4 6.7S2.6 14.5 1 16.7c.8.7 2.6.3 8.5-6.7z" fill="'+FC+'"/><path d="M7.5 10C14 .8 31 .4 38.6 10 31 19.6 14 19.2 7.5 10z" fill="'+FC+'"/>';
-  function canBack(dark){var C=dark?'#fafaf7':'#000',IN=dark?'#262626':'#fafaf7';
-    return '<svg viewBox="'+CAN_VB+'" width="64" height="65" style="display:block;overflow:visible"><ellipse cx="90.5" cy="80" rx="57.5" ry="17" fill="'+C+'"/>'+
-      '<ellipse cx="92" cy="82" rx="50" ry="12.5" fill="'+IN+'"/></svg>'}
-  function canFront(dark){var C=dark?'#fafaf7':'#000';   // 앞판 — 입구 아래 테두리 + 몸통 (물고기를 가린다)
-    return '<svg viewBox="'+CAN_VB+'" width="64" height="65" style="display:block;overflow:visible">'+
-      '<path d="M33 80L33 130A57.5 17 0 0 0 148 130L148 80A57.5 17 0 0 1 145.6 85.8L142 82A50 12.5 0 0 1 42 82L35 85.4A57.5 17 0 0 1 33 80z" fill="'+C+'"/>'+
-      '<g transform="translate(67 110) rotate(-10 22 11) scale(1.12)">'+FISHP+'</g></svg>'}
-  function canLid(dark){var C=dark?'#fafaf7':'#000',E=dark?'#d6d6d0':'#2a2a2a';
-    return '<svg viewBox="'+CAN_VB+'" width="64" height="65" style="display:block;overflow:visible"><ellipse cx="90.5" cy="80" rx="57.5" ry="17" fill="'+C+'"/>'+
-      '<ellipse cx="90.5" cy="80" rx="49" ry="12.8" fill="none" stroke="'+E+'" stroke-width="1.6"/>'+          // 뚜껑 홈(닫혀 있을 때만 보임)
-      '<path d="M139 76.5q7.5-1 9 3.5q-1.5 4.5-9 3.5" fill="none" stroke="'+E+'" stroke-width="2.2" stroke-linecap="round"/></svg>'}   // 따개 고리
+  // ★ 공식 로고만 (KD 2026-10-14 「앞으로 무조건 실제 로고만… 애니메이션에 쓰는 로고 포함, 모든 변형은 정식 로고에서 시작」)
+  //   통조림 = 공식 로고 PNG 그대로. 뚜껑은 같은 PNG 를 clip-path 로 오려 경첩 기준 회전만, 튀어 오르는 물고기는
+  //   공식 흰 로고에서 주황 픽셀만 오려낸 것(캔버스 추출) — 직접 그린 SVG·표정 없음.
+  //   어두운 바탕 = /assets/soonsal-logo-white.png(헤더와 같은 파일, 128px), 밝은 바탕 = /favicon-96x96.png(검정, 96px).
+  //   좌표는 각 파일의 픽셀 실측(뚜껑 아래 가장자리 = 입구 위 경계, 앞 테두리 = 입구 아래 경계).
+  var FC='#F88C62';
+  var LOGOS={
+    dark:{src:'/assets/soonsal-logo-white.png',n:128,K:.5,hinge:[3,60],mouth:[70,56],
+      lid:[[0,60],[14,64],[30,68.5],[38,66],[44,64],[48,62],[54,60],[58,58],[62,56],[66,54],[68,52],[72,50],[76,48],[78,46],[82,44],[84,42],[88,40.5],[96,38.5],[108,36.5],[128,34]],
+      front:[[0,71],[36,71.5],[54,73.5],[66,74],[78,73.5],[94,71.5],[102,69],[108,67],[114,65],[118,63],[122,60],[128,58]]},
+    light:{src:'/favicon-96x96.png',n:96,K:64/71,hinge:[15,46],mouth:[55,44],
+      lid:[[0,48],[14,48],[31,50],[36,48],[41,46],[45,44],[48,43],[50,41],[53,40],[56,38],[59,36],[61,35],[70,33.5],[80,32],[96,30]],
+      front:[[0,52],[35,51.6],[48,52],[62,51.6],[68,50.6],[72,49.6],[76,48.6],[80,47],[84,45],[96,44]]}
+  };
+  function poly(pts,n){return 'polygon('+pts.map(function(q){return (q[0]/n*100).toFixed(2)+'% '+(q[1]/n*100).toFixed(2)+'%'}).join(',')+')'}
+  // 뚜껑 = 경계선 위쪽, 뒤판 = 경계선 아래쪽(뚜껑을 뺀 나머지), 앞판 = 입구 앞 테두리 아래(물고기를 가린다)
+  function clips(L){var n=L.n,lidB=L.lid.slice(),fr=L.front.slice();
+    return {lid:poly([[0,0],[n,0]].concat(lidB.slice().reverse()),n),
+            back:poly(lidB.concat([[n,n],[0,n]]),n),
+            front:poly(fr.concat([[n,n],[0,n]]),n)}}
+  // 물고기: 공식 흰 로고 → 주황 픽셀만 남기고(경계는 주황 정도만큼 반투명) 잘라낸 그림. 기울기는 로고 그대로(약 -18°).
+  var FISH=null,FISH_W=1,FISH_H=1,FISH_TILT=18,assetsP=null;
+  function loadImg(src){return new Promise(function(ok,no){var im=new Image();im.onload=function(){ok(im)};im.onerror=no;im.src=src})}
+  function cutFish(im){var w=im.naturalWidth,h=im.naturalHeight,c=document.createElement('canvas');c.width=w;c.height=h;
+    var x=c.getContext('2d');x.drawImage(im,0,0);var d=x.getImageData(0,0,w,h),p=d.data,x0=w,y0=h,x1=-1,y1=-1;
+    for(var i=0;i<p.length;i+=4){var tt=Math.max(0,Math.min(1,(p[i]-p[i+2]-15)/120))*p[i+3]/255;
+      if(tt>.03){p[i]=248;p[i+1]=140;p[i+2]=98;p[i+3]=Math.round(tt*255);var k=i/4,px=k%w,py=(k-px)/w;
+        if(px<x0)x0=px;if(px>x1)x1=px;if(py<y0)y0=py;if(py>y1)y1=py}else p[i+3]=0}
+    if(x1<0)return null;x.putImageData(d,0,0);
+    var o=document.createElement('canvas');o.width=x1-x0+1;o.height=y1-y0+1;o.getContext('2d').drawImage(c,x0,y0,o.width,o.height,0,0,o.width,o.height);
+    FISH_W=o.width;FISH_H=o.height;return o.toDataURL()}
+  function canAssets(){
+    if(!assetsP)assetsP=Promise.all([loadImg(LOGOS.dark.src),loadImg(LOGOS.light.src)]).then(function(r){FISH=cutFish(r[0]);return r});
+    return assetsP}
+  // 첫 클릭이 늦지 않게 한가할 때 미리 받아 둔다 (헤더가 이미 같은 흰 로고를 쓰므로 대개 캐시)
+  try{(window.requestIdleCallback||function(f){setTimeout(f,1500)})(function(){canAssets().catch(function(){})})}catch(e){}
   function darkAt(x,y){   // 누른 자리 뒤 배경이 어두우면 흰 로고 버전
     try{var el=document.elementFromPoint(x,y);
       while(el&&el!==document.documentElement){var c=getComputedStyle(el).backgroundColor,m=c&&c.match(/[\d.]+/g);
@@ -45,18 +56,22 @@
   function ssCan(x,y,o){
     o=o||{};
     try{if(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches)return}catch(e){}
-    if(!document.body||!document.body.animate)return;
+    if(!document.body||!document.body.animate||!window.Promise)return;
+    canAssets().then(function(){ssCanRun(x,y,o)}).catch(function(){});
+  }
+  function ssCanRun(x,y,o){
     // SP: 전체 빠르기(1=원래). 궤적 모양은 그대로 두고 시간만 줄인다 (KD 2026-10-11 「조금 더 빨리」)
     var SP=.68,big=!!o.big,dark=darkAt(x,y),sc=big?1.3:1,T=Math.round(2400*SP);
+    var L=dark?LOGOS.dark:LOGOS.light,C=clips(L),S=L.n*L.K;
     var host=document.createElement('div');
     host.style.cssText='position:fixed;left:'+x+'px;top:'+y+'px;width:0;height:0;z-index:2147483000;pointer-events:none';
-    // 층: 뒤판(테·입구) → 물고기 → 앞판(몸통·앞 테두리) → 뚜껑. 앞판이 입구 아래를 가려 물고기가 캔 「안」에서 올라온다.
-    //   좌표: 캔 64×65px, 입구 중심이 (33, 28) 근처 → 누른 점에 입구가 오게 놓는다.
-    var K=64/122,OX=(92-30)*K,OY=(82-28)*K,HX=(33-30)*K,HY=(80-28)*K;
-    var canw=document.createElement('div');canw.style.cssText='position:absolute;left:'+(-OX)+'px;top:'+(-OY)+'px;width:64px;height:65px;transform-origin:'+OX+'px '+(OY+20)+'px';
-    var back=document.createElement('div');back.style.cssText='position:absolute;left:0;top:0';back.innerHTML=canBack(dark);
-    var front=document.createElement('div');front.style.cssText='position:absolute;left:0;top:0';front.innerHTML=canFront(dark);
-    var lid=document.createElement('div');lid.style.cssText='position:absolute;left:0;top:0;transform-origin:'+HX+'px '+HY+'px';lid.innerHTML=canLid(dark);
+    // 층: 뒤판(공식 로고 − 뚜껑) → 물고기 → 앞판(공식 로고의 입구 앞 테두리 아래) → 뚜껑(공식 로고의 뚜껑 부분). 셋 다 같은 PNG.
+    //   누른 점에 입구 가운데가 오게 놓는다.
+    var OX=L.mouth[0]*L.K,OY=L.mouth[1]*L.K,HX=L.hinge[0]*L.K,HY=L.hinge[1]*L.K;
+    var canw=document.createElement('div');canw.style.cssText='position:absolute;left:'+(-OX)+'px;top:'+(-OY)+'px;width:'+S+'px;height:'+S+'px;transform-origin:'+OX+'px '+(OY+20)+'px';
+    function layer(cp,extra){var im=document.createElement('img');im.src=L.src;im.alt='';im.width=S;im.height=S;
+      im.style.cssText='position:absolute;left:0;top:0;width:'+S+'px;height:'+S+'px;max-width:none;-webkit-clip-path:'+cp+';clip-path:'+cp+(extra||'');return im}
+    var back=layer(C.back),front=layer(C.front),lid=layer(C.lid,';transform-origin:'+HX+'px '+HY+'px');
     var fishes=document.createElement('div');fishes.style.cssText='position:absolute;left:'+OX+'px;top:'+OY+'px';
     canw.appendChild(back);canw.appendChild(fishes);canw.appendChild(front);canw.appendChild(lid);host.appendChild(canw);document.body.appendChild(host);
     var A=function(el,k,d,dl,e){return el.animate(k,{duration:d,delay:dl||0,easing:e||'linear',fill:'both'})};
@@ -66,41 +81,45 @@
       {transform:'scale('+sc*1.05+','+sc*.93+')',offset:.3},{transform:'scale('+sc+')',offset:.35},
       {transform:'scale('+sc+') rotate(-2deg)',offset:.4},{transform:'scale('+sc+') rotate(2deg)',offset:.43},{transform:'scale('+sc+')',offset:.46},   // 물고기 움찔할 때 같이 덜덜
       {transform:'scale('+sc+')',opacity:1,offset:.86},{transform:'scale('+sc*.55+') translateY(20px)',opacity:0}],T,0,'ease-out');
-    // 뚜껑 따기: 고리 걸림(살짝 들림) → 멈칫 → 오른쪽부터 쭉 벗겨지며 젖힘 → 살짝 넘어갔다 → 로고 각도(-27°)에 안착
-    // 뚜껑: 걸림은 짧게, 벗겨짐은 빠르게(KD 2026-10-11 「뚜껑 열리는 속도만 좀 더 빠르게」) — 0.2~0.3 구간에 끝냄
-    A(lid,[{transform:'rotate(0)',offset:0},{transform:'rotate(0)',offset:.13},{transform:'rotate(-4deg)',offset:.16,easing:'ease-out'},
-      {transform:'rotate(-5deg)',offset:.19,easing:'cubic-bezier(.4,0,.2,1)'},
-      {transform:'rotate(-34deg)',offset:.235,easing:'ease-out'},{transform:'rotate(-25deg)',offset:.27,easing:'ease-in-out'},{transform:'rotate(-27deg)',offset:.3}],T,0);
+    // 뚜껑: 공식 로고 각도(열린 채)에서 시작 → 물고기가 들이받듯 꾹 닫혔다(+18°) → 팡 튀어 열리며 살짝 넘어감 → 로고 각도로 안착.
+    //   (KD 2026-10-14 「뚜껑이 움직이면서 바뀌는 건 있을 수 있지만 모든 변형은 정식 로고에서 시작」)
+    A(lid,[{transform:'rotate(0)',offset:0},{transform:'rotate(0)',offset:.12},{transform:'rotate(18deg)',offset:.17,easing:'ease-in'},
+      {transform:'rotate(15deg)',offset:.2},{transform:'rotate(18deg)',offset:.215,easing:'cubic-bezier(.3,0,.2,1)'},
+      {transform:'rotate(-7deg)',offset:.245,easing:'ease-out'},{transform:'rotate(2deg)',offset:.275,easing:'ease-in-out'},{transform:'rotate(0)',offset:.3}],T,0);
     var n=big?8:5,g=1600;
     for(var i=0;i<n;i++)(function(i){
       // 3겹: 경로(pos) · 방향·회전(rot) · 몸짓(body: 움찔·찌그러짐·꼬리 파닥)
       var pos=document.createElement('div'),rot=document.createElement('div'),body=document.createElement('div');
-      // 표정이 보이게 크게 — 보통 54px, 큰 버전 62px
-      var FW=big?50:44;                       // 캔 폭의 약 60% — 로고 속 물고기 비율
-      pos.style.cssText='position:absolute;left:0;top:0';rot.style.cssText='position:absolute;left:-'+(FW/2)+'px;top:-'+(FW/4)+'px;transform-origin:'+(FW/2)+'px '+(FW/4)+'px';
-      body.style.cssText='transform-origin:'+(FW*.3)+'px '+(FW/4)+'px';body.innerHTML=fishSvg(i%3,FW);
+      // 물고기 = 공식 로고에서 오려낸 그림(FISH). 보통 44px, 큰 버전 50px
+      var FW=big?50:44,FH=FW*FISH_H/FISH_W;
+      pos.style.cssText='position:absolute;left:0;top:0';rot.style.cssText='position:absolute;left:-'+(FW/2)+'px;top:-'+(FH/2)+'px;transform-origin:'+(FW/2)+'px '+(FH/2)+'px';
+      body.style.cssText='transform-origin:'+(FW*.4)+'px '+(FH/2)+'px';
+      if(FISH){var fi=document.createElement('img');fi.src=FISH;fi.alt='';fi.style.cssText='display:block;width:'+FW+'px;height:'+FH+'px;max-width:none';body.appendChild(fi)}
       rot.appendChild(body);pos.appendChild(rot);fishes.appendChild(pos);
       var spread=n>1?(i/(n-1)-.5)*2:0,vx=(spread*150+(Math.random()*50-25))*(big?1.45:1),vy=-(380+Math.random()*180)*(big?1.2:1);
       // 순서: 뚜껑 걸림(0.4s)→벗겨져 열림(~0.75s)→그 뒤에야 빼꼼→움찔→발사
       var peek=(800+Math.random()*120)*SP,launch=(1080+i*45+Math.random()*70)*SP,flyV=950+Math.random()*350,fly=flyV*SP,end=launch+fly;
       var face=vx<0?' scaleX(-1)':'';       // 왼쪽으로 가는 놈은 좌우 뒤집어 머리가 진행 방향
+      // 로고 속 물고기는 머리가 약 18° 들려 있다 → 진행 방향에 맞추려면 그만큼 보정(뒤집힌 놈은 반대), 빼꼼할 땐 머리가 위로
+      var TL=vx<0?-FISH_TILT:FISH_TILT,UP=vx<0?90-FISH_TILT:-90+FISH_TILT;
       var mx=Math.max(-16,Math.min(16,spread*15)),fr=[],steps=20;
-      fr.push({transform:'translate('+mx+'px,16px)',offset:0});                          // 캔 안(작게 접혀 앞판 뒤에 숨어 있음)
-      fr.push({transform:'translate('+mx+'px,16px)',offset:.82*peek/end,easing:'ease-out'});
+      // 캔 안: 작게(0.4배) 가운데로 모여 앞판 뒤에 숨어 있음 — 바닥 둥근 모서리 밖으로 안 비치게 깊이 19px·좌우 40%
+      fr.push({transform:'translate('+(mx*.4).toFixed(1)+'px,19px)',offset:0});
+      fr.push({transform:'translate('+(mx*.4).toFixed(1)+'px,19px)',offset:.82*peek/end,easing:'ease-out'});
       fr.push({transform:'translate('+mx+'px,-6px)',offset:peek/end,easing:'ease-out'});   // 고개 빼꼼 — 입구 위로
       fr.push({transform:'translate('+mx+'px,2px)',offset:launch/end*0.97});              // 움찔하며 다시 웅크림
       for(var k=0;k<=steps;k++){var t=k/steps*flyV/1000;
         fr.push({transform:'translate('+(mx+vx*t).toFixed(1)+'px,'+(-1+vy*t+.5*g*t*t).toFixed(1)+'px)',offset:Math.min(1,(launch+k/steps*fly)/end)})}
       A(pos,fr,end,0);
       // 방향: 빼꼼할 땐 위를 보고 → 날아가며 진행 방향, 일부는 공중제비(360°)·스핀
-      var trick=Math.random(),rk=[{transform:'rotate(-90deg)'+face,offset:0},{transform:'rotate(-90deg)'+face,offset:launch/end*.97}];
+      var trick=Math.random(),rk=[{transform:'rotate('+UP+'deg)'+face,offset:0},{transform:'rotate('+UP+'deg)'+face,offset:launch/end*.97}];
       for(var k2=0;k2<=10;k2++){var t2=k2/10*flyV/1000,vyt=vy+g*t2,ang=Math.atan2(vyt,Math.abs(vx)||1)*180/Math.PI;
         if(vx<0)ang=-ang;                                     // 뒤집힌 놈은 각도도 거울로
         var extra=trick<.25?(vx<0?-1:1)*360*k2/10:(trick<.4?Math.sin(k2/10*Math.PI)*40:0);
-        rk.push({transform:'rotate('+(ang+extra).toFixed(1)+'deg)'+face,offset:Math.min(1,(launch+k2/10*fly)/end)})}
+        rk.push({transform:'rotate('+(ang+TL+extra).toFixed(1)+'deg)'+face,offset:Math.min(1,(launch+k2/10*fly)/end)})}
       A(rot,rk,end,0);
       // 몸짓: 빼꼼 뒤 움찔움찔(찌그러졌다 폈다) → 발사 순간 길게 늘어남 → 날며 꼬리 파닥 → 사라짐
-      var bk=[{transform:'scale(.5)',opacity:1,offset:0},{transform:'scale(.5)',opacity:1,offset:.82*peek/end},{transform:'scale(1)',opacity:1,offset:peek/end}],tw=launch-peek,b0=peek/end;
+      var bk=[{transform:'scale(.4)',opacity:1,offset:0},{transform:'scale(.4)',opacity:1,offset:.82*peek/end},{transform:'scale(1)',opacity:1,offset:peek/end}],tw=launch-peek,b0=peek/end;
       for(var j=1;j<=6;j++){var o2=(peek+tw*j/7)/end;bk.push({transform:(j%2?'rotate(-16deg) scale(1.12,.82)':'rotate(14deg) scale(.92,1.1)'),opacity:1,offset:o2})}
       bk.push({transform:'scale(.8,1.25)',offset:launch/end*.99});                          // 웅크렸다가
       bk.push({transform:'scale(1.35,.72)',offset:Math.min(1,(launch+60)/end)});             // 쭉 늘어나며 발사
