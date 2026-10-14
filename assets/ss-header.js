@@ -353,7 +353,10 @@
   }
   document.addEventListener('click',function(e){
     var a=e.target.closest&&e.target.closest('a[href*="subscribe.soonsal.com"]');if(!a)return;
-    if(!a.closest('.site-header, .ss-dr, .hero'))return;          // 사이트 버튼만 — 본문 링크는 원래대로
+    if(!a.closest('.site-header, .ss-dr, .hero')){                  // 본문 링크(뉴스레터 아카이브 하단 등)는 원래대로 가되
+      // 어느 페이지에서 눌렀는지 붙여 보낸다 — 구독 페이지가 이걸 api 로 넘겨 새 구독 알림 「📍」에 찍힌다 (KD 2026-10-15)
+      try{var u=new URL(a.href);if(!u.searchParams.get('from')){u.searchParams.set('from',location.pathname.slice(0,100));a.href=u.toString()}}catch(_){}
+      return}
     if(e.metaKey||e.ctrlKey||e.shiftKey||e.button===1)return;      // 새 탭으로 열려는 클릭은 막지 않는다
     e.preventDefault();
     if(document.documentElement.classList.contains('ss-open')){document.documentElement.classList.remove('ss-open');document.body.style.overflow=''}
