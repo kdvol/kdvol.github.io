@@ -627,6 +627,19 @@ line-height:1.25;color:#fff;word-break:keep-all}
   .hello-web a { font-size: 11px; color: #bbb; font-weight: 700; text-decoration: underline; letter-spacing: -0.2px; }
 
 
+.ss-story-index{margin:0 0 34px;padding:21px 22px;border:1px solid #e8e8e0;
+border-radius:12px;background:#fafaf7;color:#333}
+.ss-story-index h1{margin:0 0 5px;font-size:18px;line-height:1.45;letter-spacing:-.02em}
+.ss-story-index .ss-index-label{font-size:11px;font-weight:800;color:#E55A00;
+letter-spacing:.08em}.ss-story-index ol{margin:13px 0 0;padding-left:22px}
+.ss-story-index li{margin:7px 0;line-height:1.45}.ss-story-index a{color:#333;
+font-size:14px;font-weight:700;text-decoration:none}.ss-story-index a:hover{text-decoration:underline}
+.ss-story-permalink{display:inline-block;margin:-7px 0 15px;font-size:11px;color:#9a958a;
+text-decoration:none}.ss-story-permalink:hover{color:#E55A00;text-decoration:underline}
+.story,.ss-story-anchor{scroll-margin-top:52px}
+@media(max-width:560px){.ss-story-index{padding:18px 17px}.ss-story-index h1{font-size:17px}}
+
+
 /* 스토리 끝 — 다 읽은 사람만 본다. 본문 흐름을 끊지 않는다.
    ★ 간결하게 (KD 2026-10-10 「텍스트 너무 길고 난잡 — 줄을 무작위로 늘리지 말고」):
      항목마다 **딱 한 줄**(넘치면 …), 라벨은 왼쪽 고정 칸, 밑줄·알약·이유 줄 없음 → 최대 3줄로 끝난다.
@@ -871,9 +884,11 @@ transition:color .18s ease,background .18s ease}
 <div class="killer-chart-caption">같은 AI 데이터센터 판에서 돈을 빌려도 오라클은 7%대, <strong>코어위브는 미국 국채의 세 배 가까운 14.8%</strong>. 앤스로픽을 고객으로 둔 볼타도 11% 안팎을 제시해야 했음</div>
       <div class="killer-chart-source"><a href="https://www.cnbc.com/2026/10/14/coreweave-stock-bond-yields-ai-debt.html" style="color:#aaa;text-decoration:none;">CNBC (코어위브·오라클 채권 만기수익률), 블룸버그·The Star (볼타 대출 금리), 미국 국채는 10/14 종가</a></div>
     </div>
-<!-- STORY 1 -->    <div class="story" id="story-1">
+<!-- STORY 1 -->
+<!-- soonsal:story-fragments:start --><nav class="ss-story-index" aria-label="이 회차 스토리 목차"><div class="ss-index-label">TODAY'S STORIES</div><h1>순살브리핑 2026.10.15</h1><ol><li><a href="#story-1">💸 이자 15% 쳐줘야 빚 사주는 AI 회사</a></li><li><a href="#story-2">🕵️ 휴지로 감싼 도청기, 오픈AI 임원실에서 나옴</a></li><li><a href="#story-3">🎮 경쟁사들이 알아서 피해 가는 게임, GTA6</a></li><li><a href="#story-4">✂️ 잘 큰다면서 1,000명 자르는 넷플릭스</a></li><li><a href="#story-5">📦 흑자 1조불 앞둔 중국, 문 걸어 잠그는 유럽</a></li></ol></nav><!-- soonsal:story-fragments:end -->
+<div class="story" id="story-1" role="article" aria-labelledby="story-1-title" data-ss-story="1015-1" data-ss-issue="1015">
       <span class="story-label">AI · CREDIT</span>
-      <div class="story-title">💸 이자 15% 쳐줘야 빚 사주는 AI 회사</div>
+      <div class="story-title" id="story-1-title" role="heading" aria-level="2">💸 이자 15% 쳐줘야 빚 사주는 AI 회사</div><a class="ss-story-permalink" href="#story-1" aria-label="1번 스토리 영구 링크">🔗 이 스토리 링크</a>
       <div class="story-body">
         <div class="bullet"><span class="dot">◾</span><span>엔비디아 칩을 잔뜩 사서 AI 회사에 빌려주는 코어위브 <span class="sub">(CRWV; 데이터센터 GPU를 시간 단위로 빌려주는 '네오클라우드')</span> 주가가 14일 하루 15.5% 빠졌음. 채권도 같이 맞았음. 2032년 만기, 표면금리 9.625%짜리 채권의 만기수익률 <span class="sub">(지금 값에 사서 만기까지 들고 있을 때 받는 연 수익률)</span>이 14.8%까지 뛰었음. <strong>AI 데이터센터에 돈 빌려준 쪽이 이자를 더 달라기 시작했다는 뜻</strong></span></div>
         <div class="bullet"><span class="dot">◾</span><span>채권값이 빠진다는 건 돈 빌려준 쪽이 원금 회수를 걱정한다는 신호. 코어위브 신용등급은 S&P 기준 B+로 투기등급. S&P 쪽 진단은 빅테크처럼 쓰는데 빅테크만큼 벌어 두진 못한 구조. 프리덤캐피털 <span class="sub">(미국 증권사)</span> 쪽은 다른 네오클라우드보다 빚도, 짓는 중인 데이터센터도 많다는 점을 꼽음. 코어위브 CEO는 사내 메모에서 '시장이 오해하고 비이성적으로 움직이는 중'이라며, 받아 둔 계약 물량으로 빚을 다 갚고도 남는다고 함</span></div>
@@ -883,9 +898,9 @@ transition:color .18s ease,background .18s ease}
       </div>
       <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">나온 것</span><span class="v"><a href="/wiki/nvidia.html">엔비디아</a><span class="sep">·</span><a href="/wiki/coreweave.html">코어위브</a><span class="sep">·</span><a href="/wiki/oracle.html">오라클</a><span class="sep">·</span><a href="/wiki/morgan-stanley.html">모건스탠리</a><span class="sep">·</span><a href="/topics/ai.html">AI</a></span></div><div class="row"><span class="k">같은 흐름</span><span class="v"><a href="/newsletters/2026/1012.html#story-4"><b>10-12</b>인텔이 판 낸드, 몸값 1,000억불</a></span></div><div class="row"><span class="k"></span><span class="v"><a href="/newsletters/2026/1001.html#story-1"><b>10-01</b>마이크론 분기 순이익 377억불, 내년 물량도 다 팔림</a></span></div></div>
     </div>
-<!-- STORY 2 -->    <div class="story" id="story-2">
+<!-- STORY 2 -->    <div class="story" id="story-2" role="article" aria-labelledby="story-2-title" data-ss-story="1015-2" data-ss-issue="1015">
       <span class="story-label">AI · SECURITY</span>
-      <div class="story-title">🕵️ 휴지로 감싼 도청기, 오픈AI 임원실에서 나옴</div>
+      <div class="story-title" id="story-2-title" role="heading" aria-level="2">🕵️ 휴지로 감싼 도청기, 오픈AI 임원실에서 나옴</div><a class="ss-story-permalink" href="#story-2" aria-label="2번 스토리 영구 링크">🔗 이 스토리 링크</a>
       <div class="story-body">
         <div class="bullet"><span class="dot">◾</span><span>오픈AI 샌프란시스코 사무실에서 녹음장치가 나왔음. 민감한 논의를 하는 임원 회의실이었음. TV 뒷면 USB 포트에 휴지로 돌돌 만 채 꽂혀 있었음. 미국 법무부 발표로는 설치는 9월 28일쯤, 발견은 이틀 뒤. 장치를 단 사람으로 지목된 건 작년 7월 입사한 35세 사우디 국적 엔지니어 압둘라흐만 알포잔. 메타를 거쳐 AI 에이전트와 데이터 플랫폼을 맡던 엔지니어링 리드였음. FBI가 9일 체포했고 오픈AI는 이달 그를 해고함</span></div>
         <div class="bullet"><span class="dot">◾</span><span>수법이 허술해서 더 소름임. 장치는 온라인에서 14~24불이면 사는 엄지손가락만 한 보드. 9월 24~30일 아내 명의 챗봇 계정엔 '계속 녹음되는 장치 만드는 법', 'SD카드 암호화하는 법' 같은 질문이 찍혀 있었음. 27~28일엔 그 장치의 MAC 주소 <span class="sub">(기기 고유 네트워크 번호)</span>까지 물었음. 알포잔은 회사 업무 도구로 임원들 위치와 회의실 일정, 파트너 미팅까지 조회함. <strong>챗GPT를 만든 회사 임원실이 몇십 불짜리 보드에 뚫린 셈</strong></span></div>
@@ -895,9 +910,9 @@ transition:color .18s ease,background .18s ease}
       </div>
       <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">나온 것</span><span class="v"><a href="/wiki/openai.html">오픈AI</a><span class="sep">·</span><a href="/wiki/cisco.html">시스코</a><span class="sep">·</span><a href="/wiki/meta.html">메타</a><span class="sep">·</span><a href="/wiki/google.html">구글</a><span class="sep">·</span><a href="/topics/ai.html">AI</a></span></div><div class="row"><span class="k">같은 흐름</span><span class="v"><a href="/newsletters/2026/0929.html#story-1"><b>09-29</b>오픈AI가 석 달 만에 또 학습을 멈춘 이유</a></span></div><div class="row"><span class="k"></span><span class="v"><a href="/newsletters/2026/1012.html#story-1"><b>10-12</b>셈법 하나에 200억불 날아간 오픈AI</a></span></div></div>
     </div>
-<!-- STORY 3 -->    <div class="story" id="story-3">
+<!-- STORY 3 -->    <div class="story" id="story-3" role="article" aria-labelledby="story-3-title" data-ss-story="1015-3" data-ss-issue="1015">
       <span class="story-label">GAMES · ENTERTAINMENT</span>
-      <div class="story-title">🎮 경쟁사들이 알아서 피해 가는 게임, GTA6</div>
+      <div class="story-title" id="story-3-title" role="heading" aria-level="2">🎮 경쟁사들이 알아서 피해 가는 게임, GTA6</div><a class="ss-story-permalink" href="#story-3" aria-label="3번 스토리 영구 링크">🔗 이 스토리 링크</a>
       <div class="story-body">
         <div class="bullet"><span class="dot">◾</span><span>게임 하나 나온다고 업계 달력이 통째로 비는 중. 록스타게임즈 <span class="sub">(Rockstar; 테이크투 산하 개발사)</span>의 GTA6가 11월 19일 PS5·엑스박스로 나옴. 분석가들 추정으로는 출시 첫 몇 달에 4천만 장, 매출 30억불이 넘을 전망. 그마저 보수적인 숫자일 수 있다는 평. 한국 판매가는 일반판 8만9,800원. 록스타가 에든버러 스튜디오 문을 열고 개발하며 겪은 고생을 공개적으로 털어놓은 것도 이번이 처음</span></div>
         <div class="bullet"><span class="dot">◾</span><span>경쟁작들은 11월을 피하는 분위기. MS 대작 '페이블'은 내년 2월로 밀렸고, 한반도가 배경인 콜 오브 듀티 신작은 한 달 앞선 10월 23일에 나옴. 한국 게임사도 셈법이 복잡해짐. 엔씨 '신더시티', 넷마블 '이블베인', 카카오게임즈 '아키에이지 크로니클'이 하반기 출격을 앞두고 있었음. <strong>같은 달에 나오면 지갑도 시간도 GTA6한테 다 뺏길 수 있기 때문</strong>. 게다가 PS5 값은 메모리가 AI 쪽으로 몰린 탓에 5월부터 20만원 올랐음</span></div>
@@ -907,9 +922,9 @@ transition:color .18s ease,background .18s ease}
       </div>
       <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">나온 것</span><span class="v"><a href="/wiki/kakao.html">카카오</a><span class="sep">·</span><a href="/topics/ai.html">AI</a></span></div></div>
     </div>
-<!-- STORY 4 -->    <div class="story" id="story-4">
+<!-- STORY 4 -->    <div class="story" id="story-4" role="article" aria-labelledby="story-4-title" data-ss-story="1015-4" data-ss-issue="1015">
       <span class="story-label">MEDIA · STREAMING</span>
-      <div class="story-title">✂️ 잘 큰다면서 1,000명 자르는 넷플릭스</div>
+      <div class="story-title" id="story-4-title" role="heading" aria-level="2">✂️ 잘 큰다면서 1,000명 자르는 넷플릭스</div><a class="ss-story-permalink" href="#story-4" aria-label="4번 스토리 영구 링크">🔗 이 스토리 링크</a>
       <div class="story-body">
         <div class="bullet"><span class="dot">◾</span><span>넷플릭스가 전 직원의 약 6%, 1,000명 안팎을 내보내기로 함. 14일 공동 CEO 두 명이 직원들에게 보낸 메모 내용이고, 회사는 그 밖의 설명은 안 함. 감원은 주로 제품·기술·법무·인사 조직에 몰림. 직원이 약 1만6천 명인 회사인데, 가입자가 10여 년 만에 처음 줄었던 2022년, 두 차례에 걸쳐 약 450명을 줄였을 때보다 두 배 넘는 규모. 3분기 실적 발표는 20일 <span class="sub">(한국 시간 21일 아침)</span>로 잡혀 있음</span></div>
         <div class="bullet"><span class="dot">◾</span><span>메모에 적힌 말은 '사업은 탄탄하게 크고 있고 연간 전망도 지킬 것'. 매출만 보면 맞는 말. 2분기 매출은 126억불로 1년 전보다 13% 늘었음. 근데 영업이익률은 34.1%→33.4%로 내려왔고, 회사가 직접 낸 3분기 예상 성장률도 12% <span class="sub">(환율 효과 빼면 11%)</span>로 한 칸 더 낮음. 공동 CEO 한 명도 9월 한 콘퍼런스에서 '원하는 만큼 빨리 크진 않는다'고 인정함. 성장 속도가 꺾이면 제일 먼저 손대는 게 사람 수</span></div>
@@ -919,9 +934,9 @@ transition:color .18s ease,background .18s ease}
       </div>
       <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">나온 것</span><span class="v"><a href="/wiki/netflix.html">넷플릭스</a><span class="sep">·</span><a href="/wiki/warner.html">워너브라더스디스커버리</a><span class="sep">·</span><a href="/wiki/paramount.html">파라마운트</a><span class="sep">·</span><a href="/topics/bigtech.html">빅테크</a></span></div><div class="row"><span class="k">같은 흐름</span><span class="v"><a href="/newsletters/2026/0929.html#story-2"><b>09-29</b>넷플릭스, 거실을 유튜브에 뺏기는 중</a></span></div><div class="row"><span class="k"></span><span class="v"><a href="/newsletters/2026/0713.html#story-4"><b>07-13</b>넷플릭스, 케이블TV 재발명?</a></span></div></div>
     </div>
-<!-- STORY 5 -->    <div class="story" id="story-5">
+<!-- STORY 5 -->    <div class="story" id="story-5" role="article" aria-labelledby="story-5-title" data-ss-story="1015-5" data-ss-issue="1015">
       <span class="story-label">TRADE · CHINA</span>
-      <div class="story-title">📦 흑자 1조불 앞둔 중국, 문 걸어 잠그는 유럽</div>
+      <div class="story-title" id="story-5-title" role="heading" aria-level="2">📦 흑자 1조불 앞둔 중국, 문 걸어 잠그는 유럽</div><a class="ss-story-permalink" href="#story-5" aria-label="5번 스토리 영구 링크">🔗 이 스토리 링크</a>
       <div class="story-body">
         <div class="bullet"><span class="dot">◾</span><span>중국 수출이 9월에 1년 전보다 36.3% 늘었음. 9월 수출액은 4,472억불. 2월 이후 가장 빠른 증가로, 시장 예상 25.5%를 훌쩍 넘김. 9월 한 달 무역흑자만 1,335억불로 작년 1월 이후 가장 큼. 1~9월 누적 흑자는 9,381억불. 이 속도면 작년에 세운 연간 사상 최대 1조1,890억불도 넘볼 기세. 대미 흑자는 20개월 만에 가장 컸고, 유럽연합 상대 흑자 348억불은 역대 최대였음</span></div>
         <div class="bullet"><span class="dot">◾</span><span>근데 그중 일부는 물건을 더 판 게 아니라 값이 오른 덕. 반도체가 대표적. 9월 중국 집적회로 수출액은 136% 늘었는데 물량은 1% 느는 데 그쳤음. AI 붐에 메모리 값이 뛰면서 비슷한 양의 칩을 훨씬 비싸게 판 셈. 칩 수출액은 올해 1~9월 누적으로도 두 배 넘게 불었음. 공장 출고가도 4년여 만에 가장 빠르게 오르는 중. <strong>칩은 더 많이 판 게 아니라 더 비싸게 판 것</strong>. 이 숫자를 그대로 믿고 중국 공장이 두 배로 바빠졌다고 읽으면 안 되는 이유</span></div>
