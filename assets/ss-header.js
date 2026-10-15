@@ -273,11 +273,11 @@
       '<span class="d2">월~금 매일 아침 10시, 살코기만 발라드립니다</span></div>'+
       '<form novalidate>'+
       '<label class="fl">이메일 주소<i>*</i></label><input type="email" class="in em" placeholder="example@email.com" autocomplete="email" required>'+
-      '<label class="fl">이름 (또는 닉네임) <span class="ob">선택</span></label><input class="in nm" placeholder="이름 또는 닉네임" maxlength="30" autocomplete="nickname">'+
-      '<label class="fl">출생연도 <span class="ob">선택</span></label><select class="in by">'+yrs+'</select>'+
-      '<label class="fl">관심분야 <span class="ob">선택, 복수 가능</span></label><div class="tags">'+
+      '<label class="fl">이름 (또는 닉네임)<i>*</i></label><input class="in nm" placeholder="이름 또는 닉네임" maxlength="30" autocomplete="nickname">'+
+      '<label class="fl">출생연도<i>*</i></label><select class="in by">'+yrs+'</select>'+
+      '<label class="fl">관심분야<i>*</i> <span class="ob">복수 가능</span></label><div class="tags">'+
         ['주식','크립토','부동산','경제·매크로','취업·이직','창업·사업','정보습득','기타'].map(function(x){return '<button type="button" class="tg" data-v="'+x+'">'+x+'</button>'}).join('')+'</div>'+
-      '<label class="fl">현재 하는일 <span class="ob">선택</span></label><input class="in cu" placeholder="예: 소속 기관, 업무, 산업분야 등" maxlength="40">'+
+      '<label class="fl">현재 하는일<i>*</i></label><input class="in cu" placeholder="예: 소속 기관, 업무, 산업분야 등" maxlength="40">'+
       '<input class="hp" name="website" tabindex="-1" aria-hidden="true">'+
       '<label class="pl"><input type="checkbox" class="ag"> <b>(필수)</b> 개인정보 수집 및 이용에 동의합니다.</label>'+
       '<details class="more"><summary>내용 보기 ▾</summary><div>뉴스레터 발송을 위한 최소한의 개인정보를 수집하고 이용합니다. 수집된 정보는 더 나은 뉴스레터 제작 및 구독자 통계 작성 등, 아래 서술된 목적으로 사용됩니다.<br><br>'+
@@ -294,16 +294,22 @@
         '<span class="li"><b>순살브리핑</b> 글로벌 시장·경제 핵심 뉴스를 매일 5분 안에</span>'+
         '<span class="li"><b>순살크립토</b> 크립토 시장 흐름과 온체인 인사이트</span>'+
         '<span class="ft">구독 후 환경설정에서 개별 선택 가능합니다.</span></div>';
-    var f=c.querySelector('form'),em=f.querySelector('.em'),go=f.querySelector('.go'),ag=c.querySelector('.ag'),er=c.querySelector('.er');
+    var f=c.querySelector('form'),em=f.querySelector('.em'),go=f.querySelector('.go'),ag=c.querySelector('.ag'),er=c.querySelector('.er'),t0=Date.now();
     c.querySelector('.x').onclick=function(){onClose&&onClose()};
     [].forEach.call(c.querySelectorAll('.tg'),function(b){b.onclick=function(){b.classList.toggle('on')}});
     f.onsubmit=function(e){e.preventDefault();er.textContent='';
       var v=(em.value||'').trim();
       if(!/^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}$/.test(v)){er.textContent='이메일 주소를 확인해 주세요.';em.focus();return}
+      // ★ 모든 칸 필수 (KD 2026-10-15 「봇 구독은 데이터 입력 자세히 하도록 강제」) — 서버(/subscribe)도 같은 규칙으로 막는다
+      var nm=c.querySelector('.nm'),by=c.querySelector('.by'),cu=c.querySelector('.cu');
+      if(!(nm.value||'').trim()){er.textContent='이름(또는 닉네임)을 적어 주세요.';nm.focus();return}
+      if(!by.value){er.textContent='출생연도를 골라 주세요.';by.focus();return}
+      if(!c.querySelector('.tg.on')){er.textContent='관심분야를 하나 이상 골라 주세요.';return}
+      if(!(cu.value||'').trim()){er.textContent='현재 하는 일을 적어 주세요.';cu.focus();return}
       if(!ag.checked){er.textContent='개인정보 수집 및 이용 동의에 체크해 주세요.';ag.focus();return}
       go.disabled=true;go.textContent='보내는 중…';
       fetch(API+'/subscribe',{method:'POST',headers:{'content-type':'application/json'},
-        body:JSON.stringify({email:v,agree:true,story:story,src:src||'inline',path:location.pathname,v:lsg('ss_vid')||'',hp:f.querySelector('.hp').value,
+        body:JSON.stringify({email:v,agree:true,story:story,src:src||'inline',path:location.pathname,v:lsg('ss_vid')||'',hp:f.querySelector('.hp').value,t:Date.now()-t0,
           name:c.querySelector('.nm').value,birthyear:c.querySelector('.by').value,current:c.querySelector('.cu').value,
           interest:[].map.call(c.querySelectorAll('.tg.on'),function(b){return b.getAttribute('data-v')}).join(',')})})
       .then(function(r){return r.json()}).then(function(j){
@@ -312,7 +318,9 @@
             '<div class="d" style="margin:8px 0 0">첫 메일이 안 보이면 스팸함·프로모션함도 확인해 주세요.</div>';
           try{var rr=c.getBoundingClientRect();window.ssCan&&window.ssCan(rr.left+rr.width/2,rr.top+Math.min(rr.height/2,160),{big:true})}catch(_){}return}
         go.disabled=false;go.textContent='구독하기';
-        er.textContent=j&&j.error==='email'?'이메일 주소를 확인해 주세요.':j&&j.error==='too many'?'잠시 뒤 다시 시도해 주세요.':'지금은 구독을 못 받았어요. 잠시 뒤 다시 시도해 주세요.'})
+        var EM={email:'이메일 주소를 확인해 주세요.','too many':'잠시 뒤 다시 시도해 주세요.',name:'이름(또는 닉네임)을 적어 주세요.',
+          birthyear:'출생연도를 골라 주세요.',interest:'관심분야를 하나 이상 골라 주세요.',current:'현재 하는 일을 적어 주세요.'};
+        er.textContent=(j&&EM[j.error])||'지금은 구독을 못 받았어요. 잠시 뒤 다시 시도해 주세요.'})
       .catch(function(){go.disabled=false;go.textContent='구독하기';er.textContent='연결이 불안정해요. 잠시 뒤 다시 시도해 주세요.'})};
     return c;
   }
