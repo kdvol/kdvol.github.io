@@ -507,7 +507,8 @@ transition:color .18s ease,background .18s ease}
       cnt('saved',rows.length);
       if(!rows.length){$('#list').innerHTML='<div class="card">아직 모은 글이 없어요. 스토리 옆 🐟 를 누르거나 👍 반응을 남기면 여기 모여요.</div>';return}
       $('#list').innerHTML=rows.map(function(x){var t=m[x.story]||[x.story,'',''];var iss=x.story.split('-')[0].replace('c','');
-        var href=/^\d{4}c?-\d+$/.test(x.story)?'/newsletters/2026/'+iss+'.html#story-'+x.story.split('-')[1]:'/';
+        var href=/^m\d{8}-/.test(x.story)?surl(x.story)   // 차트 꼭지 → 그날 차트의 그 꼭지 (KD 2026-10-16 — 예전엔 홈으로 보냄)
+          :/^\d{4}c?-\d+$/.test(x.story)?'/newsletters/2026/'+iss+'.html#story-'+x.story.split('-')[1]:'/';
         return '<a class="it" href="'+href+'"><span class="mk">'+(MK[x.kind]||'🐟')+'</span><span><span class="tt">'+
           String(t[0]).replace(/[<>&]/g,'')+'</span><span class="dt">'+(t[1]||'')+'</span></span></a>'}).join('')});
   }

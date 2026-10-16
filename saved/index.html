@@ -325,6 +325,8 @@ transition:color .18s ease,background .18s ease}
 
   // id에서 주소를 되살린다. 0716c-4 → /newsletters/2026/0716-crypto.html#story-4
   function urlOf(id, date) {
+    var c = /^m(\d{4})(\d{2})(\d{2})-([a-z0-9-]+)$/.exec(id);   // 차트 꼭지 → 그날 차트의 그 꼭지 (KD 2026-10-16)
+    if (c) return '/chart/' + c[1] + '/' + c[2] + c[3] + '.html#' + c[4];
     var m = /^(\d{4})(c?)-(\d+)$/.exec(id);
     if (!m) return null;
     return '/newsletters/' + date.slice(0, 4) + '/' + m[1] +
