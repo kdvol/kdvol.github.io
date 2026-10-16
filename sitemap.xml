@@ -251,7 +251,7 @@
 <url><loc>https://soonsal.com/newsletters/2026/0928.html</loc><lastmod>2026-09-28</lastmod><priority>0.8</priority></url>
 <url><loc>https://soonsal.com/newsletters/2026/0929.html</loc><lastmod>2026-09-29</lastmod><priority>0.8</priority></url>
 <url><loc>https://soonsal.com/newsletters/2026/0930.html</loc><lastmod>2026-09-30</lastmod><priority>0.8</priority></url>
-<url><loc>https://soonsal.com/newsletters/2026/1001.html</loc><lastmod>2026-10-01</lastmod><priority>0.9</priority></url>
+<url><loc>https://soonsal.com/newsletters/2026/1001.html</loc><lastmod>2026-10-01</lastmod><priority>0.8</priority></url>
 <url><loc>https://soonsal.com/newsletters/2026/1002.html</loc><lastmod>2026-10-02</lastmod><priority>0.8</priority></url>
 <url><loc>https://soonsal.com/newsletters/2026/1006.html</loc><lastmod>2026-10-06</lastmod><priority>0.8</priority></url>
 <url><loc>https://soonsal.com/newsletters/2026/1007.html</loc><lastmod>2026-10-07</lastmod><priority>0.8</priority></url>
@@ -349,7 +349,7 @@
 <url><loc>https://soonsal.com/cardnews/2026/0329.html</loc><lastmod>2026-03-29</lastmod><priority>0.6</priority></url>
 <url><loc>https://soonsal.com/cardnews/2026/0330.html</loc><lastmod>2026-03-30</lastmod><priority>0.6</priority></url>
 <url><loc>https://soonsal.com/cardnews/2026/0331.html</loc><lastmod>2026-03-31</lastmod><priority>0.6</priority></url>
-<url><loc>https://soonsal.com/cardnews/2026/0331v2.html</loc><lastmod>2026-08-27</lastmod><priority>0.6</priority></url>
+<url><loc>https://soonsal.com/cardnews/2026/0331v2.html</loc><lastmod>2026-10-16</lastmod><priority>0.6</priority></url>
 <url><loc>https://soonsal.com/cardnews/2026/0401.html</loc><lastmod>2026-04-01</lastmod><priority>0.6</priority></url>
 <url><loc>https://soonsal.com/cardnews/2026/0402.html</loc><lastmod>2026-04-02</lastmod><priority>0.6</priority></url>
 <url><loc>https://soonsal.com/cardnews/2026/0403-2.html</loc><lastmod>2026-04-03</lastmod><priority>0.6</priority></url>
@@ -472,7 +472,7 @@
 <url><loc>https://soonsal.com/cardnews/2026/1014.html</loc><lastmod>2026-10-14</lastmod><priority>0.6</priority></url>
 <url><loc>https://soonsal.com/cardnews/2026/1015.html</loc><lastmod>2026-10-15</lastmod><priority>0.6</priority></url>
 <url><loc>https://soonsal.com/cardnews/2026/1016.html</loc><lastmod>2026-10-16</lastmod><priority>0.6</priority></url>
-<url><loc>https://soonsal.com/special/legends-2026.html</loc><lastmod>2026-08-27</lastmod><priority>0.5</priority></url>
+<url><loc>https://soonsal.com/special/legends-2026.html</loc><lastmod>2026-10-16</lastmod><priority>0.5</priority></url>
 <url><loc>https://soonsal.com/topics/ai.html</loc><lastmod>2026-10-16</lastmod><priority>0.7</priority></url>
 <url><loc>https://soonsal.com/topics/banks-wallst.html</loc><lastmod>2026-10-16</lastmod><priority>0.7</priority></url>
 <url><loc>https://soonsal.com/topics/bigtech.html</loc><lastmod>2026-10-16</lastmod><priority>0.7</priority></url>
@@ -609,7 +609,7 @@
 <url><loc>https://soonsal.com/wiki/netflix.html</loc><lastmod>2026-10-16</lastmod><priority>0.8</priority></url>
 <url><loc>https://soonsal.com/wiki/nfl.html</loc><lastmod>2026-10-16</lastmod><priority>0.7</priority></url>
 <url><loc>https://soonsal.com/wiki/nike.html</loc><lastmod>2026-10-16</lastmod><priority>0.7</priority></url>
-<url><loc>https://soonsal.com/wiki/nio.html</loc><lastmod>2026-08-27</lastmod><priority>0.7</priority></url>
+<url><loc>https://soonsal.com/wiki/nio.html</loc><lastmod>2026-10-16</lastmod><priority>0.7</priority></url>
 <url><loc>https://soonsal.com/wiki/nvidia.html</loc><lastmod>2026-10-16</lastmod><priority>0.8</priority></url>
 <url><loc>https://soonsal.com/wiki/nyse.html</loc><lastmod>2026-10-16</lastmod><priority>0.7</priority></url>
 <url><loc>https://soonsal.com/wiki/occ.html</loc><lastmod>2026-10-16</lastmod><priority>0.7</priority></url>
@@ -630,7 +630,7 @@
 <url><loc>https://soonsal.com/wiki/ripple.html</loc><lastmod>2026-10-16</lastmod><priority>0.7</priority></url>
 <url><loc>https://soonsal.com/wiki/robinhood.html</loc><lastmod>2026-10-16</lastmod><priority>0.7</priority></url>
 <url><loc>https://soonsal.com/wiki/sam-altman.html</loc><lastmod>2026-10-16</lastmod><priority>0.7</priority></url>
-<url><loc>https://soonsal.com/wiki/samsung.html</loc><lastmod>2026-10-16</lastmod><priority>0.7</priority></url>
+<url><loc>https://soonsal.com/wiki/samsung.html</loc><lastmod>2026-10-16</lastmod><priority>0.8</priority></url>
 <url><loc>https://soonsal.com/wiki/sbf.html</loc><lastmod>2026-10-16</lastmod><priority>0.7</priority></url>
 <url><loc>https://soonsal.com/wiki/sec.html</loc><lastmod>2026-10-16</lastmod><priority>0.7</priority></url>
 <url><loc>https://soonsal.com/wiki/shopify.html</loc><lastmod>2026-10-16</lastmod><priority>0.7</priority></url>
