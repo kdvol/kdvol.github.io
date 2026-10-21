@@ -1,0 +1,380 @@
+<!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>오늘의 질문 — 순살러들이 고른 답 | 순살브리핑</title>
+<meta name="description" content="순살브리핑이 매일 하나씩 묻는 「오늘의 질문」과 독자들이 고른 답을 모았습니다."/>
+<link rel="canonical" href="https://soonsal.com/poll/"/>
+<meta property="og:type" content="website"/>
+<meta property="og:title" content="오늘의 질문 — 순살러들이 고른 답"/>
+<meta property="og:description" content="순살브리핑이 매일 하나씩 묻는 「오늘의 질문」과 독자들이 고른 답을 모았습니다."/>
+<meta property="og:url" content="https://soonsal.com/poll/"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/><link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700;800&family=Yeseva+One&display=swap" rel="stylesheet"/>
+<script src="/ss-config.js"></script>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#111;color:#e8e3da;font-family:Pretendard,-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo',sans-serif;
+-webkit-font-smoothing:antialiased}
+.wrap{max-width:720px;margin:0 auto;padding:30px 16px 80px}
+.sum{color:#a39c90;font-size:.92rem;margin:-8px 0 16px}.sum b{color:#f6f1e8;font-variant-numeric:tabular-nums}
+.sort{display:flex;gap:6px;margin:0 0 18px;overflow-x:auto}
+.sort button{flex:0 0 auto;height:34px;padding:0 14px;border-radius:999px;border:1px solid #2e2924;background:transparent;
+color:#bdb6aa;font:700 13px Pretendard,sans-serif;cursor:pointer}
+.sort button.on{background:#F07040;border-color:#F07040;color:#12100e}
+.sort button:focus-visible,.pc button:focus-visible{outline:2px solid #F59B75;outline-offset:2px}
+#list{display:grid;gap:12px}
+.pc{background:#171513;border:1px solid #26221e;border-radius:16px;padding:18px 18px 14px}
+.pc.now{border-color:#5a3524;background:#1a1512}
+.pc .dt{display:flex;align-items:center;gap:8px;font-size:12px;font-weight:700;color:#8b8578;letter-spacing:.02em}
+.pc .dt em{font-style:normal;color:#12100e;background:#F07040;border-radius:999px;padding:2px 8px;font-size:11px}
+.pc .q{margin:6px 0 12px;font-size:17px;font-weight:800;line-height:1.45;color:#f6f1e8;letter-spacing:-.02em;word-break:keep-all;text-wrap:balance}
+.pc .bt{display:flex;gap:8px}
+.pc .bt button{flex:1;min-height:42px;border-radius:999px;border:1px solid #3a332c;background:transparent;color:#e8e3da;
+font:700 14px Pretendard,sans-serif;cursor:pointer;padding:0 10px}
+.pc .bt button:hover{border-color:#F07040;color:#F59B75}
+.pc .rs{display:grid;gap:7px}
+.pc .rs div,.pc .rs button{position:relative;width:100%;height:36px;border-radius:999px;background:#262019;overflow:hidden;
+display:flex;align-items:center;padding:0 14px;font:700 14px Pretendard,sans-serif;color:#e8e3da;border:0;text-align:left}
+.pc .rs button{cursor:pointer}
+.pc .rs i{position:absolute;left:0;top:0;bottom:0;background:#5a3524;transition:width .5s ease}
+.pc .rs .me i{background:#F07040}.pc .rs .me span{color:#12100e}
+.pc .rs .win:not(.me) i{background:#7a4630}
+.pc .rs span{position:relative;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.pc .rs b{position:relative;color:#f6f1e8;font-variant-numeric:tabular-nums;margin-left:8px}
+.pc .n{font-size:12px;color:#8b8578;margin-top:9px}
+.pc .n a{color:#F59B75}
+.pc .st{display:block;margin-top:10px;padding-top:10px;border-top:1px solid #26221e;color:#bdb6aa;font-size:13.5px;
+text-decoration:none;line-height:1.5}
+.pc .st b{color:#F07040}.pc .st:hover{color:#f6f1e8}
+.foot{color:#6f695f;font-size:12.5px;line-height:1.6;margin-top:26px}
+@media (prefers-reduced-motion:reduce){.pc .rs i{transition:none}}
+
+.sec-head{margin:0 0 26px}
+.sec-kicker{display:flex;align-items:center;gap:9px;margin:0 0 12px;color:#bdb6aa;
+font-size:11px;font-weight:800;letter-spacing:.08em}
+.sec-kicker::before{content:"";width:22px;height:2px;background:#F07040;border-radius:2px;flex:0 0 auto}
+.sec-head h1{margin:0;font-size:1.62rem;font-weight:800;letter-spacing:-.03em;
+line-height:1.25;color:#fff;word-break:keep-all}
+.sec-head .deck{margin:10px 0 0;color:#8b8578;font-size:.92rem;line-height:1.65;word-break:keep-all}
+@media(max-width:560px){.sec-head h1{font-size:1.42rem}}
+</style><style id="soonsal-nav-visibility-v3">
+.nav-menu a.nav-mobile-only{display:none}
+.nav>a.nav-desktop-link.biz{color:#F07040}
+.nav>a.nav-desktop-link.biz:hover{color:#ff8a52}
+.nav-menu a.biz{color:#F07040}
+@media(max-width:560px){
+  .nav>a.nav-desktop-link{display:none}
+  .nav-menu a.nav-mobile-only{display:block}
+  .nav-more.mobile-active>summary{color:#F07040;border-bottom-color:#F07040}
+  /* 코어 4개 + 더보기 = 5칸. 예전 CSS가 4칸이라 다섯 번째가 다음 줄로 넘어갔다.
+     이 블록은 페이지마다 나중에 주입되므로 안에 박힌 옛 규칙을 덮는다. */
+  .nav{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));width:100%}
+  .nav>a,.nav-more>summary{justify-content:center;padding:11px 2px;font-size:11.5px;
+    letter-spacing:-.4px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+}
+@media(max-width:360px){
+  .nav>a,.nav-more>summary{font-size:10.5px;letter-spacing:-.5px;padding:11px 1px}
+}
+/* ── 눌러보고 싶게 ──────────────────────────────────────
+   탭은 '지금 어디' 말고는 아무것도 알려주지 않는다. 더보기는 특히 그렇다 —
+   안에 뭐가 있는지 모르면 누를 이유가 없다. 세 가지를 바꾼다:
+   (1) 밑줄이 자라며 눌리는 느낌, (2) 화살표가 열림에 반응, (3) 메뉴 안에
+   아이콘을 붙여 목록이 아니라 '갈 곳'으로 보이게. */
+.nav>a,.nav-more>summary{position:relative;transition:color .18s}
+.nav>a:after,.nav-more>summary:after{content:"";position:absolute;left:50%;right:50%;
+bottom:-1px;height:2px;background:#F07040;border-radius:2px;
+transition:left .22s cubic-bezier(.4,0,.2,1),right .22s cubic-bezier(.4,0,.2,1)}
+.nav>a:hover:after,.nav-more>summary:hover:after{left:18%;right:18%}
+.nav>a.active:after,.nav-more.active>summary:after{left:0;right:0}
+
+.nav-more>summary span[aria-hidden]{display:inline-block;transition:transform .22s ease;
+margin-left:2px}
+.nav-more[open]>summary span[aria-hidden]{transform:rotate(180deg)}
+.nav-more[open]>summary{color:#F07040}
+
+.nav-menu{animation:navdrop .18s cubic-bezier(.2,.8,.2,1)}
+@keyframes navdrop{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
+.nav-menu a{transition:background .15s,color .15s,padding-left .15s}
+.nav-menu a:before{margin-right:7px;opacity:.9}
+.nav-menu a[href="/cardnews/"]:before{content:"🎴"}
+.nav-menu a[href="/poll/"]:before{content:"🗳"}
+.nav-menu a[href="/youtube/"]:before{content:"▶"}
+.nav-menu a[href="/school/"]:before{content:"🎓"}
+.nav-menu a[href="/collab/"]:before{content:"✉"}
+.nav-menu a[href="/talk/"]:before{content:"💬"}
+
+/* 더보기 안에 뭐가 있는지 한 줄로 알려준다 — 열기 전에 궁금해지는 건 이 지점이다 */
+.nav-more>summary:before{content:"";position:absolute;top:9px;right:6px;width:5px;height:5px;
+border-radius:50%;background:#F07040;opacity:0;transition:opacity .2s}
+.nav-more:not([open])>summary:hover:before{opacity:.85}
+@media(max-width:560px){
+  .nav-menu a{text-align:left;padding-left:14px}
+  .nav-more>summary:before{right:3px;top:7px}
+}
+
+/* ── 탭을 더 잘 보이게 (KD 2026-10-09 「nav 탭이 아예 안 보인다 — 튀지 않게, 지금보다 눈에 띄게」) ──
+   고정(sticky)하지 않는다 — 스크롤 흐름은 그대로. 대신 글자 대비·크기를 올리고, 지금 위치는 주황 밑줄. */
+.nav{background:#141414;border-bottom:1px solid #262626}
+.nav>a,.nav-more>summary{color:#cfc8bc;font-size:14px;letter-spacing:-.01em;padding:13px 22px}
+.nav>a:hover,.nav-more>summary:hover{color:#fff;background:#1b1b1b}
+.nav>a.active,.nav-more.active>summary{color:#F07040}
+@media(max-width:560px){
+  .nav>a,.nav-more>summary{font-size:13px;padding:12px 2px;letter-spacing:-.3px}
+}
+@media(max-width:360px){
+  .nav>a,.nav-more>summary{font-size:12px;padding:12px 1px}
+}
+</style>
+<style id="soonsal-search-v1">
+/* 헤더 — 한 축에 셋. 세로 중심이 하나여야 어긋나지 않는다 */
+.site-header{position:relative;display:grid;grid-template-columns:1fr auto 1fr;
+align-items:center;column-gap:12px;padding:20px max(16px, calc(50% - 400px));
+border-bottom:1px solid #222;background:#111}
+/* 칸을 못 박아 마크업 순서와 무관하게 만든다 */
+.site-header>.search-btn-header{grid-area:1/1;justify-self:start}
+.site-header>.logo-link{grid-area:1/2;justify-self:center}
+.site-header>.sub-btn-header{grid-area:1/3;justify-self:end}
+.site-header>.logo-link{display:flex;align-items:center;gap:10px;
+text-decoration:none;color:#fff}
+.logo-text{font-size:22px;font-weight:800;letter-spacing:-.5px;line-height:1.1}
+
+/* 구독 — 이 사이트의 유일한 전환점. 좁은 화면에서도 남는다 */
+.sub-btn-header{position:static;transform:none;display:inline-flex;
+align-items:center;background:#E55A00;color:#fff;padding:9px 18px;
+border-radius:999px;font-size:13px;font-weight:800;line-height:1;
+text-decoration:none;white-space:nowrap;transition:background .18s ease}
+.sub-btn-header:hover{background:#CC4F00}
+
+.search-btn-header{position:static;transform:none;display:flex;
+align-items:center;justify-content:center;width:36px;height:36px;
+border-radius:999px;color:#8a857c;text-decoration:none;
+transition:color .18s ease,background .18s ease}
+.search-btn-header:hover{color:#fff;background:#1e1e1e}
+
+@media(max-width:560px){
+  .site-header{padding:14px 12px;column-gap:8px}
+  .site-header .logo-text{font-size:18px}
+  .site-header .logo-link img,.site-header .logo-icon{height:26px}
+  .sub-btn-header{padding:7px 13px;font-size:11.5px;letter-spacing:-.3px}
+  .search-btn-header{width:32px;height:32px}
+}
+
+
+
+
+
+/* 구독하기가 있는 페이지에서는 그 왼쪽으로 비켜 앉는다 */
+</style>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml"/><link rel="icon" href="/favicon.ico" sizes="any"/><link rel="apple-touch-icon" href="/apple-touch-icon.png"/></head><body>
+<div id="soonsal-live-ticker" style="display:none;"></div>
+<style>
+#soonsal-live-ticker{position:sticky;top:0;width:100%;height:34px;box-sizing:border-box;background:#0a0a0a;border-bottom:1px solid #1a1a1a;overflow:hidden;z-index:99999;user-select:none;-webkit-user-select:none}
+#soonsal-live-ticker::before,#soonsal-live-ticker::after{content:'';position:absolute;top:0;bottom:0;width:48px;z-index:2;pointer-events:none}
+#soonsal-live-ticker::before{left:0;background:linear-gradient(to right,#0a0a0a,transparent)}
+#soonsal-live-ticker::after{right:0;background:linear-gradient(to left,#0a0a0a,transparent)}
+#soonsal-live-ticker .stk-track{display:flex;align-items:center;width:max-content;height:34px;animation:stk-scroll 90s linear infinite}
+#soonsal-live-ticker .stk-track:hover{animation-play-state:paused}
+@keyframes stk-scroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+#soonsal-live-ticker .stk-item{display:inline-flex;align-items:center;gap:7px;padding:0 16px;border-right:1px solid #1a1a1a;white-space:nowrap;flex-shrink:0}
+#soonsal-live-ticker .stk-lbl{font-family:'DM Sans',-apple-system,sans-serif;font-size:11px;font-weight:600;color:#555;letter-spacing:0.3px;text-transform:uppercase}
+#soonsal-live-ticker .stk-lbl.crypto{color:#F07040}
+#soonsal-live-ticker .stk-prc{font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:500;color:#e0ddd8;letter-spacing:-0.3px}
+#soonsal-live-ticker .stk-chg{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:500;display:inline-flex;align-items:center;gap:3px;padding:1px 5px;border-radius:3px}
+#soonsal-live-ticker .stk-chg.up{color:#4ade80;background:rgba(74,222,128,0.08)}
+#soonsal-live-ticker .stk-chg.down{color:#f87171;background:rgba(248,113,113,0.08)}
+#soonsal-live-ticker .stk-chg.zero{color:#777}
+#soonsal-live-ticker .au{display:inline-block;width:0;height:0;border-style:solid;border-width:0 3px 5px;border-color:transparent transparent #4ade80}
+#soonsal-live-ticker .ad{display:inline-block;width:0;height:0;border-style:solid;border-width:5px 3px 0;border-color:#f87171 transparent transparent}
+#soonsal-live-ticker .stk-div{display:inline-flex;align-items:center;padding:0 12px;flex-shrink:0}
+#soonsal-live-ticker .stk-div span{width:3px;height:3px;border-radius:50%;background:#F07040}
+#soonsal-live-ticker .stk-ts{display:inline-flex;align-items:center;gap:5px;padding:0 16px;flex-shrink:0}
+#soonsal-live-ticker .stk-dot{width:5px;height:5px;border-radius:50%;background:#4ade80;animation:stk-pulse 2s ease-in-out infinite}
+@keyframes stk-pulse{0%,100%{opacity:1}50%{opacity:0.3}}
+#soonsal-live-ticker .stk-time{font-family:'JetBrains Mono',monospace;font-size:10px;color:#555;letter-spacing:0.5px}
+#soonsal-live-ticker .stk-loading{display:flex;align-items:center;justify-content:center;height:34px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#555;gap:8px}
+#soonsal-live-ticker .stk-spin{width:10px;height:10px;border:2px solid #222;border-top-color:#F07040;border-radius:50%;animation:stk-sp 0.8s linear infinite}
+@keyframes stk-sp{to{transform:rotate(360deg)}}
+@media(max-width:768px){#soonsal-live-ticker .stk-item{padding:0 12px}#soonsal-live-ticker .stk-lbl{font-size:10px}#soonsal-live-ticker .stk-prc{font-size:11px}#soonsal-live-ticker .stk-chg{font-size:10px}}
+
+  @media (max-width:768px) {
+    .nav a { padding:12px 14px; font-size:12px; }
+    .sub-btn-header { font-size:11px !important; padding:6px 12px !important; }
+  }
+  @media (max-width:480px) {
+    .sub-btn-header { font-size:10px !important; padding:5px 10px !important; right:10px !important; }
+  }
+</style>
+<script>
+(function(){'use strict';var WORKER_URL='https://soonsal-data.kd-d0a.workers.dev/';var COINGECKO_URL='https://api.coingecko.com/api/v3';var TRADFI_ORDER=['S&P 500','NASDAQ','Dow Jones','KOSPI','US 10Y','WTI Oil','Gold','DXY','EUR/USD','USD/JPY','USD/KRW'];var CRYPTO_ORDER=['Bitcoin','Ethereum','Solana','XRP','BNB','Crypto Total'];var CRYPTO_IDS={'Bitcoin':'bitcoin','Ethereum':'ethereum','Solana':'solana','XRP':'ripple','BNB':'binancecoin'};var REFRESH=60000;var container,timer,lastTradfi,lastCrypto;function init(){container=document.getElementById('soonsal-live-ticker');if(!container)return;container.style.display='block';container.innerHTML='<div class="stk-loading"><div class="stk-spin"></div>Loading market data...</div>';fetchAll();timer=setInterval(fetchAll,REFRESH)}function fetchAll(){var p1=fetchTradFi();var p2=fetchCrypto();Promise.allSettled?Promise.allSettled([p1,p2]).then(render):Promise.all([p1.catch(function(){return null}),p2.catch(function(){return null})]).then(render)}function fetchTradFi(){return fetch(WORKER_URL).then(function(r){return r.json()}).then(function(data){if(data.tradfi)lastTradfi=data;return data}).catch(function(e){console.warn('[Ticker] TradFi error:',e.message);return null})}function fetchCrypto(){var ids=Object.values(CRYPTO_IDS).join(',');var url=COINGECKO_URL+'/simple/price?ids='+ids+'&vs_currencies=usd&include_24hr_change=true&include_market_cap=true';var globalUrl=COINGECKO_URL+'/global';return Promise.all([fetch(url).then(function(r){return r.json()}),fetch(globalUrl).then(function(r){return r.json()}).catch(function(){return null})]).then(function(results){var prices=results[0];var global=results[1];var crypto={};for(var name in CRYPTO_IDS){var id=CRYPTO_IDS[name];var d=prices[id];if(!d)continue;var p=d.usd;var ch=d.usd_24h_change||0;crypto[name]={price:'$'+formatNum(p),change:(ch>=0?'+':'')+ch.toFixed(2)+'%',direction:ch>0.01?'up':ch<-0.01?'down':'zero'}}if(global&&global.data){var mc=global.data.total_market_cap&&global.data.total_market_cap.usd;var mch=global.data.market_cap_change_percentage_24h_usd;if(mc){crypto['Crypto Total']={price:'$'+(mc/1e12).toFixed(2)+'T',change:(mch>=0?'+':'')+(mch||0).toFixed(2)+'%',direction:mch>0?'up':mch<0?'down':'zero'}}}lastCrypto=crypto;return crypto}).catch(function(e){console.warn('[Ticker] Crypto error:',e.message);return null})}function render(){var tradfi=lastTradfi?lastTradfi.tradfi:{};var crypto=lastCrypto||{};var kst=lastTradfi?lastTradfi.kst:new Date().toLocaleString('ko-KR',{timeZone:'Asia/Seoul'});var html=[];html.push('<div class="stk-ts"><span class="stk-dot"></span><span class="stk-time">'+esc(kst)+' KST</span></div>');for(var i=0;i<TRADFI_ORDER.length;i++){var name=TRADFI_ORDER[i];var d=tradfi[name];if(d)html.push(makeItem(name,d,false))}html.push('<div class="stk-div"><span></span></div>');for(var j=0;j<CRYPTO_ORDER.length;j++){var cname=CRYPTO_ORDER[j];var cd=crypto[cname];if(cd)html.push(makeItem(cname,cd,true))}var track=html.join('');container.innerHTML='<div class="stk-track">'+track+track+'</div>'}function makeItem(name,d,isCrypto){var dir=d.direction||'zero';var arrow=dir==='up'?'<span class="au"></span>':dir==='down'?'<span class="ad"></span>':'';return'<div class="stk-item"><span class="stk-lbl'+(isCrypto?' crypto':'')+'">'+esc(name)+'</span><span class="stk-prc">'+esc(d.price)+'</span><span class="stk-chg '+dir+'">'+arrow+' '+esc(d.change)+'</span></div>'}function formatNum(n){if(n>=10000)return n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});if(n>=100)return n.toFixed(2);if(n>=1)return n.toFixed(2);return n.toFixed(4)}function esc(s){if(!s)return'';var d=document.createElement('span');d.textContent=String(s);return d.innerHTML}if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',init)}else{init()}})();
+</script>
+<style>
+
+.logo-link{display:flex;align-items:center;gap:10px;text-decoration:none;color:#fff}
+/* 로고 마크 크기는 여기 한 곳에서만 정한다. 26px는 파비콘처럼 묻히고
+   36px는 22px 워드마크를 눌러 헤더가 위로 무거워진다. 32px가 그 사이다. */
+.logo-link img,.logo-icon{height:32px;width:auto}
+.logo-text{font-size:22px;font-weight:800;letter-spacing:-0.5px;font-family:'DM Sans','Apple SD Gothic Neo',sans-serif}
+
+
+
+.crumb{color:#F07040;font-size:.88rem;display:inline-block;margin-bottom:14px;text-decoration:none}
+
+/* 헤더 — 한 축에 셋. 세로 중심이 하나여야 어긋나지 않는다 */
+.site-header{position:relative;display:grid;grid-template-columns:1fr auto 1fr;
+align-items:center;column-gap:12px;padding:20px max(16px, calc(50% - 400px));
+border-bottom:1px solid #222;background:#111}
+/* 칸을 못 박아 마크업 순서와 무관하게 만든다 */
+.site-header>.search-btn-header{grid-area:1/1;justify-self:start}
+.site-header>.logo-link{grid-area:1/2;justify-self:center}
+.site-header>.sub-btn-header{grid-area:1/3;justify-self:end}
+.site-header>.logo-link{display:flex;align-items:center;gap:10px;
+text-decoration:none;color:#fff}
+.logo-text{font-size:22px;font-weight:800;letter-spacing:-.5px;line-height:1.1}
+
+/* 구독 — 이 사이트의 유일한 전환점. 좁은 화면에서도 남는다 */
+.sub-btn-header{position:static;transform:none;display:inline-flex;
+align-items:center;background:#E55A00;color:#fff;padding:9px 18px;
+border-radius:999px;font-size:13px;font-weight:800;line-height:1;
+text-decoration:none;white-space:nowrap;transition:background .18s ease}
+.sub-btn-header:hover{background:#CC4F00}
+
+.search-btn-header{position:static;transform:none;display:flex;
+align-items:center;justify-content:center;width:36px;height:36px;
+border-radius:999px;color:#8a857c;text-decoration:none;
+transition:color .18s ease,background .18s ease}
+.search-btn-header:hover{color:#fff;background:#1e1e1e}
+
+@media(max-width:560px){
+  .site-header{padding:14px 12px;column-gap:8px}
+  .site-header .logo-text{font-size:18px}
+  .site-header .logo-link img,.site-header .logo-icon{height:26px}
+  .sub-btn-header{padding:7px 13px;font-size:11.5px;letter-spacing:-.3px}
+  .search-btn-header{width:32px;height:32px}
+}
+
+
+
+
+
+/* 구독하기가 있는 페이지에서는 그 왼쪽으로 비켜 앉는다 */
+
+
+
+.nav{position:relative;display:flex;justify-content:center;align-items:stretch;overflow:visible;border-bottom:1px solid #222;background:#151515;z-index:100}
+.nav>a,.nav-more>summary{display:flex;align-items:center;padding:12px 18px;font-size:13px;font-weight:700;color:#777;white-space:nowrap;text-decoration:none;border:0;border-bottom:2px solid transparent;cursor:pointer;list-style:none;transition:color .2s,border-color .2s,background .2s}
+.nav-more>summary::-webkit-details-marker{display:none}
+.nav>a:hover,.nav-more>summary:hover{color:#ccc}
+.nav>a.active,.nav-more.active>summary{color:#F07040;border-bottom-color:#F07040}
+/* 데스크톱/모바일 갈래. 이 두 규칙이 없어서 스쿨·광고 문의가 바와 더보기에
+   이중으로 렌더됐고, 가로 스크롤 위치에 따라 보이는 항목이 달라졌다. */
+.nav-mobile-only{display:none}
+.nav-more{position:relative;flex-shrink:0}
+.nav-more[open]>summary{color:#fff;background:#202020}
+.nav-menu{position:absolute;top:100%;right:0;z-index:1001;display:grid;min-width:190px;padding:8px;background:#1b1b1b;border:1px solid #333;border-radius:0 0 8px 8px;box-shadow:0 12px 26px rgba(0,0,0,.28)}
+.nav-menu a{display:block;padding:10px 12px;border-radius:5px;color:#aaa;text-decoration:none;font-size:13px;font-weight:700;white-space:nowrap}
+.nav-menu a:hover,.nav-menu a.active{color:#fff;background:#282828}
+.nav-menu a.active{color:#F07040}
+.nav-menu a.biz{color:#777;border-top:1px solid #303030;margin-top:4px;padding-top:12px}
+@media(max-width:560px){
+.nav>a.nav-desktop-link{display:none}
+.nav-menu a.nav-mobile-only{display:block}
+  /* 칸 수는 항목 수를 따라간다 — 정의 뒤에서 CORE_ITEMS로 채운다 */
+  .nav{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));width:100%}
+  .nav>a,.nav-more>summary{justify-content:center;padding:11px 2px;font-size:11.5px;
+  letter-spacing:-.4px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .nav-more{position:static;min-width:0}
+  .nav-menu{left:10px;right:10px;top:100%;grid-template-columns:repeat(2,minmax(0,1fr));min-width:0;padding:8px}
+  .nav-menu a{text-align:center;padding:11px 6px}
+  .nav-menu a.biz{border-top:0;margin-top:0;padding-top:11px}
+}
+@media(max-width:360px){
+  .nav>a,.nav-more>summary{font-size:10.5px;letter-spacing:-.5px;padding:11px 1px}
+}
+
+
+/* ── 탭을 더 잘 보이게 (KD 2026-10-09 「nav 탭이 아예 안 보인다 — 튀지 않게, 지금보다 눈에 띄게」) ──
+   고정(sticky)하지 않는다 — 스크롤 흐름은 그대로. 대신 글자 대비·크기를 올리고, 지금 위치는 주황 밑줄. */
+.nav{background:#141414;border-bottom:1px solid #262626}
+.nav>a,.nav-more>summary{color:#cfc8bc;font-size:14px;letter-spacing:-.01em;padding:13px 22px}
+.nav>a:hover,.nav-more>summary:hover{color:#fff;background:#1b1b1b}
+.nav>a.active,.nav-more.active>summary{color:#F07040}
+@media(max-width:560px){
+  .nav>a,.nav-more>summary{font-size:13px;padding:12px 2px;letter-spacing:-.3px}
+}
+@media(max-width:360px){
+  .nav>a,.nav-more>summary{font-size:12px;padding:12px 1px}
+}
+
+.sec-head{margin:0 0 26px}
+.sec-kicker{display:flex;align-items:center;gap:9px;margin:0 0 12px;color:#bdb6aa;
+font-size:11px;font-weight:800;letter-spacing:.08em}
+.sec-kicker::before{content:"";width:22px;height:2px;background:#F07040;border-radius:2px;flex:0 0 auto}
+.sec-head h1{margin:0;font-size:1.62rem;font-weight:800;letter-spacing:-.03em;
+line-height:1.25;color:#fff;word-break:keep-all}
+.sec-head .deck{margin:10px 0 0;color:#8b8578;font-size:.92rem;line-height:1.65;word-break:keep-all}
+@media(max-width:560px){.sec-head h1{font-size:1.42rem}}
+.logo-text .ss-yes{font-family:"Yeseva One",Georgia,"Times New Roman",serif;font-weight:400;letter-spacing:.01em}.logo-text .ss-ko{font-weight:800}</style><header class="site-header"><a href="/search/" class="search-btn-header" aria-label="검색"><svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.6-3.6"/></svg></a><a class="logo-link" href="/"><img src="/assets/soonsal-logo-white.png" alt="" onerror="this.style.display='none'"><span class="logo-text"><span class="ss-ko">순살브리핑</span> <span class="ss-yes">Soonsal</span></span></a><a href="https://subscribe.soonsal.com/subscribe" target="_blank" rel="noopener" class="sub-btn-header">구독하기</a></header><nav class="nav" aria-label="주요 메뉴"><a href="/newsletters/">뉴스레터</a><a href="/chart/">순살차트</a><a href="/cardnews/">순스타그램</a><a href="/talk/">순살톡</a><script src="/assets/ss-header.js" defer></script></nav>
+<div class="wrap">
+<div class="sec-head"><div class="sec-kicker">순살러들이 고른 답</div><h1>오늘의 질문</h1><p class="deck">매일 브리핑에서 하나씩 묻고, 고른 답이 여기 쌓임</p></div>
+<div class="sum" id="sum">질문 <b>9</b>개 · 지금까지 <b>64</b>표</div>
+<div class="sort" id="sort" role="tablist" aria-label="정렬">
+<button type="button" data-s="new" class="on">최신순</button><button type="button" data-s="hot">많이 참여한</button><button type="button" data-s="tie">팽팽했던</button>
+</div>
+<div id="list"><article class="pc" data-day="2026-10-21"><div class="dt">10월 21일 수요일</div><h2 class="q">집에서 술 담그다 걸리면 징역 5년, 너무하다고 생각해?</h2><div class="rs"><div><span>너무하다</span><b>100%</b></div><div><span>그럴만하다</span><b>0%</b></div></div><div class="n">8명 참여</div><a class="st" href="/newsletters/2026/1021.html#story-5">📰 맥주는 되고 위스키는 징역, 대법원 간다 <b>→</b></a></article><article class="pc" data-day="2026-10-20"><div class="dt">10월 20일 화요일</div><h2 class="q">소고기 값이 계속 오르면 덜 먹을 것 같다?</h2><div class="rs"><div><span>그렇다</span><b>92%</b></div><div><span>아니다</span><b>8%</b></div></div><div class="n">13명 참여</div><a class="st" href="/newsletters/2026/1020.html#story-4">📰 관세는 0% 됐는데 미국에 소가 없음 <b>→</b></a></article><article class="pc" data-day="2026-10-19"><div class="dt">10월 19일 월요일</div><h2 class="q">회사 그만두고 배당금으로 먹고살 수 있다면?</h2><div class="rs"><div><span>해본다</span><b>75%</b></div><div><span>무섭다</span><b>25%</b></div></div><div class="n">16명 참여</div><a class="st" href="/newsletters/2026/1019.html#story-5">📰 배당으로 퇴사했는데 원금이 녹는 중 <b>→</b></a></article><article class="pc" data-day="2026-10-16"><div class="dt">10월 16일 금요일</div><h2 class="q">내 주식 계좌도 오늘 많이 빠졌을까?</h2><div class="rs"><div><span>많이 빠짐</span><b>85%</b></div><div><span>괜찮은 편</span><b>15%</b></div></div><div class="n">13명 참여</div><a class="st" href="/newsletters/2026/1016.html#story-1">📰 AI 거품 걱정, 한국이 제일 먼저 맞는 이유 <b>→</b></a></article><article class="pc" data-day="2026-10-15"><div class="dt">10월 15일 목요일</div><h2 class="q">넷플릭스가 잘 큰다면서 자르는 거, 이해돼?</h2><div class="rs"><div><span>이해된다</span><b>100%</b></div><div><span>이상하다</span><b>0%</b></div></div><div class="n">3명 참여</div><a class="st" href="/newsletters/2026/1015.html#story-4">📰 잘 큰다면서 1,000명 자르는 넷플릭스 <b>→</b></a></article><article class="pc" data-day="2026-10-14"><div class="dt">10월 14일 수요일</div><h2 class="q">내 노후, 지금 부모님보다 넉넉할까?</h2><div class="rs"><div><span>그럴 것 같다</span><b>0%</b></div><div><span>안 그럴 듯</span><b>100%</b></div></div><div class="n">1명 참여</div><a class="st" href="/newsletters/2026/1014.html#story-4">📰 35세 미만보다 15배 부자인 미국 75세들 <b>→</b></a></article><article class="pc" data-day="2026-10-13"><div class="dt">10월 13일 화요일</div><h2 class="q">나라면 손님 줄어도 밀크티 가게 열까?</h2><div class="rs"><div><span>열 것 같다</span><b>0%</b></div><div><span>안 열 것 같다</span><b>100%</b></div></div><div class="n">1명 참여</div><a class="st" href="/newsletters/2026/1013.html#story-1">📰 밀크티 가게 이기고 중국 손님 잃은 루이비통 <b>→</b></a></article><article class="pc" data-day="2026-10-12"><div class="dt">10월 12일 월요일</div><h2 class="q">스벅 돈으로 치폴레 산다면?</h2><div class="rs"><div><span>잘한 선택</span><b>0%</b></div><div><span>무리한 베팅</span><b>100%</b></div></div><div class="n">6명 참여</div><a class="st" href="/newsletters/2026/1012.html#story-3">📰 친정을 사들이려는 스타벅스 사장님 <b>→</b></a></article><article class="pc" data-day="2026-10-08"><div class="dt">10월 8일 목요일</div><h2 class="q">AI가 나한테도 비싼 값 보여줄까?</h2><div class="rs"><div><span>그럴 것 같다</span><b>67%</b></div><div><span>안 그럴 듯</span><b>33%</b></div></div><div class="n">3명 참여</div><a class="st" href="/newsletters/2026/1008.html#story-2">📰 부자한테는 비싼 표 골라주는 AI 비서 <b>→</b></a></article></div>
+<p class="foot">질문은 매일 아침 브리핑 스토리 하나에서 나옵니다. 고른 답은 이 브라우저에 표시되고, 다시 눌러 바꿀 수 있어요.</p>
+</div>
+<script src="/soonsal.js" defer></script>
+<script>
+var POLLS = [{"day": "2026-10-21", "q": "집에서 술 담그다 걸리면 징역 5년, 너무하다고 생각해?", "a": "너무하다", "b": "그럴만하다", "na": 8, "nb": 0, "t": "맥주는 되고 위스키는 징역, 대법원 간다", "u": "/newsletters/2026/1021.html#story-5"}, {"day": "2026-10-20", "q": "소고기 값이 계속 오르면 덜 먹을 것 같다?", "a": "그렇다", "b": "아니다", "na": 12, "nb": 1, "t": "관세는 0% 됐는데 미국에 소가 없음", "u": "/newsletters/2026/1020.html#story-4"}, {"day": "2026-10-19", "q": "회사 그만두고 배당금으로 먹고살 수 있다면?", "a": "해본다", "b": "무섭다", "na": 12, "nb": 4, "t": "배당으로 퇴사했는데 원금이 녹는 중", "u": "/newsletters/2026/1019.html#story-5"}, {"day": "2026-10-16", "q": "내 주식 계좌도 오늘 많이 빠졌을까?", "a": "많이 빠짐", "b": "괜찮은 편", "na": 11, "nb": 2, "t": "AI 거품 걱정, 한국이 제일 먼저 맞는 이유", "u": "/newsletters/2026/1016.html#story-1"}, {"day": "2026-10-15", "q": "넷플릭스가 잘 큰다면서 자르는 거, 이해돼?", "a": "이해된다", "b": "이상하다", "na": 3, "nb": 0, "t": "잘 큰다면서 1,000명 자르는 넷플릭스", "u": "/newsletters/2026/1015.html#story-4"}, {"day": "2026-10-14", "q": "내 노후, 지금 부모님보다 넉넉할까?", "a": "그럴 것 같다", "b": "안 그럴 듯", "na": 0, "nb": 1, "t": "35세 미만보다 15배 부자인 미국 75세들", "u": "/newsletters/2026/1014.html#story-4"}, {"day": "2026-10-13", "q": "나라면 손님 줄어도 밀크티 가게 열까?", "a": "열 것 같다", "b": "안 열 것 같다", "na": 0, "nb": 1, "t": "밀크티 가게 이기고 중국 손님 잃은 루이비통", "u": "/newsletters/2026/1013.html#story-1"}, {"day": "2026-10-12", "q": "스벅 돈으로 치폴레 산다면?", "a": "잘한 선택", "b": "무리한 베팅", "na": 0, "nb": 6, "t": "친정을 사들이려는 스타벅스 사장님", "u": "/newsletters/2026/1012.html#story-3"}, {"day": "2026-10-08", "q": "AI가 나한테도 비싼 값 보여줄까?", "a": "그럴 것 같다", "b": "안 그럴 듯", "na": 2, "nb": 1, "t": "부자한테는 비싼 표 골라주는 AI 비서", "u": "/newsletters/2026/1008.html#story-2"}];
+
+(function(){
+  var API='https://api.soonsal.com',list=document.getElementById('list'),sortBy='new';
+  function lsg(k){try{return localStorage.getItem(k)}catch(e){return null}}
+  function lss(k,v){try{localStorage.setItem(k,v)}catch(e){}}
+  function esc(v){return String(v==null?'':v).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+  var WD='일월화수목금토',latest=POLLS.length?POLLS[0].day:'';
+  function mine(p){return parseInt(lsg('ss_poll_'+p.day)||'0',10)||0}
+  function card(p){
+    var m=mine(p),n=p.na+p.nb,pa=n?Math.round(p.na*100/n):0,pb=n?100-pa:0,now=p.day===latest;
+    var dl=(+p.day.slice(5,7))+'월 '+(+p.day.slice(8,10))+'일 '+WD[new Date(Date.UTC(+p.day.slice(0,4),+p.day.slice(5,7)-1,+p.day.slice(8,10))).getUTCDay()]+'요일';
+    var h='<article class="pc'+(now?' now':'')+'" data-day="'+p.day+'"><div class="dt">'+(now?'<em>오늘의 질문</em>':'')+dl+'</div>'+
+      '<h2 class="q">'+esc(p.q)+'</h2>';
+    if(now&&!m){
+      h+='<div class="bt"><button type="button" data-c="1">'+esc(p.a)+'</button><button type="button" data-c="2">'+esc(p.b)+'</button></div>'+
+        '<div class="n">누르면 다른 순살러들 선택이 보여요'+(n?' · '+n+'명 참여':'')+'</div>';
+    }else{
+      var row=function(c,label,pct,cnt){var cls=(m===c?'me ':'')+((c===1?p.na>p.nb:p.nb>p.na)?'win':'');
+        return '<button type="button" data-c="'+c+'" class="'+cls+'" aria-pressed="'+(m===c)+'" aria-label="'+esc(label)+' '+pct+'퍼센트, '+cnt+'명">'+
+          '<i style="width:'+pct+'%"></i><span>'+esc(label)+(m===c?' ✓':'')+'</span><b>'+pct+'%</b></button>'};
+      h+='<div class="rs">'+row(1,p.a,pa,p.na)+row(2,p.b,pb,p.nb)+'</div>'+
+        '<div class="n">'+(n?n+'명 참여':'아직 아무도 안 골랐어요 — 첫 표를 던져 보세요')+(m?' · 내 답 ✓ (다시 누르면 바꿔요)':(n?' · 눌러서 내 답 더하기':''))+'</div>';
+    }
+    if(p.u)h+='<a class="st" href="'+esc(p.u)+'">📰 '+esc(p.t)+' <b>→</b></a>';
+    return h+'</article>';
+  }
+  function order(){var a=POLLS.slice();
+    if(sortBy==='hot')a.sort(function(x,y){return (y.na+y.nb)-(x.na+x.nb)||(x.day<y.day?1:-1)});
+    if(sortBy==='tie')a=a.filter(function(p){return p.na+p.nb>=3}).sort(function(x,y){
+      var gx=Math.abs(x.na-x.nb)/(x.na+x.nb),gy=Math.abs(y.na-y.nb)/(y.na+y.nb);return gx-gy||((y.na+y.nb)-(x.na+x.nb))});
+    return a}
+  function draw(){var a=order();list.innerHTML=a.length?a.map(card).join(''):'<p class="foot">3명 넘게 고른 질문이 아직 없어요.</p>'}
+  function vote(day,c,btn){
+    var p=POLLS.filter(function(x){return x.day===day})[0];if(!p)return;var old=mine(p);if(old===c)return;
+    try{if(btn&&window.ssCanAt)ssCanAt(btn)}catch(e){}
+    if(old===1)p.na=Math.max(0,p.na-1);if(old===2)p.nb=Math.max(0,p.nb-1);if(c===1)p.na++;else p.nb++;
+    lss('ss_poll_'+day,String(c));draw();
+    var vid=lsg('ss_vid')||'';if(!/^[a-z0-9-]{8,32}$/.test(vid))return;
+    fetch(API+'/poll',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({day:day,v:vid,c:c})})
+      .then(function(r){return r.json()}).then(function(j){if(j&&j.ok){p.na=j.na;p.nb=j.nb;draw()}}).catch(function(){})}
+  list.addEventListener('click',function(e){var b=e.target.closest('button[data-c]');if(!b)return;
+    var pc=b.closest('.pc');vote(pc.getAttribute('data-day'),parseInt(b.getAttribute('data-c'),10),b)});
+  [].forEach.call(document.querySelectorAll('#sort button'),function(b){b.onclick=function(){
+    sortBy=b.getAttribute('data-s');[].forEach.call(document.querySelectorAll('#sort button'),function(x){x.classList.toggle('on',x===b)});draw()}});
+  draw();
+  // 숫자는 빌드 때 값 — 최근 3개만 지금 값으로 맞춘다
+  POLLS.slice(0,3).forEach(function(p){fetch(API+'/poll?day='+p.day).then(function(r){return r.json()}).then(function(j){
+    var q=j&&j.poll;if(q&&(q.na!==p.na||q.nb!==p.nb)){p.na=q.na||0;p.nb=q.nb||0;draw();
+      var t=POLLS.reduce(function(s,x){return s+x.na+x.nb},0),sm=document.getElementById('sum');
+      if(sm)sm.innerHTML='질문 <b>'+POLLS.length+'</b>개 · 지금까지 <b>'+t.toLocaleString()+'</b>표'}}).catch(function(){})});
+})();
+
+</script>
+</body></html>

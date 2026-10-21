@@ -420,13 +420,14 @@
         var tot=na+nb;
         if(!mine){c.innerHTML='<div class="k">🗳️ 오늘의 질문 · 이 이야기, 어떻게 보세요?</div><div class="q">'+esc(p.q)+'</div>'+
           '<div class="bt"><button type="button" data-c="1">'+esc(p.a)+'</button><button type="button" data-c="2">'+esc(p.b)+'</button></div>'+
-          '<div class="n">누르면 다른 독자들 선택이 보여요'+(tot?' · '+tot+'명 참여':'')+'</div>';
+          '<div class="n">누르면 다른 독자들 선택이 보여요'+(tot?' · '+tot+'명 참여':'')+' · <a href="/poll/" style="color:inherit">지난 질문 결과 →</a></div>';
           [].forEach.call(c.querySelectorAll('.bt button'),function(b){b.onclick=function(){vote(parseInt(b.getAttribute('data-c'),10))}});return}
         var pa=tot?Math.round(na*100/tot):0,pb=tot?100-pa:0;
         c.innerHTML='<div class="k">🗳️ 오늘의 질문 · 이 이야기, 어떻게 보세요?</div><div class="q">'+esc(p.q)+'</div><div class="rs">'+
           '<div class="'+(mine===1?'me':'')+'"><i style="width:'+pa+'%"></i><span>'+esc(p.a)+(mine===1?' ✓':'')+'</span><b>'+pa+'%</b></div>'+
           '<div class="'+(mine===2?'me':'')+'"><i style="width:'+pb+'%"></i><span>'+esc(p.b)+(mine===2?' ✓':'')+'</span><b>'+pb+'%</b></div></div>'+
-          '<div class="n">'+tot+'명 참여 · 결과는 다음 브리핑에서 이야기해요 · <a href="#" class="ch" style="color:#F59B75">다시 고르기</a></div>';
+          '<div class="n">'+tot+'명 참여 · 결과는 다음 브리핑에서 이야기해요 · <a href="#" class="ch" style="color:#F59B75">다시 고르기</a>'+
+          '<br><a href="/poll/" style="color:#F59B75;font-weight:700">🗳️ 지난 질문 결과 모아보기 →</a></div>';
         c.querySelector('.ch').onclick=function(e){e.preventDefault();mine=0;draw(na,nb)};
       }
       function vote(v){var vid='';try{vid=localStorage.getItem('ss_vid')||''}catch(e){}
@@ -577,7 +578,7 @@
     ac.innerHTML='<svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg>';
     R.appendChild(ac);var su=h.querySelector('.sub-btn-header');if(su)R.appendChild(su);h.appendChild(R);
 
-    var LINKS=[["읽기", [["/newsletters/", "뉴스레터"], ["/chart/", "순살차트"], ["/cardnews/", "카드뉴스"], ["/youtube/", "YouTube"]]], ["찾기", [["/search/", "검색"], ["/topics/", "주제별"]]], ["참여", [["/talk/", "순살톡"], ["/school/", "순살스쿨"]]], ["순살과 함께", [["/collab/", "광고·협업 문의"]]]];
+    var LINKS=[["읽기", [["/newsletters/", "뉴스레터"], ["/chart/", "순살차트"], ["/cardnews/", "순스타그램"], ["/youtube/", "YouTube"]]], ["찾기", [["/search/", "검색"], ["/topics/", "주제별"]]], ["참여", [["/poll/", "오늘의 질문"], ["/talk/", "순살톡"], ["/school/", "순살스쿨"]]], ["순살과 함께", [["/collab/", "광고·협업 문의"]]]];
     var wrap=document.createElement('div');
     wrap.innerHTML='<div class="ss-ov"></div><aside class="ss-dr" aria-label="전체 메뉴"><button class="x" aria-label="닫기">×</button>'+
       '<a class="acc" href="/account/" rel="nofollow"><span class="ph">🙂</span><span><b>로그인하고 스크랩 모으기</b><span>카카오·구글로 1초 · 폰·PC 에서 같이</span></span></a>'+
