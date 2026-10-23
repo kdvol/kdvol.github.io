@@ -45,25 +45,42 @@ padding:0 16px;font-size:16px;font-weight:800}
 .hero .rs .me i{background:#F07040}.hero .rs .me span{color:#12100e}
 .hero .rs span{position:relative;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .hero .rs b{position:relative;font-size:18px;font-variant-numeric:tabular-nums;color:#fff}
-.hero .badge{display:inline-flex;align-items:center;gap:6px;margin:14px 0 2px;padding:7px 12px;border-radius:999px;
+.hero .meta{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px}
+.hero .badge{display:inline-flex;align-items:center;gap:6px;margin:0;padding:6px 11px;border-radius:999px;
 font-size:13.5px;font-weight:800;background:#2a221d;color:#f6f1e8}
 .hero .badge.min{background:#33261d;color:#F59B75}
-.hero .meta{font-size:12.5px;color:#a39c90;margin-top:8px}
+.hero .meta{font-size:12.5px;color:#a39c90;margin-top:12px}
 .hero .meta a{color:#F59B75}
 .hero .st{display:block;margin-top:14px;padding-top:13px;border-top:1px solid #3a2f27;color:#cfc8bc;font-size:14px;text-decoration:none;line-height:1.5}
 .hero .st b{color:#F07040}
 
-/* 친구에게 묻기 — 작은 알약 한 줄 (KD 10/23 「공유 버튼들 사이즈를 줄이자」) */
-.share{margin-top:14px}
-.share p{margin:0 0 8px;font-size:13px;font-weight:800;color:#e8e3da}
-.share .row,.ask .bt{display:flex;flex-wrap:wrap;gap:6px}
-.share button,.ask button{display:inline-flex;align-items:center;gap:5px;height:32px;padding:0 12px;border-radius:999px;border:1px solid #3a2f27;
-background:#1b1715;color:#e8e3da;font-size:12.5px;font-weight:700;cursor:pointer}
-.share button:hover,.ask button:hover{border-color:#F07040}
-.share button svg,.ask button svg{width:15px;height:15px;flex:0 0 auto}
-.share .kk,.ask .kk{background:#FEE500;border-color:#FEE500;color:#191600}
-.share .kk svg,.ask .kk svg{color:#191600}
-.ask .ic{width:32px;padding:0;justify-content:center}
+/* 친구에게 묻기 — 카톡 하나 + ⋯ 하나 (KD 10/23 「압축·통합」) */
+.share{display:flex;gap:8px;margin-top:14px}
+.share .kk{flex:1;display:inline-flex;align-items:center;justify-content:center;gap:6px;height:42px;border-radius:999px;border:0;
+background:#FEE500;color:#191600;font-size:14px;font-weight:800;cursor:pointer}
+.share .kk svg{width:17px;height:17px}
+.share .more{width:42px;height:42px;border-radius:999px;border:1px solid #3a2f27;background:#1b1715;color:#e8e3da;font-size:20px;line-height:1;cursor:pointer}
+.share .more:hover{border-color:#F07040}
+/* 큰 카드 아래 작은 글자 링크 한 줄(스토리 · 구독) */
+.hero .ft{display:flex;flex-wrap:wrap;gap:6px 16px;margin-top:14px;padding-top:12px;border-top:1px solid #3a2f27}
+.hero .ft a{font-size:12.5px;color:#a39c90;text-decoration:none;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.hero .ft a.sb{color:#F59B75;font-weight:700}
+/* 공유창 */
+.sheet{position:fixed;inset:0;z-index:100015}
+.sheet[hidden]{display:none}
+.sheet .bg{position:absolute;inset:0;background:rgba(0,0,0,.6);opacity:0;transition:opacity .2s}
+.sheet .pn{position:absolute;left:0;right:0;bottom:0;max-width:560px;margin:0 auto;padding:10px 18px calc(18px + env(safe-area-inset-bottom));
+background:#1b1715;border-radius:20px 20px 0 0;transform:translateY(100%);transition:transform .22s cubic-bezier(.2,.9,.3,1)}
+.sheet.on .bg{opacity:1}.sheet.on .pn{transform:none}
+.sheet .gr{width:38px;height:4px;border-radius:4px;background:#3a2f27;margin:0 auto 14px}
+.sheet .tt{margin:0 0 14px;font-size:14px;font-weight:800;color:#f6f1e8;line-height:1.45;text-align:center;word-break:keep-all}
+.sheet .op{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.sheet .op button{display:flex;flex-direction:column;align-items:center;gap:7px;padding:12px 2px;border-radius:14px;border:1px solid #2e2620;
+background:#141110;color:#e8e3da;font-size:12px;font-weight:700;cursor:pointer}
+.sheet .op button svg{width:22px;height:22px}
+.sheet .op .kk svg{color:#FEE500}
+.sheet .cl{display:block;width:100%;margin-top:12px;height:44px;border-radius:12px;border:0;background:#262019;color:#cfc8bc;font-weight:700;font-size:14px;cursor:pointer}
+@media (prefers-reduced-motion:reduce){.sheet .pn,.sheet .bg{transition:none}}
 
 /* 내 기록 (.me 는 내가 고른 막대라 이름을 따로) */
 .mystat{display:flex;flex-wrap:wrap;align-items:center;gap:4px 12px;margin:-4px 0 12px;font-size:12.5px;color:#a39c90}
@@ -101,27 +118,25 @@ display:flex;align-items:center;padding:0 13px;font-weight:700;font-size:13px;co
 .pc .n em{font-style:normal;color:#F59B75;font-weight:700}
 .pc .st{display:block;margin-top:6px;color:#7c756c;font-size:12px;text-decoration:none;line-height:1.5;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .pc .st b{color:#F07040}.pc .st:hover{color:#f6f1e8}
-/* 투표 직후 구독 권유 (개선 1) */
-.subask{display:flex;align-items:center;gap:10px;margin-top:14px;padding:12px 14px;border-radius:14px;background:#231812;border:1px solid #5a3524}
-.subask span{flex:1;font-size:13.5px;font-weight:700;color:#f6f1e8;line-height:1.45;word-break:keep-all}
-.subask button{flex:0 0 auto;height:34px;padding:0 14px;border-radius:999px;border:0;background:#F07040;color:#12100e;font-weight:800;font-size:13px;cursor:pointer}
-/* 나는 어떤 순살러? (개선 2) */
-.persona{margin:-6px 0 22px;padding:18px;border-radius:18px;background:linear-gradient(135deg,#221812,#171311);border:1px solid #3a2a20}
-.persona .k{font-size:12px;font-weight:800;color:#bdb6aa;letter-spacing:.04em}
-.persona .ty{margin:6px 0 4px;font-size:22px;font-weight:900;color:#fff;letter-spacing:-.03em}
-.persona .ds{font-size:13.5px;color:#cfc8bc;line-height:1.55}
+/* 나는 어떤 순살러? — 한 줄 + 자랑하기 하나 */
+.persona{display:flex;align-items:center;gap:12px;margin:-6px 0 22px;padding:12px 14px 12px 16px;border-radius:16px;
+background:linear-gradient(135deg,#221812,#171311);border:1px solid #3a2a20}
+.persona .tx{flex:1;min-width:0;display:grid;gap:2px}
+.persona .k{font-size:11px;font-weight:800;color:#a39c90;letter-spacing:.04em}
+.persona .ty{font-size:17px;font-weight:900;color:#fff;letter-spacing:-.02em}
+.persona .ds{font-size:12.5px;color:#bdb6aa}
 .persona .ds b{color:#F59B75}
-.persona .bt{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
-.persona .bt button{display:inline-flex;align-items:center;gap:5px;height:32px;padding:0 12px;border-radius:999px;border:1px solid #3a2f27;
-background:#1b1715;color:#e8e3da;font-size:12.5px;font-weight:700;cursor:pointer}
-.persona .bt .kk{background:#FEE500;border-color:#FEE500;color:#191600}
-.persona .bt svg{width:15px;height:15px}
-.persona.lock{padding:12px 16px;background:#161412;border-style:dashed}
+.persona .brag{flex:0 0 auto;height:36px;padding:0 14px;border-radius:999px;border:0;background:#F07040;color:#12100e;font-weight:800;font-size:13px;cursor:pointer}
+.persona.lock{display:block;padding:11px 16px;background:#161412;border-style:dashed}
 .persona.lock .ds{font-size:13px}
 /* 지난 질문 공유 — 결과에 맞춘 한 줄 미끼 + 작은 버튼 (KD 10/23 「예전 질문들도 공유를 더 적극적으로」) */
-.ask{display:grid;gap:8px;margin-top:12px;padding-top:12px;border-top:1px dashed #2e2620}
-.ask .hk{font-size:13.5px;font-weight:800;color:#f6f1e8;line-height:1.45;word-break:keep-all}
+.ask{display:flex;align-items:center;gap:10px;width:100%;margin-top:12px;padding:11px 0 0;border:0;border-top:1px dashed #2e2620;
+background:none;color:inherit;text-align:left;cursor:pointer;font:inherit}
+.ask .hk{flex:1;font-size:13.5px;font-weight:800;color:#f6f1e8;line-height:1.45;word-break:keep-all}
 .ask .hk em{font-style:normal;color:#F59B75}
+.ask .go{flex:0 0 auto;display:flex;width:32px;height:32px;align-items:center;justify-content:center;border-radius:999px;border:1px solid #3a2f27;color:#cfc8bc}
+.ask .go svg{width:15px;height:15px}
+.ask:hover .go{border-color:#F07040;color:#F59B75}
 .pc.just{border-color:#5a3524;background:#1a1512}
 /* 질문이 묻히지 않게 — 페이지 머리 설명을 걷어 큰 카드를 위로 */
 .sec-head{margin-bottom:16px}.sec-head .deck{display:none}
@@ -459,9 +474,27 @@ var POLLS = [{"day": "2026-10-23", "q": "회사가 적자여도 전망 좋으면
     x:'<svg viewBox="0 0 24 24"><path fill="currentColor" d="M17.75 3h3.07l-6.7 7.66L22 21h-6.17l-4.83-6.32L5.46 21H2.39l7.17-8.2L2 3h6.33l4.37 5.77L17.75 3zm-1.08 16.2h1.7L7.4 4.73H5.58l11.09 14.47z"/></svg>',
     ln:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.07 0l2.83-2.83a5 5 0 0 0-7.07-7.07L11.5 4.43"/><path d="M14 11a5 5 0 0 0-7.07 0L4.1 13.83a5 5 0 0 0 7.07 7.07l1.33-1.33"/></svg>',
     mo:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v7a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-7"/><path d="M16 6l-4-4-4 4"/><path d="M12 2v13"/></svg>'};
-  function shareRow(p,lead){return '<div class="share" data-day="'+p.day+'"><p>'+lead+'</p><div class="row">'+
-    '<button type="button" class="kk" data-sh="kk">'+IC.kk+'카톡</button><button type="button" data-sh="x">'+IC.x+'X</button>'+
-    '<button type="button" data-sh="ln">'+IC.ln+'링크</button><button type="button" data-sh="mo">'+IC.mo+'더보기</button></div></div>'}
+  // 화면 버튼은 「카톡으로 묻기」 하나 + ⋯(공유창) 하나 — 나머지 수단은 공유창 안으로 (KD 10/23 「버튼이 너무 늘었어 — 압축·통합」)
+  function shareRow(p){return '<div class="share" data-day="'+p.day+'">'+
+    '<button type="button" class="kk" data-sh="kk">'+IC.kk+'친구한테 카톡으로 묻기</button>'+
+    '<button type="button" class="more" data-sheet="'+p.day+'" aria-label="다른 방법으로 공유">⋯</button></div>'}
+  // ── 공유창 — 아래에서 올라오는 한 장. 질문 공유·성향 자랑 둘 다 여기로 ──
+  var sheet=document.createElement('div');sheet.className='sheet';sheet.hidden=true;document.body.appendChild(sheet);
+  function openSheet(key){var isP=key==='persona',p=isP?null:find(key);if(!isP&&!p)return;
+    var t=isP?(function(x){return x?x.e+' '+x.n:''})(persona()):p.q;
+    sheet.innerHTML='<div class="bg" data-close="1"></div><div class="pn" role="dialog" aria-label="공유"><div class="gr"></div>'+
+      '<p class="tt">'+esc(t)+'</p><div class="op">'+
+      '<button type="button" class="kk" data-so="kk">'+IC.kk+'<span>카카오톡</span></button>'+
+      '<button type="button" data-so="ln">'+IC.ln+'<span>링크 복사</span></button>'+
+      '<button type="button" data-so="x">'+IC.x+'<span>X</span></button>'+
+      (isP?'<button type="button" data-so="img">'+IC.mo+'<span>이미지 저장</span></button>':(navigator.share?'<button type="button" data-so="mo">'+IC.mo+'<span>다른 앱</span></button>':''))+
+      '</div><button type="button" class="cl" data-close="1">닫기</button></div>';
+    sheet.setAttribute('data-key',key);sheet.hidden=false;requestAnimationFrame(function(){sheet.classList.add('on')})}
+  function closeSheet(){sheet.classList.remove('on');setTimeout(function(){sheet.hidden=true},200)}
+  sheet.addEventListener('click',function(e){var b=e.target.closest('[data-so],[data-close]');if(!b)return;
+    if(b.hasAttribute('data-close')){closeSheet();return}
+    var k=sheet.getAttribute('data-key'),o=b.getAttribute('data-so');closeSheet();
+    if(k==='persona'){personaShare(o==='x'?'x':o);return}var p=find(k);if(p)doShare(o,p)});
   // 지난 질문마다 결과에 맞춘 한 줄 미끼 — 「친구한테 물어볼 이유」를 숫자로 (KD 10/23)
   var justVoted='';
   function hook(p){var m=mine(p),r=pct(p),n=r[2],win=r[0]>=r[1]?p.a:p.b,wp=Math.max(r[0],r[1]);
@@ -470,12 +503,10 @@ var POLLS = [{"day": "2026-10-23", "q": "회사가 적자여도 전망 좋으면
     if(n<3)return '아직 '+n+'명 — 친구를 <em>첫 투표자</em>로 불러 보기';
     if(Math.abs(r[0]-r[1])<=20)return '⚖️ <em>'+r[0]+':'+r[1]+'</em> 팽팽 — 친구는 어느 쪽?';
     return '<em>'+wp+'%</em>가 「'+esc(win)+'」 — 친구는 소수파일까?'}
+  // 지난 질문: 미끼 한 줄 자체가 공유 버튼(누르면 공유창) — 버튼 줄을 따로 두지 않는다
   function ask(p){var j=p.day===justVoted;
-    return '<div class="ask"><span class="hk">'+hook(p)+'</span><div class="bt">'+
-      '<button type="button" class="kk'+(j?' ss-shine':'')+'" data-sh="kk">'+IC.kk+'친구한테 묻기</button>'+
-      '<button type="button" class="ic" data-sh="ln" aria-label="링크 복사">'+IC.ln+'</button>'+
-      '<button type="button" class="ic" data-sh="x" aria-label="X 에 올리기">'+IC.x+'</button>'+
-      '<button type="button" class="ic" data-sh="mo" aria-label="더보기">'+IC.mo+'</button></div></div>'}
+    return '<button type="button" class="ask'+(j?' ss-shine':'')+'" data-sheet="'+p.day+'"><span class="hk">'+hook(p)+'</span>'+
+      '<span class="go">'+IC.mo+'</span></button>'}
   function doShare(kind,p){({kk:kakao,x:xpost,ln:copy,mo:more})[kind](p)}
 
   // ── 맨 위 큰 카드 ──
@@ -487,11 +518,11 @@ var POLLS = [{"day": "2026-10-23", "q": "회사가 적자여도 전망 좋으면
     else{var w1=m===1?' class="me"':'',w2=m===2?' class="me"':'',mp=m===1?r[0]:r[1];
       h+='<div class="rs"><div'+w1+'><i data-w="'+r[0]+'"></i><span>'+esc(p.a)+(m===1?' ✓':'')+'</span><b>'+r[0]+'%</b></div>'+
         '<div'+w2+'><i data-w="'+r[1]+'"></i><span>'+esc(p.b)+(m===2?' ✓':'')+'</span><b>'+r[1]+'%</b></div></div>'+
-        '<span class="badge'+(mp<50?' min':'')+'">'+(mp>50?'🙌 나는 다수파 · '+mp+'%가 같은 답':mp===50?'⚖️ 정확히 반반':'🦄 나는 소수파 · '+mp+'%만 같은 답')+'</span>'+
-        '<div class="meta">'+r[2]+'명 참여 · <a href="#" data-re="1">다시 고르기</a></div>'+
-        shareRow(p,'친구는 뭐 고를까? 물어보기')+
-        (window.ssIsSub&&window.ssIsSub()?'':'<div class="subask"><span>📮 내일 질문도 아침 메일로 받아 볼래요?</span><button type="button" data-sub="1">무료 구독</button></div>');}
-    if(u)h+='<a class="st" href="'+esc(u)+'">📰 '+(p.t?esc(p.t):'이 질문이 나온 브리핑 이야기')+' <b>→</b></a>';
+        '<div class="meta"><span class="badge'+(mp<50?' min':'')+'">'+(mp>50?'🙌 다수파 '+mp+'%':mp===50?'⚖️ 반반':'🦄 소수파 '+mp+'%')+'</span>'+
+        '<span>'+r[2]+'명 참여 · <a href="#" data-re="1">다시 고르기</a></span></div>'+shareRow(p);}
+    var ft=[];if(u)ft.push('<a href="'+esc(u)+'">📰 '+(p.t?esc(p.t):'이 질문이 나온 이야기')+'</a>');
+    if(m&&!(window.ssIsSub&&window.ssIsSub()))ft.push('<a href="#" data-sub="1" class="sb">📮 내일 질문도 메일로</a>');
+    if(ft.length)h+='<div class="ft">'+ft.join('')+'</div>';
     if(!isNow)h+='<a class="st" href="#" data-today="1">🗳️ 오늘의 질문으로 가기 <b>→</b></a>';
     hero.innerHTML=h;
     requestAnimationFrame(function(){[].forEach.call(hero.querySelectorAll('.rs i'),function(i){i.style.width=i.getAttribute('data-w')+'%'})});
@@ -510,13 +541,13 @@ var POLLS = [{"day": "2026-10-23", "q": "회사가 적자여도 전망 좋으면
   function drawPersona(){var x=persona();if(!x){pbox.hidden=true;return}pbox.hidden=false;
     if(x.done<5){pbox.className='persona lock';pbox.innerHTML='<div class="ds">🔓 질문 <b>'+(5-x.done)+'개</b> 더 고르면 「나는 어떤 순살러?」 유형이 나와요</div>';return}
     pbox.className='persona';
-    pbox.innerHTML='<div class="k">나는 어떤 순살러?</div><div class="ty">'+x.e+' '+x.n+'</div>'+
-      '<div class="ds">'+x.d+' · 질문 <b>'+x.done+'개</b> 중 다수파와 같은 답 <b>'+x.r+'%</b></div>'+
-      '<div class="bt"><button type="button" class="kk" data-pk="kk">'+IC.kk+'카톡으로 자랑</button><button type="button" data-pk="img">'+IC.mo+'이미지 저장·공유</button>'+
-      '<button type="button" data-pk="ln">'+IC.ln+'링크</button></div>'}
+    pbox.innerHTML='<div class="tx"><span class="k">나는 어떤 순살러?</span><span class="ty">'+x.e+' '+x.n+'</span>'+
+      '<span class="ds">다수파와 같은 답 <b>'+x.r+'%</b> · '+x.done+'개 고름</span></div>'+
+      '<button type="button" class="brag" data-sheet="persona">자랑하기</button>'}
   function personaText(x){return '나는 「'+x.e+' '+x.n+'」 순살러 — 오늘의 질문 '+x.done+'개 중 다수파와 같은 답 '+x.r+'%. 너는?'}
   function personaShare(kind){var x=persona();if(!x)return;var u=BASE+'/poll/';
     if(kind==='ln'){var t=personaText(x)+'\n'+u;(navigator.clipboard?navigator.clipboard.writeText(t):Promise.reject()).then(function(){toast('복사했어요')},function(){prompt('복사해서 보내세요',t)});return}
+    if(kind==='x'){window.open('https://x.com/intent/post?text='+encodeURIComponent(personaText(x))+'&url='+encodeURIComponent(u),'_blank','noopener');return}
     if(kind==='kk'){kakaoSdk(function(){Kakao.Share.sendDefault({objectType:'feed',content:{title:'나는 '+x.e+' '+x.n+' 순살러',description:'오늘의 질문 '+x.done+'개 중 다수파와 같은 답 '+x.r+'% — 너는 어떤 순살러?',
       imageUrl:BASE+'/og-default.png',imageWidth:1200,imageHeight:630,link:{mobileWebUrl:u,webUrl:u}},buttons:[{title:'나도 해 보기',link:{mobileWebUrl:u,webUrl:u}}]})});return}
     // 이미지 — 공식 흰 로고 PNG + 유형 (1080×1350, 인스타 스토리·피드)
@@ -570,7 +601,7 @@ var POLLS = [{"day": "2026-10-23", "q": "회사가 적자여도 전망 좋으면
     if(t.hasAttribute('data-sh')){var p=holder?find(holder.getAttribute('data-day')):hp;if(p)doShare(t.getAttribute('data-sh'),p);return}
     if(t.hasAttribute('data-re')){e.preventDefault();hp._old=mine(hp);try{localStorage.removeItem('ss_poll_'+hp.day)}catch(x){}draw();return}
     if(t.hasAttribute('data-sub')){if(window.ssSub)window.ssSub('poll');else location.href='https://subscribe.soonsal.com/subscribe';return}
-    if(t.hasAttribute('data-pk')){personaShare(t.getAttribute('data-pk'));return}
+    if(t.hasAttribute('data-sheet')){openSheet(t.getAttribute('data-sheet'));return}
     if(t.hasAttribute('data-today')){e.preventDefault();history.replaceState(null,'',location.pathname);draw();window.scrollTo({top:0,behavior:'smooth'});return}
     if(t.hasAttribute('data-todo')){setSort('todo');document.getElementById('sort').scrollIntoView({behavior:'smooth',block:'start'});return}
     if(t.hasAttribute('data-c')){var day=hero.contains(t)?hp.day:(holder&&holder.getAttribute('data-day'));if(day)vote(day,parseInt(t.getAttribute('data-c'),10),t)}

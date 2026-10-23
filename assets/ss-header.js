@@ -429,7 +429,7 @@
           '<div class="n">'+tot+'명 참여 · 결과는 다음 브리핑에서 이야기해요 · <a href="#" class="ch" style="color:#F59B75">다시 고르기</a>'+
           '<br><a href="/poll/#d-'+p.day+'" style="color:#F59B75;font-weight:700">🗳️ 친구한테 물어보기 · 지난 질문 결과 →</a></div>'+
           // 고른 직후가 관심이 가장 높을 때 — 구독자가 아니면 「내일 질문도 메일로」 (KD 2026-10-23 개선 1번)
-          (lsg('ss_is_sub')==='1'||lsg('ss_subbed')==='1'?'':'<a href="#" class="ss-pill ss-shine sub" style="margin-top:10px">📮 내일 질문도 아침 메일로 받기</a>');
+          (lsg('ss_is_sub')==='1'||lsg('ss_subbed')==='1'?'':'<a href="#" class="sub" style="display:inline-block;margin-top:8px;font-size:12.5px;font-weight:700;color:#F59B75">📮 내일 질문도 메일로 받기 →</a>');
         c.querySelector('.ch').onclick=function(e){e.preventDefault();mine=0;draw(na,nb)};
         var sb=c.querySelector('.sub');if(sb)sb.onclick=function(e){e.preventDefault();subModal('poll')};
       }
@@ -697,6 +697,12 @@
     '.ss-ask.dk{background:rgba(255,255,255,.03);border-color:#3a2f27}.ss-ask.dk .hk{color:var(--sn-ink)!important;-webkit-text-fill-color:var(--sn-ink)!important}'+
     '.ss-ask.dk .ss-pill{background:#1b1715;border-color:#3a2f27;color:var(--sn-text)}.ss-ask.dk .ss-pill.kk{background:var(--sn-kakao);border-color:var(--sn-kakao);color:#191600}'+
     '.ss-ask .ss-pill{background:#fff;border-color:#e3d9cc;color:#3a2f27}.ss-ask .ss-pill.kk{background:var(--sn-kakao);border-color:var(--sn-kakao);color:#191600}'+
+    /* 반응 뒤 말풍선 — 카톡 아이콘 위 */
+    '.ss-nudge{position:absolute;bottom:calc(100% + 8px);right:-2px;transform:translateY(4px);opacity:0;white-space:nowrap;'+
+    'font:800 12px Pretendard,sans-serif;color:#191600;background:var(--sn-kakao);padding:6px 10px;border-radius:999px;'+
+    'box-shadow:0 6px 16px rgba(0,0,0,.18);pointer-events:none;transition:opacity .2s,transform .2s;z-index:5}'+
+    '.ss-nudge::after{content:"";position:absolute;top:100%;right:14px;border:5px solid transparent;border-top-color:var(--sn-kakao)}'+
+    '.ss-nudge.on{opacity:1;transform:none}'+
     /* 3. 읽은 만큼 차오르는 진행 막대 */
     '#ss-prog{position:fixed;left:0;top:0;height:3px;width:0;background:var(--sn-accent);z-index:100001;transition:width .1s linear;pointer-events:none}'+
     /* 5. 홈 오늘의 순살 반응 표시 */
@@ -734,22 +740,18 @@
     var tick=0;window.addEventListener('scroll',function(){if(tick)return;tick=1;requestAnimationFrame(function(){tick=0;
       var h=document.documentElement.scrollHeight-innerHeight;bar.style.width=(h>0?Math.min(100,scrollY*100/h):0)+'%'})},{passive:true})}
 
-  // ── 3·6. 글·차트 꼭지 끝 「친구한테」 줄 ──
-  var HOOKS=['💬 이 얘기, 단톡방에 던져 볼까?','🤔 친구는 이거 알고 있을까?','📤 이 숫자, 친구한테 보내 보기'];
-  function askLines(){
-    var els=document.querySelectorAll(isChart?'article.story[data-ss-story]':'[data-ss-story]');
-    [].forEach.call(els,function(el,i){if(el.querySelector('.ss-ask'))return;
-      var sid=el.getAttribute('data-ss-story')||'';if(!/^(\d{4}c?-\d{1,2}|m\d{8}-[a-z0-9-]+)$/.test(sid))return;
-      var url=isChart&&el.id?location.origin+P+'#'+el.id:location.origin+P+(sid.match(/-(\d+)$/)?'#story-'+sid.match(/-(\d+)$/)[1]:'');
-      if(isChart)el.setAttribute('data-ss-url',url);
-      var t=el.querySelector('h2,h3,.story-title');var title=t?t.textContent.replace(/\s+/g,' ').trim():'';
-      var d=document.createElement('div');d.className='ss-ask'+(isChart?' dk':'');
-      d.innerHTML='<span class="hk">'+(isChart?'📊 이 차트 한 장, 친구한테 보내 보기':HOOKS[i%HOOKS.length])+'</span>'+
-        '<span class="bs"><button type="button" class="ss-pill kk">'+IC_KK+'카톡</button><button type="button" class="ss-pill ic" aria-label="링크 복사">'+IC_LN+'</button></span>';
-      d.querySelector('.kk').onclick=function(){if(window.ssKakaoShare)window.ssKakaoShare(el);else copyLink(url,title)};
-      d.querySelector('.ic').onclick=function(){copyLink(url,title)};
-      el.appendChild(d)})}
-  if(isNl||isChart||isHome)onLoad(function(){setTimeout(askLines,900)});
+  // ── 3·6. 공유는 있는 자리에 녹인다 (KD 2026-10-23 「위 공유 버튼이랑 중복 — 대놓고 영역을 크게 차지하며 압박하지 말고 자연스럽게」) ──
+  //   기존(0a563a6): 스토리·차트 꼭지 끝마다 「친구한테」 상자. 최신: 상자 없음. 👍🤔🔥 를 누른 순간에만 그 줄의 카톡 아이콘 위에
+  //   「친구한테도?」 말풍선이 4초 떴다 사라지고 아이콘에 샤인 스윕 — 스토리마다 한 번만.
+  var nudged={};
+  document.addEventListener('click',function(e){
+    var b=e.target.closest&&e.target.closest('.ss-react .ss-rb');if(!b||b.classList.contains('ss-sh')||b.classList.contains('ss-kk'))return;
+    var row=b.closest('.ss-react'),kk=row&&row.querySelector('.ss-kk'),host=b.closest('[data-ss-story]');if(!kk||!host)return;
+    var sid=host.getAttribute('data-ss-story');if(nudged[sid])return;nudged[sid]=1;
+    setTimeout(function(){var t=document.createElement('span');t.className='ss-nudge';t.textContent='친구한테도?';
+      kk.style.position='relative';kk.style.overflow='visible';kk.appendChild(t);
+      requestAnimationFrame(function(){t.classList.add('on')});
+      setTimeout(function(){t.classList.remove('on');setTimeout(function(){t.remove()},250)},4000)},350)});
 
   // ── 5. 홈 「오늘의 순살」 줄마다 반응 수, 가장 뜨거운 줄에 샤인 스윕 ──
   if(isHome){onLoad(function(){
@@ -757,7 +759,9 @@
     fetch(API+'/counts?issue='+encodeURIComponent(iss)).then(function(r){return r.json()}).then(function(j){
       var best=null,bn=0;[].forEach.call(document.querySelectorAll('.hero .hs[data-n]'),function(row){
         var c=j[iss+'-'+row.getAttribute('data-n')]||{},n=0;for(var k in c)n+=c[k]||0;if(!n)return;
-        var b=document.createElement('span');b.className='ss-heat';b.textContent='🔥 '+n;row.appendChild(b);if(n>bn){bn=n;best=row}});
+        // 👍🤔🔥 를 다 합친 「열기」 하나 (KD 10/23 「하나로 다 모아서 보여 주는 게 좋을 듯」)
+        var b=document.createElement('span');b.className='ss-heat';b.textContent='🔥 '+n;b.title='반응 합계 '+n+'(좋았음·글쎄·중요함)';
+        b.setAttribute('aria-label','반응 '+n+'개');row.appendChild(b);if(n>bn){bn=n;best=row}});
       if(best&&bn>=3){best.classList.add('ss-shine','ss-hot')}}).catch(function(){})})}
 
   // ── 4. 순스타그램 목록 = 인스타 프로필처럼 3칸 바둑판 (원래 목록은 「목록」 버튼으로) ──
