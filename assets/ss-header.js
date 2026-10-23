@@ -419,15 +419,15 @@
       function draw(na,nb){
         var tot=na+nb;
         if(!mine){c.innerHTML='<div class="k">🗳️ 오늘의 질문 · 이 이야기, 어떻게 보세요?</div><div class="q">'+esc(p.q)+'</div>'+
-          '<div class="bt"><button type="button" data-c="1">'+esc(p.a)+'</button><button type="button" data-c="2">'+esc(p.b)+'</button></div>'+
-          '<div class="n">누르면 다른 독자들 선택이 보여요'+(tot?' · '+tot+'명 참여':'')+' · <a href="/poll/" style="color:inherit">지난 질문 결과 →</a></div>';
+          '<div class="bt"><button type="button" class="ss-shine" data-c="1">'+esc(p.a)+'</button><button type="button" class="ss-shine" data-c="2">'+esc(p.b)+'</button></div>'+
+          '<div class="n">누르면 다른 독자들 선택이 보여요'+(tot?' · '+tot+'명 참여':'')+' · <a href="/poll/#d-'+p.day+'" style="color:inherit">지난 질문 결과 →</a></div>';
           [].forEach.call(c.querySelectorAll('.bt button'),function(b){b.onclick=function(){vote(parseInt(b.getAttribute('data-c'),10))}});return}
         var pa=tot?Math.round(na*100/tot):0,pb=tot?100-pa:0;
         c.innerHTML='<div class="k">🗳️ 오늘의 질문 · 이 이야기, 어떻게 보세요?</div><div class="q">'+esc(p.q)+'</div><div class="rs">'+
           '<div class="'+(mine===1?'me':'')+'"><i style="width:'+pa+'%"></i><span>'+esc(p.a)+(mine===1?' ✓':'')+'</span><b>'+pa+'%</b></div>'+
           '<div class="'+(mine===2?'me':'')+'"><i style="width:'+pb+'%"></i><span>'+esc(p.b)+(mine===2?' ✓':'')+'</span><b>'+pb+'%</b></div></div>'+
           '<div class="n">'+tot+'명 참여 · 결과는 다음 브리핑에서 이야기해요 · <a href="#" class="ch" style="color:#F59B75">다시 고르기</a>'+
-          '<br><a href="/poll/" style="color:#F59B75;font-weight:700">🗳️ 지난 질문 결과 모아보기 →</a></div>';
+          '<br><a href="/poll/#d-'+p.day+'" style="color:#F59B75;font-weight:700">🗳️ 친구한테 물어보기 · 지난 질문 결과 →</a></div>';
         c.querySelector('.ch').onclick=function(e){e.preventDefault();mine=0;draw(na,nb)};
       }
       function vote(v){var vid='';try{vid=localStorage.getItem('ss_vid')||''}catch(e){}
@@ -445,7 +445,7 @@
         if(w&&!w.classList.contains('open')){w.classList.add('open');if(bx)bx.textContent='접기 ↑'}
         setTimeout(function(){var y=c.getBoundingClientRect().top+window.scrollY-90;window.scrollTo({top:y,behavior:'smooth'})},80)};
       if(home){var row=document.querySelector('.hero .hs[data-n="'+sn+'"]');
-        if(row){var t=document.createElement('a');t.className='ss-pt';t.href='#ss-poll';
+        if(row){var t=document.createElement('a');t.className='ss-pt'+(mine?'':' ss-shine');t.href='#ss-poll';
           t.innerHTML='<span>🗳️ 오늘의 질문</span> '+esc(p.q)+' <b>→</b>';t.onclick=go;row.parentNode.insertBefore(t,row.nextSibling)}}
       else{var li=document.querySelector('.ss-story-index a[href$="#story-'+sn+'"]');
         if(li&&!li.querySelector('.ss-pi')){var m=document.createElement('span');m.className='ss-pi';m.textContent=' 🗳️ 투표';li.appendChild(m)}}
@@ -636,4 +636,32 @@
     }).catch(function(){});
   }
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',run);else run();
+})();
+
+(function(){
+  if(window.__ssShine)return;window.__ssShine=1;
+  var LATEST={"/newsletters/": "2026-10-23", "/chart/": "2026-10-23", "/cardnews/": "2026-10-23", "/poll/": "2026-10-23"};
+  function lsg(k){try{return localStorage.getItem(k)}catch(e){return null}}
+  function lss(k,v){try{localStorage.setItem(k,v)}catch(e){}}
+  var st=document.createElement('style');st.id='ss-shine-css';st.textContent=
+    '.ss-shine{position:relative;overflow:hidden;isolation:isolate}'+
+    '.ss-shine::before{content:"";position:absolute;top:-20%;bottom:-20%;left:-80%;width:42%;z-index:3;pointer-events:none;'+
+    'background:linear-gradient(100deg,rgba(255,255,255,0) 0%,rgba(255,255,255,.18) 30%,rgba(255,255,255,.6) 50%,rgba(255,255,255,.18) 70%,rgba(255,255,255,0) 100%);'+
+    'transform:skewX(-22deg);animation:ssSweep 2.8s cubic-bezier(.4,0,.2,1) infinite}'+
+    '@keyframes ssSweep{0%,50%{left:-80%}100%{left:140%}}'+
+    '.nav>a.ss-new,.ss-dr a.ss-new{background:linear-gradient(105deg,#F59B75 0 30%,#ffd9c4 40%,#ffffff 48%,#ffffff 52%,#ffd9c4 60%,#F59B75 70% 100%);'+
+    'background-size:300% 100%;-webkit-background-clip:text;background-clip:text;color:transparent!important;animation:ssGlint 2.6s linear infinite}'+
+    '@keyframes ssGlint{0%,35%{background-position:100% 0}100%{background-position:0 0}}'+
+    '@media (prefers-reduced-motion:reduce){.ss-shine::before{display:none}.nav>a.ss-new,.ss-dr a.ss-new{animation:none;background:none;color:#F59B75!important}}';
+  (document.head||document.documentElement).appendChild(st);
+  window.ssShine=function(el){if(el&&el.classList)el.classList.add('ss-shine')};
+  function day(off){return new Date(Date.now()+9*3600e3-off*864e5).toISOString().slice(0,10)}
+  var path=location.pathname;
+  // 지금 보고 있는 섹션은 「봤음」으로 — 다음부터 그 탭은 새 내용이 나올 때만 반짝인다
+  Object.keys(LATEST).forEach(function(h){if(path.indexOf(h)===0&&LATEST[h])lss('ss_seen_'+h,LATEST[h])});
+  function mark(){Object.keys(LATEST).forEach(function(h){var d=LATEST[h];if(!d||path.indexOf(h)===0)return;
+    if(d>(lsg('ss_seen_'+h)||'')&&d>=day(1))[].forEach.call(document.querySelectorAll('.nav>a[href="'+h+'"],.ss-dr a[href="'+h+'"]'),
+      function(a){a.classList.add('ss-new');a.title='새 내용'})})}
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',mark);else mark();
+  setTimeout(mark,1200);   // ☰ 메뉴는 늦게 그려진다
 })();

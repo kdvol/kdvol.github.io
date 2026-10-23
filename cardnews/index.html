@@ -202,7 +202,7 @@
 .nav>a.nav-desktop-link{display:none}
 .nav-menu a.nav-mobile-only{display:block}
   /* 칸 수는 항목 수를 따라간다 — 정의 뒤에서 CORE_ITEMS로 채운다 */
-  .nav{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));width:100%}
+  .nav{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));width:100%}
   .nav>a,.nav-more>summary{justify-content:center;padding:11px 2px;font-size:11.5px;
   letter-spacing:-.4px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
   .nav-more{position:static;min-width:0}
@@ -227,6 +227,9 @@
 @media(max-width:360px){
   .nav>a,.nav-more>summary{font-size:12px;padding:12px 1px}
 }
+@media(max-width:560px){
+  nav.nav>a,nav.nav>.nav-more>summary{font-size:min(13px,3.1vw);letter-spacing:-.7px;padding:12px 0}
+}
 </style>
 <style id="soonsal-nav-visibility-v3">
 .nav-menu a.nav-mobile-only{display:none}
@@ -239,7 +242,7 @@
   .nav-more.mobile-active>summary{color:#F07040;border-bottom-color:#F07040}
   /* 코어 4개 + 더보기 = 5칸. 예전 CSS가 4칸이라 다섯 번째가 다음 줄로 넘어갔다.
      이 블록은 페이지마다 나중에 주입되므로 안에 박힌 옛 규칙을 덮는다. */
-  .nav{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));width:100%}
+  .nav{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));width:100%}
   .nav>a,.nav-more>summary{justify-content:center;padding:11px 2px;font-size:11.5px;
     letter-spacing:-.4px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 }
@@ -294,6 +297,9 @@ border-radius:50%;background:#F07040;opacity:0;transition:opacity .2s}
 }
 @media(max-width:360px){
   .nav>a,.nav-more>summary{font-size:12px;padding:12px 1px}
+}
+@media(max-width:560px){
+  nav.nav>a,nav.nav>.nav-more>summary{font-size:min(13px,3.1vw);letter-spacing:-.7px;padding:12px 0}
 }
 </style>
 <style id="soonsal-search-v1">
@@ -430,7 +436,7 @@ transition:color .18s ease,background .18s ease}
   </a>
     <a href="https://subscribe.soonsal.com/subscribe" target="_blank" class="sub-btn-header">구독하기</a>
   </div>
-<nav class="nav" aria-label="주요 메뉴"><a href="/newsletters/">뉴스레터</a><a href="/chart/">순살차트</a><a href="/cardnews/" class="active">순스타그램</a><a href="/talk/">순살톡</a><script src="/assets/ss-header.js" defer></script></nav>
+<nav class="nav" aria-label="주요 메뉴"><a href="/newsletters/">뉴스레터</a><a href="/chart/">순살차트</a><a href="/cardnews/" class="active">순스타그램</a><a href="/talk/">순살톡</a><a href="/poll/">오늘의 질문</a><script src="/assets/ss-header.js" defer></script></nav>
 <div style="max-width:800px;margin:0 auto;padding:20px 20px 0;">
   <a href="https://instagram.com/soonsal.brief" target="_blank" style="display:block;background:#1a1a1a;border:1px solid #222;border-radius:12px;padding:20px 24px;text-decoration:none;transition:border-color .2s;" onmouseover="this.style.borderColor='#E55A00'" onmouseout="this.style.borderColor='#222'">
     <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;justify-content:center;">

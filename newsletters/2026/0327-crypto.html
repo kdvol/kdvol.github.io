@@ -544,7 +544,7 @@ transition:color .18s ease,background .18s ease}
 .nav>a.nav-desktop-link{display:none}
 .nav-menu a.nav-mobile-only{display:block}
   /* 칸 수는 항목 수를 따라간다 — 정의 뒤에서 CORE_ITEMS로 채운다 */
-  .nav{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));width:100%}
+  .nav{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));width:100%}
   .nav>a,.nav-more>summary{justify-content:center;padding:11px 2px;font-size:11.5px;
   letter-spacing:-.4px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
   .nav-more{position:static;min-width:0}
@@ -569,6 +569,9 @@ transition:color .18s ease,background .18s ease}
 @media(max-width:360px){
   .nav>a,.nav-more>summary{font-size:12px;padding:12px 1px}
 }
+@media(max-width:560px){
+  nav.nav>a,nav.nav>.nav-more>summary{font-size:min(13px,3.1vw);letter-spacing:-.7px;padding:12px 0}
+}
 
 .sec-head{margin:0 0 26px}
 .sec-kicker{display:flex;align-items:center;gap:9px;margin:0 0 12px;color:#bdb6aa;
@@ -587,7 +590,7 @@ line-height:1.25;color:#fff;word-break:keep-all}
 .ss-nlhead .nav{background:#111}
 /* 메일용 「웹에서 보기 · 지난 호」 — 웹에선 지금 그 페이지고, 지난 호는 위 탭이 한다 */
 .hello-web{display:none}
-</style><div class="ss-nlhead"><header class="site-header"><a href="/search/" class="search-btn-header" aria-label="검색"><svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.6-3.6"/></svg></a><a class="logo-link" href="/"><img src="/assets/soonsal-logo-white.png" alt="" onerror="this.style.display='none'"><span class="logo-text"><span class="ss-ko">순살브리핑</span> <span class="ss-yes">Soonsal</span></span></a><a href="https://subscribe.soonsal.com/subscribe" target="_blank" rel="noopener" class="sub-btn-header">구독하기</a></header><nav class="nav" aria-label="주요 메뉴"><a href="/newsletters/" class="active">뉴스레터</a><a href="/chart/">순살차트</a><a href="/cardnews/">순스타그램</a><a href="/talk/">순살톡</a><script src="/assets/ss-header.js" defer></script></nav></div><!-- soonsal:nl-header:end -->
+</style><div class="ss-nlhead"><header class="site-header"><a href="/search/" class="search-btn-header" aria-label="검색"><svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.6-3.6"/></svg></a><a class="logo-link" href="/"><img src="/assets/soonsal-logo-white.png" alt="" onerror="this.style.display='none'"><span class="logo-text"><span class="ss-ko">순살브리핑</span> <span class="ss-yes">Soonsal</span></span></a><a href="https://subscribe.soonsal.com/subscribe" target="_blank" rel="noopener" class="sub-btn-header">구독하기</a></header><nav class="nav" aria-label="주요 메뉴"><a href="/newsletters/" class="active">뉴스레터</a><a href="/chart/">순살차트</a><a href="/cardnews/">순스타그램</a><a href="/talk/">순살톡</a><a href="/poll/">오늘의 질문</a><script src="/assets/ss-header.js" defer></script></nav></div><!-- soonsal:nl-header:end -->
 <!-- BACK TO LETTERS -->
 <div style="max-width:680px;margin:0 auto;padding:14px 16px 2px;" id="back-to-letters">
   <a href="https://soonsal.com" style="display:inline-flex;align-items:center;gap:7px;font-family:'Apple SD Gothic Neo','Malgun Gothic',sans-serif;font-size:13px;font-weight:700;color:#C24A00;text-decoration:none;padding:7px 15px 7px 13px;border-radius:999px;background:#FFF3EC;border:1px solid #F3CBB2;line-height:1;transition:background .16s ease,color .16s ease,border-color .16s ease" onmouseover="this.style.background='#F07040';this.style.color='#fff';this.style.borderColor='#F07040'" onmouseout="this.style.background='#FFF3EC';this.style.color='#C24A00';this.style.borderColor='#F3CBB2'">← 순살 홈</a>

@@ -1,51 +1,111 @@
 <!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>오늘의 질문 — 순살러들이 고른 답 | 순살브리핑</title>
-<meta name="description" content="순살브리핑이 매일 하나씩 묻는 「오늘의 질문」과 독자들이 고른 답을 모았습니다."/>
+<meta name="description" content="오늘의 질문: 회사가 적자여도 전망 좋으면 투자할래? — 순살러들이 매일 하나씩 고르는 질문, 너라면?"/>
 <link rel="canonical" href="https://soonsal.com/poll/"/>
 <meta property="og:type" content="website"/>
-<meta property="og:title" content="오늘의 질문 — 순살러들이 고른 답"/>
-<meta property="og:description" content="순살브리핑이 매일 하나씩 묻는 「오늘의 질문」과 독자들이 고른 답을 모았습니다."/>
+<meta property="og:title" content="🗳️ 오늘의 질문 — 너라면?"/>
+<meta property="og:description" content="회사가 적자여도 전망 좋으면 투자할래?"/>
 <meta property="og:url" content="https://soonsal.com/poll/"/>
+<meta property="og:image" content="https://soonsal.com/share/1023-3.jpg"/>
+<meta name="twitter:card" content="summary_large_image"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/><link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700;800&family=Yeseva+One&display=swap" rel="stylesheet"/>
 <script src="/ss-config.js"></script>
 <style>
 *{box-sizing:border-box}
 body{margin:0;background:#111;color:#e8e3da;font-family:Pretendard,-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo',sans-serif;
 -webkit-font-smoothing:antialiased}
-.wrap{max-width:720px;margin:0 auto;padding:30px 16px 80px}
-.sum{color:#a39c90;font-size:.92rem;margin:-8px 0 16px}.sum b{color:#f6f1e8;font-variant-numeric:tabular-nums}
-.sort{display:flex;gap:6px;margin:0 0 18px;overflow-x:auto}
+.wrap{max-width:720px;margin:0 auto;padding:30px 16px 90px}
+button{font-family:inherit}
+button:focus-visible,a:focus-visible{outline:2px solid #F59B75;outline-offset:2px}
+
+/* ── 맨 위 큰 카드: 오늘의 질문 ── */
+.hero{position:relative;margin:4px 0 22px;padding:22px 20px 18px;border-radius:20px;overflow:hidden;
+background:radial-gradient(120% 90% at 100% 0%,rgba(240,112,64,.22),transparent 60%),#1b1512;border:1px solid #5a3524}
+.hero .hk{display:flex;align-items:center;justify-content:space-between;gap:10px;font-size:12.5px;font-weight:700;color:#bdb6aa}
+.hero .live{display:inline-flex;align-items:center;gap:7px;color:#12100e;background:#F07040;border-radius:999px;padding:4px 10px;font-weight:800}
+.hero .live i{width:7px;height:7px;border-radius:50%;background:#12100e;animation:pulse 1.6s ease-in-out infinite}
+.hero .live.past{background:#3a2f27;color:#e8e3da}.hero .live.past i{background:#F59B75}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.25}}
+.hero .hq{margin:14px 0 18px;font-size:clamp(21px,5.6vw,27px);font-weight:800;line-height:1.38;color:#fff;
+letter-spacing:-.03em;word-break:keep-all;text-wrap:balance}
+.hero .hb{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.hero .hb button{min-height:58px;border-radius:16px;border:1.5px solid #F07040;background:rgba(240,112,64,.08);color:#fff;
+font-size:16px;font-weight:800;cursor:pointer;padding:8px 10px;line-height:1.3;word-break:keep-all;transition:transform .12s,background .15s}
+.hero .hb button+button{border-color:#8b8578;background:rgba(255,255,255,.04)}
+.hero .hb button:hover{background:#F07040;color:#12100e}
+.hero .hb button+button:hover{background:#e8e3da;color:#12100e}
+.hero .hb button:active{transform:scale(.97)}
+.hero .hint{margin:12px 0 0;font-size:13px;color:#a39c90}
+.hero .hint b{color:#f6f1e8;font-variant-numeric:tabular-nums}
+.hero .rs{display:grid;gap:9px}
+.hero .rs div{margin:0;position:relative;height:50px;border-radius:14px;background:#2a221d;overflow:hidden;display:flex;align-items:center;
+padding:0 16px;font-size:16px;font-weight:800}
+.hero .rs i{position:absolute;left:0;top:0;bottom:0;width:0;background:#6b3f2b;transition:width .7s cubic-bezier(.2,.8,.2,1)}
+.hero .rs .me i{background:#F07040}.hero .rs .me span{color:#12100e}
+.hero .rs span{position:relative;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.hero .rs b{position:relative;font-size:18px;font-variant-numeric:tabular-nums;color:#fff}
+.hero .badge{display:inline-flex;align-items:center;gap:6px;margin:14px 0 2px;padding:7px 12px;border-radius:999px;
+font-size:13.5px;font-weight:800;background:#2a221d;color:#f6f1e8}
+.hero .badge.min{background:#33261d;color:#F59B75}
+.hero .meta{font-size:12.5px;color:#a39c90;margin-top:8px}
+.hero .meta a{color:#F59B75}
+.hero .st{display:block;margin-top:14px;padding-top:13px;border-top:1px solid #3a2f27;color:#cfc8bc;font-size:14px;text-decoration:none;line-height:1.5}
+.hero .st b{color:#F07040}
+
+/* 친구에게 묻기 */
+.share{margin-top:16px;padding:14px;border-radius:14px;background:#141110;border:1px solid #2e2620}
+.share p{margin:0 0 10px;font-size:14px;font-weight:800;color:#f6f1e8}
+.share .row{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.share button{display:flex;flex-direction:column;align-items:center;gap:5px;padding:10px 4px;border-radius:12px;border:1px solid #2e2620;
+background:#1b1715;color:#e8e3da;font-size:12px;font-weight:700;cursor:pointer}
+.share button:hover{border-color:#F07040}
+.share button svg{width:22px;height:22px}
+.share .kk svg{color:#FEE500}
+
+/* 내 기록 (.me 는 내가 고른 막대라 이름을 따로) */
+.mystat{display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px;margin:0 0 26px;padding:14px 16px;border-radius:14px;
+background:#161412;border:1px solid #26221e;font-size:13.5px;color:#bdb6aa}
+.mystat b{color:#f6f1e8;font-variant-numeric:tabular-nums}
+.mystat[hidden]{display:none}
+.mystat button{margin-left:auto;border:0;background:none;color:#F59B75;font-weight:800;font-size:13.5px;cursor:pointer;padding:0}
+
+/* 지난 질문 */
+.lh{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin:8px 0 12px}
+.lh h2{margin:0;font-size:13px;font-weight:800;letter-spacing:.08em;color:#d6d0c5}
+.sum{color:#8b8578;font-size:12.5px}.sum b{color:#cfc8bc;font-variant-numeric:tabular-nums}
+.sort{display:flex;gap:6px;margin:0 0 14px;overflow-x:auto;scrollbar-width:none}
+.sort::-webkit-scrollbar{display:none}
 .sort button{flex:0 0 auto;height:34px;padding:0 14px;border-radius:999px;border:1px solid #2e2924;background:transparent;
-color:#bdb6aa;font:700 13px Pretendard,sans-serif;cursor:pointer}
+color:#bdb6aa;font-weight:700;font-size:13px;cursor:pointer}
 .sort button.on{background:#F07040;border-color:#F07040;color:#12100e}
-.sort button:focus-visible,.pc button:focus-visible{outline:2px solid #F59B75;outline-offset:2px}
 #list{display:grid;gap:12px}
-.pc{background:#171513;border:1px solid #26221e;border-radius:16px;padding:18px 18px 14px}
-.pc.now{border-color:#5a3524;background:#1a1512}
-.pc .dt{display:flex;align-items:center;gap:8px;font-size:12px;font-weight:700;color:#8b8578;letter-spacing:.02em}
-.pc .dt em{font-style:normal;color:#12100e;background:#F07040;border-radius:999px;padding:2px 8px;font-size:11px}
-.pc .q{margin:6px 0 12px;font-size:17px;font-weight:800;line-height:1.45;color:#f6f1e8;letter-spacing:-.02em;word-break:keep-all;text-wrap:balance}
-.pc .bt{display:flex;gap:8px}
-.pc .bt button{flex:1;min-height:42px;border-radius:999px;border:1px solid #3a332c;background:transparent;color:#e8e3da;
-font:700 14px Pretendard,sans-serif;cursor:pointer;padding:0 10px}
-.pc .bt button:hover{border-color:#F07040;color:#F59B75}
+.pc{background:#171513;border:1px solid #26221e;border-radius:16px;padding:16px 16px 12px;scroll-margin-top:90px}
+.pc.flash{animation:flash 1.6s ease}
+@keyframes flash{0%,40%{border-color:#F07040;box-shadow:0 0 0 3px rgba(240,112,64,.25)}100%{border-color:#26221e;box-shadow:none}}
+.pc .top{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.pc .dt{font-size:12px;font-weight:700;color:#8b8578}
+.pc .sh{border:0;background:none;color:#8b8578;cursor:pointer;padding:4px;border-radius:8px;display:flex}
+.pc .sh:hover{color:#F59B75}
+.pc .q{margin:6px 0 12px;font-size:16.5px;font-weight:800;line-height:1.45;color:#f6f1e8;letter-spacing:-.02em;word-break:keep-all;text-wrap:balance}
 .pc .rs{display:grid;gap:7px}
-.pc .rs div,.pc .rs button{position:relative;width:100%;height:36px;border-radius:999px;background:#262019;overflow:hidden;
-display:flex;align-items:center;padding:0 14px;font:700 14px Pretendard,sans-serif;color:#e8e3da;border:0;text-align:left}
-.pc .rs button{cursor:pointer}
+.pc .rs div,.pc .rs button{margin:0;position:relative;width:100%;height:38px;border-radius:999px;background:#262019;overflow:hidden;
+display:flex;align-items:center;padding:0 14px;font-weight:700;font-size:14px;color:#e8e3da;border:0;text-align:left;cursor:pointer}
 .pc .rs i{position:absolute;left:0;top:0;bottom:0;background:#5a3524;transition:width .5s ease}
 .pc .rs .me i{background:#F07040}.pc .rs .me span{color:#12100e}
 .pc .rs .win:not(.me) i{background:#7a4630}
 .pc .rs span{position:relative;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .pc .rs b{position:relative;color:#f6f1e8;font-variant-numeric:tabular-nums;margin-left:8px}
 .pc .n{font-size:12px;color:#8b8578;margin-top:9px}
-.pc .n a{color:#F59B75}
-.pc .st{display:block;margin-top:10px;padding-top:10px;border-top:1px solid #26221e;color:#bdb6aa;font-size:13.5px;
-text-decoration:none;line-height:1.5}
+.pc .n em{font-style:normal;color:#F59B75;font-weight:700}
+.pc .st{display:block;margin-top:10px;padding-top:10px;border-top:1px solid #26221e;color:#bdb6aa;font-size:13.5px;text-decoration:none;line-height:1.5}
 .pc .st b{color:#F07040}.pc .st:hover{color:#f6f1e8}
+.empty{color:#8b8578;font-size:13.5px;padding:18px 4px}
 .foot{color:#6f695f;font-size:12.5px;line-height:1.6;margin-top:26px}
-@media (prefers-reduced-motion:reduce){.pc .rs i{transition:none}}
+.toast{position:fixed;left:50%;bottom:28px;transform:translate(-50%,20px);opacity:0;pointer-events:none;background:#f6f1e8;color:#12100e;
+font-weight:800;font-size:14px;padding:11px 18px;border-radius:999px;transition:opacity .2s,transform .2s;z-index:100000}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+@media (prefers-reduced-motion:reduce){.hero .rs i,.pc .rs i{transition:none}.hero .live i,.pc.flash{animation:none}}
 
 .sec-head{margin:0 0 26px}
 .sec-kicker{display:flex;align-items:center;gap:9px;margin:0 0 12px;color:#bdb6aa;
@@ -66,7 +126,7 @@ line-height:1.25;color:#fff;word-break:keep-all}
   .nav-more.mobile-active>summary{color:#F07040;border-bottom-color:#F07040}
   /* 코어 4개 + 더보기 = 5칸. 예전 CSS가 4칸이라 다섯 번째가 다음 줄로 넘어갔다.
      이 블록은 페이지마다 나중에 주입되므로 안에 박힌 옛 규칙을 덮는다. */
-  .nav{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));width:100%}
+  .nav{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));width:100%}
   .nav>a,.nav-more>summary{justify-content:center;padding:11px 2px;font-size:11.5px;
     letter-spacing:-.4px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 }
@@ -121,6 +181,9 @@ border-radius:50%;background:#F07040;opacity:0;transition:opacity .2s}
 }
 @media(max-width:360px){
   .nav>a,.nav-more>summary{font-size:12px;padding:12px 1px}
+}
+@media(max-width:560px){
+  nav.nav>a,nav.nav>.nav-more>summary{font-size:min(13px,3.1vw);letter-spacing:-.7px;padding:12px 0}
 }
 </style>
 <style id="soonsal-search-v1">
@@ -277,7 +340,7 @@ transition:color .18s ease,background .18s ease}
 .nav>a.nav-desktop-link{display:none}
 .nav-menu a.nav-mobile-only{display:block}
   /* 칸 수는 항목 수를 따라간다 — 정의 뒤에서 CORE_ITEMS로 채운다 */
-  .nav{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));width:100%}
+  .nav{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));width:100%}
   .nav>a,.nav-more>summary{justify-content:center;padding:11px 2px;font-size:11.5px;
   letter-spacing:-.4px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
   .nav-more{position:static;min-width:0}
@@ -302,6 +365,9 @@ transition:color .18s ease,background .18s ease}
 @media(max-width:360px){
   .nav>a,.nav-more>summary{font-size:12px;padding:12px 1px}
 }
+@media(max-width:560px){
+  nav.nav>a,nav.nav>.nav-more>summary{font-size:min(13px,3.1vw);letter-spacing:-.7px;padding:12px 0}
+}
 
 .sec-head{margin:0 0 26px}
 .sec-kicker{display:flex;align-items:center;gap:9px;margin:0 0 12px;color:#bdb6aa;
@@ -311,69 +377,140 @@ font-size:11px;font-weight:800;letter-spacing:.08em}
 line-height:1.25;color:#fff;word-break:keep-all}
 .sec-head .deck{margin:10px 0 0;color:#8b8578;font-size:.92rem;line-height:1.65;word-break:keep-all}
 @media(max-width:560px){.sec-head h1{font-size:1.42rem}}
-.logo-text .ss-yes{font-family:"Yeseva One",Georgia,"Times New Roman",serif;font-weight:400;letter-spacing:.01em}.logo-text .ss-ko{font-weight:800}</style><header class="site-header"><a href="/search/" class="search-btn-header" aria-label="검색"><svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.6-3.6"/></svg></a><a class="logo-link" href="/"><img src="/assets/soonsal-logo-white.png" alt="" onerror="this.style.display='none'"><span class="logo-text"><span class="ss-ko">순살브리핑</span> <span class="ss-yes">Soonsal</span></span></a><a href="https://subscribe.soonsal.com/subscribe" target="_blank" rel="noopener" class="sub-btn-header">구독하기</a></header><nav class="nav" aria-label="주요 메뉴"><a href="/newsletters/">뉴스레터</a><a href="/chart/">순살차트</a><a href="/cardnews/">순스타그램</a><a href="/talk/">순살톡</a><script src="/assets/ss-header.js" defer></script></nav>
+.logo-text .ss-yes{font-family:"Yeseva One",Georgia,"Times New Roman",serif;font-weight:400;letter-spacing:.01em}.logo-text .ss-ko{font-weight:800}</style><header class="site-header"><a href="/search/" class="search-btn-header" aria-label="검색"><svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.6-3.6"/></svg></a><a class="logo-link" href="/"><img src="/assets/soonsal-logo-white.png" alt="" onerror="this.style.display='none'"><span class="logo-text"><span class="ss-ko">순살브리핑</span> <span class="ss-yes">Soonsal</span></span></a><a href="https://subscribe.soonsal.com/subscribe" target="_blank" rel="noopener" class="sub-btn-header">구독하기</a></header><nav class="nav" aria-label="주요 메뉴"><a href="/newsletters/">뉴스레터</a><a href="/chart/">순살차트</a><a href="/cardnews/">순스타그램</a><a href="/talk/">순살톡</a><a href="/poll/" class="active">오늘의 질문</a><script src="/assets/ss-header.js" defer></script></nav>
 <div class="wrap">
 <div class="sec-head"><div class="sec-kicker">순살러들이 고른 답</div><h1>오늘의 질문</h1><p class="deck">매일 브리핑에서 하나씩 묻고, 고른 답이 여기 쌓임</p></div>
-<div class="sum" id="sum">질문 <b>10</b>개 · 지금까지 <b>80</b>표</div>
+<section class="hero" id="hero" aria-label="오늘의 질문"><div class="hk"><span class="live"><i></i>오늘의 질문</span><span>10월 23일 금요일</span></div><h2 class="hq">회사가 적자여도 전망 좋으면 투자할래?</h2><div class="hb"><button type="button">투자한다</button><button type="button">안 한다</button></div></section>
+<div class="mystat" id="mystat" hidden></div>
+<div class="lh"><h2>지난 질문</h2><span class="sum" id="sum">질문 <b>11</b>개 · 지금까지 <b>82</b>표</span></div>
 <div class="sort" id="sort" role="tablist" aria-label="정렬">
-<button type="button" data-s="new" class="on">최신순</button><button type="button" data-s="hot">많이 참여한</button><button type="button" data-s="tie">팽팽했던</button>
+<button type="button" data-s="new" class="on">최신순</button><button type="button" data-s="hot">많이 참여한</button><button type="button" data-s="tie">팽팽했던</button><button type="button" data-s="todo">안 고른 것</button>
 </div>
-<div id="list"><article class="pc" data-day="2026-10-22"><div class="dt">10월 22일 목요일</div><h2 class="q">AI가 몰래 감시 꺼도 일 잘하면 괜찮다?</h2><div class="rs"><div><span>괜찮다</span><b>8%</b></div><div><span>안 괜찮다</span><b>92%</b></div></div><div class="n">12명 참여</div><a class="st" href="/newsletters/2026/1022.html#story-5">📰 감시 장치 끈 AI, 물어보니 &#x27;안 껐음&#x27; <b>→</b></a></article><article class="pc" data-day="2026-10-21"><div class="dt">10월 21일 수요일</div><h2 class="q">집에서 술 담그다 걸리면 징역 5년, 너무하다고 생각해?</h2><div class="rs"><div><span>너무하다</span><b>100%</b></div><div><span>그럴만하다</span><b>0%</b></div></div><div class="n">8명 참여</div><a class="st" href="/newsletters/2026/1021.html#story-5">📰 맥주는 되고 위스키는 징역, 대법원 간다 <b>→</b></a></article><article class="pc" data-day="2026-10-20"><div class="dt">10월 20일 화요일</div><h2 class="q">소고기 값이 계속 오르면 덜 먹을 것 같다?</h2><div class="rs"><div><span>그렇다</span><b>93%</b></div><div><span>아니다</span><b>7%</b></div></div><div class="n">14명 참여</div><a class="st" href="/newsletters/2026/1020.html#story-4">📰 관세는 0% 됐는데 미국에 소가 없음 <b>→</b></a></article><article class="pc" data-day="2026-10-19"><div class="dt">10월 19일 월요일</div><h2 class="q">회사 그만두고 배당금으로 먹고살 수 있다면?</h2><div class="rs"><div><span>해본다</span><b>75%</b></div><div><span>무섭다</span><b>25%</b></div></div><div class="n">16명 참여</div><a class="st" href="/newsletters/2026/1019.html#story-5">📰 배당으로 퇴사했는데 원금이 녹는 중 <b>→</b></a></article><article class="pc" data-day="2026-10-16"><div class="dt">10월 16일 금요일</div><h2 class="q">내 주식 계좌도 오늘 많이 빠졌을까?</h2><div class="rs"><div><span>많이 빠짐</span><b>85%</b></div><div><span>괜찮은 편</span><b>15%</b></div></div><div class="n">13명 참여</div><a class="st" href="/newsletters/2026/1016.html#story-1">📰 AI 거품 걱정, 한국이 제일 먼저 맞는 이유 <b>→</b></a></article><article class="pc" data-day="2026-10-15"><div class="dt">10월 15일 목요일</div><h2 class="q">넷플릭스가 잘 큰다면서 자르는 거, 이해돼?</h2><div class="rs"><div><span>이해된다</span><b>100%</b></div><div><span>이상하다</span><b>0%</b></div></div><div class="n">4명 참여</div><a class="st" href="/newsletters/2026/1015.html#story-4">📰 잘 큰다면서 1,000명 자르는 넷플릭스 <b>→</b></a></article><article class="pc" data-day="2026-10-14"><div class="dt">10월 14일 수요일</div><h2 class="q">내 노후, 지금 부모님보다 넉넉할까?</h2><div class="rs"><div><span>그럴 것 같다</span><b>0%</b></div><div><span>안 그럴 듯</span><b>100%</b></div></div><div class="n">2명 참여</div><a class="st" href="/newsletters/2026/1014.html#story-4">📰 35세 미만보다 15배 부자인 미국 75세들 <b>→</b></a></article><article class="pc" data-day="2026-10-13"><div class="dt">10월 13일 화요일</div><h2 class="q">나라면 손님 줄어도 밀크티 가게 열까?</h2><div class="rs"><div><span>열 것 같다</span><b>0%</b></div><div><span>안 열 것 같다</span><b>100%</b></div></div><div class="n">1명 참여</div><a class="st" href="/newsletters/2026/1013.html#story-1">📰 밀크티 가게 이기고 중국 손님 잃은 루이비통 <b>→</b></a></article><article class="pc" data-day="2026-10-12"><div class="dt">10월 12일 월요일</div><h2 class="q">스벅 돈으로 치폴레 산다면?</h2><div class="rs"><div><span>잘한 선택</span><b>0%</b></div><div><span>무리한 베팅</span><b>100%</b></div></div><div class="n">7명 참여</div><a class="st" href="/newsletters/2026/1012.html#story-3">📰 친정을 사들이려는 스타벅스 사장님 <b>→</b></a></article><article class="pc" data-day="2026-10-08"><div class="dt">10월 8일 목요일</div><h2 class="q">AI가 나한테도 비싼 값 보여줄까?</h2><div class="rs"><div><span>그럴 것 같다</span><b>67%</b></div><div><span>안 그럴 듯</span><b>33%</b></div></div><div class="n">3명 참여</div><a class="st" href="/newsletters/2026/1008.html#story-2">📰 부자한테는 비싼 표 골라주는 AI 비서 <b>→</b></a></article></div>
-<p class="foot">질문은 매일 아침 브리핑 스토리 하나에서 나옵니다. 고른 답은 이 브라우저에 표시되고, 다시 눌러 바꿀 수 있어요.</p>
+<div id="list"><article class="pc" id="d-2026-10-22"><div class="dt">10월 22일 목요일</div><h2 class="q">AI가 몰래 감시 꺼도 일 잘하면 괜찮다?</h2><div class="rs"><div><span>괜찮다</span><b>8%</b></div><div><span>안 괜찮다</span><b>92%</b></div></div><div class="n">12명 참여</div><a class="st" href="/newsletters/2026/1022.html#story-5">📰 감시 장치 끈 AI, 물어보니 &#x27;안 껐음&#x27; <b>→</b></a></article><article class="pc" id="d-2026-10-21"><div class="dt">10월 21일 수요일</div><h2 class="q">집에서 술 담그다 걸리면 징역 5년, 너무하다고 생각해?</h2><div class="rs"><div><span>너무하다</span><b>100%</b></div><div><span>그럴만하다</span><b>0%</b></div></div><div class="n">8명 참여</div><a class="st" href="/newsletters/2026/1021.html#story-5">📰 맥주는 되고 위스키는 징역, 대법원 간다 <b>→</b></a></article><article class="pc" id="d-2026-10-20"><div class="dt">10월 20일 화요일</div><h2 class="q">소고기 값이 계속 오르면 덜 먹을 것 같다?</h2><div class="rs"><div><span>그렇다</span><b>93%</b></div><div><span>아니다</span><b>7%</b></div></div><div class="n">14명 참여</div><a class="st" href="/newsletters/2026/1020.html#story-4">📰 관세는 0% 됐는데 미국에 소가 없음 <b>→</b></a></article><article class="pc" id="d-2026-10-19"><div class="dt">10월 19일 월요일</div><h2 class="q">회사 그만두고 배당금으로 먹고살 수 있다면?</h2><div class="rs"><div><span>해본다</span><b>75%</b></div><div><span>무섭다</span><b>25%</b></div></div><div class="n">16명 참여</div><a class="st" href="/newsletters/2026/1019.html#story-5">📰 배당으로 퇴사했는데 원금이 녹는 중 <b>→</b></a></article><article class="pc" id="d-2026-10-16"><div class="dt">10월 16일 금요일</div><h2 class="q">내 주식 계좌도 오늘 많이 빠졌을까?</h2><div class="rs"><div><span>많이 빠짐</span><b>85%</b></div><div><span>괜찮은 편</span><b>15%</b></div></div><div class="n">13명 참여</div><a class="st" href="/newsletters/2026/1016.html#story-1">📰 AI 거품 걱정, 한국이 제일 먼저 맞는 이유 <b>→</b></a></article><article class="pc" id="d-2026-10-15"><div class="dt">10월 15일 목요일</div><h2 class="q">넷플릭스가 잘 큰다면서 자르는 거, 이해돼?</h2><div class="rs"><div><span>이해된다</span><b>100%</b></div><div><span>이상하다</span><b>0%</b></div></div><div class="n">4명 참여</div><a class="st" href="/newsletters/2026/1015.html#story-4">📰 잘 큰다면서 1,000명 자르는 넷플릭스 <b>→</b></a></article><article class="pc" id="d-2026-10-14"><div class="dt">10월 14일 수요일</div><h2 class="q">내 노후, 지금 부모님보다 넉넉할까?</h2><div class="rs"><div><span>그럴 것 같다</span><b>0%</b></div><div><span>안 그럴 듯</span><b>100%</b></div></div><div class="n">2명 참여</div><a class="st" href="/newsletters/2026/1014.html#story-4">📰 35세 미만보다 15배 부자인 미국 75세들 <b>→</b></a></article><article class="pc" id="d-2026-10-13"><div class="dt">10월 13일 화요일</div><h2 class="q">나라면 손님 줄어도 밀크티 가게 열까?</h2><div class="rs"><div><span>열 것 같다</span><b>0%</b></div><div><span>안 열 것 같다</span><b>100%</b></div></div><div class="n">1명 참여</div><a class="st" href="/newsletters/2026/1013.html#story-1">📰 밀크티 가게 이기고 중국 손님 잃은 루이비통 <b>→</b></a></article><article class="pc" id="d-2026-10-12"><div class="dt">10월 12일 월요일</div><h2 class="q">스벅 돈으로 치폴레 산다면?</h2><div class="rs"><div><span>잘한 선택</span><b>0%</b></div><div><span>무리한 베팅</span><b>100%</b></div></div><div class="n">7명 참여</div><a class="st" href="/newsletters/2026/1012.html#story-3">📰 친정을 사들이려는 스타벅스 사장님 <b>→</b></a></article><article class="pc" id="d-2026-10-08"><div class="dt">10월 8일 목요일</div><h2 class="q">AI가 나한테도 비싼 값 보여줄까?</h2><div class="rs"><div><span>그럴 것 같다</span><b>67%</b></div><div><span>안 그럴 듯</span><b>33%</b></div></div><div class="n">3명 참여</div><a class="st" href="/newsletters/2026/1008.html#story-2">📰 부자한테는 비싼 표 골라주는 AI 비서 <b>→</b></a></article></div>
+<p class="foot">질문은 매일 아침 브리핑 스토리 하나에서 나와요. 고른 답은 이 브라우저에 표시되고, 다시 눌러 바꿀 수 있어요.</p>
 </div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
 <script src="/soonsal.js" defer></script>
 <script>
-var POLLS = [{"day": "2026-10-22", "q": "AI가 몰래 감시 꺼도 일 잘하면 괜찮다?", "a": "괜찮다", "b": "안 괜찮다", "na": 1, "nb": 11, "t": "감시 장치 끈 AI, 물어보니 '안 껐음'", "u": "/newsletters/2026/1022.html#story-5"}, {"day": "2026-10-21", "q": "집에서 술 담그다 걸리면 징역 5년, 너무하다고 생각해?", "a": "너무하다", "b": "그럴만하다", "na": 8, "nb": 0, "t": "맥주는 되고 위스키는 징역, 대법원 간다", "u": "/newsletters/2026/1021.html#story-5"}, {"day": "2026-10-20", "q": "소고기 값이 계속 오르면 덜 먹을 것 같다?", "a": "그렇다", "b": "아니다", "na": 13, "nb": 1, "t": "관세는 0% 됐는데 미국에 소가 없음", "u": "/newsletters/2026/1020.html#story-4"}, {"day": "2026-10-19", "q": "회사 그만두고 배당금으로 먹고살 수 있다면?", "a": "해본다", "b": "무섭다", "na": 12, "nb": 4, "t": "배당으로 퇴사했는데 원금이 녹는 중", "u": "/newsletters/2026/1019.html#story-5"}, {"day": "2026-10-16", "q": "내 주식 계좌도 오늘 많이 빠졌을까?", "a": "많이 빠짐", "b": "괜찮은 편", "na": 11, "nb": 2, "t": "AI 거품 걱정, 한국이 제일 먼저 맞는 이유", "u": "/newsletters/2026/1016.html#story-1"}, {"day": "2026-10-15", "q": "넷플릭스가 잘 큰다면서 자르는 거, 이해돼?", "a": "이해된다", "b": "이상하다", "na": 4, "nb": 0, "t": "잘 큰다면서 1,000명 자르는 넷플릭스", "u": "/newsletters/2026/1015.html#story-4"}, {"day": "2026-10-14", "q": "내 노후, 지금 부모님보다 넉넉할까?", "a": "그럴 것 같다", "b": "안 그럴 듯", "na": 0, "nb": 2, "t": "35세 미만보다 15배 부자인 미국 75세들", "u": "/newsletters/2026/1014.html#story-4"}, {"day": "2026-10-13", "q": "나라면 손님 줄어도 밀크티 가게 열까?", "a": "열 것 같다", "b": "안 열 것 같다", "na": 0, "nb": 1, "t": "밀크티 가게 이기고 중국 손님 잃은 루이비통", "u": "/newsletters/2026/1013.html#story-1"}, {"day": "2026-10-12", "q": "스벅 돈으로 치폴레 산다면?", "a": "잘한 선택", "b": "무리한 베팅", "na": 0, "nb": 7, "t": "친정을 사들이려는 스타벅스 사장님", "u": "/newsletters/2026/1012.html#story-3"}, {"day": "2026-10-08", "q": "AI가 나한테도 비싼 값 보여줄까?", "a": "그럴 것 같다", "b": "안 그럴 듯", "na": 2, "nb": 1, "t": "부자한테는 비싼 표 골라주는 AI 비서", "u": "/newsletters/2026/1008.html#story-2"}];
+var POLLS = [{"day": "2026-10-23", "q": "회사가 적자여도 전망 좋으면 투자할래?", "a": "투자한다", "b": "안 한다", "s": "1023-3", "na": 2, "nb": 0, "t": "몸값 올라서 720억불 손해 본 앤스로픽", "u": "/newsletters/2026/1023.html#story-3"}, {"day": "2026-10-22", "q": "AI가 몰래 감시 꺼도 일 잘하면 괜찮다?", "a": "괜찮다", "b": "안 괜찮다", "s": "1022-5", "na": 1, "nb": 11, "t": "감시 장치 끈 AI, 물어보니 '안 껐음'", "u": "/newsletters/2026/1022.html#story-5"}, {"day": "2026-10-21", "q": "집에서 술 담그다 걸리면 징역 5년, 너무하다고 생각해?", "a": "너무하다", "b": "그럴만하다", "s": "1021-5", "na": 8, "nb": 0, "t": "맥주는 되고 위스키는 징역, 대법원 간다", "u": "/newsletters/2026/1021.html#story-5"}, {"day": "2026-10-20", "q": "소고기 값이 계속 오르면 덜 먹을 것 같다?", "a": "그렇다", "b": "아니다", "s": "1020-4", "na": 13, "nb": 1, "t": "관세는 0% 됐는데 미국에 소가 없음", "u": "/newsletters/2026/1020.html#story-4"}, {"day": "2026-10-19", "q": "회사 그만두고 배당금으로 먹고살 수 있다면?", "a": "해본다", "b": "무섭다", "s": "1019-5", "na": 12, "nb": 4, "t": "배당으로 퇴사했는데 원금이 녹는 중", "u": "/newsletters/2026/1019.html#story-5"}, {"day": "2026-10-16", "q": "내 주식 계좌도 오늘 많이 빠졌을까?", "a": "많이 빠짐", "b": "괜찮은 편", "s": "1016-1", "na": 11, "nb": 2, "t": "AI 거품 걱정, 한국이 제일 먼저 맞는 이유", "u": "/newsletters/2026/1016.html#story-1"}, {"day": "2026-10-15", "q": "넷플릭스가 잘 큰다면서 자르는 거, 이해돼?", "a": "이해된다", "b": "이상하다", "s": "1015-4", "na": 4, "nb": 0, "t": "잘 큰다면서 1,000명 자르는 넷플릭스", "u": "/newsletters/2026/1015.html#story-4"}, {"day": "2026-10-14", "q": "내 노후, 지금 부모님보다 넉넉할까?", "a": "그럴 것 같다", "b": "안 그럴 듯", "s": "1014-4", "na": 0, "nb": 2, "t": "35세 미만보다 15배 부자인 미국 75세들", "u": "/newsletters/2026/1014.html#story-4"}, {"day": "2026-10-13", "q": "나라면 손님 줄어도 밀크티 가게 열까?", "a": "열 것 같다", "b": "안 열 것 같다", "s": "1013-1", "na": 0, "nb": 1, "t": "밀크티 가게 이기고 중국 손님 잃은 루이비통", "u": "/newsletters/2026/1013.html#story-1"}, {"day": "2026-10-12", "q": "스벅 돈으로 치폴레 산다면?", "a": "잘한 선택", "b": "무리한 베팅", "s": "1012-3", "na": 0, "nb": 7, "t": "친정을 사들이려는 스타벅스 사장님", "u": "/newsletters/2026/1012.html#story-3"}, {"day": "2026-10-08", "q": "AI가 나한테도 비싼 값 보여줄까?", "a": "그럴 것 같다", "b": "안 그럴 듯", "s": "1008-2", "na": 2, "nb": 1, "t": "부자한테는 비싼 표 골라주는 AI 비서", "u": "/newsletters/2026/1008.html#story-2"}];
 
 (function(){
-  var API='https://api.soonsal.com',list=document.getElementById('list'),sortBy='new';
+  var API='https://api.soonsal.com',BASE='https://soonsal.com',KAKAO='d0bec18d3bfd804f9d714e562a93ae70';
+  var hero=document.getElementById('hero'),list=document.getElementById('list'),meBox=document.getElementById('mystat'),sortBy='new';
   function lsg(k){try{return localStorage.getItem(k)}catch(e){return null}}
   function lss(k,v){try{localStorage.setItem(k,v)}catch(e){}}
   function esc(v){return String(v==null?'':v).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
-  var WD='일월화수목금토',latest=POLLS.length?POLLS[0].day:'';
+  var WD='일월화수목금토';
+  function dl(d){return (+d.slice(5,7))+'월 '+(+d.slice(8,10))+'일 '+WD[new Date(Date.UTC(+d.slice(0,4),+d.slice(5,7)-1,+d.slice(8,10))).getUTCDay()]+'요일'}
   function mine(p){return parseInt(lsg('ss_poll_'+p.day)||'0',10)||0}
-  function card(p){
-    var m=mine(p),n=p.na+p.nb,pa=n?Math.round(p.na*100/n):0,pb=n?100-pa:0,now=p.day===latest;
-    var dl=(+p.day.slice(5,7))+'월 '+(+p.day.slice(8,10))+'일 '+WD[new Date(Date.UTC(+p.day.slice(0,4),+p.day.slice(5,7)-1,+p.day.slice(8,10))).getUTCDay()]+'요일';
-    var h='<article class="pc'+(now?' now':'')+'" data-day="'+p.day+'"><div class="dt">'+(now?'<em>오늘의 질문</em>':'')+dl+'</div>'+
-      '<h2 class="q">'+esc(p.q)+'</h2>';
-    if(now&&!m){
-      h+='<div class="bt"><button type="button" data-c="1">'+esc(p.a)+'</button><button type="button" data-c="2">'+esc(p.b)+'</button></div>'+
-        '<div class="n">누르면 다른 순살러들 선택이 보여요'+(n?' · '+n+'명 참여':'')+'</div>';
-    }else{
-      var row=function(c,label,pct,cnt){var cls=(m===c?'me ':'')+((c===1?p.na>p.nb:p.nb>p.na)?'win':'');
-        return '<button type="button" data-c="'+c+'" class="'+cls+'" aria-pressed="'+(m===c)+'" aria-label="'+esc(label)+' '+pct+'퍼센트, '+cnt+'명">'+
-          '<i style="width:'+pct+'%"></i><span>'+esc(label)+(m===c?' ✓':'')+'</span><b>'+pct+'%</b></button>'};
-      h+='<div class="rs">'+row(1,p.a,pa,p.na)+row(2,p.b,pb,p.nb)+'</div>'+
-        '<div class="n">'+(n?n+'명 참여':'아직 아무도 안 골랐어요 — 첫 표를 던져 보세요')+(m?' · 내 답 ✓ (다시 누르면 바꿔요)':(n?' · 눌러서 내 답 더하기':''))+'</div>';
-    }
-    if(p.u)h+='<a class="st" href="'+esc(p.u)+'">📰 '+esc(p.t)+' <b>→</b></a>';
-    return h+'</article>';
+  function pct(p){var n=p.na+p.nb,a=n?Math.round(p.na*100/n):0;return [a,n?100-a:0,n]}
+  // 스토리 id → 뉴스레터 주소 (1023-3 → /newsletters/2026/1023.html#story-3, 1023c-2 → …/1023-crypto.html#story-2)
+  function storyUrl(p){if(p.u)return p.u;var m=String(p.s||'').match(/^(\d{4})(c?)-(\d{1,2})$/);if(!m)return '';
+    return '/newsletters/'+p.day.slice(0,4)+'/'+m[1]+(m[2]?'-crypto':'')+'.html#story-'+m[3]}
+  var latest=POLLS.length?POLLS[0].day:'';
+  function heroDay(){var m=location.hash.match(/^#d-(\d{4}-\d{2}-\d{2})$/);
+    if(m&&POLLS.some(function(p){return p.day===m[1]}))return m[1];return latest}
+  function find(d){return POLLS.filter(function(p){return p.day===d})[0]}
+  function toast(t){var el=document.getElementById('toast');el.textContent=t;el.classList.add('on');clearTimeout(el._t);el._t=setTimeout(function(){el.classList.remove('on')},1800)}
+
+  // ── 공유 ──
+  function link(p){return BASE+'/poll/#d-'+p.day}
+  function shareText(p){var m=mine(p),r=pct(p);
+    if(m&&r[2]){var w=m===1?p.a:p.b,pc=m===1?r[0]:r[1];return '🗳️ '+p.q+'\n나는 「'+w+'」 — 순살러 '+r[2]+'명 중 '+pc+'%가 같은 답. 너는?'}
+    return '🗳️ '+p.q+'\n'+p.a+' vs '+p.b+' — 너라면?'}
+  function kakaoSdk(cb){if(window.Kakao&&Kakao.Share){if(!Kakao.isInitialized())Kakao.init(KAKAO);return cb()}
+    var s=document.createElement('script');s.src='https://t1.kakaocdn.net/kakao_js_sdk/2.7.4/kakao.min.js';s.crossOrigin='anonymous';
+    s.onload=function(){try{if(!Kakao.isInitialized())Kakao.init(KAKAO);cb()}catch(e){toast('카톡을 못 불러왔어요 — 링크 복사를 써 주세요')}};s.onerror=function(){toast('카톡을 못 불러왔어요 — 링크 복사를 써 주세요')};document.head.appendChild(s)}
+  function kakao(p){var u=link(p),img=/^\d{4}c?-\d{1,2}$/.test(p.s||'')?BASE+'/share/'+p.s+'.jpg':BASE+'/og-default.png',r=pct(p);
+    kakaoSdk(function(){Kakao.Share.sendDefault({objectType:'feed',
+      content:{title:'🗳️ '+p.q,description:(r[2]?'순살러 '+r[2]+'명이 골랐어요 · ':'')+p.a+' vs '+p.b+' — 너라면?',imageUrl:img,imageWidth:1200,imageHeight:630,
+        link:{mobileWebUrl:u,webUrl:u}},buttons:[{title:'나도 고르기',link:{mobileWebUrl:u,webUrl:u}}]})})}
+  function xpost(p){window.open('https://x.com/intent/post?text='+encodeURIComponent(shareText(p))+'&url='+encodeURIComponent(link(p)),'_blank','noopener')}
+  function copy(p){var t=shareText(p)+'\n'+link(p);
+    (navigator.clipboard?navigator.clipboard.writeText(t):Promise.reject()).then(function(){toast('복사했어요 — 단톡방에 붙여 넣기')},function(){prompt('복사해서 보내세요',t)})}
+  function more(p){if(navigator.share)navigator.share({title:'오늘의 질문',text:shareText(p),url:link(p)}).catch(function(){});else copy(p)}
+  var IC={kk:'<svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 3.5c-5.25 0-9.5 3.3-9.5 7.37 0 2.62 1.76 4.92 4.4 6.23l-.9 3.32c-.08.3.26.54.52.37l3.95-2.6c.5.06 1.01.1 1.53.1 5.25 0 9.5-3.3 9.5-7.42S17.25 3.5 12 3.5z"/></svg>',
+    x:'<svg viewBox="0 0 24 24"><path fill="currentColor" d="M17.75 3h3.07l-6.7 7.66L22 21h-6.17l-4.83-6.32L5.46 21H2.39l7.17-8.2L2 3h6.33l4.37 5.77L17.75 3zm-1.08 16.2h1.7L7.4 4.73H5.58l11.09 14.47z"/></svg>',
+    ln:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.07 0l2.83-2.83a5 5 0 0 0-7.07-7.07L11.5 4.43"/><path d="M14 11a5 5 0 0 0-7.07 0L4.1 13.83a5 5 0 0 0 7.07 7.07l1.33-1.33"/></svg>',
+    mo:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v7a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-7"/><path d="M16 6l-4-4-4 4"/><path d="M12 2v13"/></svg>'};
+  function shareRow(p,lead){return '<div class="share" data-day="'+p.day+'"><p>'+lead+'</p><div class="row">'+
+    '<button type="button" class="kk" data-sh="kk">'+IC.kk+'카톡</button><button type="button" data-sh="x">'+IC.x+'X</button>'+
+    '<button type="button" data-sh="ln">'+IC.ln+'링크 복사</button><button type="button" data-sh="mo">'+IC.mo+'더보기</button></div></div>'}
+  function doShare(kind,p){({kk:kakao,x:xpost,ln:copy,mo:more})[kind](p)}
+
+  // ── 맨 위 큰 카드 ──
+  function drawHero(){var p=find(heroDay());if(!p)return;var m=mine(p),r=pct(p),isNow=p.day===latest,u=storyUrl(p);
+    var h='<div class="hk"><span class="live'+(isNow?'':' past')+'"><i></i>'+(isNow?'오늘의 질문':'친구가 보낸 질문')+'</span><span>'+dl(p.day)+'</span></div>'+
+      '<h2 class="hq">'+esc(p.q)+'</h2>';
+    if(!m){h+='<div class="hb"><button type="button" class="ss-shine" data-c="1">'+esc(p.a)+'</button><button type="button" class="ss-shine" data-c="2">'+esc(p.b)+'</button></div>'+
+      '<p class="hint">'+(r[2]?'지금까지 <b>'+r[2]+'명</b> 참여 · ':'')+'고르면 다른 순살러들 선택이 보여요</p>';}
+    else{var w1=m===1?' class="me"':'',w2=m===2?' class="me"':'',mp=m===1?r[0]:r[1];
+      h+='<div class="rs"><div'+w1+'><i data-w="'+r[0]+'"></i><span>'+esc(p.a)+(m===1?' ✓':'')+'</span><b>'+r[0]+'%</b></div>'+
+        '<div'+w2+'><i data-w="'+r[1]+'"></i><span>'+esc(p.b)+(m===2?' ✓':'')+'</span><b>'+r[1]+'%</b></div></div>'+
+        '<span class="badge'+(mp<50?' min':'')+'">'+(mp>50?'🙌 나는 다수파 · '+mp+'%가 같은 답':mp===50?'⚖️ 정확히 반반':'🦄 나는 소수파 · '+mp+'%만 같은 답')+'</span>'+
+        '<div class="meta">'+r[2]+'명 참여 · <a href="#" data-re="1">다시 고르기</a></div>'+
+        shareRow(p,'친구는 뭐 고를까? 물어보기');}
+    if(u)h+='<a class="st" href="'+esc(u)+'">📰 '+(p.t?esc(p.t):'이 질문이 나온 브리핑 이야기')+' <b>→</b></a>';
+    if(!isNow)h+='<a class="st" href="#" data-today="1">🗳️ 오늘의 질문으로 가기 <b>→</b></a>';
+    hero.innerHTML=h;
+    requestAnimationFrame(function(){[].forEach.call(hero.querySelectorAll('.rs i'),function(i){i.style.width=i.getAttribute('data-w')+'%'})});
   }
-  function order(){var a=POLLS.slice();
+  // ── 내 기록 ──
+  function drawMe(){var done=0,maj=0,todo=0;POLLS.forEach(function(p){var m=mine(p);if(!m){todo++;return}done++;
+      if((m===1&&p.na>=p.nb)||(m===2&&p.nb>=p.na))maj++});
+    if(!done){meBox.hidden=true;return}meBox.hidden=false;
+    meBox.innerHTML='<span>내 기록 · <b>'+done+'</b>/'+POLLS.length+'개 고름</span><span>다수파와 같은 답 <b>'+maj+'</b>번 · 소수파 <b>'+(done-maj)+'</b>번</span>'+
+      (todo?'<button type="button" data-todo="1">안 고른 질문 '+todo+'개 →</button>':'')}
+  // ── 지난 질문 ──
+  function card(p){var m=mine(p),r=pct(p),u=storyUrl(p);
+    var row=function(c,label,pc,cnt){var cls=(m===c?'me ':'')+((c===1?p.na>p.nb:p.nb>p.na)?'win':'');
+      return '<button type="button" data-c="'+c+'" class="'+cls+'" aria-pressed="'+(m===c)+'" aria-label="'+esc(label)+' '+pc+'퍼센트, '+cnt+'명">'+
+        '<i style="width:'+pc+'%"></i><span>'+esc(label)+(m===c?' ✓':'')+'</span><b>'+pc+'%</b></button>'};
+    return '<article class="pc" id="d-'+p.day+'" data-day="'+p.day+'"><div class="top"><span class="dt">'+dl(p.day)+'</span>'+
+      '<button type="button" class="sh" data-sh="mo" aria-label="이 질문 공유">'+IC.mo.replace('<svg ','<svg width="18" height="18" ')+'</button></div>'+
+      '<h2 class="q">'+esc(p.q)+'</h2><div class="rs">'+row(1,p.a,r[0],p.na)+row(2,p.b,r[1],p.nb)+'</div>'+
+      '<div class="n">'+(r[2]?r[2]+'명 참여':'아직 아무도 안 골랐어요 — 첫 표를 던져 보세요')+(m?' · 내 답 ✓':(r[2]?' · <em>눌러서 내 답 더하기</em>':''))+'</div>'+
+      (u?'<a class="st" href="'+esc(u)+'">📰 '+(p.t?esc(p.t):'이 질문이 나온 브리핑 이야기')+' <b>→</b></a>':'')+'</article>'}
+  function order(){var hd=heroDay(),a=POLLS.filter(function(p){return p.day!==hd});
     if(sortBy==='hot')a.sort(function(x,y){return (y.na+y.nb)-(x.na+x.nb)||(x.day<y.day?1:-1)});
     if(sortBy==='tie')a=a.filter(function(p){return p.na+p.nb>=3}).sort(function(x,y){
       var gx=Math.abs(x.na-x.nb)/(x.na+x.nb),gy=Math.abs(y.na-y.nb)/(y.na+y.nb);return gx-gy||((y.na+y.nb)-(x.na+x.nb))});
+    if(sortBy==='todo')a=a.filter(function(p){return !mine(p)});
     return a}
-  function draw(){var a=order();list.innerHTML=a.length?a.map(card).join(''):'<p class="foot">3명 넘게 고른 질문이 아직 없어요.</p>'}
-  function vote(day,c,btn){
-    var p=POLLS.filter(function(x){return x.day===day})[0];if(!p)return;var old=mine(p);if(old===c)return;
-    try{if(btn&&window.ssCanAt)ssCanAt(btn)}catch(e){}
+  function drawList(){var a=order();list.innerHTML=a.length?a.map(card).join(''):
+    '<p class="empty">'+(sortBy==='todo'?'다 골랐어요 👏 내일 아침 새 질문이 올라와요.':'3명 넘게 고른 질문이 아직 없어요.')+'</p>'}
+  function drawSum(){var t=POLLS.reduce(function(s,x){return s+x.na+x.nb},0),sm=document.getElementById('sum');
+    if(sm)sm.innerHTML='질문 <b>'+POLLS.length+'</b>개 · 지금까지 <b>'+t.toLocaleString()+'</b>표'}
+  function draw(){drawHero();drawMe();drawList();drawSum()}
+  function setSort(s){sortBy=s;[].forEach.call(document.querySelectorAll('#sort button'),function(x){x.classList.toggle('on',x.getAttribute('data-s')===s)});drawList()}
+
+  function vote(day,c,btn){var p=find(day);if(!p)return;var old=mine(p)||p._old||0;p._old=0;if(old===c){lss('ss_poll_'+day,String(c));draw();return}
+    try{if(btn&&window.ssCanAt)ssCanAt(btn,{big:day===heroDay()})}catch(e){}
     if(old===1)p.na=Math.max(0,p.na-1);if(old===2)p.nb=Math.max(0,p.nb-1);if(c===1)p.na++;else p.nb++;
     lss('ss_poll_'+day,String(c));draw();
     var vid=lsg('ss_vid')||'';if(!/^[a-z0-9-]{8,32}$/.test(vid))return;
     fetch(API+'/poll',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({day:day,v:vid,c:c})})
       .then(function(r){return r.json()}).then(function(j){if(j&&j.ok){p.na=j.na;p.nb=j.nb;draw()}}).catch(function(){})}
-  list.addEventListener('click',function(e){var b=e.target.closest('button[data-c]');if(!b)return;
-    var pc=b.closest('.pc');vote(pc.getAttribute('data-day'),parseInt(b.getAttribute('data-c'),10),b)});
-  [].forEach.call(document.querySelectorAll('#sort button'),function(b){b.onclick=function(){
-    sortBy=b.getAttribute('data-s');[].forEach.call(document.querySelectorAll('#sort button'),function(x){x.classList.toggle('on',x===b)});draw()}});
+
+  document.addEventListener('click',function(e){
+    var t=e.target.closest('button,a');if(!t)return;
+    var holder=t.closest('[data-day]');var hp=find(heroDay());
+    if(t.hasAttribute('data-sh')){var p=holder?find(holder.getAttribute('data-day')):hp;if(p)doShare(t.getAttribute('data-sh'),p);return}
+    if(t.hasAttribute('data-re')){e.preventDefault();hp._old=mine(hp);try{localStorage.removeItem('ss_poll_'+hp.day)}catch(x){}draw();return}
+    if(t.hasAttribute('data-today')){e.preventDefault();history.replaceState(null,'',location.pathname);draw();window.scrollTo({top:0,behavior:'smooth'});return}
+    if(t.hasAttribute('data-todo')){setSort('todo');document.getElementById('sort').scrollIntoView({behavior:'smooth',block:'start'});return}
+    if(t.hasAttribute('data-c')){var day=hero.contains(t)?hp.day:(holder&&holder.getAttribute('data-day'));if(day)vote(day,parseInt(t.getAttribute('data-c'),10),t)}
+  });
+  [].forEach.call(document.querySelectorAll('#sort button'),function(b){b.onclick=function(){setSort(b.getAttribute('data-s'))}});
+  window.addEventListener('hashchange',function(){draw();window.scrollTo({top:0,behavior:'smooth'})});
   draw();
-  // 숫자는 빌드 때 값 — 최근 3개만 지금 값으로 맞춘다
+
+  // 페이지가 빌드된 뒤 새 질문이 나왔으면 맨 앞에 붙인다(10/23 「업데이트가 안 됐다」), 최근 3개 숫자도 지금 값으로
+  fetch(API+'/poll').then(function(r){return r.json()}).then(function(j){var q=j&&j.poll;if(!q)return;
+    if(!find(q.day)&&q.day>latest){POLLS.unshift({day:q.day,q:q.q,a:q.a,b:q.b,s:q.story||'',na:q.na||0,nb:q.nb||0,t:'',u:''});latest=q.day}
+    var p=find(q.day);p.na=q.na||0;p.nb=q.nb||0;draw()}).catch(function(){});
   POLLS.slice(0,3).forEach(function(p){fetch(API+'/poll?day='+p.day).then(function(r){return r.json()}).then(function(j){
-    var q=j&&j.poll;if(q&&(q.na!==p.na||q.nb!==p.nb)){p.na=q.na||0;p.nb=q.nb||0;draw();
-      var t=POLLS.reduce(function(s,x){return s+x.na+x.nb},0),sm=document.getElementById('sum');
-      if(sm)sm.innerHTML='질문 <b>'+POLLS.length+'</b>개 · 지금까지 <b>'+t.toLocaleString()+'</b>표'}}).catch(function(){})});
+    var q=j&&j.poll;if(q&&(q.na!==p.na||q.nb!==p.nb)){p.na=q.na||0;p.nb=q.nb||0;draw()}}).catch(function(){})});
 })();
 
 </script>
