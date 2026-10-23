@@ -101,6 +101,23 @@ display:flex;align-items:center;padding:0 13px;font-weight:700;font-size:13px;co
 .pc .n em{font-style:normal;color:#F59B75;font-weight:700}
 .pc .st{display:block;margin-top:6px;color:#7c756c;font-size:12px;text-decoration:none;line-height:1.5;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .pc .st b{color:#F07040}.pc .st:hover{color:#f6f1e8}
+/* 투표 직후 구독 권유 (개선 1) */
+.subask{display:flex;align-items:center;gap:10px;margin-top:14px;padding:12px 14px;border-radius:14px;background:#231812;border:1px solid #5a3524}
+.subask span{flex:1;font-size:13.5px;font-weight:700;color:#f6f1e8;line-height:1.45;word-break:keep-all}
+.subask button{flex:0 0 auto;height:34px;padding:0 14px;border-radius:999px;border:0;background:#F07040;color:#12100e;font-weight:800;font-size:13px;cursor:pointer}
+/* 나는 어떤 순살러? (개선 2) */
+.persona{margin:-6px 0 22px;padding:18px;border-radius:18px;background:linear-gradient(135deg,#221812,#171311);border:1px solid #3a2a20}
+.persona .k{font-size:12px;font-weight:800;color:#bdb6aa;letter-spacing:.04em}
+.persona .ty{margin:6px 0 4px;font-size:22px;font-weight:900;color:#fff;letter-spacing:-.03em}
+.persona .ds{font-size:13.5px;color:#cfc8bc;line-height:1.55}
+.persona .ds b{color:#F59B75}
+.persona .bt{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
+.persona .bt button{display:inline-flex;align-items:center;gap:5px;height:32px;padding:0 12px;border-radius:999px;border:1px solid #3a2f27;
+background:#1b1715;color:#e8e3da;font-size:12.5px;font-weight:700;cursor:pointer}
+.persona .bt .kk{background:#FEE500;border-color:#FEE500;color:#191600}
+.persona .bt svg{width:15px;height:15px}
+.persona.lock{padding:12px 16px;background:#161412;border-style:dashed}
+.persona.lock .ds{font-size:13px}
 /* 지난 질문 공유 — 결과에 맞춘 한 줄 미끼 + 작은 버튼 (KD 10/23 「예전 질문들도 공유를 더 적극적으로」) */
 .ask{display:grid;gap:8px;margin-top:12px;padding-top:12px;border-top:1px dashed #2e2620}
 .ask .hk{font-size:13.5px;font-weight:800;color:#f6f1e8;line-height:1.45;word-break:keep-all}
@@ -389,6 +406,7 @@ line-height:1.25;color:#fff;word-break:keep-all}
 <div class="wrap">
 <div class="sec-head"><div class="sec-kicker">순살러들이 고른 답</div><h1>오늘의 질문</h1><p class="deck">매일 브리핑에서 하나씩 묻고, 고른 답이 여기 쌓임</p></div>
 <section class="hero" id="hero" aria-label="오늘의 질문"><div class="hk"><span class="live"><i></i>오늘의 질문</span><span>10월 23일 금요일</span></div><h2 class="hq">회사가 적자여도 전망 좋으면 투자할래?</h2><div class="hb"><button type="button">투자한다</button><button type="button">안 한다</button></div></section>
+<section class="persona" id="persona" hidden aria-label="나는 어떤 순살러"></section>
 <div class="lh"><h2>지난 질문</h2><span class="sum" id="sum">질문 <b>11</b>개 · 지금까지 <b>82</b>표</span></div>
 <div class="mystat" id="mystat" hidden></div>
 <div class="sort" id="sort" role="tablist" aria-label="정렬">
@@ -471,7 +489,8 @@ var POLLS = [{"day": "2026-10-23", "q": "회사가 적자여도 전망 좋으면
         '<div'+w2+'><i data-w="'+r[1]+'"></i><span>'+esc(p.b)+(m===2?' ✓':'')+'</span><b>'+r[1]+'%</b></div></div>'+
         '<span class="badge'+(mp<50?' min':'')+'">'+(mp>50?'🙌 나는 다수파 · '+mp+'%가 같은 답':mp===50?'⚖️ 정확히 반반':'🦄 나는 소수파 · '+mp+'%만 같은 답')+'</span>'+
         '<div class="meta">'+r[2]+'명 참여 · <a href="#" data-re="1">다시 고르기</a></div>'+
-        shareRow(p,'친구는 뭐 고를까? 물어보기');}
+        shareRow(p,'친구는 뭐 고를까? 물어보기')+
+        (window.ssIsSub&&window.ssIsSub()?'':'<div class="subask"><span>📮 내일 질문도 아침 메일로 받아 볼래요?</span><button type="button" data-sub="1">무료 구독</button></div>');}
     if(u)h+='<a class="st" href="'+esc(u)+'">📰 '+(p.t?esc(p.t):'이 질문이 나온 브리핑 이야기')+' <b>→</b></a>';
     if(!isNow)h+='<a class="st" href="#" data-today="1">🗳️ 오늘의 질문으로 가기 <b>→</b></a>';
     hero.innerHTML=h;
@@ -483,6 +502,37 @@ var POLLS = [{"day": "2026-10-23", "q": "회사가 적자여도 전망 좋으면
     if(!done){meBox.hidden=true;return}meBox.hidden=false;
     meBox.innerHTML='<span>내 기록 · <b>'+done+'</b>/'+POLLS.length+'개 고름</span><span>다수파와 같은 답 <b>'+maj+'</b>번 · 소수파 <b>'+(done-maj)+'</b>번</span>'+
       (todo?'<button type="button" data-todo="1">안 고른 질문 '+todo+'개 →</button>':'')}
+  // ── 나는 어떤 순살러? — 5개 이상 고르면 다수파와 같은 답 비율로 유형 (KD 10/23 개선 2) ──
+  var pbox=document.getElementById('persona'),PT=[[.85,'🌊','대세 탑승형','순살러 대부분과 생각이 같아요'],[.65,'🧭','현실 감각형','대체로 다수파, 가끔은 소신'],
+    [.45,'⚖️','줄타기형','다수파와 소수파를 오가요'],[.25,'🦄','마이웨이형','남들과 다른 답을 자주 골라요'],[-1,'🔥','역발상형','거의 늘 소수파 쪽']];
+  function persona(){var done=0,maj=0;POLLS.forEach(function(p){var m=mine(p);if(!m)return;done++;if((m===1&&p.na>=p.nb)||(m===2&&p.nb>=p.na))maj++});
+    if(!done)return null;var r=maj/done,t=PT.filter(function(x){return r>=x[0]})[0];return {done:done,maj:maj,min:done-maj,r:Math.round(r*100),e:t[1],n:t[2],d:t[3]}}
+  function drawPersona(){var x=persona();if(!x){pbox.hidden=true;return}pbox.hidden=false;
+    if(x.done<5){pbox.className='persona lock';pbox.innerHTML='<div class="ds">🔓 질문 <b>'+(5-x.done)+'개</b> 더 고르면 「나는 어떤 순살러?」 유형이 나와요</div>';return}
+    pbox.className='persona';
+    pbox.innerHTML='<div class="k">나는 어떤 순살러?</div><div class="ty">'+x.e+' '+x.n+'</div>'+
+      '<div class="ds">'+x.d+' · 질문 <b>'+x.done+'개</b> 중 다수파와 같은 답 <b>'+x.r+'%</b></div>'+
+      '<div class="bt"><button type="button" class="kk" data-pk="kk">'+IC.kk+'카톡으로 자랑</button><button type="button" data-pk="img">'+IC.mo+'이미지 저장·공유</button>'+
+      '<button type="button" data-pk="ln">'+IC.ln+'링크</button></div>'}
+  function personaText(x){return '나는 「'+x.e+' '+x.n+'」 순살러 — 오늘의 질문 '+x.done+'개 중 다수파와 같은 답 '+x.r+'%. 너는?'}
+  function personaShare(kind){var x=persona();if(!x)return;var u=BASE+'/poll/';
+    if(kind==='ln'){var t=personaText(x)+'\n'+u;(navigator.clipboard?navigator.clipboard.writeText(t):Promise.reject()).then(function(){toast('복사했어요')},function(){prompt('복사해서 보내세요',t)});return}
+    if(kind==='kk'){kakaoSdk(function(){Kakao.Share.sendDefault({objectType:'feed',content:{title:'나는 '+x.e+' '+x.n+' 순살러',description:'오늘의 질문 '+x.done+'개 중 다수파와 같은 답 '+x.r+'% — 너는 어떤 순살러?',
+      imageUrl:BASE+'/og-default.png',imageWidth:1200,imageHeight:630,link:{mobileWebUrl:u,webUrl:u}},buttons:[{title:'나도 해 보기',link:{mobileWebUrl:u,webUrl:u}}]})});return}
+    // 이미지 — 공식 흰 로고 PNG + 유형 (1080×1350, 인스타 스토리·피드)
+    var cv=document.createElement('canvas');cv.width=1080;cv.height=1350;var g=cv.getContext('2d'),F='Pretendard,"Apple SD Gothic Neo",sans-serif';
+    var grd=g.createRadialGradient(980,80,40,980,80,1100);grd.addColorStop(0,'#5a2c18');grd.addColorStop(1,'#111');g.fillStyle=grd;g.fillRect(0,0,1080,1350);
+    var lg=new Image();lg.onload=done;lg.onerror=done;lg.src='/assets/soonsal-logo-white.png';
+    function done(){try{if(lg.naturalWidth){var h=96,w=lg.naturalWidth*h/lg.naturalHeight;g.drawImage(lg,90,90,w,h)}}catch(e){}
+      g.fillStyle='#bdb6aa';g.font='700 40px '+F;g.fillText('나는 어떤 순살러?',90,330);
+      g.font='160px '+F;g.fillText(x.e,90,540);g.fillStyle='#ffffff';g.font='900 110px '+F;g.fillText(x.n,90,700);
+      g.fillStyle='#cfc8bc';g.font='600 44px '+F;g.fillText(x.d,90,790);
+      g.fillStyle='#F59B75';g.font='800 46px '+F;g.fillText('오늘의 질문 '+x.done+'개 · 다수파와 같은 답 '+x.r+'%',90,900);
+      g.fillStyle='#F07040';g.fillRect(90,1150,900,4);g.fillStyle='#f6f1e8';g.font='800 44px '+F;g.fillText('너는? soonsal.com/poll',90,1240);
+      cv.toBlob(function(b){if(!b)return;var f=new File([b],'soonsal-persona.png',{type:'image/png'});
+        if(navigator.canShare&&navigator.canShare({files:[f]}))navigator.share({files:[f],text:personaText(x)+' '+u}).catch(function(){});
+        else{var a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='soonsal-persona.png';document.body.appendChild(a);a.click();a.remove();toast('이미지를 저장했어요')}},'image/png')}
+  }
   // ── 지난 질문 ──
   function card(p){var m=mine(p),r=pct(p),u=storyUrl(p);
     var row=function(c,label,pc,cnt){var cls=(m===c?'me ':'')+((c===1?p.na>p.nb:p.nb>p.na)?'win':'');
@@ -502,7 +552,7 @@ var POLLS = [{"day": "2026-10-23", "q": "회사가 적자여도 전망 좋으면
     '<p class="empty">'+(sortBy==='todo'?'다 골랐어요 👏 내일 아침 새 질문이 올라와요.':'3명 넘게 고른 질문이 아직 없어요.')+'</p>'}
   function drawSum(){var t=POLLS.reduce(function(s,x){return s+x.na+x.nb},0),sm=document.getElementById('sum');
     if(sm)sm.innerHTML='질문 <b>'+POLLS.length+'</b>개 · 지금까지 <b>'+t.toLocaleString()+'</b>표'}
-  function draw(){drawHero();drawMe();drawList();drawSum()}
+  function draw(){drawHero();drawPersona();drawMe();drawList();drawSum()}
   function setSort(s){sortBy=s;[].forEach.call(document.querySelectorAll('#sort button'),function(x){x.classList.toggle('on',x.getAttribute('data-s')===s)});drawList()}
 
   function vote(day,c,btn){var p=find(day);if(!p)return;var old=mine(p)||p._old||0;p._old=0;if(old===c){lss('ss_poll_'+day,String(c));draw();return}
@@ -519,6 +569,8 @@ var POLLS = [{"day": "2026-10-23", "q": "회사가 적자여도 전망 좋으면
     var holder=t.closest('[data-day]');var hp=find(heroDay());
     if(t.hasAttribute('data-sh')){var p=holder?find(holder.getAttribute('data-day')):hp;if(p)doShare(t.getAttribute('data-sh'),p);return}
     if(t.hasAttribute('data-re')){e.preventDefault();hp._old=mine(hp);try{localStorage.removeItem('ss_poll_'+hp.day)}catch(x){}draw();return}
+    if(t.hasAttribute('data-sub')){if(window.ssSub)window.ssSub('poll');else location.href='https://subscribe.soonsal.com/subscribe';return}
+    if(t.hasAttribute('data-pk')){personaShare(t.getAttribute('data-pk'));return}
     if(t.hasAttribute('data-today')){e.preventDefault();history.replaceState(null,'',location.pathname);draw();window.scrollTo({top:0,behavior:'smooth'});return}
     if(t.hasAttribute('data-todo')){setSort('todo');document.getElementById('sort').scrollIntoView({behavior:'smooth',block:'start'});return}
     if(t.hasAttribute('data-c')){var day=hero.contains(t)?hp.day:(holder&&holder.getAttribute('data-day'));if(day)vote(day,parseInt(t.getAttribute('data-c'),10),t)}

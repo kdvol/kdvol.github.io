@@ -427,8 +427,11 @@
           '<div class="'+(mine===1?'me':'')+'"><i style="width:'+pa+'%"></i><span>'+esc(p.a)+(mine===1?' ✓':'')+'</span><b>'+pa+'%</b></div>'+
           '<div class="'+(mine===2?'me':'')+'"><i style="width:'+pb+'%"></i><span>'+esc(p.b)+(mine===2?' ✓':'')+'</span><b>'+pb+'%</b></div></div>'+
           '<div class="n">'+tot+'명 참여 · 결과는 다음 브리핑에서 이야기해요 · <a href="#" class="ch" style="color:#F59B75">다시 고르기</a>'+
-          '<br><a href="/poll/#d-'+p.day+'" style="color:#F59B75;font-weight:700">🗳️ 친구한테 물어보기 · 지난 질문 결과 →</a></div>';
+          '<br><a href="/poll/#d-'+p.day+'" style="color:#F59B75;font-weight:700">🗳️ 친구한테 물어보기 · 지난 질문 결과 →</a></div>'+
+          // 고른 직후가 관심이 가장 높을 때 — 구독자가 아니면 「내일 질문도 메일로」 (KD 2026-10-23 개선 1번)
+          (lsg('ss_is_sub')==='1'||lsg('ss_subbed')==='1'?'':'<a href="#" class="ss-pill ss-shine sub" style="margin-top:10px">📮 내일 질문도 아침 메일로 받기</a>');
         c.querySelector('.ch').onclick=function(e){e.preventDefault();mine=0;draw(na,nb)};
+        var sb=c.querySelector('.sub');if(sb)sb.onclick=function(e){e.preventDefault();subModal('poll')};
       }
       function vote(v){var vid='';try{vid=localStorage.getItem('ss_vid')||''}catch(e){}
         try{var vb=c.querySelector('.bt button[data-c="'+v+'"]');if(vb)ssCanAt(vb)}catch(e){}
@@ -460,11 +463,14 @@
     var sc=document.createElement('script');sc.src='https://t1.kakaocdn.net/kakao_js_sdk/2.7.4/kakao.min.js';sc.crossOrigin='anonymous';
     sc.onload=function(){try{if(!Kakao.isInitialized())Kakao.init(KAKAO_JS);cb()}catch(e){}};document.head.appendChild(sc);
   }
+  window.ssSub=function(src){subModal(src||'poll')};
+  window.ssIsSub=function(){return lsg('ss_is_sub')==='1'||lsg('ss_subbed')==='1'};
+  window.ssKakaoShare=function(el){kakaoShare(el)};
   function kakaoShare(el){
     var sid=el.getAttribute('data-ss-story')||'',m=sid.match(/-(\d+)$/);
     var t=el.querySelector('[id$="-title"],.story-title,h2,h3');var title=(t?t.textContent:document.title).replace(/\s+/g,' ').trim();
     var li=el.querySelector('.bullet')||el.querySelector('li');var desc=(li?li.textContent:'').replace(/\s+/g,' ').trim().slice(0,90);
-    var url=location.origin+location.pathname+(m?'#story-'+m[1]:'');
+    var url=el.getAttribute('data-ss-url')||(location.origin+location.pathname+(m?'#story-'+m[1]:''));   // 차트 꼭지는 #slug 를 붙여 둔다
     var img=/^\d{4}c?-\d{1,2}$/.test(sid)?location.origin+'/share/'+sid+'.jpg':(document.querySelector('meta[property="og:image"]')||{}).content;
     kakaoSdk(function(){Kakao.Share.sendDefault({objectType:'feed',
       content:{title:title,description:desc||'글로벌 금융·경제 뉴스, 매일 아침 5분 살코기만',imageUrl:img,imageWidth:1200,imageHeight:630,
@@ -664,4 +670,113 @@
       function(a){a.classList.add('ss-new');a.title='새 내용'})})}
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',mark);else mark();
   setTimeout(mark,1200);   // ☰ 메뉴는 늦게 그려진다
+})();
+
+(function(){
+  if(window.__ssFeat)return;window.__ssFeat=1;
+  var API='https://api.soonsal.com';
+  function lsg(k){try{return localStorage.getItem(k)}catch(e){return null}}
+  function esc(v){return String(v==null?'':v).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+  var st=document.createElement('style');st.id='ss-ui-css';st.textContent=
+    /* 7. 디자인 규칙 — 색·모양 변수(어두운 사이트 바탕 기준, 밝은 본문 카드는 -lt) */
+    ':root{--sn-bg:#111;--sn-card:#171513;--sn-line:#26221e;--sn-ink:#f6f1e8;--sn-text:#e8e3da;--sn-sub:#a39c90;--sn-mute:#7c756c;'+
+    '--sn-accent:#F07040;--sn-accent-2:#F59B75;--sn-accent-ink:#C24A00;--sn-kakao:#FEE500;--sn-r-pill:999px;--sn-r-card:16px;'+
+    '--sn-lt-card:#fffaf5;--sn-lt-line:#ece6dc;--sn-lt-ink:#1f1a16;--sn-lt-sub:#6f695f}'+
+    /* 작은 알약 버튼 — 공유·보조 행동 (32px) */
+    '.ss-pill{display:inline-flex;align-items:center;gap:5px;height:32px;padding:0 12px;border-radius:var(--sn-r-pill);border:1px solid #3a2f27;'+
+    'background:#1b1715;color:var(--sn-text);font:700 12.5px Pretendard,-apple-system,sans-serif;cursor:pointer;text-decoration:none;white-space:nowrap}'+
+    '.ss-pill:hover{border-color:var(--sn-accent)}.ss-pill svg{width:15px;height:15px;flex:0 0 auto}'+
+    '.ss-pill.kk{background:var(--sn-kakao);border-color:var(--sn-kakao);color:#191600}.ss-pill.ic{width:32px;padding:0;justify-content:center}'+
+    '.ss-pill.sub{background:var(--sn-accent);border-color:var(--sn-accent);color:#12100e}'+
+    /* 공유 줄 — 글·차트 꼭지 끝 (밝은 본문 카드 안) */
+    '.ss-ask{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:14px 0 4px;padding:12px 14px;border-radius:12px;'+
+    'background:var(--sn-lt-card);border:1px dashed #e3d4c4;font-family:Pretendard,-apple-system,sans-serif}'+
+    '.ss-ask .hk{flex:1 1 150px;font-size:13.5px;font-weight:800;color:var(--sn-lt-ink)!important;-webkit-text-fill-color:var(--sn-lt-ink)!important;line-height:1.45;word-break:keep-all}'+
+    '.ss-ask .bs{display:flex;gap:6px;flex:0 0 auto}'+
+    /* 어두운 카드 안(차트 꼭지) */
+    '.ss-ask.dk{background:rgba(255,255,255,.03);border-color:#3a2f27}.ss-ask.dk .hk{color:var(--sn-ink)!important;-webkit-text-fill-color:var(--sn-ink)!important}'+
+    '.ss-ask.dk .ss-pill{background:#1b1715;border-color:#3a2f27;color:var(--sn-text)}.ss-ask.dk .ss-pill.kk{background:var(--sn-kakao);border-color:var(--sn-kakao);color:#191600}'+
+    '.ss-ask .ss-pill{background:#fff;border-color:#e3d9cc;color:#3a2f27}.ss-ask .ss-pill.kk{background:var(--sn-kakao);border-color:var(--sn-kakao);color:#191600}'+
+    /* 3. 읽은 만큼 차오르는 진행 막대 */
+    '#ss-prog{position:fixed;left:0;top:0;height:3px;width:0;background:var(--sn-accent);z-index:100001;transition:width .1s linear;pointer-events:none}'+
+    /* 5. 홈 오늘의 순살 반응 표시 */
+    '.hero .hs .ss-heat{flex:0 0 auto;margin-left:8px;font-size:12px;font-weight:800;color:var(--sn-accent-2);font-variant-numeric:tabular-nums;white-space:nowrap}'+
+    '.hero .hs.ss-hot{border-radius:10px}'+
+    /* 4. 순스타그램 바둑판 */
+    '.ss-grid-bar{display:flex;align-items:center;gap:8px;max-width:800px;margin:0 auto 12px;padding:0 20px}'+
+    '.ss-grid-bar .sp{flex:1}.ss-grid-bar button{height:32px;padding:0 13px;border-radius:999px;border:1px solid #2e2924;background:transparent;color:#bdb6aa;font:700 13px Pretendard,sans-serif;cursor:pointer}'+
+    '.ss-grid-bar button.on{background:var(--sn-accent);border-color:var(--sn-accent);color:#12100e}'+
+    '.ss-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:3px;max-width:800px;margin:0 auto 40px;padding:0 20px}'+
+    '.ss-grid a{position:relative;display:block;aspect-ratio:4/5;overflow:hidden;background:#1b1715;border-radius:4px}'+
+    '.ss-grid img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .25s}.ss-grid a:hover img{transform:scale(1.04)}'+
+    '.ss-grid a .t{position:absolute;left:0;right:0;bottom:0;padding:18px 7px 6px;font:700 11px/1.35 Pretendard,sans-serif;color:#fff;'+
+    'background:linear-gradient(transparent,rgba(0,0,0,.78));display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}'+
+    '.ss-grid a .d{position:absolute;top:6px;left:6px;font:800 10px Pretendard,sans-serif;color:#fff;background:rgba(0,0,0,.55);padding:2px 6px;border-radius:999px}'+
+    '@media(max-width:560px){.ss-grid{padding:0 8px;gap:2px}.ss-grid-bar{padding:0 12px}.ss-grid a .t{font-size:10px;padding:14px 5px 5px}}';
+  (document.head||document.documentElement).appendChild(st);
+
+  var IC_KK='<svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 3.5c-5.25 0-9.5 3.3-9.5 7.37 0 2.62 1.76 4.92 4.4 6.23l-.9 3.32c-.08.3.26.54.52.37l3.95-2.6c.5.06 1.01.1 1.53.1 5.25 0 9.5-3.3 9.5-7.42S17.25 3.5 12 3.5z"/></svg>';
+  var IC_LN='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.07 0l2.83-2.83a5 5 0 0 0-7.07-7.07L11.5 4.43"/><path d="M14 11a5 5 0 0 0-7.07 0L4.1 13.83a5 5 0 0 0 7.07 7.07l1.33-1.33"/></svg>';
+  function toast(t){var el=document.getElementById('ss-toast');if(!el){el=document.createElement('div');el.id='ss-toast';
+    el.style.cssText='position:fixed;left:50%;bottom:28px;transform:translateX(-50%);background:#f6f1e8;color:#12100e;font:800 14px Pretendard,sans-serif;padding:11px 18px;border-radius:999px;z-index:100020;opacity:0;transition:opacity .2s;pointer-events:none';
+    document.body.appendChild(el)}el.textContent=t;el.style.opacity='1';clearTimeout(el._t);el._t=setTimeout(function(){el.style.opacity='0'},1800)}
+  function copyLink(u,txt){var t=(txt?txt+'\n':'')+u;(navigator.clipboard?navigator.clipboard.writeText(t):Promise.reject()).then(function(){toast('복사했어요 — 단톡방에 붙여 넣기')},function(){prompt('복사해서 보내세요',t)})}
+
+  function onLoad(fn){if(document.readyState==='complete')setTimeout(fn,0);else window.addEventListener('load',fn)}
+  function onReady(fn){if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',fn);else fn()}
+  // 주소보다 페이지 구조로 판별 — 홈은 히어로+전문, 차트 하루 페이지는 꼭지 article, 뉴스레터는 회차 표시
+  var P=location.pathname,isHome=!!(document.getElementById('nlwrap')&&document.querySelector('.hero')),
+    isChart=!!document.querySelector('article.story.morning-topic[data-ss-story]'),
+    isNl=!isHome&&!isChart&&/^\/newsletters\/\d{4}\/[^/]+\.html$/.test(P);
+
+  // ── 3. 뉴스레터 본문: 읽은 만큼 차오르는 막대 ──
+  if(isNl){var bar=document.createElement('div');bar.id='ss-prog';document.body.appendChild(bar);
+    var tick=0;window.addEventListener('scroll',function(){if(tick)return;tick=1;requestAnimationFrame(function(){tick=0;
+      var h=document.documentElement.scrollHeight-innerHeight;bar.style.width=(h>0?Math.min(100,scrollY*100/h):0)+'%'})},{passive:true})}
+
+  // ── 3·6. 글·차트 꼭지 끝 「친구한테」 줄 ──
+  var HOOKS=['💬 이 얘기, 단톡방에 던져 볼까?','🤔 친구는 이거 알고 있을까?','📤 이 숫자, 친구한테 보내 보기'];
+  function askLines(){
+    var els=document.querySelectorAll(isChart?'article.story[data-ss-story]':'[data-ss-story]');
+    [].forEach.call(els,function(el,i){if(el.querySelector('.ss-ask'))return;
+      var sid=el.getAttribute('data-ss-story')||'';if(!/^(\d{4}c?-\d{1,2}|m\d{8}-[a-z0-9-]+)$/.test(sid))return;
+      var url=isChart&&el.id?location.origin+P+'#'+el.id:location.origin+P+(sid.match(/-(\d+)$/)?'#story-'+sid.match(/-(\d+)$/)[1]:'');
+      if(isChart)el.setAttribute('data-ss-url',url);
+      var t=el.querySelector('h2,h3,.story-title');var title=t?t.textContent.replace(/\s+/g,' ').trim():'';
+      var d=document.createElement('div');d.className='ss-ask'+(isChart?' dk':'');
+      d.innerHTML='<span class="hk">'+(isChart?'📊 이 차트 한 장, 친구한테 보내 보기':HOOKS[i%HOOKS.length])+'</span>'+
+        '<span class="bs"><button type="button" class="ss-pill kk">'+IC_KK+'카톡</button><button type="button" class="ss-pill ic" aria-label="링크 복사">'+IC_LN+'</button></span>';
+      d.querySelector('.kk').onclick=function(){if(window.ssKakaoShare)window.ssKakaoShare(el);else copyLink(url,title)};
+      d.querySelector('.ic').onclick=function(){copyLink(url,title)};
+      el.appendChild(d)})}
+  if(isNl||isChart||isHome)onLoad(function(){setTimeout(askLines,900)});
+
+  // ── 5. 홈 「오늘의 순살」 줄마다 반응 수, 가장 뜨거운 줄에 샤인 스윕 ──
+  if(isHome){onLoad(function(){
+    var any=document.querySelector('#nlwrap [data-ss-story]');if(!any)return;var iss=(any.getAttribute('data-ss-story')||'').split('-')[0];
+    fetch(API+'/counts?issue='+encodeURIComponent(iss)).then(function(r){return r.json()}).then(function(j){
+      var best=null,bn=0;[].forEach.call(document.querySelectorAll('.hero .hs[data-n]'),function(row){
+        var c=j[iss+'-'+row.getAttribute('data-n')]||{},n=0;for(var k in c)n+=c[k]||0;if(!n)return;
+        var b=document.createElement('span');b.className='ss-heat';b.textContent='🔥 '+n;row.appendChild(b);if(n>bn){bn=n;best=row}});
+      if(best&&bn>=3){best.classList.add('ss-shine','ss-hot')}}).catch(function(){})})}
+
+  // ── 4. 순스타그램 목록 = 인스타 프로필처럼 3칸 바둑판 (원래 목록은 「목록」 버튼으로) ──
+  if(P==='/cardnews/'||P==='/cardnews/index.html'){onReady(function(){
+    var days=document.querySelectorAll('.today');if(!days.length)return;
+    var tiles=[];[].forEach.call(days,function(dv){var dt=(dv.querySelector('.today-title')||{}).textContent||'';
+      [].forEach.call(dv.querySelectorAll('a[href^="/cardnews/20"]'),function(a){var m=a.getAttribute('href').match(/^\/cardnews\/(\d{4})\/([^/]+)\.html$/);if(!m)return;
+        tiles.push({h:a.getAttribute('href'),y:m[1],s:m[2],t:a.textContent.replace(/^\s*Card\s*/,'').replace(/^순살(크립토)?카드뉴스\s*·\s*/,'').trim(),d:dt.slice(5).replace('.','/')})})});
+    if(!tiles.length)return;
+    var barEl=document.createElement('div');barEl.className='ss-grid-bar';
+    barEl.innerHTML='<button type="button" class="on" data-v="g">바둑판</button><button type="button" data-v="l">목록</button><span class="sp"></span>'+
+      '<a class="ss-pill sub ss-shine" href="https://instagram.com/soonsal.brief" target="_blank" rel="noopener">📸 인스타 팔로우</a>';
+    var g=document.createElement('div');g.className='ss-grid';
+    g.innerHTML=tiles.map(function(x,i){return '<a href="'+x.h+'"><img loading="'+(i<12?'eager':'lazy')+'" decoding="async" alt="'+esc(x.t)+'" src="/assets/cardnews/'+x.s+'.jpg" '+
+      'onerror="if(!this.dataset.f){this.dataset.f=1;this.src=\'/cardnews/'+x.y+'/'+x.s+'_png/card_01.png\'}else{this.style.display=\'none\'}">'+
+      '<span class="d">'+esc(x.d)+'</span></a>'}).join('');   // 표지에 제목이 이미 크게 있어 글자는 덧대지 않는다(alt 로만)
+    days[0].parentNode.insertBefore(barEl,days[0]);barEl.parentNode.insertBefore(g,barEl.nextSibling);
+    function mode(v){var grid=v==='g';g.style.display=grid?'':'none';[].forEach.call(days,function(dv){dv.style.display=grid?'none':''});
+      [].forEach.call(barEl.querySelectorAll('button'),function(b){b.classList.toggle('on',b.getAttribute('data-v')===v)});try{localStorage.setItem('ss_cn_view',v)}catch(e){}}
+    [].forEach.call(barEl.querySelectorAll('button'),function(b){b.onclick=function(){mode(b.getAttribute('data-v'))}});
+    mode(lsg('ss_cn_view')==='l'?'l':'g')})}
 })();
