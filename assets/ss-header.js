@@ -743,15 +743,24 @@
   // ── 3·6. 공유는 있는 자리에 녹인다 (KD 2026-10-23 「위 공유 버튼이랑 중복 — 대놓고 영역을 크게 차지하며 압박하지 말고 자연스럽게」) ──
   //   기존(0a563a6): 스토리·차트 꼭지 끝마다 「친구한테」 상자. 최신: 상자 없음. 👍🤔🔥 를 누른 순간에만 그 줄의 카톡 아이콘 위에
   //   「친구한테도?」 말풍선이 4초 떴다 사라지고 아이콘에 샤인 스윕 — 스토리마다 한 번만.
-  var nudged={};
+  var nudged={},nudging=null;
+  // 카톡 공유 버튼에 샤인 스윕 — 한 화면 하나만: 지금 가장 많이 보이는 스토리의 카톡 버튼 (KD 10/23 「카톡 알약에 샤인 스윕이 지나가면
+  //   누르고 싶은 생각이 더 들 듯」). 스토리 5개가 다 반짝이면 효과가 죽어서 보이는 것 하나에만.
+  // 화면에 보이는 높이가 가장 큰 스토리 — 스크롤 때 직접 잰다(IntersectionObserver 는 숨은 탭에서 안 돌아 단순하게)
+  function applyShine(){var kks=document.querySelectorAll('.ss-react .ss-kk');if(!kks.length)return;var best=null,bv=120,H=innerHeight;
+    [].forEach.call(kks,function(kk){var host=kk.closest('[data-ss-story]');if(!host)return;var r=host.getBoundingClientRect(),v=Math.min(r.bottom,H)-Math.max(r.top,0);
+      if(v>bv){bv=v;best=kk}});
+    [].forEach.call(kks,function(kk){kk.classList.toggle('ss-shine',kk===best&&kk!==nudging)})}
+  var shTick=0;window.addEventListener('scroll',function(){if(shTick)return;shTick=1;setTimeout(function(){shTick=0;applyShine()},250)},{passive:true});
+  [1500,3000,6000].forEach(function(t){setTimeout(applyShine,t)});   // 카톡 버튼이 늦게 그려져도 붙게
   document.addEventListener('click',function(e){
     var b=e.target.closest&&e.target.closest('.ss-react .ss-rb');if(!b||b.classList.contains('ss-sh')||b.classList.contains('ss-kk'))return;
     var row=b.closest('.ss-react'),kk=row&&row.querySelector('.ss-kk'),host=b.closest('[data-ss-story]');if(!kk||!host)return;
     var sid=host.getAttribute('data-ss-story');if(nudged[sid])return;nudged[sid]=1;
     setTimeout(function(){var t=document.createElement('span');t.className='ss-nudge';t.textContent='친구한테도?';
-      kk.style.position='relative';kk.style.overflow='visible';kk.appendChild(t);
+      nudging=kk;kk.classList.remove('ss-shine');kk.style.position='relative';kk.style.overflow='visible';kk.appendChild(t);
       requestAnimationFrame(function(){t.classList.add('on')});
-      setTimeout(function(){t.classList.remove('on');setTimeout(function(){t.remove()},250)},4000)},350)});
+      setTimeout(function(){t.classList.remove('on');setTimeout(function(){t.remove();kk.style.overflow='';nudging=null},250)},4000)},350)});
 
   // ── 5. 홈 「오늘의 순살」 줄마다 반응 수, 가장 뜨거운 줄에 샤인 스윕 ──
   if(isHome){onLoad(function(){
