@@ -57,22 +57,22 @@ font-size:13.5px;font-weight:800;background:#2a221d;color:#f6f1e8}
 /* 이 질문에 한마디 (KD 10/24 「오늘의 질문에도 댓글을 바로 달 수 있게」) — 그 질문이 나온 스토리 댓글과 같은 곳 */
 .cmts{margin:-8px 0 22px;padding:14px 16px 12px;border-radius:0 0 18px 18px;background:#171311;border:1px solid #2e2620;border-top:0}
 .cmts[hidden]{display:none}
-.cmts .ch{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;font-size:12.5px;font-weight:800;color:#bdb6aa}
-.cmts .ch a{font-weight:600;color:#7c756c;text-decoration:none;font-size:12px}
-.cmts .c{display:flex;gap:9px;padding:7px 0}
-.cmts .av{flex:0 0 auto;width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:#12100e}
-.cmts .bd{flex:1;min-width:0}
-.cmts .nm{font-size:12.5px;font-weight:700;color:#e8e3da}
-.cmts .ku{background:none;border:0;padding:0;font:inherit;color:#e8e3da;cursor:pointer;text-decoration:underline dotted #5a524a;text-underline-offset:3px}.cmts .nm i{font-style:normal;font-weight:500;color:#6f695f;margin-left:6px}
-.cmts .tx{font-size:14.5px;line-height:1.6;color:#ddd7cc;word-break:break-word}
-.cmts .more{display:block;width:100%;margin:2px 0 4px;padding:6px 0;border:0;background:none;color:#8b8578;font:600 12.5px Pretendard,sans-serif;cursor:pointer;text-align:left}
-.cmts form{display:flex;gap:8px;align-items:flex-end;margin-top:8px}
-.cmts textarea{flex:1;min-height:40px;max-height:120px;padding:10px 14px;border-radius:20px;border:1px solid #2e2620;background:#111;color:#f6f1e8;
+:is(.cmts,.pcm) .ch{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;font-size:12.5px;font-weight:800;color:#bdb6aa}
+:is(.cmts,.pcm) .ch a{font-weight:600;color:#7c756c;text-decoration:none;font-size:12px}
+:is(.cmts,.pcm) .c{display:flex;gap:9px;padding:7px 0}
+:is(.cmts,.pcm) .av{flex:0 0 auto;width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:#12100e}
+:is(.cmts,.pcm) .bd{flex:1;min-width:0}
+:is(.cmts,.pcm) .nm{font-size:12.5px;font-weight:700;color:#e8e3da}
+:is(.cmts,.pcm) .ku{background:none;border:0;padding:0;min-height:0;height:auto;line-height:inherit;font:inherit;color:#e8e3da;cursor:pointer;text-decoration:underline dotted #5a524a;text-underline-offset:3px}:is(.cmts,.pcm) .nm i{font-style:normal;font-weight:500;color:#6f695f;margin-left:6px}
+:is(.cmts,.pcm) .tx{font-size:14.5px;line-height:1.6;color:#ddd7cc;word-break:break-word}
+:is(.cmts,.pcm) .more{display:block;width:100%;margin:2px 0 4px;padding:6px 0;border:0;background:none;color:#8b8578;font:600 12.5px Pretendard,sans-serif;cursor:pointer;text-align:left}
+:is(.cmts,.pcm) form{display:flex;gap:8px;align-items:flex-end;margin-top:8px}
+:is(.cmts,.pcm) textarea{flex:1;min-height:40px;max-height:120px;padding:10px 14px;border-radius:20px;border:1px solid #2e2620;background:#111;color:#f6f1e8;
 font:15px/1.45 Pretendard,-apple-system,sans-serif;resize:none}
-.cmts textarea:focus{outline:none;border-color:#F07040}
-.cmts form button{flex:0 0 auto;height:40px;padding:0 16px;border-radius:999px;border:0;background:#F07040;color:#12100e;font:800 13px Pretendard,sans-serif;cursor:pointer}
-.cmts form button:disabled{background:#2a2420;color:#6f695f}
-.cmts .who{margin-top:6px;font-size:11.5px;color:#6f695f}.cmts .who b{color:#a39c90;cursor:pointer}
+:is(.cmts,.pcm) textarea:focus{outline:none;border-color:#F07040}
+:is(.cmts,.pcm) form button{flex:0 0 auto;height:40px;padding:0 16px;border-radius:999px;border:0;background:#F07040;color:#12100e;font:800 13px Pretendard,sans-serif;cursor:pointer}
+:is(.cmts,.pcm) form button:disabled{background:#2a2420;color:#6f695f}
+:is(.cmts,.pcm) .who{margin-top:6px;font-size:11.5px;color:#6f695f}:is(.cmts,.pcm) .who b{color:#a39c90;cursor:pointer}
 .hero:has(+ .cmts:not([hidden])){border-radius:20px 20px 0 0;margin-bottom:0}
 /* 머리 오른쪽 공유 아이콘 (KD 10/24 「제목 우측으로, 심플하게」) */
 .hero .hk .dd{margin-left:auto}
@@ -158,14 +158,16 @@ background:linear-gradient(135deg,#221812,#171311);border:1px solid #3a2a20}
 .persona .brag{flex:0 0 auto;height:36px;padding:0 14px;border-radius:999px;border:0;background:#F07040;color:#12100e;font-weight:800;font-size:13px;cursor:pointer}
 .persona.lock{display:block;padding:11px 16px;background:#161412;border-style:dashed}
 .persona.lock .ds{font-size:13px}
-/* 지난 질문 공유 — 결과에 맞춘 한 줄 미끼 + 작은 버튼 (KD 10/23 「예전 질문들도 공유를 더 적극적으로」) */
-.ask{display:flex;align-items:center;gap:10px;width:100%;margin-top:12px;padding:11px 0 0;border:0;border-top:1px dashed #2e2620;
-background:none;color:inherit;text-align:left;cursor:pointer;font:inherit}
-.ask .hk{flex:1;font-size:13.5px;font-weight:800;color:#f6f1e8;line-height:1.45;word-break:keep-all}
-.ask .hk em{font-style:normal;color:#F59B75}
-.ask .go{flex:0 0 auto;display:flex;width:32px;height:32px;align-items:center;justify-content:center;border-radius:999px;border:1px solid #3a2f27;color:#cfc8bc}
-.ask .go svg{width:15px;height:15px}
-.ask:hover .go{border-color:#F07040;color:#F59B75}
+/* 지난 질문 카드 — 머리 오른쪽 공유 아이콘(큰 카드와 같은 자리), 맨 아래 「💬 한마디 N」 접기/펼치기 (KD 10/24) */
+.pc .top{display:flex;align-items:center;justify-content:space-between}
+.psh{flex:0 0 auto;display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:999px;border:1px solid #2e2620;
+background:transparent;color:#8b8578;cursor:pointer}
+.psh svg{width:14px;height:14px}.psh:hover{border-color:#F07040;color:#F59B75}
+.pcmb{display:flex;align-items:center;gap:6px;width:100%;margin-top:10px;padding:10px 0 2px;border:0;border-top:1px solid #23201c;background:none;
+color:#a39c90;font:700 13px Pretendard,-apple-system,sans-serif;cursor:pointer;text-align:left}
+.pcmb b{color:#f6f1e8;font-variant-numeric:tabular-nums}.pcmb i{margin-left:auto;font-style:normal;color:#6f695f}
+.pcmb:hover,.pcmb.on{color:#F59B75}
+.pcm{padding-top:4px}
 .pc.just{border-color:#5a3524;background:#1a1512}
 /* 질문이 묻히지 않게 — 페이지 머리 설명을 걷어 큰 카드를 위로 */
 .sec-head{margin-bottom:16px}.sec-head .deck{display:none}
@@ -529,16 +531,6 @@ var POLLS = [{"day": "2026-10-23", "q": "회사가 적자여도 전망 좋으면
     if(k==='persona'){personaShare(o==='x'?'x':o);return}var p=find(k);if(p)doShare(o,p)});
   // 지난 질문마다 결과에 맞춘 한 줄 미끼 — 「친구한테 물어볼 이유」를 숫자로 (KD 10/23)
   var justVoted='';
-  function hook(p){var m=mine(p),r=pct(p),n=r[2],win=r[0]>=r[1]?p.a:p.b,wp=Math.max(r[0],r[1]);
-    if(m&&p.day===justVoted){var mp=m===1?r[0]:r[1],w=m===1?p.a:p.b;
-      return mp>=50?'나는 「'+esc(w)+'」 — <em>'+mp+'%</em>와 같은 편. 친구도 그럴까?':'나는 <em>'+mp+'%</em>만 고른 「'+esc(w)+'」 — 친구는 내 편일까?'}
-    if(n<3)return '아직 '+n+'명 — 친구를 <em>첫 투표자</em>로 불러 보기';
-    if(Math.abs(r[0]-r[1])<=20)return '⚖️ <em>'+r[0]+':'+r[1]+'</em> 팽팽 — 친구는 어느 쪽?';
-    return '<em>'+wp+'%</em>가 「'+esc(win)+'」 — 친구는 소수파일까?'}
-  // 지난 질문: 미끼 한 줄 자체가 공유 버튼(누르면 공유창) — 버튼 줄을 따로 두지 않는다
-  function ask(p){var j=p.day===justVoted;
-    return '<button type="button" class="ask'+(j?' ss-shine':'')+'" data-sheet="'+p.day+'"><span class="hk">'+hook(p)+'</span>'+
-      '<span class="go">'+IC.mo+'</span></button>'}
   function doShare(kind,p){({kk:kakao,x:xpost,ln:copy,mo:more})[kind](p)}
 
   // ── 맨 위 큰 카드 ──
@@ -576,27 +568,36 @@ var POLLS = [{"day": "2026-10-23", "q": "회사가 적자여도 전망 좋으면
   function loadCm(p){var st=p.s||'';if(!/^\d{4}c?-\d{1,2}$/.test(st)){cbox.hidden=true;return}
     fetch(API+'/comments?issue='+st.split('-')[0]).then(function(r){return r.json()}).then(function(j){
       if(j&&j.off){cbox.hidden=true;return}CM[st]=((j&&j.comments)||{})[st]||[];drawCm()}).catch(function(){CM[st]=CM[st]||[];drawCm()})}
-  function drawCm(){var p=find(heroDay());if(!p||!p.s){cbox.hidden=true;return}var st=p.s,list=CM[st];if(!list){cbox.hidden=true;return}
-    var keep=cbox.querySelector('textarea'),draft=keep&&cmFor===st?keep.value:'';cmFor=st;
-    var show=cmOpen?list:list.slice(-3),u=storyUrl(p);
-    cbox.innerHTML='<div class="ch"><span>💬 한마디 '+(list.length||'')+'</span>'+(u?'<a href="'+esc(u)+'">스토리에서 보기 →</a>':'')+'</div>'+
-      (list.length>3&&!cmOpen?'<button type="button" class="more" data-cmall="1">이전 한마디 '+(list.length-3)+'개 더 보기</button>':'')+
+  // 공용 한마디 부품 — 오늘의 질문(큰 카드 아래)·지난 질문 카드(펼쳤을 때)가 같은 모양·같은 동작 (KD 10/24 「예전 질문들도 댓글 — 통일감, 간결」)
+  var OPEN={},RC={},rcReady=false;
+  function cmBody(p,list,all){var show=all?list:list.slice(-3);
+    return (list.length>3&&!all?'<button type="button" class="more" data-cmall="'+p.day+'">이전 한마디 '+(list.length-3)+'개 더 보기</button>':'')+
       show.map(function(c){return '<div class="c"><span class="av" style="background:'+avc(c.k)+'">'+esc(String(c.k||'?').replace(/[^가-힣A-Za-z0-9]/g,'').charAt(0)||'?')+'</span>'+
         '<div class="bd"><div class="nm">'+(c.u?'<button type="button" class="ku" data-u="'+esc(c.u)+'">'+esc(c.k)+' ✓</button>':esc(c.k))+'<i>'+ago(c.t)+'</i></div><div class="tx">'+esc(c.b)+'</div></div></div>'}).join('')+
-      '<form><textarea rows="1" maxlength="140" placeholder="'+(list.length?'나도 한마디…':'이 질문, 내 생각은…')+'"></textarea><button type="submit" disabled>남기기</button></form>'+
-      (ME&&ME.nick?'<div class="who">✓ '+esc(ME.nick)+' · 내 계정 이름</div>':'<div class="who"><b data-rename="1" title="이름 바꾸기">'+esc(prof().n)+' ✎</b></div>');
-    cbox.hidden=false;var ta=cbox.querySelector('textarea'),go=cbox.querySelector('form button');ta.value=draft;go.disabled=!draft.trim();
-    ta.oninput=function(){go.disabled=!ta.value.trim();ta.style.height='auto';ta.style.height=Math.min(ta.scrollHeight,120)+'px'};
-    cbox.querySelector('form').onsubmit=function(e){e.preventDefault();var body=ta.value.trim();if(!body)return;go.disabled=true;
-      fetch(API+'/comment',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({story:st,v:vid(),nick:(ME&&ME.nick)||prof().n,body:body,tag:'',co:'',parent:0})})
-        .then(function(r){return r.json()}).then(function(j){
-          if(j&&j.ok){ta.value='';toast(j.state===1?'남겼어요 💬':'확인 뒤에 보여요');try{window.ssCanAt&&window.ssCanAt(go)}catch(_){}loadCm(p);return}
-          var E={'too fast':'조금 있다가 다시 남겨 주세요','too many':'오늘은 여기까지 남길 수 있어요','bad nick':'이름을 바꿔 주세요(12자, 「순살」 들어간 이름은 안 돼요)','off':'지금은 한마디를 잠시 닫았어요'};
-          toast(E[j&&j.error]||'남기지 못했어요');go.disabled=false})
-        .catch(function(){toast('연결이 불안정해요');go.disabled=false})}}
-  cbox.addEventListener('click',function(e){var mu=e.target.closest('[data-u]');if(mu){if(window.ssMember)window.ssMember(mu.getAttribute('data-u'));return}
+      '<form data-cmday="'+p.day+'"><textarea rows="1" maxlength="140" placeholder="'+(list.length?'나도 한마디…':'이 질문, 내 생각은…')+'"></textarea><button type="submit" disabled>남기기</button></form>'+
+      (ME&&ME.nick?'<div class="who">✓ '+esc(ME.nick)+'</div>':'<div class="who"><b data-rename="1" title="이름 바꾸기">'+esc(prof().n)+' ✎</b></div>')}
+  function drawCm(){var p=find(heroDay());if(!p||!p.s){cbox.hidden=true;return}var st=p.s,list=CM[st];if(!list){cbox.hidden=true;return}
+    var keep=cbox.querySelector('textarea'),draft=keep&&cmFor===st?keep.value:'';cmFor=st;var u=storyUrl(p);
+    cbox.innerHTML='<div class="ch"><span>💬 한마디 '+(list.length||'')+'</span>'+(u?'<a href="'+esc(u)+'">스토리에서 보기 →</a>':'')+'</div>'+cmBody(p,list,cmOpen);
+    cbox.hidden=false;var ta=cbox.querySelector('textarea');ta.value=draft;cbox.querySelector('form button').disabled=!draft.trim()}
+  // 지난 질문의 한마디는 페이지당 한 번만 받는다 — 최근 대화(/recent) 하나로 모든 카드를 채움(질문마다 따로 부르지 않음, Cloudflare 사용량)
+  function loadRecent(){fetch(API+'/recent?n=200').then(function(r){return r.json()}).then(function(j){RC={};
+    ((j&&j.items)||[]).forEach(function(c){(RC[c.story]=RC[c.story]||[]).push({i:c.id,k:c.nick,b:c.body,t:c.ts,u:c.u})});
+    for(var k in RC)RC[k].sort(function(a,b){return a.i-b.i});rcReady=true;drawList()}).catch(function(){})}
+  document.addEventListener('input',function(e){var ta=e.target.closest('form[data-cmday] textarea');if(!ta)return;
+    ta.form.querySelector('button').disabled=!ta.value.trim();ta.style.height='auto';ta.style.height=Math.min(ta.scrollHeight,120)+'px'});
+  document.addEventListener('submit',function(e){var f=e.target.closest('form[data-cmday]');if(!f)return;e.preventDefault();
+    var p=find(f.getAttribute('data-cmday')),ta=f.querySelector('textarea'),go=f.querySelector('button'),body=ta.value.trim();if(!p||!p.s||!body)return;go.disabled=true;
+    fetch(API+'/comment',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({story:p.s,v:vid(),nick:(ME&&ME.nick)||prof().n,body:body,tag:'',co:'',parent:0})})
+      .then(function(r){return r.json()}).then(function(j){
+        if(j&&j.ok){ta.value='';toast(j.state===1?'남겼어요 💬':'확인 뒤에 보여요');try{window.ssCanAt&&window.ssCanAt(go)}catch(_){}
+          if(p.day===heroDay())loadCm(p);else loadRecent();return}
+        var E={'too fast':'조금 있다가 다시 남겨 주세요','too many':'오늘은 여기까지 남길 수 있어요','bad nick':'이름을 바꿔 주세요(12자, 「순살」 들어간 이름은 안 돼요)','off':'지금은 한마디를 잠시 닫았어요'};
+        toast(E[j&&j.error]||'남기지 못했어요');go.disabled=false})
+      .catch(function(){toast('연결이 불안정해요');go.disabled=false})});
+  document.addEventListener('click',function(e){var mu=e.target.closest('[data-u]');if(mu&&(cbox.contains(mu)||list.contains(mu))){if(window.ssMember)window.ssMember(mu.getAttribute('data-u'));return}
     if(!e.target.closest('[data-rename]'))return;var p=prof(),v=prompt('이름을 바꿔요 (12자까지)',p.n||'');
-    if(v===null)return;v=v.trim().slice(0,12);if(!v)return;p.n=v;lss('ss_prof',JSON.stringify(p));lss('ss_nick',v);drawCm()});
+    if(v===null)return;v=v.trim().slice(0,12);if(!v)return;p.n=v;lss('ss_prof',JSON.stringify(p));lss('ss_nick',v);drawCm();drawList()});
   // ── 내 기록 ──
   function drawMe(){var done=0,maj=0,todo=0;POLLS.forEach(function(p){var m=mine(p);if(!m){todo++;return}done++;
       if((m===1&&p.na>=p.nb)||(m===2&&p.nb>=p.na))maj++});
@@ -638,18 +639,25 @@ var POLLS = [{"day": "2026-10-23", "q": "회사가 적자여도 전망 좋으면
     var row=function(c,label,pc,cnt){var cls=(m===c?'me ':'')+((c===1?p.na>p.nb:p.nb>p.na)?'win':'');
       return '<button type="button" data-c="'+c+'" class="'+cls+'" aria-pressed="'+(m===c)+'" aria-label="'+esc(label)+' '+pc+'퍼센트, '+cnt+'명">'+
         '<i style="width:'+pc+'%"></i><span>'+esc(label)+(m===c?' ✓':'')+'</span><b>'+pc+'%</b></button>'};
-    return '<article class="pc'+(p.day===justVoted?' just':'')+'" id="d-'+p.day+'" data-day="'+p.day+'"><div class="top"><span class="dt">'+dl(p.day)+'</span></div>'+
+    // 중요한 순서: 날짜·공유 → 질문 → 막대 → 참여 수·출처(흐리게) → 💬 한마디(접힘). 공유는 큰 카드처럼 머리 오른쪽 아이콘 하나 (KD 10/24)
+    var cl=(p.s&&RC[p.s])||[],op=OPEN[p.day];
+    return '<article class="pc'+(p.day===justVoted?' just':'')+'" id="d-'+p.day+'" data-day="'+p.day+'"><div class="top"><span class="dt">'+dl(p.day)+'</span>'+
+      '<button type="button" class="psh'+(p.day===justVoted?' ss-shine':'')+'" data-sheet="'+p.day+'" aria-label="친구한테 공유">'+IC.mo+'</button></div>'+
       '<h2 class="q">'+esc(p.q)+'</h2><div class="rs">'+row(1,p.a,r[0],p.na)+row(2,p.b,r[1],p.nb)+'</div>'+
       '<div class="n">'+(r[2]?r[2]+'명 참여':'아직 아무도 안 골랐어요')+(m?' · 내 답 ✓':(r[2]?' · <em>눌러서 내 답 더하기</em>':''))+'</div>'+
-      (u?'<a class="st" href="'+esc(u)+'">📰 '+(p.t?esc(p.t):'이 질문이 나온 브리핑 이야기')+'</a>':'')+ask(p)+'</article>'}
+      (u?'<a class="st" href="'+esc(u)+'">📰 '+(p.t?esc(p.t):'이 질문이 나온 브리핑 이야기')+'</a>':'')+
+      (p.s&&rcReady?'<button type="button" class="pcmb'+(op?' on':'')+'" data-cm="'+p.day+'" aria-expanded="'+(op?'true':'false')+'">💬 한마디'+(cl.length?' <b>'+cl.length+'</b>':'')+'<i>'+(op?'⌃':'⌄')+'</i></button>'+
+        (op?'<div class="pcm">'+cmBody(p,cl,op===2)+'</div>':''):'')+'</article>'}
   function order(){var hd=heroDay(),a=POLLS.filter(function(p){return p.day!==hd});
     if(sortBy==='hot')a.sort(function(x,y){return (y.na+y.nb)-(x.na+x.nb)||(x.day<y.day?1:-1)});
     if(sortBy==='tie')a=a.filter(function(p){return p.na+p.nb>=3}).sort(function(x,y){
       var gx=Math.abs(x.na-x.nb)/(x.na+x.nb),gy=Math.abs(y.na-y.nb)/(y.na+y.nb);return gx-gy||((y.na+y.nb)-(x.na+x.nb))});
     if(sortBy==='todo')a=a.filter(function(p){return !mine(p)});
     return a}
-  function drawList(){var a=order();list.innerHTML=a.length?a.map(card).join(''):
-    '<p class="empty">'+(sortBy==='todo'?'다 골랐어요 👏 내일 아침 새 질문이 올라와요.':'3명 넘게 고른 질문이 아직 없어요.')+'</p>'}
+  function drawList(){var fa=document.activeElement,fd=fa&&fa.closest&&fa.closest('#list form[data-cmday]'),dv=fd&&fa.value;
+    var a=order();list.innerHTML=a.length?a.map(card).join(''):
+    '<p class="empty">'+(sortBy==='todo'?'다 골랐어요 👏 내일 아침 새 질문이 올라와요.':'3명 넘게 고른 질문이 아직 없어요.')+'</p>';
+    if(fd){var nt=list.querySelector('form[data-cmday="'+fd.getAttribute('data-cmday')+'"] textarea');if(nt){nt.value=dv;nt.focus();nt.form.querySelector('button').disabled=!dv.trim()}}}
   function drawSum(){var t=POLLS.reduce(function(s,x){return s+x.na+x.nb},0),sm=document.getElementById('sum');
     if(sm)sm.textContent=POLLS.length+'개 · '+t.toLocaleString()+'표'}
   var cmLoaded='';
@@ -673,7 +681,9 @@ var POLLS = [{"day": "2026-10-23", "q": "회사가 적자여도 전망 좋으면
     if(t.hasAttribute('data-re')){e.preventDefault();hp._old=mine(hp);try{localStorage.removeItem('ss_poll_'+hp.day)}catch(x){}draw();return}
     if(t.hasAttribute('data-sub')){if(window.ssSub)window.ssSub('poll');else location.href='https://subscribe.soonsal.com/subscribe';return}
     if(t.hasAttribute('data-sheet')){openSheet(t.getAttribute('data-sheet'));return}
-    if(t.hasAttribute('data-cmall')){cmOpen=true;drawCm();return}
+    if(t.hasAttribute('data-cmall')){var dd=t.getAttribute('data-cmall');if(dd===heroDay()){cmOpen=true;drawCm()}else{OPEN[dd]=2;drawList()}return}
+    if(t.hasAttribute('data-cm')){var dc=t.getAttribute('data-cm');OPEN[dc]=OPEN[dc]?0:1;drawList();
+      if(OPEN[dc]){var ta=list.querySelector('form[data-cmday="'+dc+'"] textarea');if(ta&&!(RC[find(dc).s]||[]).length)ta.focus()}return}
     if(t.hasAttribute('data-today')){e.preventDefault();history.replaceState(null,'',location.pathname);draw();window.scrollTo({top:0,behavior:'smooth'});return}
     if(t.hasAttribute('data-todo')){setSort('todo');document.getElementById('sort').scrollIntoView({behavior:'smooth',block:'start'});return}
     if(t.hasAttribute('data-c')){var day=hero.contains(t)?hp.day:(holder&&holder.getAttribute('data-day'));if(day)vote(day,parseInt(t.getAttribute('data-c'),10),t)}
@@ -682,6 +692,7 @@ var POLLS = [{"day": "2026-10-23", "q": "회사가 적자여도 전망 좋으면
   window.addEventListener('hashchange',function(){draw();window.scrollTo({top:0,behavior:'smooth'})});
   draw();
 
+  loadRecent();
   // 페이지가 빌드된 뒤 새 질문이 나왔으면 맨 앞에 붙인다(10/23 「업데이트가 안 됐다」), 최근 3개 숫자도 지금 값으로
   fetch(API+'/poll').then(function(r){return r.json()}).then(function(j){var q=j&&j.poll;if(!q)return;
     if(!find(q.day)&&q.day>latest){POLLS.unshift({day:q.day,q:q.q,a:q.a,b:q.b,s:q.story||'',na:q.na||0,nb:q.nb||0,t:'',u:''});latest=q.day}
