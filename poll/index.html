@@ -22,7 +22,7 @@ button:focus-visible,a:focus-visible{outline:2px solid #F59B75;outline-offset:2p
 /* ── 맨 위 큰 카드: 오늘의 질문 ── */
 .hero{position:relative;margin:4px 0 22px;padding:22px 20px 18px;border-radius:20px;overflow:hidden;
 background:radial-gradient(120% 90% at 100% 0%,rgba(240,112,64,.22),transparent 60%),#1b1512;border:1px solid #5a3524}
-.hero .hk{display:flex;align-items:center;justify-content:space-between;gap:10px;font-size:12.5px;font-weight:700;color:#bdb6aa}
+.hero .hk{display:flex;align-items:center;gap:10px;font-size:12.5px;font-weight:700;color:#bdb6aa}
 .hero .live{display:inline-flex;align-items:center;gap:7px;color:#12100e;background:#F07040;border-radius:999px;padding:4px 10px;font-weight:800}
 .hero .live i{width:7px;height:7px;border-radius:50%;background:#12100e;animation:pulse 1.6s ease-in-out infinite}
 .hero .live.past{background:#3a2f27;color:#e8e3da}.hero .live.past i{background:#F59B75}
@@ -39,7 +39,7 @@ font-size:16px;font-weight:800;cursor:pointer;padding:8px 10px;line-height:1.3;w
 .hero .hint{margin:12px 0 0;font-size:13px;color:#a39c90}
 .hero .hint b{color:#f6f1e8;font-variant-numeric:tabular-nums}
 .hero .rs{display:grid;gap:9px}
-.hero .rs div{margin:0;position:relative;height:50px;border-radius:14px;background:#2a221d;overflow:hidden;display:flex;align-items:center;
+.hero .rs div,.hero .rs button{width:100%;border:0;cursor:pointer;color:#f6f1e8;text-align:left;font-family:inherit;margin:0;position:relative;height:50px;border-radius:14px;background:#2a221d;overflow:hidden;display:flex;align-items:center;
 padding:0 16px;font-size:16px;font-weight:800}
 .hero .rs i{position:absolute;left:0;top:0;bottom:0;width:0;background:#6b3f2b;transition:width .7s cubic-bezier(.2,.8,.2,1)}
 .hero .rs .me i{background:#F07040}.hero .rs .me span{color:#12100e}
@@ -54,6 +54,15 @@ font-size:13.5px;font-weight:800;background:#2a221d;color:#f6f1e8}
 .hero .st{display:block;margin-top:14px;padding-top:13px;border-top:1px solid #3a2f27;color:#cfc8bc;font-size:14px;text-decoration:none;line-height:1.5}
 .hero .st b{color:#F07040}
 
+/* 머리 오른쪽 공유 아이콘 (KD 10/24 「제목 우측으로, 심플하게」) */
+.hero .hk .dd{margin-left:auto}
+.hero .hsh{flex:0 0 auto;display:flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:999px;border:1px solid #5a3524;
+background:rgba(240,112,64,.1);color:#F59B75;cursor:pointer}
+.hero .hsh svg{width:16px;height:16px}
+.hero .hsh:hover{background:#F07040;color:#12100e}
+/* 간격·위계 — 큰 카드 / 성향 / 지난 질문 사이를 분명히 */
+.persona{margin-top:0!important}
+.lh{margin-top:30px!important}
 /* 친구에게 묻기 — 카톡 하나 + ⋯ 하나 (KD 10/23 「압축·통합」) */
 .share{display:flex;gap:8px;margin-top:14px}
 .share .kk{flex:1;display:inline-flex;align-items:center;justify-content:center;gap:6px;height:42px;border-radius:999px;border:0;
@@ -422,10 +431,10 @@ line-height:1.25;color:#fff;word-break:keep-all}
 <div class="sec-head"><div class="sec-kicker">순살러들이 고른 답</div><h1>오늘의 질문</h1><p class="deck">매일 브리핑에서 하나씩 묻고, 고른 답이 여기 쌓임</p></div>
 <section class="hero" id="hero" aria-label="오늘의 질문"><div class="hk"><span class="live"><i></i>오늘의 질문</span><span>10월 23일 금요일</span></div><h2 class="hq">회사가 적자여도 전망 좋으면 투자할래?</h2><div class="hb"><button type="button">투자한다</button><button type="button">안 한다</button></div></section>
 <section class="persona" id="persona" hidden aria-label="나는 어떤 순살러"></section>
-<div class="lh"><h2>지난 질문</h2><span class="sum" id="sum">질문 <b>11</b>개 · 지금까지 <b>86</b>표</span></div>
+<div class="lh"><h2>지난 질문</h2><span class="sum" id="sum">11개 · 86표</span></div>
 <div class="mystat" id="mystat" hidden></div>
 <div class="sort" id="sort" role="tablist" aria-label="정렬">
-<button type="button" data-s="new" class="on">최신순</button><button type="button" data-s="hot">많이 참여한</button><button type="button" data-s="tie">팽팽했던</button><button type="button" data-s="todo">안 고른 것</button>
+<button type="button" data-s="new" class="on">최신</button><button type="button" data-s="hot">참여 많은</button><button type="button" data-s="tie">팽팽한</button><button type="button" data-s="todo">안 고른 것</button>
 </div>
 <div id="list"><article class="pc" id="d-2026-10-22"><div class="dt">10월 22일 목요일</div><h2 class="q">AI가 몰래 감시 꺼도 일 잘하면 괜찮다?</h2><div class="rs"><div><span>괜찮다</span><b>8%</b></div><div><span>안 괜찮다</span><b>92%</b></div></div><div class="n">12명 참여</div><a class="st" href="/newsletters/2026/1022.html#story-5">📰 감시 장치 끈 AI, 물어보니 &#x27;안 껐음&#x27; <b>→</b></a></article><article class="pc" id="d-2026-10-21"><div class="dt">10월 21일 수요일</div><h2 class="q">집에서 술 담그다 걸리면 징역 5년, 너무하다고 생각해?</h2><div class="rs"><div><span>너무하다</span><b>100%</b></div><div><span>그럴만하다</span><b>0%</b></div></div><div class="n">8명 참여</div><a class="st" href="/newsletters/2026/1021.html#story-5">📰 맥주는 되고 위스키는 징역, 대법원 간다 <b>→</b></a></article><article class="pc" id="d-2026-10-20"><div class="dt">10월 20일 화요일</div><h2 class="q">소고기 값이 계속 오르면 덜 먹을 것 같다?</h2><div class="rs"><div><span>그렇다</span><b>93%</b></div><div><span>아니다</span><b>7%</b></div></div><div class="n">14명 참여</div><a class="st" href="/newsletters/2026/1020.html#story-4">📰 관세는 0% 됐는데 미국에 소가 없음 <b>→</b></a></article><article class="pc" id="d-2026-10-19"><div class="dt">10월 19일 월요일</div><h2 class="q">회사 그만두고 배당금으로 먹고살 수 있다면?</h2><div class="rs"><div><span>해본다</span><b>75%</b></div><div><span>무섭다</span><b>25%</b></div></div><div class="n">16명 참여</div><a class="st" href="/newsletters/2026/1019.html#story-5">📰 배당으로 퇴사했는데 원금이 녹는 중 <b>→</b></a></article><article class="pc" id="d-2026-10-16"><div class="dt">10월 16일 금요일</div><h2 class="q">내 주식 계좌도 오늘 많이 빠졌을까?</h2><div class="rs"><div><span>많이 빠짐</span><b>85%</b></div><div><span>괜찮은 편</span><b>15%</b></div></div><div class="n">13명 참여</div><a class="st" href="/newsletters/2026/1016.html#story-1">📰 AI 거품 걱정, 한국이 제일 먼저 맞는 이유 <b>→</b></a></article><article class="pc" id="d-2026-10-15"><div class="dt">10월 15일 목요일</div><h2 class="q">넷플릭스가 잘 큰다면서 자르는 거, 이해돼?</h2><div class="rs"><div><span>이해된다</span><b>100%</b></div><div><span>이상하다</span><b>0%</b></div></div><div class="n">4명 참여</div><a class="st" href="/newsletters/2026/1015.html#story-4">📰 잘 큰다면서 1,000명 자르는 넷플릭스 <b>→</b></a></article><article class="pc" id="d-2026-10-14"><div class="dt">10월 14일 수요일</div><h2 class="q">내 노후, 지금 부모님보다 넉넉할까?</h2><div class="rs"><div><span>그럴 것 같다</span><b>0%</b></div><div><span>안 그럴 듯</span><b>100%</b></div></div><div class="n">2명 참여</div><a class="st" href="/newsletters/2026/1014.html#story-4">📰 35세 미만보다 15배 부자인 미국 75세들 <b>→</b></a></article><article class="pc" id="d-2026-10-13"><div class="dt">10월 13일 화요일</div><h2 class="q">나라면 손님 줄어도 밀크티 가게 열까?</h2><div class="rs"><div><span>열 것 같다</span><b>0%</b></div><div><span>안 열 것 같다</span><b>100%</b></div></div><div class="n">1명 참여</div><a class="st" href="/newsletters/2026/1013.html#story-1">📰 밀크티 가게 이기고 중국 손님 잃은 루이비통 <b>→</b></a></article><article class="pc" id="d-2026-10-12"><div class="dt">10월 12일 월요일</div><h2 class="q">스벅 돈으로 치폴레 산다면?</h2><div class="rs"><div><span>잘한 선택</span><b>0%</b></div><div><span>무리한 베팅</span><b>100%</b></div></div><div class="n">7명 참여</div><a class="st" href="/newsletters/2026/1012.html#story-3">📰 친정을 사들이려는 스타벅스 사장님 <b>→</b></a></article><article class="pc" id="d-2026-10-08"><div class="dt">10월 8일 목요일</div><h2 class="q">AI가 나한테도 비싼 값 보여줄까?</h2><div class="rs"><div><span>그럴 것 같다</span><b>67%</b></div><div><span>안 그럴 듯</span><b>33%</b></div></div><div class="n">3명 참여</div><a class="st" href="/newsletters/2026/1008.html#story-2">📰 부자한테는 비싼 표 골라주는 AI 비서 <b>→</b></a></article></div>
 <p class="foot">질문은 매일 아침 브리핑 스토리 하나에서 나와요. 고른 답은 이 브라우저에 표시되고, 다시 눌러 바꿀 수 있어요.</p>
@@ -511,15 +520,18 @@ var POLLS = [{"day": "2026-10-23", "q": "회사가 적자여도 전망 좋으면
 
   // ── 맨 위 큰 카드 ──
   function drawHero(){var p=find(heroDay());if(!p)return;var m=mine(p),r=pct(p),isNow=p.day===latest,u=storyUrl(p);
-    var h='<div class="hk"><span class="live'+(isNow?'':' past')+'"><i></i>'+(isNow?'오늘의 질문':'친구가 보낸 질문')+'</span><span>'+dl(p.day)+'</span></div>'+
+    // 머리: 배지·날짜 왼쪽, 공유 아이콘 하나 오른쪽 (KD 10/24 「공유하기 버튼 자체를 심플하게 축소시켜서 제목 우측으로」)
+    var h='<div class="hk"><span class="live'+(isNow?'':' past')+'"><i></i>'+(isNow?'오늘의 질문':'친구가 보낸 질문')+'</span><span class="dd">'+dl(p.day)+'</span>'+
+      '<button type="button" class="hsh'+(m?' ss-shine':'')+'" data-sheet="'+p.day+'" aria-label="친구한테 공유">'+IC.mo+'</button></div>'+
       '<h2 class="hq">'+esc(p.q)+'</h2>';
     if(!m){h+='<div class="hb"><button type="button" class="ss-shine" data-c="1">'+esc(p.a)+'</button><button type="button" class="ss-shine" data-c="2">'+esc(p.b)+'</button></div>'+
       '<p class="hint">'+(r[2]?'지금까지 <b>'+r[2]+'명</b> 참여 · ':'')+'고르면 다른 순살러들 선택이 보여요</p>';}
-    else{var w1=m===1?' class="me"':'',w2=m===2?' class="me"':'',mp=m===1?r[0]:r[1];
-      h+='<div class="rs"><div'+w1+'><i data-w="'+r[0]+'"></i><span>'+esc(p.a)+(m===1?' ✓':'')+'</span><b>'+r[0]+'%</b></div>'+
-        '<div'+w2+'><i data-w="'+r[1]+'"></i><span>'+esc(p.b)+(m===2?' ✓':'')+'</span><b>'+r[1]+'%</b></div></div>'+
+    // 고른 뒤: 지난 질문과 똑같이 막대를 누르면 답이 바뀐다 — 「다시 고르기」 없음 (KD 10/24)
+    else{var mp=m===1?r[0]:r[1];
+      h+='<div class="rs"><button type="button" data-c="1"'+(m===1?' class="me"':'')+'><i data-w="'+r[0]+'"></i><span>'+esc(p.a)+(m===1?' ✓':'')+'</span><b>'+r[0]+'%</b></button>'+
+        '<button type="button" data-c="2"'+(m===2?' class="me"':'')+'><i data-w="'+r[1]+'"></i><span>'+esc(p.b)+(m===2?' ✓':'')+'</span><b>'+r[1]+'%</b></button></div>'+
         '<div class="meta"><span class="badge'+(mp<50?' min':'')+'">'+(mp>50?'🙌 다수파 '+mp+'%':mp===50?'⚖️ 반반':'🦄 소수파 '+mp+'%')+'</span>'+
-        '<span>'+r[2]+'명 참여 · <a href="#" data-re="1">다시 고르기</a></span></div>'+shareRow(p);}
+        '<span>'+r[2]+'명 참여</span></div>';}
     var ft=[];if(u)ft.push('<a href="'+esc(u)+'">📰 '+(p.t?esc(p.t):'이 질문이 나온 이야기')+'</a>');
     if(m&&!(window.ssIsSub&&window.ssIsSub()))ft.push('<a href="#" data-sub="1" class="sb">📮 내일 질문도 메일로</a>');
     if(ft.length)h+='<div class="ft">'+ft.join('')+'</div>';
@@ -530,9 +542,8 @@ var POLLS = [{"day": "2026-10-23", "q": "회사가 적자여도 전망 좋으면
   // ── 내 기록 ──
   function drawMe(){var done=0,maj=0,todo=0;POLLS.forEach(function(p){var m=mine(p);if(!m){todo++;return}done++;
       if((m===1&&p.na>=p.nb)||(m===2&&p.nb>=p.na))maj++});
-    if(!done){meBox.hidden=true;return}meBox.hidden=false;
-    meBox.innerHTML='<span>내 기록 · <b>'+done+'</b>/'+POLLS.length+'개 고름</span><span>다수파와 같은 답 <b>'+maj+'</b>번 · 소수파 <b>'+(done-maj)+'</b>번</span>'+
-      (todo?'<button type="button" data-todo="1">안 고른 질문 '+todo+'개 →</button>':'')}
+    // 「내 기록」 줄은 없앴다(성향 카드가 같은 숫자) — 안 고른 개수는 정렬 칩에만 (KD 10/24 「중간 텍스트·버튼이 너무 많아 위계·간격 정리」)
+    meBox.hidden=true;var tb=document.querySelector('#sort [data-s="todo"]');if(tb)tb.textContent='안 고른 것'+(todo?' '+todo:'')}
   // ── 나는 어떤 순살러? — 5개 이상 고르면 다수파와 같은 답 비율로 유형 (KD 10/23 개선 2) ──
   var pbox=document.getElementById('persona'),PT=[[.85,'🌊','대세 탑승형','순살러 대부분과 생각이 같아요'],[.65,'🧭','현실 감각형','대체로 다수파, 가끔은 소신'],
     [.45,'⚖️','줄타기형','다수파와 소수파를 오가요'],[.25,'🦄','마이웨이형','남들과 다른 답을 자주 골라요'],[-1,'🔥','역발상형','거의 늘 소수파 쪽']];
@@ -582,7 +593,7 @@ var POLLS = [{"day": "2026-10-23", "q": "회사가 적자여도 전망 좋으면
   function drawList(){var a=order();list.innerHTML=a.length?a.map(card).join(''):
     '<p class="empty">'+(sortBy==='todo'?'다 골랐어요 👏 내일 아침 새 질문이 올라와요.':'3명 넘게 고른 질문이 아직 없어요.')+'</p>'}
   function drawSum(){var t=POLLS.reduce(function(s,x){return s+x.na+x.nb},0),sm=document.getElementById('sum');
-    if(sm)sm.innerHTML='질문 <b>'+POLLS.length+'</b>개 · 지금까지 <b>'+t.toLocaleString()+'</b>표'}
+    if(sm)sm.textContent=POLLS.length+'개 · '+t.toLocaleString()+'표'}
   function draw(){drawHero();drawPersona();drawMe();drawList();drawSum()}
   function setSort(s){sortBy=s;[].forEach.call(document.querySelectorAll('#sort button'),function(x){x.classList.toggle('on',x.getAttribute('data-s')===s)});drawList()}
 

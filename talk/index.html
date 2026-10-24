@@ -148,14 +148,21 @@ font:700 12.5px Pretendard,-apple-system,sans-serif;cursor:pointer}
 .tkme{display:block;margin:0 16px 18px;padding:0;border:0;background:none;font-size:12.5px;color:#8b8578}
 .tkme b{color:#F59B75}
 
+/* ── 역할별 모양 (KD 10/24 「워딩이 너무 폭력적으로 많음 — 참여·읽을 내용·안내문·댓글 구분이 안 감」) ──
+   읽을 원글 = 작고 흐린 인용(왼쪽 선) · 댓글 = 아바타 + 흰 본문 · 참여 = 주황 테두리 작은 버튼/입력 · 안내 = 맨 아래 작은 글자 */
+.hd .sec-head .deck{display:none}
+.hd .sec-head{margin-bottom:14px}
+.tkme{text-align:center;margin:28px 16px 0!important;font-size:12px!important;color:#6f695f!important}
 /* 스토리 묶음 — 원글 머리는 한 번, 아래로 대화 */
 .sg{border-top:6px solid #0c0c0c;padding:16px 0 6px;scroll-margin-top:80px}
 .sg.flash{animation:sgf 1.6s ease}
 @keyframes sgf{0%,40%{background:#1a1411}100%{background:transparent}}
 .sg .src{margin:0 16px 4px;background:none;border:0;border-left:3px solid #E55A00;border-radius:0;padding:2px 0 2px 12px}
 .sg .src:hover{background:none}
-.sg .src .lb{font-size:11px;color:#a3846f;letter-spacing:.04em;margin-bottom:3px}
-.sg .src .ti{font-size:16.5px;color:#f6f1e8;line-height:1.4}
+.sg .src{border-left-color:#4a3428!important}
+.sg .src .lb{font-size:10.5px;color:#7c756c;letter-spacing:.04em;margin-bottom:2px}
+.sg .src .ti{font-size:14px;font-weight:700;color:#a39c90;line-height:1.45}
+.sg .src:hover .ti{color:#e8e3da}
 .sg .src .ld{-webkit-line-clamp:1;font-size:12.5px;color:#7c756c;margin-top:3px}
 .sg .th{border-top:0;padding:10px 16px 2px}
 .th.new{background:#17130f}
@@ -166,7 +173,8 @@ font:700 12.5px Pretendard,-apple-system,sans-serif;cursor:pointer}
 .nw{font-size:10px;font-weight:900;color:#12100e;background:#F07040;border-radius:4px;padding:1px 5px;letter-spacing:.04em}
 /* 「순살이 묻다」 — 봇 글을 대화를 여는 질문 카드로 */
 .q{padding:12px 14px;border-radius:14px;background:#161412;border:1px dashed #3a2f27}
-.q .qk{font-size:11px;font-weight:800;color:#8fa3b5;letter-spacing:.04em}
+.q{border-style:solid!important;border-color:#2a2622!important;background:#141210!important}
+.q .qk{font-size:10.5px;font-weight:800;color:#7f93a5;letter-spacing:.04em}
 .q p{margin:5px 0 10px;font-size:15.5px;font-weight:700;color:#f0ece4;line-height:1.55;word-break:keep-all}
 .q .qa{display:flex;align-items:center;justify-content:space-between;gap:10px}
 .q .qa span{font-size:12px;color:#8b8578}
@@ -174,9 +182,11 @@ font:700 12.5px Pretendard,-apple-system,sans-serif;cursor:pointer}
 .q .qb:hover{background:#F07040;color:#12100e}
 /* 이 이야기에 한마디 — 평소엔 입력칸처럼 보이는 한 줄 */
 .th.say{padding:8px 16px 12px}
-.sayb{display:flex;align-items:center;gap:10px;width:100%;padding:8px 12px 8px 8px;border-radius:999px;border:1px solid #262220;
-background:#151311;color:#7c756c;font:500 14px Pretendard,-apple-system,sans-serif;text-align:left;cursor:text}
-.sayb .av{width:26px;height:26px;font-size:.68rem}
+/* 스토리마다 반복되니 흐린 글자 링크 — 눌렀을 때만 주황 (KD 10/24 「참여 버튼이 너무 많음」) */
+.sayb{display:inline-flex;align-items:center;gap:6px;padding:4px 0;border:0;background:transparent;color:#6f695f;
+font:600 12.5px Pretendard,-apple-system,sans-serif;cursor:pointer}
+.sayb:hover,.sayb:focus-visible{color:#F59B75}
+.sayb .av{display:none}
 .sayb:hover{border-color:#3a2f27;color:#a39c90}
 .th.say .rf{padding-left:0}
 @media (prefers-reduced-motion:reduce){.sg.flash{animation:none}}
@@ -447,15 +457,13 @@ line-height:1.25;color:#fff;word-break:keep-all}
 <div class="hd">
 <div class="sec-head"><div class="sec-kicker">독자들이 남긴 한 줄</div><h1>순살톡<span class="live"><b></b>실시간</span></h1><p class="deck">브리핑을 읽다 남긴 한마디가 회차 상관없이 여기 모임</p></div>
 </div>
-<p class="pulse" id="pulse"></p>
-<a class="tq" id="tq" hidden></a>
 <div class="hot" id="hot" hidden></div>
-<div class="flt" id="flt" role="tablist" aria-label="보기"><button type="button" class="on" data-f="new">최신</button><button type="button" data-f="hot">🔥 인기</button><button type="button" data-f="ask">🙋 답 기다리는 글</button></div>
-<a class="tkme" id="tkme" href="/account/" rel="nofollow">🔔 로그인하면 내 글에 달린 답글을 알림으로 · <b>카카오·구글 1초 →</b></a>
+<div class="flt" id="flt" role="tablist" aria-label="보기"><button type="button" class="on" data-f="new">최신</button><button type="button" data-f="hot">인기</button><button type="button" data-f="ask">답 기다림</button></div>
 <script>(function(){try{if(localStorage.getItem('ss_auth')!=='1')return}catch(e){return}
 // 회원이면 띠를 거둔다 — 알림은 헤더 계정 아이콘(배지·패널)에 이미 있다 (KD 2026-10-09 「중복 streamline」)
 var a=document.getElementById('tkme');a.parentNode.removeChild(a)})()</script>
 <div id="app"><div class="empty">불러오는 중…</div></div>
+<a class="tkme" id="tkme" href="/account/" rel="nofollow">🔔 로그인하면 내 글에 달린 답글을 알림으로 받아요 →</a>
 </div>
 <script src="/soonsal.js" defer></script>
 <script>
@@ -607,13 +615,12 @@ function render(items) {
       '<a class="src" href="' + href(st) + '">' +
         '<span class="lb">' + (slabel(st) ? esc(slabel(st)) + ' · ' : '') + sdate(st) + ' 브리핑</span>' +
         '<span class="ti">' + esc(label(st)) + '</span>' +
-        (slead(st) ? '<span class="ld">' + esc(slead(st)) + '…</span>' : '') +
       '</a>' +
       g.threads.map(function (list) {
         var head = list[0], isNew = !first && !seen[head.id];
         var body = isBot(head)
           ? '<div class="q"><span class="qk">🤖 순살이 묻다</span><p>' + esc(head.body) + '</p>' +
-              '<div class="qa"><span>' + (list.length > 1 ? '답 ' + (list.length - 1) + '개' : '아직 답이 없어요 — 첫 답을 남겨 보세요') + '</span>' +
+              '<div class="qa"><span>' + (list.length > 1 ? '답 ' + (list.length - 1) : '') + '</span>' +
               '<button type="button" class="repb qb" data-i="' + head.id + '" data-k="" data-s="' + esc(head.story) + '">답하기</button></div></div>' +
             list.slice(1).map(function (c) { return one(c, true); }).join('')
           : list.map(function (c) { return one(c, c.parent_id); }).join('');
@@ -621,7 +628,7 @@ function render(items) {
       }).join('') +
       '<div class="th say" data-r="s-' + esc(st) + '">' +
         '<button type="button" class="sayb" data-s="' + esc(st) + '">' + avatar(prof().n || '나', 0) +
-        '<span>이 이야기에 한마디…</span></button>' + rform('s-' + st) + '</div>' +
+        '<span>＋ 한마디</span></button>' + rform('s-' + st) + '</div>' +
     '</section>';
   }).join('');
   items.forEach(function (c) { seen[c.id] = 1; });
@@ -639,15 +646,13 @@ function rform(rid) {
 function drawTop(items, gs) {
   var now = Date.now() / 1000, wk = items.filter(function (c) { return !isBot(c) && now - c.ts < 7 * 86400; }),
       ppl = {}; wk.forEach(function (c) { ppl[c.nick] = 1; });
-  var pu = document.getElementById('pulse');
-  if (pu) pu.innerHTML = wk.length
-    ? '이번 주 한마디 <b>' + wk.length + '</b>개 · 순살러 <b>' + Object.keys(ppl).length + '</b>명이 이야기 중'
-    : '이번 주 첫 한마디를 남겨 보세요';
+  var lv = document.querySelector('.hd .live');
+  if (lv && wk.length) lv.innerHTML = '<b></b>이번 주 ' + wk.length + '개';
   var hot = gs.filter(function (g) { return now - g.last < 14 * 86400 && g.score >= 2; })
     .sort(function (a, b) { return b.score - a.score; }).slice(0, 3);
   var ho = document.getElementById('hot');
-  if (ho) { ho.hidden = !hot.length;
-    ho.innerHTML = '<span class="hk">🔥 지금 뜨거운</span>' + hot.map(function (g) {
+  if (ho) { ho.hidden = hot.length < 2;   // 하나뿐이면 줄을 따로 두지 않는다
+    ho.innerHTML = '<span class="hk">🔥</span>' + hot.map(function (g) {
       return '<a href="#s-' + esc(g.story) + '" data-go="' + esc(g.story) + '">' + esc(label(g.story)) + '<b>' + g.n + '</b></a>'; }).join(''); }
 }
 function todayQ() {
@@ -862,7 +867,6 @@ function load() {
     if (t) { t.scrollIntoView({ behavior: 'smooth', block: 'start' }); t.classList.add('flash'); setTimeout(function () { t.classList.remove('flash'); }, 1600); }
   });
 })();
-todayQ();
 load();
 // 상시 폴링은 없앴다(KD 2026-09-12) — 열어둔 탭이 15초마다 D1 을 때려
 // rows_read 를 하루 수백만으로 밀어올렸다. 트래픽 낮은 지금 라이브 효과는 과하다.

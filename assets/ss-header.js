@@ -409,8 +409,12 @@
         '.ss-poll.lt .bt button{border-color:#e3d9cc;color:#3a2f27;background:#fff}.ss-poll.lt .bt button:hover{border-color:#F07040;color:#C24A00}'+
         '.ss-poll.lt .rs div{background:#f1ebe2;color:#3a2f27}.ss-poll.lt .rs i{background:#f6d4c0}.ss-poll.lt .rs .me i{background:#F07040}'+
         '.ss-poll.lt .rs b{color:#3a2f27}.ss-poll.lt .rs .me span{color:#12100e}.ss-poll.lt .n{color:#9a8f82}.ss-poll.lt .n a{color:#C24A00}'+
-        '.ss-pt{display:block;margin:-6px 0 10px 30px;padding:10px 12px;border-radius:10px;background:#1a1512;border:1px solid #3a2a20;color:#e8e3da;font-size:13.5px;line-height:1.5;text-decoration:none}'+
-        '.ss-pt span{color:#bdb6aa;font-weight:800}.ss-pt b{color:#F07040}.ss-pt:hover{border-color:#F07040}'+
+        /* 홈 「오늘의 순살」 안 질문 줄 — 참여 모양: 주황 배지 · 한 줄 질문 · 투표 버튼 (KD 10/24 「오늘의 질문은 눈에 잘 안 들어옴」) */
+        '.ss-pt{display:flex;align-items:center;gap:10px;margin:2px 0 12px 30px;padding:10px 10px 10px 12px;border-radius:12px;background:rgba(240,112,64,.1);'+
+        'border:1px solid #6b3a24;color:#f6f1e8;text-decoration:none}'+
+        '.ss-pt .k{flex:0 0 auto;font-size:11px;font-weight:900;color:#12100e;background:#F07040;border-radius:999px;padding:3px 8px}'+
+        '.ss-pt .tx{flex:1;min-width:0;font-size:14px;font-weight:700;line-height:1.4;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}'+
+        '.ss-pt b{flex:0 0 auto;font-size:12.5px;font-weight:800;color:#F59B75}.ss-pt:hover{border-color:#F07040}'+
         '.ss-pi{font-size:.8em;font-weight:700;color:#C24A00;white-space:nowrap}';
       document.head.appendChild(st);
       var c=document.createElement('section');c.className='ss-poll'+(light?' lt':'');c.id='ss-poll';c.setAttribute('aria-label','오늘의 질문');
@@ -449,7 +453,7 @@
         setTimeout(function(){var y=c.getBoundingClientRect().top+window.scrollY-90;window.scrollTo({top:y,behavior:'smooth'})},80)};
       if(home){var row=document.querySelector('.hero .hs[data-n="'+sn+'"]');
         if(row){var t=document.createElement('a');t.className='ss-pt'+(mine?'':' ss-shine');t.href='#ss-poll';
-          t.innerHTML='<span>🗳️ 오늘의 질문</span> '+esc(p.q)+' <b>→</b>';t.onclick=go;row.parentNode.insertBefore(t,row.nextSibling)}}
+          t.innerHTML='<span class="k">🗳️ 질문</span><span class="tx">'+esc(p.q)+'</span><b>'+(mine?'결과 →':'투표 →')+'</b>';t.onclick=go;row.parentNode.insertBefore(t,row.nextSibling)}}
       else{var li=document.querySelector('.ss-story-index a[href$="#story-'+sn+'"]');
         if(li&&!li.querySelector('.ss-pi')){var m=document.createElement('span');m.className='ss-pi';m.textContent=' 🗳️ 투표';li.appendChild(m)}}
     }).catch(function(){});
@@ -706,14 +710,16 @@
     /* 3. 읽은 만큼 차오르는 진행 막대 */
     '#ss-prog{position:fixed;left:0;top:0;height:3px;width:0;background:var(--sn-accent);z-index:100001;transition:width .1s linear;pointer-events:none}'+
     /* 5. 홈 오늘의 순살 반응 표시 */
-    '.hero .hs .ss-heat{flex:0 0 auto;margin-left:8px;font-size:12px;font-weight:800;color:var(--sn-accent-2);font-variant-numeric:tabular-nums;white-space:nowrap}'+
+    '.hero .hs .ss-heat{flex:0 0 auto;margin-left:8px;font-size:11px;font-weight:600;color:var(--sn-mute);font-variant-numeric:tabular-nums;white-space:nowrap;opacity:.85}'+
     '.hero .hs.ss-hot{border-radius:10px}'+
     /* 4. 순스타그램 바둑판 */
     '.ss-grid-bar{display:flex;align-items:center;gap:8px;max-width:800px;margin:0 auto 12px;padding:0 20px}'+
-    '.ss-grid-bar .sp{flex:1}.ss-grid-bar button{height:32px;padding:0 13px;border-radius:999px;border:1px solid #2e2924;background:transparent;color:#bdb6aa;font:700 13px Pretendard,sans-serif;cursor:pointer}'+
-    '.ss-grid-bar button.on{background:var(--sn-accent);border-color:var(--sn-accent);color:#12100e}'+
+    '.ss-grid-bar .sp{flex:1}.ss-grid-bar .tg{display:inline-flex;padding:3px;border-radius:999px;background:#1b1715;border:1px solid #2e2924}'+
+    '.ss-grid-bar .tg button{display:flex;align-items:center;justify-content:center;width:34px;height:28px;border-radius:999px;border:0;background:transparent;color:#8b8578;cursor:pointer}'+
+    '.ss-grid-bar .tg button.on{background:#2e2620;color:#f6f1e8}'+
     '.ss-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:3px;max-width:800px;margin:0 auto 40px;padding:0 20px}'+
-    '.ss-grid a{position:relative;display:block;aspect-ratio:4/5;overflow:hidden;background:#1b1715;border-radius:4px}'+
+    '.ss-grid a{position:relative;display:block;aspect-ratio:1/1;overflow:hidden;background:#1b1715;border-radius:4px}'+
+    '.ss-grid a .t{display:none!important}.ss-grid a.nt .t{display:-webkit-box!important;top:30px;bottom:auto;background:none;color:#cfc8bc}'+
     '.ss-grid img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .25s}.ss-grid a:hover img{transform:scale(1.04)}'+
     '.ss-grid a .t{position:absolute;left:0;right:0;bottom:0;padding:18px 7px 6px;font:700 11px/1.35 Pretendard,sans-serif;color:#fff;'+
     'background:linear-gradient(transparent,rgba(0,0,0,.78));display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}'+
@@ -781,12 +787,16 @@
         tiles.push({h:a.getAttribute('href'),y:m[1],s:m[2],t:a.textContent.replace(/^\s*Card\s*/,'').replace(/^순살(크립토)?카드뉴스\s*·\s*/,'').trim(),d:dt.slice(5).replace('.','/')})})});
     if(!tiles.length)return;
     var barEl=document.createElement('div');barEl.className='ss-grid-bar';
-    barEl.innerHTML='<button type="button" class="on" data-v="g">바둑판</button><button type="button" data-v="l">목록</button><span class="sp"></span>'+
+    // 글자 대신 아이콘 토글 (KD 10/24 「바둑판 목록이라는 워딩 말고 토글 형태로 이모지」)
+    var IG='<svg viewBox="0 0 24 24" width="17" height="17" fill="currentColor"><rect x="3" y="3" width="7.5" height="7.5" rx="1.5"/><rect x="13.5" y="3" width="7.5" height="7.5" rx="1.5"/><rect x="3" y="13.5" width="7.5" height="7.5" rx="1.5"/><rect x="13.5" y="13.5" width="7.5" height="7.5" rx="1.5"/></svg>',
+        IL='<svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg>';
+    barEl.innerHTML='<span class="tg"><button type="button" class="on" data-v="g" aria-label="바둑판으로 보기">'+IG+'</button><button type="button" data-v="l" aria-label="목록으로 보기">'+IL+'</button></span><span class="sp"></span>'+
       '<a class="ss-pill sub ss-shine" href="https://instagram.com/soonsal.brief" target="_blank" rel="noopener">📸 인스타 팔로우</a>';
     var g=document.createElement('div');g.className='ss-grid';
-    g.innerHTML=tiles.map(function(x,i){return '<a href="'+x.h+'"><img loading="'+(i<12?'eager':'lazy')+'" decoding="async" alt="'+esc(x.t)+'" src="/assets/cardnews/'+x.s+'.jpg" '+
-      'onerror="if(!this.dataset.f){this.dataset.f=1;this.src=\'/cardnews/'+x.y+'/'+x.s+'_png/card_01.png\'}else{this.style.display=\'none\'}">'+
-      '<span class="d">'+esc(x.d)+'</span></a>'}).join('');   // 표지에 제목이 이미 크게 있어 글자는 덧대지 않는다(alt 로만)
+    // 바둑판엔 작은 표지(assets/cardnews/t/, 360px) — 없으면 원본, 그것도 없으면 제목 글자 칸 (KD 10/24 「이미지 로딩 시간」)
+    g.innerHTML=tiles.map(function(x,i){return '<a href="'+x.h+'"><img loading="'+(i<9?'eager':'lazy')+'" decoding="async" alt="'+esc(x.t)+'" src="/assets/cardnews/t/'+x.s+'.jpg" '+
+      'onerror="if(!this.dataset.f){this.dataset.f=1;this.src=\'/assets/cardnews/'+x.s+'.jpg\'}else{this.style.display=\'none\';this.parentNode.classList.add(\'nt\')}">'+
+      '<span class="d">'+esc(x.d)+'</span><span class="t">'+esc(x.t)+'</span></a>'}).join('');   // 표지에 제목이 이미 크게 있어 글자는 덧대지 않는다(alt 로만)
     days[0].parentNode.insertBefore(barEl,days[0]);barEl.parentNode.insertBefore(g,barEl.nextSibling);
     function mode(v){var grid=v==='g';g.style.display=grid?'':'none';[].forEach.call(days,function(dv){dv.style.display=grid?'none':''});
       [].forEach.call(barEl.querySelectorAll('button'),function(b){b.classList.toggle('on',b.getAttribute('data-v')===v)});try{localStorage.setItem('ss_cn_view',v)}catch(e){}}
