@@ -54,6 +54,25 @@ font-size:13.5px;font-weight:800;background:#2a221d;color:#f6f1e8}
 .hero .st{display:block;margin-top:14px;padding-top:13px;border-top:1px solid #3a2f27;color:#cfc8bc;font-size:14px;text-decoration:none;line-height:1.5}
 .hero .st b{color:#F07040}
 
+/* 이 질문에 한마디 (KD 10/24 「오늘의 질문에도 댓글을 바로 달 수 있게」) — 그 질문이 나온 스토리 댓글과 같은 곳 */
+.cmts{margin:-8px 0 22px;padding:14px 16px 12px;border-radius:0 0 18px 18px;background:#171311;border:1px solid #2e2620;border-top:0}
+.cmts[hidden]{display:none}
+.cmts .ch{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;font-size:12.5px;font-weight:800;color:#bdb6aa}
+.cmts .ch a{font-weight:600;color:#7c756c;text-decoration:none;font-size:12px}
+.cmts .c{display:flex;gap:9px;padding:7px 0}
+.cmts .av{flex:0 0 auto;width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:#12100e}
+.cmts .bd{flex:1;min-width:0}
+.cmts .nm{font-size:12.5px;font-weight:700;color:#e8e3da}.cmts .nm i{font-style:normal;font-weight:500;color:#6f695f;margin-left:6px}
+.cmts .tx{font-size:14.5px;line-height:1.6;color:#ddd7cc;word-break:break-word}
+.cmts .more{display:block;width:100%;margin:2px 0 4px;padding:6px 0;border:0;background:none;color:#8b8578;font:600 12.5px Pretendard,sans-serif;cursor:pointer;text-align:left}
+.cmts form{display:flex;gap:8px;align-items:flex-end;margin-top:8px}
+.cmts textarea{flex:1;min-height:40px;max-height:120px;padding:10px 14px;border-radius:20px;border:1px solid #2e2620;background:#111;color:#f6f1e8;
+font:15px/1.45 Pretendard,-apple-system,sans-serif;resize:none}
+.cmts textarea:focus{outline:none;border-color:#F07040}
+.cmts form button{flex:0 0 auto;height:40px;padding:0 16px;border-radius:999px;border:0;background:#F07040;color:#12100e;font:800 13px Pretendard,sans-serif;cursor:pointer}
+.cmts form button:disabled{background:#2a2420;color:#6f695f}
+.cmts .who{margin-top:6px;font-size:11.5px;color:#6f695f}.cmts .who b{color:#a39c90;cursor:pointer}
+.hero:has(+ .cmts:not([hidden])){border-radius:20px 20px 0 0;margin-bottom:0}
 /* 머리 오른쪽 공유 아이콘 (KD 10/24 「제목 우측으로, 심플하게」) */
 .hero .hk .dd{margin-left:auto}
 .hero .hsh{flex:0 0 auto;display:flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:999px;border:1px solid #5a3524;
@@ -430,8 +449,9 @@ line-height:1.25;color:#fff;word-break:keep-all}
 <div class="wrap">
 <div class="sec-head"><div class="sec-kicker">순살러들이 고른 답</div><h1>오늘의 질문</h1><p class="deck">매일 브리핑에서 하나씩 묻고, 고른 답이 여기 쌓임</p></div>
 <section class="hero" id="hero" aria-label="오늘의 질문"><div class="hk"><span class="live"><i></i>오늘의 질문</span><span>10월 23일 금요일</span></div><h2 class="hq">회사가 적자여도 전망 좋으면 투자할래?</h2><div class="hb"><button type="button">투자한다</button><button type="button">안 한다</button></div></section>
+<section class="cmts" id="cmts" hidden aria-label="이 질문에 한마디"></section>
 <section class="persona" id="persona" hidden aria-label="나는 어떤 순살러"></section>
-<div class="lh"><h2>지난 질문</h2><span class="sum" id="sum">11개 · 86표</span></div>
+<div class="lh"><h2>지난 질문</h2><span class="sum" id="sum">11개 · 87표</span></div>
 <div class="mystat" id="mystat" hidden></div>
 <div class="sort" id="sort" role="tablist" aria-label="정렬">
 <button type="button" data-s="new" class="on">최신</button><button type="button" data-s="hot">참여 많은</button><button type="button" data-s="tie">팽팽한</button><button type="button" data-s="todo">안 고른 것</button>
@@ -442,7 +462,7 @@ line-height:1.25;color:#fff;word-break:keep-all}
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 <script src="/soonsal.js" defer></script>
 <script>
-var POLLS = [{"day": "2026-10-23", "q": "회사가 적자여도 전망 좋으면 투자할래?", "a": "투자한다", "b": "안 한다", "s": "1023-3", "na": 6, "nb": 0, "t": "몸값 올라서 720억불 손해 본 앤스로픽", "u": "/newsletters/2026/1023.html#story-3"}, {"day": "2026-10-22", "q": "AI가 몰래 감시 꺼도 일 잘하면 괜찮다?", "a": "괜찮다", "b": "안 괜찮다", "s": "1022-5", "na": 1, "nb": 11, "t": "감시 장치 끈 AI, 물어보니 '안 껐음'", "u": "/newsletters/2026/1022.html#story-5"}, {"day": "2026-10-21", "q": "집에서 술 담그다 걸리면 징역 5년, 너무하다고 생각해?", "a": "너무하다", "b": "그럴만하다", "s": "1021-5", "na": 8, "nb": 0, "t": "맥주는 되고 위스키는 징역, 대법원 간다", "u": "/newsletters/2026/1021.html#story-5"}, {"day": "2026-10-20", "q": "소고기 값이 계속 오르면 덜 먹을 것 같다?", "a": "그렇다", "b": "아니다", "s": "1020-4", "na": 13, "nb": 1, "t": "관세는 0% 됐는데 미국에 소가 없음", "u": "/newsletters/2026/1020.html#story-4"}, {"day": "2026-10-19", "q": "회사 그만두고 배당금으로 먹고살 수 있다면?", "a": "해본다", "b": "무섭다", "s": "1019-5", "na": 12, "nb": 4, "t": "배당으로 퇴사했는데 원금이 녹는 중", "u": "/newsletters/2026/1019.html#story-5"}, {"day": "2026-10-16", "q": "내 주식 계좌도 오늘 많이 빠졌을까?", "a": "많이 빠짐", "b": "괜찮은 편", "s": "1016-1", "na": 11, "nb": 2, "t": "AI 거품 걱정, 한국이 제일 먼저 맞는 이유", "u": "/newsletters/2026/1016.html#story-1"}, {"day": "2026-10-15", "q": "넷플릭스가 잘 큰다면서 자르는 거, 이해돼?", "a": "이해된다", "b": "이상하다", "s": "1015-4", "na": 4, "nb": 0, "t": "잘 큰다면서 1,000명 자르는 넷플릭스", "u": "/newsletters/2026/1015.html#story-4"}, {"day": "2026-10-14", "q": "내 노후, 지금 부모님보다 넉넉할까?", "a": "그럴 것 같다", "b": "안 그럴 듯", "s": "1014-4", "na": 0, "nb": 2, "t": "35세 미만보다 15배 부자인 미국 75세들", "u": "/newsletters/2026/1014.html#story-4"}, {"day": "2026-10-13", "q": "나라면 손님 줄어도 밀크티 가게 열까?", "a": "열 것 같다", "b": "안 열 것 같다", "s": "1013-1", "na": 0, "nb": 1, "t": "밀크티 가게 이기고 중국 손님 잃은 루이비통", "u": "/newsletters/2026/1013.html#story-1"}, {"day": "2026-10-12", "q": "스벅 돈으로 치폴레 산다면?", "a": "잘한 선택", "b": "무리한 베팅", "s": "1012-3", "na": 0, "nb": 7, "t": "친정을 사들이려는 스타벅스 사장님", "u": "/newsletters/2026/1012.html#story-3"}, {"day": "2026-10-08", "q": "AI가 나한테도 비싼 값 보여줄까?", "a": "그럴 것 같다", "b": "안 그럴 듯", "s": "1008-2", "na": 2, "nb": 1, "t": "부자한테는 비싼 표 골라주는 AI 비서", "u": "/newsletters/2026/1008.html#story-2"}];
+var POLLS = [{"day": "2026-10-23", "q": "회사가 적자여도 전망 좋으면 투자할래?", "a": "투자한다", "b": "안 한다", "s": "1023-3", "na": 7, "nb": 0, "t": "몸값 올라서 720억불 손해 본 앤스로픽", "u": "/newsletters/2026/1023.html#story-3"}, {"day": "2026-10-22", "q": "AI가 몰래 감시 꺼도 일 잘하면 괜찮다?", "a": "괜찮다", "b": "안 괜찮다", "s": "1022-5", "na": 1, "nb": 11, "t": "감시 장치 끈 AI, 물어보니 '안 껐음'", "u": "/newsletters/2026/1022.html#story-5"}, {"day": "2026-10-21", "q": "집에서 술 담그다 걸리면 징역 5년, 너무하다고 생각해?", "a": "너무하다", "b": "그럴만하다", "s": "1021-5", "na": 8, "nb": 0, "t": "맥주는 되고 위스키는 징역, 대법원 간다", "u": "/newsletters/2026/1021.html#story-5"}, {"day": "2026-10-20", "q": "소고기 값이 계속 오르면 덜 먹을 것 같다?", "a": "그렇다", "b": "아니다", "s": "1020-4", "na": 13, "nb": 1, "t": "관세는 0% 됐는데 미국에 소가 없음", "u": "/newsletters/2026/1020.html#story-4"}, {"day": "2026-10-19", "q": "회사 그만두고 배당금으로 먹고살 수 있다면?", "a": "해본다", "b": "무섭다", "s": "1019-5", "na": 12, "nb": 4, "t": "배당으로 퇴사했는데 원금이 녹는 중", "u": "/newsletters/2026/1019.html#story-5"}, {"day": "2026-10-16", "q": "내 주식 계좌도 오늘 많이 빠졌을까?", "a": "많이 빠짐", "b": "괜찮은 편", "s": "1016-1", "na": 11, "nb": 2, "t": "AI 거품 걱정, 한국이 제일 먼저 맞는 이유", "u": "/newsletters/2026/1016.html#story-1"}, {"day": "2026-10-15", "q": "넷플릭스가 잘 큰다면서 자르는 거, 이해돼?", "a": "이해된다", "b": "이상하다", "s": "1015-4", "na": 4, "nb": 0, "t": "잘 큰다면서 1,000명 자르는 넷플릭스", "u": "/newsletters/2026/1015.html#story-4"}, {"day": "2026-10-14", "q": "내 노후, 지금 부모님보다 넉넉할까?", "a": "그럴 것 같다", "b": "안 그럴 듯", "s": "1014-4", "na": 0, "nb": 2, "t": "35세 미만보다 15배 부자인 미국 75세들", "u": "/newsletters/2026/1014.html#story-4"}, {"day": "2026-10-13", "q": "나라면 손님 줄어도 밀크티 가게 열까?", "a": "열 것 같다", "b": "안 열 것 같다", "s": "1013-1", "na": 0, "nb": 1, "t": "밀크티 가게 이기고 중국 손님 잃은 루이비통", "u": "/newsletters/2026/1013.html#story-1"}, {"day": "2026-10-12", "q": "스벅 돈으로 치폴레 산다면?", "a": "잘한 선택", "b": "무리한 베팅", "s": "1012-3", "na": 0, "nb": 7, "t": "친정을 사들이려는 스타벅스 사장님", "u": "/newsletters/2026/1012.html#story-3"}, {"day": "2026-10-08", "q": "AI가 나한테도 비싼 값 보여줄까?", "a": "그럴 것 같다", "b": "안 그럴 듯", "s": "1008-2", "na": 2, "nb": 1, "t": "부자한테는 비싼 표 골라주는 AI 비서", "u": "/newsletters/2026/1008.html#story-2"}];
 
 (function(){
   var API='https://api.soonsal.com',BASE='https://soonsal.com',KAKAO='d0bec18d3bfd804f9d714e562a93ae70';
@@ -539,6 +559,38 @@ var POLLS = [{"day": "2026-10-23", "q": "회사가 적자여도 전망 좋으면
     hero.innerHTML=h;
     requestAnimationFrame(function(){[].forEach.call(hero.querySelectorAll('.rs i'),function(i){i.style.width=i.getAttribute('data-w')+'%'})});
   }
+  // ── 이 질문에 한마디 — 질문이 나온 스토리(p.s)의 댓글. GET /comments?issue= · POST /comment (Worker 그대로) ──
+  var cbox=document.getElementById('cmts'),CM={},cmOpen=false,cmFor='';
+  var NM=['루피','조로','나미','우솝','상디','쵸파','로빈','프랑키','브룩','징베','에이스','사보','로저','레일리','샹크스','마르코','미호크','핸콕','버기','로우','키드'];
+  function vid(){var v=lsg('ss_vid');if(!v||!/^[a-z0-9-]{8,32}$/.test(v)){v=(Math.random().toString(36).slice(2)+Math.random().toString(36).slice(2)).slice(0,16);lss('ss_vid',v)}return v}
+  function prof(){var p=null;try{p=JSON.parse(lsg('ss_prof')||'null')}catch(e){}p=p||{n:lsg('ss_nick')||'',i:'',c:'',sc:0};
+    if(!p.n){var v=vid(),h=0;for(var i=0;i<v.length;i++)h=(h*31+v.charCodeAt(i))>>>0;p.n=NM[h%NM.length]+' '+(h%90+10);lss('ss_prof',JSON.stringify(p));lss('ss_nick',p.n)}return p}
+  var AVC=['#F0A070','#8FB0A0','#A09CD8','#D89AA8','#C8B060','#7FA8C8','#B8A090','#98B87F'];
+  function avc(n){var h=0;n=String(n||'?');for(var i=0;i<n.length;i++)h=(h*31+n.charCodeAt(i))>>>0;return AVC[h%AVC.length]}
+  function ago(t){var s=Math.max(0,Math.floor(Date.now()/1000)-t);return s<60?'방금':s<3600?Math.floor(s/60)+'분':s<86400?Math.floor(s/3600)+'시간':Math.floor(s/86400)+'일'}
+  function loadCm(p){var st=p.s||'';if(!/^\d{4}c?-\d{1,2}$/.test(st)){cbox.hidden=true;return}
+    fetch(API+'/comments?issue='+st.split('-')[0]).then(function(r){return r.json()}).then(function(j){
+      if(j&&j.off){cbox.hidden=true;return}CM[st]=((j&&j.comments)||{})[st]||[];drawCm()}).catch(function(){CM[st]=CM[st]||[];drawCm()})}
+  function drawCm(){var p=find(heroDay());if(!p||!p.s){cbox.hidden=true;return}var st=p.s,list=CM[st];if(!list){cbox.hidden=true;return}
+    var keep=cbox.querySelector('textarea'),draft=keep&&cmFor===st?keep.value:'';cmFor=st;
+    var show=cmOpen?list:list.slice(-3),u=storyUrl(p);
+    cbox.innerHTML='<div class="ch"><span>💬 한마디 '+(list.length||'')+'</span>'+(u?'<a href="'+esc(u)+'">스토리에서 보기 →</a>':'')+'</div>'+
+      (list.length>3&&!cmOpen?'<button type="button" class="more" data-cmall="1">이전 한마디 '+(list.length-3)+'개 더 보기</button>':'')+
+      show.map(function(c){return '<div class="c"><span class="av" style="background:'+avc(c.k)+'">'+esc(String(c.k||'?').replace(/[^가-힣A-Za-z0-9]/g,'').charAt(0)||'?')+'</span>'+
+        '<div class="bd"><div class="nm">'+esc(c.k)+'<i>'+ago(c.t)+'</i></div><div class="tx">'+esc(c.b)+'</div></div></div>'}).join('')+
+      '<form><textarea rows="1" maxlength="140" placeholder="'+(list.length?'나도 한마디…':'이 질문, 내 생각은…')+'"></textarea><button type="submit" disabled>남기기</button></form>'+
+      '<div class="who"><b data-rename="1" title="이름 바꾸기">'+esc(prof().n)+' ✎</b></div>';
+    cbox.hidden=false;var ta=cbox.querySelector('textarea'),go=cbox.querySelector('form button');ta.value=draft;go.disabled=!draft.trim();
+    ta.oninput=function(){go.disabled=!ta.value.trim();ta.style.height='auto';ta.style.height=Math.min(ta.scrollHeight,120)+'px'};
+    cbox.querySelector('form').onsubmit=function(e){e.preventDefault();var body=ta.value.trim();if(!body)return;go.disabled=true;
+      fetch(API+'/comment',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({story:st,v:vid(),nick:prof().n,body:body,tag:'',co:'',parent:0})})
+        .then(function(r){return r.json()}).then(function(j){
+          if(j&&j.ok){ta.value='';toast(j.state===1?'남겼어요 💬':'확인 뒤에 보여요');try{window.ssCanAt&&window.ssCanAt(go)}catch(_){}loadCm(p);return}
+          var E={'too fast':'조금 있다가 다시 남겨 주세요','too many':'오늘은 여기까지 남길 수 있어요','bad nick':'이름을 바꿔 주세요(12자, 「순살」 들어간 이름은 안 돼요)','off':'지금은 한마디를 잠시 닫았어요'};
+          toast(E[j&&j.error]||'남기지 못했어요');go.disabled=false})
+        .catch(function(){toast('연결이 불안정해요');go.disabled=false})}}
+  cbox.addEventListener('click',function(e){if(!e.target.closest('[data-rename]'))return;var p=prof(),v=prompt('이름을 바꿔요 (12자까지)',p.n||'');
+    if(v===null)return;v=v.trim().slice(0,12);if(!v)return;p.n=v;lss('ss_prof',JSON.stringify(p));lss('ss_nick',v);drawCm()});
   // ── 내 기록 ──
   function drawMe(){var done=0,maj=0,todo=0;POLLS.forEach(function(p){var m=mine(p);if(!m){todo++;return}done++;
       if((m===1&&p.na>=p.nb)||(m===2&&p.nb>=p.na))maj++});
@@ -594,7 +646,9 @@ var POLLS = [{"day": "2026-10-23", "q": "회사가 적자여도 전망 좋으면
     '<p class="empty">'+(sortBy==='todo'?'다 골랐어요 👏 내일 아침 새 질문이 올라와요.':'3명 넘게 고른 질문이 아직 없어요.')+'</p>'}
   function drawSum(){var t=POLLS.reduce(function(s,x){return s+x.na+x.nb},0),sm=document.getElementById('sum');
     if(sm)sm.textContent=POLLS.length+'개 · '+t.toLocaleString()+'표'}
-  function draw(){drawHero();drawPersona();drawMe();drawList();drawSum()}
+  var cmLoaded='';
+  function draw(){drawHero();var hp=find(heroDay());if(hp&&hp.s!==cmLoaded){cmLoaded=hp.s;cmOpen=false;loadCm(hp)}
+    drawPersona();drawMe();drawList();drawSum()}
   function setSort(s){sortBy=s;[].forEach.call(document.querySelectorAll('#sort button'),function(x){x.classList.toggle('on',x.getAttribute('data-s')===s)});drawList()}
 
   function vote(day,c,btn){var p=find(day);if(!p)return;var old=mine(p)||p._old||0;p._old=0;if(old===c){lss('ss_poll_'+day,String(c));draw();return}
@@ -613,6 +667,7 @@ var POLLS = [{"day": "2026-10-23", "q": "회사가 적자여도 전망 좋으면
     if(t.hasAttribute('data-re')){e.preventDefault();hp._old=mine(hp);try{localStorage.removeItem('ss_poll_'+hp.day)}catch(x){}draw();return}
     if(t.hasAttribute('data-sub')){if(window.ssSub)window.ssSub('poll');else location.href='https://subscribe.soonsal.com/subscribe';return}
     if(t.hasAttribute('data-sheet')){openSheet(t.getAttribute('data-sheet'));return}
+    if(t.hasAttribute('data-cmall')){cmOpen=true;drawCm();return}
     if(t.hasAttribute('data-today')){e.preventDefault();history.replaceState(null,'',location.pathname);draw();window.scrollTo({top:0,behavior:'smooth'});return}
     if(t.hasAttribute('data-todo')){setSort('todo');document.getElementById('sort').scrollIntoView({behavior:'smooth',block:'start'});return}
     if(t.hasAttribute('data-c')){var day=hero.contains(t)?hp.day:(holder&&holder.getAttribute('data-day'));if(day)vote(day,parseInt(t.getAttribute('data-c'),10),t)}
