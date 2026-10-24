@@ -153,6 +153,10 @@ font:700 12.5px Pretendard,-apple-system,sans-serif;cursor:pointer}
 .hd .sec-head .deck{display:none}
 .hd .sec-head{margin-bottom:14px}
 .tkme{text-align:center;margin:28px 16px 0!important;font-size:12px!important;color:#6f695f!important}
+/* 회원 이름 = 지난 글 보기 버튼 (밑줄 점선으로 누를 수 있음을 표시) */
+.nm .ku{background:none;border:0;padding:0;font:inherit;font-weight:700;color:#f0ede6;font-size:14px;cursor:pointer;
+text-decoration:underline dotted #5a524a;text-underline-offset:3px}
+.nm .ku:hover{color:#F59B75}
 /* 스토리 묶음 — 원글 머리는 한 번, 아래로 대화 */
 .sg{border-top:6px solid #0c0c0c;padding:16px 0 6px;scroll-margin-top:80px}
 .sg.flash{animation:sgf 1.6s ease}
@@ -536,7 +540,12 @@ function avatar(nick, isOp) {
     esc(ch) + '</span>';
 }
 
+// 로그인한 사람은 계정 이름으로 쓴다 — 서버(POST /comment)도 계정 별명으로 맞춘다 (KD 2026-10-24 「자기 아이디로」)
+var ME = null;
+try { if (localStorage.getItem('ss_auth') === '1') fetch('https://api.soonsal.com/me', { credentials: 'include' })
+  .then(function (r) { return r.json(); }).then(function (j) { ME = j && j.user; }).catch(function () {}); } catch (e) {}
 function whoLabel() {
+  if (ME && ME.nick) return '✓ ' + esc(ME.nick) + '<em>내 계정 이름</em>';
   var n = prof().n || '';
   return (n ? esc(n) : '이름 없음') + '<em>✎ 바꾸기</em>';
 }
@@ -682,7 +691,8 @@ function one(c, isRep) {
     '" data-i="' + c.id + '">' +
     avatar(c.nick, c.op) +
     '<div class="bd">' +
-      '<div class="nm"><span class="k">' + esc(c.nick) + '</span>' +
+      '<div class="nm">' + (c.u ? '<button type="button" class="k ku" data-u="' + esc(c.u) + '" title="이 회원의 지난 글">' + esc(c.nick) + '</button>'
+                                  : '<span class="k">' + esc(c.nick) + '</span>') +
         (c.m && !c.op ? '<span class="mb" title="로그인한 회원">✓ 회원</span>' : '') +
         (c.op ? '<span class="ob' + (c.op === 2 ? ' bot' : '') + '">' +
           (c.op === 2 ? '🤖 봇' : '순살 팀') + '</span>' : '') +
@@ -754,6 +764,7 @@ function wire() {
   // 여기엔 없어서, 순살톡에서 답글만 다는 사람은 이름을 못 바꿨다.
   app.querySelectorAll('.who').forEach(function (el) {
     el.addEventListener('click', function () {
+      if (ME && ME.nick) { location.href = '/account/'; return; }   // 계정 이름은 내 계정에서 바꾼다
       var p = prof();
       var v = prompt('이름을 바꿔요 (12자까지)', p.n || '');
       if (v === null) return;
@@ -794,7 +805,7 @@ function submit(rf, ta, go) {
   apiFetch('/comment', {
     method: 'POST', headers: { 'content-type': 'application/json' },
     body: JSON.stringify({
-      story: rf._story, v: v, nick: p.n || '순살러', body: body,
+      story: rf._story, v: v, nick: (ME && ME.nick) || p.n || '익명', body: body,
       tag: p.i || '', co: p.sc ? (p.c || '') : '', parent: rf._pid || 0,
     }),
   }).then(function (r) { return r.json(); }).then(function (res) {
@@ -860,6 +871,8 @@ function load() {
     render(ITEMS);
   });
   document.addEventListener('click', function (e) {
+    var mu = e.target.closest('[data-u]');
+    if (mu) { if (window.ssMember) window.ssMember(mu.getAttribute('data-u'), label); return; }
     var a = e.target.closest('#hot a[data-go]'); if (!a) return;
     e.preventDefault();
     if (FILT === 'ask') { FILT = 'new'; [].forEach.call(document.querySelectorAll('#flt button'), function (x) { x.classList.toggle('on', x.getAttribute('data-f') === 'new'); }); render(ITEMS); }

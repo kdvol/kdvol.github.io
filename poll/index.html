@@ -62,7 +62,8 @@ font-size:13.5px;font-weight:800;background:#2a221d;color:#f6f1e8}
 .cmts .c{display:flex;gap:9px;padding:7px 0}
 .cmts .av{flex:0 0 auto;width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:#12100e}
 .cmts .bd{flex:1;min-width:0}
-.cmts .nm{font-size:12.5px;font-weight:700;color:#e8e3da}.cmts .nm i{font-style:normal;font-weight:500;color:#6f695f;margin-left:6px}
+.cmts .nm{font-size:12.5px;font-weight:700;color:#e8e3da}
+.cmts .ku{background:none;border:0;padding:0;font:inherit;color:#e8e3da;cursor:pointer;text-decoration:underline dotted #5a524a;text-underline-offset:3px}.cmts .nm i{font-style:normal;font-weight:500;color:#6f695f;margin-left:6px}
 .cmts .tx{font-size:14.5px;line-height:1.6;color:#ddd7cc;word-break:break-word}
 .cmts .more{display:block;width:100%;margin:2px 0 4px;padding:6px 0;border:0;background:none;color:#8b8578;font:600 12.5px Pretendard,sans-serif;cursor:pointer;text-align:left}
 .cmts form{display:flex;gap:8px;align-items:flex-end;margin-top:8px}
@@ -560,7 +561,9 @@ var POLLS = [{"day": "2026-10-23", "q": "회사가 적자여도 전망 좋으면
     requestAnimationFrame(function(){[].forEach.call(hero.querySelectorAll('.rs i'),function(i){i.style.width=i.getAttribute('data-w')+'%'})});
   }
   // ── 이 질문에 한마디 — 질문이 나온 스토리(p.s)의 댓글. GET /comments?issue= · POST /comment (Worker 그대로) ──
-  var cbox=document.getElementById('cmts'),CM={},cmOpen=false,cmFor='';
+  var cbox=document.getElementById('cmts'),CM={},cmOpen=false,cmFor='',ME=null;
+  // 로그인한 사람은 계정 이름으로(서버도 계정 별명으로 맞춘다, KD 10/24)
+  if(lsg('ss_auth')==='1')fetch(API+'/me',{credentials:'include'}).then(function(r){return r.json()}).then(function(j){ME=j&&j.user;if(ME&&ME.nick&&cmFor)drawCm()}).catch(function(){});
   var NM=['루피','조로','나미','우솝','상디','쵸파','로빈','프랑키','브룩','징베','에이스','사보','로저','레일리','샹크스','마르코','미호크','핸콕','버기','로우','키드'];
   function vid(){var v=lsg('ss_vid');if(!v||!/^[a-z0-9-]{8,32}$/.test(v)){v=(Math.random().toString(36).slice(2)+Math.random().toString(36).slice(2)).slice(0,16);lss('ss_vid',v)}return v}
   function prof(){var p=null;try{p=JSON.parse(lsg('ss_prof')||'null')}catch(e){}p=p||{n:lsg('ss_nick')||'',i:'',c:'',sc:0};
@@ -577,19 +580,20 @@ var POLLS = [{"day": "2026-10-23", "q": "회사가 적자여도 전망 좋으면
     cbox.innerHTML='<div class="ch"><span>💬 한마디 '+(list.length||'')+'</span>'+(u?'<a href="'+esc(u)+'">스토리에서 보기 →</a>':'')+'</div>'+
       (list.length>3&&!cmOpen?'<button type="button" class="more" data-cmall="1">이전 한마디 '+(list.length-3)+'개 더 보기</button>':'')+
       show.map(function(c){return '<div class="c"><span class="av" style="background:'+avc(c.k)+'">'+esc(String(c.k||'?').replace(/[^가-힣A-Za-z0-9]/g,'').charAt(0)||'?')+'</span>'+
-        '<div class="bd"><div class="nm">'+esc(c.k)+'<i>'+ago(c.t)+'</i></div><div class="tx">'+esc(c.b)+'</div></div></div>'}).join('')+
+        '<div class="bd"><div class="nm">'+(c.u?'<button type="button" class="ku" data-u="'+esc(c.u)+'">'+esc(c.k)+' ✓</button>':esc(c.k))+'<i>'+ago(c.t)+'</i></div><div class="tx">'+esc(c.b)+'</div></div></div>'}).join('')+
       '<form><textarea rows="1" maxlength="140" placeholder="'+(list.length?'나도 한마디…':'이 질문, 내 생각은…')+'"></textarea><button type="submit" disabled>남기기</button></form>'+
-      '<div class="who"><b data-rename="1" title="이름 바꾸기">'+esc(prof().n)+' ✎</b></div>';
+      (ME&&ME.nick?'<div class="who">✓ '+esc(ME.nick)+' · 내 계정 이름</div>':'<div class="who"><b data-rename="1" title="이름 바꾸기">'+esc(prof().n)+' ✎</b></div>');
     cbox.hidden=false;var ta=cbox.querySelector('textarea'),go=cbox.querySelector('form button');ta.value=draft;go.disabled=!draft.trim();
     ta.oninput=function(){go.disabled=!ta.value.trim();ta.style.height='auto';ta.style.height=Math.min(ta.scrollHeight,120)+'px'};
     cbox.querySelector('form').onsubmit=function(e){e.preventDefault();var body=ta.value.trim();if(!body)return;go.disabled=true;
-      fetch(API+'/comment',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({story:st,v:vid(),nick:prof().n,body:body,tag:'',co:'',parent:0})})
+      fetch(API+'/comment',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({story:st,v:vid(),nick:(ME&&ME.nick)||prof().n,body:body,tag:'',co:'',parent:0})})
         .then(function(r){return r.json()}).then(function(j){
           if(j&&j.ok){ta.value='';toast(j.state===1?'남겼어요 💬':'확인 뒤에 보여요');try{window.ssCanAt&&window.ssCanAt(go)}catch(_){}loadCm(p);return}
           var E={'too fast':'조금 있다가 다시 남겨 주세요','too many':'오늘은 여기까지 남길 수 있어요','bad nick':'이름을 바꿔 주세요(12자, 「순살」 들어간 이름은 안 돼요)','off':'지금은 한마디를 잠시 닫았어요'};
           toast(E[j&&j.error]||'남기지 못했어요');go.disabled=false})
         .catch(function(){toast('연결이 불안정해요');go.disabled=false})}}
-  cbox.addEventListener('click',function(e){if(!e.target.closest('[data-rename]'))return;var p=prof(),v=prompt('이름을 바꿔요 (12자까지)',p.n||'');
+  cbox.addEventListener('click',function(e){var mu=e.target.closest('[data-u]');if(mu){if(window.ssMember)window.ssMember(mu.getAttribute('data-u'));return}
+    if(!e.target.closest('[data-rename]'))return;var p=prof(),v=prompt('이름을 바꿔요 (12자까지)',p.n||'');
     if(v===null)return;v=v.trim().slice(0,12);if(!v)return;p.n=v;lss('ss_prof',JSON.stringify(p));lss('ss_nick',v);drawCm()});
   // ── 내 기록 ──
   function drawMe(){var done=0,maj=0,todo=0;POLLS.forEach(function(p){var m=mine(p);if(!m){todo++;return}done++;

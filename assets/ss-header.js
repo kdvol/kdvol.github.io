@@ -768,6 +768,40 @@
       requestAnimationFrame(function(){t.classList.add('on')});
       setTimeout(function(){t.classList.remove('on');setTimeout(function(){t.remove();kk.style.overflow='';nudging=null},250)},4000)},350)});
 
+  // ── 회원 지난 글 창 (KD 2026-10-24 「로그인한 사람들의 과거 이력들도 눌러서 볼 수 있게 — MLB파크 기존 게시물 보기처럼」) ──
+  //   window.ssMember(회원번호, 제목함수?) — 순살톡·오늘의 질문 댓글의 ✓회원 이름을 누르면 아래에서 올라온다. GET /member?u=
+  function storyHref(st,ts){var y=new Date((ts||0)*1000).getFullYear()||2026,m=/^(\d{4})(c?)-(\d{1,2})$/.exec(st);
+    if(m)return '/newsletters/'+y+'/'+m[1]+(m[2]?'-crypto':'')+'.html#story-'+m[3];
+    var c=/^m(\d{4})(\d{4})-(.+)$/.exec(st);return c?'/chart/'+c[1]+'/'+c[2]+'.html#'+c[3]:'#'}
+  function sAgo(t){var s=Math.max(0,Math.floor(Date.now()/1000)-t);return s<3600?Math.max(1,Math.floor(s/60))+'분':s<86400?Math.floor(s/3600)+'시간':Math.floor(s/86400)+'일'}
+  window.ssMember=function(u,tf){if(!/^[0-9a-f]{16,40}$/.test(u||''))return;
+    var ov=document.getElementById('ss-mem');if(!ov){ov=document.createElement('div');ov.id='ss-mem';document.body.appendChild(ov);
+      var cs=document.createElement('style');cs.textContent=
+        '#ss-mem{position:fixed;inset:0;z-index:100016;display:none}#ss-mem.on{display:block}'+
+        '#ss-mem .bg{position:absolute;inset:0;background:rgba(0,0,0,.6)}'+
+        '#ss-mem .pn{position:absolute;left:0;right:0;bottom:0;max-width:560px;max-height:82vh;margin:0 auto;overflow:auto;padding:10px 18px calc(18px + env(safe-area-inset-bottom));'+
+        'background:#171513;border-radius:20px 20px 0 0;font-family:Pretendard,-apple-system,sans-serif;color:#e8e3da}'+
+        '#ss-mem .gr{width:38px;height:4px;border-radius:4px;background:#3a2f27;margin:0 auto 14px}'+
+        '#ss-mem .hd{display:flex;align-items:center;gap:12px;padding-bottom:14px;border-bottom:1px solid #26221e}'+
+        '#ss-mem .av{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:18px;color:#12100e;background:#F0A070}'+
+        '#ss-mem .nm{font-size:17px;font-weight:900;color:#fff}#ss-mem .nm i{font-style:normal;font-size:11px;font-weight:800;color:#F5A481;border:1px solid #5a3524;border-radius:999px;padding:1px 7px;margin-left:6px;vertical-align:2px}'+
+        '#ss-mem .st{font-size:12.5px;color:#8b8578;margin-top:3px}#ss-mem .st b{color:#cfc8bc}'+
+        '#ss-mem .it{display:block;padding:12px 0;border-bottom:1px solid #1f1c19;text-decoration:none;color:inherit}'+
+        '#ss-mem .it .s{font-size:11.5px;color:#7c756c;margin-bottom:3px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}'+
+        '#ss-mem .it .b{font-size:14.5px;line-height:1.6;color:#ece6dc;word-break:break-word}'+
+        '#ss-mem .it .m{font-size:11.5px;color:#6f695f;margin-top:4px}#ss-mem .em{padding:30px 0;text-align:center;color:#7c756c;font-size:13.5px}';
+      document.head.appendChild(cs);
+      ov.addEventListener('click',function(e){if(e.target.classList.contains('bg'))ov.classList.remove('on')})}
+    ov.innerHTML='<div class="bg"></div><div class="pn" role="dialog" aria-label="회원 지난 글"><div class="gr"></div><div class="em">불러오는 중…</div></div>';ov.classList.add('on');
+    fetch(API+'/member?u='+u).then(function(r){return r.json()}).then(function(j){var m=j&&j.member;if(!m){ov.querySelector('.pn').innerHTML='<div class="gr"></div><div class="em">글을 찾지 못했어요</div>';return}
+      var d=m.since?new Date(m.since*1000):null,ch=String(m.nick||'?').replace(/[^가-힣A-Za-z0-9]/g,'').charAt(0)||'?';
+      ov.querySelector('.pn').innerHTML='<div class="gr"></div><div class="hd"><span class="av">'+esc(ch)+'</span><div><div class="nm">'+esc(m.nick)+'<i>✓ 회원</i></div>'+
+        '<div class="st">한마디 <b>'+m.n+'</b> · 받은 ♥ <b>'+m.likes+'</b>'+(d?' · '+d.getFullYear()+'.'+(d.getMonth()+1)+' 가입':'')+'</div></div></div>'+
+        ((j.comments||[]).map(function(c){var t=tf&&tf(c.story);return '<a class="it" href="'+storyHref(c.story,c.ts)+'">'+
+          '<div class="s">'+(c.parent_id?'↩ 답글 · ':'')+esc(t||c.story)+'</div><div class="b">'+esc(c.body)+'</div>'+
+          '<div class="m">'+sAgo(c.ts)+(c.likes?' · ♥ '+c.likes:'')+(c.replies?' · 답글 '+c.replies:'')+'</div></a>'}).join('')||'<div class="em">아직 공개된 글이 없어요</div>')})
+      .catch(function(){ov.querySelector('.pn').innerHTML='<div class="gr"></div><div class="em">불러오지 못했어요</div>'})};
+
   // ── 5. 홈 「오늘의 순살」 줄마다 반응 수, 가장 뜨거운 줄에 샤인 스윕 ──
   if(isHome){onLoad(function(){
     var any=document.querySelector('#nlwrap [data-ss-story]');if(!any)return;var iss=(any.getAttribute('data-ss-story')||'').split('-')[0];
