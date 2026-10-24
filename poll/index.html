@@ -183,6 +183,7 @@ font-size:11px;font-weight:800;letter-spacing:.08em}
 .sec-head h1{margin:0;font-size:1.62rem;font-weight:800;letter-spacing:-.03em;
 line-height:1.25;color:#fff;word-break:keep-all}
 .sec-head .deck{margin:10px 0 0;color:#8b8578;font-size:.92rem;line-height:1.65;word-break:keep-all}
+.sec-head .deck:empty{display:none}
 @media(max-width:560px){.sec-head h1{font-size:1.42rem}}
 </style><style id="soonsal-nav-visibility-v3">
 .nav-menu a.nav-mobile-only{display:none}
@@ -445,6 +446,7 @@ font-size:11px;font-weight:800;letter-spacing:.08em}
 .sec-head h1{margin:0;font-size:1.62rem;font-weight:800;letter-spacing:-.03em;
 line-height:1.25;color:#fff;word-break:keep-all}
 .sec-head .deck{margin:10px 0 0;color:#8b8578;font-size:.92rem;line-height:1.65;word-break:keep-all}
+.sec-head .deck:empty{display:none}
 @media(max-width:560px){.sec-head h1{font-size:1.42rem}}
 .logo-text .ss-yes{font-family:"Yeseva One",Georgia,"Times New Roman",serif;font-weight:400;letter-spacing:.01em}.logo-text .ss-ko{font-weight:800}</style><header class="site-header"><a href="/search/" class="search-btn-header" aria-label="검색"><svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.6-3.6"/></svg></a><a class="logo-link" href="/"><img src="/assets/soonsal-logo-white.png" alt="" onerror="this.style.display='none'"><span class="logo-text"><span class="ss-ko">순살브리핑</span> <span class="ss-yes">Soonsal</span></span></a><a href="https://subscribe.soonsal.com/subscribe" target="_blank" rel="noopener" class="sub-btn-header">구독하기</a></header><nav class="nav" aria-label="주요 메뉴"><a href="/newsletters/">뉴스레터</a><a href="/chart/">순살차트</a><a href="/cardnews/">순스타그램</a><a href="/talk/">순살톡</a><a href="/poll/" class="active">오늘의 질문</a><script src="/assets/ss-header.js" defer></script></nav>
 <div class="wrap">
@@ -542,7 +544,7 @@ var POLLS = [{"day": "2026-10-23", "q": "회사가 적자여도 전망 좋으면
   // ── 맨 위 큰 카드 ──
   function drawHero(){var p=find(heroDay());if(!p)return;var m=mine(p),r=pct(p),isNow=p.day===latest,u=storyUrl(p);
     // 머리: 배지·날짜 왼쪽, 공유 아이콘 하나 오른쪽 (KD 10/24 「공유하기 버튼 자체를 심플하게 축소시켜서 제목 우측으로」)
-    var h='<div class="hk"><span class="live'+(isNow?'':' past')+'"><i></i>'+(isNow?'오늘의 질문':'친구가 보낸 질문')+'</span><span class="dd">'+dl(p.day)+'</span>'+
+    var h='<div class="hk"><span class="live'+(isNow?'':' past')+'"><i></i>'+(isNow?'오늘':'친구가 보낸 질문')+'</span><span class="dd">'+dl(p.day)+'</span>'+
       '<button type="button" class="hsh'+(m?' ss-shine':'')+'" data-sheet="'+p.day+'" aria-label="친구한테 공유">'+IC.mo+'</button></div>'+
       '<h2 class="hq">'+esc(p.q)+'</h2>';
     if(!m){h+='<div class="hb"><button type="button" class="ss-shine" data-c="1">'+esc(p.a)+'</button><button type="button" class="ss-shine" data-c="2">'+esc(p.b)+'</button></div>'+

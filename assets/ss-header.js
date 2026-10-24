@@ -424,23 +424,24 @@
         var tot=na+nb;
         if(!mine){c.innerHTML='<div class="k">🗳️ 오늘의 질문 · 이 이야기, 어떻게 보세요?</div><div class="q">'+esc(p.q)+'</div>'+
           '<div class="bt"><button type="button" class="ss-shine" data-c="1">'+esc(p.a)+'</button><button type="button" class="ss-shine" data-c="2">'+esc(p.b)+'</button></div>'+
-          '<div class="n">누르면 다른 독자들 선택이 보여요'+(tot?' · '+tot+'명 참여':'')+' · <a href="/poll/#d-'+p.day+'" style="color:inherit">지난 질문 결과 →</a></div>';
+          '<div class="n">'+(tot?tot+'명 참여 · ':'')+'고르면 결과가 보여요</div>';
           [].forEach.call(c.querySelectorAll('.bt button'),function(b){b.onclick=function(){vote(parseInt(b.getAttribute('data-c'),10))}});return}
         var pa=tot?Math.round(na*100/tot):0,pb=tot?100-pa:0;
-        c.innerHTML='<div class="k">🗳️ 오늘의 질문 · 이 이야기, 어떻게 보세요?</div><div class="q">'+esc(p.q)+'</div><div class="rs">'+
-          '<div class="'+(mine===1?'me':'')+'"><i style="width:'+pa+'%"></i><span>'+esc(p.a)+(mine===1?' ✓':'')+'</span><b>'+pa+'%</b></div>'+
-          '<div class="'+(mine===2?'me':'')+'"><i style="width:'+pb+'%"></i><span>'+esc(p.b)+(mine===2?' ✓':'')+'</span><b>'+pb+'%</b></div></div>'+
-          '<div class="n">'+tot+'명 참여 · 결과는 다음 브리핑에서 이야기해요 · <a href="#" class="ch" style="color:#F59B75">다시 고르기</a>'+
-          '<br><a href="/poll/#d-'+p.day+'" style="color:#F59B75;font-weight:700">🗳️ 친구한테 물어보기 · 지난 질문 결과 →</a></div>'+
+        // 오늘의 질문 페이지와 같게 — 막대를 누르면 답이 바뀐다, 「다시 고르기」·긴 안내 없음 (KD 10/24 「기존 것 중 불필요한 건 통합」)
+        c.innerHTML='<div class="k">🗳️ 오늘의 질문</div><div class="q">'+esc(p.q)+'</div><div class="rs">'+
+          '<div data-c="1" class="'+(mine===1?'me':'')+'" style="cursor:pointer"><i style="width:'+pa+'%"></i><span>'+esc(p.a)+(mine===1?' ✓':'')+'</span><b>'+pa+'%</b></div>'+
+          '<div data-c="2" class="'+(mine===2?'me':'')+'" style="cursor:pointer"><i style="width:'+pb+'%"></i><span>'+esc(p.b)+(mine===2?' ✓':'')+'</span><b>'+pb+'%</b></div></div>'+
+          '<div class="n">'+tot+'명 참여 · <a href="/poll/#d-'+p.day+'" style="color:#F59B75;font-weight:700">친구한테 묻기 · 지난 질문 →</a>'+
           // 고른 직후가 관심이 가장 높을 때 — 구독자가 아니면 「내일 질문도 메일로」 (KD 2026-10-23 개선 1번)
-          (lsg('ss_is_sub')==='1'||lsg('ss_subbed')==='1'?'':'<a href="#" class="sub" style="display:inline-block;margin-top:8px;font-size:12.5px;font-weight:700;color:#F59B75">📮 내일 질문도 메일로 받기 →</a>');
-        c.querySelector('.ch').onclick=function(e){e.preventDefault();mine=0;draw(na,nb)};
+          (lsg('ss_is_sub')==='1'||lsg('ss_subbed')==='1'?'':' · <a href="#" class="sub" style="color:#F59B75">📮 내일 질문도 메일로</a>')+'</div>';
+        [].forEach.call(c.querySelectorAll('.rs div[data-c]'),function(d){d.onclick=function(){var v=parseInt(d.getAttribute('data-c'),10);if(v!==mine)vote(v)}});
         var sb=c.querySelector('.sub');if(sb)sb.onclick=function(e){e.preventDefault();subModal('poll')};
       }
       function vote(v){var vid='';try{vid=localStorage.getItem('ss_vid')||''}catch(e){}
         try{var vb=c.querySelector('.bt button[data-c="'+v+'"]');if(vb)ssCanAt(vb)}catch(e){}
-        mine=v;try{localStorage.setItem(key,String(v))}catch(e){}
-        draw((p.na||0)+(v===1?1:0),(p.nb||0)+(v===2?1:0));   // 낙관적 표시 → 서버 값으로 맞춤
+        var old=mine;mine=v;try{localStorage.setItem(key,String(v))}catch(e){}
+        p.na=Math.max(0,(p.na||0)-(old===1?1:0)+(v===1?1:0));p.nb=Math.max(0,(p.nb||0)-(old===2?1:0)+(v===2?1:0));
+        draw(p.na,p.nb);   // 낙관적 표시(바꾸면 이전 표를 뺌) → 서버 값으로 맞춤
         if(!/^[a-z0-9-]{8,32}$/.test(vid))return;
         fetch(API+'/poll',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({day:p.day,v:vid,c:v})})
           .then(function(r){return r.json()}).then(function(j){if(j&&j.ok){p.na=j.na;p.nb=j.nb;draw(j.na,j.nb)}}).catch(function(){})}
