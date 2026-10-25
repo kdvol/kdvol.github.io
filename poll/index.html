@@ -174,8 +174,13 @@ color:#a39c90;font:700 13px Pretendard,-apple-system,sans-serif;cursor:pointer;t
 :is(.cmts,.pcm) .c.sub{margin-left:35px;padding-top:3px}
 :is(.cmts,.pcm) .bt{font-style:normal;font-size:10.5px;font-weight:800;color:#b9c4d0;border:1px solid #3d4a57;border-radius:999px;padding:0 6px;margin-left:6px;vertical-align:1px}
 :is(.cmts,.pcm) .bt.tm{color:#F5A481;border-color:#5a3524}
+:is(.cmts,.pcm) .nm{display:flex;align-items:baseline;flex-wrap:wrap}
+:is(.cmts,.pcm) .lk{margin-left:auto;background:none;border:0;padding:0 0 0 10px;min-height:0;height:auto;line-height:inherit;font:600 12px Pretendard,-apple-system,sans-serif;color:#7c756c;cursor:pointer;font-variant-numeric:tabular-nums}
+:is(.cmts,.pcm) .lk.on{color:#F07040}
+:is(.cmts,.pcm) .who [data-setnick]{color:#F59B75}
 :is(.cmts,.pcm) .c.sub .av{width:22px;height:22px;font-size:10px}
-:is(.cmts,.pcm) form.rf{margin:2px 0 8px 35px}
+:is(.cmts,.pcm) form.rf{margin:2px 0 0 35px}
+:is(.cmts,.pcm) .who.rw{margin:4px 0 8px 35px}
 .pc.just{border-color:#5a3524;background:#1a1512}
 /* 질문이 묻히지 않게 — 페이지 머리 설명을 걷어 큰 카드를 위로 */
 .sec-head{margin-bottom:16px}.sec-head .deck{display:none}
@@ -588,16 +593,34 @@ var POLLS = [{"day": "2026-10-23", "q": "회사가 적자여도 전망 좋으면
     return '<div class="c'+(sub?' sub':'')+'">'+(cr?'<span class="av" style="background:'+cr.c+'">'+cr.e+'</span>':'<span class="av" style="background:'+avc(c.k)+'">'+esc(String(c.k||'?').replace(/[^가-힣A-Za-z0-9]/g,'').charAt(0)||'?')+'</span>')+
     '<div class="bd"><div class="nm">'+(c.u?'<button type="button" class="ku" data-u="'+esc(c.u)+'">'+esc(c.k)+' ✓</button>':cr?'<button type="button" class="ku" data-crew="'+esc(c.k)+'">'+esc(c.k)+'</button>':esc(c.k))+
     (c.o===2?'<em class="bt">🤖 봇</em>':c.o?'<em class="bt tm">순살 팀</em>':'')+'<i>'+ago(c.t)+'</i>'+
-    '<button type="button" class="rp" data-rp="'+c.i+'" data-rd="'+p.day+'">답글</button></div><div class="tx">'+esc(c.b)+'</div></div></div>'}
-  function cmWho(){return ME&&ME.nick?'<div class="who">✓ '+esc(ME.nick)+'</div>':'<div class="who"><b data-rename="1" title="이름 바꾸기">'+esc(prof().n)+' ✎</b></div>'}
+    '<button type="button" class="rp" data-rp="'+c.i+'" data-rd="'+p.day+'">답글</button>'+
+    '<button type="button" class="lk'+(LIKED[c.i]?' on':'')+'" data-lk="'+c.i+'" aria-pressed="'+(LIKED[c.i]?'true':'false')+'" aria-label="좋아요">'+(LIKED[c.i]?'♥':'♡')+(c.l?' '+c.l:'')+'</button>'+
+    '</div><div class="tx">'+esc(c.b)+'</div></div></div>'}
+  // 댓글 좋아요 — 순살톡·뉴스레터와 같은 POST /like · 같은 ss_liked(어디서 눌러도 같은 표시) (KD 10/25 「댓글에 좋아요를 달 수 있어야」)
+  var LIKED={};try{LIKED=JSON.parse(lsg('ss_liked')||'{}')||{}}catch(e){}
+  function like(id,btn){btn.disabled=true;fetch(API+'/like',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({v:vid(),id:id})})
+    .then(function(r){return r.json()}).then(function(j){if(!j||!j.ok){btn.disabled=false;return}
+      if(j.on)LIKED[id]=1;else delete LIKED[id];lss('ss_liked',JSON.stringify(LIKED));
+      [CM,RC].forEach(function(B){for(var k in B)(B[k]||[]).forEach(function(c){if(c.i===id)c.l=j.n})});drawCm();drawList()})
+    .catch(function(){btn.disabled=false;toast('연결이 불안정해요')})}
+  // 로그인했는데 계정 별명이 비었으면(구글·카카오 실명은 화면에 안 씀) 「회원 별명 정하기」 — 정한 별명은 계정에 저장돼 모든 기기에서 같은 이름 (KD 10/25)
+  function cmWho(sub){var c='who'+(sub?' rw':'');return ME&&ME.nick?'<div class="'+c+'">✓ '+esc(ME.nick)+'</div>':
+    ME?'<div class="'+c+'"><b data-setnick="1">✓ 회원 별명 정하기 ✎</b></div>':'<div class="'+c+'"><b data-rename="1" title="이름 바꾸기">'+esc(prof().n)+' ✎</b></div>'}
+  function setNick(done){var v=prompt('회원 별명을 정해요 (2~16자) — 어느 기기에서 남겨도 이 이름으로 보여요',prof().n||'');
+    if(v===null||!v.trim()){if(done)done();return}v=v.trim();
+    fetch(API+'/me/nick',{method:'POST',credentials:'include',headers:{'content-type':'application/json'},body:JSON.stringify({nick:v})})
+      .then(function(r){return r.json()}).then(function(j){if(j&&j.ok){ME.nick=j.nick;toast('별명을 정했어요 ✓');drawCm();drawList()}
+        else toast('2~16자 한글·영문·숫자로, 운영자·봇으로 오해될 이름은 빼고 지어 주세요');if(done)done()})
+      .catch(function(){if(done)done()})}
   // form: 맨 아래 「나도 한마디」 입력칸을 보일지(오늘 카드는 항상, 지난 카드는 눌렀을 때만)
   function cmBody(p,list,all,form){var T=threads(list),show=all?T:T.slice(-3),hid=T.length-show.length,rid=REPLY[p.day]||0,rto=null;
     var h=(hid>0?'<button type="button" class="more" data-cmall="'+p.day+'">이전 한마디 '+hid+'개 더 보기</button>':'')+
       show.map(function(t){var s=cmOne(p,t.c,0)+t.k.map(function(c){return cmOne(p,c,1)}).join(''),hit=[t.c].concat(t.k).filter(function(c){return c.i===rid})[0];
-        if(hit){rto=hit;s+='<form class="rf" data-cmday="'+p.day+'" data-pid="'+hit.i+'"><textarea rows="1" maxlength="140" placeholder="'+esc(hit.k)+'님에게 답글…"></textarea><button type="submit" disabled>답글</button></form>'}
+        if(hit){rto=hit;s+='<form class="rf" data-cmday="'+p.day+'" data-pid="'+hit.i+'"><textarea rows="1" maxlength="140" placeholder="'+esc(hit.k)+'님에게 답글…"></textarea><button type="submit" disabled>답글</button></form>'+cmWho(1)}
         return s}).join('');
-    if(form)h+='<form data-cmday="'+p.day+'"><textarea rows="1" maxlength="140" placeholder="'+(list.length?'나도 한마디…':'이 질문, 내 생각은…')+'"></textarea><button type="submit" disabled>남기기</button></form>';
-    return h+(form||rto?cmWho():'')}
+    // 이름 줄은 입력칸마다 바로 아래(답글 칸 포함) — 어느 칸에서 쓰든 「누구로 남는지」·바꾸기가 보이게 (KD 10/25)
+    if(form)h+='<form data-cmday="'+p.day+'"><textarea rows="1" maxlength="140" placeholder="'+(list.length?'나도 한마디…':'이 질문, 내 생각은…')+'"></textarea><button type="submit" disabled>남기기</button></form>'+cmWho();
+    return h}
   function drawCm(){var p=find(heroDay());if(!p||!p.s){cbox.hidden=true;return}var st=p.s,list=CM[st];if(!list){cbox.hidden=true;return}
     var keep=cbox.querySelector('form:not([data-pid]) textarea'),draft=keep&&cmFor===st?keep.value:'';cmFor=st;var u=storyUrl(p);
     keepDraft(cbox,function(){cbox.innerHTML='<div class="ch"><span>💬 한마디 '+(list.length||'')+'</span>'+(u?'<a href="'+esc(u)+'">스토리에서 보기 →</a>':'')+'</div>'+cmBody(p,list,cmOpen,true)});
@@ -609,11 +632,14 @@ var POLLS = [{"day": "2026-10-23", "q": "회사가 적자여도 전망 좋으면
     if(nf){var t=nf.querySelector('textarea');t.value=v;t.focus();nf.querySelector('button').disabled=!v.trim()}}
   // 지난 질문의 한마디는 페이지당 한 번만 받는다 — 최근 대화(/recent) 하나로 모든 카드를 채움(질문마다 따로 부르지 않음, Cloudflare 사용량)
   function loadRecent(){fetch(API+'/recent?n=200').then(function(r){return r.json()}).then(function(j){RC={};
-    ((j&&j.items)||[]).forEach(function(c){(RC[c.story]=RC[c.story]||[]).push({i:c.id,k:c.nick,b:c.body,t:c.ts,u:c.u,o:c.op||0,p:c.parent_id||0,r:c.root_id||c.id})});
+    ((j&&j.items)||[]).forEach(function(c){(RC[c.story]=RC[c.story]||[]).push({i:c.id,k:c.nick,b:c.body,t:c.ts,u:c.u,o:c.op||0,p:c.parent_id||0,r:c.root_id||c.id,l:c.likes||0})});
     for(var k in RC)RC[k].sort(function(a,b){return a.i-b.i});rcReady=true;drawList()}).catch(function(){})}
   document.addEventListener('input',function(e){var ta=e.target.closest('form[data-cmday] textarea');if(!ta)return;
     ta.form.querySelector('button').disabled=!ta.value.trim();ta.style.height='auto';ta.style.height=Math.min(ta.scrollHeight,120)+'px'});
+  var nickAsked=false;
   document.addEventListener('submit',function(e){var f=e.target.closest('form[data-cmday]');if(!f)return;e.preventDefault();
+    if(ME&&!ME.nick&&!nickAsked&&f.querySelector('textarea').value.trim()){nickAsked=true;setNick(function(){send(f)});return}send(f)});
+  function send(f){
     var p=find(f.getAttribute('data-cmday')),pid=parseInt(f.getAttribute('data-pid')||'0',10),ta=f.querySelector('textarea'),go=f.querySelector('button'),body=ta.value.trim();if(!p||!p.s||!body)return;go.disabled=true;
     fetch(API+'/comment',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({story:p.s,v:vid(),nick:(ME&&ME.nick)||prof().n,body:body,tag:'',co:'',parent:pid})})
       .then(function(r){return r.json()}).then(function(j){
@@ -621,8 +647,10 @@ var POLLS = [{"day": "2026-10-23", "q": "회사가 적자여도 전망 좋으면
           REPLY[p.day]=0;if(p.day===heroDay())loadCm(p);else{OPEN[p.day]=0;loadRecent()}return}
         var E={'too fast':'조금 있다가 다시 남겨 주세요','too many':'오늘은 여기까지 남길 수 있어요','bad nick':'이름을 바꿔 주세요(12자, 「순살」 들어간 이름은 안 돼요)','off':'지금은 한마디를 잠시 닫았어요'};
         toast(E[j&&j.error]||'남기지 못했어요');go.disabled=false})
-      .catch(function(){toast('연결이 불안정해요');go.disabled=false})});
-  document.addEventListener('click',function(e){var mu=e.target.closest('[data-u]');if(mu&&(cbox.contains(mu)||list.contains(mu))){if(window.ssMember)window.ssMember(mu.getAttribute('data-u'));return}
+      .catch(function(){toast('연결이 불안정해요');go.disabled=false})}
+  document.addEventListener('click',function(e){var lb=e.target.closest('[data-lk]');if(lb&&(cbox.contains(lb)||list.contains(lb))){like(parseInt(lb.getAttribute('data-lk'),10),lb);return}
+    if(e.target.closest('[data-setnick]')){setNick();return}
+    var mu=e.target.closest('[data-u]');if(mu&&(cbox.contains(mu)||list.contains(mu))){if(window.ssMember)window.ssMember(mu.getAttribute('data-u'));return}
     var cw=e.target.closest('[data-crew]');if(cw&&(cbox.contains(cw)||list.contains(cw))){if(window.ssCrewCard)window.ssCrewCard(cw.getAttribute('data-crew'));return}
     if(!e.target.closest('[data-rename]'))return;var p=prof(),v=prompt('이름을 바꿔요 (12자까지)',p.n||'');
     if(v===null)return;v=v.trim().slice(0,12);if(!v)return;p.n=v;lss('ss_prof',JSON.stringify(p));lss('ss_nick',v);drawCm();drawList()});

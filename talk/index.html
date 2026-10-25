@@ -550,6 +550,8 @@ try { if (localStorage.getItem('ss_auth') === '1') fetch('https://api.soonsal.co
   .then(function (r) { return r.json(); }).then(function (j) { ME = j && j.user; }).catch(function () {}); } catch (e) {}
 function whoLabel() {
   if (ME && ME.nick) return '✓ ' + esc(ME.nick) + '<em>내 계정 이름</em>';
+  // 로그인했는데 계정 별명이 비었으면 — 실명 대신 별명을 정하게 (KD 10/25 「로그인했는데 자동 생성 별명이 뜸」)
+  if (ME) return '✓ 회원 별명 정하기<em>✎</em>';
   var n = prof().n || '';
   return (n ? esc(n) : '이름 없음') + '<em>✎ 바꾸기</em>';
 }
@@ -557,6 +559,22 @@ function whoLabel() {
 function prof() {
   try { return JSON.parse(localStorage.getItem('ss_prof') || 'null') || {}; } catch (e) { return {}; }
 }
+
+// 회원 별명 정하기 — 계정에 저장(POST /me/nick)돼 어느 기기에서 써도 같은 이름. 끝나면(취소 포함) done() (KD 10/25)
+function setNick(done) {
+  var v = prompt('회원 별명을 정해요 (2~16자) — 어느 기기에서 남겨도 이 이름으로 보여요', prof().n || '');
+  if (v === null || !v.trim()) { if (done) done(); return; }
+  fetch('https://api.soonsal.com/me/nick', { method: 'POST', credentials: 'include',
+    headers: { 'content-type': 'application/json' }, body: JSON.stringify({ nick: v.trim() }) })
+    .then(function (r) { return r.json(); }).then(function (j) {
+      if (j && j.ok) {
+        ME.nick = j.nick;
+        app.querySelectorAll('.who').forEach(function (x) { if (x.textContent) x.innerHTML = whoLabel(); });
+      } else alert('2~16자 한글·영문·숫자로, 운영자·봇으로 오해될 이름은 빼고 지어 주세요');
+      if (done) done();
+    }).catch(function () { if (done) done(); });
+}
+var nickAsked = false;
 
 // 스토리 제목 — 없는 회차면 경로만 보여준다
 function label(story) {
@@ -773,6 +791,7 @@ function wire() {
   app.querySelectorAll('.who').forEach(function (el) {
     el.addEventListener('click', function () {
       if (ME && ME.nick) { location.href = '/account/'; return; }   // 계정 이름은 내 계정에서 바꾼다
+      if (ME) { setNick(); return; }
       var p = prof();
       var v = prompt('이름을 바꿔요 (12자까지)', p.n || '');
       if (v === null) return;
@@ -809,6 +828,8 @@ function wire() {
 function submit(rf, ta, go) {
   var body = ta.value.trim(), v = vid(), p = prof();
   if (!body || !API || !v) return;
+  // 회원인데 별명이 없으면 첫 글 전에 한 번 묻고 이어서 보낸다
+  if (ME && !ME.nick && !nickAsked) { nickAsked = true; setNick(function () { submit(rf, ta, go); }); return; }
   go.disabled = true;
   apiFetch('/comment', {
     method: 'POST', headers: { 'content-type': 'application/json' },
