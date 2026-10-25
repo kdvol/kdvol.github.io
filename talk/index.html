@@ -535,6 +535,9 @@ var AVC = ['#F0A070','#8FB0A0','#A09CD8','#D89AA8','#C8B060','#7FA8C8','#B8A090'
 function avatar(nick, isOp) {
   var h = 0, s = String(nick || '?');
   for (var i = 0; i < s.length; i++) h = (h * 31 + s.charCodeAt(i)) >>> 0;
+  // 「순살 치킨집」 봇 캐릭터는 캐릭터 이모지·색 (KD 2026-10-24) — 정의는 ss-header.js window.ssCrew
+  var cr = isOp === 2 && window.ssCrew && window.ssCrew[s];
+  if (cr) return '<span class="av" style="background:' + cr.c + '">' + cr.e + '</span>';
   var bg = isOp === 2 ? '#5a6b7a' : isOp ? '#E55A00' : AVC[h % AVC.length];
   var ch = s.replace(/[^가-힣A-Za-z0-9]/g, '').charAt(0) || '?';
   return '<span class="av" style="background:' + bg + (isOp ? ';color:#fff' : '') + '">' +
@@ -585,6 +588,8 @@ function slead(story) {
 //   최신: 스토리별로 한 번 묶고(최근 활동 순) · 봇 글은 「순살이 묻다」 질문 카드 + 답하기 · 스토리마다 「이 이야기에 한마디」 ·
 //   맨 위 참여 현황·오늘의 질문·🔥 뜨거운 이야기 · 필터(최신/인기/답 기다리는 질문) · 하루 안 글 NEW.
 var ITEMS = [], FILT = 'new';
+// ss-header.js(defer)가 늦게 실리면 봇 캐릭터 모양(window.ssCrew)이 첫 그림에 빠진다 — 실린 뒤 한 번 더 그림
+document.addEventListener('DOMContentLoaded', function () { if (window.ssCrew && ITEMS.length) render(ITEMS); });
 function isBot(c) { return c.op === 2; }
 function groups(items) {
   var order = [], roots = {}, byStory = {}, sOrder = [];
@@ -693,7 +698,9 @@ function one(c, isRep) {
     avatar(c.nick, c.op) +
     '<div class="bd">' +
       '<div class="nm">' + (c.u ? '<button type="button" class="k ku" data-u="' + esc(c.u) + '" title="이 회원의 지난 글">' + esc(c.nick) + '</button>'
-                                  : '<span class="k">' + esc(c.nick) + '</span>') +
+                                  : (c.op === 2 && window.ssCrew && window.ssCrew[c.nick]
+                                     ? '<button type="button" class="k ku" data-crew="' + esc(c.nick) + '" title="봇 캐릭터 소개">' + esc(c.nick) + '</button>'
+                                     : '<span class="k">' + esc(c.nick) + '</span>')) +
         (c.m && !c.op ? '<span class="mb" title="로그인한 회원">✓ 회원</span>' : '') +
         (c.op ? '<span class="ob' + (c.op === 2 ? ' bot' : '') + '">' +
           (c.op === 2 ? '🤖 봇' : '순살 팀') + '</span>' : '') +
@@ -874,6 +881,8 @@ function load() {
   document.addEventListener('click', function (e) {
     var mu = e.target.closest('[data-u]');
     if (mu) { if (window.ssMember) window.ssMember(mu.getAttribute('data-u'), label); return; }
+    var cw = e.target.closest('[data-crew]');
+    if (cw && !cw.closest('#ss-crew')) { if (window.ssCrewCard) window.ssCrewCard(cw.getAttribute('data-crew')); return; }
     var a = e.target.closest('#hot a[data-go]'); if (!a) return;
     e.preventDefault();
     if (FILT === 'ask') { FILT = 'new'; [].forEach.call(document.querySelectorAll('#flt button'), function (x) { x.classList.toggle('on', x.getAttribute('data-f') === 'new'); }); render(ITEMS); }

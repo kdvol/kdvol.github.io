@@ -172,6 +172,8 @@ color:#a39c90;font:700 13px Pretendard,-apple-system,sans-serif;cursor:pointer;t
 /* 답글 — 원글 아래 들여쓰기(1단계), 「답글」은 누르는 것이라 주황 글자 링크 */
 :is(.cmts,.pcm) .rp{background:none;border:0;padding:0 0 0 10px;min-height:0;height:auto;line-height:inherit;font:600 12px Pretendard,-apple-system,sans-serif;color:#F59B75;cursor:pointer}
 :is(.cmts,.pcm) .c.sub{margin-left:35px;padding-top:3px}
+:is(.cmts,.pcm) .bt{font-style:normal;font-size:10.5px;font-weight:800;color:#b9c4d0;border:1px solid #3d4a57;border-radius:999px;padding:0 6px;margin-left:6px;vertical-align:1px}
+:is(.cmts,.pcm) .bt.tm{color:#F5A481;border-color:#5a3524}
 :is(.cmts,.pcm) .c.sub .av{width:22px;height:22px;font-size:10px}
 :is(.cmts,.pcm) form.rf{margin:2px 0 8px 35px}
 .pc.just{border-color:#5a3524;background:#1a1512}
@@ -581,8 +583,11 @@ var POLLS = [{"day": "2026-10-23", "q": "회사가 적자여도 전망 좋으면
   function threads(list){var by={},T=[];
     list.forEach(function(c){if(!c.p){by[c.i]={c:c,k:[]};T.push(by[c.i])}});
     list.forEach(function(c){if(!c.p)return;var h=by[c.r]||by[c.p];if(h)h.k.push(c);else{by[c.i]={c:c,k:[]};T.push(by[c.i])}});return T}
-  function cmOne(p,c,sub){return '<div class="c'+(sub?' sub':'')+'"><span class="av" style="background:'+avc(c.k)+'">'+esc(String(c.k||'?').replace(/[^가-힣A-Za-z0-9]/g,'').charAt(0)||'?')+'</span>'+
-    '<div class="bd"><div class="nm">'+(c.u?'<button type="button" class="ku" data-u="'+esc(c.u)+'">'+esc(c.k)+' ✓</button>':esc(c.k))+'<i>'+ago(c.t)+'</i>'+
+  // 봇(o=2)은 🤖 배지 — 「순살 치킨집」 캐릭터면 이모지 아바타·이름 누르면 소개 카드(ss-header.js window.ssCrew). 순살 팀(o=1)은 팀 배지
+  function cmOne(p,c,sub){var cr=c.o===2&&window.ssCrew&&window.ssCrew[c.k];
+    return '<div class="c'+(sub?' sub':'')+'">'+(cr?'<span class="av" style="background:'+cr.c+'">'+cr.e+'</span>':'<span class="av" style="background:'+avc(c.k)+'">'+esc(String(c.k||'?').replace(/[^가-힣A-Za-z0-9]/g,'').charAt(0)||'?')+'</span>')+
+    '<div class="bd"><div class="nm">'+(c.u?'<button type="button" class="ku" data-u="'+esc(c.u)+'">'+esc(c.k)+' ✓</button>':cr?'<button type="button" class="ku" data-crew="'+esc(c.k)+'">'+esc(c.k)+'</button>':esc(c.k))+
+    (c.o===2?'<em class="bt">🤖 봇</em>':c.o?'<em class="bt tm">순살 팀</em>':'')+'<i>'+ago(c.t)+'</i>'+
     '<button type="button" class="rp" data-rp="'+c.i+'" data-rd="'+p.day+'">답글</button></div><div class="tx">'+esc(c.b)+'</div></div></div>'}
   function cmWho(){return ME&&ME.nick?'<div class="who">✓ '+esc(ME.nick)+'</div>':'<div class="who"><b data-rename="1" title="이름 바꾸기">'+esc(prof().n)+' ✎</b></div>'}
   // form: 맨 아래 「나도 한마디」 입력칸을 보일지(오늘 카드는 항상, 지난 카드는 눌렀을 때만)
@@ -604,7 +609,7 @@ var POLLS = [{"day": "2026-10-23", "q": "회사가 적자여도 전망 좋으면
     if(nf){var t=nf.querySelector('textarea');t.value=v;t.focus();nf.querySelector('button').disabled=!v.trim()}}
   // 지난 질문의 한마디는 페이지당 한 번만 받는다 — 최근 대화(/recent) 하나로 모든 카드를 채움(질문마다 따로 부르지 않음, Cloudflare 사용량)
   function loadRecent(){fetch(API+'/recent?n=200').then(function(r){return r.json()}).then(function(j){RC={};
-    ((j&&j.items)||[]).forEach(function(c){(RC[c.story]=RC[c.story]||[]).push({i:c.id,k:c.nick,b:c.body,t:c.ts,u:c.u,p:c.parent_id||0,r:c.root_id||c.id})});
+    ((j&&j.items)||[]).forEach(function(c){(RC[c.story]=RC[c.story]||[]).push({i:c.id,k:c.nick,b:c.body,t:c.ts,u:c.u,o:c.op||0,p:c.parent_id||0,r:c.root_id||c.id})});
     for(var k in RC)RC[k].sort(function(a,b){return a.i-b.i});rcReady=true;drawList()}).catch(function(){})}
   document.addEventListener('input',function(e){var ta=e.target.closest('form[data-cmday] textarea');if(!ta)return;
     ta.form.querySelector('button').disabled=!ta.value.trim();ta.style.height='auto';ta.style.height=Math.min(ta.scrollHeight,120)+'px'});
@@ -618,6 +623,7 @@ var POLLS = [{"day": "2026-10-23", "q": "회사가 적자여도 전망 좋으면
         toast(E[j&&j.error]||'남기지 못했어요');go.disabled=false})
       .catch(function(){toast('연결이 불안정해요');go.disabled=false})});
   document.addEventListener('click',function(e){var mu=e.target.closest('[data-u]');if(mu&&(cbox.contains(mu)||list.contains(mu))){if(window.ssMember)window.ssMember(mu.getAttribute('data-u'));return}
+    var cw=e.target.closest('[data-crew]');if(cw&&(cbox.contains(cw)||list.contains(cw))){if(window.ssCrewCard)window.ssCrewCard(cw.getAttribute('data-crew'));return}
     if(!e.target.closest('[data-rename]'))return;var p=prof(),v=prompt('이름을 바꿔요 (12자까지)',p.n||'');
     if(v===null)return;v=v.trim().slice(0,12);if(!v)return;p.n=v;lss('ss_prof',JSON.stringify(p));lss('ss_nick',v);drawCm();drawList()});
   // ── 내 기록 ──
@@ -682,6 +688,8 @@ var POLLS = [{"day": "2026-10-23", "q": "회사가 적자여도 전망 좋으면
   function drawSum(){var t=POLLS.reduce(function(s,x){return s+x.na+x.nb},0),sm=document.getElementById('sum');
     if(sm)sm.textContent=POLLS.length+'개 · '+t.toLocaleString()+'표'}
   var cmLoaded='';
+  // ss-header.js(defer)가 늦게 실리면 봇 캐릭터 모양이 첫 그림에 빠진다 — 실린 뒤 한 번 더
+  document.addEventListener('DOMContentLoaded',function(){if(window.ssCrew){drawCm();drawList()}});
   function draw(){drawHero();var hp=find(heroDay());if(hp&&hp.s!==cmLoaded){cmLoaded=hp.s;cmOpen=false;loadCm(hp)}
     drawPersona();drawMe();drawList();drawSum()}
   function setSort(s){sortBy=s;[].forEach.call(document.querySelectorAll('#sort button'),function(x){x.classList.toggle('on',x.getAttribute('data-s')===s)});drawList()}

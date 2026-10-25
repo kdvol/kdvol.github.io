@@ -769,6 +769,57 @@
       requestAnimationFrame(function(){t.classList.add('on')});
       setTimeout(function(){t.classList.remove('on');setTimeout(function(){t.remove();kk.style.overflow='';nudging=null},250)},4000)},350)});
 
+  // ── 「순살 치킨집」 봇 캐릭터 (KD 2026-10-24 「대놓고 봇 캐릭터를 매력적으로 명확하게 정해서 활용」) ──
+  //   사람인 척하지 않는다: 댓글엔 🤖 배지, 아바타는 캐릭터 이모지, 이름을 누르면 「AI가 쓰는 캐릭터」 소개 카드.
+  //   글은 soonsal-build scripts/crew_service.py 가 관리자 키(op=2)로 올린다. 같은 이름은 독자가 못 쓴다(Worker CREW_NICK).
+  var CREW={
+    '반반':{e:'🧮',c:'#7FA8C8',t:'계산부터 하는 반반',i:'좋다·나쁘다 전에 계산부터 해요. 숫자 나오면 제가 갑니다.',w:'실적 · 금리 · 큰 숫자'},
+    '양념':{e:'🌶️',c:'#D96A5B',t:'매운맛 삐딱이',i:'다들 좋다면 난 일단 반대편에 서 봄. 매운 거 싫으면 패스 ㅋ',w:'들뜬 주제 · 한쪽으로 쏠린 질문'},
+    '후라이드':{e:'💼',c:'#C8B060',t:'기본맛 월급쟁이',i:'평범한 직장인 시선 담당. 뉴스 보면 일단 내 월급부터 떠올려요.',w:'물가 · 월급 · 집 · 회사'},
+    '간장':{e:'🐢',c:'#8FB0A0',t:'짠맛 장기투자파',i:'10년 뒤를 보고 삽니다. 급할수록 천천히.',w:'급락·급등장 · 배당 · 빚투'},
+    '파닭':{e:'✨',c:'#A09CD8',t:'트렌드 덕후',i:'요즘 뜨는 브랜드·밈·덕질 경제 담당임다. 숫자는 반반님께 패스!',w:'브랜드 · 소비 트렌드 · 스포츠·연예'}};
+  window.ssCrew=CREW;
+  window.ssCrewCard=function(nick){var c=CREW[nick];if(!c)return;
+    var ov=document.getElementById('ss-crew');if(!ov){ov=document.createElement('div');ov.id='ss-crew';document.body.appendChild(ov);
+      var cs=document.createElement('style');cs.textContent=
+        '#ss-crew{position:fixed;inset:0;z-index:100016;display:none}#ss-crew.on{display:block}'+
+        '#ss-crew .bg{position:absolute;inset:0;background:rgba(0,0,0,.6)}'+
+        '#ss-crew .pn{position:absolute;left:0;right:0;bottom:0;max-width:560px;margin:0 auto;padding:10px 20px calc(20px + env(safe-area-inset-bottom));'+
+        'background:#171513;border-radius:20px 20px 0 0;font-family:Pretendard,-apple-system,sans-serif;color:#e8e3da}'+
+        '#ss-crew .gr{width:38px;height:4px;border-radius:4px;background:#3a2f27;margin:0 auto 16px}'+
+        '#ss-crew .hd{display:flex;align-items:center;gap:14px}'+
+        '#ss-crew .av{width:54px;height:54px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:27px}'+
+        '#ss-crew .nm{font-size:19px;font-weight:900;color:#fff}#ss-crew .nm i{font-style:normal;font-size:11px;font-weight:800;color:#b9c4d0;border:1px solid #3d4a57;border-radius:999px;padding:1px 7px;margin-left:6px;vertical-align:3px}'+
+        '#ss-crew .tg{font-size:13px;color:#a39c90;margin-top:3px}'+
+        '#ss-crew .q{margin:16px 0 0;padding:12px 14px;border-radius:14px;background:#211d19;font-size:15px;line-height:1.6;color:#f6f1e8}'+
+        '#ss-crew .w{font-size:12.5px;color:#8b8578;margin-top:10px}#ss-crew .w b{color:#cfc8bc;font-weight:700}'+
+        '#ss-crew .rw{display:flex;gap:8px;margin-top:18px;padding-top:14px;border-top:1px solid #26221e;align-items:center}'+
+        '#ss-crew .rw span{font-size:11.5px;color:#7c756c;margin-right:2px}'+
+        '#ss-crew .rw button{width:34px;height:34px;min-height:0;border-radius:50%;border:2px solid transparent;font-size:17px;cursor:pointer;padding:0}'+
+        '#ss-crew .rw button.on{border-color:#f6f1e8}'+
+        '#ss-crew .ft{font-size:11.5px;line-height:1.6;color:#6f695f;margin-top:12px}';
+      document.head.appendChild(cs);
+      ov.addEventListener('click',function(e){if(e.target.classList.contains('bg')){ov.classList.remove('on');return}
+        var b=e.target.closest('[data-crew]');if(b)window.ssCrewCard(b.getAttribute('data-crew'))})}
+    ov.innerHTML='<div class="bg"></div><div class="pn" role="dialog" aria-label="봇 캐릭터 소개"><div class="gr"></div>'+
+      '<div class="hd"><span class="av" style="background:'+c.c+'">'+c.e+'</span><div><div class="nm">'+nick+'<i>🤖 봇</i></div><div class="tg">'+c.t+'</div></div></div>'+
+      '<p class="q">'+c.i+'</p><div class="w">주로 나타나는 곳 <b>'+c.w+'</b></div>'+
+      '<div class="rw"><span>순살 치킨집</span>'+Object.keys(CREW).map(function(k){return '<button type="button" data-crew="'+k+'" class="'+(k===nick?'on':'')+'" style="background:'+CREW[k].c+'" aria-label="'+k+'">'+CREW[k].e+'</button>'}).join('')+'</div>'+
+      '<div class="ft">순살 치킨집 식구들은 AI가 쓰는 봇 캐릭터예요. 정해진 성격대로 이야기하고, 투자 권유는 하지 않아요.</div></div>';
+    ov.classList.add('on')};
+  // 뉴스레터 댓글(soonsal.js 가 그림): 봇 캐릭터 글이면 아바타를 캐릭터 이모지로, 이름을 누르면 소개 카드
+  function crewDeco(){[].forEach.call(document.querySelectorAll('.ss-ci.ss-cop:not([data-crew])'),function(el){
+    var b=el.querySelector('.ss-cnm b'),n=b&&b.textContent.trim(),c=CREW[n];el.setAttribute('data-crew',c?n:'');if(!c||!el.querySelector('.ss-cob.bot'))return;
+    var av=el.firstElementChild;if(av&&!av.classList.contains('ss-cbd')){av.textContent=c.e;av.style.background=c.c}
+    b.style.cursor='pointer';b.setAttribute('role','button')})}
+  document.addEventListener('click',function(e){var b=e.target.closest('.ss-ci[data-crew] .ss-cnm b');if(!b)return;var n=b.closest('.ss-ci').getAttribute('data-crew');if(n)window.ssCrewCard(n)});
+  // 시세 띠처럼 글자만 바뀌는 변화는 무시하고, 댓글(.ss-ci)이 새로 붙을 때만 본다
+  if(window.MutationObserver){var crewT=0;new MutationObserver(function(rs){if(crewT)return;
+    for(var i=0;i<rs.length;i++){var a=rs[i].addedNodes;for(var j=0;j<a.length;j++){var n=a[j];
+      if(n.nodeType===1&&(n.classList.contains('ss-ci')||n.querySelector('.ss-ci'))){crewT=setTimeout(function(){crewT=0;crewDeco()},200);return}}}
+  }).observe(document.body||document.documentElement,{childList:true,subtree:true})}
+  document.addEventListener('DOMContentLoaded',crewDeco);
+
   // ── 회원 지난 글 창 (KD 2026-10-24 「로그인한 사람들의 과거 이력들도 눌러서 볼 수 있게 — MLB파크 기존 게시물 보기처럼」) ──
   //   window.ssMember(회원번호, 제목함수?) — 순살톡·오늘의 질문 댓글의 ✓회원 이름을 누르면 아래에서 올라온다. GET /member?u=
   function storyHref(st,ts){var y=new Date((ts||0)*1000).getFullYear()||2026,m=/^(\d{4})(c?)-(\d{1,2})$/.exec(st);
