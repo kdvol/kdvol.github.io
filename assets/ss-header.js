@@ -410,11 +410,12 @@
         '.ss-poll.lt .rs div{background:#f1ebe2;color:#3a2f27}.ss-poll.lt .rs i{background:#f6d4c0}.ss-poll.lt .rs .me i{background:#F07040}'+
         '.ss-poll.lt .rs b{color:#3a2f27}.ss-poll.lt .rs .me span{color:#12100e}.ss-poll.lt .n{color:#9a8f82}.ss-poll.lt .n a{color:#C24A00}'+
         /* 홈 「오늘의 순살」 안 질문 줄 — 참여 모양: 주황 배지 · 한 줄 질문 · 투표 버튼 (KD 10/24 「오늘의 질문은 눈에 잘 안 들어옴」) */
-        '.ss-pt{display:flex;align-items:center;gap:10px;margin:2px 0 12px 30px;padding:10px 10px 10px 12px;border-radius:12px;background:rgba(240,112,64,.1);'+
+        /* 이름 주의: soonsal.js 공유 창 제목이 .ss-pt 라 같은 이름을 쓰면 그 제목이 흰 글씨·주황 상자로 덮인다(KD 10/26 PC 공유 창 제목 안 보임) */
+        '.ss-pqrow{display:flex;align-items:center;gap:10px;margin:2px 0 12px 30px;padding:10px 10px 10px 12px;border-radius:12px;background:rgba(240,112,64,.1);'+
         'border:1px solid #6b3a24;color:#f6f1e8;text-decoration:none}'+
-        '.ss-pt .k{flex:0 0 auto;font-size:11px;font-weight:900;color:#12100e;background:#F07040;border-radius:999px;padding:3px 8px}'+
-        '.ss-pt .tx{flex:1;min-width:0;font-size:14px;font-weight:700;line-height:1.4;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}'+
-        '.ss-pt b{flex:0 0 auto;font-size:12.5px;font-weight:800;color:#F59B75}.ss-pt:hover{border-color:#F07040}'+
+        '.ss-pqrow .k{flex:0 0 auto;font-size:11px;font-weight:900;color:#12100e;background:#F07040;border-radius:999px;padding:3px 8px}'+
+        '.ss-pqrow .tx{flex:1;min-width:0;font-size:14px;font-weight:700;line-height:1.4;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}'+
+        '.ss-pqrow b{flex:0 0 auto;font-size:12.5px;font-weight:800;color:#F59B75}.ss-pqrow:hover{border-color:#F07040}'+
         '.ss-pi{font-size:.8em;font-weight:700;color:#C24A00;white-space:nowrap}';
       document.head.appendChild(st);
       var c=document.createElement('section');c.className='ss-poll'+(light?' lt':'');c.id='ss-poll';c.setAttribute('aria-label','오늘의 질문');
@@ -453,7 +454,7 @@
         if(w&&!w.classList.contains('open')){w.classList.add('open');if(bx)bx.textContent='접기 ↑'}
         setTimeout(function(){var y=c.getBoundingClientRect().top+window.scrollY-90;window.scrollTo({top:y,behavior:'smooth'})},80)};
       if(home){var row=document.querySelector('.hero .hs[data-n="'+sn+'"]');
-        if(row){var t=document.createElement('a');t.className='ss-pt'+(mine?'':' ss-shine');t.href='#ss-poll';
+        if(row){var t=document.createElement('a');t.className='ss-pqrow'+(mine?'':' ss-shine');t.href='#ss-poll';
           t.innerHTML='<span class="k">🗳️ 질문</span><span class="tx">'+esc(p.q)+'</span><b>'+(mine?'결과 →':'투표 →')+'</b>';t.onclick=go;row.parentNode.insertBefore(t,row.nextSibling)}}
       else{var li=document.querySelector('.ss-story-index a[href$="#story-'+sn+'"]');
         if(li&&!li.querySelector('.ss-pi')){var m=document.createElement('span');m.className='ss-pi';m.textContent=' 🗳️ 투표';li.appendChild(m)}}
@@ -475,7 +476,8 @@
     var sid=el.getAttribute('data-ss-story')||'',m=sid.match(/-(\d+)$/);
     var t=el.querySelector('[id$="-title"],.story-title,h2,h3');var title=(t?t.textContent:document.title).replace(/\s+/g,' ').trim();
     var li=el.querySelector('.bullet')||el.querySelector('li');var desc=(li?li.textContent:'').replace(/\s+/g,' ').trim().slice(0,90);
-    var url=el.getAttribute('data-ss-url')||(location.origin+location.pathname+(m?'#story-'+m[1]:''));   // 차트 꼭지는 #slug 를 붙여 둔다
+    // 뉴스레터 스토리(회차 번호)는 어디서 공유하든 /s/<번호>.html — 그날 뉴스레터 그 스토리로 바로(홈에서 공유해도 홈·더보기로 안 감, KD 10/26)
+    var url=el.getAttribute('data-ss-url')||(/^\d{4}c?-\d{1,2}$/.test(sid)?location.origin+'/s/'+sid+'.html':(location.origin+location.pathname+(m?'#story-'+m[1]:'')));   // 차트 꼭지는 #slug 를 붙여 둔다
     var img=/^\d{4}c?-\d{1,2}$/.test(sid)?location.origin+'/share/'+sid+'.jpg':(document.querySelector('meta[property="og:image"]')||{}).content;
     kakaoSdk(function(){Kakao.Share.sendDefault({objectType:'feed',
       content:{title:title,description:desc||'글로벌 금융·경제 뉴스, 매일 아침 5분 살코기만',imageUrl:img,imageWidth:1200,imageHeight:630,
@@ -935,7 +937,22 @@
     '#ss-ig li b{color:#fff}#ss-ig .ic{display:inline-flex;vertical-align:-5px;width:24px;height:24px;border-radius:6px;background:#2a2420;align-items:center;justify-content:center;margin:0 2px;color:#5aa2ff}'+
     '#ss-ig .nt{font-size:12px;color:#7c756c;margin-top:10px;line-height:1.6}'+
     '#ss-ig .cp{display:block;width:100%;height:46px;margin-top:14px;border:0;border-radius:999px;background:#F07040;color:#12100e;font:800 15px Pretendard,-apple-system,sans-serif;cursor:pointer}'+
-    '@media (prefers-reduced-motion:reduce){.ss-inst{transition:none}}';
+    /* 화살표 안내(아이폰) — 화면을 어둡게 덮고 공유 버튼 자리를 큰 화살표로 짚는다 (KD 10/26 「스카우티·플랜트리처럼 공유 버튼 근처에 화살표와 메시지」) */
+    '#ss-iga{position:fixed;inset:0;z-index:100018;font-family:Pretendard,-apple-system,sans-serif}#ss-iga .dim{position:absolute;inset:0;background:rgba(0,0,0,.78)}'+
+    '#ss-iga .arw{position:absolute;width:64px;height:64px;color:#F07040;filter:drop-shadow(0 4px 14px rgba(240,112,64,.55))}'+
+    '#ss-iga.t .arw{top:2px;right:16px;animation:ssUp 1s ease-in-out infinite}#ss-iga.b .arw{bottom:4px;left:calc(50% - 32px);animation:ssDn 1s ease-in-out infinite}'+
+    '@keyframes ssUp{0%,100%{transform:translateY(8px)}50%{transform:translateY(-2px)}}@keyframes ssDn{0%,100%{transform:translateY(-8px)}50%{transform:translateY(2px)}}'+
+    '#ss-iga .bub{position:absolute;left:14px;right:14px;max-width:440px;margin:0 auto;padding:18px 18px 14px;border-radius:20px;background:#1d1916;border:1px solid #F07040;color:#e8e3da;box-shadow:0 14px 40px rgba(0,0,0,.5)}'+
+    '#ss-iga.t .bub{top:78px}#ss-iga.b .bub{bottom:84px}'+
+    '#ss-iga .h{display:flex;align-items:center;gap:10px;margin-bottom:10px}#ss-iga .h img{width:40px;height:40px;border-radius:10px}#ss-iga .h b{font-size:17px;font-weight:900;color:#fff}'+
+    '#ss-iga .big{font-size:19px;line-height:1.45;font-weight:800;color:#fff;margin:2px 0 12px}#ss-iga .big .ic{width:30px;height:30px;vertical-align:-8px;background:#2a2420;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;color:#5aa2ff;margin:0 3px}'+
+    '#ss-iga ol{list-style:none;margin:0;padding:0;counter-reset:s}#ss-iga li{counter-increment:s;display:flex;align-items:center;gap:10px;padding:8px 0;border-top:1px solid #2e2620;font-size:14.5px}'+
+    '#ss-iga li:before{content:counter(s);flex:0 0 auto;width:22px;height:22px;border-radius:50%;background:#F07040;color:#12100e;font-weight:900;font-size:12px;display:flex;align-items:center;justify-content:center}'+
+    '#ss-iga li b{color:#fff}#ss-iga .ic{display:inline-flex;vertical-align:-5px;width:24px;height:24px;border-radius:6px;background:#2a2420;align-items:center;justify-content:center;margin:0 2px;color:#5aa2ff}'+
+    '#ss-iga .alt{display:block;margin:10px 0 0;padding:0;min-height:0;border:0;background:none;color:#a39c90;font:600 12.5px Pretendard,-apple-system,sans-serif;text-decoration:underline;cursor:pointer}'+
+    '#ss-iga .altx{font-size:12.5px;color:#cfc8bc;line-height:1.6;margin-top:6px}'+
+    '#ss-iga .ok{display:block;width:100%;height:44px;min-height:0;margin-top:12px;border:0;border-radius:999px;background:#2a2420;color:#f6f1e8;font:800 14px Pretendard,-apple-system,sans-serif;cursor:pointer}'+
+    '@media (prefers-reduced-motion:reduce){.ss-inst{transition:none}#ss-iga .arw{animation:none}}';
   d.head.appendChild(css);
   var SHARE='<span class="ic"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="M7 8l5-5 5 5"/><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"/></svg></span>';
   var ADD='<span class="ic"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="4"/><path d="M12 8v8M8 12h8"/></svg></span>';
@@ -944,7 +961,8 @@
         if(e.target.closest('[data-cp]')){try{navigator.clipboard.writeText(location.href);e.target.textContent='복사했어요 ✓'}catch(_){prompt('주소를 복사해 주세요',location.href)}}})}
     var body=inApp?
       '<ol><li><span>오른쪽 위(또는 아래) <b>⋯ 메뉴</b>를 눌러요</span></li><li><span><b>‘다른 브라우저로 열기’</b>(아이폰은 ‘Safari로 열기’)를 골라요</span></li><li><span>열린 사파리·크롬에서 다시 <b>📲 설치</b>를 눌러요</span></li></ol>'+
-      '<button class="cp" data-cp="1">주소 복사하기</button><div class="nt">카카오톡·인스타그램 같은 앱 안의 브라우저에서는 홈 화면 설치가 막혀 있어요.</div>'
+      (/KAKAOTALK/i.test(ua)?'<a class="cp" style="display:flex;align-items:center;justify-content:center;text-decoration:none" href="kakaotalk://web/openExternal?url='+encodeURIComponent(location.href)+'">'+(iOS?'Safari':'크롬')+'로 바로 열기</a>':'')+
+      '<button class="cp" data-cp="1"'+(/KAKAOTALK/i.test(ua)?' style="background:#2a2420;color:#f6f1e8"':'')+'>주소 복사하기</button><div class="nt">카카오톡·인스타그램 같은 앱 안의 브라우저에서는 홈 화면 설치가 막혀 있어요.</div>'
      :iOS?
       '<ol><li><span>주소창 옆 <b>공유</b> 버튼'+SHARE+'을 눌러요</span></li><li><span>목록을 아래로 내려 <b>홈 화면에 추가</b>'+ADD+'를 골라요</span></li><li><span>오른쪽 위 <b>추가</b>를 누르면 끝</span></li></ol>'+
       '<div class="nt">공유 버튼이 안 보이면 아래쪽 <b>⋯</b> 안에 있어요. 크롬 앱이라면 주소창의 공유 버튼으로 같은 순서예요.</div>'
@@ -952,8 +970,23 @@
     g.innerHTML='<div class="bg"></div><div class="pn" role="dialog" aria-label="홈 화면에 순살 추가"><div class="gr"></div>'+
       '<div class="hd"><img src="/assets/app/icon-192.png" alt=""><div><b>홈 화면에 순살 추가</b><span>앱처럼 바로 열려요 · 10초면 끝</span></div></div>'+body+'</div>';
     g.classList.add('on')}
+  // 공유 버튼 자리: 사파리 26+(주소창 안 오른쪽)·아이패드·아이폰 크롬/엣지/파폭 = 위 오른쪽 / 사파리 18 이하 아이폰 = 아래 가운데 툴바
+  function shareTop(){var m=ua.match(/Version\/(\d+)/),v=m?+m[1]:0;
+    return /CriOS|FxiOS|EdgiOS/.test(ua)||/iPad/.test(ua)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1)||v>=26}
+  var ARW='<svg viewBox="0 0 64 64" width="64" height="64" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"><path d="M32 58V10"/><path d="M14 27L32 9l18 18"/></svg>';
+  function arrowGuide(){var top=shareTop(),o=d.getElementById('ss-iga');if(!o){o=d.createElement('div');o.id='ss-iga';d.body.appendChild(o);
+      o.addEventListener('click',function(e){if(e.target.closest('.alt')){var x=o.querySelector('.altx');if(x)x.hidden=!x.hidden;return}
+        if(e.target.closest('.ok')||e.target.classList.contains('dim')||e.target.closest('.arw'))o.remove()})}
+    o.className=top?'t':'b';o.setAttribute('role','dialog');o.setAttribute('aria-label','홈 화면에 순살 추가 안내');
+    o.innerHTML='<div class="dim"></div><div class="arw">'+(top?ARW:ARW.replace('<svg ','<svg style="transform:rotate(180deg)" '))+'</div>'+
+      '<div class="bub"><div class="h"><img src="/assets/app/icon-192.png" alt=""><b>홈 화면에 순살 추가</b></div>'+
+      '<p class="big">'+(top?'위쪽 주소창 오른쪽':'아래쪽 가운데')+' <span class="ic">'+SHARE.replace(/^<span class="ic">|<\/span>$/g,'')+'</span> 공유 버튼을 눌러요</p>'+
+      '<ol><li><span>목록을 내려 <b>홈 화면에 추가</b>'+ADD+'</span></li><li><span>오른쪽 위 <b>추가</b> — 끝!</span></li></ol>'+
+      '<button type="button" class="alt">공유 버튼이 안 보여요</button><div class="altx" hidden>'+(top?'주소창이 <b>아래</b>에 있으면 아래쪽 <b>⋯</b> → <b>공유</b>를 눌러요.':'주소창 안이나 아래쪽 <b>⋯</b> 안에 <b>공유</b>가 있어요.')+' 크롬 앱은 주소창 오른쪽 공유 버튼이에요.</div>'+
+      '<button type="button" class="ok">알겠어요</button></div>'}
   function doInstall(){
     if(deferred){var ev=deferred;deferred=null;ev.prompt();(ev.userChoice||Promise.resolve({})).then(function(c){if(c&&c.outcome==='accepted'){lss('ss_inst_done','1');hide()}});return}
+    if(iOS&&!inApp){hide();arrowGuide();return}     // 아래 화살표와 겹치지 않게 카드는 내림
     guide()}
   function hide(){if(card){card.classList.remove('on');d.documentElement.classList.remove('ss-inst-on')}}
   function show(){if(card||!can()||!eligible())return;

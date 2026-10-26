@@ -194,8 +194,11 @@ form.cf .av{cursor:pointer}
 :is(.cmts,.pcm) .nmx .ku{font-weight:800;color:#f6f1e8}
 :is(.cmts,.pcm) .ac{display:flex;gap:14px;align-items:center;margin-top:2px;font-size:12px;color:#6f695f}
 :is(.cmts,.pcm) .ac i{font-style:normal}
-:is(.cmts,.pcm) .ac .rp{padding:0;color:#a39c90;font-weight:700}
-:is(.cmts,.pcm) .ac .rp:hover{color:#F59B75}
+/* 답글 = 참여 행동이라 주황 알약으로 눈에 띄게(KD 10/26 「답글 버튼이 좀 더 눈에 띄어야」) — 시간은 흐리게 그대로 */
+:is(.cmts,.pcm) .ac .rp{display:inline-flex;align-items:center;gap:4px;height:24px;padding:0 10px;border-radius:999px;
+  background:rgba(240,112,64,.12);color:#F59B75;font:800 12px Pretendard,-apple-system,sans-serif}
+:is(.cmts,.pcm) .ac .rp:hover{background:#F07040;color:#12100e}
+:is(.cmts,.pcm) .ac{gap:10px;margin-top:5px}
 :is(.cmts,.pcm) .lk{flex:0 0 auto;align-self:flex-start;display:flex;flex-direction:column;align-items:center;gap:1px;width:28px;margin-top:2px;background:none;border:0;padding:0;min-height:0;height:auto;
   font:600 15px/1 Pretendard,-apple-system,sans-serif;color:#7c756c;cursor:pointer}
 :is(.cmts,.pcm) .lk small{font-size:10.5px;font-variant-numeric:tabular-nums}
@@ -620,7 +623,7 @@ var POLLS = [{"day": "2026-10-26", "q": "길에서 전기차 보면 BYD일 것 �
     '<div class="bd"><div class="tx"><span class="nmx">'+(c.u?'<button type="button" class="ku" data-u="'+esc(c.u)+'">'+esc(c.k)+' ✓</button>':cr?'<button type="button" class="ku" data-crew="'+esc(c.k)+'">'+esc(c.k)+'</button>':esc(c.k))+'</span>'+
     (c.o===2?'<em class="bt">🤖 봇</em>':c.o?'<em class="bt tm">순살 팀</em>':'')+
     (c.pk&&!c.o?'<em class="pk pk'+c.pk+'">'+esc(c.pk===1?p.a:p.b)+'</em>':'')+' '+esc(c.b)+'</div>'+
-    '<div class="ac"><i>'+ago(c.t)+'</i><button type="button" class="rp" data-rp="'+c.i+'" data-rd="'+p.day+'">답글</button></div></div>'+
+    '<div class="ac"><i>'+ago(c.t)+'</i><button type="button" class="rp" data-rp="'+c.i+'" data-rd="'+p.day+'">💬 답글</button></div></div>'+
     '<button type="button" class="lk'+(LIKED[c.i]?' on':'')+'" data-lk="'+c.i+'" aria-pressed="'+(LIKED[c.i]?'true':'false')+'" aria-label="좋아요">'+(LIKED[c.i]?'♥':'♡')+(c.l?'<small>'+c.l+'</small>':'')+'</button></div>'}
   // 댓글 좋아요 — 순살톡·뉴스레터와 같은 POST /like · 같은 ss_liked(어디서 눌러도 같은 표시) (KD 10/25 「댓글에 좋아요를 달 수 있어야」)
   var LIKED={};try{LIKED=JSON.parse(lsg('ss_liked')||'{}')||{}}catch(e){}

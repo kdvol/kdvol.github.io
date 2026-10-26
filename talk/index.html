@@ -87,6 +87,9 @@ background:#1a1512;border-radius:12px;font-size:.84rem;color:#cfc8bb;text-decora
 padding:7px 8px;font-size:.76rem;color:#6b665e;cursor:pointer;font-family:inherit;
 border-radius:16px;transition:background .15s,color .15s;min-height:32px}
 .act button:hover{background:#1c1c1c;color:#b8b2a8}
+/* 답글 = 참여 행동 — 오늘의 질문과 같은 주황 알약(KD 10/26 「답글 버튼이 좀 더 눈에 띄어야」) */
+.act button.repb{background:rgba(240,112,64,.12);color:#F59B75;font-weight:800;border-radius:999px;padding:0 11px;margin-left:6px}
+.act button.repb:hover{background:#F07040;color:#12100e}
 .act .like:hover{color:#E55A00}
 .act .like.on{color:#E55A00;font-weight:700}
 .act .like.on:hover{background:#1f1613}
@@ -732,7 +735,7 @@ function one(c, isRep) {
           '<span>' + (c.likes || '') + '</span></button>' +
         '<button type="button" class="repb" data-i="' + c.id +
           '" data-k="' + esc(c.nick) + '" data-s="' + esc(c.story) + '">' +
-          '↩ <span>답글</span></button>' +
+          '💬 <span>답글</span></button>' +
       '</div>' +
     '</div></div>';
 }

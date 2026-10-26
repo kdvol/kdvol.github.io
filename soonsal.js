@@ -1587,6 +1587,9 @@
 
   // 스토리 → 스토리별 OG 페이지(/s/{id}.html) URL. 공유 미리보기가 스토리 기준으로 뜸.
   function shimUrl(story) {
+    // 회차 번호가 붙은 스토리는 어디서 공유하든(홈 포함) 그날 뉴스레터 그 스토리로 가는 /s/ 페이지 (KD 2026-10-26)
+    var sidN = story && story.getAttribute && story.getAttribute('data-ss-story');
+    if (sidN && /^\d{4}c?-\d{1,2}$/.test(sidN)) return location.origin + '/s/' + sidN + '.html';
     var key = storyKey(story);
     if (/^m\d{8}-/.test(key || '')) {
       return location.origin + location.pathname + (story.id ? '#' + story.id : '');
