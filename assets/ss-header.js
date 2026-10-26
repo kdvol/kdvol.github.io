@@ -945,10 +945,13 @@
     '#ss-iga .bub{position:absolute;left:14px;right:14px;max-width:440px;margin:0 auto;padding:18px 18px 14px;border-radius:20px;background:#1d1916;border:1px solid #F07040;color:#e8e3da;box-shadow:0 14px 40px rgba(0,0,0,.5)}'+
     '#ss-iga.t .bub{top:78px}#ss-iga.b .bub{bottom:84px}'+
     '#ss-iga .h{display:flex;align-items:center;gap:10px;margin-bottom:10px}#ss-iga .h img{width:40px;height:40px;border-radius:10px}#ss-iga .h b{font-size:17px;font-weight:900;color:#fff}'+
-    '#ss-iga .big{font-size:19px;line-height:1.45;font-weight:800;color:#fff;margin:2px 0 12px}#ss-iga .big .ic{width:30px;height:30px;vertical-align:-8px;background:#2a2420;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;color:#5aa2ff;margin:0 3px}'+
+    /* 아이콘을 글자 높이에 맞춰 한 줄로(KD 10/26 폰 캡처: 큰 아이콘 칸 때문에 문장이 벌어짐) — 위치 설명은 아래 작은 줄로 */
+    '#ss-iga .big{display:flex;align-items:center;gap:8px;font-size:19px;line-height:1.3;font-weight:800;color:#fff;margin:4px 0 4px}'+
+    '#ss-iga .big .ic{flex:0 0 auto;width:30px;height:30px;margin:0;border-radius:8px;vertical-align:0}'+
+    '#ss-iga .whr{font-size:13px;color:#a39c90;margin:0 0 12px}'+
     '#ss-iga ol{list-style:none;margin:0;padding:0;counter-reset:s}#ss-iga li{counter-increment:s;display:flex;align-items:center;gap:10px;padding:8px 0;border-top:1px solid #2e2620;font-size:14.5px}'+
     '#ss-iga li:before{content:counter(s);flex:0 0 auto;width:22px;height:22px;border-radius:50%;background:#F07040;color:#12100e;font-weight:900;font-size:12px;display:flex;align-items:center;justify-content:center}'+
-    '#ss-iga li b{color:#fff}#ss-iga .ic{display:inline-flex;vertical-align:-5px;width:24px;height:24px;border-radius:6px;background:#2a2420;align-items:center;justify-content:center;margin:0 2px;color:#5aa2ff}'+
+    '#ss-iga li b{color:#fff}#ss-iga .ic{display:inline-flex;vertical-align:middle;width:22px;height:22px;border-radius:6px;background:#2a2420;align-items:center;justify-content:center;margin:-2px 3px 0;color:#5aa2ff}'+
     '#ss-iga .alt{display:block;margin:10px 0 0;padding:0;min-height:0;border:0;background:none;color:#a39c90;font:600 12.5px Pretendard,-apple-system,sans-serif;text-decoration:underline;cursor:pointer}'+
     '#ss-iga .altx{font-size:12.5px;color:#cfc8bc;line-height:1.6;margin-top:6px}'+
     '#ss-iga .ok{display:block;width:100%;height:44px;min-height:0;margin-top:12px;border:0;border-radius:999px;background:#2a2420;color:#f6f1e8;font:800 14px Pretendard,-apple-system,sans-serif;cursor:pointer}'+
@@ -980,7 +983,7 @@
     o.className=top?'t':'b';o.setAttribute('role','dialog');o.setAttribute('aria-label','홈 화면에 순살 추가 안내');
     o.innerHTML='<div class="dim"></div><div class="arw">'+(top?ARW:ARW.replace('<svg ','<svg style="transform:rotate(180deg)" '))+'</div>'+
       '<div class="bub"><div class="h"><img src="/assets/app/icon-192.png" alt=""><b>홈 화면에 순살 추가</b></div>'+
-      '<p class="big">'+(top?'위쪽 주소창 오른쪽':'아래쪽 가운데')+' <span class="ic">'+SHARE.replace(/^<span class="ic">|<\/span>$/g,'')+'</span> 공유 버튼을 눌러요</p>'+
+      '<p class="big">'+SHARE+'<span>공유 버튼을 눌러요</span></p><p class="whr">'+(top?'위쪽 주소창 오른쪽':'아래쪽 가운데')+'에 있어요 '+(top?'↗':'↓')+'</p>'+
       '<ol><li><span>목록을 내려 <b>홈 화면에 추가</b>'+ADD+'</span></li><li><span>오른쪽 위 <b>추가</b> — 끝!</span></li></ol>'+
       '<button type="button" class="alt">공유 버튼이 안 보여요</button><div class="altx" hidden>'+(top?'주소창이 <b>아래</b>에 있으면 아래쪽 <b>⋯</b> → <b>공유</b>를 눌러요.':'주소창 안이나 아래쪽 <b>⋯</b> 안에 <b>공유</b>가 있어요.')+' 크롬 앱은 주소창 오른쪽 공유 버튼이에요.</div>'+
       '<button type="button" class="ok">알겠어요</button></div>'}
