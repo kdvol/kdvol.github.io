@@ -523,6 +523,10 @@
       var ko=s.replace('Soonsal','').trim();
       t.innerHTML=(ko?'<span class="ss-ko">'+ko.replace(/[<>&]/g,'')+'</span> ':'')+'<span class="ss-yes">Soonsal</span>';
     });
+    // 아래쪽 로고(뉴스레터·페이지 푸터 「🥫 Soonsal」)도 같은 글꼴 (KD 10/26 「헤더와 동일한 폰트 — 웹사이트 전체 통일」)
+    [].forEach.call(document.querySelectorAll('.footer-brand span,.footer-brand b'),function(t){
+      if((t.textContent||'').trim()==='Soonsal')t.classList.add('ss-yes','ss-yes-ft');
+    });
   }
   function run(){
     var h=document.querySelector('.site-header');if(!h)return;
@@ -542,6 +546,7 @@
       'background:#fff!important;color:#C24A00!important;font:800 11px/20px Pretendard,-apple-system,sans-serif!important;text-align:center;box-shadow:0 0 0 2px #F07040}'+
       '.ss-fab{position:fixed}'+
       '.site-header .ss-yes{font-family:"Yeseva One",Georgia,"Times New Roman",serif!important;font-weight:400!important;letter-spacing:.01em}'+
+      '.ss-yes-ft{font-family:"Yeseva One",Georgia,"Times New Roman",serif!important;font-weight:400!important;letter-spacing:.01em;font-size:17px!important}'+
       '.site-header .ss-ko{font-family:Pretendard,-apple-system,BlinkMacSystemFont,sans-serif;font-weight:800}'+
       /* 폰에선 깡통 로고 + Soonsal 만 — Yeseva 가 넓어 한글까지 넣으면 계정 아이콘을 덮었다 */
       '@media(max-width:420px){.site-header .ss-ko{display:none}.site-header .ss-yes{font-size:20px}}'+

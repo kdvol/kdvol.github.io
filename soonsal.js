@@ -108,6 +108,19 @@
     '.ss-talk-b:hover{background:var(--ss-fill-h);border-color:var(--ss-fill-h)}' +
     '.ss-talk-b.ig{background:transparent;color:var(--ss-fill);border-color:var(--ss-line)}' +
     '.ss-talk-b.ig:hover{background:#fff;color:var(--ss-fill-h);border-color:var(--ss-accent)}' +
+    /* 오늘의 질문 카드와 한 몸 (KD 10/26 통일) */
+    '.ss-talk{margin:24px 0 8px;padding:18px 18px 14px;border:1px solid #ece6dc;border-radius:14px;background:#fffaf5;' +
+    'font-family:Pretendard,-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo",sans-serif}' +
+    '.ss-talk-h{font-size:12px;font-weight:800;color:#6f695f;letter-spacing:.04em;margin-bottom:4px}' +
+    '.ss-talk-q{font-size:16px;font-weight:800;color:#1f1a16;line-height:1.55;letter-spacing:-.02em;margin:4px 0 12px}' +
+    '.ss-talk-btns{display:flex;gap:8px}' +
+    '.ss-talk-b{flex:1;justify-content:center;height:40px;min-height:0!important;padding:0 14px;border-radius:999px;' +
+    'border:1px solid #e3d9cc;background:#fff;color:#3a2f27;font-size:14px;font-weight:700}' +
+    '.ss-talk-b:hover{background:#fff;border-color:#F07040;color:#C24A00}' +
+    '.ss-talk-b:not(.ig){color:#C24A00;border-color:#f0c9b4}' +
+    '.ss-talk-b.ig{background:#fff;color:#3a2f27;border-color:#e3d9cc}' +
+    '.ss-talk-b.ig:hover{background:#fff;border-color:#F07040;color:#C24A00}' +
+    '.ss-sch .cta{background:#E55A00}.ss-sch .cta:hover{background:#F07040}' +
     /* 반응 버튼도 같은 크림/주황 톤으로 */
     '.ss-rb{border-color:#e0ddd5;color:#8a8578}' +
     '.ss-rb:hover{border-color:#F07040;color:#E55A00}' +
