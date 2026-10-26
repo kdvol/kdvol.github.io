@@ -51,6 +51,8 @@ font-size:13.5px;font-weight:800;background:#2a221d;color:#f6f1e8}
 .hero .badge.min{background:#33261d;color:#F59B75}
 .hero .meta{font-size:12.5px;color:#a39c90;margin-top:12px}
 .hero .meta a{color:#F59B75}
+/* 왼쪽 = 내 결과(다수파 배지, 투표의 보상) · 오른쪽 = 숫자(참여 수 — 막대의 %와 같은 오른쪽 열) (KD 10/26 「우정렬하면 가독성?」) */
+.hero .meta .ppl{margin-left:auto;font-variant-numeric:tabular-nums}
 .hero .st{display:block;margin-top:14px;padding-top:13px;border-top:1px solid #3a2f27;color:#cfc8bc;font-size:14px;text-decoration:none;line-height:1.5}
 .hero .st b{color:#F07040}
 
@@ -579,7 +581,7 @@ var POLLS = [{"day": "2026-10-26", "q": "길에서 전기차 보면 BYD일 것 �
       h+='<div class="rs"><button type="button" data-c="1"'+(m===1?' class="me"':'')+'><i data-w="'+r[0]+'"></i><span>'+esc(p.a)+(m===1?' ✓':'')+'</span><b>'+r[0]+'%</b></button>'+
         '<button type="button" data-c="2"'+(m===2?' class="me"':'')+'><i data-w="'+r[1]+'"></i><span>'+esc(p.b)+(m===2?' ✓':'')+'</span><b>'+r[1]+'%</b></button></div>'+
         '<div class="meta"><span class="badge'+(mp<50?' min':'')+'">'+(mp>50?'🙌 다수파 '+mp+'%':mp===50?'⚖️ 반반':'🦄 소수파 '+mp+'%')+'</span>'+
-        '<span>'+r[2]+'명 참여</span></div>';}
+        '<span class="ppl">'+r[2]+'명 참여</span></div>';}
     var ft=[];if(u)ft.push('<a href="'+esc(u)+'">📰 '+(p.t?esc(p.t):'이 질문이 나온 이야기')+'</a>');
     if(m&&!(window.ssIsSub&&window.ssIsSub()))ft.push('<a href="#" data-sub="1" class="sb">📮 내일 질문도 메일로</a>');
     if(ft.length)h+='<div class="ft">'+ft.join('')+'</div>';
