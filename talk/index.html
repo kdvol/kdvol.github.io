@@ -679,17 +679,22 @@ function render(items) {
           var shownReps = fold ? reps.slice(-1) : reps;
           var body = isBot(head)
             ? '<div class="q"><span class="qk">🤖 순살이 묻다</span><p>' + esc(head.body) + '</p>' +
-                '<div class="qa"><span>' + (reps.length ? '답 ' + reps.length : '') + '</span>' +
-                '<button type="button" class="repb qb" data-i="' + head.id + '" data-k="" data-s="' + esc(head.story) + '">답하기</button></div></div>' +
+                (reps.length ? '<div class="qa"><span>답 ' + reps.length + '</span></div>' : '') + '</div>' +
               fold + shownReps.map(function (c) { return one(c, true); }).join('')
             : one(head, head.parent_id) + fold + shownReps.map(function (c) { return one(c, true); }).join('');
           return '<div class="th' + (isNew ? ' new' : '') + '" data-r="' + rid + '">' + body + rform(rid) + '</div>';
         }).join('');
       })() +
       // 「＋ 한마디」 글자 대신 내 아바타가 붙은 입력창 모양 막대 + 상황 맞춤 문구 (오늘의 질문과 같은 참전 막대)
-      '<div class="th say" data-r="s-' + esc(st) + '">' +
-        '<button type="button" class="sayb cbar" data-s="' + esc(st) + '">' + avatar((ME && ME.nick) || prof().n || '나', 0) +
-        '<span class="ph">' + (g.n ? g.n + '개 한마디 · 내 생각은?' : '첫 한마디를 남겨 보세요') + '</span><b>남기기</b></button>' + rform('s-' + st) + '</div>' +
+      // 「🤖 순살이 묻다」가 있는 스토리는 이 막대가 곧 그 질문에 답하는 자리 — 카드 속 「답하기」 버튼과 중복이라 버튼은 뺌 (KD 10/26)
+      (function () {
+        var bq = g.threads.filter(function (l) { return isBot(l[0]); })[0];
+        return '<div class="th say" data-r="s-' + esc(st) + '">' +
+          '<button type="button" class="sayb cbar" data-s="' + esc(st) + '"' + (bq ? ' data-q="' + bq[0].id + '"' : '') + '>' +
+          avatar((ME && ME.nick) || prof().n || '나', 0) +
+          '<span class="ph">' + (bq ? '🤖 질문에 내 답은?' : g.n ? g.n + '개 한마디 · 내 생각은?' : '첫 한마디를 남겨 보세요') + '</span><b>' + (bq ? '답하기' : '남기기') + '</b></button>' +
+          rform('s-' + st) + '</div>';
+      })() +
     '</section>';
   }).join('');
   items.forEach(function (c) { seen[c.id] = 1; });
@@ -817,8 +822,9 @@ function wire() {
     b.addEventListener('click', function () {
       var th = b.closest('.th'), rf = th.querySelector('.rf'), ta = rf.querySelector('textarea');
       myAv(rf);
-      b.style.display = 'none'; rf.className = 'rf on'; rf._btns = th; rf._pid = 0; rf._story = b.getAttribute('data-s');
-      ta.placeholder = '이 이야기, 어떻게 보셨어요?';
+      var qid = parseInt(b.getAttribute('data-q') || '0', 10);
+      b.style.display = 'none'; rf.className = 'rf on'; rf._btns = th; rf._pid = qid; rf._story = b.getAttribute('data-s');
+      ta.placeholder = qid ? '질문에 내 생각은…' : '이 이야기, 어떻게 보셨어요?';
       rf.querySelector('.who').innerHTML = whoLabel(); ta.focus();
       rf.querySelector('.x').addEventListener('click', function () { b.style.display = ''; }, { once: true });
     });
