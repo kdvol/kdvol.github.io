@@ -1054,7 +1054,7 @@
       // 로그인 유도 — 회원이면 알림 받는다는 안내, 아니면 로그인하러 (KD 2026-10-08)
       (authed()
         ? '<a class="ss-clog on" href="/account/#notices" rel="nofollow">✓ 회원으로 남겨요 · 답글이 달리면 🔔 알림으로 알려드려요</a>'
-        : '<a class="ss-clog" href="/account/" rel="nofollow"><span>로그인하면 내 댓글에 달린 답글을 <b>폰·PC 어디서든</b> 알림으로 받아요</span><b>카카오·구글 1초 →</b></a>') +
+        : '<a class="ss-clog" href="/account/" rel="nofollow"><span>로그인하면 내 댓글에 달린 답글을 <b>폰·PC 어디서든</b> 알림으로 받아요</span><b>1초 로그인 →</b></a>') +
       '<div class="ss-clist"></div>' +
       '<a class="ss-call" href="/talk/">💬 순살톡에서 다른 이야기도 →</a>' +
       '<div class="ss-cnote">투자 권유·광고·비방은 ' +

@@ -594,7 +594,7 @@
     var LINKS=[["읽기", [["/newsletters/", "뉴스레터"], ["/chart/", "순살차트"], ["/cardnews/", "순스타그램"], ["/youtube/", "YouTube"]]], ["찾기", [["/search/", "검색"], ["/topics/", "주제별"]]], ["참여", [["/poll/", "오늘의 질문"], ["/talk/", "순살톡"], ["/school/", "순살스쿨"]]], ["순살과 함께", [["/collab/", "광고·협업 문의"]]]];
     var wrap=document.createElement('div');
     wrap.innerHTML='<div class="ss-ov"></div><aside class="ss-dr" aria-label="전체 메뉴"><button class="x" aria-label="닫기">×</button>'+
-      '<a class="acc" href="/account/" rel="nofollow"><span class="ph">🙂</span><span><b>로그인하고 스크랩 모으기</b><span>카카오·구글로 1초 · 폰·PC 에서 같이</span></span></a>'+
+      '<a class="acc" href="/account/" rel="nofollow"><span class="ph">🙂</span><span><b>로그인하고 스크랩 모으기</b><span>1초 로그인 · 폰·PC 에서 같이</span></span></a>'+
       '<a class="li mine" id="ss-mine" href="/saved/" rel="nofollow" hidden>🐟 이 브라우저에 모은 글</a>'+
       LINKS.map(function(g){return '<div class="gp">'+g[0]+'</div>'+g[1].map(function(x){return '<a class="li" href="'+x[0]+'">'+x[1]+'</a>'}).join('')}).join('')+
       '<a class="sub" href="https://subscribe.soonsal.com/subscribe" target="_blank" rel="noopener">무료 구독하기</a>'+
@@ -1054,7 +1054,13 @@
     body:JSON.stringify({t:'inst',k:k,v:v,s:(lsg('ss_is_sub')==='1'||lsg('ss_subbed')==='1')?1:0,m:0})}).catch(function(){})}catch(e){}}
   var css=d.createElement('style');css.textContent=
     '.ss-locked{display:none!important}'+
-    '.ss-gate{margin:18px 0 26px;padding:22px 20px;border-radius:16px;background:linear-gradient(160deg,#241a14,#171310);color:#f0ede6;font-family:Pretendard,-apple-system,sans-serif;position:relative;overflow:hidden}'+
+    /* 벽 뒤 미리보기(KD 10/26 「아예 잘라 버리면 2개짜리 뉴스레터처럼 보임 — 희미하게 뭔가 존재하는데 읽을 수는 없는 로그인 월처럼」):
+       잠긴 스토리 앞 2개는 흐리게·아래로 사라지게 보여 주고 고를 수·누를 수 없게 */
+    '.ss-blur{filter:blur(5px);opacity:.55;pointer-events:none;user-select:none;-webkit-user-select:none;max-height:520px;overflow:hidden;'+
+      '-webkit-mask-image:linear-gradient(#000 0,#000 35%,transparent 100%);mask-image:linear-gradient(#000 0,#000 35%,transparent 100%)}'+
+    '.ss-blur+.ss-blur{max-height:260px;opacity:.35}'+
+    '.ss-gate-hi{animation:ssGateHi 1.6s ease}@keyframes ssGateHi{0%,100%{box-shadow:0 18px 40px rgba(0,0,0,.25)}30%{box-shadow:0 0 0 4px #F07040,0 18px 40px rgba(240,112,64,.45)}}'+
+    '.ss-gate{margin:18px 0 14px;padding:22px 20px;z-index:2;box-shadow:0 18px 40px rgba(0,0,0,.25);border-radius:16px;background:linear-gradient(160deg,#241a14,#171310);color:#f0ede6;font-family:Pretendard,-apple-system,sans-serif;position:relative;overflow:hidden}'+
     '.ss-gate:before{content:"";position:absolute;left:0;right:0;top:-60px;height:60px;background:linear-gradient(rgba(255,255,255,0),rgba(255,255,255,.9));pointer-events:none}'+
     '.ss-gate .k{font-size:12px;font-weight:800;letter-spacing:.08em;color:#F5A481}'+
     '.ss-gate h3{margin:6px 0 12px;font-size:19px;font-weight:900;line-height:1.4;color:#fff}'+
@@ -1073,16 +1079,18 @@
     var nx=L.pathname+(L.hash&&/^#story-\d+$/.test(L.hash)?L.hash:'');
     g.innerHTML='<div class="k">🔒 순살러 전용</div><h3>오늘 브리핑 나머지 '+locked.length+'개 스토리, 로그인하면 바로 이어서</h3>'+
       '<ol>'+titles.map(function(t){return '<li>'+t.replace(/[<>&]/g,'')+'</li>'}).join('')+'</ol>'+
-      '<a class="go ss-shine" href="/account/?next='+encodeURIComponent(nx)+'" data-gate-login>카카오·구글로 1초 로그인하고 이어 읽기</a>'+
+      '<a class="go ss-shine" href="/account/?next='+encodeURIComponent(nx)+'" data-gate-login>1초 로그인하고 이어 읽기</a>'+
       '<span class="sm">무료 · 로그인하면 스크랩·답글 알림도 받아요</span>';
     last.parentNode.insertBefore(g,last.nextSibling);
-    // 가린다: 벽 뒤에 오는 블록 전부(스토리·딜딜딜·헤드라인·단어 등) — 벽에서 위로 올라가며 각 층의 뒤 형제를,
-    //   뉴스레터 본문 상자(.wrapper, 홈은 #nlwrap)까지만. 법적 고지·푸터·스크립트는 남김
+    // 벽 뒤: 잠긴 스토리 앞 2개는 흐린 미리보기(.ss-blur), 그 뒤 스토리·딜딜딜·헤드라인·단어 등은 숨김(.ss-locked).
+    //   숨김은 벽에서 위로 올라가며 각 층의 뒤 형제를 — 뉴스레터 본문 상자(.wrapper, 홈은 #nlwrap) 「안」까지만.
+    //   (10/26 버그: 상자 자신의 뒤 형제까지 숨겨 홈의 「전체 보기」·아카이브가 통째로 사라졌다 → 상자 경계에서 멈춤)
     var stop=isHome?root:(d.querySelector('.wrapper')||d.body),keep=/ss-legal|footer|ss-notice|ss-gate/;
-    for(var lv=g;lv&&lv!==stop.parentNode;lv=lv.parentNode){
-      for(var n=lv.nextElementSibling;n;n=n.nextElementSibling){if(!keep.test(n.className||'')&&!/^(FOOTER|SCRIPT|STYLE)$/.test(n.tagName))n.classList.add('ss-locked')}
-      if(lv===stop)break}
-    locked.forEach(function(s){s.classList.add('ss-locked')});
+    locked.forEach(function(s,i){s.classList.add(i<2?'ss-blur':'ss-locked')});
+    for(var lv=g;lv&&lv!==stop;lv=lv.parentNode){
+      for(var n=lv.nextElementSibling;n;n=n.nextElementSibling){
+        if(n.classList.contains('ss-blur')||n.classList.contains('story')||keep.test(n.className||'')||/^(FOOTER|SCRIPT|STYLE)$/.test(n.tagName))continue;
+        n.classList.add('ss-locked')}}
     if(/^#story-\d+$/.test(L.hash)&&locked.some(function(s){return '#'+s.id===L.hash}))setTimeout(function(){g.scrollIntoView({block:'center'})},300);
     send('gate');
     g.querySelector('[data-gate-login]').addEventListener('click',function(){send('gate_login')});
