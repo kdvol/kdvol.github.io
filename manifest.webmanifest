@@ -1,0 +1,42 @@
+{
+ "id": "/",
+ "name": "순살브리핑",
+ "short_name": "순살",
+ "description": "글로벌 경제 뉴스를 순살만 발라서 — 뉴스레터·순살차트·오늘의 질문",
+ "lang": "ko",
+ "start_url": "/?src=app",
+ "scope": "/",
+ "display": "standalone",
+ "background_color": "#111111",
+ "theme_color": "#111111",
+ "icons": [
+  {
+   "src": "/assets/app/icon-192.png",
+   "sizes": "192x192",
+   "type": "image/png",
+   "purpose": "any"
+  },
+  {
+   "src": "/assets/app/icon-512.png",
+   "sizes": "512x512",
+   "type": "image/png",
+   "purpose": "any"
+  },
+  {
+   "src": "/assets/app/icon-maskable-512.png",
+   "sizes": "512x512",
+   "type": "image/png",
+   "purpose": "maskable"
+  }
+ ],
+ "shortcuts": [
+  {
+   "name": "오늘의 질문",
+   "url": "/poll/?src=app"
+  },
+  {
+   "name": "순살차트",
+   "url": "/chart/?src=app"
+  }
+ ]
+}

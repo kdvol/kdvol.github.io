@@ -60,7 +60,9 @@ font-size:13.5px;font-weight:800;background:#2a221d;color:#f6f1e8}
 .cmts{margin:-8px 0 22px;padding:14px 16px 12px;border-radius:0 0 18px 18px;background:#171311;border:1px solid #2e2620;border-top:0}
 .cmts[hidden]{display:none}
 :is(.cmts,.pcm) .ch{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;font-size:12.5px;font-weight:800;color:#bdb6aa}
-:is(.cmts,.pcm) .ch a{font-weight:600;color:#7c756c;text-decoration:none;font-size:12px}
+:is(.cmts,.pcm) .ch a{font-weight:600;color:#8b8578;text-decoration:none;font-size:12px;max-width:68%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+:is(.cmts,.pcm) .ch a:hover{color:#f6f1e8}
+:is(.cmts,.pcm) .ch span{flex:0 0 auto}
 :is(.cmts,.pcm) .c{display:flex;gap:9px;padding:7px 0}
 :is(.cmts,.pcm) .av{flex:0 0 auto;width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:#12100e}
 :is(.cmts,.pcm) .bd{flex:1;min-width:0}
@@ -582,7 +584,8 @@ var POLLS = [{"day": "2026-10-26", "q": "길에서 전기차 보면 BYD일 것 �
         '<button type="button" data-c="2"'+(m===2?' class="me"':'')+'><i data-w="'+r[1]+'"></i><span>'+esc(p.b)+(m===2?' ✓':'')+'</span><b>'+r[1]+'%</b></button></div>'+
         '<div class="meta"><span class="badge'+(mp<50?' min':'')+'">'+(mp>50?'🙌 다수파 '+mp+'%':mp===50?'⚖️ 반반':'🦄 소수파 '+mp+'%')+'</span>'+
         '<span class="ppl">'+r[2]+'명 참여</span></div>';}
-    var ft=[];if(u)ft.push('<a href="'+esc(u)+'">📰 '+(p.t?esc(p.t):'이 질문이 나온 이야기')+'</a>');
+    // 원문 링크는 아래 「💬 한마디」 머리 오른쪽 하나로 합침(같은 링크가 두 곳 — KD 10/26). 댓글 칸이 없는 질문(스토리 없음)만 여기
+    var ft=[];if(u&&!p.s)ft.push('<a href="'+esc(u)+'">📰 '+(p.t?esc(p.t):'이 질문이 나온 이야기')+'</a>');
     if(m&&!(window.ssIsSub&&window.ssIsSub()))ft.push('<a href="#" data-sub="1" class="sb">📮 내일 질문도 메일로</a>');
     if(ft.length)h+='<div class="ft">'+ft.join('')+'</div>';
     if(!isNow)h+='<a class="st" href="#" data-today="1">🗳️ 오늘의 질문으로 가기 <b>→</b></a>';
@@ -659,7 +662,7 @@ var POLLS = [{"day": "2026-10-26", "q": "길에서 전기차 보면 BYD일 것 �
     return h+(card?cmTop(p,list.length,form):'')}
   function drawCm(){var p=find(heroDay());if(!p||!p.s){cbox.hidden=true;return}var st=p.s,list=CM[st];if(!list){cbox.hidden=true;return}
     var keep=cbox.querySelector('form:not([data-pid]) textarea'),draft=keep&&cmFor===st?keep.value:'';cmFor=st;var u=storyUrl(p);
-    keepDraft(cbox,function(){cbox.innerHTML='<div class="ch"><span>💬 한마디 '+(list.length||'')+'</span>'+(u?'<a href="'+esc(u)+'">스토리에서 보기 →</a>':'')+'</div>'+cmBody(p,list,cmOpen,true)});
+    keepDraft(cbox,function(){cbox.innerHTML='<div class="ch"><span>💬 한마디 '+(list.length||'')+'</span>'+(u?'<a href="'+esc(u)+'" title="이 질문이 나온 스토리">📰 '+(p.t?esc(p.t):'원문')+' ›</a>':'')+'</div>'+cmBody(p,list,cmOpen,true)});
     cbox.hidden=false;var mf=cbox.querySelector('form:not([data-pid])'),ta=mf.querySelector('textarea');if(document.activeElement!==ta){ta.value=draft;mf.querySelector('button').disabled=!draft.trim()}}
   // 다시 그려도 쓰던 글(포커스된 입력칸 — 한마디·답글)은 그대로
   function keepDraft(box,fn){var fa=document.activeElement,f=fa&&fa.tagName==='TEXTAREA'&&box.contains(fa)&&fa.form,v=f&&fa.value,

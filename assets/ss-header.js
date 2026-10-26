@@ -889,3 +889,87 @@
     [].forEach.call(barEl.querySelectorAll('button'),function(b){b.onclick=function(){mode(b.getAttribute('data-v'))}});
     mode(lsg('ss_cn_view')==='l'?'l':'g')})}
 })();
+
+/* ── 앱처럼 설치(홈 화면·바탕화면) — KD 2026-10-26 「스카우티처럼 바탕화면에 설치할 수 있게 버튼 만들어서 유도 — 잘 보이고 잘 설치되도록」 ──
+   · manifest(/manifest.webmanifest, build_pwa.py)를 여기서 붙인다 — 전 페이지 공통.
+   · 안드로이드·PC 크롬·엣지: beforeinstallprompt 를 잡아 「설치」 한 번에 기기 설치 창.
+   · 아이폰·아이패드 사파리: 자동 설치가 없어 「공유 → 홈 화면에 추가」 3단계 안내 창.
+   · 카톡·인스타·네이버 등 앱 안 브라우저: 설치가 안 되니 「Safari·크롬으로 열기」 안내 + 주소 복사.
+   · 이미 앱으로 연 경우(standalone)·설치 끝난 경우엔 아무것도 안 띄운다.
+   · 아래 떠 있는 카드: 홈은 늘, 다른 페이지는 세 번째 방문부터. × 누르면 14일 쉼. ☰ 메뉴엔 「📲 앱으로 설치」 늘.
+*/
+(function(){
+  if(window.__ssInst)return;window.__ssInst=1;
+  function lsg(k){try{return localStorage.getItem(k)}catch(e){return null}}
+  function lss(k,v){try{localStorage.setItem(k,v)}catch(e){}}
+  var d=document,ua=navigator.userAgent||'';
+  function meta(n,c){if(!d.querySelector('meta[name="'+n+'"]')){var m=d.createElement('meta');m.name=n;m.content=c;d.head.appendChild(m)}}
+  if(!d.querySelector('link[rel="manifest"]')){var l=d.createElement('link');l.rel='manifest';l.href='/manifest.webmanifest';d.head.appendChild(l)}
+  meta('theme-color','#111111');meta('apple-mobile-web-app-capable','yes');meta('mobile-web-app-capable','yes');
+  meta('apple-mobile-web-app-title','순살');meta('apple-mobile-web-app-status-bar-style','black-translucent');
+  var standalone=(window.matchMedia&&matchMedia('(display-mode: standalone)').matches)||navigator.standalone===true;
+  if(standalone){lss('ss_inst_done','1');return}
+  var iOS=/iPhone|iPad|iPod/.test(ua)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);
+  var inApp=/KAKAOTALK|Instagram|FBAN|FBAV|NAVER\(|Line\/|DaumApps|everytimeApp|Barcelona|Twitter/i.test(ua);
+  var deferred=null,card=null,P=location.pathname,home=P==='/'||P==='/index.html';
+  var pv=(+lsg('ss_inst_pv')||0)+1;lss('ss_inst_pv',String(pv));
+  function can(){return !!(deferred||iOS||inApp)}
+  function eligible(){return !lsg('ss_inst_done')&&Date.now()>(+lsg('ss_inst_snooze')||0)&&(home||pv>=3)}
+  var css=d.createElement('style');css.textContent=
+    '.ss-inst{position:fixed;left:12px;right:12px;bottom:calc(12px + env(safe-area-inset-bottom));z-index:100000;max-width:520px;margin:0 auto;'+
+    'display:flex;align-items:center;gap:12px;padding:12px 10px 12px 12px;border-radius:18px;background:#1d1916;border:1px solid #3a2f27;'+
+    'box-shadow:0 10px 30px rgba(0,0,0,.45);font-family:Pretendard,-apple-system,sans-serif;transform:translateY(140%);transition:transform .45s cubic-bezier(.2,.9,.3,1.2)}'+
+    '.ss-inst.on{transform:none}.ss-inst img{width:44px;height:44px;border-radius:11px;flex:0 0 auto}'+
+    '.ss-inst .t{flex:1;min-width:0}.ss-inst .t b{display:block;font-size:15px;font-weight:900;color:#fff;letter-spacing:-.02em}'+
+    '.ss-inst .t span{display:block;font-size:12px;color:#a39c90;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}'+
+    '.ss-inst .go{flex:0 0 auto;height:38px;min-height:0;padding:0 16px;border:0;border-radius:999px;background:#F07040;color:#12100e;font:800 14px Pretendard,-apple-system,sans-serif;cursor:pointer;position:relative;overflow:hidden}'+
+    '.ss-inst .x{flex:0 0 auto;width:28px;height:28px;min-height:0;border:0;background:none;color:#6f695f;font-size:18px;cursor:pointer;padding:0}'+
+    'html.ss-inst-on .ss-fab{transform:translateY(-84px)}'+
+    '#ss-ig{position:fixed;inset:0;z-index:100017;display:none}#ss-ig.on{display:block}#ss-ig .bg{position:absolute;inset:0;background:rgba(0,0,0,.6)}'+
+    '#ss-ig .pn{position:absolute;left:0;right:0;bottom:0;max-width:560px;margin:0 auto;padding:12px 20px calc(22px + env(safe-area-inset-bottom));background:#171513;border-radius:20px 20px 0 0;'+
+    'font-family:Pretendard,-apple-system,sans-serif;color:#e8e3da}#ss-ig .gr{width:38px;height:4px;border-radius:4px;background:#3a2f27;margin:0 auto 16px}'+
+    '#ss-ig .hd{display:flex;align-items:center;gap:12px;margin-bottom:14px}#ss-ig .hd img{width:52px;height:52px;border-radius:13px}'+
+    '#ss-ig .hd b{display:block;font-size:18px;font-weight:900;color:#fff}#ss-ig .hd span{font-size:12.5px;color:#a39c90}'+
+    '#ss-ig ol{list-style:none;margin:0;padding:0;counter-reset:s}#ss-ig li{counter-increment:s;display:flex;align-items:center;gap:12px;padding:12px 0;border-top:1px solid #26221e;font-size:15px;line-height:1.5}'+
+    '#ss-ig li:before{content:counter(s);flex:0 0 auto;width:26px;height:26px;border-radius:50%;background:#F07040;color:#12100e;font-weight:900;font-size:13px;display:flex;align-items:center;justify-content:center}'+
+    '#ss-ig li b{color:#fff}#ss-ig .ic{display:inline-flex;vertical-align:-5px;width:24px;height:24px;border-radius:6px;background:#2a2420;align-items:center;justify-content:center;margin:0 2px;color:#5aa2ff}'+
+    '#ss-ig .nt{font-size:12px;color:#7c756c;margin-top:10px;line-height:1.6}'+
+    '#ss-ig .cp{display:block;width:100%;height:46px;margin-top:14px;border:0;border-radius:999px;background:#F07040;color:#12100e;font:800 15px Pretendard,-apple-system,sans-serif;cursor:pointer}'+
+    '@media (prefers-reduced-motion:reduce){.ss-inst{transition:none}}';
+  d.head.appendChild(css);
+  var SHARE='<span class="ic"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="M7 8l5-5 5 5"/><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"/></svg></span>';
+  var ADD='<span class="ic"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="4"/><path d="M12 8v8M8 12h8"/></svg></span>';
+  function guide(){var g=d.getElementById('ss-ig');if(!g){g=d.createElement('div');g.id='ss-ig';d.body.appendChild(g);
+      g.addEventListener('click',function(e){if(e.target.classList.contains('bg')){g.classList.remove('on');return}
+        if(e.target.closest('[data-cp]')){try{navigator.clipboard.writeText(location.href);e.target.textContent='복사했어요 ✓'}catch(_){prompt('주소를 복사해 주세요',location.href)}}})}
+    var body=inApp?
+      '<ol><li><span>오른쪽 위(또는 아래) <b>⋯ 메뉴</b>를 눌러요</span></li><li><span><b>‘다른 브라우저로 열기’</b>(아이폰은 ‘Safari로 열기’)를 골라요</span></li><li><span>열린 사파리·크롬에서 다시 <b>📲 설치</b>를 눌러요</span></li></ol>'+
+      '<button class="cp" data-cp="1">주소 복사하기</button><div class="nt">카카오톡·인스타그램 같은 앱 안의 브라우저에서는 홈 화면 설치가 막혀 있어요.</div>'
+     :iOS?
+      '<ol><li><span>주소창 옆 <b>공유</b> 버튼'+SHARE+'을 눌러요</span></li><li><span>목록을 아래로 내려 <b>홈 화면에 추가</b>'+ADD+'를 골라요</span></li><li><span>오른쪽 위 <b>추가</b>를 누르면 끝</span></li></ol>'+
+      '<div class="nt">공유 버튼이 안 보이면 아래쪽 <b>⋯</b> 안에 있어요. 크롬 앱이라면 주소창의 공유 버튼으로 같은 순서예요.</div>'
+     :'<ol><li><span>주소창 오른쪽 <b>설치 아이콘(⊕)</b>을 눌러요</span></li><li><span><b>설치</b>를 누르면 바탕화면에 생겨요</span></li></ol><div class="nt">크롬·엣지에서 돼요. 다른 브라우저라면 크롬으로 열어 주세요.</div>';
+    g.innerHTML='<div class="bg"></div><div class="pn" role="dialog" aria-label="홈 화면에 순살 추가"><div class="gr"></div>'+
+      '<div class="hd"><img src="/assets/app/icon-192.png" alt=""><div><b>홈 화면에 순살 추가</b><span>앱처럼 바로 열려요 · 10초면 끝</span></div></div>'+body+'</div>';
+    g.classList.add('on')}
+  function doInstall(){
+    if(deferred){var ev=deferred;deferred=null;ev.prompt();(ev.userChoice||Promise.resolve({})).then(function(c){if(c&&c.outcome==='accepted'){lss('ss_inst_done','1');hide()}});return}
+    guide()}
+  function hide(){if(card){card.classList.remove('on');d.documentElement.classList.remove('ss-inst-on')}}
+  function show(){if(card||!can()||!eligible())return;
+    card=d.createElement('div');card.className='ss-inst';card.setAttribute('role','dialog');card.setAttribute('aria-label','앱처럼 설치');
+    card.innerHTML='<img src="/assets/app/icon-192.png" alt=""><div class="t"><b>순살을 홈 화면에</b><span>앱처럼 바로 열고 · 아침 브리핑 한 번에</span></div>'+
+      '<button type="button" class="go ss-shine" data-ss-install>설치</button><button type="button" class="x" aria-label="닫기">×</button>';
+    card.querySelector('.x').onclick=function(){lss('ss_inst_snooze',String(Date.now()+14*864e5));hide()};
+    d.body.appendChild(card);
+    setTimeout(function(){card.classList.add('on');d.documentElement.classList.add('ss-inst-on')},2200)}
+  function menu(){var dr=d.querySelector('.ss-dr');if(!dr||dr.querySelector('[data-ss-install]')||!can())return;
+    var a=d.createElement('a');a.className='li';a.href='#';a.setAttribute('data-ss-install','');a.textContent='📲 앱으로 설치 (홈 화면)';
+    var sub=dr.querySelector('a.sub');dr.insertBefore(a,sub||null)}
+  d.addEventListener('click',function(e){var b=e.target.closest('[data-ss-install]');if(!b)return;e.preventDefault();
+    d.documentElement.classList.remove('ss-open');d.body.style.overflow='';doInstall()});
+  window.addEventListener('beforeinstallprompt',function(e){e.preventDefault();deferred=e;menu();show()});
+  window.addEventListener('appinstalled',function(){lss('ss_inst_done','1');hide()});
+  function boot(){menu();if(iOS||inApp)show()}
+  if(d.readyState==='loading')d.addEventListener('DOMContentLoaded',boot);else boot();
+})();
