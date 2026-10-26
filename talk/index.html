@@ -66,6 +66,26 @@ justify-content:center;font-size:.78rem;font-weight:800;color:#111;letter-spacin
 .c.rep .av{width:26px;height:26px;font-size:.68rem}
 .bd{flex:1;min-width:0}
 .nm{display:flex;align-items:baseline;gap:6px;flex-wrap:wrap;line-height:1.3}
+/* 인스타식 댓글 (KD 10/26) — 이름+본문 한 문단, 아래 행동 줄, 하트 오른쪽 */
+.tx .nmx{margin-right:4px}.tx .nmx .k{font-weight:800;color:#f0ede6;font-size:.9rem}
+.tx .nmx button.k{background:none;border:0;padding:0;min-height:0;height:auto;line-height:inherit;font:inherit;font-weight:800;color:#f0ede6;cursor:pointer;
+text-decoration:underline dotted #5a524a;text-underline-offset:3px}
+.tx .ob,.tx .g{vertical-align:middle;margin-right:4px}
+.c > .like{flex:0 0 auto;align-self:flex-start;display:flex;flex-direction:column;align-items:center;gap:1px;width:30px;margin-top:2px;background:none;border:0;
+padding:0;min-height:0;font:600 15px/1 Pretendard,-apple-system,sans-serif;color:#6b665e;cursor:pointer}
+.c > .like span{font-size:10.5px;font-variant-numeric:tabular-nums}
+.c > .like.on{color:#E55A00}
+.morec,.morer{display:block;background:none;border:0;padding:4px 0;min-height:0;color:#8b8578;font:600 12.5px Pretendard,-apple-system,sans-serif;cursor:pointer;text-align:left}
+.morec{margin:2px 16px 0}.morer{padding-left:36px;font-size:12px}.morec:hover,.morer:hover{color:#F59B75}
+/* 참전 막대 — 오늘의 질문 .cbar 와 같은 모양 */
+.th.say .cbar{display:flex;align-items:center;gap:10px;width:100%;margin:6px 0 2px;padding:6px 6px 6px 8px;border:1px solid #2e2620;border-radius:999px;
+background:#111;cursor:text;text-align:left;font:500 14px Pretendard,-apple-system,sans-serif;color:#8b8578;min-height:0}
+.th.say .cbar .av{width:28px;height:28px;font-size:.7rem}
+.th.say .cbar .ph{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.th.say .cbar b{flex:0 0 auto;display:flex;align-items:center;height:32px;padding:0 14px;border-radius:999px;background:#2a2420;color:#F59B75;font-weight:800;font-size:13px}
+.th.say .cbar:hover{border-color:#5a3524}.th.say .cbar:hover b{background:#F07040;color:#12100e}
+.rf .rav .av{width:28px;height:28px;font-size:.7rem;margin-top:5px}
+.th.say .rf{padding-left:0}
 .nm .k{font-weight:700;color:#f0ede6;font-size:.87rem}
 .nm .g{font-size:.65rem;color:#8b8578;background:#1e1e1e;border-radius:4px;padding:1px 6px}
 .nm .t{font-size:.7rem;color:#4a453d}
@@ -82,13 +102,14 @@ background:#1a1512;border-radius:12px;font-size:.84rem;color:#cfc8bb;text-decora
 .ob.bot{background:#5a6b7a}
 
 /* 액션 — 아이콘 + 숫자, 탭 영역을 넉넉히 */
-.act{display:flex;gap:4px;margin:5px 0 0 -8px}
+.act{display:flex;align-items:center;gap:10px;margin:4px 0 0}
+.act .t{font-size:.7rem;color:#5a554d}
 .act button{display:flex;align-items:center;gap:5px;background:none;border:none;
 padding:7px 8px;font-size:.76rem;color:#6b665e;cursor:pointer;font-family:inherit;
 border-radius:16px;transition:background .15s,color .15s;min-height:32px}
 .act button:hover{background:#1c1c1c;color:#b8b2a8}
 /* 답글 = 참여 행동 — 오늘의 질문과 같은 주황 알약(KD 10/26 「답글 버튼이 좀 더 눈에 띄어야」) */
-.act button.repb{background:rgba(240,112,64,.12);color:#F59B75;font-weight:800;border-radius:999px;padding:0 11px;margin-left:6px}
+.act button.repb{background:rgba(240,112,64,.12);color:#F59B75;font-weight:800;border-radius:999px;padding:0 10px;min-height:24px;height:24px}
 .act button.repb:hover{background:#F07040;color:#12100e}
 .act .like:hover{color:#E55A00}
 .act .like.on{color:#E55A00;font-weight:700}
@@ -189,13 +210,7 @@ text-decoration:underline dotted #5a524a;text-underline-offset:3px}
 .q .qb:hover{background:#F07040;color:#12100e}
 /* 이 이야기에 한마디 — 평소엔 입력칸처럼 보이는 한 줄 */
 .th.say{padding:8px 16px 12px}
-/* 스토리마다 반복되니 흐린 글자 링크 — 눌렀을 때만 주황 (KD 10/24 「참여 버튼이 너무 많음」) */
-.sayb{display:inline-flex;align-items:center;gap:6px;padding:4px 0;border:0;background:transparent;color:#6f695f;
-font:600 12.5px Pretendard,-apple-system,sans-serif;cursor:pointer}
-.sayb:hover,.sayb:focus-visible{color:#F59B75}
-.sayb .av{display:none}
-.sayb:hover{border-color:#3a2f27;color:#a39c90}
-.th.say .rf{padding-left:0}
+/* 기존(10/24): 흐린 글자 「＋ 한마디」 → 최신(10/26): 입력창 모양 참전 막대(.cbar, 위 인스타식 댓글 CSS 쪽) */
 @media (prefers-reduced-motion:reduce){.sg.flash{animation:none}}
 </style><style id="soonsal-nav-visibility-v3">
 .nav-menu a.nav-mobile-only{display:none}
@@ -608,7 +623,7 @@ function slead(story) {
 //   기존: 스레드마다 원글 머리(같은 스토리면 같은 머리가 여러 번), 봇 질문도 댓글처럼, 이 페이지에선 새 글을 못 씀.
 //   최신: 스토리별로 한 번 묶고(최근 활동 순) · 봇 글은 「순살이 묻다」 질문 카드 + 답하기 · 스토리마다 「이 이야기에 한마디」 ·
 //   맨 위 참여 현황·오늘의 질문·🔥 뜨거운 이야기 · 필터(최신/인기/답 기다리는 질문) · 하루 안 글 NEW.
-var ITEMS = [], FILT = 'new';
+var ITEMS = [], FILT = 'new', OPENALL = {}, EXP = {};   // 스토리 「모두 보기」·스레드 「이전 답글」 펼침
 // ss-header.js(defer)가 늦게 실리면 봇 캐릭터 모양(window.ssCrew)이 첫 그림에 빠진다 — 실린 뒤 한 번 더 그림
 document.addEventListener('DOMContentLoaded', function () { if (window.ssCrew && ITEMS.length) render(ITEMS); });
 function isBot(c) { return c.op === 2; }
@@ -652,19 +667,29 @@ function render(items) {
         '<span class="lb">' + (slabel(st) ? esc(slabel(st)) + ' · ' : '') + sdate(st) + ' 브리핑</span>' +
         '<span class="ti">' + esc(label(st)) + '</span>' +
       '</a>' +
-      g.threads.map(function (list) {
-        var head = list[0], isNew = !first && !seen[head.id];
-        var body = isBot(head)
-          ? '<div class="q"><span class="qk">🤖 순살이 묻다</span><p>' + esc(head.body) + '</p>' +
-              '<div class="qa"><span>' + (list.length > 1 ? '답 ' + (list.length - 1) : '') + '</span>' +
-              '<button type="button" class="repb qb" data-i="' + head.id + '" data-k="" data-s="' + esc(head.story) + '">답하기</button></div></div>' +
-            list.slice(1).map(function (c) { return one(c, true); }).join('')
-          : list.map(function (c) { return one(c, c.parent_id); }).join('');
-        return '<div class="th' + (isNew ? ' new' : '') + '" data-r="' + head.root_id + '">' + body + rform(head.root_id) + '</div>';
-      }).join('') +
+      // 인스타 피드식 접기(KD 10/26 「순살톡도 오늘의 질문처럼 — 참여는 늘리고 간결하게」):
+      //   스토리마다 최근 2스레드만(나머지는 「댓글 N개 모두 보기」), 답글이 2개 넘으면 마지막 1개만(「└ 이전 답글 N개 보기」)
+      (function () {
+        var all = OPENALL[st], ths = all ? g.threads : g.threads.slice(0, 2), total = 0;
+        g.threads.forEach(function (l) { total += l.length; });
+        var more = !all && g.threads.length > 2 ? '<button type="button" class="morec" data-s="' + esc(st) + '">댓글 ' + total + '개 모두 보기</button>' : '';
+        return more + ths.map(function (list) {
+          var head = list[0], isNew = !first && !seen[head.id], reps = list.slice(1), rid = head.root_id;
+          var fold = reps.length >= 2 && !EXP[rid] ? '<button type="button" class="morer" data-r="' + rid + '">└ 이전 답글 ' + (reps.length - 1) + '개 보기</button>' : '';
+          var shownReps = fold ? reps.slice(-1) : reps;
+          var body = isBot(head)
+            ? '<div class="q"><span class="qk">🤖 순살이 묻다</span><p>' + esc(head.body) + '</p>' +
+                '<div class="qa"><span>' + (reps.length ? '답 ' + reps.length : '') + '</span>' +
+                '<button type="button" class="repb qb" data-i="' + head.id + '" data-k="" data-s="' + esc(head.story) + '">답하기</button></div></div>' +
+              fold + shownReps.map(function (c) { return one(c, true); }).join('')
+            : one(head, head.parent_id) + fold + shownReps.map(function (c) { return one(c, true); }).join('');
+          return '<div class="th' + (isNew ? ' new' : '') + '" data-r="' + rid + '">' + body + rform(rid) + '</div>';
+        }).join('');
+      })() +
+      // 「＋ 한마디」 글자 대신 내 아바타가 붙은 입력창 모양 막대 + 상황 맞춤 문구 (오늘의 질문과 같은 참전 막대)
       '<div class="th say" data-r="s-' + esc(st) + '">' +
-        '<button type="button" class="sayb" data-s="' + esc(st) + '">' + avatar(prof().n || '나', 0) +
-        '<span>＋ 한마디</span></button>' + rform('s-' + st) + '</div>' +
+        '<button type="button" class="sayb cbar" data-s="' + esc(st) + '">' + avatar((ME && ME.nick) || prof().n || '나', 0) +
+        '<span class="ph">' + (g.n ? g.n + '개 한마디 · 내 생각은?' : '첫 한마디를 남겨 보세요') + '</span><b>남기기</b></button>' + rform('s-' + st) + '</div>' +
     '</section>';
   }).join('');
   items.forEach(function (c) { seen[c.id] = 1; });
@@ -672,7 +697,7 @@ function render(items) {
   wire();
 }
 function rform(rid) {
-  return '<div class="rf" data-r="' + esc(rid) + '"><div class="bx">' +
+  return '<div class="rf" data-r="' + esc(rid) + '"><span class="rav"></span><div class="bx">' +
     '<textarea rows="1" maxlength="140" placeholder="답글 남기기"></textarea>' +
     '<div class="row"><span class="who"></span>' +
     '<button type="button" class="x">취소</button>' +
@@ -712,32 +737,32 @@ function atHTML(body, toNick) {
     : s;
 }
 
+// 인스타식 한 덩어리(오늘의 질문과 같은 부품 모양, KD 10/26): [이름·배지 + 본문] 한 문단 · 아래 흐린 행동 줄(시간·NEW·💬 답글) · 하트는 오른쪽 끝
 function one(c, isRep) {
   var tag = [c.tag, c.co].filter(Boolean).join(' · ');
   return '<div class="c' + (isRep ? ' rep' : '') + (c.op ? ' op' : '') +
     '" data-i="' + c.id + '">' +
     avatar(c.nick, c.op) +
     '<div class="bd">' +
-      '<div class="nm">' + (c.u ? '<button type="button" class="k ku" data-u="' + esc(c.u) + '" title="이 회원의 지난 글">' + esc(c.nick) + '</button>'
+      '<div class="tx"><span class="nmx">' + (c.u ? '<button type="button" class="k ku" data-u="' + esc(c.u) + '" title="이 회원의 지난 글">' + esc(c.nick) + ' ✓</button>'
                                   : (c.op === 2 && window.ssCrew && window.ssCrew[c.nick]
                                      ? '<button type="button" class="k ku" data-crew="' + esc(c.nick) + '" title="봇 캐릭터 소개">' + esc(c.nick) + '</button>'
-                                     : '<span class="k">' + esc(c.nick) + '</span>')) +
-        (c.m && !c.op ? '<span class="mb" title="로그인한 회원">✓ 회원</span>' : '') +
+                                     : '<span class="k">' + esc(c.nick) + '</span>')) + '</span>' +
         (c.op ? '<span class="ob' + (c.op === 2 ? ' bot' : '') + '">' +
           (c.op === 2 ? '🤖 봇' : '순살 팀') + '</span>' : '') +
-        (tag ? '<span class="g">' + esc(tag) + '</span>' : '') +
-        '<span class="t">' + ago(c.ts) + '</span>' +
-        (Date.now() / 1000 - c.ts < 86400 ? '<span class="nw">NEW</span>' : '') + '</div>' +
-      '<div class="tx">' + atHTML(c.body, NICK[c.parent_id] || '') + '</div>' +
-      '<div class="act">' +
-        '<button type="button" class="like' + (liked[c.id] ? ' on' : '') +
-          '" data-i="' + c.id + '">' + (liked[c.id] ? '♥' : '♡') +
-          '<span>' + (c.likes || '') + '</span></button>' +
+        (tag ? '<span class="g">' + esc(tag) + '</span>' : '') + ' ' +
+        atHTML(c.body, NICK[c.parent_id] || '') + '</div>' +
+      '<div class="act"><span class="t">' + ago(c.ts) + '</span>' +
+        (Date.now() / 1000 - c.ts < 86400 ? '<span class="nw">NEW</span>' : '') +
         '<button type="button" class="repb" data-i="' + c.id +
           '" data-k="' + esc(c.nick) + '" data-s="' + esc(c.story) + '">' +
           '💬 <span>답글</span></button>' +
       '</div>' +
-    '</div></div>';
+    '</div>' +
+    '<button type="button" class="like' + (liked[c.id] ? ' on' : '') +
+      '" data-i="' + c.id + '" aria-label="좋아요">' + (liked[c.id] ? '♥' : '♡') +
+      '<span>' + (c.likes || '') + '</span></button>' +
+  '</div>';
 }
 
 function wire() {
@@ -761,9 +786,17 @@ function wire() {
     });
   });
 
+  app.querySelectorAll('.morec').forEach(function (b) {
+    b.addEventListener('click', function () { OPENALL[b.getAttribute('data-s')] = 1; render(ITEMS); });
+  });
+  app.querySelectorAll('.morer').forEach(function (b) {
+    b.addEventListener('click', function () { EXP[b.getAttribute('data-r')] = 1; render(ITEMS); });
+  });
+  function myAv(rf) { var r = rf.querySelector('.rav'); if (r) r.innerHTML = avatar((ME && ME.nick) || prof().n || '나', 0); }
   app.querySelectorAll('.repb').forEach(function (b) {
     b.addEventListener('click', function () {
       var th = b.closest('.th'), rf = th.querySelector('.rf');
+      myAv(rf);
       var ta = rf.querySelector('textarea'), go = rf.querySelector('.go');
       rf.className = 'rf on';
       // 답글 버튼이 그대로 있으면 같은 기능이 두 군데 있는 것처럼 보인다
@@ -783,6 +816,7 @@ function wire() {
   app.querySelectorAll('.sayb').forEach(function (b) {
     b.addEventListener('click', function () {
       var th = b.closest('.th'), rf = th.querySelector('.rf'), ta = rf.querySelector('textarea');
+      myAv(rf);
       b.style.display = 'none'; rf.className = 'rf on'; rf._btns = th; rf._pid = 0; rf._story = b.getAttribute('data-s');
       ta.placeholder = '이 이야기, 어떻게 보셨어요?';
       rf.querySelector('.who').innerHTML = whoLabel(); ta.focus();
