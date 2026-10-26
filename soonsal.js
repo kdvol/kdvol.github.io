@@ -258,7 +258,28 @@
     '.ss-cwrap.on .ss-cnote{display:block}' +
     '.ss-hp{position:absolute;left:-9999px;width:1px;height:1px}' +
     '.ss-sh{margin-left:auto;color:#9a958a}' +
-    '.ss-sh b{display:none}';
+    '.ss-sh b{display:none}' +
+    /* ── 댓글 압축(KD 10/26 「뉴스레터 본문 댓글도 오늘의 질문·순살톡과 같은 방식」) ── */
+    '.ss-cwrap{position:relative}.ss-cwrap .ss-cx{position:absolute;top:8px;right:6px}' +
+    '.ss-cinr{display:flex;align-items:flex-end;gap:8px;padding-right:20px}' +
+    '.ss-cinr .ss-av{width:30px;height:30px;margin-bottom:6px}' +
+    '.ss-cinr .ss-cin{flex:1;min-height:42px;max-height:140px;padding:10px 14px;border-radius:21px}' +
+    '.ss-cinr .ss-cgo{border-radius:999px;padding:0 16px;min-height:42px}' +
+    '.ss-cwrap:not(.on) .ss-crow,.ss-cwrap:not(.on) .ss-clog{display:none}' +
+    '.ss-crow{margin:6px 0 0 38px}' +
+    '.ss-cbx .ss-cnk{font-weight:800;color:#2b2b2b;margin-right:4px}' +
+    '.ss-cbx .ss-cob,.ss-cbx .ss-cg{vertical-align:middle;margin-right:4px}' +
+    '.ss-ci > .ss-clike{flex:0 0 auto;align-self:flex-start;display:flex;flex-direction:column;align-items:center;gap:1px;width:28px;margin-top:2px;' +
+      'background:none;border:0;padding:0;font:600 15px/1 inherit;color:#b5b0a4;cursor:pointer;font-family:inherit}' +
+    '.ss-ci > .ss-clike span{font-size:10.5px;font-variant-numeric:tabular-nums}.ss-ci > .ss-clike.on{color:#E55A00}' +
+    '.ss-cact{margin:3px 0 0;gap:10px;align-items:center}.ss-cact .ss-ct{font-size:11px;color:#b5b0a4}' +
+    '.ss-cact button.ss-crep-b{min-height:24px;height:24px;padding:0 10px;border-radius:999px;background:#fdf0e9;color:#E55A00;font-weight:800}' +
+    '.ss-cact button.ss-crep-b:hover{background:#F07040;color:#fff}' +
+    '.ss-cmore{display:block;background:none;border:0;padding:4px 0;color:#8a8578;font-size:12.5px;font-weight:600;cursor:pointer;font-family:inherit;text-align:left}' +
+    '.ss-cmore.sub{padding-left:36px;font-size:12px}.ss-cmore:hover{color:#E55A00}' +
+    '.ss-cbar{border-radius:999px;padding:6px 6px 6px 8px}.ss-cbar .ss-av{width:28px;height:28px}' +
+    '.ss-cbar .cta{border-radius:999px;padding:8px 14px;font-size:12.5px}' +
+    '.ss-call{border:0;padding:4px;margin-top:8px}';
 
   function esc(s) {
     return (s || '').replace(/[&<>]/g, function (c) {
@@ -974,12 +995,12 @@
     if (!b) return;
     var items = CMTS[key] || [], n = items.length;
     var who = n ? items[n - 1].k : '';
-    b.innerHTML = n
-      ? '<span class="ic">💬</span><span class="tx"><b>' + n + '개</b>의 한마디' +
-        (who ? ' · <i>' + esc(who) + '</i>님이 마지막' : '') + '</span>' +
-        '<span class="cta">나도 한마디</span>'
-      : '<span class="ic">💬</span><span class="tx ph">' + esc(b._prompt) + '</span>' +
-        '<span class="cta">쓰기</span>';
+    // 참전 막대(KD 10/26 「뉴스레터 본문 댓글도 같은 방식」): 내 아바타 + 상황 맞춤 문구 + 「남기기」 알약 — 오늘의 질문·순살톡과 같은 모양
+    var me = (profOf() || {}).n || '나';
+    b.innerHTML = avatar(me, 0) + (n
+      ? '<span class="tx"><b>' + n + '개</b> 한마디 · 내 생각은?</span>'
+      : '<span class="tx ph">' + esc(b._prompt) + '</span>') +
+      '<span class="cta">남기기</span>';
   }
 
   function closeC() {
@@ -998,18 +1019,20 @@
     w.className = 'ss-cwrap';
     var pr = profOf(), nick = pr.n || '';
     w.innerHTML =
-      '<div class="ss-chd"><span>' + esc(pr.n || '') + '(으)로 남기기</span>' +
-        '<button type="button" class="ss-cx" aria-label="닫기">✕</button></div>' +
+      // 머리줄 「OO(으)로 남기기」는 아래 이름 줄과 같은 뜻이라 뺌 — ✕만 오른쪽 위에 (KD 10/26 압축)
+      '<button type="button" class="ss-cx" aria-label="닫기">✕</button>' +
       '<div class="ss-crt" hidden></div>' +
-      '<textarea class="ss-cin" rows="3" maxlength="140" ' +
+      // [아바타][입력칸][남기기] 한 줄 — 인스타·오늘의 질문과 같은 입력 모양 (KD 10/26)
+      '<div class="ss-cinr">' + avatar(pr.n || '나', 0) +
+        '<textarea class="ss-cin" rows="1" maxlength="140" ' +
         'placeholder="어떻게 보셨어요? 한 줄이면 충분해요"></textarea>' +
+        '<button type="button" class="ss-cgo" disabled>남기기</button></div>' +
       '<input class="ss-hp" name="website" tabindex="-1" aria-hidden="true"/>' +
       '<div class="ss-crow">' +
         // 이름과 프로필을 버튼 하나로 합쳤다. 이름은 이미 지어져 있으니
         // 대부분은 누를 일이 없고, 누르면 그때 바꾸는 자리가 열린다.
         '<button type="button" class="ss-cprof">' + idLabel(pr) + '</button>' +
-        '<span class="ss-cnt"></span>' +
-        '<button type="button" class="ss-cgo" disabled>남기기</button>' +
+        '<span class="ss-cnt"></span>' +   // 남기기 버튼은 입력칸 줄로 옮김 (KD 10/26)
       '</div>' +
       '<div class="ss-cpf" hidden>' +
         '<label class="ss-cpl">이름' +
@@ -1047,6 +1070,7 @@
       go.disabled = !ta.value.trim();
     });
     ta.addEventListener('focus', function () { w.className = 'ss-cwrap on'; });
+    ta.addEventListener('input', function () { ta.style.height = 'auto'; ta.style.height = Math.min(ta.scrollHeight, 140) + 'px'; });
     go.addEventListener('click', function () { submitC(key, w, go); });
     w.querySelector('.ss-cx').addEventListener('click', closeC);
 
@@ -1105,30 +1129,27 @@
       : s;
   }
 
+  // 인스타식 한 덩어리(KD 10/26 「뉴스레터 본문 댓글도 같은 방식」): [이름·배지 + 본문] 한 문단 · 아래 흐린 행동 줄(시간·💬 답글 알약) · 하트는 오른쪽 끝
   function ciHTML(c, liked, isReply, toNick) {
     var n = c.l || 0;
     return '<div class="ss-ci' + (isReply ? ' ss-crep' : '') + (c.o ? ' ss-cop' : '') +
       '" data-i="' + (c.i || '') + '">' +
       avatar(c.k, c.o) +
       '<div class="ss-cbd">' +
-        '<div class="ss-cnm"><b>' + esc(c.k) + '</b>' +
+        '<div class="ss-cbx"><b class="ss-cnk">' + esc(c.k) + (c.m && !c.o ? ' ✓' : '') + '</b>' +
           (c.o ? '<span class="ss-cob' + (c.o === 2 ? ' bot' : '') + '">' +
             (c.o === 2 ? '🤖 봇' : '순살 팀') + '</span>' : '') +
-          // 로그인한 회원이 쓴 글 (KD 2026-10-08 소셜 v1)
-          (c.m && !c.o ? '<span class="ss-cmb">✓ 회원</span>' : '') +
-          (c.g ? '<span class="ss-cg">' + esc(c.g) + '</span>' : '') +
-          '<span class="ss-ct">' + cAgo(c.t) + '</span></div>' +
-        '<div class="ss-cbx">' + atHTML(c.b, toNick) +
+          (c.g ? '<span class="ss-cg">' + esc(c.g) + '</span>' : '') + ' ' +
+          atHTML(c.b, toNick) +
           (c.held ? '<span class="ss-chold">검토 중</span>' : '') + '</div>' +
-        (c.held ? '' :
-          '<div class="ss-cact">' +
-            '<button type="button" class="ss-clike' + (liked[c.i] ? ' on' : '') +
-              '" data-i="' + c.i + '">' + (liked[c.i] ? '♥' : '♡') +
-              '<span>' + (n || '') + '</span></button>' +
-            '<button type="button" class="ss-crep-b" data-i="' + c.i +
-              '" data-k="' + esc(c.k) + '">↩ <span>답글</span></button>' +
-          '</div>') +
-      '</div></div>';
+        '<div class="ss-cact"><span class="ss-ct">' + cAgo(c.t) + '</span>' +
+          (c.held ? '' : '<button type="button" class="ss-crep-b" data-i="' + c.i +
+            '" data-k="' + esc(c.k) + '">💬 <span>답글</span></button>') + '</div>' +
+      '</div>' +
+      (c.held ? '' : '<button type="button" class="ss-clike' + (liked[c.i] ? ' on' : '') +
+        '" data-i="' + c.i + '" aria-label="좋아요">' + (liked[c.i] ? '♥' : '♡') +
+        '<span>' + (n || '') + '</span></button>') +
+    '</div>';
   }
 
   function renderC(key, w) {
@@ -1153,13 +1174,29 @@
       groups[rid].push(c);
     });
     // 스레드 안에서는 쓴 순서대로 — 깊이를 더 파지 않고 대화가 이어지게 한다
-    list.innerHTML = order.map(function (rid) {
+    // 접기(KD 10/26): 최근 3스레드만 + 「댓글 N개 모두 보기」, 답글 2개 이상이면 마지막 1개만 + 「└ 이전 답글 N개 보기」
+    var lastOf = {}; order.forEach(function (rid) { lastOf[rid] = Math.max.apply(null, groups[rid].map(function (c) { return c.i || 0; })); });
+    var top3 = order.slice().sort(function (a, b) { return lastOf[b] - lastOf[a]; }).slice(0, 3);   // 마지막 활동(답글 포함)이 최근인 3스레드
+    var shownRoots = w._all ? order : order.filter(function (rid) { return top3.indexOf(rid) >= 0; });
+    list.innerHTML = (!w._all && order.length > 3
+      ? '<button type="button" class="ss-cmore" data-all="1">댓글 ' + items.length + '개 모두 보기</button>' : '') +
+      shownRoots.map(function (rid) {
       var g = groups[rid].slice().sort(function (a, b) { return a.i - b.i; });
-      return g.map(function (c, i) {
+      var fold = g.length >= 3 && !(w._exp && w._exp[rid]);
+      var shown = fold ? [g[0], g[g.length - 1]] : g;
+      return shown.map(function (c, i) {
         var par = c.p && byId[c.p];
-        return ciHTML(c, liked, i > 0, par ? par.k : '');
+        return (fold && i === 1 ? '<button type="button" class="ss-cmore sub" data-exp="' + rid + '">└ 이전 답글 ' + (g.length - 2) + '개 보기</button>' : '') +
+          ciHTML(c, liked, i > 0, par ? par.k : '');
       }).join('');
     }).join('');
+    list.querySelectorAll('.ss-cmore').forEach(function (b) {
+      b.addEventListener('click', function () {
+        if (b.getAttribute('data-all')) w._all = 1;
+        else { w._exp = w._exp || {}; w._exp[b.getAttribute('data-exp')] = 1; }
+        renderC(key, w);
+      });
+    });
 
     list.querySelectorAll('.ss-clike').forEach(function (b) {
       b.addEventListener('click', function () { toggleLike(b, key, w); });

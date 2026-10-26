@@ -811,10 +811,10 @@
     ov.classList.add('on')};
   // 뉴스레터 댓글(soonsal.js 가 그림): 봇 캐릭터 글이면 아바타를 캐릭터 이모지로, 이름을 누르면 소개 카드
   function crewDeco(){[].forEach.call(document.querySelectorAll('.ss-ci.ss-cop:not([data-crew])'),function(el){
-    var b=el.querySelector('.ss-cnm b'),n=b&&b.textContent.trim(),c=CREW[n];el.setAttribute('data-crew',c?n:'');if(!c||!el.querySelector('.ss-cob.bot'))return;
+    var b=el.querySelector('.ss-cnk')||el.querySelector('.ss-cnm b'),n=b&&b.textContent.replace(/\s*✓$/,'').trim(),c=CREW[n];el.setAttribute('data-crew',c?n:'');if(!c||!el.querySelector('.ss-cob.bot'))return;
     var av=el.firstElementChild;if(av&&!av.classList.contains('ss-cbd')){av.textContent=c.e;av.style.background=c.c}
     b.style.cursor='pointer';b.setAttribute('role','button')})}
-  document.addEventListener('click',function(e){var b=e.target.closest('.ss-ci[data-crew] .ss-cnm b');if(!b)return;var n=b.closest('.ss-ci').getAttribute('data-crew');if(n)window.ssCrewCard(n)});
+  document.addEventListener('click',function(e){var b=e.target.closest('.ss-ci[data-crew] .ss-cnm b, .ss-ci[data-crew] .ss-cnk');if(!b)return;var n=b.closest('.ss-ci').getAttribute('data-crew');if(n)window.ssCrewCard(n)});
   // 시세 띠처럼 글자만 바뀌는 변화는 무시하고, 댓글(.ss-ci)이 새로 붙을 때만 본다
   if(window.MutationObserver){var crewT=0;new MutationObserver(function(rs){if(crewT)return;
     for(var i=0;i<rs.length;i++){var a=rs[i].addedNodes;for(var j=0;j<a.length;j++){var n=a[j];
