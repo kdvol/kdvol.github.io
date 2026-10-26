@@ -1051,6 +1051,11 @@
     try{var u=L.pathname+L.search.replace(/[?&]login=ok\b/,'').replace(/^&/,'?')+L.hash.replace(/[?&]login=ok\b/,'');history.replaceState(null,'',u)}catch(e){}}
   var isNl=/^\/newsletters\/\d{4}\/\d{4}(-crypto)?\.html$/.test(L.pathname),isHome=L.pathname==='/'||L.pathname==='/index.html';
   if(!isNl&&!isHome)return;
+  // 구글 유료벽 표시(KD 10/26): seo_patch.py 가 JSON-LD 에 hasPart cssSelector=.ss-paid 를 달고, 그 .ss-paid 는 여기서 붙인다.
+  //   HTML 원본의 class="story" 는 빌더들이 그대로 찾으므로 손대지 않는다 — 구글은 스크립트까지 실행한 화면을 읽는다.
+  //   로그인 여부와 상관없이 늘 붙인다(표시는 「이 부분은 유료벽 뒤」라는 사실일 뿐, 모양은 바꾸지 않음).
+  if(isNl){var mp=function(){[].slice.call(d.querySelectorAll('.story')).forEach(function(s,i){if(i>=FREE)s.classList.add('ss-paid')})};
+    if(d.readyState==='loading')d.addEventListener('DOMContentLoaded',mp);else mp()}
   if(lsg('ss_auth')==='1')return;
   var mail=/[?&]ss=[a-f0-9]{16}\.|[?&]s=[a-f0-9]{16}\b|utm_source=mail|utm_medium=email|[?&]m=1\b/.test(L.search);
   try{if(mail)sessionStorage.setItem('ss_mail_sess','1');else if(sessionStorage.getItem('ss_mail_sess'))mail=true}catch(e){}
