@@ -910,7 +910,26 @@
   meta('theme-color','#111111');meta('apple-mobile-web-app-capable','yes');meta('mobile-web-app-capable','yes');
   meta('apple-mobile-web-app-title','순살');meta('apple-mobile-web-app-status-bar-style','black-translucent');
   var standalone=(window.matchMedia&&matchMedia('(display-mode: standalone)').matches)||navigator.standalone===true;
-  if(standalone){lss('ss_inst_done','1');return}
+  // ── 앱 집계(KD 10/26 「앱을 몇 명 설치했는지·앱에서 뭘 보는지·구독자인지 비교」) — POST /t, 개인별 열람 이력 없음 ──
+  function vidOf(){var v=lsg('ss_vid');if(!v||!/^[a-z0-9-]{8,32}$/.test(v)){v=(Math.random().toString(36).slice(2)+Math.random().toString(36).slice(2)).slice(0,16);lss('ss_vid',v)}return v}
+  function isSub(){return (window.ssIsSub&&window.ssIsSub())||lsg('ss_is_sub')==='1'||lsg('ss_subbed')==='1'}
+  function tsend(o){try{o.v=vidOf();o.s=isSub()?1:0;o.m=lsg('ss_auth')==='1'?1:0;
+    fetch('https://api.soonsal.com/t',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(o),keepalive:true}).catch(function(){})}catch(e){}}
+  function step(k){tsend({t:'inst',k:k})}
+  // 웹·앱에서 읽은 구독자(KD 10/26 「웹/앱이 흥하면 이메일 열람이 줄어들 위험 — 웹/앱 구독자 트래킹이 확실히」):
+  //   구독자 표시가 있는 브라우저가 메일 링크 없이 뉴스레터(홈의 전문 포함)를 열면 채널(web/app)별로 한 번.
+  //   메일 링크로 들어온 세션은 메일 쪽(reads)이 이미 세므로 그 세션 내내 뺀다(중복 방지).
+  var fromMail=/[?&]ss=[a-f0-9]{16}\.|[?&]s=[a-f0-9]{16}\b|utm_source=mail|utm_medium=email|[?&]m=1\b/.test(location.search);
+  try{if(fromMail)sessionStorage.setItem('ss_mail_sess','1');else if(sessionStorage.getItem('ss_mail_sess'))fromMail=true}catch(e){}
+  var nlm=location.pathname.match(/^\/newsletters\/\d{4}\/(\d{4})(-crypto)?\.html$/),
+      issN=nlm?nlm[1]+(nlm[2]?'c':''):((location.pathname==='/'||location.pathname==='/index.html')?'home':'');
+  function sread(ch){if(issN&&!fromMail&&isSub())tsend({t:'sread',ch:ch,i:issN})}
+  if(standalone){lss('ss_inst_done','1');
+    // 아이폰은 설치 순간을 알려 주지 않는다 → 앱 화면으로 처음 연 날 = 설치일(서버 app_users.first_day)
+    setTimeout(function(){tsend({t:'app',p:location.pathname})},600);
+    setTimeout(function(){sread('app')},2500);   // 회원이면 /me 가 구독 표시를 채운 뒤
+    return}
+  setTimeout(function(){sread('web')},2500);
   var iOS=/iPhone|iPad|iPod/.test(ua)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);
   var inApp=/KAKAOTALK|Instagram|FBAN|FBAV|NAVER\(|Line\/|DaumApps|everytimeApp|Barcelona|Twitter/i.test(ua);
   var deferred=null,card=null,P=location.pathname,home=P==='/'||P==='/index.html';
@@ -988,7 +1007,9 @@
       '<button type="button" class="alt">공유 버튼이 안 보여요</button><div class="altx" hidden>'+(top?'주소창이 <b>아래</b>에 있으면 아래쪽 <b>⋯</b> → <b>공유</b>를 눌러요.':'주소창 안이나 아래쪽 <b>⋯</b> 안에 <b>공유</b>가 있어요.')+' 크롬 앱은 주소창 오른쪽 공유 버튼이에요.</div>'+
       '<button type="button" class="ok">알겠어요</button></div>'}
   function doInstall(){
-    if(deferred){var ev=deferred;deferred=null;ev.prompt();(ev.userChoice||Promise.resolve({})).then(function(c){if(c&&c.outcome==='accepted'){lss('ss_inst_done','1');hide()}});return}
+    step('click');
+    if(deferred){var ev=deferred;deferred=null;step('prompt');ev.prompt();(ev.userChoice||Promise.resolve({})).then(function(c){if(c&&c.outcome==='accepted'){step('accept');lss('ss_inst_done','1');hide()}});return}
+    step('guide');
     if(iOS&&!inApp){hide();arrowGuide();return}     // 아래 화살표와 겹치지 않게 카드는 내림
     guide()}
   function hide(){if(card){card.classList.remove('on');d.documentElement.classList.remove('ss-inst-on')}}
@@ -998,14 +1019,14 @@
       '<button type="button" class="go ss-shine" data-ss-install>설치</button><button type="button" class="x" aria-label="닫기">×</button>';
     card.querySelector('.x').onclick=function(){lss('ss_inst_snooze',String(Date.now()+14*864e5));hide()};
     d.body.appendChild(card);
-    setTimeout(function(){card.classList.add('on');d.documentElement.classList.add('ss-inst-on')},2200)}
+    setTimeout(function(){card.classList.add('on');d.documentElement.classList.add('ss-inst-on');step('card')},2200)}
   function menu(){var dr=d.querySelector('.ss-dr');if(!dr||dr.querySelector('[data-ss-install]')||!can())return;
     var a=d.createElement('a');a.className='li';a.href='#';a.setAttribute('data-ss-install','');a.textContent='📲 앱으로 설치 (홈 화면)';
     var sub=dr.querySelector('a.sub');dr.insertBefore(a,sub||null)}
   d.addEventListener('click',function(e){var b=e.target.closest('[data-ss-install]');if(!b)return;e.preventDefault();
     d.documentElement.classList.remove('ss-open');d.body.style.overflow='';doInstall()});
   window.addEventListener('beforeinstallprompt',function(e){e.preventDefault();deferred=e;menu();show()});
-  window.addEventListener('appinstalled',function(){lss('ss_inst_done','1');hide()});
+  window.addEventListener('appinstalled',function(){step('installed');lss('ss_inst_done','1');hide()});
   function boot(){menu();if(iOS||inApp)show()}
   if(d.readyState==='loading')d.addEventListener('DOMContentLoaded',boot);else boot();
 })();
