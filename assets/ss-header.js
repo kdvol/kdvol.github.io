@@ -1030,3 +1030,63 @@
   function boot(){menu();if(iOS||inApp)show()}
   if(d.readyState==='loading')d.addEventListener('DOMContentLoaded',boot);else boot();
 })();
+
+/* ── 뉴스레터 로그인 벽 (KD 2026-10-26 「뉴스레터는 동시에 열되 로그인을 강제할 수 있으면」) ──
+   비로그인은 앞 FREE 개 스토리만, 그 뒤는 🔒 카드(남은 스토리 제목 + 「1초 로그인하고 이어 읽기」) 아래로 가린다.
+   본문은 HTML 에 그대로 — seo_patch.py 가 가려지는 스토리에 .ss-paid + isAccessibleForFree=false 를 달아 구글 색인 유지.
+   예외: 로그인한 브라우저 · 메일 링크(웹에서 보기)로 온 세션(이미 구독자로 메일 쪽에서 센다).
+   로그인 뒤 서버가 원래 주소에 login=ok 를 붙여 돌려보낸다 → 여기서 받아 ss_auth 를 켜고 바로 열림.
+*/
+(function(){
+  if(window.__ssGate)return;window.__ssGate=1;
+  function lsg(k){try{return localStorage.getItem(k)}catch(e){return null}}
+  function lss(k,v){try{localStorage.setItem(k,v)}catch(e){}}
+  var d=document,L=location,FREE=2;
+  if(/[?&#]login=ok\b/.test(L.search+L.hash)){lss('ss_auth','1');
+    try{var u=L.pathname+L.search.replace(/[?&]login=ok\b/,'').replace(/^&/,'?')+L.hash.replace(/[?&]login=ok\b/,'');history.replaceState(null,'',u)}catch(e){}}
+  var isNl=/^\/newsletters\/\d{4}\/\d{4}(-crypto)?\.html$/.test(L.pathname),isHome=L.pathname==='/'||L.pathname==='/index.html';
+  if(!isNl&&!isHome)return;
+  if(lsg('ss_auth')==='1')return;
+  var mail=/[?&]ss=[a-f0-9]{16}\.|[?&]s=[a-f0-9]{16}\b|utm_source=mail|utm_medium=email|[?&]m=1\b/.test(L.search);
+  try{if(mail)sessionStorage.setItem('ss_mail_sess','1');else if(sessionStorage.getItem('ss_mail_sess'))mail=true}catch(e){}
+  if(mail)return;
+  function send(k){try{var v=lsg('ss_vid');if(!v)return;fetch('https://api.soonsal.com/t',{method:'POST',headers:{'content-type':'application/json'},keepalive:true,
+    body:JSON.stringify({t:'inst',k:k,v:v,s:(lsg('ss_is_sub')==='1'||lsg('ss_subbed')==='1')?1:0,m:0})}).catch(function(){})}catch(e){}}
+  var css=d.createElement('style');css.textContent=
+    '.ss-locked{display:none!important}'+
+    '.ss-gate{margin:18px 0 26px;padding:22px 20px;border-radius:16px;background:linear-gradient(160deg,#241a14,#171310);color:#f0ede6;font-family:Pretendard,-apple-system,sans-serif;position:relative;overflow:hidden}'+
+    '.ss-gate:before{content:"";position:absolute;left:0;right:0;top:-60px;height:60px;background:linear-gradient(rgba(255,255,255,0),rgba(255,255,255,.9));pointer-events:none}'+
+    '.ss-gate .k{font-size:12px;font-weight:800;letter-spacing:.08em;color:#F5A481}'+
+    '.ss-gate h3{margin:6px 0 12px;font-size:19px;font-weight:900;line-height:1.4;color:#fff}'+
+    '.ss-gate ol{margin:0 0 16px;padding:0;list-style:none;counter-reset:g}'+
+    '.ss-gate li{counter-increment:g;display:flex;gap:10px;padding:8px 0;border-top:1px solid rgba(255,255,255,.08);font-size:14.5px;line-height:1.5;color:#e8e3da}'+
+    '.ss-gate li:before{content:"🔒";flex:0 0 auto;font-size:13px;opacity:.8}'+
+    '.ss-gate .go{display:flex;align-items:center;justify-content:center;height:50px;border-radius:999px;background:#F07040;color:#12100e;font-weight:900;font-size:15.5px;text-decoration:none;position:relative;overflow:hidden}'+
+    '.ss-gate .sm{display:block;text-align:center;margin-top:9px;font-size:12px;color:#a39c90}';
+  d.head.appendChild(css);
+  function apply(){
+    var root=isHome?d.getElementById('nlwrap'):d;if(!root||root.querySelector('.ss-gate'))return;
+    var st=[].slice.call(root.querySelectorAll('.story'));if(st.length<=FREE)return;
+    var last=st[FREE-1],locked=st.slice(FREE);
+    var titles=locked.map(function(s){var t=s.querySelector('.story-title');return t?t.textContent.replace(/🔗\s*공유\s*$/,'').trim():''}).filter(Boolean);
+    var g=d.createElement('div');g.className='ss-gate';
+    var nx=L.pathname+(L.hash&&/^#story-\d+$/.test(L.hash)?L.hash:'');
+    g.innerHTML='<div class="k">🔒 순살러 전용</div><h3>오늘 브리핑 나머지 '+locked.length+'개 스토리, 로그인하면 바로 이어서</h3>'+
+      '<ol>'+titles.map(function(t){return '<li>'+t.replace(/[<>&]/g,'')+'</li>'}).join('')+'</ol>'+
+      '<a class="go ss-shine" href="/account/?next='+encodeURIComponent(nx)+'" data-gate-login>카카오·구글로 1초 로그인하고 이어 읽기</a>'+
+      '<span class="sm">무료 · 로그인하면 스크랩·답글 알림도 받아요</span>';
+    last.parentNode.insertBefore(g,last.nextSibling);
+    // 가린다: 벽 뒤에 오는 블록 전부(스토리·딜딜딜·헤드라인·단어 등) — 벽에서 위로 올라가며 각 층의 뒤 형제를,
+    //   뉴스레터 본문 상자(.wrapper, 홈은 #nlwrap)까지만. 법적 고지·푸터·스크립트는 남김
+    var stop=isHome?root:(d.querySelector('.wrapper')||d.body),keep=/ss-legal|footer|ss-notice|ss-gate/;
+    for(var lv=g;lv&&lv!==stop.parentNode;lv=lv.parentNode){
+      for(var n=lv.nextElementSibling;n;n=n.nextElementSibling){if(!keep.test(n.className||'')&&!/^(FOOTER|SCRIPT|STYLE)$/.test(n.tagName))n.classList.add('ss-locked')}
+      if(lv===stop)break}
+    locked.forEach(function(s){s.classList.add('ss-locked')});
+    if(/^#story-\d+$/.test(L.hash)&&locked.some(function(s){return '#'+s.id===L.hash}))setTimeout(function(){g.scrollIntoView({block:'center'})},300);
+    send('gate');
+    g.querySelector('[data-gate-login]').addEventListener('click',function(){send('gate_login')});
+  }
+  if(d.readyState==='loading')d.addEventListener('DOMContentLoaded',apply);else apply();
+  setTimeout(apply,1500);   // soonsal.js 가 스토리를 다시 그리는 경우 대비(이미 있으면 그냥 끝)
+})();
