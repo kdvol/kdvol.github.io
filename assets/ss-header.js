@@ -209,17 +209,18 @@
         var it=(v[0]&&v[0].items)||[],SM=v[1]||{},ls=pn.querySelector('.ls');
         pn.querySelector('.cn').textContent=(v[0]&&v[0].n)?'새 알림 '+v[0].n+'개':'';
         if(!it.length){ls.innerHTML='<div class="em">아직 알림이 없어요.<br>내 댓글에 답글·좋아요가 달리거나<br>팔로우한 회사·주제가 브리핑에 나오면 여기 떠요.</div>';return}
+        var nw=0;   // 새 알림 맨 위 2개에만 샤인 스윕(KD 10/29) — 남발하면 효과가 죽는다
         ls.innerHTML=it.slice(0,12).map(function(x){
           var ic=x.kind==='reply'?'💬':x.kind==='follow'?'📌':'❤️',m,sub;
           if(x.kind==='reply'){m='<b>'+esc(x.who||'누군가')+'</b>님이 내 댓글에 답글을 남겼어요';sub=x.reply?'“'+esc(x.reply)+'”':esc(x.mine)}
           else if(x.kind==='follow'){m='팔로우한 <b>'+esc(x.who)+'</b> 새 이야기';sub=esc((SM[x.story]||[])[0]||'')}
           else{m='내 댓글이 좋아요를 받았어요';sub=esc(x.mine)}
-          return '<a class="it'+(x.seen?'':' new')+'" href="'+surl(x.story)+'"><span class="ic">'+ic+'</span><span class="tx"><span class="m">'+m+'</span>'+
+          return '<a class="it'+(x.seen?'':' new'+(nw++<2?' ss-shine':''))+'" href="'+surl(x.story)+'"><span class="ic">'+ic+'</span><span class="tx"><span class="m">'+m+'</span>'+
             (sub?'<span class="s">'+sub+'</span>':'')+'<span class="t">'+ago(x.ts)+'</span></span></a>'}).join('');
         if(v[0]&&v[0].n)fetch(API+'/me/notices',{method:'POST',credentials:'include',headers:{'content-type':'application/json'},body:'{}'}).catch(function(){});
       }).catch(function(){pn.querySelector('.ls').innerHTML='<div class="em">알림을 불러오지 못했어요. 잠시 뒤 다시 열어 주세요.</div>'})}
     function open(v){if(v){var hh=ac.closest('.site-header');pn.style.top=Math.max(8,(hh?hh.getBoundingClientRect().bottom:56)+8)+'px';pn.hidden=false;requestAnimationFrame(function(){pn.classList.add('on')});load();
-        var bd=ac.querySelector('.bd');if(bd)bd.parentNode.removeChild(bd);}
+        var bd=ac.querySelector('.bd');if(bd)bd.parentNode.removeChild(bd);ac.classList.remove('ss-shine');}
       else{pn.classList.remove('on');setTimeout(function(){pn.hidden=true},160)}}
     ac.addEventListener('click',function(e){e.preventDefault();open(pn.hidden)});
     document.addEventListener('click',function(e){if(!pn.hidden&&!pn.contains(e.target)&&!ac.contains(e.target))open(false)});
@@ -643,7 +644,20 @@
       }catch(e){}
       wrap.querySelector('#ss-mine').hidden=true;
       try{notiPanel(u,ac)}catch(e){}
-      if(un){var bd=document.createElement('span');bd.className='bd';bd.textContent=un>9?'9+':un;ac.appendChild(bd);ac.setAttribute('aria-label','내 계정 · 새 알림 '+un+'개')}
+      if(un){var bd=document.createElement('span');bd.className='bd';bd.textContent=un>9?'9+':un;ac.appendChild(bd);ac.setAttribute('aria-label','내 계정 · 새 알림 '+un+'개');
+        ac.classList.add('ss-shine')}   // 안 본 알림이 있으면 계정 아이콘에 샤인 스윕(KD 10/29) — 알림 창을 열면 꺼진다
+      // ★ 회원 맞춤 샤인 스윕 (KD 2026-10-29 「회원이면 본인이 봐야 할 내용이 샤인 스윕으로 안내되게」):
+      //   아직 안 본 팔로우 알림이 가리키는 스토리(이 화면에 있으면)에 「📌 팔로우한 ○○ 이야기」 표시 + 빛 줄기. 한 화면 2곳까지.
+      //   GET /me/notices 는 읽음 처리를 안 한다(알림 창을 열 때 POST 가 한다).
+      if(un&&document.querySelector('[data-ss-story]'))fetch(API+'/me/notices',{credentials:'include'}).then(function(r){return r.json()}).then(function(v){
+        if(!document.getElementById('ss-folhit-css')){var fs=document.createElement('style');fs.id='ss-folhit-css';fs.textContent=
+          '.ss-folhit{display:inline-block;margin:0 0 10px;padding:5px 12px;border-radius:999px;background:#F07040;color:#12100e;'+
+          'font:800 12.5px/1.3 Pretendard,-apple-system,BlinkMacSystemFont,sans-serif;letter-spacing:-.01em;word-break:keep-all}';document.head.appendChild(fs)}
+        var n=0;((v&&v.items)||[]).forEach(function(x){if(n>=2||x.seen||x.kind!=='follow')return;
+          var el=document.querySelector('[data-ss-story="'+String(x.story||'').replace(/[^0-9a-z-]/g,'')+'"]');if(!el||el.querySelector('.ss-folhit'))return;
+          var t=el.querySelector('.story-title')||el.firstElementChild;if(!t)return;
+          var hb=document.createElement('div');hb.className='ss-folhit ss-shine';hb.textContent='📌 팔로우한 '+String(x.who||'').slice(0,40)+' 이야기';
+          t.parentNode.insertBefore(hb,t);n++})}).catch(function(){});
       try{var v=localStorage.getItem('ss_vid')||'';
         if(/^[a-z0-9-]{8,32}$/.test(v)&&localStorage.getItem('ss_vlink')!==u.id+':'+v)
           fetch(API+'/me/vid',{method:'POST',credentials:'include',headers:{'content-type':'application/json'},body:JSON.stringify({v:v})})
@@ -929,10 +943,55 @@
   var nlm=location.pathname.match(/^\/newsletters\/\d{4}\/(\d{4})(-crypto)?\.html$/),
       issN=nlm?nlm[1]+(nlm[2]?'c':''):((location.pathname==='/'||location.pathname==='/index.html')?'home':'');
   function sread(ch){if(issN&&!fromMail&&isSub())tsend({t:'sread',ch:ch,i:issN})}
+  // ── 앱 알림 (KD 2026-10-29 「앱 설치한 사람에게 매일 그날 뉴스레터 — 앱 내 알림만」·「카카오톡처럼 안 읽은 개수 띄워서 눌러 보고 싶게」) ──
+  //   앱으로 연 경우에만. 「알림 켜기」 → /sw.js(알림 전용, 캐시 없음) 등록 + 푸시 구독 → 매일 아침 뉴스레터 알림.
+  //   앱 아이콘 배지 = 안 읽은 뉴스레터 + 회원의 안 본 알림. 앱을 열면 /push/seen 으로 줄인다. 서버: workers/push.js
+  var VAPID='BPipJALQdPYw4IaK7L-cwGhrVzMxegrA06nF4P-l7huxK3vGak45mbb8i4ZeBnJ4bk4lJ9-F3lnCXuXt2q1uklg';
+  function pushOk(){return 'serviceWorker' in navigator&&'PushManager' in window&&'Notification' in window}
+  function b64k(s){s=s.replace(/-/g,'+').replace(/_/g,'/');var r=atob(s+'==='.slice((s.length+3)%4)),a=new Uint8Array(r.length);for(var i=0;i<r.length;i++)a[i]=r.charCodeAt(i);return a}
+  function papi(path,o){return fetch('https://api.soonsal.com'+path,{method:'POST',credentials:'include',headers:{'content-type':'application/json'},body:JSON.stringify(o)}).then(function(r){return r.json()})}
+  function appBadge(n){try{if(n>0&&navigator.setAppBadge)navigator.setAppBadge(n);else if(navigator.clearAppBadge)navigator.clearAppBadge()}catch(e){}}
+  function today(){return new Date(Date.now()+324e5).toISOString().slice(0,10)}
+  function pushSub(reg){return reg.pushManager.getSubscription().then(function(s){return s||reg.pushManager.subscribe({userVisibleOnly:true,applicationServerKey:b64k(VAPID)})})
+    .then(function(s){lss('ss_push_ep',s.endpoint);lss('ss_push_day',today());return papi('/push/sub',{ep:s.endpoint,v:vidOf()}).then(function(){return s})})}
+  function pushCard(reg){
+    var st=d.createElement('style');st.textContent=
+      '.ss-pc{position:fixed;left:12px;right:12px;bottom:calc(12px + env(safe-area-inset-bottom));z-index:100000;max-width:520px;margin:0 auto;'+
+      'display:flex;align-items:center;gap:12px;padding:12px 10px 12px 14px;border-radius:18px;background:#1d1916;border:1px solid #3a2f27;'+
+      'box-shadow:0 10px 30px rgba(0,0,0,.45);font-family:Pretendard,-apple-system,sans-serif;transform:translateY(140%);transition:transform .45s cubic-bezier(.2,.9,.3,1.2)}'+
+      '.ss-pc.on{transform:none}.ss-pc .i{font-size:26px;flex:0 0 auto}.ss-pc .t{flex:1;min-width:0;word-break:keep-all}'+
+      '.ss-pc .t b{display:block;font-size:15px;font-weight:900;color:#fff;letter-spacing:-.02em}.ss-pc .t span{display:block;font-size:12px;color:#a39c90;margin-top:2px}'+
+      '.ss-pc .go{flex:0 0 auto;height:38px;min-height:0;padding:0 16px;border:0;border-radius:999px;background:#F07040;color:#12100e;font:800 14px Pretendard,-apple-system,sans-serif;cursor:pointer;position:relative;overflow:hidden}'+
+      '.ss-pc .x{flex:0 0 auto;width:28px;height:28px;min-height:0;border:0;background:none;color:#6f695f;font-size:18px;cursor:pointer;padding:0}'+
+      '.ss-pc button:focus-visible{outline:2px solid #F59B75;outline-offset:2px}@media(prefers-reduced-motion:reduce){.ss-pc{transition:none}}';
+    d.head.appendChild(st);
+    var c=d.createElement('div');c.className='ss-pc';c.setAttribute('role','dialog');c.setAttribute('aria-label','알림 켜기');
+    c.innerHTML='<span class="i" aria-hidden="true">🔔</span><div class="t"><b>아침 순살 알림 받기</b><span>새 브리핑이 오면 바로 · 안 읽은 개수는 앱 아이콘에</span></div>'+
+      '<button class="go ss-shine" type="button">알림 켜기</button><button class="x" type="button" aria-label="닫기">×</button>';
+    d.body.appendChild(c);requestAnimationFrame(function(){requestAnimationFrame(function(){c.classList.add('on')})});step('push_card');
+    function close(){c.classList.remove('on');setTimeout(function(){if(c.parentNode)c.parentNode.removeChild(c)},500)}
+    c.querySelector('.x').addEventListener('click',function(){lss('ss_push_snooze',String(Date.now()+7*864e5));close()});
+    c.querySelector('.go').addEventListener('click',function(){
+      Promise.resolve(Notification.requestPermission()).then(function(p){
+        if(p!=='granted'){step('push_deny');lss('ss_push_snooze',String(Date.now()+30*864e5));close();return}
+        return pushSub(reg).then(function(){step('push_on');
+          c.querySelector('.t').innerHTML='<b>알림을 켰어요 🐟</b><span>새 순살이 나오면 바로 알려 드릴게요</span>';
+          var g=c.querySelector('.go');if(g)g.parentNode.removeChild(g);setTimeout(close,2600)})}).catch(function(){close()})})}
+  function pushInit(){if(!pushOk())return;
+    navigator.serviceWorker.register('/sw.js',{scope:'/'}).then(function(reg){
+      if(/[?&]src=push\b/.test(location.search))step('push_open');
+      if(Notification.permission==='granted'){
+        (lsg('ss_push_day')!==today()?pushSub(reg):Promise.resolve()).catch(function(){}).then(function(){
+          var ep=lsg('ss_push_ep');if(!ep){appBadge(0);return}
+          papi('/push/seen',{ep:ep}).then(function(r){appBadge((r&&r.badge)|0)}).catch(function(){})});
+        return}
+      if(Notification.permission==='denied'||Date.now()<(+lsg('ss_push_snooze')||0))return;
+      pushCard(reg)}).catch(function(){})}
   if(standalone){lss('ss_inst_done','1');
     // 아이폰은 설치 순간을 알려 주지 않는다 → 앱 화면으로 처음 연 날 = 설치일(서버 app_users.first_day)
     setTimeout(function(){tsend({t:'app',p:location.pathname})},600);
     setTimeout(function(){sread('app')},2500);   // 회원이면 /me 가 구독 표시를 채운 뒤
+    setTimeout(pushInit,1500);                     // 앱 알림 — 설치 카드 대신 「알림 켜기」 카드(KD 10/29)
     return}
   setTimeout(function(){sread('web')},2500);
   var iOS=/iPhone|iPad|iPod/.test(ua)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);
