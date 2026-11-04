@@ -672,7 +672,7 @@
 
 (function(){
   if(window.__ssShine)return;window.__ssShine=1;
-  var LATEST={"/newsletters/": "2026-11-04", "/chart/": "2026-11-03", "/cardnews/": "2026-11-04", "/poll/": "2026-11-04"};
+  var LATEST={"/newsletters/": "2026-11-04", "/chart/": "2026-11-04", "/cardnews/": "2026-11-04", "/poll/": "2026-11-04"};
   function lsg(k){try{return localStorage.getItem(k)}catch(e){return null}}
   function lss(k,v){try{localStorage.setItem(k,v)}catch(e){}}
   var st=document.createElement('style');st.id='ss-shine-css';st.textContent=

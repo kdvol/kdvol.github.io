@@ -665,7 +665,118 @@ font-size:12px;line-height:1.75;color:#9a958a;word-break:keep-all}
 .story-links a:hover{color:#C24A00;text-decoration:underline}
 .story-links .sep{color:#d3cec4;margin:0 5px}
 .story-links .v b{font-weight:600;color:#b5b0a4;margin-right:5px;font-variant-numeric:tabular-nums}
-</style></head><body>
+</style><style id="soonsal-nav-visibility-v3">
+.nav-menu a.nav-mobile-only{display:none}
+.nav>a.nav-desktop-link.biz{color:#F07040}
+.nav>a.nav-desktop-link.biz:hover{color:#ff8a52}
+.nav-menu a.biz{color:#F07040}
+@media(max-width:560px){
+  .nav>a.nav-desktop-link{display:none}
+  .nav-menu a.nav-mobile-only{display:block}
+  .nav-more.mobile-active>summary{color:#F07040;border-bottom-color:#F07040}
+  /* 코어 4개 + 더보기 = 5칸. 예전 CSS가 4칸이라 다섯 번째가 다음 줄로 넘어갔다.
+     이 블록은 페이지마다 나중에 주입되므로 안에 박힌 옛 규칙을 덮는다. */
+  .nav{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));width:100%}
+  .nav>a,.nav-more>summary{justify-content:center;padding:11px 2px;font-size:11.5px;
+    letter-spacing:-.4px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+}
+@media(max-width:360px){
+  .nav>a,.nav-more>summary{font-size:10.5px;letter-spacing:-.5px;padding:11px 1px}
+}
+/* ── 눌러보고 싶게 ──────────────────────────────────────
+   탭은 '지금 어디' 말고는 아무것도 알려주지 않는다. 더보기는 특히 그렇다 —
+   안에 뭐가 있는지 모르면 누를 이유가 없다. 세 가지를 바꾼다:
+   (1) 밑줄이 자라며 눌리는 느낌, (2) 화살표가 열림에 반응, (3) 메뉴 안에
+   아이콘을 붙여 목록이 아니라 '갈 곳'으로 보이게. */
+.nav>a,.nav-more>summary{position:relative;transition:color .18s}
+.nav>a:after,.nav-more>summary:after{content:"";position:absolute;left:50%;right:50%;
+bottom:-1px;height:2px;background:#F07040;border-radius:2px;
+transition:left .22s cubic-bezier(.4,0,.2,1),right .22s cubic-bezier(.4,0,.2,1)}
+.nav>a:hover:after,.nav-more>summary:hover:after{left:18%;right:18%}
+.nav>a.active:after,.nav-more.active>summary:after{left:0;right:0}
+
+.nav-more>summary span[aria-hidden]{display:inline-block;transition:transform .22s ease;
+margin-left:2px}
+.nav-more[open]>summary span[aria-hidden]{transform:rotate(180deg)}
+.nav-more[open]>summary{color:#F07040}
+
+.nav-menu{animation:navdrop .18s cubic-bezier(.2,.8,.2,1)}
+@keyframes navdrop{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
+.nav-menu a{transition:background .15s,color .15s,padding-left .15s}
+.nav-menu a:before{margin-right:7px;opacity:.9}
+.nav-menu a[href="/cardnews/"]:before{content:"🎴"}
+.nav-menu a[href="/poll/"]:before{content:"🗳"}
+.nav-menu a[href="/youtube/"]:before{content:"▶"}
+.nav-menu a[href="/school/"]:before{content:"🎓"}
+.nav-menu a[href="/collab/"]:before{content:"✉"}
+.nav-menu a[href="/talk/"]:before{content:"💬"}
+
+/* 더보기 안에 뭐가 있는지 한 줄로 알려준다 — 열기 전에 궁금해지는 건 이 지점이다 */
+.nav-more>summary:before{content:"";position:absolute;top:9px;right:6px;width:5px;height:5px;
+border-radius:50%;background:#F07040;opacity:0;transition:opacity .2s}
+.nav-more:not([open])>summary:hover:before{opacity:.85}
+@media(max-width:560px){
+  .nav-menu a{text-align:left;padding-left:14px}
+  .nav-more>summary:before{right:3px;top:7px}
+}
+
+/* ── 탭을 더 잘 보이게 (KD 2026-10-09 「nav 탭이 아예 안 보인다 — 튀지 않게, 지금보다 눈에 띄게」) ──
+   고정(sticky)하지 않는다 — 스크롤 흐름은 그대로. 대신 글자 대비·크기를 올리고, 지금 위치는 주황 밑줄. */
+.nav{background:#141414;border-bottom:1px solid #262626}
+.nav>a,.nav-more>summary{color:#cfc8bc;font-size:14px;letter-spacing:-.01em;padding:13px 22px}
+.nav>a:hover,.nav-more>summary:hover{color:#fff;background:#1b1b1b}
+.nav>a.active,.nav-more.active>summary{color:#F07040}
+@media(max-width:560px){
+  .nav>a,.nav-more>summary{font-size:13px;padding:12px 2px;letter-spacing:-.3px}
+}
+@media(max-width:360px){
+  .nav>a,.nav-more>summary{font-size:12px;padding:12px 1px}
+}
+@media(max-width:560px){
+  nav.nav>a,nav.nav>.nav-more>summary{font-size:min(13px,3.1vw);letter-spacing:-.7px;padding:12px 0}
+}
+</style>
+<style id="soonsal-search-v1">
+/* 헤더 — 한 축에 셋. 세로 중심이 하나여야 어긋나지 않는다 */
+.site-header{position:relative;display:grid;grid-template-columns:1fr auto 1fr;
+align-items:center;column-gap:12px;padding:20px max(16px, calc(50% - 400px));
+border-bottom:1px solid #222;background:#111}
+/* 칸을 못 박아 마크업 순서와 무관하게 만든다 */
+.site-header>.search-btn-header{grid-area:1/1;justify-self:start}
+.site-header>.logo-link{grid-area:1/2;justify-self:center}
+.site-header>.sub-btn-header{grid-area:1/3;justify-self:end}
+.site-header>.logo-link{display:flex;align-items:center;gap:10px;
+text-decoration:none;color:#fff}
+.logo-text{font-size:22px;font-weight:800;letter-spacing:-.5px;line-height:1.1}
+
+/* 구독 — 이 사이트의 유일한 전환점. 좁은 화면에서도 남는다 */
+.sub-btn-header{position:static;transform:none;display:inline-flex;
+align-items:center;background:#E55A00;color:#fff;padding:9px 18px;
+border-radius:999px;font-size:13px;font-weight:800;line-height:1;
+text-decoration:none;white-space:nowrap;transition:background .18s ease}
+.sub-btn-header:hover{background:#CC4F00}
+
+.search-btn-header{position:static;transform:none;display:flex;
+align-items:center;justify-content:center;width:36px;height:36px;
+border-radius:999px;color:#8a857c;text-decoration:none;
+transition:color .18s ease,background .18s ease}
+.search-btn-header:hover{color:#fff;background:#1e1e1e}
+
+@media(max-width:560px){
+  .site-header{padding:14px 12px;column-gap:8px}
+  .site-header .logo-text{font-size:18px}
+  .site-header .logo-link img,.site-header .logo-icon{height:26px}
+  .sub-btn-header{padding:7px 13px;font-size:11.5px;letter-spacing:-.3px}
+  .search-btn-header{width:32px;height:32px}
+}
+
+
+
+
+
+/* 구독하기가 있는 페이지에서는 그 왼쪽으로 비켜 앉는다 */
+</style>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml"/><link rel="icon" href="/favicon.ico" sizes="any"/><link rel="apple-touch-icon" href="/apple-touch-icon.png"/></head><body>
 <div id="soonsal-live-ticker" style="display:none;"></div>
 <style>
 #soonsal-live-ticker{position:sticky;top:0;width:100%;height:34px;box-sizing:border-box;background:#0a0a0a;border-bottom:1px solid #1a1a1a;overflow:hidden;z-index:99999;user-select:none;-webkit-user-select:none}
@@ -706,8 +817,7 @@ font-size:12px;line-height:1.75;color:#9a958a;word-break:keep-all}
 </style>
 <script>
 (function(){'use strict';var WORKER_URL='https://soonsal-data.kd-d0a.workers.dev/';var COINGECKO_URL='https://api.coingecko.com/api/v3';var TRADFI_ORDER=['S&P 500','NASDAQ','Dow Jones','KOSPI','US 10Y','WTI Oil','Gold','DXY','EUR/USD','USD/JPY','USD/KRW'];var CRYPTO_ORDER=['Bitcoin','Ethereum','Solana','XRP','BNB','Crypto Total'];var CRYPTO_IDS={'Bitcoin':'bitcoin','Ethereum':'ethereum','Solana':'solana','XRP':'ripple','BNB':'binancecoin'};var REFRESH=60000;var container,timer,lastTradfi,lastCrypto;function init(){container=document.getElementById('soonsal-live-ticker');if(!container)return;container.style.display='block';container.innerHTML='<div class="stk-loading"><div class="stk-spin"></div>Loading market data...</div>';fetchAll();timer=setInterval(fetchAll,REFRESH)}function fetchAll(){var p1=fetchTradFi();var p2=fetchCrypto();Promise.allSettled?Promise.allSettled([p1,p2]).then(render):Promise.all([p1.catch(function(){return null}),p2.catch(function(){return null})]).then(render)}function fetchTradFi(){return fetch(WORKER_URL).then(function(r){return r.json()}).then(function(data){if(data.tradfi)lastTradfi=data;return data}).catch(function(e){console.warn('[Ticker] TradFi error:',e.message);return null})}function fetchCrypto(){var ids=Object.values(CRYPTO_IDS).join(',');var url=COINGECKO_URL+'/simple/price?ids='+ids+'&vs_currencies=usd&include_24hr_change=true&include_market_cap=true';var globalUrl=COINGECKO_URL+'/global';return Promise.all([fetch(url).then(function(r){return r.json()}),fetch(globalUrl).then(function(r){return r.json()}).catch(function(){return null})]).then(function(results){var prices=results[0];var global=results[1];var crypto={};for(var name in CRYPTO_IDS){var id=CRYPTO_IDS[name];var d=prices[id];if(!d)continue;var p=d.usd;var ch=d.usd_24h_change||0;crypto[name]={price:'$'+formatNum(p),change:(ch>=0?'+':'')+ch.toFixed(2)+'%',direction:ch>0.01?'up':ch<-0.01?'down':'zero'}}if(global&&global.data){var mc=global.data.total_market_cap&&global.data.total_market_cap.usd;var mch=global.data.market_cap_change_percentage_24h_usd;if(mc){crypto['Crypto Total']={price:'$'+(mc/1e12).toFixed(2)+'T',change:(mch>=0?'+':'')+(mch||0).toFixed(2)+'%',direction:mch>0?'up':mch<0?'down':'zero'}}}lastCrypto=crypto;return crypto}).catch(function(e){console.warn('[Ticker] Crypto error:',e.message);return null})}function render(){var tradfi=lastTradfi?lastTradfi.tradfi:{};var crypto=lastCrypto||{};var kst=lastTradfi?lastTradfi.kst:new Date().toLocaleString('ko-KR',{timeZone:'Asia/Seoul'});var html=[];html.push('<div class="stk-ts"><span class="stk-dot"></span><span class="stk-time">'+esc(kst)+' KST</span></div>');for(var i=0;i<TRADFI_ORDER.length;i++){var name=TRADFI_ORDER[i];var d=tradfi[name];if(d)html.push(makeItem(name,d,false))}html.push('<div class="stk-div"><span></span></div>');for(var j=0;j<CRYPTO_ORDER.length;j++){var cname=CRYPTO_ORDER[j];var cd=crypto[cname];if(cd)html.push(makeItem(cname,cd,true))}var track=html.join('');container.innerHTML='<div class="stk-track">'+track+track+'</div>'}function makeItem(name,d,isCrypto){var dir=d.direction||'zero';var arrow=dir==='up'?'<span class="au"></span>':dir==='down'?'<span class="ad"></span>':'';return'<div class="stk-item"><span class="stk-lbl'+(isCrypto?' crypto':'')+'">'+esc(name)+'</span><span class="stk-prc">'+esc(d.price)+'</span><span class="stk-chg '+dir+'">'+arrow+' '+esc(d.change)+'</span></div>'}function formatNum(n){if(n>=10000)return n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});if(n>=100)return n.toFixed(2);if(n>=1)return n.toFixed(2);return n.toFixed(4)}function esc(s){if(!s)return'';var d=document.createElement('span');d.textContent=String(s);return d.innerHTML}if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',init)}else{init()}})();
-</script>
-<header class="site-header"><a href="/search/" class="search-btn-header" aria-label="검색"><svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.6-3.6"/></svg></a><a class="logo-link" href="/"><img src="/assets/soonsal-logo-white.png" alt="" onerror="this.style.display='none'"><span class="logo-text"><span class="ss-ko">순살브리핑</span> <span class="ss-yes">Soonsal</span></span></a><a href="https://subscribe.soonsal.com/subscribe" target="_blank" rel="noopener" class="sub-btn-header">구독하기</a></header><nav class="nav" aria-label="주요 메뉴"><a href="/newsletters/">뉴스레터</a><a href="/chart/">순살차트</a><a href="/cardnews/">순스타그램</a><a href="/talk/">순살톡</a><a href="/poll/">오늘의 질문</a><script src="/assets/ss-header.js" defer></script></nav><div class="wrap">
+</script><header class="site-header"><a href="/search/" class="search-btn-header" aria-label="검색"><svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.6-3.6"/></svg></a><a class="logo-link" href="/"><img src="/assets/soonsal-logo-white.png" alt="" onerror="this.style.display='none'"><span class="logo-text"><span class="ss-ko">순살브리핑</span> <span class="ss-yes">Soonsal</span></span></a><a href="https://subscribe.soonsal.com/subscribe" target="_blank" rel="noopener" class="sub-btn-header">구독하기</a></header><nav class="nav" aria-label="주요 메뉴"><a href="/newsletters/">뉴스레터</a><a href="/chart/">순살차트</a><a href="/cardnews/">순스타그램</a><a href="/talk/">순살톡</a><a href="/poll/">오늘의 질문</a><script src="/assets/ss-header.js" defer></script></nav><div class="wrap">
 
 
 <section class="hero"><div class="hk"><b>오늘의 순살</b><span>11월 4일 수요일</span></div><h1 class="hi">글로벌 금융·경제 뉴스, 매일 아침 5분 살코기만</h1><div class="hlist"><a class="hs" href="#story-1" data-n="1"><span class="hn">1</span><span class="ht">🛒 탈팡족은 돌아왔는데, 이익은 안 돌아옴</span></a><a class="hs" href="#story-2" data-n="2"><span class="hn">2</span><span class="ht">💳 빚 다음 카드 꺼낸 AI, 하필 주가가 꺾임</span></a><a class="hs" href="#story-3" data-n="3"><span class="hn">3</span><span class="ht">🏷️ 공모가 정하기도 전에, 코인판에 값이 붙음</span></a><a class="hs" href="#story-4" data-n="4"><span class="hn">4</span><span class="ht">🇨🇳 2년 전 불붙인 카드, 이번엔 안 먹힘</span></a><a class="hs" href="#story-5" data-n="5"><span class="hn">5</span><span class="ht">⛏️ 2030년에 캘 광산, 몸값은 벌써 20억불</span></a></div><div class="hm"><a href="https://subscribe.soonsal.com/subscribe" target="_blank" rel="noopener">매일 아침 메일로 받기 →</a></div></section>
@@ -800,7 +910,7 @@ font-size:12px;line-height:1.75;color:#9a958a;word-break:keep-all}
         <div class="bullet"><span class="dot">◾</span><span>작년 4월 유심 정보가 털린 SK텔레콤에선 손님부터 빠져나갔음. 5월에만 가입자가 40만명 넘게 줄었고, 위약금을 면제한 7월 한 달에만 34만명이 번호를 옮겨 나갔음. 통신사는 옮겨도 전화가 똑같이 되기 때문. 쿠팡을 끊으면 내일 아침 생수가 안 옴 <span class="note">(그래도 새벽배송은 못 끊음)</span>. 근데 결말은 비슷함. SKT 영업이익도 작년 3분기에 90.9% 빠졌음. 손님을 잃은 쪽도 되찾은 쪽도 유출 값은 이익으로 치름</span></div>
         <div class="bullet"><span class="dot">◾</span><span>이제 주주가 볼 칸은 현금임. 12개월 잉여현금흐름이 1년 전 12억6,800만불 흑자에서 4억900만불 적자로 뒤집혔음. 그 와중에 3분기 자사주를 2억100만불어치 샀음. 주가는 3일 정규장에서 3.6% 올랐다가 실적 뒤 시간외에서 4% 안팎 빠졌음. 쿠팡은 미국 상장사고 돈은 대부분 한국에서 범. 사고는 서울에서 나고, 과징금은 한국 정부가 매기고, 청구서는 뉴욕 주주한테 날아가는 구조</span></div>
       </div>
-      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">나온 것</span><span class="v"><a href="/wiki/coupang.html">쿠팡</a><span class="sep">·</span><a href="/topics/ipo.html">IPO·상장</a></span></div></div>
+      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">나온 것</span><span class="v"><a href="/wiki/coupang.html">쿠팡</a><span class="sep">·</span><a href="/topics/ipo.html">IPO·상장</a></span></div><div class="row"><span class="k">같은 흐름</span><span class="v"><a href="/newsletters/2026/1027.html#story-4"><b>10-27</b>같은 하이닉스, 뉴욕에선 48% 더 비쌈</a></span></div></div>
     </div>
 <!-- STORY 2 -->    <div class="story" id="story-2" role="article" aria-labelledby="story-2-title" data-ss-story="1104-2" data-ss-issue="1104">
       <span class="story-label">AI · CREDIT</span>
@@ -812,7 +922,7 @@ font-size:12px;line-height:1.75;color:#9a958a;word-break:keep-all}
         <div class="bullet"><span class="dot">◾</span><span>그 충격에 서울도 같이 때려맞았음. 3일 코스피는 3.59% 급락했고, 외국인은 1조5천억원대를 던졌음. 삼성전자 4.15%, SK하이닉스 5.03% 하락. 코스피는 6월 고점 9,114에서 벌써 38% 내려왔음. 고점 대비로 보면 미국 빅테크는 13% 빠졌는데, 메모리주는 40%, AI 연산 인프라주는 60% 빠졌음. 정작 뉴욕은 그날 밤 나스닥 0.83% 반등. 돈 쓰는 빅테크보다 밑단이 먼저 때려맞는 판</span></div>
         <div class="bullet"><span class="dot">◾</span><span>낙관과 경고는 수수료 받는 쪽과 위험 쥔 쪽으로 갈림. 홍콩 서밋에서 모건스탠리 CEO는 야구로 치면 AI 투자는 9회 중 이제 2회라며, 10조~15조불도 무리가 아니라고 했음. 은행은 이 조달로 수수료를 범. 남의 돈을 굴리는 핌코 CEO는 AI 쪽 돈이 5년 뒤 10조불까지 불면 결국 과해지고, 언젠가 꺾이는 날 어딘가 터진다고 경고함. 3일 주가가 반등해 새 주식을 116불에 받은 쪽은 하루 만에 8.8% 평가이익. 기존 주주는 아직 금요일 값 아래</span></div>
       </div>
-      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님</p><div class="story-links"><div class="row"><span class="k">나온 것</span><span class="v"><a href="/wiki/oracle.html">오라클</a><span class="sep">·</span><a href="/wiki/meta.html">메타</a><span class="sep">·</span><a href="/wiki/kospi.html">코스피</a><span class="sep">·</span><a href="/wiki/samsung.html">삼성전자</a><span class="sep">·</span><a href="/topics/ai.html">AI</a></span></div><div class="row"><span class="k">같은 흐름</span><span class="v"><a href="/newsletters/2026/1027.html#story-3" title="빅테크 AI 자금조달 방식의 다른 사례"><b>10-27</b>빚 대신 주식 찍는 메타, 칩 회사들이 사 줌</a></span></div><div class="row"><span class="k"></span><span class="v"><a href="/newsletters/2026/1015.html#story-1" title="AI 채권 위험신호의 같은 흐름"><b>10-15</b>이자 15% 쳐줘야 빚 사주는 AI 회사</a></span></div></div>
+      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님</p><div class="story-links"><div class="row"><span class="k">나온 것</span><span class="v"><a href="/wiki/oracle.html">오라클</a><span class="sep">·</span><a href="/wiki/meta.html">메타</a><span class="sep">·</span><a href="/wiki/kospi.html">코스피</a><span class="sep">·</span><a href="/wiki/samsung.html">삼성전자</a><span class="sep">·</span><a href="/topics/ai.html">AI</a></span></div><div class="row"><span class="k">같은 흐름</span><span class="v"><a href="/newsletters/2026/1015.html#story-1"><b>10-15</b>이자 15% 쳐줘야 빚 사주는 AI 회사</a></span></div><div class="row"><span class="k"></span><span class="v"><a href="/newsletters/2026/1023.html#story-1"><b>10-23</b>메타 주주들이 놀란 8,250억불 계약서</a></span></div></div>
     </div>
 <!-- STORY 3 -->    <div class="story" id="story-3" role="article" aria-labelledby="story-3-title" data-ss-story="1104-3" data-ss-issue="1104">
       <span class="story-label">AI · IPO</span>
@@ -824,7 +934,7 @@ font-size:12px;line-height:1.75;color:#9a958a;word-break:keep-all}
         <div class="bullet"><span class="dot">◾</span><span>한국 공모주 시장은 이 첫날 불꽃이 유독 큰 곳임. 올해 1분기 상장한 9곳의 첫날 평균 수익률은 165.9%. 공모가의 4배까지 뛰는 따따블이 유행어가 됐음. 근데 이 9곳도 4월 10일엔 공모가보다 평균 56% 높은 수준까지 식었음. 증시 조정이 겹친 하반기엔 상장 11곳이 8월 말 기준 공모가보다 평균 25.6% 아래였음. 앤스로픽도 개인 배정 15~20%를 검토 중으로 알려짐. 할인이 줄면 개인이 첫날 먹을 몫도 줄어듦</span></div>
         <div class="bullet"><span class="dot">◾</span><span>이게 코인판 얘기로 안 끝나는 건 미국 규제당국이 문을 열어서임. CFTC <span class="sub">(미국 상품선물거래위원회)</span>는 3일 개별 주식 무기한 선물 <span class="sub">(만기 없이 들고 가는 선물)</span>을 미국 거래소에서 거래할 수 있게 승인 간주했음 <span class="sub">(SEC와 공동 규율)</span>. 칼시 <span class="sub">(미국 예측시장 거래소)</span>가 신청한 주식·ETF 58개가 첫 후보임. 상장 전 종목은 현행 규정상 안 됨. 그래도 역외에서 상장 전날까지 24시간 호가가 돌면, 공모가를 수요예측 장부로 정하던 관행도 흔들릴 수 있음</span></div>
       </div>
-      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">나온 것</span><span class="v"><a href="/wiki/anthropic.html">앤스로픽</a><span class="sep">·</span><a href="/wiki/nasdaq.html">나스닥</a><span class="sep">·</span><a href="/wiki/hyperliquid.html">하이퍼리퀴드</a><span class="sep">·</span><a href="/wiki/spacex.html">스페이스X</a><span class="sep">·</span><a href="/topics/ipo.html">IPO·상장</a></span></div><div class="row"><span class="k">같은 흐름</span><span class="v"><a href="/newsletters/2026/1012.html#story-5" title="상장 전 앤스로픽 거래의 앞 단계"><b>10-12</b>상장도 안 한 앤스로픽, ETF로 사는 법</a></span></div><div class="row"><span class="k"></span><span class="v"><a href="/newsletters/2026/1023.html#story-3" title="앤스로픽 몸값 논란의 연속"><b>10-23</b>몸값 올라서 720억불 손해 본 앤스로픽</a></span></div></div>
+      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">나온 것</span><span class="v"><a href="/wiki/anthropic.html">앤스로픽</a><span class="sep">·</span><a href="/wiki/nasdaq.html">나스닥</a><span class="sep">·</span><a href="/wiki/hyperliquid.html">하이퍼리퀴드</a><span class="sep">·</span><a href="/wiki/spacex.html">스페이스X</a><span class="sep">·</span><a href="/topics/ipo.html">IPO·상장</a></span></div><div class="row"><span class="k">같은 흐름</span><span class="v"><a href="/newsletters/2026/1012.html#story-5"><b>10-12</b>상장도 안 한 앤스로픽, ETF로 사는 법</a></span></div><div class="row"><span class="k"></span><span class="v"><a href="/newsletters/2026/1002.html#story-5"><b>10-02</b>잃으면 코인 주는 1,000배 레버리지 거래소</a></span></div></div>
     </div>
 <!-- MID SLOT -->
 <div class="mid-slot" style="margin:4px 0 36px;"><table cellpadding="0" cellspacing="0" width="100%" style="background:#171513;border:1px solid #26221e;border-radius:16px;"><tr><td style="padding:18px 18px 16px;"><table cellpadding="0" cellspacing="0" width="100%"><tr><td style="font-size:12px;font-weight:800;"><span style="display:inline-block;background:#F07040;color:#12100e;border-radius:999px;padding:3px 10px;">🎴 순스타그램 카드뉴스</span></td></tr></table><p style="margin:14px 0 12px;font-size:17px;font-weight:800;line-height:1.4;color:#f6f1e8;">바이낸스 해킹과 고객 돈</p><a href="https://www.instagram.com/p/DfQcSGkEhHG/"><img src="https://soonsal.com/cardnews/2026/1103_png/card_01.png" alt="바이낸스 해킹과 고객 돈" width="100%" style="display:block;width:100%;max-width:520px;height:auto;border:0;border-radius:12px;"></a><table cellpadding="0" cellspacing="0" style="margin-top:16px;"><tr><td style="background:#F07040;border-radius:999px;padding:9px 18px;"><a href="https://www.instagram.com/p/DfQcSGkEhHG/" style="color:#12100e;font-size:13px;font-weight:800;text-decoration:none;">인스타그램에서 넘겨 보기 &#8594;</a></td></tr></table></td></tr></table></div>
@@ -839,7 +949,7 @@ font-size:12px;line-height:1.75;color:#9a958a;word-break:keep-all}
         <div class="bullet"><span class="dot">◾</span><span>같은 날 위안화엔 반대쪽 손을 썼음. 달러 대비 위안화 강세가 30년 만에 가장 길게 이어지자, 인민은행은 외화예금 지준율 <span class="sub">(은행이 외화로 묶어 둘 비율; 높이면 시중 달러가 줄어듦)</span>을 4%→6%로 올렸음. 역내 위안화는 5월 이후 가장 크게 빠짐. 주식은 떠받치고 통화는 누른 것. 허리펑 부총리 <span class="sub">(중국 경제 사령탑)</span>는 그날 홍콩 금융 서밋 화상 연설에서 홍콩의 자유롭고 개방된 경제를 지원한다고 약속함. 개방은 말로, 가격은 손으로 잡는 중</span></div>
         <div class="bullet"><span class="dot">◾</span><span>베이징의 진짜 목표는 하루 반등이 아니라 슬로우 불 <span class="sub">(느리고 오래 가는 상승장)</span>임. 집집마다 쌓인 저축을 주식으로 옮기는 게 목적. 근데 스왑 신청액 약 150억불은 고점 뒤 사라진 시총 수조불에 대면 티도 안 남. 2년 된 도구로는 급락은 막아도 상승까진 못 살린다는 평가가 현지 운용사에서 나옴. 중국 전문 리서치사가 꼽은 진짜 반전 조건은 가계까지 닿는 재정, 부동산 안정, AI 실적 증명. 셋 다 인민은행 스왑 창구에선 안 나오는 것</span></div>
       </div>
-      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님</p><div class="story-links"><div class="row"><span class="k">나온 것</span><span class="v"><a href="/wiki/kospi.html">코스피</a><span class="sep">·</span><a href="/wiki/msci.html">MSCI</a><span class="sep">·</span><a href="/topics/china.html">중국</a></span></div><div class="row"><span class="k">같은 흐름</span><span class="v"><a href="/newsletters/2026/0622.html#story-4" title="빚투 과열이 꺾인 같은 흐름"><b>06-22</b>코스피 9,000, 빚투 38조 시대</a></span></div></div>
+      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님</p><div class="story-links"><div class="row"><span class="k">나온 것</span><span class="v"><a href="/wiki/kospi.html">코스피</a><span class="sep">·</span><a href="/wiki/msci.html">MSCI</a><span class="sep">·</span><a href="/topics/china.html">중국</a></span></div><div class="row"><span class="k">같은 흐름</span><span class="v"><a href="/newsletters/2026/0528.html#story-4"><b>05-28</b>대만 증시, 인도 제치고 세계 5위</a></span></div></div>
     </div>
 <!-- STORY 5 -->    <div class="story" id="story-5" role="article" aria-labelledby="story-5-title" data-ss-story="1104-5" data-ss-issue="1104">
       <span class="story-label">MINING · POLITICS</span>
@@ -991,4 +1101,4 @@ font-size:12px;line-height:1.75;color:#9a958a;word-break:keep-all}
 })();
 </script>
 <script src="/soonsal.js" defer></script>
-</body></html>
+<script src="/ss-config.js"></script><script src="/soonsal.js" defer></script></body></html>
