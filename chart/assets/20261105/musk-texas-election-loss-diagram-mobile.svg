@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="994" viewBox="0 0 720 994" class="morning-diagram morning-diagram-mobile" data-mobile-layout="same-topology" data-motion-orientation="TB" data-motion-steps="7">
+<defs><filter id="shadow" x="-20%" y="-20%" width="140%" height="160%"><feDropShadow dx="0" dy="6" stdDeviation="8" flood-color="#111111" flood-opacity=".09"/></filter>
+<marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#F07040"/></marker></defs>
+<rect width="720" height="994" fill="#0B0A09"/>
+<g class="motion-step motion-edge" data-motion-step="1" data-from="A" data-to="B" style="--motion-delay:1360ms">
+<path d="M 190.5 218.0 C 190.5 260.0, 360.0 260.0, 360.0 294.0" fill="none" stroke="#F07040" stroke-width="4.5" marker-end="url(#arrow)"/>
+<rect x="172.2" y="241.0" width="206" height="34" rx="17" fill="#0B0A09"/>
+<text x="275.2" y="264.0" text-anchor="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="22" font-weight="800" fill="#F5A481">표는 안 따라옴</text>
+</g>
+<g class="motion-step motion-edge" data-motion-step="3" data-from="B" data-to="D" style="--motion-delay:2720ms">
+<path d="M 360.0 420.0 C 360.0 462.0, 190.5 462.0, 190.5 496.0" fill="none" stroke="#F07040" stroke-width="4.5" marker-end="url(#arrow)"/>
+<rect x="161.8" y="443.0" width="227" height="34" rx="17" fill="#0B0A09"/>
+<text x="275.2" y="466.0" text-anchor="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="22" font-weight="800" fill="#F5A481">규제 권한 넘어감</text>
+</g>
+<g class="motion-step motion-edge" data-motion-step="3" data-from="B" data-to="E" style="--motion-delay:4080ms">
+<path d="M 360.0 420.0 C 360.0 462.0, 529.5 462.0, 529.5 496.0" fill="none" stroke="#F07040" stroke-width="4.5" marker-end="url(#arrow)"/>
+<rect x="472.0" y="443.0" width="227" height="34" rx="17" fill="#0B0A09"/>
+<text x="585.5" y="466.0" text-anchor="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="22" font-weight="800" fill="#F5A481">광고비가 안 먹힘</text>
+</g>
+<g class="motion-step motion-edge" data-motion-step="3" data-from="C" data-to="E" style="--motion-delay:4760ms">
+<path d="M 529.5 218.0 C 676.0 318.1, 676.0 403.9, 529.5 496.0" fill="none" stroke="#F07040" stroke-width="4.5" marker-end="url(#arrow)"/>
+<rect x="469.0" y="247.0" width="227" height="34" rx="17" fill="#0B0A09"/>
+<text x="582.5" y="270.0" text-anchor="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="22" font-weight="800" fill="#F5A481">조항 싸움은 막힘</text>
+</g>
+<g class="motion-step motion-edge" data-motion-step="5" data-from="D" data-to="F" style="--motion-delay:6120ms">
+<path d="M 190.5 642.0 C 190.5 684.0, 360.0 684.0, 360.0 718.0" fill="none" stroke="#F07040" stroke-width="4.5" marker-end="url(#arrow)"/>
+<rect x="172.2" y="665.0" width="206" height="34" rx="17" fill="#0B0A09"/>
+<text x="275.2" y="688.0" text-anchor="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="22" font-weight="800" fill="#F5A481">주주가 값 치름</text>
+</g>
+<g class="motion-step motion-edge" data-motion-step="5" data-from="E" data-to="F" style="--motion-delay:6800ms">
+<path d="M 529.5 642.0 C 529.5 684.0, 360.0 684.0, 360.0 718.0" fill="none" stroke="#F07040" stroke-width="4.5" marker-end="url(#arrow)"/>
+<rect x="469.5" y="665.0" width="206" height="34" rx="17" fill="#0B0A09"/>
+<text x="572.5" y="688.0" text-anchor="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="22" font-weight="800" fill="#F5A481">판돈은 청문회로</text>
+</g>
+<g class="motion-step motion-node" data-motion-step="0" style="--motion-delay:0ms;--motion-accent-delay:640ms">
+<rect class="motion-node-shape" x="30.0" y="44.0" width="321.0" height="174" rx="20" fill="#332E26" stroke="#6B6156" stroke-width="3" filter="url(#shadow)"/>
+<text x="190.5" y="77.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="800" fill="#F5F2EC">머스크, 공화당에</text>
+<text x="190.5" y="113.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="800" fill="#F5F2EC">4억7,400만불</text>
+<text x="190.5" y="149.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="800" fill="#F5F2EC">절반 가까이</text>
+<text x="190.5" y="185.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="800" fill="#F5F2EC">텍사스로</text>
+</g>
+<g class="motion-step motion-node" data-motion-step="0" style="--motion-delay:680ms;--motion-accent-delay:1320ms">
+<rect class="motion-node-shape" x="369.0" y="44.0" width="321.0" height="174" rx="20" fill="#332E26" stroke="#6B6156" stroke-width="3" filter="url(#shadow)"/>
+<text x="529.5" y="77.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="800" fill="#F5F2EC">캘리포니아 부자세</text>
+<text x="529.5" y="113.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="800" fill="#F5F2EC">투표는 반대</text>
+<text x="529.5" y="149.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="800" fill="#F5F2EC">56%, 부자가</text>
+<text x="529.5" y="185.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="800" fill="#F5F2EC">이김</text>
+</g>
+<g class="motion-step motion-node" data-motion-step="2" style="--motion-delay:2040ms;--motion-accent-delay:2680ms">
+<rect class="motion-node-shape" x="30.0" y="302.0" width="660.0" height="118.0" rx="20" fill="#332E26" stroke="#6B6156" stroke-width="3" filter="url(#shadow)"/>
+<text x="360.0" y="361.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="800" fill="#F5F2EC">텍사스 상원·주지사 민주당이 가져감</text>
+</g>
+<g class="motion-step motion-node" data-motion-step="4" style="--motion-delay:3400ms;--motion-accent-delay:4040ms">
+<rect class="motion-node-shape" x="30.0" y="504.0" width="321.0" height="138" rx="20" fill="#332E26" stroke="#6B6156" stroke-width="3" filter="url(#shadow)"/>
+<text x="190.5" y="537.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="800" fill="#F5F2EC">스페이스X 텍사스</text>
+<text x="190.5" y="573.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="800" fill="#F5F2EC">데이터센터 새</text>
+<text x="190.5" y="609.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="800" fill="#F5F2EC">주지사가 중단 약속</text>
+</g>
+<g class="motion-step motion-node" data-motion-step="4" style="--motion-delay:5440ms;--motion-accent-delay:6080ms">
+<rect class="motion-node-shape" x="369.0" y="504.0" width="321.0" height="138" rx="20" fill="#332E26" stroke="#6B6156" stroke-width="3" filter="url(#shadow)"/>
+<text x="529.5" y="537.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="800" fill="#F5F2EC">후보는 돈으로 못</text>
+<text x="529.5" y="573.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="800" fill="#F5F2EC">사도 세금은 돈으로</text>
+<text x="529.5" y="609.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="800" fill="#F5F2EC">막힘</text>
+</g>
+<g class="motion-step motion-node motion-risk" data-motion-step="6" style="--motion-delay:7480ms;--motion-accent-delay:8120ms">
+<rect class="motion-node-shape" x="30.0" y="726.0" width="660.0" height="118.0" rx="20" fill="#4A2C1A" stroke="#F07040" stroke-width="3" filter="url(#shadow)"/>
+<text x="360.0" y="767.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="800" fill="#F5F2EC">앞으로 2년은 청문회 테슬라 주주도 같이</text>
+<text x="360.0" y="803.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="800" fill="#F5F2EC">흔들림</text>
+</g>
+<line x1="40" y1="946" x2="680" y2="946" stroke="#2A2724" stroke-width="2"/>
+<text x="40" y="978" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="20" fill="#7C756C">실선 = 확인된 연결 · 점선 = 해석/영향 경로</text>
+</svg>
