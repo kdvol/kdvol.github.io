@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="1030" viewBox="0 0 720 1030" class="morning-diagram morning-diagram-mobile" data-mobile-layout="same-topology" data-motion-orientation="TB" data-motion-steps="7">
+<defs><filter id="shadow" x="-20%" y="-20%" width="140%" height="160%"><feDropShadow dx="0" dy="6" stdDeviation="8" flood-color="#111111" flood-opacity=".09"/></filter>
+<marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#F07040"/></marker></defs>
+<rect width="720" height="1030" fill="#0B0A09"/>
+<g class="motion-step motion-edge" data-motion-step="1" data-from="A" data-to="C" style="--motion-delay:1360ms">
+<path d="M 190.5 218.0 C 190.5 260.0, 360.0 260.0, 360.0 294.0" fill="none" stroke="#F07040" stroke-width="4.5" marker-end="url(#arrow)"/>
+<rect x="161.8" y="241.0" width="227" height="34" rx="17" fill="#0B0A09"/>
+<text x="275.2" y="264.0" text-anchor="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="22" font-weight="800" fill="#F5A481">메모리 매출 걱정</text>
+</g>
+<g class="motion-step motion-edge" data-motion-step="3" data-from="B" data-to="D" style="--motion-delay:3400ms">
+<path d="M 529.5 218.0 C 676.0 318.1, 676.0 403.9, 190.5 496.0" fill="none" stroke="#F07040" stroke-width="4.5" marker-end="url(#arrow)"/>
+<rect x="490.0" y="443.0" width="206" height="34" rx="17" fill="#0B0A09"/>
+<text x="593.0" y="466.0" text-anchor="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="22" font-weight="800" fill="#F5A481">고점에 담은 탓</text>
+</g>
+<g class="motion-step motion-edge" data-motion-step="3" data-from="C" data-to="D" style="--motion-delay:2720ms">
+<path d="M 360.0 420.0 C 360.0 462.0, 190.5 462.0, 190.5 496.0" fill="none" stroke="#F07040" stroke-width="4.5" marker-end="url(#arrow)"/>
+<rect x="182.8" y="443.0" width="185" height="34" rx="17" fill="#0B0A09"/>
+<text x="275.2" y="466.0" text-anchor="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="22" font-weight="800" fill="#F5A481">급락이 손실로</text>
+</g>
+<g class="motion-step motion-edge" data-motion-step="3" data-from="C" data-to="E" style="--motion-delay:4760ms">
+<path d="M 360.0 420.0 C 360.0 462.0, 529.5 462.0, 529.5 496.0" fill="none" stroke="#F07040" stroke-width="4.5" marker-end="url(#arrow)"/>
+<rect x="472.0" y="247.0" width="227" height="34" rx="17" fill="#0B0A09"/>
+<text x="585.5" y="270.0" text-anchor="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="22" font-weight="800" fill="#F5A481">강제 매도 악순환</text>
+</g>
+<g class="motion-step motion-edge" data-motion-step="5" data-from="D" data-to="F" style="--motion-delay:6120ms">
+<path d="M 190.5 678.0 C 190.5 720.0, 360.0 720.0, 360.0 754.0" fill="none" stroke="#F07040" stroke-width="4.5" marker-end="url(#arrow)"/>
+<rect x="193.2" y="701.0" width="164" height="34" rx="17" fill="#0B0A09"/>
+<text x="275.2" y="724.0" text-anchor="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="22" font-weight="800" fill="#F5A481">개인만 남음</text>
+</g>
+<g class="motion-step motion-node" data-motion-step="0" style="--motion-delay:0ms;--motion-accent-delay:640ms">
+<rect class="motion-node-shape" x="30.0" y="44.0" width="321.0" height="174" rx="20" fill="#332E26" stroke="#6B6156" stroke-width="3" filter="url(#shadow)"/>
+<text x="190.5" y="77.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="800" fill="#F5F2EC">미국 민주당</text>
+<text x="190.5" y="113.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="800" fill="#F5F2EC">중간선거 승리로</text>
+<text x="190.5" y="149.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="800" fill="#F5F2EC">AI 규제 걱정</text>
+<text x="190.5" y="185.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="800" fill="#F5F2EC">번짐</text>
+</g>
+<g class="motion-step motion-node" data-motion-step="0" style="--motion-delay:680ms;--motion-accent-delay:1320ms">
+<rect class="motion-node-shape" x="369.0" y="44.0" width="321.0" height="174" rx="20" fill="#332E26" stroke="#6B6156" stroke-width="3" filter="url(#shadow)"/>
+<text x="529.5" y="95.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="800" fill="#F5F2EC">개인은 꼭대기</text>
+<text x="529.5" y="131.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="800" fill="#F5F2EC">근처에서 주식을</text>
+<text x="529.5" y="167.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="800" fill="#F5F2EC">잔뜩 사 둠</text>
+</g>
+<g class="motion-step motion-node" data-motion-step="2" style="--motion-delay:2040ms;--motion-accent-delay:2680ms">
+<rect class="motion-node-shape" x="30.0" y="302.0" width="660.0" height="118.0" rx="20" fill="#332E26" stroke="#6B6156" stroke-width="3" filter="url(#shadow)"/>
+<text x="360.0" y="343.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="800" fill="#F5F2EC">AI 칩 파는 코스피부터 급락, 하이닉스</text>
+<text x="360.0" y="379.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="800" fill="#F5F2EC">하루 10.4% 날아감</text>
+</g>
+<g class="motion-step motion-node motion-risk" data-motion-step="4" style="--motion-delay:4080ms;--motion-accent-delay:4720ms">
+<rect class="motion-node-shape" x="30.0" y="504.0" width="321.0" height="174" rx="20" fill="#4A2C1A" stroke="#F07040" stroke-width="3" filter="url(#shadow)"/>
+<text x="190.5" y="537.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="800" fill="#F5F2EC">개인 반도체</text>
+<text x="190.5" y="573.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="800" fill="#F5F2EC">레버리지 ETF는</text>
+<text x="190.5" y="609.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="800" fill="#F5F2EC">100만원이</text>
+<text x="190.5" y="645.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="800" fill="#F5F2EC">30만원도 안 남음</text>
+</g>
+<g class="motion-step motion-node" data-motion-step="4" style="--motion-delay:5440ms;--motion-accent-delay:6080ms">
+<rect class="motion-node-shape" x="369.0" y="504.0" width="321.0" height="174" rx="20" fill="#332E26" stroke="#6B6156" stroke-width="3" filter="url(#shadow)"/>
+<text x="529.5" y="537.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="800" fill="#F5F2EC">당국은 빚으로 산</text>
+<text x="529.5" y="573.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="800" fill="#F5F2EC">주식 담보 기준을</text>
+<text x="529.5" y="609.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="800" fill="#F5F2EC">3개월 풀어 강제</text>
+<text x="529.5" y="645.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="800" fill="#F5F2EC">매도 막기</text>
+</g>
+<g class="motion-step motion-node" data-motion-step="6" style="--motion-delay:6800ms;--motion-accent-delay:7440ms">
+<rect class="motion-node-shape" x="30.0" y="762.0" width="660.0" height="118.0" rx="20" fill="#332E26" stroke="#6B6156" stroke-width="3" filter="url(#shadow)"/>
+<text x="360.0" y="803.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="800" fill="#F5F2EC">빠진 돈은 AI 칩 안 파는 인도·중국</text>
+<text x="360.0" y="839.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="800" fill="#F5F2EC">증시로 옮겨 감</text>
+</g>
+<line x1="40" y1="982" x2="680" y2="982" stroke="#2A2724" stroke-width="2"/>
+<text x="40" y="1014" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="20" fill="#7C756C">실선 = 확인된 연결 · 점선 = 해석/영향 경로</text>
+</svg>
