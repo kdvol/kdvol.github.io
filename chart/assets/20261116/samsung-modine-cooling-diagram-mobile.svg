@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="1030" viewBox="0 0 720 1030" class="morning-diagram morning-diagram-mobile" data-mobile-layout="same-topology" data-motion-orientation="TB" data-motion-steps="7">
+<defs><filter id="shadow" x="-20%" y="-20%" width="140%" height="160%"><feDropShadow dx="0" dy="6" stdDeviation="8" flood-color="#111111" flood-opacity=".09"/></filter>
+<marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#F07040"/></marker></defs>
+<rect width="720" height="1030" fill="#0B0A09"/>
+<g class="motion-step motion-edge" data-motion-step="1" data-from="A" data-to="C" style="--motion-delay:1360ms">
+<path d="M 190.5 218.0 C 190.5 260.0, 360.0 260.0, 360.0 294.0" fill="none" stroke="#F07040" stroke-width="4.5" marker-end="url(#arrow)"/>
+<rect x="172.2" y="241.0" width="206" height="34" rx="17" fill="#0B0A09"/>
+<text x="275.2" y="264.0" text-anchor="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="22" font-weight="800" fill="#F5A481">냉각 수요 폭증</text>
+</g>
+<g class="motion-step motion-edge" data-motion-step="1" data-from="B" data-to="C" style="--motion-delay:2040ms">
+<path d="M 529.5 218.0 C 529.5 260.0, 360.0 260.0, 360.0 294.0" fill="none" stroke="#F07040" stroke-width="4.5" marker-end="url(#arrow)"/>
+<rect x="472.0" y="241.0" width="227" height="34" rx="17" fill="#0B0A09"/>
+<text x="585.5" y="264.0" text-anchor="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="22" font-weight="800" fill="#F5A481">냉각 알짜로 변신</text>
+</g>
+<g class="motion-step motion-edge" data-motion-step="3" data-from="C" data-to="D" style="--motion-delay:3400ms">
+<path d="M 360.0 420.0 C 360.0 462.0, 190.5 462.0, 190.5 496.0" fill="none" stroke="#F07040" stroke-width="4.5" marker-end="url(#arrow)"/>
+<rect x="161.8" y="443.0" width="227" height="34" rx="17" fill="#0B0A09"/>
+<text x="275.2" y="466.0" text-anchor="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="22" font-weight="800" fill="#F5A481">고객 명단이 목적</text>
+</g>
+<g class="motion-step motion-edge" data-motion-step="3" data-from="C" data-to="E" style="--motion-delay:4760ms">
+<path d="M 360.0 420.0 C 360.0 462.0, 529.5 462.0, 529.5 496.0" fill="none" stroke="#F07040" stroke-width="4.5" marker-end="url(#arrow)"/>
+<rect x="469.5" y="443.0" width="206" height="34" rx="17" fill="#0B0A09"/>
+<text x="572.5" y="466.0" text-anchor="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="22" font-weight="800" fill="#F5A481">소식 나온 시점</text>
+</g>
+<g class="motion-step motion-edge" data-motion-step="5" data-from="D" data-to="F" style="--motion-delay:6120ms">
+<path d="M 190.5 678.0 C 190.5 720.0, 360.0 720.0, 360.0 754.0" fill="none" stroke="#F07040" stroke-width="4.5" marker-end="url(#arrow)"/>
+<rect x="172.2" y="701.0" width="206" height="34" rx="17" fill="#0B0A09"/>
+<text x="275.2" y="724.0" text-anchor="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="22" font-weight="800" fill="#F5A481">LG도 같은 길</text>
+</g>
+<g class="motion-step motion-node" data-motion-step="0" style="--motion-delay:0ms;--motion-accent-delay:640ms">
+<rect class="motion-node-shape" x="30.0" y="44.0" width="321.0" height="174" rx="20" fill="#332E26" stroke="#6B6156" stroke-width="3" filter="url(#shadow)"/>
+<text x="190.5" y="95.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="800" fill="#F5F2EC">엔비디아 최신 랙,</text>
+<text x="190.5" y="131.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="800" fill="#F5F2EC">전기 3배 칩 위로</text>
+<text x="190.5" y="167.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="800" fill="#F5F2EC">냉각수 관 깔아야</text>
+</g>
+<g class="motion-step motion-node" data-motion-step="0" style="--motion-delay:680ms;--motion-accent-delay:1320ms">
+<rect class="motion-node-shape" x="369.0" y="44.0" width="321.0" height="174" rx="20" fill="#332E26" stroke="#6B6156" stroke-width="3" filter="url(#shadow)"/>
+<text x="529.5" y="77.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="800" fill="#F5F2EC">모딘, 자동차 부품</text>
+<text x="529.5" y="113.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="800" fill="#F5F2EC">떼어내고 매출</text>
+<text x="529.5" y="149.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="800" fill="#F5F2EC">절반을 AI</text>
+<text x="529.5" y="185.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="800" fill="#F5F2EC">냉각에서 벌어</text>
+</g>
+<g class="motion-step motion-node" data-motion-step="2" style="--motion-delay:2720ms;--motion-accent-delay:3360ms">
+<rect class="motion-node-shape" x="30.0" y="302.0" width="660.0" height="118.0" rx="20" fill="#332E26" stroke="#6B6156" stroke-width="3" filter="url(#shadow)"/>
+<text x="360.0" y="343.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="800" fill="#F5F2EC">삼성전자가 모딘 인수 협상 모딘 주가 하루</text>
+<text x="360.0" y="379.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="800" fill="#F5F2EC">28% 뛰어</text>
+</g>
+<g class="motion-step motion-node" data-motion-step="4" style="--motion-delay:4080ms;--motion-accent-delay:4720ms">
+<rect class="motion-node-shape" x="30.0" y="504.0" width="321.0" height="174" rx="20" fill="#332E26" stroke="#6B6156" stroke-width="3" filter="url(#shadow)"/>
+<text x="190.5" y="537.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="800" fill="#F5F2EC">삼성이 원한 건</text>
+<text x="190.5" y="573.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="800" fill="#F5F2EC">기술 아니라 모딘의</text>
+<text x="190.5" y="609.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="800" fill="#F5F2EC">미국 빅테크 고객</text>
+<text x="190.5" y="645.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="800" fill="#F5F2EC">명단</text>
+</g>
+<g class="motion-step motion-node motion-risk" data-motion-step="4" style="--motion-delay:5440ms;--motion-accent-delay:6080ms">
+<rect class="motion-node-shape" x="369.0" y="504.0" width="321.0" height="174" rx="20" fill="#4A2C1A" stroke="#F07040" stroke-width="3" filter="url(#shadow)"/>
+<text x="529.5" y="537.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="800" fill="#F5F2EC">마진 부진에 주가</text>
+<text x="529.5" y="573.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="800" fill="#F5F2EC">하루 21% 빠져</text>
+<text x="529.5" y="609.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="800" fill="#F5F2EC">바닥에서 나온 삼성</text>
+<text x="529.5" y="645.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="800" fill="#F5F2EC">소식</text>
+</g>
+<g class="motion-step motion-node" data-motion-step="6" style="--motion-delay:6800ms;--motion-accent-delay:7440ms">
+<rect class="motion-node-shape" x="30.0" y="762.0" width="660.0" height="118.0" rx="20" fill="#332E26" stroke="#6B6156" stroke-width="3" filter="url(#shadow)"/>
+<text x="360.0" y="803.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="800" fill="#F5F2EC">LG도 냉각 수주 3조원 넘겨 삼성·LG가</text>
+<text x="360.0" y="839.0" text-anchor="middle" dominant-baseline="middle" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="27" font-weight="800" fill="#F5F2EC">같은 판에 섰음</text>
+</g>
+<line x1="40" y1="982" x2="680" y2="982" stroke="#2A2724" stroke-width="2"/>
+<text x="40" y="1014" font-family="Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif" font-size="20" fill="#7C756C">실선 = 확인된 연결 · 점선 = 해석/영향 경로</text>
+</svg>
