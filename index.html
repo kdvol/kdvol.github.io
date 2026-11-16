@@ -665,7 +665,118 @@ font-size:12px;line-height:1.75;color:#9a958a;word-break:keep-all}
 .story-links a:hover{color:#C24A00;text-decoration:underline}
 .story-links .sep{color:#d3cec4;margin:0 5px}
 .story-links .v b{font-weight:600;color:#b5b0a4;margin-right:5px;font-variant-numeric:tabular-nums}
-</style></head><body>
+</style><style id="soonsal-nav-visibility-v3">
+.nav-menu a.nav-mobile-only{display:none}
+.nav>a.nav-desktop-link.biz{color:#F07040}
+.nav>a.nav-desktop-link.biz:hover{color:#ff8a52}
+.nav-menu a.biz{color:#F07040}
+@media(max-width:560px){
+  .nav>a.nav-desktop-link{display:none}
+  .nav-menu a.nav-mobile-only{display:block}
+  .nav-more.mobile-active>summary{color:#F07040;border-bottom-color:#F07040}
+  /* 코어 4개 + 더보기 = 5칸. 예전 CSS가 4칸이라 다섯 번째가 다음 줄로 넘어갔다.
+     이 블록은 페이지마다 나중에 주입되므로 안에 박힌 옛 규칙을 덮는다. */
+  .nav{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));width:100%}
+  .nav>a,.nav-more>summary{justify-content:center;padding:11px 2px;font-size:11.5px;
+    letter-spacing:-.4px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+}
+@media(max-width:360px){
+  .nav>a,.nav-more>summary{font-size:10.5px;letter-spacing:-.5px;padding:11px 1px}
+}
+/* ── 눌러보고 싶게 ──────────────────────────────────────
+   탭은 '지금 어디' 말고는 아무것도 알려주지 않는다. 더보기는 특히 그렇다 —
+   안에 뭐가 있는지 모르면 누를 이유가 없다. 세 가지를 바꾼다:
+   (1) 밑줄이 자라며 눌리는 느낌, (2) 화살표가 열림에 반응, (3) 메뉴 안에
+   아이콘을 붙여 목록이 아니라 '갈 곳'으로 보이게. */
+.nav>a,.nav-more>summary{position:relative;transition:color .18s}
+.nav>a:after,.nav-more>summary:after{content:"";position:absolute;left:50%;right:50%;
+bottom:-1px;height:2px;background:#F07040;border-radius:2px;
+transition:left .22s cubic-bezier(.4,0,.2,1),right .22s cubic-bezier(.4,0,.2,1)}
+.nav>a:hover:after,.nav-more>summary:hover:after{left:18%;right:18%}
+.nav>a.active:after,.nav-more.active>summary:after{left:0;right:0}
+
+.nav-more>summary span[aria-hidden]{display:inline-block;transition:transform .22s ease;
+margin-left:2px}
+.nav-more[open]>summary span[aria-hidden]{transform:rotate(180deg)}
+.nav-more[open]>summary{color:#F07040}
+
+.nav-menu{animation:navdrop .18s cubic-bezier(.2,.8,.2,1)}
+@keyframes navdrop{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
+.nav-menu a{transition:background .15s,color .15s,padding-left .15s}
+.nav-menu a:before{margin-right:7px;opacity:.9}
+.nav-menu a[href="/cardnews/"]:before{content:"🎴"}
+.nav-menu a[href="/poll/"]:before{content:"🗳"}
+.nav-menu a[href="/youtube/"]:before{content:"▶"}
+.nav-menu a[href="/school/"]:before{content:"🎓"}
+.nav-menu a[href="/collab/"]:before{content:"✉"}
+.nav-menu a[href="/talk/"]:before{content:"💬"}
+
+/* 더보기 안에 뭐가 있는지 한 줄로 알려준다 — 열기 전에 궁금해지는 건 이 지점이다 */
+.nav-more>summary:before{content:"";position:absolute;top:9px;right:6px;width:5px;height:5px;
+border-radius:50%;background:#F07040;opacity:0;transition:opacity .2s}
+.nav-more:not([open])>summary:hover:before{opacity:.85}
+@media(max-width:560px){
+  .nav-menu a{text-align:left;padding-left:14px}
+  .nav-more>summary:before{right:3px;top:7px}
+}
+
+/* ── 탭을 더 잘 보이게 (KD 2026-10-09 「nav 탭이 아예 안 보인다 — 튀지 않게, 지금보다 눈에 띄게」) ──
+   고정(sticky)하지 않는다 — 스크롤 흐름은 그대로. 대신 글자 대비·크기를 올리고, 지금 위치는 주황 밑줄. */
+.nav{background:#141414;border-bottom:1px solid #262626}
+.nav>a,.nav-more>summary{color:#cfc8bc;font-size:14px;letter-spacing:-.01em;padding:13px 22px}
+.nav>a:hover,.nav-more>summary:hover{color:#fff;background:#1b1b1b}
+.nav>a.active,.nav-more.active>summary{color:#F07040}
+@media(max-width:560px){
+  .nav>a,.nav-more>summary{font-size:13px;padding:12px 2px;letter-spacing:-.3px}
+}
+@media(max-width:360px){
+  .nav>a,.nav-more>summary{font-size:12px;padding:12px 1px}
+}
+@media(max-width:560px){
+  nav.nav>a,nav.nav>.nav-more>summary{font-size:min(13px,3.1vw);letter-spacing:-.7px;padding:12px 0}
+}
+</style>
+<style id="soonsal-search-v1">
+/* 헤더 — 한 축에 셋. 세로 중심이 하나여야 어긋나지 않는다 */
+.site-header{position:relative;display:grid;grid-template-columns:1fr auto 1fr;
+align-items:center;column-gap:12px;padding:20px max(16px, calc(50% - 400px));
+border-bottom:1px solid #222;background:#111}
+/* 칸을 못 박아 마크업 순서와 무관하게 만든다 */
+.site-header>.search-btn-header{grid-area:1/1;justify-self:start}
+.site-header>.logo-link{grid-area:1/2;justify-self:center}
+.site-header>.sub-btn-header{grid-area:1/3;justify-self:end}
+.site-header>.logo-link{display:flex;align-items:center;gap:10px;
+text-decoration:none;color:#fff}
+.logo-text{font-size:22px;font-weight:800;letter-spacing:-.5px;line-height:1.1}
+
+/* 구독 — 이 사이트의 유일한 전환점. 좁은 화면에서도 남는다 */
+.sub-btn-header{position:static;transform:none;display:inline-flex;
+align-items:center;background:#E55A00;color:#fff;padding:9px 18px;
+border-radius:999px;font-size:13px;font-weight:800;line-height:1;
+text-decoration:none;white-space:nowrap;transition:background .18s ease}
+.sub-btn-header:hover{background:#CC4F00}
+
+.search-btn-header{position:static;transform:none;display:flex;
+align-items:center;justify-content:center;width:36px;height:36px;
+border-radius:999px;color:#8a857c;text-decoration:none;
+transition:color .18s ease,background .18s ease}
+.search-btn-header:hover{color:#fff;background:#1e1e1e}
+
+@media(max-width:560px){
+  .site-header{padding:14px 12px;column-gap:8px}
+  .site-header .logo-text{font-size:18px}
+  .site-header .logo-link img,.site-header .logo-icon{height:26px}
+  .sub-btn-header{padding:7px 13px;font-size:11.5px;letter-spacing:-.3px}
+  .search-btn-header{width:32px;height:32px}
+}
+
+
+
+
+
+/* 구독하기가 있는 페이지에서는 그 왼쪽으로 비켜 앉는다 */
+</style>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml"/><link rel="icon" href="/favicon.ico" sizes="any"/><link rel="apple-touch-icon" href="/apple-touch-icon.png"/></head><body>
 <div id="soonsal-live-ticker" style="display:none;"></div>
 <style>
 #soonsal-live-ticker{position:sticky;top:0;width:100%;height:34px;box-sizing:border-box;background:#0a0a0a;border-bottom:1px solid #1a1a1a;overflow:hidden;z-index:99999;user-select:none;-webkit-user-select:none}
@@ -706,8 +817,7 @@ font-size:12px;line-height:1.75;color:#9a958a;word-break:keep-all}
 </style>
 <script>
 (function(){'use strict';var WORKER_URL='https://soonsal-data.kd-d0a.workers.dev/';var COINGECKO_URL='https://api.coingecko.com/api/v3';var TRADFI_ORDER=['S&P 500','NASDAQ','Dow Jones','KOSPI','US 10Y','WTI Oil','Gold','DXY','EUR/USD','USD/JPY','USD/KRW'];var CRYPTO_ORDER=['Bitcoin','Ethereum','Solana','XRP','BNB','Crypto Total'];var CRYPTO_IDS={'Bitcoin':'bitcoin','Ethereum':'ethereum','Solana':'solana','XRP':'ripple','BNB':'binancecoin'};var REFRESH=60000;var container,timer,lastTradfi,lastCrypto;function init(){container=document.getElementById('soonsal-live-ticker');if(!container)return;container.style.display='block';container.innerHTML='<div class="stk-loading"><div class="stk-spin"></div>Loading market data...</div>';fetchAll();timer=setInterval(fetchAll,REFRESH)}function fetchAll(){var p1=fetchTradFi();var p2=fetchCrypto();Promise.allSettled?Promise.allSettled([p1,p2]).then(render):Promise.all([p1.catch(function(){return null}),p2.catch(function(){return null})]).then(render)}function fetchTradFi(){return fetch(WORKER_URL).then(function(r){return r.json()}).then(function(data){if(data.tradfi)lastTradfi=data;return data}).catch(function(e){console.warn('[Ticker] TradFi error:',e.message);return null})}function fetchCrypto(){var ids=Object.values(CRYPTO_IDS).join(',');var url=COINGECKO_URL+'/simple/price?ids='+ids+'&vs_currencies=usd&include_24hr_change=true&include_market_cap=true';var globalUrl=COINGECKO_URL+'/global';return Promise.all([fetch(url).then(function(r){return r.json()}),fetch(globalUrl).then(function(r){return r.json()}).catch(function(){return null})]).then(function(results){var prices=results[0];var global=results[1];var crypto={};for(var name in CRYPTO_IDS){var id=CRYPTO_IDS[name];var d=prices[id];if(!d)continue;var p=d.usd;var ch=d.usd_24h_change||0;crypto[name]={price:'$'+formatNum(p),change:(ch>=0?'+':'')+ch.toFixed(2)+'%',direction:ch>0.01?'up':ch<-0.01?'down':'zero'}}if(global&&global.data){var mc=global.data.total_market_cap&&global.data.total_market_cap.usd;var mch=global.data.market_cap_change_percentage_24h_usd;if(mc){crypto['Crypto Total']={price:'$'+(mc/1e12).toFixed(2)+'T',change:(mch>=0?'+':'')+(mch||0).toFixed(2)+'%',direction:mch>0?'up':mch<0?'down':'zero'}}}lastCrypto=crypto;return crypto}).catch(function(e){console.warn('[Ticker] Crypto error:',e.message);return null})}function render(){var tradfi=lastTradfi?lastTradfi.tradfi:{};var crypto=lastCrypto||{};var kst=lastTradfi?lastTradfi.kst:new Date().toLocaleString('ko-KR',{timeZone:'Asia/Seoul'});var html=[];html.push('<div class="stk-ts"><span class="stk-dot"></span><span class="stk-time">'+esc(kst)+' KST</span></div>');for(var i=0;i<TRADFI_ORDER.length;i++){var name=TRADFI_ORDER[i];var d=tradfi[name];if(d)html.push(makeItem(name,d,false))}html.push('<div class="stk-div"><span></span></div>');for(var j=0;j<CRYPTO_ORDER.length;j++){var cname=CRYPTO_ORDER[j];var cd=crypto[cname];if(cd)html.push(makeItem(cname,cd,true))}var track=html.join('');container.innerHTML='<div class="stk-track">'+track+track+'</div>'}function makeItem(name,d,isCrypto){var dir=d.direction||'zero';var arrow=dir==='up'?'<span class="au"></span>':dir==='down'?'<span class="ad"></span>':'';return'<div class="stk-item"><span class="stk-lbl'+(isCrypto?' crypto':'')+'">'+esc(name)+'</span><span class="stk-prc">'+esc(d.price)+'</span><span class="stk-chg '+dir+'">'+arrow+' '+esc(d.change)+'</span></div>'}function formatNum(n){if(n>=10000)return n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});if(n>=100)return n.toFixed(2);if(n>=1)return n.toFixed(2);return n.toFixed(4)}function esc(s){if(!s)return'';var d=document.createElement('span');d.textContent=String(s);return d.innerHTML}if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',init)}else{init()}})();
-</script>
-<header class="site-header"><a href="/search/" class="search-btn-header" aria-label="검색"><svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.6-3.6"/></svg></a><a class="logo-link" href="/"><img src="/assets/soonsal-logo-white.png" alt="" onerror="this.style.display='none'"><span class="logo-text"><span class="ss-ko">순살브리핑</span> <span class="ss-yes">Soonsal</span></span></a><a href="https://subscribe.soonsal.com/subscribe" target="_blank" rel="noopener" class="sub-btn-header">구독하기</a></header><nav class="nav" aria-label="주요 메뉴"><a href="/newsletters/">뉴스레터</a><a href="/chart/">순살차트</a><a href="/cardnews/">순스타그램</a><a href="/talk/">순살톡</a><a href="/poll/">오늘의 질문</a><script src="/assets/ss-header.js" defer></script></nav><div class="wrap">
+</script><header class="site-header"><a href="/search/" class="search-btn-header" aria-label="검색"><svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.6-3.6"/></svg></a><a class="logo-link" href="/"><img src="/assets/soonsal-logo-white.png" alt="" onerror="this.style.display='none'"><span class="logo-text"><span class="ss-ko">순살브리핑</span> <span class="ss-yes">Soonsal</span></span></a><a href="https://subscribe.soonsal.com/subscribe" target="_blank" rel="noopener" class="sub-btn-header">구독하기</a></header><nav class="nav" aria-label="주요 메뉴"><a href="/newsletters/">뉴스레터</a><a href="/chart/">순살차트</a><a href="/cardnews/">순스타그램</a><a href="/talk/">순살톡</a><a href="/poll/">오늘의 질문</a><script src="/assets/ss-header.js" defer></script></nav><div class="wrap">
 
 
 <section class="hero"><div class="hk"><b>오늘의 순살</b><span>11월 16일 월요일</span></div><h1 class="hi">글로벌 금융·경제 뉴스, 매일 아침 5분 살코기만</h1><div class="hlist"><a class="hs" href="#story-1" data-n="1"><span class="hn">1</span><span class="ht">🧊 메모리 1등 삼성이 사려는 라디에이터 회사</span></a><a class="hs" href="#story-2" data-n="2"><span class="hn">2</span><span class="ht">🎮 출시 전 예약만으로 GTA5 첫날 넘은 GTA6</span></a><a class="hs" href="#story-3" data-n="3"><span class="hn">3</span><span class="ht">🍜 1등은 신라면인데, 돈은 불닭이 더 범</span></a><a class="hs" href="#story-4" data-n="4"><span class="hn">4</span><span class="ht">🧠 통장이 의사보다 먼저 치매를 알아챔</span></a><a class="hs" href="#story-5" data-n="5"><span class="hn">5</span><span class="ht">🧋 뉴욕에 줄 선 중국 음료, 일본에선 4곳 남음</span></a></div><div class="hm"><a href="https://subscribe.soonsal.com/subscribe" target="_blank" rel="noopener">매일 아침 메일로 받기 →</a></div></section>
@@ -803,7 +913,7 @@ font-size:12px;line-height:1.75;color:#9a958a;word-break:keep-all}
         <div class="bullet"><span class="dot">◾</span><span>삼성이 냉각에 돈을 쓰는 게 처음은 아님. 작년엔 독일 공조 회사 플렉트그룹 <span class="sub">(유럽 건물·데이터센터 공조 업체)</span>을 15억유로에 샀고, 광주 공장에도 공조 생산라인을 늘리는 중. 모딘은 이미 미국 빅테크 데이터센터에 냉각 장비를 대고 있어, 품으면 그 고객이 곧 삼성 고객. 인수가는 안 나왔지만 지금 시가총액 72억불에 경영권 프리미엄을 얹으면 2017년 하만 <span class="sub">(미국 전장·오디오 회사; 80억불)</span>과 맞먹는 삼성 최대급 인수가 될 수 있다는 계산도 나옴</span></div>
         <div class="bullet"><span class="dot">◾</span><span>냉각 판엔 한국 가전 두 곳이 다 뛰어들었음. LG전자도 지난달 북미에서 데이터센터 칠러 장기 공급 계약을 따냈고, 올해 냉각 수주가 3조원을 넘었음. 밖에선 프랑스 전력장비 회사 슈나이더일렉트릭도 작년 액체냉각 회사 모티베어를 샀음. 에어컨·냉장고·전력장비 만들던 회사들이 AI 데이터센터 냉각으로 다시 몸값을 평가받는 중. 데이터센터가 쓰는 전기가 2030년까지 두 배 넘게 늘 전망이라, 열 뺄 일도 그만큼 같이 늘어나는 구조</span></div>
       </div>
-      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">나온 것</span><span class="v"><a href="/wiki/samsung.html">삼성전자</a><span class="sep">·</span><a href="/wiki/ford.html">포드</a><span class="sep">·</span><a href="/wiki/nvidia.html">엔비디아</a><span class="sep">·</span><a href="/topics/ai.html">AI</a></span></div><div class="row"><span class="k">같은 흐름</span><span class="v"><a href="/newsletters/2026/0813.html#story-1" title="AI 전력·발열 인프라 수요의 다른 사례"><b>08-13</b>원전 1,000기어치 전기, 찜만 하고 잠수</a></span></div><div class="row"><span class="k"></span><span class="v"><a href="/newsletters/2026/0826.html#story-1" title="AI 하드웨어 비용 급등 같은 흐름"><b>08-26</b>천하의 엔비디아도 메모리값은 못 버팀</a></span></div></div>
+      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">나온 것</span><span class="v"><a href="/wiki/samsung.html">삼성전자</a><span class="sep">·</span><a href="/wiki/ford.html">포드</a><span class="sep">·</span><a href="/wiki/nvidia.html">엔비디아</a><span class="sep">·</span><a href="/topics/ai.html">AI</a></span></div><div class="row"><span class="k">같은 흐름</span><span class="v"><a href="/newsletters/2026/0413.html#story-3"><b>04-13</b>세제 만들던 회사의 47.5억불짜리 반전</a></span></div></div>
     </div>
 <!-- STORY 2 -->    <div class="story" id="story-2" role="article" aria-labelledby="story-2-title" data-ss-story="1116-2" data-ss-issue="1116">
       <span class="story-label">GAMES · BUSINESS</span>
@@ -815,7 +925,7 @@ font-size:12px;line-height:1.75;color:#9a958a;word-break:keep-all}
         <div class="bullet"><span class="dot">◾</span><span>테이크투는 지금 사실상 GTA6 한 장에 회사를 건 상태. 출시가 낀 10~12월 석 달 매출 <span class="sub">(순예약매출 기준)</span> 전망이 1년 전의 두 배쯤이고, 1년치 전망의 40%를 넘음. 원래 2025년 가을에 나올 게임이었는데 출시일이 두 번 밀렸고, 기다리는 동안 바로 앞 석 달 매출은 오히려 줄었음. 그래도 이달 초 실적 발표에서 CEO가 예약이 전례 없는 수준이라고 못 박자, 다음 날 주가는 장중 10% 넘게 뛰었음</span></div>
         <div class="bullet"><span class="dot">◾</span><span>한국 게임판은 정반대 길로 커 왔음. 국내 게임 매출의 절반 넘게가 모바일이고, 공짜로 깔게 한 뒤 안에서 아이템을 파는 부분유료가 기본. 넥슨·엔씨도 이 방식으로 컸음. 크래프톤은 2017년 돈 받고 판 배틀그라운드를 2022년 무료로 돌렸고, 그러자 새 이용자가 출시 직후보다도 많이 몰렸음. GTA는 거꾸로 입장료를 비싸게 받고, 들어온 사람에게 안에서 또 받음. 13년을 기다리게 해도 줄이 안 줄어드는 게임만 쓸 수 있는 공식</span></div>
       </div>
-      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">나온 것</span><span class="v"><a href="/wiki/take-two.html">테이크투</a></span></div></div>
+      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">나온 것</span><span class="v"><a href="/wiki/take-two.html">테이크투</a></span></div><div class="row"><span class="k">같은 흐름</span><span class="v"><a href="/newsletters/2026/1015.html#story-3"><b>10-15</b>경쟁사들이 알아서 피해 가는 게임, GTA6</a></span></div></div>
     </div>
 <!-- STORY 3 -->    <div class="story" id="story-3" role="article" aria-labelledby="story-3-title" data-ss-story="1116-3" data-ss-issue="1116">
       <span class="story-label">FOOD · KOREA</span>
@@ -827,7 +937,7 @@ font-size:12px;line-height:1.75;color:#9a958a;word-break:keep-all}
         <div class="bullet"><span class="dot">◾</span><span>신라면 자체는 해외에서 잘 나가는 중. 신라면만 떼어 보면 매출 열에 일곱이 해외에서 나옴. 매운 크림 맛 신라면 툼바는 해외에서만 1억4천만개 넘게 팔렸고, 작년 케이팝 데몬 헌터스 협업 한정판은 2분도 안 돼 동났음. 미국 라면 시장에선 농심이 일본 마루짱을 2%p 안쪽까지 바짝 쫓는 2위, 삼양은 3위. 대신 독일에선 불닭이 신라면보다 두 배 가까이 팔리는 중 <span class="note">(신라면, 미국에선 형님·독일에선 동생)</span></span></div>
         <div class="bullet"><span class="dot">◾</span><span>라면은 이제 내수 장사가 아니라 수출 장사가 됐음. 작년 한국 라면 수출은 사상 최대를 찍었고, 올해는 처음 20억불을 넘길 거라는 전망까지 나옴. 가장 많이 사 가는 나라는 중국, 그다음이 미국. 삼양은 중국 현지 공장을 올해 말~내년 초부터 돌리고, 유럽·동남아에서 두 번째 해외 공장 자리를 찾는 중. 농심은 미국 공장이 있어도 늘릴 물량은 한국에서 찍어 보내고, 삼양은 해외 현지 공장을 늘리는 쪽으로 길이 갈렸음</span></div>
       </div>
-      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">나온 것</span><span class="v"><a href="/wiki/walmart.html">월마트</a><span class="sep">·</span><a href="/topics/china.html">중국</a></span></div><div class="row"><span class="k">같은 흐름</span><span class="v"><a href="/newsletters/2026/0810.html#story-4" title="저가 브랜드가 대장 역전한 같은 구도"><b>08-10</b>와퍼 하나로 뒤집힌 버거 2위 싸움</a></span></div></div>
+      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">나온 것</span><span class="v"><a href="/wiki/walmart.html">월마트</a><span class="sep">·</span><a href="/topics/china.html">중국</a></span></div></div>
     </div>
 <!-- MID SLOT -->
 <div class="mid-slot" style="margin:4px 0 36px;"><table cellpadding="0" cellspacing="0" width="100%" style="background:#171513;border:1px solid #26221e;border-radius:16px;"><tr><td style="padding:18px 18px 16px;"><table cellpadding="0" cellspacing="0" width="100%"><tr><td style="font-size:12px;font-weight:800;"><span style="display:inline-block;background:#F07040;color:#12100e;border-radius:999px;padding:3px 10px;">🎴 순스타그램 카드뉴스</span></td></tr></table><p style="margin:14px 0 12px;font-size:17px;font-weight:800;line-height:1.4;color:#f6f1e8;">돈을 풀어줬는데 주식은 왜 이래?</p><a href="https://www.instagram.com/p/DfqMKvaj8Sy/"><img src="https://soonsal.com/cardnews/2026/1113_png/card_01.png" alt="돈을 풀어줬는데 주식은 왜 이래?" width="100%" style="display:block;width:100%;max-width:520px;height:auto;border:0;border-radius:12px;"></a><table cellpadding="0" cellspacing="0" style="margin-top:16px;"><tr><td style="background:#F07040;border-radius:999px;padding:9px 18px;"><a href="https://www.instagram.com/p/DfqMKvaj8Sy/" style="color:#12100e;font-size:13px;font-weight:800;text-decoration:none;">인스타그램에서 넘겨 보기 &#8594;</a></td></tr></table></td></tr></table></div>
@@ -842,7 +952,7 @@ font-size:12px;line-height:1.75;color:#9a958a;word-break:keep-all}
         <div class="bullet"><span class="dot">◾</span><span>그래서 금융권도 움직이는 중. 미국 증권사는 계좌를 열 때 이상하면 연락할 사람을 적어 달라고 고객에게 꼭 물어야 함. 근데 실제로 적었다는 투자자는 절반이 안 됨. 착취가 의심되면 증권사가 출금을 최대 55영업일 멈출 수 있고, 증권 자율규제기구 FINRA는 이걸 145영업일로 늘리자는 안을 냈음. 일본은 더 급함. 치매 노인이 쥔 금융자산이 127조엔을 넘고, 그 70% 가까이가 예금. 주인이 판단력을 잃으면 가족도 쉽게 못 꺼내 쓰는 돈</span></div>
         <div class="bullet"><span class="dot">◾</span><span>한국도 남 얘기가 아님. 2023년 치매 환자들이 가진 재산이 154조원으로 GDP의 6%를 넘었고, 2050년엔 세 배 넘게 불어날 전망. 은행 치매신탁에는 올해 1조원 넘는 돈이 몰렸고, 정부도 4월 국민연금공단이 돈을 맡아 관리해 주는 공공 시범사업을 열었음. 문제는 그다음. 거래 패턴으로 치매를 의심한 은행이 그 정보로 대출 한도부터 줄이면, 보호가 차별이 됨. 통장이 먼저 아는 시대엔 누가 그 정보를 쥐느냐가 진짜 싸움</span></div>
       </div>
-      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님</p><div class="story-links"><div class="row"><span class="k">나온 것</span><span class="v"><a href="/wiki/fed.html">미국 연준</a><span class="sep">·</span><a href="/topics/banks-wallst.html">월가·은행</a></span></div><div class="row"><span class="k">같은 흐름</span><span class="v"><a href="/newsletters/2026/0922.html#story-2" title="빅테크 숨긴 빚, 조기경보 신호 부재"><b>09-22</b>빅테크 장부에 안 보이는 AI 빚 3천억불</a></span></div><div class="row"><span class="k"></span><span class="v"><a href="/newsletters/2026/1015.html#story-1" title="위험신호 늦게 포착된 같은 패턴"><b>10-15</b>이자 15% 쳐줘야 빚 사주는 AI 회사</a></span></div></div>
+      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님</p><div class="story-links"><div class="row"><span class="k">나온 것</span><span class="v"><a href="/wiki/fed.html">미국 연준</a><span class="sep">·</span><a href="/topics/banks-wallst.html">월가·은행</a></span></div></div>
     </div>
 <!-- STORY 5 -->    <div class="story" id="story-5" role="article" aria-labelledby="story-5-title" data-ss-story="1116-5" data-ss-issue="1116">
       <span class="story-label">CONSUMER · CHINA</span>
@@ -854,7 +964,7 @@ font-size:12px;line-height:1.75;color:#9a958a;word-break:keep-all}
         <div class="bullet"><span class="dot">◾</span><span>미국 가격표부터 중국과 딴판. 중국에선 몇 위안이면 사던 미쉐 음료가 LA에선 라떼 2.99불, 버블티 3.99불부터 시작함. 대신 캐릭터 인형·월드컵 자석 같은 굿즈를 같이 팔아, 손님이 한 번 올 때 쓰는 돈을 늘림. 루이싱이 중국에서 석 달 만에 2,600곳 가까이 새로 여는 동안, 미국엔 1년 반 동안 뉴욕에만 16곳 안팎을 냈음. 중국에선 물량으로 밀었다면 미국에선 줄 서는 가게로 이름부터 알리는 셈</span></div>
         <div class="bullet"><span class="dot">◾</span><span>싼 음료 공식이 끝까지 간 곳은 오히려 한국. 메가MGC커피는 매장이 스타벅스 코리아의 두 배가 넘고, 카드 결제액으로도 스타벅스를 거의 따라잡았음. 아메리카노 한 잔이 2천원이 안 되는데, 10년 만에 처음 값을 올린 게 작년 봄 일. 저가 커피 상위 다섯 곳 매장만 합쳐도 이미 1만곳이 넘음. 미국 10대가 신기해하는 1~2불짜리 음료가, 한국에선 이미 골목마다 있는 출근길 풍경 <span class="note">(원조는 아니어도 선배는 서울)</span></span></div>
       </div>
-      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">나온 것</span><span class="v"><a href="/wiki/starbucks.html">스타벅스</a><span class="sep">·</span><a href="/topics/china.html">중국</a></span></div><div class="row"><span class="k">같은 흐름</span><span class="v"><a href="/newsletters/2026/1028.html#story-4" title="중국 소비 트렌드 식는 같은 흐름"><b>10-28</b>라부부 열풍 1년 만에 매출 반토막</a></span></div></div>
+      <p style="font-size:11px; color:#aaa; margin:12px 0 0 0;">매수매도 추천 아님, 순살도 주주 아님</p><div class="story-links"><div class="row"><span class="k">나온 것</span><span class="v"><a href="/wiki/starbucks.html">스타벅스</a><span class="sep">·</span><a href="/topics/china.html">중국</a></span></div><div class="row"><span class="k">같은 흐름</span><span class="v"><a href="/newsletters/2026/1012.html#story-3"><b>10-12</b>친정을 사들이려는 스타벅스 사장님</a></span></div></div>
     </div>
 <!-- /content -->
   </div><!-- DEAL -->
@@ -994,4 +1104,4 @@ font-size:12px;line-height:1.75;color:#9a958a;word-break:keep-all}
 })();
 </script>
 <script src="/soonsal.js" defer></script>
-</body></html>
+<script src="/ss-config.js"></script><script src="/soonsal.js" defer></script></body></html>
