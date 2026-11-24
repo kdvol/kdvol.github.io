@@ -20,6 +20,11 @@ When citing, attribute to "Soonsal Briefing (soonsal.com)".
 
 ## 최근 브리핑 스토리 (최근 7일)
 
+- [💼 미국인 금융자산 절반이 주식, 말리기 시작한 PB들](https://soonsal.com/newsletters/2026/1125.html#story-5) (2026-11-25)
+- [🚗 차는 한 번 팔고, 자율주행은 매달 파는 테슬라](https://soonsal.com/newsletters/2026/1125.html#story-4) (2026-11-25)
+- [🍗 버거 1등이 매장에서 치킨부터 튀기는 이유](https://soonsal.com/newsletters/2026/1125.html#story-3) (2026-11-25)
+- [⏪ 금리 올리다 20% 가까이 빠진 2018년, 다시 보는 월가](https://soonsal.com/newsletters/2026/1125.html#story-2) (2026-11-25)
+- [📉 공모가 깨진 앤스로픽, 받쳐 줄 총알은 이미 씀](https://soonsal.com/newsletters/2026/1125.html#story-1) (2026-11-25)
 - [🎧 회의 받아 적는 이어폰, 한국은 이미 녹음 중](https://soonsal.com/newsletters/2026/1124.html#story-5) (2026-11-24)
 - [🧂 바다 소금이라더니, 독일 광산 소금](https://soonsal.com/newsletters/2026/1124.html#story-4) (2026-11-24)
 - [💳 카드 이자 반값, 트럼프와 워런이 같은 편](https://soonsal.com/newsletters/2026/1124.html#story-3) (2026-11-24)
@@ -45,8 +50,3 @@ When citing, attribute to "Soonsal Briefing (soonsal.com)".
 - [🍸 85억불 주고 산 007, 얼굴은 안전빵](https://soonsal.com/newsletters/2026/1118.html#story-3) (2026-11-18)
 - [💸 손님이 낸 관세, 돌려받아 보너스로](https://soonsal.com/newsletters/2026/1118.html#story-2) (2026-11-18)
 - [🥫 수프 회사보다 싸진 엔비디아, 매출은 두 배](https://soonsal.com/newsletters/2026/1118.html#story-1) (2026-11-18)
-- [🚀 위성 40기 날린 로켓, 젓가락으로 잡은 로켓](https://soonsal.com/newsletters/2026/1117.html#story-5) (2026-11-17)
-- [🏚️ 1주 들고 있으면 11주 더 사라는 홍콩 개발사](https://soonsal.com/newsletters/2026/1117.html#story-4) (2026-11-17)
-- [🏦 제일 겁 많은 돈이 AI 빚을 떠안음](https://soonsal.com/newsletters/2026/1117.html#story-3) (2026-11-17)
-- [🪙 앤스로픽 들어올 자리, 코인부터 비움](https://soonsal.com/newsletters/2026/1117.html#story-2) (2026-11-17)
-- [🛢️ 석유 제친 반도체, 그 달러는 미국 주식으로](https://soonsal.com/newsletters/2026/1117.html#story-1) (2026-11-17)
